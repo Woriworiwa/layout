@@ -1,7 +1,9 @@
 <nb-layout>
   <nb-layout-header fixed>Company Name</nb-layout-header>
 
-  <nb-sidebar>Sidebar Content</nb-sidebar>
+  <nb-sidebar>
+    <app-layers></app-layers>
+  </nb-sidebar>
 
   <nb-layout-column>
     <app-frame [frameSettings]="frameService.frameSettings$|async"></app-frame>
