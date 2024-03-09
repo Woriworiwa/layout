@@ -4,8 +4,12 @@
   <nb-sidebar>Sidebar Content</nb-sidebar>
 
   <nb-layout-column>
-    Page Content <button nbButton>Hello World</button>
+    <app-frame [frameSettings]="frameService.frameSettings$|async"></app-frame>
   </nb-layout-column>
+
+  <nb-sidebar right>
+    <app-properties></app-properties>
+  </nb-sidebar>
 </nb-layout>
 
 <router-outlet />
