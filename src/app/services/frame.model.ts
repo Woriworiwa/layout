@@ -1,10 +1,10 @@
 export interface FrameSettings {
   frameType: FrameType;
-  stackLayoutSettings: StackLayoutSettings;
+  flexLayoutSettings: FlexLayoutSettings;
 }
 
-export interface StackLayoutSettings {
-  direction: StackLayoutDirection;
+export interface FlexLayoutSettings {
+  flexDirection: FlexDirection;
 }
 
 export enum FrameType {
@@ -12,7 +12,7 @@ export enum FrameType {
   GRID = 'GRID'
 }
 
-export enum StackLayoutDirection{
-  HORIZONTAL = 'HORIZONTAL',
-  VERTICAL = 'VERTICAL'
+export enum FlexDirection{
+  ROW = 'row',
+  COLUMN = 'column'
 }

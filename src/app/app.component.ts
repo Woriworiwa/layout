@@ -5,7 +5,7 @@ import {FrameComponent} from "./frame/frame.component";
 import {PropertiesComponent} from "./properties/properties.component";
 import {FrameService} from "./services/frame.service";
 import {AsyncPipe} from "@angular/common";
-import {FrameStackComponent} from "./frame/frame.stack.component";
+import {FrameFlexComponent} from "./frame/frame.flex.component";
 
 @Component({
   selector: 'app-root',

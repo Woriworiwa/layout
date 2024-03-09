@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import {FrameService} from "../services/frame.service";
 import {NbButtonGroupModule, NbCardModule} from "@nebular/theme";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {FrameSettings, FrameType, StackLayoutDirection} from "../services/frame.model";
+import {FrameSettings, FrameType, FlexDirection} from "../services/frame.model";
 import {FrameGridComponent} from "../frame/frame.grid.component";
-import {FrameStackComponent} from "../frame/frame.stack.component";
+import {FrameFlexComponent} from "../frame/frame.flex.component";
 import {PropertiesStackComponent} from "./properties.stack.component";
 
 @Component({
   selector: 'app-properties',
   standalone: true,
-  imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, FrameGridComponent, FrameStackComponent, PropertiesStackComponent, NbCardModule],
+  imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, FrameGridComponent, FrameFlexComponent, PropertiesStackComponent, NbCardModule],
   template: `
     <nb-card>
       <nb-card-header>Layout</nb-card-header>

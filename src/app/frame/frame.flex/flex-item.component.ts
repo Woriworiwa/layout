@@ -2,12 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-frame-stack',
+  selector: 'app-flex-item',
   standalone: true,
   imports: [CommonModule],
-  template: `<p>stackFrame works!</p>`,
+  template: `<p>flex-item works!</p>`,
   styles: ``
 })
-export class FrameStackComponent {
-
-}
+export class FlexItemComponent {}

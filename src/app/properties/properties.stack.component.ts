@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {StackLayoutDirection} from "../services/frame.model";
+import {FlexDirection} from "../services/frame.model";
 import {NbButtonGroupModule} from "@nebular/theme";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {FrameService} from "../services/frame.service";
@@ -14,12 +14,12 @@ import {FrameService} from "../services/frame.service";
       <nb-button-group (valueChange)="updateLayoutDirections($event)" formControlName="direction"
                        ngDefaultControl>
         <button nbButtonToggle
-                [pressed]="layoutDirections.includes(StackLayoutDirection.HORIZONTAL)"
-                [value]="StackLayoutDirection.HORIZONTAL">{{ StackLayoutDirection.HORIZONTAL }}
+                [pressed]="layoutDirections.includes(StackLayoutDirection.ROW)"
+                [value]="StackLayoutDirection.ROW">{{ StackLayoutDirection.ROW }}
         </button>
         <button nbButtonToggle
-                [pressed]="layoutDirections.includes(StackLayoutDirection.VERTICAL)"
-                [value]="StackLayoutDirection.VERTICAL">{{ StackLayoutDirection.VERTICAL }}
+                [pressed]="layoutDirections.includes(StackLayoutDirection.COLUMN)"
+                [value]="StackLayoutDirection.COLUMN">{{ StackLayoutDirection.COLUMN }}
         </button>
       </nb-button-group>
     </div>
@@ -28,11 +28,11 @@ import {FrameService} from "../services/frame.service";
   `
 })
 export class PropertiesStackComponent {
-  layoutDirections = [StackLayoutDirection.HORIZONTAL];
-  protected readonly StackLayoutDirection = StackLayoutDirection;
+  layoutDirections = [FlexDirection.ROW];
+  protected readonly StackLayoutDirection = FlexDirection;
 
   frameForm = this.fb.group({
-    direction: [[StackLayoutDirection.HORIZONTAL]]
+    direction: [[FlexDirection.ROW]]
   });
 
   constructor(public fb: FormBuilder,
