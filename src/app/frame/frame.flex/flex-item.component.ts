@@ -5,7 +5,9 @@ import { CommonModule } from '@angular/common';
   selector: 'app-flex-item',
   standalone: true,
   imports: [CommonModule],
-  template: `<p>flex-item works!</p>`,
+  template: `
+    <ng-content></ng-content>
+  `,
   styles: ``
 })
 export class FlexItemComponent {}

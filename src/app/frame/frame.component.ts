@@ -10,7 +10,7 @@ import {FrameGridComponent} from "./frame.grid.component";
   imports: [CommonModule, FrameFlexComponent, FrameGridComponent],
   template: `
     @switch (frameSettings?.frameType) {
-      @case (FrameType.STACK) {
+      @case (FrameType.FLEX) {
         <app-frame-flex [settings]="frameSettings?.flexLayoutSettings"></app-frame-flex>
       }
       @case (FrameType.GRID) {

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {FrameSettings, FrameType, FlexDirection} from "./frame.model";
+import {FrameSettings, FrameType, FlexDirection, FlexLayoutSettings} from "./frame.model";
 import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
@@ -7,9 +7,10 @@ import {BehaviorSubject, Observable} from "rxjs";
 })
 export class FrameService {
   private frameSettings: FrameSettings = {
-    frameType: FrameType.STACK,
+    frameType: FrameType.FLEX,
     flexLayoutSettings: {
-      flexDirection: FlexDirection.ROW
+      flexDirection: FlexDirection.ROW,
+      flexWrap: false
     }
   };
 
@@ -19,13 +20,13 @@ export class FrameService {
   constructor() {
   }
 
-  updateFrameType(frameType: FrameType) {
-    this.frameSettings.frameType = frameType;
+  updateFlexLayoutSettings(settings: FlexLayoutSettings) {
+    this.frameSettings.flexLayoutSettings = settings;
     this.frameSettingsSujbect.next(this.frameSettings);
   }
 
-  updateStackLayoutDirection(direction: FlexDirection) {
-    this.frameSettings.flexLayoutSettings.flexDirection = direction;
+  updateFrameSettings(settings: FrameSettings) {
+    this.frameSettings = settings;
     this.frameSettingsSujbect.next(this.frameSettings);
   }
 }

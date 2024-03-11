@@ -3,22 +3,30 @@ import { CommonModule } from '@angular/common';
 import {FlexItemComponent} from "./frame.flex/flex-item.component";
 import {FlexDirectionDirective} from "./frame.flex/directives/flex-direction.directive";
 import {FlexContainerComponent} from "./frame.flex/flex-container.component";
-import {FlexDirection, FlexLayoutSettings} from "../services/frame.model";
+import {FlexLayoutSettings} from "../services/frame.model";
+import {NbCardModule} from "@nebular/theme";
 
 @Component({
   selector: 'app-frame-flex',
   standalone: true,
-  imports: [CommonModule, FlexItemComponent, FlexContainerComponent, FlexDirectionDirective],
+  imports: [CommonModule, FlexItemComponent, FlexContainerComponent, FlexDirectionDirective, NbCardModule],
   template: `
-    <app-flex-container [flexDirection]="settings?.flexDirection">
+    <app-flex-container [flexDirection]="settings?.flexDirection"
+                        [flexWrap]="settings?.flexWrap">
       <app-flex-item>
-        item
+        <nb-card>
+          <nb-card-body>gaga gugu lorem ipsum</nb-card-body>
+        </nb-card>
       </app-flex-item>
       <app-flex-item>
-        item
+        <nb-card>
+          <nb-card-body>gaga gugu lorem ipsum</nb-card-body>
+        </nb-card>
       </app-flex-item>
       <app-flex-item>
-        item
+        <nb-card>
+          <nb-card-body>gaga gugu lorem ipsum</nb-card-body>
+        </nb-card>
       </app-flex-item>
     </app-flex-container>
   `,

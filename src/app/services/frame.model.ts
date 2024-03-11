@@ -5,10 +5,11 @@ export interface FrameSettings {
 
 export interface FlexLayoutSettings {
   flexDirection: FlexDirection;
+  flexWrap: boolean;
 }
 
 export enum FrameType {
-  STACK = 'STACK',
+  FLEX = 'FLEX',
   GRID = 'GRID'
 }
 

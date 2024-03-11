@@ -6,40 +6,37 @@ import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {FrameSettings, FrameType, FlexDirection} from "../services/frame.model";
 import {FrameGridComponent} from "../frame/frame.grid.component";
 import {FrameFlexComponent} from "../frame/frame.flex.component";
-import {PropertiesStackComponent} from "./properties.stack.component";
+import {PropertiesFlexComponent} from "./flex/properties-flex.component";
+import {PropertyPanelRowComponent} from "./property-panel-row.component";
+import {SelectButtonModule} from "primeng/selectbutton";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-properties',
   standalone: true,
-  imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, FrameGridComponent, FrameFlexComponent, PropertiesStackComponent, NbCardModule],
+  imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, FrameGridComponent, FrameFlexComponent, PropertiesFlexComponent, NbCardModule, PropertyPanelRowComponent, SelectButtonModule],
   template: `
-    <nb-card>
-      <nb-card-header>Layout</nb-card-header>
-      <nb-card-body>
-        <nb-button-group (valueChange)="updateFrameType($event)">
-          <button nbButtonToggle
-                  [pressed]="frameTypes.includes(FrameType.GRID)"
-                  [value]="FrameType.GRID">{{ FrameType.GRID }}
-          </button>
-          <button nbButtonToggle
-                  [pressed]="frameTypes.includes(FrameType.STACK)"
-                  [value]="FrameType.STACK">{{ FrameType.STACK }}
-          </button>
-        </nb-button-group>
+    <ng-container [formGroup]="formGroup">
+      <app-property-panel-row label="type">
+        <p-selectButton [options]="frameTypeOptions"
+                        formControlName="frameType"
+                        optionLabel="label"
+                        optionValue="value"></p-selectButton>
+      </app-property-panel-row>
+    </ng-container>
 
-        @switch ((frameService.frameSettings$|async)?.frameType) {
-          @case (FrameType.STACK) {
-            <app-properties-stack></app-properties-stack>
-          }
-          @case (FrameType.GRID) {
+    @switch ((frameService.frameSettings$|async)?.frameType) {
+      @case (FrameType.FLEX) {
+        <app-properties-flex></app-properties-flex>
+      }
+      @case (FrameType.GRID) {
 
-          }
-        }
-      </nb-card-body>
-    </nb-card>
+      }
+    }
+
   `,
   styles: `
-    nb-card-body {
+    :host {
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -47,14 +44,32 @@ import {PropertiesStackComponent} from "./properties.stack.component";
   `
 })
 export class PropertiesComponent {
-  frameTypes: [FrameType] = [FrameType.STACK];
+  frameTypeOptions = [
+    {label: 'Flex', value: FrameType.FLEX},
+    {label: 'Grid', value: FrameType.GRID}
+  ]
+
+  formGroup = this.fb.group({
+    frameType: [FrameType.FLEX],
+  });
+
+  private destroy$ = new Subject();
 
   constructor(public fb: FormBuilder,
               protected frameService: FrameService) {
   }
 
-  updateFrameType(value: any): void {
-    this.frameService.updateFrameType(value[0]);
+  ngOnInit() {
+    this.formGroup.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value: any) => {
+        this.frameService.updateFrameSettings(value);
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
   protected readonly FrameType = FrameType;
