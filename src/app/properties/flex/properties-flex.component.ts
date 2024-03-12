@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FlexDirection} from "../../services/frame.model";
+import {FlexDirection, FlexLayoutSettings, FlexWrap} from "../../core/models/frame.model";
 import {NbButtonGroupModule} from "@nebular/theme";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {FrameService} from "../../services/frame.service";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import {PropertyPanelRowComponent} from "../property-panel-row.component";
+import {CanvasStore} from "../../core/stores/canvas.store";
 
 @Component({
   selector: 'app-properties-flex',
@@ -36,6 +36,8 @@ import {PropertyPanelRowComponent} from "../property-panel-row.component";
   `
 })
 export class PropertiesFlexComponent {
+  @Input() flexLayoutSettings: FlexLayoutSettings | undefined;
+
   private destroy$ = new Subject();
 
   flexDirectionOptions = [
@@ -50,19 +52,25 @@ export class PropertiesFlexComponent {
 
   formGroup = this.fb.group({
     flexDirection: [FlexDirection.ROW],
-    flexWrap: [false]
+    flexWrap: [FlexWrap.NOWRAP]
   });
 
   constructor(public fb: FormBuilder,
-              protected frameService: FrameService) {
+              protected frameStore: CanvasStore) {
   }
 
   ngOnInit() {
     this.formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        this.frameService.updateFlexLayoutSettings(value);
+        this.frameStore.updateFlexLayoutSettings(value);
       });
+  }
+
+  ngOnChanges() {
+    if (this.flexLayoutSettings) {
+      this.formGroup.patchValue(this.flexLayoutSettings, {emitEvent: false});
+    }
   }
 
   ngOnDestroy() {

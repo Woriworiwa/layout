@@ -1,33 +1,31 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FrameService} from "../services/frame.service";
 import {NbButtonGroupModule, NbCardModule} from "@nebular/theme";
-import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {FrameSettings, FrameType, FlexDirection} from "../services/frame.model";
-import {FrameGridComponent} from "../frame/frame.grid.component";
-import {FrameFlexComponent} from "../frame/frame.flex.component";
+import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
+import {Frame, FrameType} from "../core/models/frame.model";
 import {PropertiesFlexComponent} from "./flex/properties-flex.component";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
-import {Subject, takeUntil} from "rxjs";
+import {map, Subject, takeUntil} from "rxjs";
+import {CanvasStore} from "../core/stores/canvas.store";
 
 @Component({
   selector: 'app-properties',
   standalone: true,
-  imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, FrameGridComponent, FrameFlexComponent, PropertiesFlexComponent, NbCardModule, PropertyPanelRowComponent, SelectButtonModule],
+  imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, PropertiesFlexComponent, NbCardModule, PropertyPanelRowComponent, SelectButtonModule],
   template: `
-    <ng-container [formGroup]="formGroup">
-      <app-property-panel-row label="type">
-        <p-selectButton [options]="frameTypeOptions"
-                        formControlName="frameType"
-                        optionLabel="label"
-                        optionValue="value"></p-selectButton>
-      </app-property-panel-row>
-    </ng-container>
+<!--    <ng-container [formGroup]="formGroup">-->
+<!--      <app-property-panel-row label="type">-->
+<!--        <p-selectButton [options]="frameTypeOptions"-->
+<!--                        formControlName="frameType"-->
+<!--                        optionLabel="label"-->
+<!--                        optionValue="value"></p-selectButton>-->
+<!--      </app-property-panel-row>-->
+<!--    </ng-container>-->
 
-    @switch ((frameService.frameSettings$|async)?.frameType) {
+    @switch (frame?.frameType) {
       @case (FrameType.FLEX) {
-        <app-properties-flex></app-properties-flex>
+        <app-properties-flex [flexLayoutSettings]="frame?.flexLayoutSettings"></app-properties-flex>
       }
       @case (FrameType.GRID) {
 
@@ -44,6 +42,8 @@ import {Subject, takeUntil} from "rxjs";
   `
 })
 export class PropertiesComponent {
+  frame: Frame | undefined;
+
   frameTypeOptions = [
     {label: 'Flex', value: FrameType.FLEX},
     {label: 'Grid', value: FrameType.GRID}
@@ -56,14 +56,23 @@ export class PropertiesComponent {
   private destroy$ = new Subject();
 
   constructor(public fb: FormBuilder,
-              protected frameService: FrameService) {
+              protected canvasStore: CanvasStore) {
+    this.canvasStore.state.pipe(
+      map( _ => this.canvasStore.getSelectedFrame())
+    ).subscribe(frame => {
+      this.frame = frame;
+    })
   }
 
   ngOnInit() {
+    if (this.frame){
+      this.formGroup.patchValue(this.frame)
+    }
+
     this.formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        this.frameService.updateFrameSettings(value);
+          // this.canvasStore.updateFlexLayoutSettings(value);
       });
   }
 

@@ -1,5 +1,4 @@
 import {Directive, ElementRef, Input, Renderer2} from "@angular/core";
-import {FlexDirection} from "../../../services/frame.model";
 
 @Directive({
   standalone: true,
