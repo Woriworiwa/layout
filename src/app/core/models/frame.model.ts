@@ -15,6 +15,7 @@ export interface LayoutSettings {
 export interface FlexLayoutSettings extends LayoutSettings {
   flexDirection?: FlexDirection;
   flexWrap?: FlexWrap;
+  gap?: number;
 }
 
 export interface GridLayoutSettings extends LayoutSettings {

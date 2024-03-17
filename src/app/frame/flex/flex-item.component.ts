@@ -8,15 +8,13 @@ import { Frame } from '../../core/models/frame.model';
   standalone: true,
   imports: [CommonModule, NbCardModule],
   template: `
-    <nb-card>
-      <nb-card-header>{{ frame?.name }}</nb-card-header>
-      <nb-card-body>
-        lorem ipsum
-        <ng-content></ng-content>
-      </nb-card-body>
-    </nb-card>
+      <ng-content></ng-content>
   `,
-  styles: ``
+  styles: `
+  :host {
+    flex-grow: 1;
+  }
+  `
 })
 export class FlexItemComponent {
   @Input() frame: Frame | undefined

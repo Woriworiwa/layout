@@ -4,20 +4,19 @@ import {TreeModule} from "primeng/tree";
 import {TreeNode} from "primeng/api";
 import {CanvasStore} from "../core/stores/canvas.store";
 import {Frame} from "../core/models/frame.model";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-tree-selector',
   standalone: true,
-  imports: [CommonModule, TreeModule],
+  imports: [CommonModule, TreeModule, FormsModule],
   template: `
     <p-tree class="w-full md:w-30rem"
-            [value]="files"
-            [draggableNodes]="true"
-            [droppableNodes]="true"
-            draggableScope="self"
-            droppableScope="self"
+            [value]="frames"
+            ngDefaultControl
+            [(selection)]="selectedFrames"
             selectionMode="single"
-    (selectionChange)="onSelectionChanged($event)"></p-tree>
+            (selectionChange)="onSelectionChanged($event)"></p-tree>
   `,
   styles: `
     :host ::ng-deep {
@@ -40,23 +39,27 @@ import {Frame} from "../core/models/frame.model";
   `
 })
 export class TreeSelectorComponent {
-  files!: TreeNode<Frame>[];
+  frames!: TreeNode<Frame>[];
+  selectedFrames: TreeNode<Frame> | undefined = undefined;
 
-  constructor(private frameStore: CanvasStore) {}
+  constructor(protected frameStore: CanvasStore) {}
 
   ngOnInit() {
-    this.frameStore.state.subscribe((state) => {
-      if (!state.rootFrame) {
+    this.frameStore.rootFrame$.subscribe((rootFrame) => {
+      if (!rootFrame) {
         return;
       }
 
-      this.files = this.assignLabels([state.rootFrame])
+      this.frames = this.assignLabels([rootFrame])
 
-      this.files.forEach((node) => {
+      this.frames.forEach((node) => {
         this.expandRecursive(node, true);
       });
     });
+
+    this.frameStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrames = selectedFrame)
   }
+
 
   private assignLabels(frames: Frame[] | undefined): TreeNode<Frame>[] {
     if (!frames) return [];

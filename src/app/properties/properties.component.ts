@@ -1,17 +1,18 @@
-import {Component} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NbButtonGroupModule, NbCardModule} from "@nebular/theme";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {Frame, FrameType} from "../core/models/frame.model";
-import {PropertiesFlexComponent} from "./flex/properties-flex.component";
+import {PropertiesFlexComponent} from "./properties.flex.component";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
-import {map, Subject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 import {CanvasStore} from "../core/stores/canvas.store";
 
 @Component({
   selector: 'app-properties',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, PropertiesFlexComponent, NbCardModule, PropertyPanelRowComponent, SelectButtonModule],
   template: `
 <!--    <ng-container [formGroup]="formGroup">-->
@@ -56,11 +57,12 @@ export class PropertiesComponent {
   private destroy$ = new Subject();
 
   constructor(public fb: FormBuilder,
+              private cd: ChangeDetectorRef,
               protected canvasStore: CanvasStore) {
-    this.canvasStore.state.pipe(
-      map( _ => this.canvasStore.getSelectedFrame())
-    ).subscribe(frame => {
-      this.frame = frame;
+    this.canvasStore.selectedFrame$
+      .subscribe(frame => {
+        this.frame = frame;
+        this.cd.markForCheck();
     })
   }
 

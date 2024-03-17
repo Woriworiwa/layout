@@ -3,6 +3,7 @@ import {Store} from "./store";
 import {CanvasState} from "./canvas.state";
 import {FlexLayoutSettings, Frame} from "../models/frame.model";
 import cloneDeep from 'lodash.clonedeep';
+import {distinctUntilChanged, map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,20 @@ import cloneDeep from 'lodash.clonedeep';
 export class CanvasStore extends Store<CanvasState> {
   constructor() {
     super(new CanvasState());
+  }
+
+  get rootFrame$() {
+    return this.state.pipe(
+      map(state => state.rootFrame),
+      distinctUntilChanged()
+    )
+  }
+
+  get selectedFrame$() {
+    return this.state.pipe(
+      map(state => this.findFrameByKey(state.rootFrame, state.selectedFrameKey)),
+      distinctUntilChanged()
+    );
   }
 
   setRootFrame(rootFrame: Frame) {
@@ -45,7 +60,7 @@ export class CanvasStore extends Store<CanvasState> {
     })
   }
 
-  findFrameByKey(frame: Frame | undefined, key: string | undefined): Frame | undefined {
+  private findFrameByKey(frame: Frame | undefined, key: string | undefined): Frame | undefined {
     if (!frame || key == null) {
       return undefined;
     }
