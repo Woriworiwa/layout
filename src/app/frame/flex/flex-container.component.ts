@@ -27,14 +27,14 @@ export class FlexContainerComponent {
   ngOnChanges() {
     this.setProperty('flex-direction', this.settings?.flexDirection);
     this.setProperty('flex-wrap', this.settings?.flexWrap);
-    this.setProperty('gap', this.settings?.gap + 'px');
+    this.setProperty('gap', this.settings?.gap, 'px');
   }
 
-  private setProperty(propertyName: string, propertyValue: string | number | undefined) {
+  private setProperty(propertyName: string, propertyValue: string | number | undefined, suffix: string = '') {
     if (propertyValue == null) {
       return;
     }
 
-    this.renderer.setStyle(this.elementRef.nativeElement, propertyName, propertyValue);
+    this.renderer.setStyle(this.elementRef.nativeElement, propertyName, propertyValue + suffix);
   };
 }

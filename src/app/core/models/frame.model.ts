@@ -1,5 +1,5 @@
 export interface Frame {
-  key: string;
+  key?: string;
   name?: string;
   frameType: FrameType;
   children: Frame[];

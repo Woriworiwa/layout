@@ -12,7 +12,7 @@ import { Frame } from '../../core/models/frame.model';
   `,
   styles: `
   :host {
-    flex-grow: 1;
+    /*flex-grow: 1;*/
   }
   `
 })

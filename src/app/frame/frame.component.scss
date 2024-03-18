@@ -12,8 +12,8 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
   padding: 5px;
   background-color: azure;
   border: 1px solid gray;
-  min-height: 200px;
-  min-width: 200px;
+  //min-height: 200px;
+  //min-width: 200px;
 
   &.selected {
     box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;

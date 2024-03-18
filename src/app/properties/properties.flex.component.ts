@@ -58,8 +58,8 @@ export class PropertiesFlexComponent {
 
   /*wrap*/
   flexWrapOptions = [
-    {label: 'Yes', value: true},
-    {label: 'No', value: false}
+    {label: 'Yes', value: FlexWrap.WRAP},
+    {label: 'No', value: FlexWrap.NOWRAP}
   ]
 
   formGroup = this.fb.group({

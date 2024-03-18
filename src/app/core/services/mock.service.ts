@@ -1,43 +1,93 @@
-import {FlexDirection, FrameType} from "../models/frame.model";
+import {FlexDirection, Frame, FrameType} from "../models/frame.model";
 import {Injectable} from "@angular/core";
 
 @Injectable()
 export class MockService {
   generateMockData() {
-    return {
-      key: '0',
-      name: 'Desktop',
+    const frames = {
       frameType: FrameType.FLEX,
       flexLayoutSettings: {
-        flexDirection: FlexDirection.ROW
+        flexDirection: FlexDirection.COLUMN,
+        gap: 50
       },
       children: [
         {
-          key: '0-0',
-          name: '0-0',
           frameType: FrameType.FLEX,
           flexLayoutSettings: {
-            flexDirection: FlexDirection.COLUMN
+            flexDirection: FlexDirection.ROW
           },
           children:[{
-            key: '0-0-1',
-            name: '0-0-1',
+            name: 'lorem ipsum',
             frameType: FrameType.FLEX,
             children: []
           },
             {
-              key: '0-0-2',
-              name: '0-0-2',
+              name: 'lorem ipsum gaga gugu gigi',
+              frameType: FrameType.FLEX,
+              children: []
+            },
+            {
+              name: 'lorem ipsum gaga gugu gigi',
+              frameType: FrameType.FLEX,
+              children: []
+            },
+            {
+              name: 'lorem ipsum gaga gugu gigi',
+              frameType: FrameType.FLEX,
+              children: []
+            },
+            {
+              name: 'lorem ipsum gaga gugu gigi',
+              frameType: FrameType.FLEX,
+              children: []
+            },
+            {
+              name: 'lorem ipsum gaga gugu gigi',
               frameType: FrameType.FLEX,
               children: []
             }
           ]
         }, {
-          key: '0-1',
-          name: '0-1',
           frameType: FrameType.FLEX,
-          children: []
+          flexLayoutSettings: {
+            flexDirection: FlexDirection.COLUMN
+          },
+          children:[{
+            name: 'lorem ipsum',
+            frameType: FrameType.FLEX,
+            children: []
+          },
+            {
+              name: 'lorem ipsum',
+              frameType: FrameType.FLEX,
+              children: []
+            },
+            {
+              name: 'lorem ipsum',
+              frameType: FrameType.FLEX,
+              children: []
+            },
+            {
+              name: 'lorem ipsum',
+              frameType: FrameType.FLEX,
+              children: []
+            }
+          ]
         }]
     };
+
+    this.assingKeys([frames], undefined)
+
+    return frames;
+  }
+
+  private assingKeys(frames: Frame[], parentKey: string | undefined) {
+    frames.forEach((frame, index) => {
+      frame.key = parentKey == null ? `0` : `${parentKey}-${index}`;
+      if (frame.children.length > 0) {
+        this.assingKeys(frame.children, frame.key);
+      }
+    });
+
   }
 }

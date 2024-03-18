@@ -66,7 +66,7 @@ export class TreeSelectorComponent {
 
      return  frames.map((frame) => {
        return {
-         label: frame.name,
+         label: frame.name || frame.key,
          key: frame.key,
          children: this.assignLabels(frame.children)
        }
