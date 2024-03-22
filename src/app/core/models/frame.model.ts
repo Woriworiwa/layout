@@ -6,6 +6,7 @@ export interface Frame {
   layoutSettings?: FlexLayoutSettings | GridLayoutSettings;
   flexLayoutSettings?: FlexLayoutSettings;
   gridLayoutSettings?: GridLayoutSettings;
+  editable?: boolean;
 }
 
 export interface LayoutSettings {
@@ -24,7 +25,8 @@ export interface GridLayoutSettings extends LayoutSettings {
 
 export enum FrameType {
   FLEX = 'FLEX',
-  GRID = 'GRID'
+  GRID = 'GRID',
+  TEXT = 'TEXT',
 }
 
 export enum FlexDirection {

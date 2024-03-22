@@ -4,7 +4,7 @@ import {Injectable} from "@angular/core";
 @Injectable()
 export class MockService {
   generateMockData() {
-    const frames = {
+    const frames: Frame = {
       frameType: FrameType.FLEX,
       flexLayoutSettings: {
         flexDirection: FlexDirection.COLUMN,
@@ -14,62 +14,64 @@ export class MockService {
         {
           frameType: FrameType.FLEX,
           flexLayoutSettings: {
-            flexDirection: FlexDirection.ROW
+            flexDirection: FlexDirection.ROW,
+            gap: 10
           },
           children:[{
             name: 'lorem ipsum',
-            frameType: FrameType.FLEX,
+            frameType: FrameType.TEXT,
             children: []
           },
             {
               name: 'lorem ipsum gaga gugu gigi',
-              frameType: FrameType.FLEX,
+              frameType: FrameType.TEXT,
               children: []
             },
             {
               name: 'lorem ipsum gaga gugu gigi',
-              frameType: FrameType.FLEX,
+              frameType: FrameType.TEXT,
               children: []
             },
             {
               name: 'lorem ipsum gaga gugu gigi',
-              frameType: FrameType.FLEX,
+              frameType: FrameType.TEXT,
               children: []
             },
             {
               name: 'lorem ipsum gaga gugu gigi',
-              frameType: FrameType.FLEX,
+              frameType: FrameType.TEXT,
               children: []
             },
             {
               name: 'lorem ipsum gaga gugu gigi',
-              frameType: FrameType.FLEX,
+              frameType: FrameType.TEXT,
               children: []
             }
           ]
         }, {
           frameType: FrameType.FLEX,
           flexLayoutSettings: {
-            flexDirection: FlexDirection.COLUMN
+            flexDirection: FlexDirection.COLUMN,
+            gap: 10
           },
           children:[{
             name: 'lorem ipsum',
-            frameType: FrameType.FLEX,
+            frameType: FrameType.TEXT,
             children: []
           },
             {
               name: 'lorem ipsum',
-              frameType: FrameType.FLEX,
+              frameType: FrameType.TEXT,
               children: []
             },
             {
               name: 'lorem ipsum',
-              frameType: FrameType.FLEX,
+              frameType: FrameType.TEXT,
               children: []
             },
             {
               name: 'lorem ipsum',
-              frameType: FrameType.FLEX,
+              frameType: FrameType.TEXT,
               children: []
             }
           ]

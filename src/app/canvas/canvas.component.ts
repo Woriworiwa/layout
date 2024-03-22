@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FrameComponent} from "../frame/frame.component";
+import {FrameComponent} from "./frame/frame.component";
 import {CanvasStore} from "../core/stores/canvas.store";
 import {Frame} from "../core/models/frame.model";
 

@@ -7,24 +7,21 @@ import {
   Output
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Frame, FrameType} from "../core/models/frame.model";
-import {FlexItemComponent} from "./flex/flex-item.component";
+import {Frame, FrameType} from "../../core/models/frame.model";
 import {NbCardModule} from "@nebular/theme";
-import {FlexContainerComponent} from "./flex/flex-container.component";
-import {EditorContentDirective} from "./editorcontent.directive";
+import {EditorContentDirective} from "../../directives/editorcontent.directive";
+import {FlexDirective} from "../../directives/flex.directive";
+import {TextComponent} from "../text.component";
 
 @Component({
   selector: 'app-frame',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FlexItemComponent, NbCardModule, FlexContainerComponent, EditorContentDirective],
+  imports: [CommonModule, NbCardModule, EditorContentDirective, FlexDirective, TextComponent],
   host: {
     '[class.selected]' : 'selectedFrameKey === frame?.key'
   },
-  hostDirectives: [{
-    directive: EditorContentDirective,
-    outputs: ['frameContentChanged'],
-  }],
+
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })

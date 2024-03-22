@@ -9,11 +9,9 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
 
 :host {
   display: block;
-  padding: 5px;
-  background-color: azure;
-  border: 1px solid gray;
-  //min-height: 200px;
-  //min-width: 200px;
+  padding: 15px;
+  background-color: #9161a7;
+  border: 1px solid #ed9534;
 
   &.selected {
     box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;

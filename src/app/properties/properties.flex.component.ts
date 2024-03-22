@@ -43,6 +43,10 @@ import {InputNumberModule} from "primeng/inputnumber";
     :host {
       display: contents;
     }
+
+    app-property-panel-row {
+      display: contents;
+    }
   `
 })
 export class PropertiesFlexComponent {

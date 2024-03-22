@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {NbLayoutModule, NbSidebarModule} from "@nebular/theme";
-import {FrameComponent} from "./frame/frame.component";
+import {FrameComponent} from "./canvas/frame/frame.component";
 import {PropertiesComponent} from "./properties/properties.component";
 import {AsyncPipe} from "@angular/common";
 import {ButtonModule} from "primeng/button";

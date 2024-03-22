@@ -36,9 +36,10 @@ import {CanvasStore} from "../core/stores/canvas.store";
   `,
   styles: `
     :host {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: min-content 1fr;
+      flex-direction: row;
+      gap: 5px;
     }
   `
 })
