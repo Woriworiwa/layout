@@ -1,14 +1,16 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FlexDirection, FlexLayoutSettings, FlexWrap} from "../core/models/frame.model";
+import {FlexLayoutSettings} from "../core/frame.model";
 import {NbButtonGroupModule} from "@nebular/theme";
-import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {CanvasStore} from "../core/stores/canvas.store";
 import {SliderModule} from "primeng/slider";
 import {InputNumberModule} from "primeng/inputnumber";
+import {FlexDirection, FlexWrap} from "../core/enums";
+import {Property} from "csstype";
 
 @Component({
   selector: 'app-properties-flex',
@@ -56,20 +58,20 @@ export class PropertiesFlexComponent {
 
   /*direction*/
   flexDirectionOptions = [
-    {label: 'Row', value: FlexDirection.ROW},
-    {label: 'Column', value: FlexDirection.COLUMN}
+    {label: 'Row', value: FlexDirection.row},
+    {label: 'Column', value: FlexDirection.column}
   ]
 
   /*wrap*/
   flexWrapOptions = [
-    {label: 'Yes', value: FlexWrap.WRAP},
-    {label: 'No', value: FlexWrap.NOWRAP}
+    {label: 'Yes', value: FlexWrap.wrap},
+    {label: 'No', value: FlexWrap.nowrap}
   ]
 
   formGroup = this.fb.group({
-    flexDirection: [FlexDirection.ROW],
-    flexWrap: [FlexWrap.NOWRAP],
-    gap: [0]
+    flexDirection: [''],
+    flexWrap: [''],
+    gap: ['']
   });
 
   constructor(public fb: FormBuilder,
@@ -90,7 +92,7 @@ export class PropertiesFlexComponent {
         this.flexLayoutSettings.gap = 0;
       }
 
-      this.formGroup.patchValue(this.flexLayoutSettings, {emitEvent: false});
+      this.formGroup.patchValue({...this.flexLayoutSettings, gap: this.flexLayoutSettings.gap.toString()}, {emitEvent: false});
     }
   }
 

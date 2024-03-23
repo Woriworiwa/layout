@@ -2,12 +2,13 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/co
 import {CommonModule} from '@angular/common';
 import {NbButtonGroupModule, NbCardModule} from "@nebular/theme";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {Frame, FrameType} from "../core/models/frame.model";
+import {Frame} from "../core/frame.model";
 import {PropertiesFlexComponent} from "./properties.flex.component";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasStore} from "../core/stores/canvas.store";
+import { FrameType } from '../core/enums';
 
 @Component({
   selector: 'app-properties',

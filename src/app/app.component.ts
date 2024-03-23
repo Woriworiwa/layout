@@ -8,8 +8,8 @@ import {ButtonModule} from "primeng/button";
 import {TreeSelectorComponent} from "./tree-selector/tree-selector.component";
 import {CanvasStore} from "./core/stores/canvas.store";
 import {CanvasComponent} from "./canvas/canvas.component";
-import {MockService} from "./core/services/mock.service";
-import {Frame} from "./core/models/frame.model";
+import {MockService} from "./core/mock.service";
+import {Frame} from "./core/frame.model";
 
 @Component({
   selector: 'app-root',

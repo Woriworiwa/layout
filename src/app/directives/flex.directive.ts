@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
-import {FlexDirection, FlexLayoutSettings} from "../core/models/frame.model";
+import {FlexLayoutSettings} from "../core/frame.model";
 
 @Directive({
   selector: '[app-flex]',

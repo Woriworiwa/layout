@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {TreeModule} from "primeng/tree";
 import {TreeNode} from "primeng/api";
 import {CanvasStore} from "../core/stores/canvas.store";
-import {Frame} from "../core/models/frame.model";
+import {Frame} from "../core/frame.model";
 import {FormsModule} from "@angular/forms";
 
 @Component({

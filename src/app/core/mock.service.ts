@@ -1,5 +1,6 @@
-import {FlexDirection, Frame, FrameType} from "../models/frame.model";
+import {Frame} from "./frame.model";
 import {Injectable} from "@angular/core";
+import {FlexDirection, FrameType} from "./enums";
 
 @Injectable()
 export class MockService {
@@ -7,15 +8,15 @@ export class MockService {
     const frames: Frame = {
       frameType: FrameType.FLEX,
       flexLayoutSettings: {
-        flexDirection: FlexDirection.COLUMN,
-        gap: 50
+        flexDirection: FlexDirection.column,
+        gap: '50'
       },
       children: [
         {
           frameType: FrameType.FLEX,
           flexLayoutSettings: {
-            flexDirection: FlexDirection.ROW,
-            gap: 10
+            flexDirection: "row",
+            gap: '10'
           },
           children:[{
             name: 'lorem ipsum',
@@ -51,8 +52,8 @@ export class MockService {
         }, {
           frameType: FrameType.FLEX,
           flexLayoutSettings: {
-            flexDirection: FlexDirection.COLUMN,
-            gap: 10
+            flexDirection: FlexDirection.column,
+            gap: '10'
           },
           children:[{
             name: 'lorem ipsum',
