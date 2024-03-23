@@ -18,9 +18,6 @@ export interface FlexLayoutSettings extends
     Container,
     Pick<CSS.Properties, 'flexDirection' | 'flexWrap' | 'gap'> {}
 
-export interface Styles extends Pick<CSS.Properties, 'gap' | 'margin'> {}
-
-
 
 
 

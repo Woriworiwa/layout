@@ -6,6 +6,7 @@ import {FlexDirection, FrameType} from "./enums";
 export class MockService {
   generateMockData() {
     const frames: Frame = {
+      key: 'canvas',
       frameType: FrameType.FLEX,
       flexLayoutSettings: {
         flexDirection: FlexDirection.column,
@@ -86,7 +87,10 @@ export class MockService {
 
   private assingKeys(frames: Frame[], parentKey: string | undefined) {
     frames.forEach((frame, index) => {
-      frame.key = parentKey == null ? `0` : `${parentKey}-${index}`;
+      if (frame.key == null) {
+        frame.key = parentKey == null ? `0` : `${parentKey}-${index}`;
+      }
+
       if (frame.children.length > 0) {
         this.assingKeys(frame.children, frame.key);
       }

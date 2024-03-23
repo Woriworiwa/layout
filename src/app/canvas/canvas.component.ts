@@ -18,7 +18,12 @@ import {Frame} from "../core/frame.model";
   :host{
     display: block;
     height: 100%;
-    background-color: azure;
+    background-color: white;
+
+    > app-frame {
+      height: 100%;
+      background: white;
+    }
   }
   `
 })
