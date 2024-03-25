@@ -62,17 +62,17 @@ export class MockService {
             children: []
           },
             {
-              name: 'lorem ipsum',
+              name: 'lorem ipsum 1',
               frameType: FrameType.TEXT,
               children: []
             },
             {
-              name: 'lorem ipsum',
+              name: 'lorem ipsum 2',
               frameType: FrameType.TEXT,
               children: []
             },
             {
-              name: 'lorem ipsum',
+              name: 'lorem ipsum 3',
               frameType: FrameType.TEXT,
               children: []
             }

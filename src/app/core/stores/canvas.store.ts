@@ -4,6 +4,7 @@ import {CanvasState} from "./canvas.state";
 import {FlexLayoutSettings, Frame} from "../frame.model";
 import cloneDeep from 'lodash.clonedeep';
 import {distinctUntilChanged, map} from "rxjs";
+import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,22 @@ export class CanvasStore extends Store<CanvasState> {
     }
 
     selectedFrame.flexLayoutSettings = settings;
+
+    this.setState({
+      ...this.getState(),
+      rootFrame: cloneDeep(this.getState().rootFrame),
+    })
+  }
+
+  moveFrameChild(currentFrameId: string, previousFrameId: string, previousIndex: number, currentIndex: number) {
+    const currentContainer = this.findFrameByKey(this.getState().rootFrame, currentFrameId);
+    const previousContainer = this.findFrameByKey(this.getState().rootFrame, previousFrameId);
+
+    if (currentFrameId === previousFrameId) {
+      moveItemInArray(currentContainer?.children!, previousIndex, currentIndex);
+    } else {
+      transferArrayItem(previousContainer?.children!, currentContainer?.children!, previousIndex, currentIndex);
+    }
 
     this.setState({
       ...this.getState(),

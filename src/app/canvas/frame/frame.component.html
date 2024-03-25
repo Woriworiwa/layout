@@ -1,19 +1,39 @@
 @switch (frame?.frameType) {
   @case (FrameType.FLEX) {
-      {{ frame?.name }}
+    {{ frame?.name }}
 
     <div app-flex
-         [settings]="frame?.flexLayoutSettings">
+         [id]="frame?.key!"
+         [settings]="frame?.flexLayoutSettings"
+         cdkDropList
+         [cdkDropListOrientation]="frame?.flexLayoutSettings?.flexDirection === FlexDirection.row ? 'horizontal' : 'vertical'"
+         [cdkDropListConnectedTo]="dragDropService.dropListIds"
+         [cdkDropListEnterPredicate]="allowDropPredicate"
+         (cdkDropListDropped)="onChildDrop($event)">
       @for (childFrame of frame?.children; track childFrame) {
         @switch (childFrame.frameType) {
           @case (FrameType.FLEX) {
-            <app-frame [frame]="childFrame"
-                       (clicked)="onChildClicked($event)"
-                       [selectedFrameKey]="selectedFrameKey"
-                       (frameContentChanged)="onChildFrameContentChanged($event)"></app-frame>
+            <div cdkDrag
+                 (cdkDragMoved)="dragMoved($event)"
+                 (cdkDragReleased)="dragReleased($event)">
+              <app-frame [frame]="childFrame"
+                         (clicked)="onChildClicked($event)"
+                         [selectedFrameKey]="selectedFrameKey"
+                         (frameContentChanged)="onChildFrameContentChanged($event)"></app-frame>
+              <div class="custom-placeholder" *cdkDragPlaceholder>gaga</div>
+            </div>
           }
           @case (FrameType.TEXT) {
-            <app-text app-editable-content>{{childFrame.name}}</app-text>
+            <div cdkDrag
+                 (cdkDragMoved)="dragMoved($event)"
+                 (cdkDragReleased)="dragReleased($event)">
+              <app-text app-editable-content>
+                {{ childFrame.name }}
+              </app-text>
+              <div class="custom-placeholder" *cdkDragPlaceholder>gaga</div>
+            </div>
+
+
           }
         }
 

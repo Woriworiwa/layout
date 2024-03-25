@@ -16,5 +16,9 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
   &.selected {
     box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;
   }
+
+  .cdk-drag-placeholder {
+    //opacity: 0;
+  }
 }
 
