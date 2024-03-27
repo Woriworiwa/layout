@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FrameComponent} from "./frame/frame.component";
-import {CanvasStore} from "../core/stores/canvas.store";
-import {Frame} from "../core/frame.model";
+import {FrameComponent} from "../frame/frame.component";
+import {CanvasStore} from "../../stores/canvas.store";
+import {Frame} from "../../models/frame.model";
 
 @Component({
   selector: 'app-canvas',
@@ -22,7 +22,7 @@ import {Frame} from "../core/frame.model";
 
     > app-frame {
       height: 100%;
-      background: white;
+      background: #eeeeee;
     }
   }
   `

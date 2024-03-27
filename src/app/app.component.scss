@@ -1,0 +1,27 @@
+.layout {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 10px;
+  grid-template-areas:
+    "header header header"
+    "leftSide body rightSide";
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 250px 1fr 250px;
+}
+
+.header {
+  grid-area: header;
+}
+
+.leftSide {
+  grid-area: leftSide;
+}
+
+.body {
+  grid-area: body;
+}
+
+.rightSide {
+  grid-area: rightSide;
+}

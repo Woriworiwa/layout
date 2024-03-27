@@ -1,20 +1,21 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {NbLayoutModule, NbSidebarModule} from "@nebular/theme";
-import {FrameComponent} from "./canvas/frame/frame.component";
-import {PropertiesComponent} from "./properties/properties.component";
+import {FrameComponent} from "./components/frame/frame.component";
+import {PropertiesComponent} from "./components/properties/properties.component";
 import {AsyncPipe} from "@angular/common";
 import {ButtonModule} from "primeng/button";
-import {TreeSelectorComponent} from "./tree-selector/tree-selector.component";
-import {CanvasStore} from "./core/stores/canvas.store";
-import {CanvasComponent} from "./canvas/canvas.component";
-import {MockService} from "./core/mock.service";
-import {Frame} from "./core/frame.model";
+import {TreeSelectorComponent} from "./components/tree-selector/tree-selector.component";
+import {CanvasStore} from "./stores/canvas.store";
+import {CanvasComponent} from "./components/canvas/canvas.component";
+import {MockService} from "./services/mock.service";
+import {Frame} from "./models/frame.model";
+import {HeaderComponent} from "./components/header/header.component";
+import {ThemeOptionsComponent} from "./components/header/theme-options.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NbLayoutModule, NbSidebarModule, FrameComponent, PropertiesComponent, AsyncPipe, ButtonModule, TreeSelectorComponent, CanvasComponent],
+  imports: [RouterOutlet, FrameComponent, PropertiesComponent, AsyncPipe, ButtonModule, TreeSelectorComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent],
   providers: [CanvasStore, MockService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

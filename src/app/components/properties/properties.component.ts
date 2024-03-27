@@ -1,30 +1,22 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NbButtonGroupModule, NbCardModule} from "@nebular/theme";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {Frame} from "../core/frame.model";
+import {Frame} from "../../models/frame.model";
 import {PropertiesFlexComponent} from "./properties.flex.component";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
-import {CanvasStore} from "../core/stores/canvas.store";
-import { FrameType } from '../core/enums';
+import {CanvasStore} from "../../stores/canvas.store";
+import { FrameType } from '../../models/enums';
+import {ThemeService} from "../../services/theme.service";
+import {ThemeOptionsComponent} from "../header/theme-options.component";
 
 @Component({
   selector: 'app-properties',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, PropertiesFlexComponent, NbCardModule, PropertyPanelRowComponent, SelectButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, PropertiesFlexComponent, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent],
   template: `
-<!--    <ng-container [formGroup]="formGroup">-->
-<!--      <app-property-panel-row label="type">-->
-<!--        <p-selectButton [options]="frameTypeOptions"-->
-<!--                        formControlName="frameType"-->
-<!--                        optionLabel="label"-->
-<!--                        optionValue="value"></p-selectButton>-->
-<!--      </app-property-panel-row>-->
-<!--    </ng-container>-->
-
     @switch (frame?.frameType) {
       @case (FrameType.FLEX) {
         <app-properties-flex [flexLayoutSettings]="frame?.flexLayoutSettings"></app-properties-flex>
@@ -60,7 +52,8 @@ export class PropertiesComponent {
 
   constructor(public fb: FormBuilder,
               private cd: ChangeDetectorRef,
-              protected canvasStore: CanvasStore) {
+              protected canvasStore: CanvasStore,
+              private themeService: ThemeService) {
     this.canvasStore.selectedFrame$
       .subscribe(frame => {
         this.frame = frame;
@@ -83,6 +76,10 @@ export class PropertiesComponent {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
+  }
+
+  switchTheme(themeName: string) {
+    this.themeService.changeTheme();
   }
 
   protected readonly FrameType = FrameType;
