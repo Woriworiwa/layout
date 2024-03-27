@@ -1,17 +1,11 @@
-<nb-layout>
-  <nb-layout-header fixed>Framer Clone</nb-layout-header>
 
-  <nb-sidebar>
-    <app-tree-selector></app-tree-selector>
-  </nb-sidebar>
 
-  <nb-layout-column>
-    <app-canvas></app-canvas>
-  </nb-layout-column>
 
-  <nb-sidebar right>
-    <app-properties></app-properties>
-  </nb-sidebar>
-</nb-layout>
 
-<router-outlet />
+<section class="layout">
+  <div class="header"><app-header></app-header></div>
+  <div class="leftSide"><app-tree-selector></app-tree-selector></div>
+  <div class="body"><app-canvas></app-canvas></div>
+  <div class="rightSide"><app-properties></app-properties></div>
+  <router-outlet />
+</section>

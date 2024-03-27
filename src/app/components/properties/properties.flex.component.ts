@@ -1,22 +1,21 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FlexLayoutSettings} from "../core/frame.model";
-import {NbButtonGroupModule} from "@nebular/theme";
+import {FlexLayoutSettings} from "../../models/frame.model";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
-import {CanvasStore} from "../core/stores/canvas.store";
+import {CanvasStore} from "../../stores/canvas.store";
 import {SliderModule} from "primeng/slider";
 import {InputNumberModule} from "primeng/inputnumber";
-import {FlexDirection, FlexWrap} from "../core/enums";
+import {FlexDirection, FlexWrap} from "../../models/enums";
 import {Property} from "csstype";
 
 @Component({
   selector: 'app-properties-flex',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, SelectButtonModule, PropertyPanelRowComponent, FormsModule, SliderModule, InputNumberModule],
+  imports: [CommonModule, ReactiveFormsModule, SelectButtonModule, PropertyPanelRowComponent, FormsModule, SliderModule, InputNumberModule],
   template: `
     <ng-container [formGroup]="formGroup">
       <app-property-panel-row label="Direction">

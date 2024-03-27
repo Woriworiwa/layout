@@ -1,0 +1,46 @@
+<p-sidebar [visible]="isActive"
+           (visibleChange)="onVisibleChange($event)"
+           position="right"
+           styleClass="layout-config w-full sm:w-26rem">
+
+<!--  scale -->
+  <section class="property">
+      <span class="property-name">Scale</span>
+      <div class="scale">
+        <button icon="pi pi-minus" type="button" pButton class="p-button-text p-button-rounded w-2rem h-2rem"
+                (click)="decrementScale()"
+                [disabled]="scale === scales[0]"></button>
+        <div class="scale-items">
+          <i class="pi pi-circle-fill" *ngFor="let s of scales"
+             [ngClass]="{'selected': s === scale }"></i>
+        </div>
+        <button icon="pi pi-plus" type="button" pButton class="p-button-text p-button-rounded w-2rem h-2rem"
+                (click)="incrementScale()"
+                [disabled]="scale === scales[scales.length - 1]"></button>
+      </div>
+    </section>
+
+<!--  input style -->
+    <section class="property">
+      <span class="property-name">Input Style</span>
+      <p-selectButton [options]="inputStyles"
+                      [ngModel]="inputStyle"
+                      (onChange)="onInputStyleChange($event)"
+                      optionLabel="label"
+                      optionValue="value"
+                      [allowEmpty]="false"></p-selectButton>
+    </section>
+
+<!--  ripple effect-->
+    <section class="property">
+      <span class="property-name">Ripple Effect</span>
+      <p-inputSwitch [ngModel]="ripple" (onChange)="onRippleChange($event)"></p-inputSwitch>
+    </section>
+
+<!--  theme-->
+  <section class="property">
+    <span class="property-name">Theme</span>
+    <p-listbox [options]="themes" [ngModel]="selectedTheme" optionLabel="name" (onChange)="onSelectedThemeChange($event)"></p-listbox>
+  </section>
+
+</p-sidebar>

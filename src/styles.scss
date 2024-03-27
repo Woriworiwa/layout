@@ -1,18 +1,9 @@
-/* Nebular */
-// this is our just created themes.scss file, make sure the path to the file is correct
-@use 'themes' as *;
+@import "primeicons/primeicons.css";
+@import 'primeflex/primeflex.scss';
 
-// framework component styles
-@use '@nebular/theme/styles/globals' as *;
-
-// install the framework styles
-@include nb-install() {
-  @include nb-theme-global();
-}
-
-/* override the scale for PrimeNG */
-html {
-  font-size: 12px;
+html,body {
+  height:100vh;
+  margin:0px;
 }
 
 .frame {
@@ -21,4 +12,8 @@ html {
 
 .editable-content {
   background-color: #ed9534;
+}
+
+.primary-color {
+  color: var(--primary-color);
 }
