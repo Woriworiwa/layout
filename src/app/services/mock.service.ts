@@ -53,7 +53,7 @@ export class MockService {
         }, {
           frameType: FrameType.FLEX,
           flexLayoutSettings: {
-            flexDirection: FlexDirection.column,
+            flexDirection: FlexDirection.row,
             gap: '10'
           },
           children:[{
