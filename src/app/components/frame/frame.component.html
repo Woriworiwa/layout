@@ -3,7 +3,7 @@
       {{ frame?.name }}
 
     <div app-flex
-         [settings]="frame?.flexLayoutSettings">
+         [model]="frame?.flexLayoutSettings">
       @for (childFrame of frame?.children; track childFrame) {
         @switch (childFrame.frameType) {
           @case (FrameType.FLEX) {

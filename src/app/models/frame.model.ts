@@ -16,7 +16,12 @@ export interface Container extends
 
 export interface FlexLayoutSettings extends
     Container,
-    Pick<CSS.Properties, 'flexDirection' | 'flexWrap' | 'gap'> {}
+    Pick<CSS.Properties,
+      'flexDirection' |
+      'flexWrap' |
+      'gap' |
+      'justifyContent'
+    > {}
 
 
 
