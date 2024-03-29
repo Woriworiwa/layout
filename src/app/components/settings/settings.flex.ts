@@ -5,7 +5,7 @@ import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angul
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
-import {CanvasStore} from "../../stores/canvas.store";
+import {CanvasStore} from "../../store/canvas.store";
 import {SliderModule} from "primeng/slider";
 import {InputNumberModule} from "primeng/inputnumber";
 import {FlexDirection, FlexWrap, JustifyContent} from "../../models/enums";
@@ -13,7 +13,7 @@ import {Property} from "csstype";
 import {DropdownModule} from "primeng/dropdown";
 
 @Component({
-  selector: 'app-properties-flex',
+  selector: 'app-settings-flex',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule, SelectButtonModule, PropertyPanelRowComponent, FormsModule, SliderModule, InputNumberModule, DropdownModule],
@@ -55,7 +55,7 @@ import {DropdownModule} from "primeng/dropdown";
     }
   `
 })
-export class PropertiesFlexComponent {
+export class SettingsFlex {
   @Input() flexLayoutSettings: FlexLayoutSettings | undefined;
 
   private destroy$ = new Subject();

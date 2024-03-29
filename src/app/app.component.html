@@ -1,11 +1,24 @@
 
+  <div class="header">
+    <app-header></app-header>
+  </div>
 
+  <p-splitter styleClass="splitter-content"
+              [style]="{ height: '100%' }"
+              [panelSizes]="[20, 60, 20]"
+              [minSizes]="[20, 20, 20]">
 
+    <ng-template pTemplate><app-structure-tree></app-structure-tree></ng-template>
 
-<section class="layout">
-  <div class="header"><app-header></app-header></div>
-  <div class="leftSide"><app-tree-selector></app-tree-selector></div>
-  <div class="body"><app-canvas></app-canvas></div>
-  <div class="rightSide"><app-properties></app-properties></div>
+    <ng-template pTemplate><app-canvas></app-canvas></ng-template>
+
+    <ng-template pTemplate><app-settings></app-settings></ng-template>
+
+  </p-splitter>
+
   <router-outlet />
-</section>
+
+
+
+
+
