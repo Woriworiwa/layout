@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FlexLayoutSettings} from "../../models/frame.model";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
@@ -11,6 +10,7 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {FlexDirection, FlexWrap, JustifyContent} from "../../models/enums";
 import {Property} from "csstype";
 import {DropdownModule} from "primeng/dropdown";
+import {FlexLayoutSettings} from "../../models/flex-layout.model";
 
 @Component({
   selector: 'app-settings-flex',

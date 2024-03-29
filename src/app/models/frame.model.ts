@@ -1,6 +1,7 @@
 import type * as CSS from 'csstype';
 import {Property} from "csstype";
 import {FrameType} from "./enums";
+import {FlexLayoutSettings} from "./flex-layout.model";
 
 export interface Frame {
   key?: string;
@@ -11,17 +12,9 @@ export interface Frame {
   editable?: boolean;
 }
 
-export interface Container extends
-  Pick<CSS.Properties, 'gap'>{}
 
-export interface FlexLayoutSettings extends
-    Container,
-    Pick<CSS.Properties,
-      'flexDirection' |
-      'flexWrap' |
-      'gap' |
-      'justifyContent'
-    > {}
+
+
 
 
 
