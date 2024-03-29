@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FrameComponent} from "../frame/frame.component";
-import {CanvasStore} from "../../stores/canvas.store";
+import {FrameComponent} from "../element-components/frame/frame.component";
+import {CanvasStore} from "../../store/canvas.store";
 import {Frame} from "../../models/frame.model";
 
 @Component({
@@ -18,6 +18,7 @@ import {Frame} from "../../models/frame.model";
   :host{
     display: block;
     height: 100%;
+    width: fit-content;
     background-color: white;
 
     > app-frame {

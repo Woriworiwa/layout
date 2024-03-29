@@ -2,12 +2,12 @@ import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TreeModule, TreeNodeDropEvent} from "primeng/tree";
 import {TreeDragDropService, TreeNode} from "primeng/api";
-import {CanvasStore} from "../../stores/canvas.store";
+import {CanvasStore} from "../../store/canvas.store";
 import {Frame} from "../../models/frame.model";
 import {FormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'app-tree-selector',
+  selector: 'app-structure-tree',
   standalone: true,
   imports: [CommonModule, TreeModule, FormsModule],
   providers: [TreeDragDropService],
@@ -45,7 +45,7 @@ import {FormsModule} from "@angular/forms";
     }
   `
 })
-export class TreeSelectorComponent {
+export class StructureTreeComponent {
   treeNodes!: TreeNode<Frame>[];
   selectedFrames: TreeNode<Frame> | undefined = undefined;
 

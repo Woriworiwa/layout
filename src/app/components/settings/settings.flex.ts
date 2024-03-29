@@ -1,19 +1,19 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FlexLayoutSettings} from "../../models/frame.model";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
-import {CanvasStore} from "../../stores/canvas.store";
+import {CanvasStore} from "../../store/canvas.store";
 import {SliderModule} from "primeng/slider";
 import {InputNumberModule} from "primeng/inputnumber";
 import {FlexDirection, FlexWrap, JustifyContent} from "../../models/enums";
 import {Property} from "csstype";
 import {DropdownModule} from "primeng/dropdown";
+import {FlexLayoutSettings} from "../../models/flex-layout.model";
 
 @Component({
-  selector: 'app-properties-flex',
+  selector: 'app-settings-flex',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule, SelectButtonModule, PropertyPanelRowComponent, FormsModule, SliderModule, InputNumberModule, DropdownModule],
@@ -55,7 +55,7 @@ import {DropdownModule} from "primeng/dropdown";
     }
   `
 })
-export class PropertiesFlexComponent {
+export class SettingsFlex {
   @Input() flexLayoutSettings: FlexLayoutSettings | undefined;
 
   private destroy$ = new Subject();

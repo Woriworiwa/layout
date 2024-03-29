@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {EditorContentDirective} from "../../directives/editorcontent.directive";
+import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 
 @Component({
   selector: 'app-text',

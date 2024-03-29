@@ -2,24 +2,24 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/co
 import {CommonModule} from '@angular/common';
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {Frame} from "../../models/frame.model";
-import {PropertiesFlexComponent} from "./properties.flex.component";
+import {SettingsFlex} from "./settings.flex";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
-import {CanvasStore} from "../../stores/canvas.store";
+import {CanvasStore} from "../../store/canvas.store";
 import { FrameType } from '../../models/enums';
 import {ThemeService} from "../../services/theme.service";
-import {ThemeOptionsComponent} from "../header/theme-options.component";
+import {ThemeOptionsComponent} from "../app-settings/theme-options.component";
 
 @Component({
-  selector: 'app-properties',
+  selector: 'app-settings',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, PropertiesFlexComponent, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent],
+  imports: [CommonModule, ReactiveFormsModule, SettingsFlex, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent],
   template: `
     @switch (frame?.frameType) {
       @case (FrameType.FLEX) {
-        <app-properties-flex [flexLayoutSettings]="frame?.flexLayoutSettings"></app-properties-flex>
+        <app-settings-flex [flexLayoutSettings]="frame?.flexLayoutSettings"></app-settings-flex>
       }
       @case (FrameType.GRID) {
 
@@ -33,10 +33,11 @@ import {ThemeOptionsComponent} from "../header/theme-options.component";
       grid-template-columns: min-content 1fr;
       flex-direction: row;
       gap: 5px;
+      align-self: start;
     }
   `
 })
-export class PropertiesComponent {
+export class SettingsComponent {
   frame: Frame | undefined;
 
   frameTypeOptions = [
@@ -76,10 +77,6 @@ export class PropertiesComponent {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
-  }
-
-  switchTheme(themeName: string) {
-    this.themeService.changeTheme();
   }
 
   protected readonly FrameType = FrameType;

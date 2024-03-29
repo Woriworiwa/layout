@@ -1,0 +1,11 @@
+<p-sidebar [visible]="isActive"
+           (visibleChange)="onVisibleChange($event)"
+           position="right"
+           styleClass="layout-config w-full sm:w-26rem">
+  <div>
+    <code>
+      <pre><p>{{rootFrame | json}}</p></pre>
+    </code>
+
+  </div>
+</p-sidebar>
