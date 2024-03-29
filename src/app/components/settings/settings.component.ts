@@ -9,7 +9,7 @@ import {Subject, takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
 import { FrameType } from '../../models/enums';
 import {ThemeService} from "../../services/theme.service";
-import {ThemeOptionsComponent} from "../header/theme-options.component";
+import {ThemeOptionsComponent} from "../app-settings/theme-options.component";
 
 @Component({
   selector: 'app-settings',
@@ -33,6 +33,7 @@ import {ThemeOptionsComponent} from "../header/theme-options.component";
       grid-template-columns: min-content 1fr;
       flex-direction: row;
       gap: 5px;
+      align-self: start;
     }
   `
 })
@@ -76,10 +77,6 @@ export class SettingsComponent {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
-  }
-
-  switchTheme(themeName: string) {
-    this.themeService.changeTheme();
   }
 
   protected readonly FrameType = FrameType;

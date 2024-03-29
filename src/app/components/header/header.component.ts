@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ThemeOptionsComponent} from "./theme-options.component";
+import {ThemeOptionsComponent} from "../app-settings/theme-options.component";
 import {ThemeService} from "../../services/theme.service";
 import {SerializerService} from '../../services/serializer.service';
 import {SerializerComponent} from "../serializer/serializer.component";

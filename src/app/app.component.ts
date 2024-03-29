@@ -10,7 +10,7 @@ import {CanvasComponent} from "./components/canvas/canvas.component";
 import {DataService} from "./services/data.service";
 import {Frame} from "./models/frame.model";
 import {HeaderComponent} from "./components/header/header.component";
-import {ThemeOptionsComponent} from "./components/header/theme-options.component";
+import {ThemeOptionsComponent} from "./components/app-settings/theme-options.component";
 import {SerializerService} from "./services/serializer.service";
 import {SplitterModule} from "primeng/splitter";
 
