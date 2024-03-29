@@ -1,4 +1,4 @@
-import {Frame} from "../models/frame.model";
+import {Frame} from "../frame.model";
 
 export class CanvasState {
   rootFrame: Frame | undefined;

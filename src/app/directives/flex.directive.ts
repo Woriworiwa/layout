@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
-import {FlexLayoutSettings} from "../models/frame.model";
+import {FlexLayoutSettings} from "../core/frame.model";
 
 @Directive({
   selector: '[app-flex]',
@@ -9,22 +9,21 @@ import {FlexLayoutSettings} from "../models/frame.model";
   }
 })
 export class FlexDirective {
-  @Input() model: FlexLayoutSettings | undefined;
+  @Input() settings: FlexLayoutSettings | undefined;
 
   constructor(private elementRef: ElementRef,
               private renderer: Renderer2) {
   }
 
   ngOnChanges() {
-    if (!this.model) {
+    if (!this.settings) {
       return;
     }
 
-    this.setProperty('flex-wrap', this.model.flexWrap ? 'wrap' : 'nowrap');
-    this.setProperty('flex-direction', this.model.flexDirection);
-    this.setProperty('flex-wrap', this.model.flexWrap);
-    this.setProperty('gap', this.model?.gap, 'px');
-    this.setProperty('justify-content', this.model.justifyContent);
+    this.setProperty('flex-wrap', this.settings.flexWrap ? 'wrap' : 'nowrap');
+    this.setProperty('flex-direction', this.settings.flexDirection);
+    this.setProperty('flex-wrap', this.settings.flexWrap);
+    this.setProperty('gap', this.settings?.gap, 'px');
   }
 
   private setProperty(propertyName: string, propertyValue: string | number | undefined, suffix: string = '') {

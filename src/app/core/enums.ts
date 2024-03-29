@@ -2,7 +2,6 @@ import {Property} from "csstype";
 
 export const FlexDirection = proxiedPropertiesOf<Enumify<Property.FlexDirection>>();
 export const FlexWrap = proxiedPropertiesOf<Enumify<Property.FlexWrap>>();
-export const JustifyContent = proxiedPropertiesOf<Enumify<Property.JustifyContent>>();
 
 export enum FrameType {
   FLEX = 'FLEX',

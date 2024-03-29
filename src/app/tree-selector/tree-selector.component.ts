@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TreeModule, TreeNodeDropEvent} from "primeng/tree";
 import {TreeDragDropService, TreeNode} from "primeng/api";
-import {CanvasStore} from "../../stores/canvas.store";
-import {Frame} from "../../models/frame.model";
+import {CanvasStore} from "../core/stores/canvas.store";
+import {Frame} from "../core/frame.model";
 import {FormsModule} from "@angular/forms";
 
 @Component({

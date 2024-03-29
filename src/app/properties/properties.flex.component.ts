@@ -1,22 +1,22 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FlexLayoutSettings} from "../../models/frame.model";
+import {FlexLayoutSettings} from "../core/frame.model";
+import {NbButtonGroupModule} from "@nebular/theme";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
-import {CanvasStore} from "../../stores/canvas.store";
+import {CanvasStore} from "../core/stores/canvas.store";
 import {SliderModule} from "primeng/slider";
 import {InputNumberModule} from "primeng/inputnumber";
-import {FlexDirection, FlexWrap, JustifyContent} from "../../models/enums";
+import {FlexDirection, FlexWrap} from "../core/enums";
 import {Property} from "csstype";
-import {DropdownModule} from "primeng/dropdown";
 
 @Component({
   selector: 'app-properties-flex',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonModule, PropertyPanelRowComponent, FormsModule, SliderModule, InputNumberModule, DropdownModule],
+  imports: [CommonModule, NbButtonGroupModule, ReactiveFormsModule, SelectButtonModule, PropertyPanelRowComponent, FormsModule, SliderModule, InputNumberModule],
   template: `
     <ng-container [formGroup]="formGroup">
       <app-property-panel-row label="Direction">
@@ -38,10 +38,6 @@ import {DropdownModule} from "primeng/dropdown";
                         formControlName="flexWrap"
                         optionLabel="label"
                         optionValue="value"></p-selectButton>
-      </app-property-panel-row>
-
-      <app-property-panel-row label="justify-content">
-        <p-dropdown [options]="justifyContentOptions" formControlName="justifyContent" [showClear]="true"></p-dropdown>
       </app-property-panel-row>
     </ng-container>
   `,
@@ -72,20 +68,10 @@ export class PropertiesFlexComponent {
     {label: 'No', value: FlexWrap.nowrap}
   ]
 
-  justifyContentOptions = [
-    JustifyContent.center,
-    JustifyContent.start,
-    JustifyContent.end,
-    JustifyContent["space-around"],
-    JustifyContent["space-between"],
-    JustifyContent["space-evenly"]
-  ]
-
   formGroup = this.fb.group({
     flexDirection: [''],
     flexWrap: [''],
-    gap: [''],
-    justifyContent: new FormControl<Property.JustifyContent | null>(null)
+    gap: ['']
   });
 
   constructor(public fb: FormBuilder,
