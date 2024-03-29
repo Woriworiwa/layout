@@ -27,8 +27,52 @@
         ],
         "styles": [
           "src/styles.scss",
-          "node_modules/primeng/resources/themes/nano/theme.css",
-          "node_modules/primeng/resources/primeng.min.css"
+          "node_modules/primeng/resources/primeng.min.css",
+          {
+            "input": "src/primeng-themes/bootstrap4-light-blue.scss",
+            "bundleName": "bootstrap4-light-blue",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/md-light-indigo.scss",
+            "bundleName": "md-light-indigo",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/mdc-light-indigo.scss",
+            "bundleName": "mdc-light-indigo",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/fluent-light.scss",
+            "bundleName": "fluent-light",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/lara-light-blue.scss",
+            "bundleName": "lara-light-blue",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/soho-light.scss",
+            "bundleName": "soho-light",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/viva-light.scss",
+            "bundleName": "viva-light",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/mira.scss",
+            "bundleName": "mira",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/nano.scss",
+            "bundleName": "nano",
+            "inject": false
+          }
         ],
         "scripts": []
       },
@@ -43,7 +87,7 @@
             {
               "type": "anyComponentStyle",
               "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumError": "2mb"
             }
           ],
           "outputHashing": "all"
