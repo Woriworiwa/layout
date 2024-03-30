@@ -29,7 +29,7 @@ import {FlexLayoutSettings} from "../../models/flex-layout.model";
       <app-property-panel-row label="gap">
         <div>
           <p-inputNumber inputId="integeronly" formControlName="gap"></p-inputNumber>
-          <p-slider formControlName="gap" class="w-full"></p-slider>
+          <p-slider formControlName="gap"></p-slider>
         </div>
       </app-property-panel-row>
 
@@ -55,7 +55,7 @@ import {FlexLayoutSettings} from "../../models/flex-layout.model";
     }
   `
 })
-export class SettingsFlex {
+export class PropertiesFlex {
   @Input() flexLayoutSettings: FlexLayoutSettings | undefined;
 
   private destroy$ = new Subject();

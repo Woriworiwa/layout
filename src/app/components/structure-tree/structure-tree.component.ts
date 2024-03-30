@@ -26,6 +26,10 @@ import {FormsModule} from "@angular/forms";
     </p-tree>
   `,
   styles: `
+    :host {
+      flex-grow: 1;
+    }
+
     :host ::ng-deep {
       .p-treenode-selectable.p-highlight {
         color: white;

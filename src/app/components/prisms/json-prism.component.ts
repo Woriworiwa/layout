@@ -6,13 +6,13 @@ import {CanvasStore} from "../../store/canvas.store";
 import {Frame} from "../../models/frame.model";
 
 @Component({
-  selector: 'app-serializer',
+  selector: 'app-json-prism',
   standalone: true,
   imports: [CommonModule, SidebarModule],
-  templateUrl: './serializer.component.html',
-  styleUrl: './serializer.component.scss'
+  templateUrl: './json-prism.component.html',
+  styleUrl: './json-prism.component.scss'
 })
-export class SerializerComponent {
+export class JsonPrismComponent {
 
   rootFrame: Frame | undefined = undefined;
 

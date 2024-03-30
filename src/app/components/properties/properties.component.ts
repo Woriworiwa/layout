@@ -2,42 +2,28 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/co
 import {CommonModule} from '@angular/common';
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {Frame} from "../../models/frame.model";
-import {SettingsFlex} from "./settings.flex";
+import {PropertiesFlex} from "./properties.flex";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
-import {Subject, takeUntil} from "rxjs";
+import {filter, Subject, takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
 import { FrameType } from '../../models/enums';
 import {ThemeService} from "../../services/theme.service";
 import {ThemeOptionsComponent} from "../app-settings/theme-options.component";
+import {SerializerService} from "../../services/serializer.service";
+import {CssPrismComponent} from "../prisms/css-prism.component";
 
 @Component({
   selector: 'app-settings',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, SettingsFlex, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent],
-  template: `
-    @switch (frame?.frameType) {
-      @case (FrameType.FLEX) {
-        <app-settings-flex [flexLayoutSettings]="frame?.flexLayoutSettings"></app-settings-flex>
-      }
-      @case (FrameType.GRID) {
-
-      }
-    }
-
-  `,
-  styles: `
-    :host {
-      display: grid;
-      grid-template-columns: min-content 1fr;
-      flex-direction: row;
-      gap: 5px;
-      align-self: start;
-    }
-  `
+  imports: [CommonModule, ReactiveFormsModule, PropertiesFlex, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent, CssPrismComponent],
+  templateUrl: './properties.component.html',
+  styleUrls: ['./properties.component.scss']
 })
-export class SettingsComponent {
+export class PropertiesComponent {
+  css: string | undefined;
+
   frame: Frame | undefined;
 
   frameTypeOptions = [
@@ -54,10 +40,15 @@ export class SettingsComponent {
   constructor(public fb: FormBuilder,
               private cd: ChangeDetectorRef,
               protected canvasStore: CanvasStore,
+              private serializerService: SerializerService,
               private themeService: ThemeService) {
     this.canvasStore.selectedFrame$
+      .pipe(
+        filter(frame => !!frame),
+      )
       .subscribe(frame => {
         this.frame = frame;
+        this.css = this.serializerService.serializeToCSS(frame!);
         this.cd.markForCheck();
     })
   }

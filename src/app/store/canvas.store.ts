@@ -25,6 +25,10 @@ export class CanvasStore extends Store<CanvasState> {
     )
   }
 
+  get rootFrame() {
+    return this.getState().rootFrame;
+  }
+
   get selectedFrame$() {
     return this.state.pipe(
       map(state => this.findFrameByKey(state.rootFrame, state.selectedFrameKey)),

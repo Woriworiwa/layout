@@ -9,11 +9,11 @@ export class Store<T> {
     this.state = this.state$.asObservable();
   }
 
-  getState(): Readonly<T> {
+  protected getState(): Readonly<T> {
     return this.state$.getValue();
   }
 
-  setState(state: Readonly<T>): void {
+  protected setState(state: Readonly<T>): void {
     this.state$.next(state);
   }
 }

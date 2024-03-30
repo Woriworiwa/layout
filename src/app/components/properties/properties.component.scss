@@ -1,0 +1,34 @@
+:host {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.properties {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  flex-direction: row;
+  gap: 10px;
+  align-self: start;
+}
+
+app-prism {
+  display: block;
+  height: 200px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+:host ::ng-deep {
+  .p-selectbutton {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .p-inputnumber {
+    flex-grow: 1;
+  }
+
+  .p-inputwrapper {
+    width: 100%;
+  }
+}
