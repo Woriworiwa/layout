@@ -16,10 +16,10 @@ import {Frame} from "../../models/frame.model";
   `,
   styles: `
   :host{
-    display: block;
-    height: 100%;
-    width: fit-content;
-    background-color: white;
+    /*display: block;*/
+    /*height: 100%;*/
+    /*width: fit-content;*/
+    /*background-color: white;*/
 
     > app-frame {
       height: 100%;

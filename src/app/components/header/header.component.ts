@@ -3,12 +3,12 @@ import {CommonModule} from '@angular/common';
 import {ThemeOptionsComponent} from "../app-settings/theme-options.component";
 import {ThemeService} from "../../services/theme.service";
 import {SerializerService} from '../../services/serializer.service';
-import {SerializerComponent} from "../serializer/serializer.component";
+import {JsonPrismComponent} from "../prisms/json-prism.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ThemeOptionsComponent, SerializerComponent],
+  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent],
   template: `
     Framer Ripoff
     <div class="action-buttons-container">
@@ -26,7 +26,7 @@ import {SerializerComponent} from "../serializer/serializer.component";
     </div>
 
     <app-theme-options></app-theme-options>
-    <app-serializer></app-serializer>
+    <app-json-prism></app-json-prism>
   `,
   styles: `
     :host {

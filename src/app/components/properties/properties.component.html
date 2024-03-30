@@ -1,0 +1,13 @@
+<app-prism [css]="css"></app-prism>
+
+<div class="properties">
+  @switch (frame?.frameType) {
+    @case (FrameType.FLEX) {
+      <app-settings-flex [flexLayoutSettings]="frame?.flexLayoutSettings"></app-settings-flex>
+    }
+    @case (FrameType.GRID) {
+
+    }
+  }
+</div>
+
