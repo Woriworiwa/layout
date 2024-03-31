@@ -8,35 +8,11 @@ import {Frame} from "../../models/frame.model";
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, FrameComponent],
-  template: `
-    <app-frame [frame]="rootFrame"
-               [selectedFrameKey]="selectedFrameKey"
-               (clicked)="onFrameClicked($event)"
-               (frameContentChanged)="onContentChanged($event)"></app-frame>
-  `,
-  styles: `
-    :host {
-      height: 100%;
-      background-color: #eeeeee;
-      padding: 30px;
-      overflow: clip;
-
-      > app-frame {
-        /*height: 100%;*/
-        background: #eeeeee;
-      }
-
-      &.grab-mode {
-        cursor: grab ;
-
-        &.is-grabbing {
-          cursor: grabbing;
-        }
-      }
-    }
-  `
+  templateUrl: './canvas.component.html',
+  styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent {
+  rootFrames: Frame[] = [];
   rootFrame: Frame | undefined;
   selectedFrameKey: string | undefined;
   translateY = 0;
@@ -49,12 +25,12 @@ export class CanvasComponent {
   @HostBinding('class.is-grabbing')
   isGrabbing = false;
 
-  @ViewChild(FrameComponent, {read: ElementRef})
-  childFrame!: ElementRef;
+  @ViewChild("wrapper")
+  wrapper!: ElementRef;
 
   constructor(protected canvasStore: CanvasStore,
               private renderer: Renderer2) {
-    this.canvasStore.rootFrame$.subscribe(rootFrame => this.rootFrame = rootFrame);
+    this.canvasStore.frames$.subscribe(rootFrames => this.rootFrames = rootFrames);
     this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
   }
 
@@ -71,13 +47,18 @@ export class CanvasComponent {
       }
     } else {
       if (event.shiftKey) {
-        this.translateX += event.deltaY;
+        this.translateX -= event.deltaY;
       } else {
-        this.translateY += event.deltaY;
+        this.translateY -= event.deltaY;
       }
     }
 
     this.setTransformStyles();
+  }
+
+  @HostListener('click', ['$event'])
+  oneClick(event: MouseEvent) {
+    this.canvasStore.setSelectedFrameKey(undefined);
   }
 
   @HostListener('mousedown', ['$event'])
@@ -126,6 +107,6 @@ export class CanvasComponent {
   }
 
   private setTransformStyles() {
-    this.renderer.setStyle(this.childFrame.nativeElement, 'transform', `scale(${this.scale})  translateY(${this.translateY}px) translateX(${this.translateX}px)`);
+    this.renderer.setStyle(this.wrapper.nativeElement, 'transform', `scale(${this.scale})  translateY(${this.translateY}px) translateX(${this.translateX}px)`);
   }
 }

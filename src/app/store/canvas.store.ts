@@ -6,6 +6,7 @@ import {distinctUntilChanged, map} from "rxjs";
 import {FlexLayoutSettings} from "../models/flex-layout.model";
 
 export class CanvasState {
+  rootFrames: Frame[] = [];
   rootFrame: Frame | undefined;
   selectedFrameKey: string | undefined;
 }
@@ -18,29 +19,29 @@ export class CanvasStore extends Store<CanvasState> {
     super(new CanvasState());
   }
 
-  get rootFrame$() {
+  get frames$() {
     return this.state.pipe(
-      map(state => state.rootFrame),
+      map(state => state.rootFrames),
       distinctUntilChanged()
     )
   }
 
-  get rootFrame() {
-    return this.getState().rootFrame;
+  get frames() {
+    return this.getState().rootFrames;
+  }
+
+  set frames(frames: Frame[]) {
+    this.setState({
+      ...this.getState(),
+      rootFrames: frames
+    })
   }
 
   get selectedFrame$() {
     return this.state.pipe(
-      map(state => this.findFrameByKey(state.rootFrame, state.selectedFrameKey)),
+      map(state => this.findFrameByKey(state.rootFrames, state.selectedFrameKey)),
       distinctUntilChanged()
     );
-  }
-
-  setRootFrame(rootFrame: Frame) {
-    this.setState({
-      ...this.getState(),
-      rootFrame: rootFrame
-    })
   }
 
   setSelectedFrameKey(key: string | undefined) {
@@ -51,7 +52,7 @@ export class CanvasStore extends Store<CanvasState> {
   }
 
   getSelectedFrame() {
-    return this.findFrameByKey(this.getState().rootFrame, this.getState().selectedFrameKey);
+    return this.findFrameByKey(this.getState().rootFrames, this.getState().selectedFrameKey);
   }
 
   updateFlexLayoutSettings(settings: FlexLayoutSettings) {
@@ -69,21 +70,19 @@ export class CanvasStore extends Store<CanvasState> {
     })
   }
 
-  private findFrameByKey(frame: Frame | undefined, key: string | undefined): Frame | undefined {
-    if (!frame || key == null) {
+  private findFrameByKey(frames: Frame[], key: string | undefined): Frame | undefined {
+    if (!frames || !frames.length || key == null) {
       return undefined;
     }
 
-    if (frame.key === key) {
-      return frame;
-    }
+    for (let frame of frames) {
+      if (frame.key === key) {
+        return frame;
+      }
 
-    if (frame.children && Array.isArray(frame.children)) {
-      for (let child of frame.children) {
-        const foundNode = this.findFrameByKey(child, key);
-        if (foundNode) {
-          return foundNode;
-        }
+      const childFrame = this.findFrameByKey(frame.children, key);
+      if (childFrame) {
+        return childFrame;
       }
     }
 

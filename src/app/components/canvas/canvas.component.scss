@@ -1,0 +1,19 @@
+:host {
+  height: 100%;
+  background-color: #eeeeee;
+  padding: 30px;
+  overflow: clip;
+
+  > app-frame {
+    /*height: 100%;*/
+    background: #eeeeee;
+  }
+
+  &.grab-mode {
+    cursor: grab ;
+
+    &.is-grabbing {
+      cursor: grabbing;
+    }
+  }
+}

@@ -5,10 +5,9 @@ import {Frame} from "../../models/frame.model";
 import {PropertiesFlex} from "./properties.flex";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
-import {filter, Subject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
 import { FrameType } from '../../models/enums';
-import {ThemeService} from "../../services/theme.service";
 import {ThemeOptionsComponent} from "../app-settings/theme-options.component";
 import {SerializerService} from "../../services/serializer.service";
 import {CssPrismComponent} from "../prisms/css-prism.component";
@@ -40,15 +39,11 @@ export class PropertiesComponent {
   constructor(public fb: FormBuilder,
               private cd: ChangeDetectorRef,
               protected canvasStore: CanvasStore,
-              private serializerService: SerializerService,
-              private themeService: ThemeService) {
+              private serializerService: SerializerService) {
     this.canvasStore.selectedFrame$
-      .pipe(
-        filter(frame => !!frame),
-      )
       .subscribe(frame => {
         this.frame = frame;
-        this.css = this.serializerService.serializeToCSS(frame!);
+        this.css = this.serializerService.serializeToCSS(frame ? [frame] : this.canvasStore.frames);
         this.cd.markForCheck();
     })
   }

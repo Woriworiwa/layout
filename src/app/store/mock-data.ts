@@ -1,94 +1,93 @@
 export const mockData =
 
-  {
-    "key": "canvas",
-    "frameType": "FLEX",
-    "flexLayoutSettings": {
-      "flexDirection": "column",
-      "gap": "50"
-    },
-    "children": [
-      {
-        "frameType": "FLEX",
-        "flexLayoutSettings": {
-          "flexDirection": "row",
-          "flexWrap": "wrap",
-          "gap": "10",
-          "justifyContent": "end"
-        },
-        "children": [
-          {
-            "name": "lorem ipsum",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-1-0"
-          },
-          {
-            "name": "lorem ipsum gaga gugu gigi",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-0-1"
-          },
-          {
-            "name": "lorem ipsum gaga gugu gigi",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-0-2"
-          },
-          {
-            "name": "lorem ipsum gaga gugu gigi",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-0-3"
-          },
-          {
-            "name": "lorem ipsum gaga gugu gigi",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-0-4"
-          },
-          {
-            "name": "lorem ipsum gaga gugu gigi",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-0-5"
-          }
-        ],
-        "key": "canvas-0"
+  [
+    {
+      "frameType": "FLEX",
+      "flexLayoutSettings": {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "gap": "10",
+        "justifyContent": "end"
       },
-      {
-        "frameType": "FLEX",
-        "flexLayoutSettings": {
-          "flexDirection": "column",
-          "gap": "10"
+      "children": [
+        {
+          "name": "lorem ipsum",
+          "frameType": "TEXT",
+          "children": [],
+          "key": "canvas-1-0"
         },
-        "children": [
-          {
-            "name": "lorem ipsum",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-0-0"
+        {
+          "name": "lorem ipsum gaga gugu gigi",
+          "frameType": "TEXT",
+          "children": [],
+          "key": "canvas-0-1"
+        },
+        {
+          "name": "lorem ipsum gaga gugu gigi",
+          "frameType": "TEXT",
+          "children": [],
+          "key": "canvas-0-2"
+        },
+        {
+          "name": "lorem ipsum gaga gugu gigi",
+          "frameType": "TEXT",
+          "children": [],
+          "key": "canvas-0-3"
+        },
+        {
+          "name": "lorem ipsum gaga gugu gigi",
+          "frameType": "TEXT",
+          "children": [],
+          "key": "canvas-0-4"
+        },
+        {
+          "name": "lorem ipsum gaga gugu gigi",
+          "frameType": "TEXT",
+          "children": [],
+          "key": "canvas-0-5"
+        }
+      ]
+    },
+    {
+      "frameType": "FLEX",
+      "flexLayoutSettings": {
+        "flexDirection": "column",
+        "gap": "50"
+      },
+      "children": [
+        {
+          "frameType": "FLEX",
+          "flexLayoutSettings": {
+            "flexDirection": "column",
+            "gap": "10"
           },
-          {
-            "name": "lorem ipsum",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-1-1"
-          },
-          {
-            "name": "lorem ipsum",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-1-2"
-          },
-          {
-            "name": "lorem ipsum",
-            "frameType": "TEXT",
-            "children": [],
-            "key": "canvas-1-3"
-          }
-        ],
-        "key": "canvas-1"
-      }
-    ]
-  }
+          "children": [
+            {
+              "name": "lorem ipsum",
+              "frameType": "TEXT",
+              "children": [],
+              "key": "canvas-0-0"
+            },
+            {
+              "name": "lorem ipsum",
+              "frameType": "TEXT",
+              "children": [],
+              "key": "canvas-1-1"
+            },
+            {
+              "name": "lorem ipsum",
+              "frameType": "TEXT",
+              "children": [],
+              "key": "canvas-1-2"
+            },
+            {
+              "name": "lorem ipsum",
+              "frameType": "TEXT",
+              "children": [],
+              "key": "canvas-1-3"
+            }
+          ]
+        }
+      ]
+    }
+  ]

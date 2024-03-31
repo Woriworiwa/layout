@@ -56,12 +56,12 @@ export class StructureTreeComponent {
   constructor(protected frameStore: CanvasStore) {}
 
   ngOnInit() {
-    this.frameStore.rootFrame$.subscribe((rootFrame) => {
-      if (!rootFrame) {
+    this.frameStore.frames$.subscribe((rootFrames) => {
+      if (!rootFrames) {
         return;
       }
 
-      this.treeNodes = this.convertFramesToTreeNodes([rootFrame])
+      this.treeNodes = this.convertFramesToTreeNodes(rootFrames)
 
       this.treeNodes.forEach((node) => {
         this.expandRecursive(node, true);
@@ -78,8 +78,7 @@ export class StructureTreeComponent {
   }
 
   onNodeDrop($event: TreeNodeDropEvent) {
-    const frames = this.convertTreeNodesToFrames(this.treeNodes);
-    this.frameStore.setRootFrame(frames[0]);
+    this.frameStore.frames = this.convertTreeNodesToFrames(this.treeNodes);
   }
 
   private convertFramesToTreeNodes(frames: Frame[] | undefined): TreeNode<Frame>[] {
