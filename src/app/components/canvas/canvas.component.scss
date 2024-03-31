@@ -3,6 +3,15 @@
   background-color: #eeeeee;
   padding: 30px;
   overflow: clip;
+  display: flex;
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 20px;
+
+  }
 
   > app-frame {
     /*height: 100%;*/
