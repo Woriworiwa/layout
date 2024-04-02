@@ -4,14 +4,16 @@ import {ThemeOptionsComponent} from "../app-settings/theme-options.component";
 import {ThemeService} from "../../services/theme.service";
 import {SerializerService} from '../../services/serializer.service';
 import {JsonPrismComponent} from "../prisms/json-prism.component";
+import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent],
+  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent, CdkDrag, CdkDropList],
   template: `
     Framer Ripoff
-    <div class="action-buttons-container">
+
+    <div class="action-buttons-container" cdkDrop>
       <button type="button"
               class="action-button p-button   w-2rem h-2rem  transition-all transition-duration-300 min-w-0"
               (click)="showConfig()">

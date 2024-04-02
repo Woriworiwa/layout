@@ -3,17 +3,21 @@ import {CommonModule} from '@angular/common';
 import {FrameComponent} from "../element-components/frame/frame.component";
 import {CanvasStore} from "../../store/canvas.store";
 import {Frame} from "../../models/frame.model";
+import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
+import {FlexDirection, FrameType, JustifyContent} from "../../models/enums";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FrameComponent],
+  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent {
+
+  onDrag:boolean=false;
+
   rootFrames: Frame[] = [];
-  rootFrame: Frame | undefined;
   selectedFrameKey: string | undefined;
   translateY = 0;
   translateX = 0;
@@ -104,6 +108,24 @@ export class CanvasComponent {
 
   onContentChanged(content: { key: string, content: string }) {
     console.log(content);
+  }
+
+  onDrop(event: CdkDragDrop<string[]>) {
+    if (event.item.data === 'frame') {
+      const newFrame: Frame = {
+        frameType: FrameType.FLEX,
+        flexLayoutSettings: {
+          flexDirection: FlexDirection.row,
+          justifyContent: JustifyContent.start
+        },
+        children: [{
+          frameType: FrameType.TEXT,
+          children:[]
+        }],
+      }
+
+      this.canvasStore.addFrame(newFrame, event.currentIndex);
+    }
   }
 
   private setTransformStyles() {

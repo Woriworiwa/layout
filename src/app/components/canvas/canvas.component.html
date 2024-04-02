@@ -1,9 +1,46 @@
-<div #wrapper class="wrapper">
-  @for (frame of rootFrames; track rootFrame) {
-    <app-frame [frame]="frame"
-               [selectedFrameKey]="selectedFrameKey"
-               (clicked)="onFrameClicked($event)"
-               (frameContentChanged)="onContentChanged($event)"></app-frame>
-  }
-</div>
+<div cdkDropListGroup class="main-wrapper">
+  <div class="example-container">
+    <div>
+      <div [style.display]="onDrag?'none':''"
+           cdkDropList
+           id="insertList"
+           cdkDropListSortingDisabled="true"
+           class="example-list">
+        <div class="example-box"
+             cdkDrag
+             cdkDragData="frame"
+             (cdkDragStarted)="onDrag=true"
+             (cdkDragEnded)="onDrag=false">
+          frame
+        </div>
+      </div>
+    </div>
 
+    <div *ngIf="onDrag"
+         class="background">
+      <div class="example-list">
+        <div class="example-box">
+          frame
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div #wrapper
+       class="wrapper"
+       cdkDropList
+       cdkDrag
+       cdkDropListSortingDisabled="false"
+       [cdkDropListConnectedTo]="['insertList']"
+       (cdkDropListDropped)="onDrop($event)">
+    @for (frame of rootFrames; track frame.key) {
+      <app-frame [frame]="frame"
+                 cdkDrag
+                 cdkDropList
+                 [cdkDropListConnectedTo]="['insertList']"
+                 [selectedFrameKey]="selectedFrameKey"
+                 (clicked)="onFrameClicked($event)"
+                 (frameContentChanged)="onContentChanged($event)"></app-frame>
+    }
+  </div>
+</div>

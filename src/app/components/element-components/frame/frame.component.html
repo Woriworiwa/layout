@@ -10,6 +10,9 @@
             <app-frame [frame]="childFrame"
                        (clicked)="onChildClicked($event)"
                        [selectedFrameKey]="selectedFrameKey"
+                       cdkDrag
+                       cdkDropList
+                       [cdkDropListConnectedTo]="['insertList']"
                        (frameContentChanged)="onChildFrameContentChanged($event)"></app-frame>
           }
           @case (FrameType.TEXT) {

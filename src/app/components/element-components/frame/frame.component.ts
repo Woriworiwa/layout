@@ -12,12 +12,13 @@ import {EditorContentDirective} from "../../../directives/editorcontent.directiv
 import {FlexDirective} from "../../../directives/flex.directive";
 import {TextComponent} from "../text/text.component";
 import { FrameType } from '../../../models/enums';
+import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-frame',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditorContentDirective, FlexDirective, TextComponent],
+  imports: [CommonModule, EditorContentDirective, FlexDirective, TextComponent, CdkDrag, CdkDropList],
   host: {
     '[class.selected]' : 'selectedFrameKey === frame?.key'
   },

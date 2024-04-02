@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SelectButtonModule} from "primeng/selectbutton";
-import {Subject, takeUntil} from "rxjs";
+import {Subject, Subscription, takeUntil, takeWhile} from "rxjs";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {CanvasStore} from "../../store/canvas.store";
 import {SliderModule} from "primeng/slider";
@@ -41,7 +41,9 @@ import {FlexLayoutSettings} from "../../models/flex-layout.model";
       </app-property-panel-row>
 
       <app-property-panel-row label="justify-content">
-        <p-dropdown [options]="justifyContentOptions" formControlName="justifyContent" [showClear]="true"></p-dropdown>
+        <p-dropdown [options]="justifyContentOptions"
+                    [formControl]="justifyContent"
+                    [showClear]="true"></p-dropdown>
       </app-property-panel-row>
     </ng-container>
   `,
@@ -59,6 +61,11 @@ export class PropertiesFlex {
   @Input() flexLayoutSettings: FlexLayoutSettings | undefined;
 
   private destroy$ = new Subject();
+  private formUpdating = false;
+
+  get justifyContent(): FormControl {
+    return this.formGroup?.get('justifyContent') as FormControl;
+  }
 
   /*direction*/
   flexDirectionOptions = [
@@ -81,32 +88,47 @@ export class PropertiesFlex {
     JustifyContent["space-evenly"]
   ]
 
-  formGroup = this.fb.group({
-    flexDirection: [''],
-    flexWrap: [''],
-    gap: [''],
-    justifyContent: new FormControl<Property.JustifyContent | null>(null)
-  });
+  formGroup: FormGroup;
+  formGroupValueChangedSubscription: Subscription | undefined;
 
   constructor(public fb: FormBuilder,
               protected frameStore: CanvasStore) {
+    this.formGroup = this.createFormGroup();
   }
 
-  ngOnInit() {
-    this.formGroup.valueChanges
-      .pipe(takeUntil(this.destroy$))
+
+  createFormGroup() {
+    if (this.formGroupValueChangedSubscription) {
+      this.formGroupValueChangedSubscription.unsubscribe();
+    }
+
+    const formGroup = this.fb.group({
+      flexDirection: new FormControl<Property.FlexDirection | null | undefined>(undefined),
+      flexWrap: [''],
+      gap: new FormControl<Property.Gap | null | undefined>(null),
+      justifyContent: new FormControl<Property.JustifyContent | null | undefined>(null)
+    });
+
+    this.formGroupValueChangedSubscription = formGroup.valueChanges
+      .pipe(
+        takeUntil(this.destroy$)
+      )
       .subscribe((value: any) => {
         this.frameStore.updateFlexLayoutSettings(value);
       });
+
+    return formGroup;
   }
 
   ngOnChanges() {
-    if (this.flexLayoutSettings) {
-      if (this.flexLayoutSettings.gap == null) {
-        this.flexLayoutSettings.gap = 0;
-      }
 
-      this.formGroup.patchValue({...this.flexLayoutSettings, gap: this.flexLayoutSettings.gap.toString()}, {emitEvent: false});
+    this.formGroup = this.createFormGroup();
+
+    if (this.flexLayoutSettings) {
+      this.formGroup?.patchValue({
+        ...this.flexLayoutSettings,
+        gap: this.flexLayoutSettings.gap?.toString()
+      }, {emitEvent: false});
     }
   }
 

@@ -86,7 +86,7 @@ export class StructureTreeComponent {
 
      return  frames.map((frame) => {
        return {
-         label: frame.name || frame.key,
+         label: frame.name || frame.frameType,
          key: frame.key,
          children: this.convertFramesToTreeNodes(frame.children),
          data: frame
