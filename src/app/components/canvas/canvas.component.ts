@@ -1,27 +1,27 @@
 import {Component, ElementRef, HostBinding, HostListener, Renderer2, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FrameComponent} from "../element-components/frame/frame.component";
+import {FrameComponent} from "../canvas-components/frame/frame.component";
 import {CanvasStore} from "../../store/canvas.store";
 import {Frame} from "../../models/frame.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
-import {FlexDirection, FrameType, JustifyContent} from "../../models/enums";
+import {InsertComponent} from "../insert/insert.component";
+import {CANVAS_WRAPPER_ID} from "../../models/constants";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup],
+  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent {
-
-  onDrag:boolean=false;
-
-  rootFrames: Frame[] = [];
+  frames: Frame[] = [];
   selectedFrameKey: string | undefined;
   translateY = 0;
   translateX = 0;
   scale = 1;
+
+  protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
 
   @HostBinding('class.grab-mode')
   isGrabMode = false;
@@ -34,7 +34,7 @@ export class CanvasComponent {
 
   constructor(protected canvasStore: CanvasStore,
               private renderer: Renderer2) {
-    this.canvasStore.frames$.subscribe(rootFrames => this.rootFrames = rootFrames);
+    this.canvasStore.frames$.subscribe(rootFrames => this.frames = rootFrames);
     this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
   }
 
@@ -111,20 +111,8 @@ export class CanvasComponent {
   }
 
   onDrop(event: CdkDragDrop<string[]>) {
-    if (event.item.data === 'frame') {
-      const newFrame: Frame = {
-        frameType: FrameType.FLEX,
-        flexLayoutSettings: {
-          flexDirection: FlexDirection.row,
-          justifyContent: JustifyContent.start
-        },
-        children: [{
-          frameType: FrameType.TEXT,
-          children:[]
-        }],
-      }
-
-      this.canvasStore.addFrame(newFrame, event.currentIndex);
+    if (event.item.data) {
+      this.canvasStore.addNewPreset(event.item.data, event.container.id, event.currentIndex);
     }
   }
 

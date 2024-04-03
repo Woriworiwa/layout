@@ -1,84 +1,52 @@
-import {Component} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, Renderer2} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {TreeModule, TreeNodeDropEvent} from "primeng/tree";
 import {TreeDragDropService, TreeNode} from "primeng/api";
 import {CanvasStore} from "../../store/canvas.store";
 import {Frame} from "../../models/frame.model";
 import {FormsModule} from "@angular/forms";
+import {CdkDropList} from "@angular/cdk/drag-drop";
+import {InsertComponent} from "../insert/insert.component";
+import {ToggleButtonModule} from "primeng/togglebutton";
+import {FrameType} from "../../models/enums";
 
 @Component({
   selector: 'app-structure-tree',
   standalone: true,
-  imports: [CommonModule, TreeModule, FormsModule],
+  imports: [CommonModule, TreeModule, FormsModule, CdkDropList, InsertComponent, ToggleButtonModule],
   providers: [TreeDragDropService],
-  template: `
-    <p-tree class="w-full md:w-30rem"
-            [value]="treeNodes"
-            ngDefaultControl
-            [(selection)]="selectedFrames"
-            selectionMode="single"
-            (selectionChange)="onSelectionChanged($event)"
-            [draggableNodes]="true"
-            [droppableNodes]="true"
-            draggableScope="self"
-            droppableScope="self"
-            (onNodeDrop)="onNodeDrop($event)">
-    </p-tree>
-  `,
-  styles: `
-    :host {
-      flex-grow: 1;
-    }
-
-    :host ::ng-deep {
-      .p-treenode-selectable.p-highlight {
-        color: white;
-        background: #3a9afe;
-
-        /* if it has a sibling change the border radius */
-        &:has(+.p-treenode-children) {
-          border-radius: 8px 8px 0 0;
-        }
-
-        /* sibling styles */
-        &+ .p-treenode-children {
-          background: #EFF6FF;
-          border-radius: 0 0 8px 8px;
-        }
-      }
-    }
-  `
+  templateUrl: './structure-tree.component.html',
+  styleUrls: ['./structure-tree.component.scss']
 })
 export class StructureTreeComponent {
   treeNodes!: TreeNode<Frame>[];
   selectedFrames: TreeNode<Frame> | undefined = undefined;
 
-  constructor(protected frameStore: CanvasStore) {}
+  constructor(private canvasStore: CanvasStore, private renderer: Renderer2) {}
 
   ngOnInit() {
-    this.frameStore.frames$.subscribe((rootFrames) => {
+    this.canvasStore.frames$.subscribe((rootFrames) => {
       if (!rootFrames) {
         return;
       }
 
       this.treeNodes = this.convertFramesToTreeNodes(rootFrames)
-
-      this.treeNodes.forEach((node) => {
-        this.expandRecursive(node, true);
-      });
     });
 
-    this.frameStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrames = selectedFrame)
+    this.canvasStore.selectedFrame$.subscribe(selectedFrame => {
+      this.selectedFrames = selectedFrame;
+      this.expandNode(this.treeNodes, undefined, selectedFrame!);
+    })
   }
 
-  onSelectionChanged($event: TreeNode<Frame> | TreeNode<Frame>[] | null) {
-    if ( $event != null && !Array.isArray($event)) {
-      this.frameStore.setSelectedFrameKey($event.key);
+  onSelectionChanged(treeNode: TreeNode<Frame> | TreeNode<Frame>[] | null) {
+    if ( treeNode != null && !Array.isArray(treeNode)) {
+      this.canvasStore.setSelectedFrameKey(treeNode.key);
     }
   }
 
   onNodeDrop($event: TreeNodeDropEvent) {
-    this.frameStore.frames = this.convertTreeNodesToFrames(this.treeNodes);
+    this.canvasStore.frames = this.convertTreeNodesToFrames(this.treeNodes);
   }
 
   private convertFramesToTreeNodes(frames: Frame[] | undefined): TreeNode<Frame>[] {
@@ -88,6 +56,7 @@ export class StructureTreeComponent {
        return {
          label: frame.name || frame.frameType,
          key: frame.key,
+         icon: this.getTreeNodeIcon(frame),
          children: this.convertFramesToTreeNodes(frame.children),
          data: frame
        }
@@ -103,6 +72,22 @@ export class StructureTreeComponent {
     })
   }
 
+  private expandNode(treeNodes: TreeNode<Frame>[], parentNode: TreeNode<Frame> | undefined, frame: Frame) {
+    treeNodes.forEach((node) => {
+      if (node.data === frame) {
+        node.expanded = true;
+
+        if (parentNode) {
+          parentNode.expanded = true;
+          this.expandNode(this.treeNodes, parentNode, parentNode.data!);
+        }
+
+      } else {
+        this.expandNode(node.children || [], node, frame);
+      }
+    });
+  }
+
   private expandRecursive(node: TreeNode<Frame>, isExpand: boolean) {
     node.expanded = isExpand;
     if (node.children) {
@@ -110,5 +95,18 @@ export class StructureTreeComponent {
         this.expandRecursive(childNode, isExpand);
       });
     }
+  }
+
+  private getTreeNodeIcon(frame: Frame){
+    let icon = '';
+    switch (frame.frameType) {
+      case FrameType.FLEX:
+        icon = 'pi pi-fw pi-bars';
+        break;
+      case FrameType.TEXT:
+        icon = 'pi pi-fw pi-at'
+    }
+
+    return icon;
   }
 }

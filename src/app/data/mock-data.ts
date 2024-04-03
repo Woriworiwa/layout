@@ -11,33 +11,27 @@ export const mockData =
       "children": [
         {
           "name": "lorem ipsum",
-          "frameType": "TEXT",
-          "children": [],
+          "frameType": "TEXT"
         },
         {
           "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT",
-          "children": [],
+          "frameType": "TEXT"
         },
         {
           "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT",
-          "children": [],
+          "frameType": "TEXT"
         },
         {
           "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT",
-          "children": [],
+          "frameType": "TEXT"
         },
         {
           "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT",
-          "children": [],
+          "frameType": "TEXT"
         },
         {
           "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT",
-          "children": [],
+          "frameType": "TEXT"
         }
       ]
     },
@@ -57,23 +51,19 @@ export const mockData =
           "children": [
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT",
-              "children": [],
+              "frameType": "TEXT"
             },
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT",
-              "children": [],
+              "frameType": "TEXT"
             },
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT",
-              "children": [],
+              "frameType": "TEXT"
             },
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT",
-              "children": [],
+              "frameType": "TEXT"
             }
           ]
         }

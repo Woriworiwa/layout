@@ -82,7 +82,9 @@ export class SerializerService {
       this.sanitizeObject(frame);
       this.sanitizeObject(frame.flexLayoutSettings);
 
-      this.sanitizeFrames(frame.children);
+      if (frame.children) {
+        this.sanitizeFrames(frame.children);
+      }
     });
 
     return frames;

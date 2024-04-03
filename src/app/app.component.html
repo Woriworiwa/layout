@@ -1,22 +1,33 @@
+<div class="header">
+  <app-header></app-header>
+</div>
 
-  <div class="header">
-    <app-header></app-header>
-  </div>
+<p-splitter styleClass="splitter-content"
+            [style]="{ height: '100%' }"
+            [panelSizes]="[20, 55, 25]"
+            [minSizes]="[20, 10, 20]">
 
-  <p-splitter styleClass="splitter-content"
-              [style]="{ height: '100%' }"
-              [panelSizes]="[20, 55, 25]"
-              [minSizes]="[20, 10, 20]">
+  <ng-template pTemplate>
+    <div class="template-content">
+      <app-left-panel></app-left-panel>
+    </div>
+  </ng-template>
 
-    <ng-template pTemplate><app-structure-tree></app-structure-tree></ng-template>
+  <ng-template pTemplate>
+    <div class="template-content">
+      <app-canvas></app-canvas>
+    </div>
+  </ng-template>
 
-    <ng-template pTemplate><app-canvas></app-canvas></ng-template>
+  <ng-template pTemplate>
+    <div class="template-content">
+      <app-settings></app-settings>
+    </div>
+  </ng-template>
 
-    <ng-template pTemplate><app-settings></app-settings></ng-template>
+</p-splitter>
 
-  </p-splitter>
-
-  <router-outlet />
+<router-outlet/>
 
 
 

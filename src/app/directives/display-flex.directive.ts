@@ -2,13 +2,13 @@ import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
 import {FlexLayoutSettings} from "../models/flex-layout.model";
 
 @Directive({
-  selector: '[app-flex]',
+  selector: '[app-display-flex]',
   standalone: true,
   host: {
     '[style.display]': '"flex"',
   }
 })
-export class FlexDirective {
+export class DisplayFlexDirective {
   @Input() model: FlexLayoutSettings | undefined;
 
   constructor(private elementRef: ElementRef,
