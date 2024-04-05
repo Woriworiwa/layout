@@ -1,0 +1,20 @@
+<div class="title">
+  Framer Doppelganger
+</div>
+
+<div class="action-buttons-container" cdkDrop>
+  <button type="button"
+          class="action-button p-button   w-2rem h-2rem  transition-all transition-duration-300 min-w-0"
+          (click)="showConfig()">
+    <i class="pi pi-palette"></i>
+  </button>
+
+  <button type="button"
+          class="action-button p-button   w-2rem h-2rem  transition-all transition-duration-300 min-w-0"
+          (click)="showSerializer()">
+    <i class="pi pi-palette"></i>
+  </button>
+</div>
+
+<app-theme-options></app-theme-options>
+<app-json-prism></app-json-prism>

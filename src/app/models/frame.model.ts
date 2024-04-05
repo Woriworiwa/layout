@@ -7,7 +7,7 @@ export interface Frame {
   key?: string;
   name?: string;
   frameType: FrameType;
-  children: Frame[];
+  children?: Frame[];
   flexLayoutSettings?: FlexLayoutSettings;
   editable?: boolean;
 }

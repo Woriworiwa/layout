@@ -14,7 +14,7 @@ import {Frame} from "../../models/frame.model";
 })
 export class JsonPrismComponent {
 
-  rootFrame: Frame | undefined = undefined;
+  frames: Frame[] | undefined = undefined;
 
   constructor(private serializerService: SerializerService,
               public canvasStore: CanvasStore) {
@@ -25,10 +25,10 @@ export class JsonPrismComponent {
   }
 
   onVisibleChange(value: boolean) {
-    if (value === false) {
+    if (!value) {
       this.serializerService.hideSerializer();
     } else {
-      this.rootFrame = this.serializerService.serializeToJSON();
+      this.frames = this.serializerService.serializeToJSON();
     }
   }
 }

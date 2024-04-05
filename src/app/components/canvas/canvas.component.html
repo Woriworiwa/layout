@@ -1,0 +1,20 @@
+<div #wrapper
+     class="pan-zoom-wrapper"
+     [id]="CANVAS_WRAPPER_ID"
+     cdkDropList
+     cdkDropListSortingDisabled="false"
+     (cdkDropListDropped)="onDrop($event)">
+  @for (frame of frames; track frame.key) {
+    <app-frame [frame]="frame"
+               cdkDrag
+               cdkDropList
+               [id]="frame.key!"
+               [dragDropDisabled]="isGrabMode"
+               [cdkDragDisabled]="isGrabMode"
+               [selectedFrameKey]="selectedFrameKey"
+               [cdkDropListOrientation]="frame.flexLayoutSettings?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
+               (clicked)="onFrameClicked($event)"
+               (cdkDropListDropped)="onDrop($event)"
+               (frameContentChanged)="onContentChanged($event)"></app-frame>
+  }
+</div>

@@ -1,0 +1,32 @@
+@switch (frame?.frameType) {
+  @case (FrameType.FLEX) {
+      {{ frame?.name }}
+
+    <div class="selection-wrapper">
+      <div app-display-flex
+           [model]="frame?.flexLayoutSettings">
+        @for (childFrame of frame?.children; track childFrame) {
+          @switch (childFrame.frameType) {
+            @case (FrameType.FLEX) {
+              <app-frame [frame]="childFrame"
+                         (clicked)="onChildClicked($event)"
+                         [selectedFrameKey]="selectedFrameKey"
+                         [id]="childFrame.key!"
+                         cdkDrag
+                         cdkDropList
+                         [cdkDragDisabled]="dragDropDisabled"
+                         (cdkDropListDropped)="onDrop($event)"
+                         (frameContentChanged)="onChildFrameContentChanged($event)"></app-frame>
+            }
+            @case (FrameType.TEXT) {
+              <app-text app-editable-content cdkDrag>{{childFrame.name}}</app-text>
+            }
+          }
+        }
+      </div>
+    </div>
+  }
+  @case (FrameType.TEXT) {
+    <app-text></app-text>
+  }
+}

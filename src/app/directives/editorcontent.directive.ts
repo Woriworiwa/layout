@@ -37,6 +37,12 @@ export class EditorContentDirective {
     this.frameContentChanged.emit({key: this.key!, content: $event.target.childNodes[0].innerText});
   }
 
+  /*prevent propagation so the grab event on the canvas will not fire*/
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event:any) {
+    event.stopPropagation();
+  }
+
   constructor(private elementRef: ElementRef) {
   }
 

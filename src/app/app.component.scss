@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  .template-content {
+    flex-grow: 1;
+  }
 }
 
 p-splitter {
@@ -11,9 +15,4 @@ p-splitter {
     display: flex;
     flex-grow: 1;
   }
-}
-
-app-canvas {
-  flex-grow: 1;
-  overflow: auto
 }

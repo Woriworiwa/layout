@@ -1,0 +1,12 @@
+<p-tree class="w-full md:w-30rem"
+        [value]="treeNodes"
+        ngDefaultControl
+        [(selection)]="selectedFrames"
+        selectionMode="single"
+        (selectionChange)="onSelectionChanged($event)"
+        [draggableNodes]="true"
+        [droppableNodes]="true"
+        draggableScope="self"
+        droppableScope="self"
+        (onNodeDrop)="onNodeDrop($event)">
+</p-tree>

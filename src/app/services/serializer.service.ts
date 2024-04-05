@@ -23,68 +23,71 @@ export class SerializerService {
   }
 
   serializeToJSON() {
-    if (!this.canvasStore.rootFrame) {
+    if (!this.canvasStore.frames) {
       return undefined;
     }
 
-    return this.sanitizeFrame(cloneDeep(this.canvasStore.rootFrame));
+    return this.sanitizeFrames(cloneDeep(this.canvasStore.frames));
   }
 
-  serializeToCSS(frame: Frame) {
-    const cssArray = this.generateCSSArray(frame, 0);
+  serializeToCSS(frames: Frame[]) {
+    const cssArray = this.generateCSSArray(frames, 0);
 
     return cssArray.join('\n');
   }
 
-  private generateCSSArray(frame: Frame | undefined, level: number): string[] {
-    if (!frame || !frame.flexLayoutSettings) {
+  private generateCSSArray(frames: Frame[] | undefined, level: number): string[] {
+    if (!frames || !frames.length) {
       return [];
     }
 
     const css: string[] = [];
 
-    if (level) {
-      css.push(' ');
-    }
-
-    css.push(' '.repeat(level) + `.${frame.key} {`);
-
-    for (const key of Object.keys(frame.flexLayoutSettings)) {
-      const value = frame.flexLayoutSettings[key as keyof FlexLayoutSettings];
-
-      // Convert camelCase to kebab-case for CSS property names
-      const cssPropertyName = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-
-      if (value) {
-        css.push(' '.repeat(!level? 1 : level* 2) + `${cssPropertyName}: ${value};`);
+    frames.forEach(frame => {
+      if (!frame.flexLayoutSettings) {
+        return;
       }
-    }
 
-    if (frame.children.length > 0) {
-      frame.children.forEach(child => {
-        css.push(...this.generateCSSArray(child, level + 1));
-      });
-    }
+      if (level) {
+        css.push(' ');
+      }
 
-    css.push(' '.repeat(level) + '}');
+      css.push(' '.repeat(level) + `.${frame.key} {`);
+
+      for (const key of Object.keys(frame.flexLayoutSettings)) {
+        const value = frame.flexLayoutSettings[key as keyof FlexLayoutSettings];
+
+        // Convert camelCase to kebab-case for CSS property names
+        const cssPropertyName = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+        if (value) {
+          css.push(' '.repeat(!level? 1 : level* 2) + `${cssPropertyName}: ${value};`);
+        }
+      }
+
+      css.push(...this.generateCSSArray(frame.children, level + 1));
+
+      css.push(' '.repeat(level) + '}');
+    });
+
     return css;
   }
 
-  private sanitizeFrame(frame: Frame) {
-    if (!frame) {
+  private sanitizeFrames(frames: Frame[]) {
+    if (!frames || !frames.length) {
       return;
     }
 
-    this.sanitizeObject(frame);
-    this.sanitizeObject(frame.flexLayoutSettings);
+    frames.forEach(frame => {
+      this.sanitizeObject(frame);
+      this.sanitizeObject(frame.flexLayoutSettings);
 
-    if (frame.children.length > 0) {
-      frame.children.forEach(child => {
-        this.sanitizeFrame(child);
-      });
-    }
+      if (frame.children) {
+        this.sanitizeFrames(frame.children);
+      }
+    });
 
-    return frame;
+    return frames;
   }
 
   private sanitizeObject<T>(object: T) {

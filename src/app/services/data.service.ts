@@ -1,26 +1,24 @@
 import {Frame} from "../models/frame.model";
 import {Injectable} from "@angular/core";
-import {mockData} from "../store/mock-data";
+import {mockData} from "../data/mock-data";
+import {flexPresets, textPresets} from "../data/presets";
+import {Preset} from "../models/preset.model";
+import cloneDeep from "lodash.clonedeep";
+
 
 @Injectable()
 export class DataService {
   getInitialData() {
-    const frames: Frame = mockData as Frame;
-    this.assingKeys([frames], undefined)
-
+    const frames: Frame[] = mockData as Frame[];
     return frames;
   }
 
-  private assingKeys(frames: Frame[], parentKey: string | undefined) {
-    frames.forEach((frame, index) => {
-      if (frame.key == null) {
-        frame.key = parentKey == null ? `0` : `${parentKey}-${index}`;
-      }
+  getPresets() {
+    const presets: Preset[] = [...flexPresets as Preset[], ...textPresets as Preset[]]
+    return presets;
+  }
 
-      if (frame.children.length > 0) {
-        this.assingKeys(frame.children, frame.key);
-      }
-    });
-
+  getPreset(presetId: string) {
+    return this.getPresets().find(preset => preset.presetId === presetId);
   }
 }
