@@ -29,15 +29,15 @@ export const flexPresets = [
       },
       "children": [
         {
-          "name": "1",
+          "name": "__    1   ____",
           "frameType": "TEXT"
         },
         {
-          "name": "2",
+          "name": "_____    2    ______",
           "frameType": "TEXT"
         },
         {
-          "name": "3",
+          "name": "__________    3    __________",
           "frameType": "TEXT"
         }
       ]

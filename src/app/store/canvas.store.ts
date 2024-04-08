@@ -4,7 +4,7 @@ import {Frame} from "../models/frame.model";
 import cloneDeep from 'lodash.clonedeep';
 import {distinctUntilChanged, map} from "rxjs";
 import {FlexLayoutSettings} from "../models/flex-layout.model";
-import {FlexDirection, FrameType, JustifyContent} from "../models/enums";
+import {FrameType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {DataService} from "../services/data.service";
 

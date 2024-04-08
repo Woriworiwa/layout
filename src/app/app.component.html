@@ -4,8 +4,8 @@
 
 <p-splitter styleClass="splitter-content"
             [style]="{ height: '100%' }"
-            [panelSizes]="[20, 55, 25]"
-            [minSizes]="[20, 10, 20]">
+            [panelSizes]="[15,20, 55, 25]"
+            [minSizes]="[15,20, 10, 20]">
 
   <ng-template pTemplate>
     <div class="template-content">
@@ -13,6 +13,11 @@
     </div>
   </ng-template>
 
+  <ng-template pTemplate>
+    <div class="template-content">
+      <app-insert></app-insert>
+    </div>
+  </ng-template>
   <ng-template pTemplate>
     <div class="template-content">
       <app-canvas></app-canvas>

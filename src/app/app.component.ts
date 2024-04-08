@@ -9,15 +9,16 @@ import {CanvasComponent} from "./components/canvas/canvas.component";
 import {DataService} from "./services/data.service";
 import {Frame} from "./models/frame.model";
 import {HeaderComponent} from "./components/header/header.component";
-import {ThemeOptionsComponent} from "./components/app-settings/theme-options.component";
+import {ThemeOptionsComponent} from "./components/settings/theme-options.component";
 import {SerializerService} from "./services/serializer.service";
 import {SplitterModule} from "primeng/splitter";
 import {LeftPanelComponent} from "./components/left-panel/left-panel.component";
+import {InsertComponent} from "./components/insert/insert.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, LeftPanelComponent],
+  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, LeftPanelComponent, InsertComponent],
   providers: [CanvasStore, DataService, SerializerService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

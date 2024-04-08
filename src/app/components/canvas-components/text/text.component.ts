@@ -6,7 +6,7 @@ import {EditorContentDirective} from "../../../directives/editorcontent.directiv
   selector: 'app-text',
   standalone: true,
   imports: [CommonModule],
-  template: `<p><ng-content></ng-content></p>`,
+  template: `<ng-content></ng-content>`,
 
   styles: `
   :host{

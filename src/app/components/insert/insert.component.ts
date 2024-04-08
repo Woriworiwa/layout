@@ -6,11 +6,12 @@ import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {FrameType} from "../../models/enums";
 import {DataService} from "../../services/data.service";
 import {Preset} from "../../models/preset.model";
+import {FrameComponent} from "../canvas-components/frame/frame.component";
 
 @Component({
   selector: 'app-insert',
   standalone: true,
-  imports: [CommonModule, CdkDrag, CdkDropList],
+  imports: [CommonModule, CdkDrag, CdkDropList, FrameComponent],
   template: `
       <div [cdkDropListConnectedTo]="frameIds"
            class="items-list"
@@ -23,6 +24,8 @@ import {Preset} from "../../models/preset.model";
                (cdkDragStarted)="onDragStarted()"
                (cdkDragEnded)="onDragEnded()">
             {{item.presetName}}
+              <app-frame [frame]="item.presetDefinition"></app-frame>
+
           </div>
         }
       </div>
@@ -46,9 +49,10 @@ import {Preset} from "../../models/preset.model";
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 10px;
       flex-grow: 1;
       padding: 20px;
+
     }
 
     .item {
@@ -56,6 +60,18 @@ import {Preset} from "../../models/preset.model";
       background: #f3f3f3;
       border-radius: 4px;
       padding: 20px;
+
+
+
+      .gaga {
+
+      }
+      app-frame {
+        line-break:anywhere;
+        /*scale: 0.5;*/
+        /*transform-origin: top left;*/
+        /*margin-bottom: calc((0.5 - 1) * 100%);*/
+      }
     }
 
     .item {

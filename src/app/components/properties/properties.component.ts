@@ -2,13 +2,13 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/co
 import {CommonModule} from '@angular/common';
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {Frame} from "../../models/frame.model";
-import {PropertiesFlex} from "./properties.flex";
+import {PropertiesFlex} from "./properties-flex.component";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
 import { FrameType } from '../../models/enums';
-import {ThemeOptionsComponent} from "../app-settings/theme-options.component";
+import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {SerializerService} from "../../services/serializer.service";
 import {CssPrismComponent} from "../prisms/css-prism.component";
 

@@ -4,36 +4,58 @@ export const mockData =
     {
       "frameType": "FLEX",
       "flexLayoutSettings": {
-        "flexDirection": "row",
+        "flexDirection": "column",
         "flexWrap": "wrap",
-        "justifyContent": "end"
+        "gap": "16",
+        "justifyContent": "space-evenly",
+        "alignItems": "center"
       },
       "children": [
         {
-          "name": "lorem ipsum",
-          "frameType": "TEXT"
+          "name": "____________________    1   ____________________",
+          "frameType": "TEXT",
+          "key": "vAHJAJ5i"
         },
         {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
+          "name": "_____    2    ______",
+          "frameType": "TEXT",
+          "key": "l6v0uyLi"
         },
         {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
-        },
-        {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
-        },
-        {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
-        },
-        {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
+          "name": "__________    3    __________",
+          "frameType": "TEXT",
+          "key": "Mgl6xeP3"
         }
-      ]
+      ],
+      "key": "TU5cxsc7"
+    },
+    {
+      "frameType": "FLEX",
+      "flexLayoutSettings": {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "gap": "16",
+        "justifyContent": "start",
+        "alignItems": "center"
+      },
+      "children": [
+        {
+          "name": "____________________    1   ____________________",
+          "frameType": "TEXT",
+          "key": "hrgDqbxP"
+        },
+        {
+          "name": "_____    2    ______",
+          "frameType": "TEXT",
+          "key": "Fcu0T0kx"
+        },
+        {
+          "name": "__________    3    __________",
+          "frameType": "TEXT",
+          "key": "6ng1cuxY"
+        }
+      ],
+      "key": "dqJIuKDD"
     },
     {
       "frameType": "FLEX",
@@ -51,22 +73,28 @@ export const mockData =
           "children": [
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT"
+              "frameType": "TEXT",
+              "key": "xzfllvrw"
             },
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT"
+              "frameType": "TEXT",
+              "key": "AAffahCX"
             },
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT"
+              "frameType": "TEXT",
+              "key": "lZzhgUi9"
             },
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT"
+              "frameType": "TEXT",
+              "key": "JtswtbUN"
             }
-          ]
+          ],
+          "key": "X9ID8XUZ"
         }
-      ]
+      ],
+      "key": "PL5Jbh3H"
     }
   ]

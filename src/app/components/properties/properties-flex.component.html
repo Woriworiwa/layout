@@ -1,0 +1,44 @@
+<ng-container [formGroup]="formGroup">
+  <app-property-panel-row label="padding">
+    <div>
+      <p-inputNumber inputId="integeronly" formControlName="padding"></p-inputNumber>
+      <p-slider formControlName="padding"></p-slider>
+    </div>
+  </app-property-panel-row>
+
+  <app-property-panel-row label="Direction">
+    <p-selectButton [options]="flexDirectionOptions"
+                    formControlName="flexDirection"
+                    optionLabel="label"
+                    optionValue="value"></p-selectButton>
+  </app-property-panel-row>
+
+  <app-property-panel-row label="gap">
+    <div>
+      <p-inputNumber inputId="integeronly" formControlName="gap"></p-inputNumber>
+      <p-slider formControlName="gap"></p-slider>
+    </div>
+  </app-property-panel-row>
+
+  <app-property-panel-row label="Wrap">
+    <p-selectButton [options]="flexWrapOptions"
+                    formControlName="flexWrap"
+                    optionLabel="label"
+                    optionValue="value"></p-selectButton>
+  </app-property-panel-row>
+
+    <app-prop-dropdown [options]="justifyContentOptions"
+                       [control]="justifyContent"
+                       label="justify-content"></app-prop-dropdown>
+
+    <app-prop-dropdown [options]="alignItemsOptions"
+                        [control]="alignItems"
+                        label="align-items"></app-prop-dropdown>
+
+<!--  <app-property-panel-row label="padding">-->
+<!--    <div class="trbl">-->
+<!--      <input type="text" pInputText placeholder="Price" />-->
+<!--      <input type="text" pInputText placeholder="Price" />-->
+<!--    </div>-->
+<!--  </app-property-panel-row>-->
+</ng-container>

@@ -15,10 +15,12 @@ export class DataService {
 
   getPresets() {
     const presets: Preset[] = [...flexPresets as Preset[], ...textPresets as Preset[]]
+
     return presets;
   }
 
   getPreset(presetId: string) {
     return this.getPresets().find(preset => preset.presetId === presetId);
   }
+
 }

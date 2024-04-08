@@ -36,6 +36,10 @@ export class SerializerService {
     return cssArray.join('\n');
   }
 
+  serializeToStyles(frame: Frame[]) {
+
+  }
+
   private generateCSSArray(frames: Frame[] | undefined, level: number): string[] {
     if (!frames || !frames.length) {
       return [];

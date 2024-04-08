@@ -7,66 +7,37 @@ import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {CanvasStore} from "../../store/canvas.store";
 import {SliderModule} from "primeng/slider";
 import {InputNumberModule} from "primeng/inputnumber";
-import {FlexDirection, FlexWrap, JustifyContent} from "../../models/enums";
 import {Property} from "csstype";
 import {DropdownModule} from "primeng/dropdown";
-import {FlexLayoutSettings} from "../../models/flex-layout.model";
+import {AlignItems, FlexDirection, FlexLayoutSettings, FlexWrap, JustifyContent} from "../../models/flex-layout.model";
+import {DropdownComponent} from "./templates/dropdown.component";
+import {InputGroupModule} from "primeng/inputgroup";
+import {InputGroupAddonModule} from "primeng/inputgroupaddon";
+import {InputTextModule} from "primeng/inputtext";
 
 @Component({
   selector: 'app-settings-flex',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonModule, PropertyPanelRowComponent, FormsModule, SliderModule, InputNumberModule, DropdownModule],
-  template: `
-    <ng-container [formGroup]="formGroup">
-      <app-property-panel-row label="Direction">
-        <p-selectButton [options]="flexDirectionOptions"
-                        formControlName="flexDirection"
-                        optionLabel="label"
-                        optionValue="value"></p-selectButton>
-      </app-property-panel-row>
-
-      <app-property-panel-row label="gap">
-        <div>
-          <p-inputNumber inputId="integeronly" formControlName="gap"></p-inputNumber>
-          <p-slider formControlName="gap"></p-slider>
-        </div>
-      </app-property-panel-row>
-
-      <app-property-panel-row label="Wrap">
-        <p-selectButton [options]="flexWrapOptions"
-                        formControlName="flexWrap"
-                        optionLabel="label"
-                        optionValue="value"></p-selectButton>
-      </app-property-panel-row>
-
-      <app-property-panel-row label="justify-content">
-        <p-dropdown [options]="justifyContentOptions"
-                    [formControl]="justifyContent"
-                    [showClear]="true"></p-dropdown>
-      </app-property-panel-row>
-    </ng-container>
-  `,
+  imports: [CommonModule, ReactiveFormsModule, SelectButtonModule, PropertyPanelRowComponent, FormsModule, SliderModule, InputNumberModule, DropdownModule, DropdownComponent, InputGroupModule, InputGroupAddonModule, InputTextModule],
+  templateUrl: './properties-flex.component.html',
   styles: `
     :host {
       display: contents;
     }
 
-    app-property-panel-row {
-      display: contents;
+    .trbl {
+      display: flex;
+      input {
+        flex-grow: 1;
+      }
     }
   `
 })
 export class PropertiesFlex {
   @Input() flexLayoutSettings: FlexLayoutSettings | undefined;
 
-  private destroy$ = new Subject();
-  private formUpdating = false;
-
-  get justifyContent(): FormControl {
-    return this.formGroup?.get('justifyContent') as FormControl;
-  }
-
+  /* options */
   /*direction*/
   flexDirectionOptions = [
     {label: 'Row', value: FlexDirection.row},
@@ -88,40 +59,33 @@ export class PropertiesFlex {
     JustifyContent["space-evenly"]
   ]
 
+  alignItemsOptions = [
+    AlignItems.start,
+    AlignItems.end,
+    AlignItems.center,
+    AlignItems.stretch,
+    AlignItems.baseline
+  ]
+
   formGroup: FormGroup;
   formGroupValueChangedSubscription: Subscription | undefined;
+
+  private destroy$ = new Subject();
+  private formUpdating = false;
+
+  get justifyContent(): FormControl {
+    return this.formGroup?.get('justifyContent') as FormControl;
+  }
+  get alignItems(): FormControl {
+    return this.formGroup?.get('alignItems') as FormControl;
+  }
 
   constructor(public fb: FormBuilder,
               protected frameStore: CanvasStore) {
     this.formGroup = this.createFormGroup();
   }
 
-
-  createFormGroup() {
-    if (this.formGroupValueChangedSubscription) {
-      this.formGroupValueChangedSubscription.unsubscribe();
-    }
-
-    const formGroup = this.fb.group({
-      flexDirection: new FormControl<Property.FlexDirection | null | undefined>(undefined),
-      flexWrap: [''],
-      gap: new FormControl<Property.Gap | null | undefined>(null),
-      justifyContent: new FormControl<Property.JustifyContent | null | undefined>(null)
-    });
-
-    this.formGroupValueChangedSubscription = formGroup.valueChanges
-      .pipe(
-        takeUntil(this.destroy$)
-      )
-      .subscribe((value: any) => {
-        this.frameStore.updateFlexLayoutSettings(value);
-      });
-
-    return formGroup;
-  }
-
   ngOnChanges() {
-
     this.formGroup = this.createFormGroup();
 
     if (this.flexLayoutSettings) {
@@ -135,5 +99,30 @@ export class PropertiesFlex {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
+  }
+
+  private createFormGroup() {
+    if (this.formGroupValueChangedSubscription) {
+      this.formGroupValueChangedSubscription.unsubscribe();
+    }
+
+    const formGroup = this.fb.group({
+      flexDirection: new FormControl<Property.FlexDirection | null | undefined>(undefined),
+      flexWrap: [''],
+      gap: new FormControl<Property.Gap | null | undefined>(null),
+      justifyContent: new FormControl<Property.JustifyContent | null | undefined>(null),
+      alignItems: new FormControl<Property.AlignItems | null | undefined>(null),
+      padding: new FormControl<Property.Padding | null  | undefined>(null)
+    });
+
+    this.formGroupValueChangedSubscription = formGroup.valueChanges
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe((value: any) => {
+        this.frameStore.updateFlexLayoutSettings(value);
+      });
+
+    return formGroup;
   }
 }
