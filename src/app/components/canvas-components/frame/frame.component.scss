@@ -22,5 +22,27 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
   &.selected > .selection-wrapper:first-child {
     box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;
   }
+
+  &.hover > .selection-wrapper:first-child {
+    box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;
+  }
+
+  .add-item {
+    display: none;
+  }
+
+  &.hover-add-item-enabled, &.selected {
+    > .selection-wrapper > .add-item {
+      display: block;
+      position: absolute;
+      margin-bottom: -40px;
+    }
+  }
+}
+
+:host ::ng-deep .p-button.p-button-icon-only.p-button-rounded {
+  font-size: 8px;
+  width: 2rem;
+  height: 2rem;
 }
 

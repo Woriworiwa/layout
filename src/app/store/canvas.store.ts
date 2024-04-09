@@ -42,13 +42,13 @@ export class CanvasStore extends Store<CanvasState> {
   get selectedFrame$() {
     return this.state.pipe(
       map(state => state.selectedFrameKey),
-      map(selectedFrameKey => this.findFrameByKey(this.getState().frames, selectedFrameKey)),
+      map(selectedFrameKey => this.getFrameByKey(this.getState().frames, selectedFrameKey)),
       distinctUntilChanged()
     );
   }
 
   selectedFrame() {
-    return this.findFrameByKey(this.getState().frames, this.getState().selectedFrameKey);
+    return this.getFrameByKey(this.getState().frames, this.getState().selectedFrameKey);
   }
 
   setSelectedFrameKey(key: string | undefined) {
@@ -64,7 +64,7 @@ export class CanvasStore extends Store<CanvasState> {
     )
   }
 
-  addNewPreset(presetId: string, parentFrameId: string , index: number) {
+  addNewPreset(presetId: string, insertAfterFrameId: string) {
     const preset = this.dataService.getPreset(presetId);
 
     if (!preset) {
@@ -74,22 +74,23 @@ export class CanvasStore extends Store<CanvasState> {
     const newFrame = cloneDeep(preset.presetDefinition);
     newFrame.key = this.generateUniqueId();
 
-    if (parentFrameId === CANVAS_WRAPPER_ID) {
+    const parentFrameKey = this.getParentFrameKey(insertAfterFrameId, this.frames, CANVAS_WRAPPER_ID);
+
+    if (parentFrameKey === CANVAS_WRAPPER_ID) {
       const frames = this.getState().frames || [];
-      frames.splice(index, 0, newFrame);
+      frames.splice(this.frames.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
       this.frames = frames;
     } else {
-      const targetFrame = this.findFrameByKey(this.frames, parentFrameId);
-
-      if (!targetFrame) {
+      const parentFrame = this.getFrameByKey(this.frames, parentFrameKey);
+      if (!parentFrame) {
         return;
       }
 
-      if (!targetFrame?.children) {
-        targetFrame.children = [];
+      if (!parentFrame?.children) {
+        parentFrame.children = [];
       }
 
-      targetFrame?.children?.splice(index, 0, newFrame);
+      parentFrame?.children?.splice(parentFrame.children.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
       this.frames = this.frames;
     }
 
@@ -125,7 +126,7 @@ export class CanvasStore extends Store<CanvasState> {
     return frameIds;
   }
 
-  private findFrameByKey(frames: Frame[] | undefined, key: string | undefined): Frame | undefined {
+  private getFrameByKey(frames: Frame[] | undefined, key: string | undefined): Frame | undefined {
     if (!frames || !frames.length || key == null) {
       return undefined;
     }
@@ -135,12 +136,34 @@ export class CanvasStore extends Store<CanvasState> {
         return frame;
       }
 
-      const childFrame = this.findFrameByKey(frame.children, key);
+      const childFrame = this.getFrameByKey(frame.children, key);
       if (childFrame) {
         return childFrame;
       }
     }
 
+    return undefined;
+  }
+
+  getParentFrameKey(childKey: string, frames: Frame[], parentKey: string | undefined): string | undefined {
+    for (const item of frames) {
+      if (item.key === childKey) {
+        return parentKey;
+      }
+
+      if (item.children) {
+        for (const child of item.children) {
+          if (child.key === childKey) {
+            return item.key;
+          } else if (child.children) {
+            const parent = this.getParentFrameKey(childKey, child.children, child.key);
+            if (parent) {
+              return parent;
+            }
+          }
+        }
+      }
+    }
     return undefined;
   }
 

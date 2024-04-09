@@ -12,13 +12,11 @@ import {HeaderComponent} from "./components/header/header.component";
 import {ThemeOptionsComponent} from "./components/settings/theme-options.component";
 import {SerializerService} from "./services/serializer.service";
 import {SplitterModule} from "primeng/splitter";
-import {LeftPanelComponent} from "./components/left-panel/left-panel.component";
-import {InsertComponent} from "./components/insert/insert.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, LeftPanelComponent, InsertComponent],
+  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule],
   providers: [CanvasStore, DataService, SerializerService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

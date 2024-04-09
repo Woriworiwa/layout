@@ -1,7 +1,7 @@
 import {Frame} from "../models/frame.model";
 import {Injectable} from "@angular/core";
-import {mockData} from "../data/mock-data";
-import {flexPresets, textPresets} from "../data/presets";
+import {mockData} from "../models/data/mock-data";
+import {flexPresets, textPresets} from "../models/data/presets";
 import {Preset} from "../models/preset.model";
 import cloneDeep from "lodash.clonedeep";
 

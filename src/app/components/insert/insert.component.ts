@@ -1,114 +1,34 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {CanvasStore} from "../../store/canvas.store";
-import {CANVAS_WRAPPER_ID} from "../../models/constants";
-import {FrameType} from "../../models/enums";
 import {DataService} from "../../services/data.service";
 import {Preset} from "../../models/preset.model";
-import {FrameComponent} from "../canvas-components/frame/frame.component";
+import {PresetComponent} from "./preset.component";
 
 @Component({
   selector: 'app-insert',
   standalone: true,
-  imports: [CommonModule, CdkDrag, CdkDropList, FrameComponent],
-  template: `
-      <div [cdkDropListConnectedTo]="frameIds"
-           class="items-list"
-           cdkDropList
-           cdkDropListSortingDisabled="true">
-        @for (item of items; track item) {
-          <div class="item"
-               cdkDrag
-               [cdkDragData]="item.presetId"
-               (cdkDragStarted)="onDragStarted()"
-               (cdkDragEnded)="onDragEnded()">
-            {{item.presetName}}
-              <app-frame [frame]="item.presetDefinition"></app-frame>
-
-          </div>
-        }
-      </div>
-  `,
-  styles: `
-    :host {
-      display: flex;
-      justify-content: start;
-      position: relative;
-      z-index: 2;
-    }
-
-    .wrapper {
-      margin: 0 25px 25px 0;
-      display: flex;
-    }
-
-    .items-list {
-      background: white;
-      border-radius: 4px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex-grow: 1;
-      padding: 20px;
-
-    }
-
-    .item {
-      padding: 20px 10px;
-      background: #f3f3f3;
-      border-radius: 4px;
-      padding: 20px;
-
-
-
-      .gaga {
-
-      }
-      app-frame {
-        line-break:anywhere;
-        /*scale: 0.5;*/
-        /*transform-origin: top left;*/
-        /*margin-bottom: calc((0.5 - 1) * 100%);*/
-      }
-    }
-
-    .item {
-      cursor: move;
-    }
-  `
+  imports: [CommonModule, CdkDrag, CdkDropList, PresetComponent],
+  templateUrl: 'insert.component.html',
+  styleUrls: [`insert.component.scss`]
 })
 export class InsertComponent {
-  frameIds: string[] = [];
-
   items: Preset[];
 
-  @Output()
-  dragStarted = new EventEmitter<void>();
+  @Input()
+  parentFrameId: string | undefined;
 
   @Output()
-  dragEnded = new EventEmitter<void>();
+  componentAdded = new EventEmitter<boolean>();
 
   constructor(private canvasStore: CanvasStore,
               private dataService: DataService) {
     this.items = this.dataService.getPresets();
   }
 
-  ngOnInit() {
-    this.canvasStore.frameIds$
-      .subscribe(ids => {
-        this.frameIds = [...ids, CANVAS_WRAPPER_ID, 'structure-tree-drop-wrapper'];
-        console.log(ids);
-      })
-  }
-
-
-  onDragStarted() {
-    this.dragStarted.emit();
-  }
-
-  onDragEnded() {
-    this.dragEnded.emit();
+  addItem(presetId: string) {
+    this.canvasStore.addNewPreset(presetId, this.parentFrameId!);
+    this.componentAdded.emit(true);
   }
 }

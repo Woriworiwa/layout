@@ -6,11 +6,12 @@ import {Frame} from "../../models/frame.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
+import {CanvasItemComponent} from "../canvas-components/canvas-item/canvas-item.component";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent],
+  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CanvasItemComponent],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
@@ -111,9 +112,9 @@ export class CanvasComponent {
   }
 
   onDrop(event: CdkDragDrop<string[]>) {
-    if (event.item.data) {
-      this.canvasStore.addNewPreset(event.item.data, event.container.id, event.currentIndex);
-    }
+    // if (event.item.data) {
+    //   this.canvasStore.addNewPreset(event.item.data, event.container.id, event.currentIndex);
+    // }
   }
 
   private setTransformStyles() {

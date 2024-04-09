@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
+import {CanvasItemComponent} from "../canvas-item/canvas-item.component";
 
 @Component({
   selector: 'app-text',
@@ -19,4 +20,4 @@ import {EditorContentDirective} from "../../../directives/editorcontent.directiv
   }
   `
 })
-export class TextComponent {}
+export class TextComponent extends CanvasItemComponent{}
