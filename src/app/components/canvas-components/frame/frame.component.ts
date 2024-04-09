@@ -23,57 +23,29 @@ import {CanvasItemComponent} from "../canvas-item/canvas-item.component";
   selector: 'app-frame',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditorContentDirective, DisplayFlexDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent],
-  host: {
-    '[class.selected]' : 'selectedFrameKey && selectedFrameKey === frame?.key',
-    '[class.hover]': 'isMouseOver',
-    '[class.hover-add-item-enabled]': 'isMouseOver && !selectedFrameKey'
-  },
+  imports: [CommonModule, EditorContentDirective, DisplayFlexDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent],
+
 
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })
-export class FrameComponent extends CanvasItemComponent{
+export class FrameComponent{
   protected readonly FrameType = FrameType;
-  @Input() frame: Frame | undefined;
+  @Output() frameContentChanged = new EventEmitter<{ key: string , content: string }>();
+  @Input() item: Frame | undefined;
+  @Output() clicked = new EventEmitter<string>();
   @Input() selectedFrameKey!: string | undefined;
   @Input() dragDropDisabled = true;
-  @Output() clicked = new EventEmitter<string>();
-  @Output() frameContentChanged = new EventEmitter<{ key: string , content: string }>();
-
-  @HostBinding('class.is-grabbing')
-  isMouseOver = false;
-
-  @HostListener('click', ['$event'])
-  onClick($event:any) {
-    $event.stopPropagation();
-    this.clicked.emit(this.frame?.key);
-  }
-
-  @HostListener('mouseover', ['$event'])
-  onMouseOver($event:any) {
-    $event.stopPropagation();
-    $event.stopImmediatePropagation();
-    this.isMouseOver = true;
-    console.log('mouse over' + $event.target)
-  }
-
-  @HostListener('mouseout', ['$event'])
-  onMouseLeave($event: any) {
-    $event.stopPropagation();
-    this.isMouseOver = false;
-    console.log('mouse leave' + $event.target)
-  }
 
   constructor(private canvasStore: CanvasStore) {
-    super();
+
   }
 
   onDrop(event: CdkDragDrop<string[]>) {
     // this.canvasStore.addNewPreset(event.item.data, event.container.id, event.currentIndex);
   }
 
-  protected onChildClicked(key: string) {
+  protected onClick(key: string) {
     this.clicked.emit(key);
   }
 

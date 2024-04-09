@@ -39,6 +39,7 @@ export class CanvasComponent {
     this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
   }
 
+  /*Zoom with mouse wheel*/
   @HostListener('mousewheel', ['$event'])
   onClick(event: WheelEvent) {
     event.stopPropagation();
@@ -61,11 +62,13 @@ export class CanvasComponent {
     this.setTransformStyles();
   }
 
+  /*click*/
   @HostListener('click', ['$event'])
   oneClick(event: MouseEvent) {
     this.canvasStore.setSelectedFrameKey(undefined);
   }
 
+  /*mouse down*/
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
      if (event.button === 0) {
@@ -115,6 +118,8 @@ export class CanvasComponent {
     // if (event.item.data) {
     //   this.canvasStore.addNewPreset(event.item.data, event.container.id, event.currentIndex);
     // }
+
+    this.canvasStore.moveFrameChild(event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
   }
 
   private setTransformStyles() {

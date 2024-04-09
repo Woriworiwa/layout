@@ -1,13 +1,15 @@
-<div class="selection-wrapper">
-  @switch (frame?.frameType) {
-    @case (FrameType.FLEX) {
-      <div app-display-flex
-           [model]="frame?.flexLayoutSettings">
-        @for (childFrame of frame?.children; track childFrame) {
-          @switch (childFrame.frameType) {
-            @case (FrameType.FLEX) {
-              <app-frame [frame]="childFrame"
-                         (clicked)="onChildClicked($event)"
+@switch (item?.frameType) {
+  @case (FrameType.FLEX) {
+    <div app-display-flex
+         [model]="item?.flexLayoutSettings">
+      @for (childFrame of item?.children; track childFrame) {
+        @switch (childFrame.frameType) {
+          @case (FrameType.FLEX) {
+            <app-canvas-item [item]="childFrame"
+                             [selectedFrameKey]="selectedFrameKey"
+                             (clicked)="onClick($event)">
+              <app-frame [item]="childFrame"
+                         (clicked)="onClick($event)"
                          [selectedFrameKey]="selectedFrameKey"
                          [id]="childFrame.key!"
                          cdkDrag
@@ -15,25 +17,20 @@
                          [cdkDragDisabled]="dragDropDisabled"
                          (cdkDropListDropped)="onDrop($event)"
                          (frameContentChanged)="onChildFrameContentChanged($event)"></app-frame>
-            }
-            @case (FrameType.TEXT) {
+            </app-canvas-item>
+          }
+          @case (FrameType.TEXT) {
+            <app-canvas-item [item]="childFrame"
+                             [selectedFrameKey]="selectedFrameKey"
+                             (clicked)="onClick($event)">
               <app-text app-editable-content cdkDrag>{{ childFrame.name }}</app-text>
-            }
+            </app-canvas-item>
           }
         }
-      </div>
-    }
-    @case (FrameType.TEXT) {
-      <app-text></app-text>
-    }
+      }
+    </div>
   }
-  <div class="add-item">
-    <p-button icon="pi pi-plus" [rounded]="true" (click)="op.toggle($event)"></p-button>
-  </div>
-
-  <p-overlayPanel #op>
-    <ng-template pTemplate="content">
-      <app-insert [parentFrameId]="frame?.key" (componentAdded)="op.toggle($event)"></app-insert>
-    </ng-template>
-  </p-overlayPanel>
-</div>
+  @case (FrameType.TEXT) {
+    <app-text></app-text>
+  }
+}

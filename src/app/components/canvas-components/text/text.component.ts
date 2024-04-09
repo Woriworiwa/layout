@@ -20,4 +20,4 @@ import {CanvasItemComponent} from "../canvas-item/canvas-item.component";
   }
   `
 })
-export class TextComponent extends CanvasItemComponent{}
+export class TextComponent{}

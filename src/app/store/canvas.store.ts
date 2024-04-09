@@ -7,6 +7,7 @@ import {FlexLayoutSettings} from "../models/flex-layout.model";
 import {FrameType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {DataService} from "../services/data.service";
+import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 export class CanvasState {
   frames: Frame[] = [];
@@ -105,6 +106,27 @@ export class CanvasStore extends Store<CanvasState> {
     }
 
     selectedFrame.flexLayoutSettings = settings;
+
+    this.setState({
+      ...this.getState(),
+      frames: cloneDeep(this.getState().frames),
+    })
+  }
+
+  moveFrameChild(currentFrameId: string, previousFrameId: string, previousIndex: number, currentIndex: number) {
+    if (currentFrameId === previousFrameId && currentFrameId === CANVAS_WRAPPER_ID) {
+      moveItemInArray(this.frames, previousIndex, currentIndex);
+      return;
+    }
+
+    const currentContainer = this.getFrameByKey(this.frames, currentFrameId);
+    const previousContainer = this.getFrameByKey(this.frames, previousFrameId);
+
+    if (currentFrameId === previousFrameId) {
+      moveItemInArray(currentContainer?.children!, previousIndex, currentIndex);
+    } else {
+      transferArrayItem(previousContainer?.children!, currentContainer?.children!, previousIndex, currentIndex);
+    }
 
     this.setState({
       ...this.getState(),

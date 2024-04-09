@@ -5,8 +5,10 @@
      cdkDropListSortingDisabled="false"
      (cdkDropListDropped)="onDrop($event)">
   @for (frame of frames; track frame.key) {
-    <app-canvas-item>
-      <app-frame [frame]="frame"
+    <app-canvas-item [item]="frame"
+                     [selectedFrameKey]="selectedFrameKey"
+                     (clicked)="onFrameClicked($event)">
+      <app-frame [item]="frame"
                  cdkDrag
                  cdkDropList
                  cdkDropListSortingDisabled="true"
