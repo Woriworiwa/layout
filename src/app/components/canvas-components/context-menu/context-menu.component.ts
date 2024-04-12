@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, HostListener, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ContextMenu, ContextMenuModule} from "primeng/contextmenu";
 import {ContextMenuService} from "../../../services/context-menu.service";
@@ -11,20 +11,19 @@ import {CanvasStore} from "../../../store/canvas.store";
   standalone: true,
   imports: [CommonModule, ContextMenuModule],
   template: `
-    <p-contextMenu [target]="target" [model]="items" [global]="true" (onShow)="onShow()"
-                   (onHide)="onHide()"></p-contextMenu>`,
+    <!--set triggerEvent to empty string. we manually handle showing the context menu from the canvas item-->
+    <p-contextMenu [target]="target" [model]="items" triggerEvent="''" ></p-contextMenu>`,
   styles: ``
 })
 export class ContextMenuComponent {
   @Input() target: any;
   @Input() frameKey: string | undefined;
-
   @ViewChild(ContextMenu) contextMenu!: ContextMenu;
 
   items: MenuItem[] | undefined;
 
-  constructor(private contextMenuService: ContextMenuService,
-              private canvasStore: CanvasStore) {
+  constructor(private canvasStore: CanvasStore,
+              private contextMenuService: ContextMenuService) {
   }
 
   ngOnInit() {
@@ -36,23 +35,5 @@ export class ContextMenuComponent {
         }
       }
     ];
-  }
-
-  hide() {
-    setTimeout(() => {
-      this.contextMenu.hide();
-    }, 1);
-  }
-
-  show(event: any) {
-    this.contextMenu.show(event)
-  }
-
-  onShow() {
-    this.contextMenuService.add(this.contextMenu);
-  }
-
-  onHide() {
-    this.contextMenuService.remove(this.contextMenu);
   }
 }

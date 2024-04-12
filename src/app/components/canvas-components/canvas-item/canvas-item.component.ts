@@ -6,6 +6,7 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {SharedModule} from "primeng/api";
 import {Frame} from "../../../models/frame.model";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
+import {ContextMenuService} from "../../../services/context-menu.service";
 
 @Component({
   selector: 'app-canvas-item',
@@ -28,10 +29,13 @@ export class CanvasItemComponent {
   @HostBinding('class.is-grabbing')
   isMouseOver = false;
 
+  constructor(private contextMenuService: ContextMenuService) {
+  }
+
   @HostListener('click', ['$event'])
   onClick($event:any) {
     $event.stopPropagation();
-    this.contextMenu.hide();
+    this.contextMenuService.hide();
     this.clicked.emit(this.item?.key);
   }
 
@@ -51,8 +55,7 @@ export class CanvasItemComponent {
   @HostListener('contextmenu', ['$event'])
   onContextMenu($event: any) {
     $event.stopPropagation();
-    this.contextMenu.show($event);
-    return false;
-    // this.contextMenu.target = $event;
+    $event.preventDefault();
+    this.contextMenuService.show($event, this.contextMenu.contextMenu);
   }
 }
