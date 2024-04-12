@@ -41,8 +41,8 @@ export class FrameComponent{
 
   }
 
-  onDrop(event: CdkDragDrop<string[]>) {
-    // this.canvasStore.addNewPreset(event.item.data, event.container.id, event.currentIndex);
+  onDrop(event: CdkDragDrop<string | undefined, any>) {
+    this.canvasStore.moveFrameChild(event.container.data, event.previousContainer.data, event.previousIndex, event.currentIndex);
   }
 
   protected onClick(key: string) {

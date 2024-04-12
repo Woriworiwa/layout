@@ -9,6 +9,7 @@ import {CdkDropList} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {FrameType} from "../../models/enums";
+import {CANVAS_WRAPPER_ID} from "../../models/constants";
 
 @Component({
   selector: 'app-structure-tree',
@@ -35,7 +36,7 @@ export class StructureTreeComponent {
 
     this.canvasStore.selectedFrame$.subscribe(selectedFrame => {
       this.selectedFrames = selectedFrame;
-      this.expandNode(this.treeNodes, undefined, selectedFrame!);
+      this.expandNode(this.treeNodes, undefined, selectedFrame!, 'down');
     })
   }
 
@@ -72,18 +73,23 @@ export class StructureTreeComponent {
     })
   }
 
-  private expandNode(treeNodes: TreeNode<Frame>[], parentNode: TreeNode<Frame> | undefined, frame: Frame) {
+  private expandNode(treeNodes: TreeNode<Frame>[], parentNode: TreeNode<Frame> | undefined, frame: Frame, direction: 'up' | 'down') {
     treeNodes.forEach((node) => {
       if (node.data === frame) {
         node.expanded = true;
 
         if (parentNode) {
           parentNode.expanded = true;
-          this.expandNode(this.treeNodes, parentNode, parentNode.data!);
+
+          if (parentNode.data?.key !== CANVAS_WRAPPER_ID){
+            this.expandNode(this.treeNodes, node, node.data!, 'up');
+          }
         }
 
       } else {
-        this.expandNode(node.children || [], node, frame);
+        if (direction === 'down') {
+          this.expandNode(node.children || [], node, frame, 'down');
+        }
       }
     });
   }

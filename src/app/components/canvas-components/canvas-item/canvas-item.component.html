@@ -1,4 +1,4 @@
-<div class="selection-wrapper">
+<div #canvasItem class="selection-wrapper">
   <ng-content></ng-content>
 
   <div class="add-item">
@@ -11,3 +11,5 @@
     </ng-template>
   </p-overlayPanel>
 </div>
+
+<app-context-menu [target]="canvasItem" [frameKey]="item?.key"></app-context-menu>

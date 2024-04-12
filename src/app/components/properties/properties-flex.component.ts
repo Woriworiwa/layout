@@ -9,7 +9,7 @@ import {SliderModule} from "primeng/slider";
 import {InputNumberModule} from "primeng/inputnumber";
 import {Property} from "csstype";
 import {DropdownModule} from "primeng/dropdown";
-import {AlignItems, FlexDirection, FlexLayoutSettings, FlexWrap, JustifyContent} from "../../models/flex-layout.model";
+import {AlignItems, FlexDirection, FlexLayoutSettings, FlexWrap, JustifyContent} from "../../models/css-models/flex-layout.model";
 import {DropdownComponent} from "./templates/dropdown.component";
 import {InputGroupModule} from "primeng/inputgroup";
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";

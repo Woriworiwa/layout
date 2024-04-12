@@ -7,11 +7,13 @@ import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {CanvasItemComponent} from "../canvas-components/canvas-item/canvas-item.component";
+import {ContextMenuService} from "../../services/context-menu.service";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CanvasItemComponent],
+  providers: [ContextMenuService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
@@ -114,12 +116,8 @@ export class CanvasComponent {
     console.log(content);
   }
 
-  onDrop(event: CdkDragDrop<string[]>) {
-    // if (event.item.data) {
-    //   this.canvasStore.addNewPreset(event.item.data, event.container.id, event.currentIndex);
-    // }
-
-    this.canvasStore.moveFrameChild(event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
+  onDrop(event: CdkDragDrop<string | undefined, any>) {
+    this.canvasStore.moveFrameChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
   }
 
   private setTransformStyles() {

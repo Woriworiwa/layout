@@ -4,6 +4,10 @@
 
   background-color: #9161a7;
   border: 1px solid #ed9534;
+
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
 }
 
 

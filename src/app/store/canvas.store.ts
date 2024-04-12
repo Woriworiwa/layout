@@ -3,7 +3,7 @@ import {Store} from "./store";
 import {Frame} from "../models/frame.model";
 import cloneDeep from 'lodash.clonedeep';
 import {distinctUntilChanged, map} from "rxjs";
-import {FlexLayoutSettings} from "../models/flex-layout.model";
+import {FlexLayoutSettings} from "../models/css-models/flex-layout.model";
 import {FrameType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {DataService} from "../services/data.service";
@@ -11,6 +11,7 @@ import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 export class CanvasState {
   frames: Frame[] = [];
+  canvas: Frame | undefined;
   selectedFrameKey: string | undefined;
 }
 
@@ -98,6 +99,42 @@ export class CanvasStore extends Store<CanvasState> {
     this.setSelectedFrameKey(newFrame.key);
   }
 
+  deleteFrame(frameId: string | undefined) {
+    if (!frameId) {
+      return;
+    }
+
+    const parentFrameKey = this.getParentFrameKey(frameId, this.frames, CANVAS_WRAPPER_ID);
+    let frames: Frame[] = []
+    if (parentFrameKey === CANVAS_WRAPPER_ID) {
+      frames = this.frames;
+    } else {
+      const parentFrame = this.getFrameByKey(this.frames, parentFrameKey);
+
+      if (!parentFrame) {
+        return;
+      }
+
+      frames = parentFrame.children || [];
+    }
+
+
+
+    const index = frames.findIndex(frame => frame.key === frameId);
+
+    if (index < 0) {
+      return;
+    }
+
+    if (index > -1) {
+      frames.splice(index, 1);
+    }
+
+    this.frames = this.frames;
+
+    this.setSelectedFrameKey(undefined);
+  }
+
   updateFlexLayoutSettings(settings: FlexLayoutSettings) {
     const selectedFrame = this.selectedFrame();
 
@@ -113,7 +150,7 @@ export class CanvasStore extends Store<CanvasState> {
     })
   }
 
-  moveFrameChild(currentFrameId: string, previousFrameId: string, previousIndex: number, currentIndex: number) {
+  moveFrameChild(currentFrameId: string | undefined, previousFrameId: string, previousIndex: number, currentIndex: number) {
     if (currentFrameId === previousFrameId && currentFrameId === CANVAS_WRAPPER_ID) {
       moveItemInArray(this.frames, previousIndex, currentIndex);
       return;

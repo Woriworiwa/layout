@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {CanvasStore} from "../store/canvas.store";
 import {Frame} from "../models/frame.model";
-import {FlexLayoutSettings} from "../models/flex-layout.model";
+import {FlexLayoutSettings} from "../models/css-models/flex-layout.model";
 import cloneDeep from "lodash.clonedeep";
 
 @Injectable({
