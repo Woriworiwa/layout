@@ -8,6 +8,7 @@ import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {CanvasItemComponent} from "../canvas-components/canvas-item/canvas-item.component";
 import {ContextMenuService} from "../../services/context-menu.service";
+import {AppSettingsStore} from "../../store/app-settings-store.service";
 
 @Component({
   selector: 'app-canvas',
@@ -36,7 +37,8 @@ export class CanvasComponent {
   wrapper!: ElementRef;
 
   constructor(protected canvasStore: CanvasStore,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private appSettingsStore: AppSettingsStore) {
     this.canvasStore.frames$.subscribe(rootFrames => this.frames = rootFrames);
     this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
   }

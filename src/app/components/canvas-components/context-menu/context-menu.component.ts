@@ -12,7 +12,7 @@ import {CanvasStore} from "../../../store/canvas.store";
   imports: [CommonModule, ContextMenuModule],
   template: `
     <!--set triggerEvent to empty string. we manually handle showing the context menu from the canvas item-->
-    <p-contextMenu [target]="target" [model]="items" triggerEvent="''" ></p-contextMenu>`,
+    <p-contextMenu [target]="target" [model]="items" triggerEvent="''" appendTo="body"></p-contextMenu>`,
   styles: ``
 })
 export class ContextMenuComponent {

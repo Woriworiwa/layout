@@ -8,9 +8,6 @@ export class ContextMenuService {
   previousContextMenu: ContextMenu | undefined = undefined;
   previousContextMenuShowSubscription: Subscription | undefined = undefined;
 
-  constructor() {
-  }
-
   show(event: any, contextMenu: ContextMenu) {
     this.previousContextMenuShowSubscription = contextMenu.onShow.subscribe(() => {
       this.previousContextMenu?.hide();

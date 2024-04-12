@@ -1,5 +1,5 @@
 import {Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {ButtonModule} from "primeng/button";
 import {InsertComponent} from "../../insert/insert.component";
 import {OverlayPanelModule} from "primeng/overlaypanel";
@@ -13,7 +13,7 @@ import {ContextMenuService} from "../../../services/context-menu.service";
   standalone: true,
   imports: [CommonModule, ButtonModule, InsertComponent, OverlayPanelModule, SharedModule, ContextMenuComponent],
   host: {
-    '[class.selected]' : 'selectedFrameKey && selectedFrameKey === item?.key',
+    '[class.selected]': 'selectedFrameKey && selectedFrameKey === item?.key',
     '[class.hover]': 'isMouseOver',
     '[class.hover-add-item-enabled]': 'isMouseOver && !selectedFrameKey'
   },
@@ -25,22 +25,20 @@ export class CanvasItemComponent {
   @Input() selectedFrameKey!: string | undefined;
   @Output() clicked = new EventEmitter<string>();
   @ViewChild(ContextMenuComponent) contextMenu!: ContextMenuComponent;
-
-  @HostBinding('class.is-grabbing')
-  isMouseOver = false;
+  @HostBinding('class.is-grabbing') isMouseOver = false;
 
   constructor(private contextMenuService: ContextMenuService) {
   }
 
   @HostListener('click', ['$event'])
-  onClick($event:any) {
+  onClick($event: any) {
     $event.stopPropagation();
     this.contextMenuService.hide();
     this.clicked.emit(this.item?.key);
   }
 
   @HostListener('mouseover', ['$event'])
-  onMouseOver($event:any) {
+  onMouseOver($event: any) {
     $event.stopPropagation();
     $event.stopImmediatePropagation();
     this.isMouseOver = true;
