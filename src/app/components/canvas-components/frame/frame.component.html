@@ -1,6 +1,7 @@
 @switch (item?.frameType) {
   @case (FrameType.FLEX) {
     <div app-display-flex
+         [style]="item?.css | css"
          [model]="item?.flexLayoutSettings"
          (cdkDropListDropped)="onDrop($event)"
          [cdkDropListData]="item?.key"

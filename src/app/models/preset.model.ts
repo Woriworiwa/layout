@@ -1,7 +1,7 @@
-import {Frame} from "./frame.model";
+import {CanvasItem} from "./canvas-item.model";
 
 export interface Preset {
   presetId: string;
   presetName: string;
-  presetDefinition: Frame;
+  presetDefinition: CanvasItem;
 }

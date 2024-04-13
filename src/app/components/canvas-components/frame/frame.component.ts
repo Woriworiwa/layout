@@ -1,13 +1,12 @@
 import {
   ChangeDetectionStrategy,
-  Component, ElementRef,
-  EventEmitter, HostBinding,
-  HostListener,
+  Component,
+  EventEmitter,
   Input,
   Output
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Frame} from "../../../models/frame.model";
+import {CanvasItem} from "../../../models/canvas-item.model";
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 import {DisplayFlexDirective} from "../../../directives/display-flex.directive";
 import {TextComponent} from "../text/text.component";
@@ -18,21 +17,20 @@ import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
 import {CanvasItemComponent} from "../canvas-item/canvas-item.component";
+import {CssPipe} from "../../../pipes/css.pipe";
 
 @Component({
   selector: 'app-frame',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditorContentDirective, DisplayFlexDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent],
-
-
+  imports: [CommonModule, EditorContentDirective, DisplayFlexDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent, CssPipe],
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })
 export class FrameComponent{
   protected readonly FrameType = FrameType;
   @Output() frameContentChanged = new EventEmitter<{ key: string , content: string }>();
-  @Input() item: Frame | undefined;
+  @Input() item: CanvasItem | undefined;
   @Output() clicked = new EventEmitter<string>();
   @Input() selectedFrameKey!: string | undefined;
   @Input() dragDropDisabled = true;

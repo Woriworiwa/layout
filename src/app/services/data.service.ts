@@ -1,15 +1,13 @@
-import {Frame} from "../models/frame.model";
+import {CanvasItem} from "../models/canvas-item.model";
 import {Injectable} from "@angular/core";
 import {mockData} from "../data/mock-data";
 import {flexPresets, textPresets} from "../data/presets";
 import {Preset} from "../models/preset.model";
-import cloneDeep from "lodash.clonedeep";
-
 
 @Injectable()
 export class DataService {
   getInitialData() {
-    const frames: Frame[] = mockData as Frame[];
+    const frames: CanvasItem[] = mockData as CanvasItem[];
     return frames;
   }
 

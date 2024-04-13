@@ -7,7 +7,7 @@ import {StructureTreeComponent} from "./components/structure-tree/structure-tree
 import {CanvasStore} from "./store/canvas.store";
 import {CanvasComponent} from "./components/canvas/canvas.component";
 import {DataService} from "./services/data.service";
-import {Frame} from "./models/frame.model";
+import {CanvasItem} from "./models/canvas-item.model";
 import {HeaderComponent} from "./components/header/header.component";
 import {ThemeOptionsComponent} from "./components/settings/theme-options.component";
 import {SerializerService} from "./services/serializer.service";
@@ -23,7 +23,7 @@ import {SplitterModule} from "primeng/splitter";
 })
 export class AppComponent {
   title = 'layout';
-  frame: Frame | undefined;
+  frame: CanvasItem | undefined;
 
   constructor(protected canvasStore: CanvasStore,
               private mockService: DataService) {

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {TreeModule, TreeNodeDropEvent} from "primeng/tree";
 import {TreeDragDropService, TreeNode} from "primeng/api";
 import {CanvasStore} from "../../store/canvas.store";
-import {Frame} from "../../models/frame.model";
+import {CanvasItem} from "../../models/canvas-item.model";
 import {FormsModule} from "@angular/forms";
 import {CdkDropList} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
@@ -20,8 +20,8 @@ import {CANVAS_WRAPPER_ID} from "../../models/constants";
   styleUrls: ['./structure-tree.component.scss']
 })
 export class StructureTreeComponent {
-  treeNodes!: TreeNode<Frame>[];
-  selectedFrames: TreeNode<Frame> | undefined = undefined;
+  treeNodes!: TreeNode<CanvasItem>[];
+  selectedFrames: TreeNode<CanvasItem> | undefined = undefined;
 
   constructor(private canvasStore: CanvasStore, private renderer: Renderer2) {}
 
@@ -40,7 +40,7 @@ export class StructureTreeComponent {
     })
   }
 
-  onSelectionChanged(treeNode: TreeNode<Frame> | TreeNode<Frame>[] | null) {
+  onSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null) {
     if ( treeNode != null && !Array.isArray(treeNode)) {
       this.canvasStore.setSelectedFrameKey(treeNode.key);
     }
@@ -50,7 +50,7 @@ export class StructureTreeComponent {
     this.canvasStore.frames = this.convertTreeNodesToFrames(this.treeNodes);
   }
 
-  private convertFramesToTreeNodes(frames: Frame[] | undefined): TreeNode<Frame>[] {
+  private convertFramesToTreeNodes(frames: CanvasItem[] | undefined): TreeNode<CanvasItem>[] {
     if (!frames) return [];
 
      return  frames.map((frame) => {
@@ -64,16 +64,16 @@ export class StructureTreeComponent {
      });
   }
 
-  private convertTreeNodesToFrames(nodes: TreeNode<Frame>[]): Frame[] {
+  private convertTreeNodesToFrames(nodes: TreeNode<CanvasItem>[]): CanvasItem[] {
     return nodes.map((node) => {
       return {
-        ...node.data as Frame,
+        ...node.data as CanvasItem,
         children: this.convertTreeNodesToFrames(node.children || [])
       }
     })
   }
 
-  private expandNode(treeNodes: TreeNode<Frame>[], parentNode: TreeNode<Frame> | undefined, frame: Frame, direction: 'up' | 'down') {
+  private expandNode(treeNodes: TreeNode<CanvasItem>[], parentNode: TreeNode<CanvasItem> | undefined, frame: CanvasItem, direction: 'up' | 'down') {
     treeNodes.forEach((node) => {
       if (node.data === frame) {
         node.expanded = true;
@@ -94,7 +94,7 @@ export class StructureTreeComponent {
     });
   }
 
-  private expandRecursive(node: TreeNode<Frame>, isExpand: boolean) {
+  private expandRecursive(node: TreeNode<CanvasItem>, isExpand: boolean) {
     node.expanded = isExpand;
     if (node.children) {
       node.children.forEach((childNode) => {
@@ -103,7 +103,7 @@ export class StructureTreeComponent {
     }
   }
 
-  private getTreeNodeIcon(frame: Frame){
+  private getTreeNodeIcon(frame: CanvasItem){
     let icon = '';
     switch (frame.frameType) {
       case FrameType.FLEX:

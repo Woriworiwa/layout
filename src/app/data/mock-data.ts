@@ -3,6 +3,11 @@ export const mockData =
   [
     {
       "frameType": "FLEX",
+      "css": {
+        "boxSizing": {
+          "padding": "16"
+        }
+      },
       "flexLayoutSettings": {
         "flexDirection": "column",
         "flexWrap": "wrap",

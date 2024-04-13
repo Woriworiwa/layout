@@ -1,13 +1,13 @@
-import type * as CSS from 'csstype';
-import {Property} from "csstype";
 import {FrameType} from "./enums";
 import {FlexLayoutSettings} from "./css-models/flex-layout.model";
+import {BoxSizing, Container, Css, Display, Flex} from "./css-models/css.model";
 
-export interface Frame {
+export interface CanvasItem {
   key?: string;
   name?: string;
   frameType: FrameType;
-  children?: Frame[];
+  children?: CanvasItem[];
+  css?: Css;
   flexLayoutSettings?: FlexLayoutSettings;
   editable?: boolean;
 }

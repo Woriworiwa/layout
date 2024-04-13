@@ -1,43 +1,56 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {SelectButtonModule} from "primeng/selectbutton";
-import {Subject, Subscription, takeUntil, takeWhile} from "rxjs";
-import {PropertyPanelRowComponent} from "./property-panel-row.component";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {Subject, Subscription, takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
-import {SliderModule} from "primeng/slider";
-import {InputNumberModule} from "primeng/inputnumber";
 import {Property} from "csstype";
-import {DropdownModule} from "primeng/dropdown";
-import {AlignItems, FlexDirection, FlexLayoutSettings, FlexWrap, JustifyContent} from "../../models/css-models/flex-layout.model";
-import {DropdownComponent} from "./templates/dropdown.component";
-import {InputGroupModule} from "primeng/inputgroup";
-import {InputGroupAddonModule} from "primeng/inputgroupaddon";
-import {InputTextModule} from "primeng/inputtext";
+import {
+  AlignItems,
+  FlexDirection,
+  FlexWrap,
+  JustifyContent
+} from "../../models/css-models/flex-layout.model";
+import {Css} from "../../models/css-models/css.model";
+import {DropdownComponent} from "./property-items/dropdown.component";
+import {SelectButtonComponent} from "./property-items/select-button.component";
+import {SliderComponent} from "./property-items/slider.component";
 
 @Component({
-  selector: 'app-settings-flex',
+  selector: 'app-properties-flex',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonModule, PropertyPanelRowComponent, FormsModule, SliderModule, InputNumberModule, DropdownModule, DropdownComponent, InputGroupModule, InputGroupAddonModule, InputTextModule],
-  templateUrl: './properties-flex.component.html',
+  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent],
+  template: `
+    <ng-container [formGroup]="formGroup">
+      <app-property-item-select-button [options]="flexDirectionOptions"
+                                       [control]="getFormControl('flexDirection')"
+                                       label="Direction"></app-property-item-select-button>
+
+      <app-property-item-slider label="gap"
+                                [control]="getFormControl('gap')"></app-property-item-slider>
+
+      <app-property-item-select-button [options]="flexWrapOptions"
+                                       [control]="getFormControl('flexWrap')"
+                                       label="Wrap"></app-property-item-select-button>
+
+      <app-property-item-dropdown [options]="justifyContentOptions"
+                         [control]="getFormControl('justifyContent')"
+                         label="justify-content"></app-property-item-dropdown>
+
+      <app-property-item-dropdown [options]="alignItemsOptions"
+                         [control]="getFormControl('alignItems')"
+                         label="align-items"></app-property-item-dropdown>
+    </ng-container>
+  `,
   styles: `
     :host {
       display: contents;
     }
-
-    .trbl {
-      display: flex;
-      input {
-        flex-grow: 1;
-      }
-    }
   `
 })
 export class PropertiesFlex {
-  @Input() flexLayoutSettings: FlexLayoutSettings | undefined;
+  @Input() css: Css | undefined;
 
-  /* options */
   /*direction*/
   flexDirectionOptions = [
     {label: 'Row', value: FlexDirection.row},
@@ -71,14 +84,6 @@ export class PropertiesFlex {
   formGroupValueChangedSubscription: Subscription | undefined;
 
   private destroy$ = new Subject();
-  private formUpdating = false;
-
-  get justifyContent(): FormControl {
-    return this.formGroup?.get('justifyContent') as FormControl;
-  }
-  get alignItems(): FormControl {
-    return this.formGroup?.get('alignItems') as FormControl;
-  }
 
   constructor(public fb: FormBuilder,
               protected frameStore: CanvasStore) {
@@ -88,10 +93,10 @@ export class PropertiesFlex {
   ngOnChanges() {
     this.formGroup = this.createFormGroup();
 
-    if (this.flexLayoutSettings) {
+    if (this.css?.flex) {
       this.formGroup?.patchValue({
-        ...this.flexLayoutSettings,
-        gap: this.flexLayoutSettings.gap?.toString()
+        ...this.css.flex,
+        gap: this.css.flex.gap?.toString()
       }, {emitEvent: false});
     }
   }
@@ -101,6 +106,10 @@ export class PropertiesFlex {
     this.destroy$.complete();
   }
 
+  getFormControl(name: string) {
+    return this.formGroup.get(name) as FormControl;
+  }
+
   private createFormGroup() {
     if (this.formGroupValueChangedSubscription) {
       this.formGroupValueChangedSubscription.unsubscribe();
@@ -108,11 +117,10 @@ export class PropertiesFlex {
 
     const formGroup = this.fb.group({
       flexDirection: new FormControl<Property.FlexDirection | null | undefined>(undefined),
-      flexWrap: [''],
+      flexWrap: new FormControl<Property.FlexWrap | null | undefined>(undefined),
       gap: new FormControl<Property.Gap | null | undefined>(null),
       justifyContent: new FormControl<Property.JustifyContent | null | undefined>(null),
       alignItems: new FormControl<Property.AlignItems | null | undefined>(null),
-      padding: new FormControl<Property.Padding | null  | undefined>(null)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
@@ -120,7 +128,10 @@ export class PropertiesFlex {
         takeUntil(this.destroy$)
       )
       .subscribe((value: any) => {
-        this.frameStore.updateFlexLayoutSettings(value);
+        this.frameStore.updateCss({
+          ...this.css,
+          flex: value
+        });
       });
 
     return formGroup;

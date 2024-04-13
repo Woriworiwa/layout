@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {SidebarModule} from "primeng/sidebar";
 import {SerializerService} from "../../services/serializer.service";
 import {CanvasStore} from "../../store/canvas.store";
-import {Frame} from "../../models/frame.model";
+import {CanvasItem} from "../../models/canvas-item.model";
 
 @Component({
   selector: 'app-json-prism',
@@ -14,7 +14,7 @@ import {Frame} from "../../models/frame.model";
 })
 export class JsonPrismComponent {
 
-  frames: Frame[] | undefined = undefined;
+  frames: CanvasItem[] | undefined = undefined;
 
   constructor(private serializerService: SerializerService,
               public canvasStore: CanvasStore) {

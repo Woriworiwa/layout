@@ -1,20 +1,15 @@
 import type * as CSS from "csstype";
 import {Enumify, proxiedPropertiesOf} from "../../utils/enum.util";
 import {Property} from "csstype";
-
-export interface Element extends
-  Pick<CSS.Properties, 'padding'>{}
-
-export interface Container extends Element,
-  Pick<CSS.Properties, 'gap'>{}
+import {Display} from "./css.model";
 
 export interface FlexLayoutSettings extends
-  Container, Pick<CSS.Properties,
+  Display, Pick<CSS.Properties,
     'flexDirection' |
     'flexWrap' |
-    'gap' |
     'justifyContent' |
-    'alignItems'
+    'alignItems' |
+  'gap'
   > {}
 
 /* Enums */

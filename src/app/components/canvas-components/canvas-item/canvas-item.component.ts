@@ -4,7 +4,7 @@ import {ButtonModule} from "primeng/button";
 import {InsertComponent} from "../../insert/insert.component";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {SharedModule} from "primeng/api";
-import {Frame} from "../../../models/frame.model";
+import {CanvasItem} from "../../../models/canvas-item.model";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
 import {ContextMenuService} from "../../../services/context-menu.service";
 
@@ -21,7 +21,7 @@ import {ContextMenuService} from "../../../services/context-menu.service";
   styleUrl: './canvas-item.component.scss'
 })
 export class CanvasItemComponent {
-  @Input() item: Frame | undefined;
+  @Input() item: CanvasItem | undefined;
   @Input() selectedFrameKey!: string | undefined;
   @Output() clicked = new EventEmitter<string>();
   @ViewChild(ContextMenuComponent) contextMenu!: ContextMenuComponent;

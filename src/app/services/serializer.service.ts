@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {CanvasStore} from "../store/canvas.store";
-import {Frame} from "../models/frame.model";
-import {FlexLayoutSettings} from "../models/css-models/flex-layout.model";
+import {CanvasItem} from "../models/canvas-item.model";
 import cloneDeep from "lodash.clonedeep";
+import {Css} from "../models/css-models/css.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,6 @@ export class SerializerService {
   serializerActive = false;
 
   constructor(private canvasStore: CanvasStore) {
-
   }
 
   showSerializer() {
@@ -30,54 +29,70 @@ export class SerializerService {
     return this.sanitizeFrames(cloneDeep(this.canvasStore.frames));
   }
 
-  serializeToCSS(frames: Frame[]) {
-    const cssArray = this.generateCSSArray(frames, 0);
+  serializeToCssClasses(canvasItems: CanvasItem[], level: number = 0) {
+    const padding = 4;
+    const cssLines: string[] = [];
 
-    return cssArray.join('\n');
+    canvasItems.forEach(canvasItem => {
+      if (this.isAnyCssPropertySet(canvasItem)) {
+        /* class name and opening curl */
+        cssLines.push(' '.repeat(level * padding) + `.${canvasItem.key} {`);
+
+        /* css properties */
+        if (canvasItem.css) {
+          this.serializeToCssStyles(canvasItem.css).forEach(cssLine => {
+            const propertyPading = ' '.repeat(!level ? 1 : level * 2 * padding)
+            cssLines.push(propertyPading + cssLine + ';');
+          });
+        }
+
+        /* children */
+        if (canvasItem.children && canvasItem.children.length > 0) {
+          cssLines.push(...this.serializeToCssClasses(canvasItem.children, level + 1));
+        }
+
+        /* closing curl */
+        cssLines.push(' '.repeat(level * padding) + '}');
+      }
+    });
+
+    return cssLines;
   }
 
-  serializeToStyles(frame: Frame[]) {
+  serializeToCssStyles(css: Css) {
+    const cssProperties: string[] = [];
 
-  }
+    /* loop through the root keys (boxSizing, flex,...) */
+    for (const key of Object.keys(css)) {
+      const value = css[key as keyof Css];
 
-  private generateCSSArray(frames: Frame[] | undefined, level: number): string[] {
-    if (!frames || !frames.length) {
-      return [];
-    }
-
-    const css: string[] = [];
-
-    frames.forEach(frame => {
-      if (!frame.flexLayoutSettings) {
-        return;
+      if (value == null) {
+        continue;
       }
 
-      if (level) {
-        css.push(' ');
-      }
-
-      css.push(' '.repeat(level) + `.${frame.key} {`);
-
-      for (const key of Object.keys(frame.flexLayoutSettings)) {
-        const value = frame.flexLayoutSettings[key as keyof FlexLayoutSettings];
+      /* loop through the subkeys of the root keys */
+      for (const key of Object.keys(value)) {
 
         // Convert camelCase to kebab-case for CSS property names
         const cssPropertyName = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        let cssPropertyValue: string = value[key as keyof Css[keyof Css]];
 
-        if (value) {
-          css.push(' '.repeat(!level? 1 : level* 2) + `${cssPropertyName}: ${value};`);
+        if (cssPropertyValue == null) {
+          continue;
         }
+
+        if (['gap', 'padding'].includes(key)) {
+          cssPropertyValue += 'px';
+        }
+
+        cssProperties.push(`${cssPropertyName}: ${cssPropertyValue}`);
       }
+    }
 
-      css.push(...this.generateCSSArray(frame.children, level + 1));
-
-      css.push(' '.repeat(level) + '}');
-    });
-
-    return css;
+    return cssProperties;
   }
 
-  private sanitizeFrames(frames: Frame[]) {
+  private sanitizeFrames(frames: CanvasItem[]) {
     if (!frames || !frames.length) {
       return;
     }
@@ -100,5 +115,21 @@ export class SerializerService {
         delete object[prop as keyof T];
       }
     }
+  }
+
+  private isAnyCssPropertySet(canvasItem: CanvasItem) {
+    if (canvasItem.css) {
+      return true;
+    }
+
+    if (canvasItem.children) {
+      for (const child of canvasItem.children) {
+        if (this.isAnyCssPropertySet(child)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 }

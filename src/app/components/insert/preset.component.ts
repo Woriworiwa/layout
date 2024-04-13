@@ -1,16 +1,13 @@
 import {
   ChangeDetectionStrategy,
-  Component, ElementRef,
-  EventEmitter, HostBinding,
-  HostListener,
-  Input,
-  Output
+  Component,
+  Input
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import { FrameType } from '../../models/enums';
-import {Frame} from "../../models/frame.model";
+import {CanvasItem} from "../../models/canvas-item.model";
 import {CanvasStore} from "../../store/canvas.store";
 import {TextComponent} from "../canvas-components/text/text.component";
 import {DisplayFlexDirective} from "../../directives/display-flex.directive";
@@ -25,5 +22,5 @@ import {DisplayFlexDirective} from "../../directives/display-flex.directive";
 })
 export class PresetComponent {
   protected readonly FrameType = FrameType;
-  @Input() preset: Frame | undefined;
+  @Input() preset: CanvasItem | undefined;
 }
