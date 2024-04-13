@@ -41,7 +41,7 @@ export class SerializerService {
         /* css properties */
         if (canvasItem.css) {
           this.serializeToCssStyles(canvasItem.css).forEach(cssLine => {
-            const propertyPading = ' '.repeat(!level ? 1 : level * 2 * padding)
+            const propertyPading = ' '.repeat((!level ? 1 : level * 2) * padding)
             cssLines.push(propertyPading + cssLine + ';');
           });
         }
