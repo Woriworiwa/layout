@@ -6,14 +6,13 @@ export const mockData =
       "css": {
         "boxSizing": {
           "padding": "16"
+        },
+        "display": {
+          "display": "flex"
+        },
+        "flex": {
+          "gap": 10
         }
-      },
-      "flexLayoutSettings": {
-        "flexDirection": "column",
-        "flexWrap": "wrap",
-        "gap": "16",
-        "justifyContent": "space-evenly",
-        "alignItems": "center"
       },
       "children": [
         {
@@ -36,13 +35,6 @@ export const mockData =
     },
     {
       "frameType": "FLEX",
-      "flexLayoutSettings": {
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "gap": "16",
-        "justifyContent": "start",
-        "alignItems": "center"
-      },
       "children": [
         {
           "name": "____________________    1   ____________________",
@@ -60,7 +52,16 @@ export const mockData =
           "key": "6ng1cuxY"
         }
       ],
-      "key": "dqJIuKDD"
+      "key": "dqJIuKDD",
+      "css": {
+        "display": {
+          "display": "flex"
+        },
+        "flex": {
+          "gap": 9,
+          "justifyContent": "end"
+        }
+      }
     },
     {
       "frameType": "FLEX",
@@ -71,10 +72,6 @@ export const mockData =
       "children": [
         {
           "frameType": "FLEX",
-          "flexLayoutSettings": {
-            "flexDirection": "column",
-            "gap": "10"
-          },
           "children": [
             {
               "name": "lorem ipsum",
@@ -97,7 +94,17 @@ export const mockData =
               "key": "JtswtbUN"
             }
           ],
-          "key": "X9ID8XUZ"
+          "key": "X9ID8XUZ",
+          "css": {
+            "flex": {
+              "flexDirection": "column",
+              "gap": "13",
+              "alignItems": "center"
+            },
+            "display": {
+              "display": "flex"
+            }
+          }
         }
       ],
       "key": "PL5Jbh3H"

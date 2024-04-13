@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
-import {CanvasItemComponent} from "../canvas-item/canvas-item.component";
+import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
 
 @Component({
   selector: 'app-text',

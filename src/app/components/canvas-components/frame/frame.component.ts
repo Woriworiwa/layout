@@ -15,7 +15,7 @@ import {CanvasStore} from "../../../store/canvas.store";
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
-import {CanvasItemComponent} from "../canvas-item/canvas-item.component";
+import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
 import {CssPipe} from "../../../pipes/css.pipe";
 
 @Component({

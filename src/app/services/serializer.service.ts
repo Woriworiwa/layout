@@ -99,7 +99,14 @@ export class SerializerService {
 
     frames.forEach(frame => {
       this.sanitizeObject(frame);
+
       this.sanitizeObject(frame.css);
+
+      if (frame.css) {
+        for (const key of Object.keys(frame.css)) {
+          this.sanitizeObject(frame.css[key as keyof Css]);
+        }
+      }
 
       if (frame.children) {
         this.sanitizeFrames(frame.children);
