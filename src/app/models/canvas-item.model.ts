@@ -1,6 +1,5 @@
 import {FrameType} from "./enums";
-import {FlexLayoutSettings} from "./css-models/flex-layout.model";
-import {BoxSizing, Container, Css, Display, Flex} from "./css-models/css.model";
+import {Css} from "./css.model";
 
 export interface CanvasItem {
   key?: string;
@@ -8,7 +7,6 @@ export interface CanvasItem {
   frameType: FrameType;
   children?: CanvasItem[];
   css?: Css;
-  flexLayoutSettings?: FlexLayoutSettings;
   editable?: boolean;
 }
 

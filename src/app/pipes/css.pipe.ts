@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Css} from "../models/css-models/css.model";
+import {Css} from "../models/css.model";
 import {SerializerService} from "../services/serializer.service";
 
 @Pipe({

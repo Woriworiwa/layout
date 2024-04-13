@@ -1,7 +1,9 @@
 <app-prism [css]="css"></app-prism>
 
 <div class="properties">
+
   <app-properties-box-sizing [css]="frame?.css"></app-properties-box-sizing>
+  <app-properties-display [css]="frame?.css"></app-properties-display>
 
   @switch (frame?.frameType) {
     @case (FrameType.FLEX) {

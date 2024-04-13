@@ -1,4 +1,6 @@
 import type * as CSS from "csstype";
+import {Enumify, proxiedPropertiesOf} from "../utils/enum.util";
+import {Property} from "csstype";
 
 export interface Css {
   boxSizing?: BoxSizing;
@@ -6,6 +8,13 @@ export interface Css {
   container?: Container;
   flex?: Flex;
 }
+
+/* Enums */
+export const FlexDirection = proxiedPropertiesOf<Enumify<Property.FlexDirection>>();
+export const FlexWrap = proxiedPropertiesOf<Enumify<Property.FlexWrap>>();
+export const JustifyContent = proxiedPropertiesOf<Enumify<Property.JustifyContent>>();
+export const AlignItems = proxiedPropertiesOf<Enumify<Property.AlignItems>>();
+export const Display = proxiedPropertiesOf<Enumify<Property.Display>>();
 
 /* Box sizing */
 export interface BoxSizing extends Pick<CSS.Properties,

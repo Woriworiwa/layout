@@ -9,8 +9,8 @@ import {
   FlexDirection,
   FlexWrap,
   JustifyContent
-} from "../../models/css-models/flex-layout.model";
-import {Css} from "../../models/css-models/css.model";
+} from "../../models/css.model";
+import {Css} from "../../models/css.model";
 import {DropdownComponent} from "./property-items/dropdown.component";
 import {SelectButtonComponent} from "./property-items/select-button.component";
 import {SliderComponent} from "./property-items/slider.component";
@@ -63,6 +63,7 @@ export class PropertiesFlex {
     {label: 'No', value: FlexWrap.nowrap}
   ]
 
+  /*justify content*/
   justifyContentOptions = [
     JustifyContent.center,
     JustifyContent.start,
@@ -72,6 +73,7 @@ export class PropertiesFlex {
     JustifyContent["space-evenly"]
   ]
 
+  /*align items*/
   alignItemsOptions = [
     AlignItems.start,
     AlignItems.end,

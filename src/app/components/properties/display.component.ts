@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Css} from "../../models/css.model";
+import {Css, Display} from "../../models/css.model";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {CanvasStore} from "../../store/canvas.store";
 import {Property} from "csstype";
@@ -8,20 +8,16 @@ import {Subject, Subscription, takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SliderModule} from "primeng/slider";
+import {DropdownComponent} from "./property-items/dropdown.component";
 
 @Component({
-  selector: 'app-properties-box-sizing',
+  selector: 'app-properties-display',
   standalone: true,
-  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule],
+  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, DropdownComponent],
   template: `
-    <ng-container [formGroup]="formGroup">
-      <app-property-panel-row label="padding">
-        <div>
-          <p-inputNumber inputId="integeronly" formControlName="padding"></p-inputNumber>
-          <p-slider formControlName="padding"></p-slider>
-        </div>
-      </app-property-panel-row>
-    </ng-container>
+    <app-property-item-dropdown [options]="displayOptions"
+                                [control]="getFormControl('display')"
+                                label="display"></app-property-item-dropdown>
   `,
   styles: `
     :host {
@@ -29,13 +25,24 @@ import {SliderModule} from "primeng/slider";
     }
   `
 })
-export class BoxSizingComponent {
+export class DisplayComponent {
   @Input() css: Css | undefined;
 
   formGroup: FormGroup;
   formGroupValueChangedSubscription: Subscription | undefined;
 
   private destroy$ = new Subject();
+
+  displayOptions = [
+    Display.block,
+    Display.flex,
+    Display.block,
+    Display.contents,
+    Display.flow,
+    Display.grid,
+    Display.inline,
+    Display.none
+  ];
 
   constructor(public fb: FormBuilder,
               protected canvasStore: CanvasStore) {
@@ -45,9 +52,9 @@ export class BoxSizingComponent {
   ngOnChanges() {
     this.formGroup = this.createFormGroup();
 
-    if (this.css?.boxSizing) {
+    if (this.css?.display) {
       this.formGroup?.patchValue({
-        ...this.css.boxSizing
+        ...this.css.display
       }, {emitEvent: false});
     }
   }
@@ -63,7 +70,7 @@ export class BoxSizingComponent {
     }
 
     const formGroup = this.fb.group({
-      padding: new FormControl<Property.Padding | null | undefined>(null)
+      display: new FormControl<Property.Display | null | undefined>(null)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
@@ -73,10 +80,16 @@ export class BoxSizingComponent {
       .subscribe((value: any) => {
         this.canvasStore.updateCss({
           ...this.css,
-          boxSizing: value
+          display: value
         });
       });
 
     return formGroup;
   }
+
+  getFormControl(name: string) {
+    return this.formGroup.get(name) as FormControl;
+  }
 }
+
+

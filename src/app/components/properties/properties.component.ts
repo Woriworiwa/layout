@@ -12,12 +12,13 @@ import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {SerializerService} from "../../services/serializer.service";
 import {CssPrismComponent} from "../prisms/css-prism.component";
 import {BoxSizingComponent} from "./box-sizing.component";
+import {DisplayComponent} from "./display.component";
 
 @Component({
   selector: 'app-settings',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, PropertiesFlex, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent, CssPrismComponent, BoxSizingComponent],
+  imports: [CommonModule, ReactiveFormsModule, PropertiesFlex, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent, CssPrismComponent, BoxSizingComponent, DisplayComponent],
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss']
 })

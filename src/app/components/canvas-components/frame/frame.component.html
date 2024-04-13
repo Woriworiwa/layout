@@ -1,11 +1,9 @@
 @switch (item?.frameType) {
   @case (FrameType.FLEX) {
-    <div app-display-flex
-         [style]="item?.css | css"
-         [model]="item?.flexLayoutSettings"
+    <div [style]="item?.css | css"
          (cdkDropListDropped)="onDrop($event)"
          [cdkDropListData]="item?.key"
-         [cdkDropListOrientation]="item?.flexLayoutSettings?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
+         [cdkDropListOrientation]="item?.css?.flex?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
          cdkDropList>
       @for (childFrame of item?.children; track childFrame) {
         @switch (childFrame.frameType) {

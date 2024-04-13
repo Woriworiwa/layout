@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {CanvasStore} from "../store/canvas.store";
 import {CanvasItem} from "../models/canvas-item.model";
 import cloneDeep from "lodash.clonedeep";
-import {Css} from "../models/css-models/css.model";
+import {Css} from "../models/css.model";
 
 @Injectable({
   providedIn: 'root'
@@ -99,7 +99,7 @@ export class SerializerService {
 
     frames.forEach(frame => {
       this.sanitizeObject(frame);
-      this.sanitizeObject(frame.flexLayoutSettings);
+      this.sanitizeObject(frame.css);
 
       if (frame.children) {
         this.sanitizeFrames(frame.children);

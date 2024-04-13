@@ -8,7 +8,6 @@ import {
 import {CommonModule} from '@angular/common';
 import {CanvasItem} from "../../../models/canvas-item.model";
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
-import {DisplayFlexDirective} from "../../../directives/display-flex.directive";
 import {TextComponent} from "../text/text.component";
 import { FrameType } from '../../../models/enums';
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
@@ -23,7 +22,7 @@ import {CssPipe} from "../../../pipes/css.pipe";
   selector: 'app-frame',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditorContentDirective, DisplayFlexDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent, CssPipe],
+  imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent, CssPipe],
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })

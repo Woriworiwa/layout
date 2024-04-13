@@ -7,7 +7,7 @@ import {FrameType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {DataService} from "../services/data.service";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {Css} from "../models/css-models/css.model";
+import {Css} from "../models/css.model";
 
 export class CanvasState {
   frames: CanvasItem[] = [];
