@@ -23,8 +23,7 @@ import {DisplayComponent} from "./display.component";
   styleUrls: ['./properties.component.scss']
 })
 export class PropertiesComponent {
-  css: string | undefined;
-
+  css: string[] = [];
   frame: CanvasItem | undefined;
 
   frameTypeOptions = [
@@ -45,7 +44,7 @@ export class PropertiesComponent {
     this.canvasStore.selectedFrame$
       .subscribe(frame => {
         this.frame = frame;
-        this.css = this.serializerService.serializeToCssClasses(frame ? [frame] : this.canvasStore.frames).join('\n');
+
         this.cd.markForCheck();
     })
   }

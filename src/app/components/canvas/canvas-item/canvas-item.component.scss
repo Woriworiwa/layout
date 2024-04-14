@@ -9,6 +9,10 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
 
 
 :host {
+  .selection-wrapper {
+    display: contents;
+  }
+
   &.hover-add-item-enabled, &.selected {
     > .selection-wrapper > .add-item {
       display: block;

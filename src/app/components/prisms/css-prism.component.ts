@@ -6,9 +6,12 @@ import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
+import {CanvasItem} from "../../models/canvas-item.model";
+import {SerializerService} from "../../services/serializer.service";
+import {CanvasStore} from "../../store/canvas.store";
 
 @Component({
-  selector: 'app-prism',
+  selector: 'app-css-prism',
   standalone: true,
   imports: [CommonModule],
   template: `
@@ -18,7 +21,17 @@ import 'prismjs/components/prism-scss';
 })
 export class CssPrismComponent {
   @Input()
-  css: string | undefined = '';
+  canvasItems: CanvasItem[] = [];
+
+  css: string = '';
+
+  constructor(private serializerService: SerializerService,
+              private canvasStore: CanvasStore) {
+  }
+
+  ngOnChanges() {
+    this.css = this.serializerService.serializeToCssClasses(this.canvasItems).join('\n');
+  }
 
   ngAfterViewChecked() {
     Prism.highlightAll();

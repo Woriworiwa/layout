@@ -25,8 +25,4 @@ export class HeaderComponent {
   showConfig() {
     this.themeService.showConfig();
   }
-
-  showSerializer() {
-    this.serializerService.showSerializer();
-  }
 }

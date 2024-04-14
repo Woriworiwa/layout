@@ -9,12 +9,13 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import { FrameType } from '../../models/enums';
 import {CanvasItem} from "../../models/canvas-item.model";
 import {TextComponent} from "../canvas-components/text/text.component";
+import {CssPipe} from "../../pipes/css.pipe";
 
 @Component({
   selector: 'app-preset',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ButtonModule, OverlayPanelModule, TextComponent],
+  imports: [CommonModule, ButtonModule, OverlayPanelModule, TextComponent, CssPipe],
   templateUrl: 'preset.component.html',
   styleUrls: ['./preset.component.scss'],
 })

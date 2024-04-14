@@ -17,7 +17,11 @@ export class JsonPrismComponent {
   frames: CanvasItem[] | undefined = undefined;
 
   constructor(private serializerService: SerializerService,
-              public canvasStore: CanvasStore) {
+              protected canvasStore: CanvasStore) {
+  }
+
+  ngOnInit() {
+    this.frames = this.canvasStore.frames;
   }
 
   get isActive(): boolean {
@@ -28,7 +32,7 @@ export class JsonPrismComponent {
     if (!value) {
       this.serializerService.hideSerializer();
     } else {
-      this.frames = this.serializerService.serializeToJSON();
+
     }
   }
 }

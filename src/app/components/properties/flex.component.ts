@@ -5,6 +5,7 @@ import {Subject, Subscription, takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
 import {Property} from "csstype";
 import {
+  AlignContent,
   AlignItems,
   FlexDirection,
   FlexWrap,
@@ -40,6 +41,10 @@ import {SliderComponent} from "./property-items/slider.component";
       <app-property-item-dropdown [options]="alignItemsOptions"
                          [control]="getFormControl('alignItems')"
                          label="align-items"></app-property-item-dropdown>
+
+      <app-property-item-dropdown [options]="alignContentOptions"
+                                  [control]="getFormControl('alignContent')"
+                                  label="align-content"></app-property-item-dropdown>
     </ng-container>
   `,
   styles: `
@@ -82,6 +87,18 @@ export class PropertiesFlex {
     AlignItems.baseline
   ]
 
+  /*align content*/
+  alignContentOptions = [
+    AlignContent.start,
+    AlignContent.end,
+    AlignContent.center,
+    AlignContent.stretch,
+    AlignContent["space-between"],
+    AlignContent["space-around"],
+    AlignContent["space-evenly"],
+    AlignContent.baseline
+  ];
+
   formGroup: FormGroup;
   formGroupValueChangedSubscription: Subscription | undefined;
 
@@ -123,6 +140,7 @@ export class PropertiesFlex {
       gap: new FormControl<Property.Gap | null | undefined>(null),
       justifyContent: new FormControl<Property.JustifyContent | null | undefined>(null),
       alignItems: new FormControl<Property.AlignItems | null | undefined>(null),
+      alignContent: new FormControl<Property.AlignContent | null | undefined>(null)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges

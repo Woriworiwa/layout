@@ -12,11 +12,14 @@ import {HeaderComponent} from "./components/header/header.component";
 import {ThemeOptionsComponent} from "./components/settings/theme-options.component";
 import {SerializerService} from "./services/serializer.service";
 import {SplitterModule} from "primeng/splitter";
+import {TabViewModule} from "primeng/tabview";
+import {JsonPrismComponent} from "./components/prisms/json-prism.component";
+import {CssPrismComponent} from "./components/prisms/css-prism.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule],
+  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent],
   providers: [CanvasStore, DataService, SerializerService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

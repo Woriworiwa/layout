@@ -8,11 +8,12 @@ import {Subject, Subscription, takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SliderModule} from "primeng/slider";
+import {SliderComponent} from "./property-items/slider.component";
 
 @Component({
   selector: 'app-properties-box-sizing',
   standalone: true,
-  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule],
+  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, SliderComponent],
   template: `
     <ng-container [formGroup]="formGroup">
       <app-property-panel-row label="padding">
@@ -21,6 +22,9 @@ import {SliderModule} from "primeng/slider";
           <p-slider formControlName="padding"></p-slider>
         </div>
       </app-property-panel-row>
+
+      <app-property-item-slider label="height"
+                                [control]="getFormControl('height')"></app-property-item-slider>
     </ng-container>
   `,
   styles: `
@@ -57,13 +61,18 @@ export class BoxSizingComponent {
     this.destroy$.complete();
   }
 
+  getFormControl(name: string) {
+    return this.formGroup.get(name) as FormControl;
+  }
+
   private createFormGroup() {
     if (this.formGroupValueChangedSubscription) {
       this.formGroupValueChangedSubscription.unsubscribe();
     }
 
     const formGroup = this.fb.group({
-      padding: new FormControl<Property.Padding | null | undefined>(null)
+      padding: new FormControl<Property.Padding | null | undefined>(null),
+      height: new FormControl<Property.Height | null | undefined>(null)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
@@ -79,4 +88,6 @@ export class BoxSizingComponent {
 
     return formGroup;
   }
+
+
 }

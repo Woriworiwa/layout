@@ -15,8 +15,14 @@ export const flexPresets = [
     "presetName": "empty Flex",
     "presetDefinition": {
       "frameType": "FLEX",
-      "flexLayoutSettings": {
-      }
+      "css": {
+        "display": {
+          "display": "flex"
+        },
+        "flex": {
+          "gap": 10
+        }
+      },
     }
   },
   {
@@ -24,8 +30,13 @@ export const flexPresets = [
     "presetName": "Flex direction rows",
     "presetDefinition": {
       "frameType": "FLEX",
-      "flexLayoutSettings": {
-        "flexDirection": "row"
+      "css": {
+        "display": {
+          "display": "flex"
+        },
+        "flex": {
+          "gap": 10
+        }
       },
       "children": [
         {

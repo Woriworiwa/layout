@@ -1,6 +1,6 @@
 @switch (preset?.frameType) {
   @case (FrameType.FLEX) {
-      <div>
+      <div [style]="preset?.css | css">
         @for (childFrame of preset?.children; track childFrame) {
           @switch (childFrame.frameType) {
             @case (FrameType.FLEX) {

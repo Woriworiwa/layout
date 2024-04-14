@@ -13,7 +13,7 @@ import {SliderModule} from "primeng/slider";
   template: `
     <app-property-panel-row [label]="label">
       <div>
-        <p-inputNumber inputId="integeronly" [formControl]="control"></p-inputNumber>
+        <p-inputNumber inputId="integeronly" [formControl]="control" suffix=" px"></p-inputNumber>
         <p-slider [formControl]="control"></p-slider>
       </div>
     </app-property-panel-row>

@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {CanvasStore} from "../store/canvas.store";
 import {CanvasItem} from "../models/canvas-item.model";
 import cloneDeep from "lodash.clonedeep";
-import {Css} from "../models/css.model";
+import {Css, POSTFIXED_PROPERTIES} from "../models/css.model";
 
 @Injectable({
   providedIn: 'root'
@@ -81,7 +81,7 @@ export class SerializerService {
           continue;
         }
 
-        if (['gap', 'padding'].includes(key)) {
+        if (POSTFIXED_PROPERTIES.includes(key)) {
           cssPropertyValue += 'px';
         }
 
@@ -138,5 +138,9 @@ export class SerializerService {
     }
 
     return false;
+  }
+
+  private postfixCssValueWithPx(value: string) {
+    return value + 'px';
   }
 }
