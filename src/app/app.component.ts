@@ -15,11 +15,12 @@ import {SplitterModule} from "primeng/splitter";
 import {TabViewModule} from "primeng/tabview";
 import {JsonPrismComponent} from "./components/prisms/json-prism.component";
 import {CssPrismComponent} from "./components/prisms/css-prism.component";
+import {HtmlPrismComponent} from "./components/prisms/html-prism.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent],
+  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent],
   providers: [CanvasStore, DataService, SerializerService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
