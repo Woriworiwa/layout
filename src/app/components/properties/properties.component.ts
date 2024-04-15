@@ -9,7 +9,6 @@ import {Subject, takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
 import { FrameType } from '../../models/enums';
 import {ThemeOptionsComponent} from "../settings/theme-options.component";
-import {SerializerService} from "../../services/serializer.service";
 import {CssPrismComponent} from "../prisms/css-prism.component";
 import {BoxSizingComponent} from "./box-sizing.component";
 import {DisplayComponent} from "./display.component";
@@ -39,8 +38,7 @@ export class PropertiesComponent {
 
   constructor(public fb: FormBuilder,
               private cd: ChangeDetectorRef,
-              protected canvasStore: CanvasStore,
-              private serializerService: SerializerService) {
+              protected canvasStore: CanvasStore) {
     this.canvasStore.selectedFrame$
       .subscribe(frame => {
         this.frame = frame;

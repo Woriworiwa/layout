@@ -1,6 +1,6 @@
 @switch (item?.frameType) {
   @case (FrameType.FLEX) {
-    <div [style]="item?.css | css"
+    <div [style]="item | css"
          (cdkDropListDropped)="onDrop($event)"
          [cdkDropListData]="item?.key"
          [cdkDropListOrientation]="item?.css?.flex?.flexDirection === 'column' ? 'vertical' : 'horizontal'"

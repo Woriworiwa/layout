@@ -10,7 +10,6 @@ import {DataService} from "./services/data.service";
 import {CanvasItem} from "./models/canvas-item.model";
 import {HeaderComponent} from "./components/header/header.component";
 import {ThemeOptionsComponent} from "./components/settings/theme-options.component";
-import {SerializerService} from "./services/serializer.service";
 import {SplitterModule} from "primeng/splitter";
 import {TabViewModule} from "primeng/tabview";
 import {JsonPrismComponent} from "./components/prisms/json-prism.component";
@@ -21,7 +20,7 @@ import {HtmlPrismComponent} from "./components/prisms/html-prism.component";
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent],
-  providers: [CanvasStore, DataService, SerializerService],
+  providers: [CanvasStore, DataService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

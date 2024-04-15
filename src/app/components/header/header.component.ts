@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {ThemeService} from "../../services/theme.service";
-import {SerializerService} from '../../services/serializer.service';
 import {JsonPrismComponent} from "../prisms/json-prism.component";
 import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {ToggleButtonModule} from "primeng/togglebutton";

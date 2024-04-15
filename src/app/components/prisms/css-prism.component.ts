@@ -7,8 +7,10 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
 import {CanvasItem} from "../../models/canvas-item.model";
-import {SerializerService} from "../../services/serializer.service";
 import {CanvasStore} from "../../store/canvas.store";
+import {CssClassSerializer} from "../../data/serializers/css-class.serializer";
+import {CssStyleSerializer} from "../../data/serializers/css-style.serializer";
+import {Serializer} from "../../data/serializers/serializer";
 
 @Component({
   selector: 'app-css-prism',
@@ -24,13 +26,13 @@ export class CssPrismComponent {
   canvasItems: CanvasItem[] = [];
 
   css: string = '';
+  serializer: Serializer = new CssClassSerializer();
 
-  constructor(private serializerService: SerializerService,
-              private canvasStore: CanvasStore) {
+  constructor(private canvasStore: CanvasStore) {
   }
 
   ngOnChanges() {
-    this.css = this.serializerService.serializeToCssClasses(this.canvasItems).join('\n');
+    this.css = this.serializer.serialize(this.canvasItems).join('\n');
   }
 
   ngAfterViewChecked() {

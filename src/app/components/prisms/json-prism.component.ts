@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SidebarModule} from "primeng/sidebar";
-import {SerializerService} from "../../services/serializer.service";
 import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem} from "../../models/canvas-item.model";
 
@@ -16,8 +15,7 @@ export class JsonPrismComponent {
 
   frames: CanvasItem[] | undefined = undefined;
 
-  constructor(private serializerService: SerializerService,
-              protected canvasStore: CanvasStore) {
+  constructor(protected canvasStore: CanvasStore) {
   }
 
   ngOnInit() {

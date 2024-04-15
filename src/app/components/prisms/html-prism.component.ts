@@ -8,12 +8,12 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-markup';
 import {CanvasItem} from "../../models/canvas-item.model";
-import {SerializerService} from "../../services/serializer.service";
 import {CanvasStore} from "../../store/canvas.store";
 import {SanitizeHtmlPipe} from "../../pipes/sanitize-html.pipe";
 import {ButtonModule} from "primeng/button";
 import FileSaver from 'file-saver';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {HtmlSerializer} from "../../data/serializers/html.serializer";
 
 @Component({
   selector: 'app-html-prism',
@@ -27,13 +27,12 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 })
 export class HtmlPrismComponent {
   code: string = '';
-
-  constructor(private serializerService: SerializerService,
-              private canvasStore: CanvasStore) {
+  serializer: HtmlSerializer = new HtmlSerializer();
+  constructor(private canvasStore: CanvasStore) {
     this.canvasStore.frames$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
-        this.code = this.serializerService.serializeToHtml(items).join('\n');
+        this.code = this.serializer.serialize(items).join('\n');
       });
   }
 
