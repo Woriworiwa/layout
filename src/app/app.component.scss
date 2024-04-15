@@ -5,6 +5,10 @@
 
   .template-content {
     flex-grow: 1;
+
+    //::ng-deep p-tab-view {
+    //  flex-grow: 1;
+    //}
   }
 }
 

@@ -22,9 +22,8 @@ export class InsertComponent {
   @Output()
   componentAdded = new EventEmitter<boolean>();
 
-  constructor(private canvasStore: CanvasStore,
-              private dataService: DataService) {
-    this.items = this.dataService.getPresets();
+  constructor(private canvasStore: CanvasStore) {
+    this.items = this.canvasStore.getPresets();
   }
 
   addItem(presetId: string) {

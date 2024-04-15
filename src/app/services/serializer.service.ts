@@ -2,23 +2,13 @@ import {Injectable} from "@angular/core";
 import {CanvasStore} from "../store/canvas.store";
 import {CanvasItem} from "../models/canvas-item.model";
 import cloneDeep from "lodash.clonedeep";
-import {Css, POSTFIXED_PROPERTIES} from "../models/css.model";
+import {Css, POSTFIX_UNIT, POSTFIXED_PROPERTIES} from "../models/css.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SerializerService {
-  serializerActive = false;
-
   constructor(private canvasStore: CanvasStore) {
-  }
-
-  showSerializer() {
-    this.serializerActive = true;
-  }
-
-  hideSerializer() {
-    this.serializerActive = false;
   }
 
   serializeToJSON() {
@@ -82,7 +72,7 @@ export class SerializerService {
         }
 
         if (POSTFIXED_PROPERTIES.includes(key)) {
-          cssPropertyValue += 'px';
+          cssPropertyValue += POSTFIX_UNIT;
         }
 
         cssProperties.push(`${cssPropertyName}: ${cssPropertyValue}`);
@@ -138,9 +128,5 @@ export class SerializerService {
     }
 
     return false;
-  }
-
-  private postfixCssValueWithPx(value: string) {
-    return value + 'px';
   }
 }

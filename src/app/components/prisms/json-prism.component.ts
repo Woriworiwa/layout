@@ -23,16 +23,4 @@ export class JsonPrismComponent {
   ngOnInit() {
     this.frames = this.canvasStore.frames;
   }
-
-  get isActive(): boolean {
-    return this.serializerService.serializerActive;
-  }
-
-  onVisibleChange(value: boolean) {
-    if (!value) {
-      this.serializerService.hideSerializer();
-    } else {
-
-    }
-  }
 }

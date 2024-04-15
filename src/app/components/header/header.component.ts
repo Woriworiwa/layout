@@ -8,6 +8,7 @@ import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {AppSettingsStore} from "../../store/app-settings-store.service";
 import {FormsModule} from "@angular/forms";
+import {DataService} from "../../services/data.service";
 
 @Component({
   selector: 'app-header',
@@ -18,11 +19,14 @@ import {FormsModule} from "@angular/forms";
 })
 export class HeaderComponent {
   constructor(private themeService: ThemeService,
-              private serializerService: SerializerService,
-              private appSettingsStore: AppSettingsStore) {
+              private dataService: DataService) {
   }
 
   showConfig() {
     this.themeService.showConfig();
+  }
+
+  save() {
+    this.dataService.saveDataToLocalStorage();
   }
 }

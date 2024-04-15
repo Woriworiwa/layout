@@ -8,6 +8,8 @@ import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {DataService} from "../services/data.service";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Css} from "../models/css.model";
+import {Preset} from "../models/preset.model";
+import {flexPresets, textPresets} from "../data/presets";
 
 export class CanvasState {
   frames: CanvasItem[] = [];
@@ -19,7 +21,7 @@ export class CanvasState {
   providedIn: 'root'
 })
 export class CanvasStore extends Store<CanvasState> {
-  constructor(private dataService: DataService) {
+  constructor() {
     super(new CanvasState());
   }
 
@@ -67,7 +69,7 @@ export class CanvasStore extends Store<CanvasState> {
   }
 
   addNewPreset(presetId: string, insertAfterFrameId: string) {
-    const preset = this.dataService.getPreset(presetId);
+    const preset = this.getPreset(presetId);
 
     if (!preset) {
       return;
@@ -226,6 +228,12 @@ export class CanvasStore extends Store<CanvasState> {
     return undefined;
   }
 
+  getPresets() {
+    const presets: Preset[] = [...flexPresets as Preset[], ...textPresets as Preset[]]
+
+    return presets;
+  }
+
   private assignKeys(frames: CanvasItem[] | undefined, parentKey: string | undefined) {
     if (!frames) {
       return [];
@@ -254,5 +262,9 @@ export class CanvasStore extends Store<CanvasState> {
     }
 
     return uniqueId;
+  }
+
+  private getPreset(presetId: string) {
+    return this.getPresets().find(preset => preset.presetId === presetId);
   }
 }
