@@ -12,6 +12,7 @@ import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.componen
   styles: `
   :host{
     display: block;
+    flex-grow: 1;
     padding: 5px;
     background-color: #ed9534;
     border-radius: 6px;

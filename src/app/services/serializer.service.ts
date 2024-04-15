@@ -3,6 +3,7 @@ import {CanvasStore} from "../store/canvas.store";
 import {CanvasItem} from "../models/canvas-item.model";
 import cloneDeep from "lodash.clonedeep";
 import {Css, POSTFIX_UNIT, POSTFIXED_PROPERTIES} from "../models/css.model";
+import {FrameType} from "../models/enums";
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,49 @@ export class SerializerService {
     return cssProperties;
   }
 
+  serializeToHtml(canvasItems: CanvasItem[], level: number = 0) {
+    const padding = 2;
+    const htmlLines: string[] = [];
+    htmlLines.push(`<html>`);
+
+    /* head */
+    htmlLines.push(`${' '.repeat(padding)}<head>`);
+
+    /* frame styles*/
+    htmlLines.push(`${' '.repeat(padding * 2)}<style>`);
+    htmlLines.push(`${' '.repeat(padding * 2)}.frame {
+      display: block;
+      padding: 15px;
+      background-color: #9161a7;
+      border: 1px solid #ed9534;
+    }`);
+
+    /* text styles */
+    htmlLines.push(`${' '.repeat(padding * 2)}.text {
+      display: block;
+      padding: 5px;
+      background-color: #ed9534;
+      border-radius: 6px;
+      border: 2px solid black;
+      box-shadow: inset 3px 3px 7px 5px #f2ad62;
+    }`);
+
+    htmlLines.push(`${' '.repeat(padding * 2)}</style>`);
+
+    htmlLines.push(`${' '.repeat(padding * 2)}<style>`);
+    htmlLines.push(this.serializeToCssClasses(canvasItems, 2).join('\n'));
+    htmlLines.push(`${' '.repeat(padding * 2)}</style>`);
+    htmlLines.push(`${' '.repeat(padding)}</head>`);
+
+    /* body */
+    htmlLines.push(`${' '.repeat(padding)}<body>`);
+    htmlLines.push(this.serializeToHtmlChildren(canvasItems, 2).join('\n'));
+    htmlLines.push(`${' '.repeat(padding)}</body>`);
+
+    htmlLines.push(`</html>`);
+    return htmlLines;
+  }
+
   private sanitizeFrames(frames: CanvasItem[]) {
     if (!frames || !frames.length) {
       return;
@@ -128,5 +172,30 @@ export class SerializerService {
     }
 
     return false;
+  }
+
+  private serializeToHtmlChildren(canvasItems: CanvasItem[], level: number = 0) {
+    const padding = 2;
+    const htmlLines: string[] = [];
+
+    canvasItems.forEach(canvasItem => {
+      /* class name and opening curl */
+      const cssClasses = `${canvasItem.frameType === FrameType.FLEX ? 'frame' : 'text'} ${canvasItem.key}`;
+      const linePadding = ' '.repeat(level * padding);
+      htmlLines.push(`${linePadding}<div class="${cssClasses}">`);
+
+      if (canvasItem.frameType === FrameType.TEXT) {
+        htmlLines.push(canvasItem.name!)
+      }
+      /* children */
+      if (canvasItem.children && canvasItem.children.length > 0) {
+        htmlLines.push(...this.serializeToHtmlChildren(canvasItem.children, level + 1));
+      }
+
+      /* closing curl */
+      htmlLines.push(' '.repeat(level * padding) + `</div>`);
+    });
+
+    return htmlLines;
   }
 }

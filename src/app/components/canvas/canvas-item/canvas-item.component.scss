@@ -9,6 +9,9 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
 
 
 :host {
+  display: flex;
+  flex-direction: column;
+
   .selection-wrapper {
     display: contents;
   }

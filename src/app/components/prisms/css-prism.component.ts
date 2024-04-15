@@ -6,16 +6,19 @@ import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
+import 'prismjs/components/prism-markup';
 import {CanvasItem} from "../../models/canvas-item.model";
 import {SerializerService} from "../../services/serializer.service";
 import {CanvasStore} from "../../store/canvas.store";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {SanitizeHtmlPipe} from "../../pipes/sanitize-html.pipe";
 
 @Component({
   selector: 'app-css-prism',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SanitizeHtmlPipe],
   template: `
-    <pre><code class="language-scss" [innerHTML]="css"></code></pre>
+    <pre><code source [class]="mode === 'CSS' ? 'language-scss' : 'language-html'">{{ code }}</code></pre>
   `,
   styles: ``
 })
@@ -23,14 +26,21 @@ export class CssPrismComponent {
   @Input()
   canvasItems: CanvasItem[] = [];
 
-  css: string = '';
+  @Input()
+  mode: 'CSS' | 'HTML' = 'CSS';
+
+  code: string = '';
 
   constructor(private serializerService: SerializerService,
-              private canvasStore: CanvasStore) {
+              private domSanitizer:DomSanitizer) {
   }
 
   ngOnChanges() {
-    this.css = this.serializerService.serializeToCssClasses(this.canvasItems).join('\n');
+    if (this.mode === 'CSS') {
+      this.code = this.serializerService.serializeToCssClasses(this.canvasItems).join('\n');
+    }else {
+      this.code = this.serializerService.serializeToHtml(this.canvasItems).join('\n');
+    }
   }
 
   ngAfterViewChecked() {
