@@ -15,6 +15,7 @@ import {DropdownComponent} from "./property-items/dropdown.component";
   standalone: true,
   imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, DropdownComponent],
   template: `
+    <div class="title">Display</div>
     <app-property-item-dropdown [options]="displayOptions"
                                 [control]="getFormControl('display')"
                                 label="display"></app-property-item-dropdown>

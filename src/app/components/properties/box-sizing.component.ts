@@ -15,6 +15,8 @@ import {SliderComponent} from "./property-items/slider.component";
   standalone: true,
   imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, SliderComponent],
   template: `
+    <div class="title">Box sizing</div>
+
     <ng-container [formGroup]="formGroup">
       <app-property-panel-row label="padding">
         <div>
@@ -30,6 +32,10 @@ import {SliderComponent} from "./property-items/slider.component";
   styles: `
     :host {
       display: contents;
+
+      app-property-panel-row {
+        margin-left: 20px;
+      }
     }
   `
 })
@@ -88,6 +94,4 @@ export class BoxSizingComponent {
 
     return formGroup;
   }
-
-
 }

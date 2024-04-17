@@ -24,7 +24,8 @@
             <app-canvas-item [item]="childFrame"
                              [selectedFrameKey]="selectedFrameKey"
                              (clicked)="onClick($event)">
-              <app-text app-editable-content cdkDrag>{{ childFrame.name }}</app-text>
+              <app-text app-editable-content
+                        cdkDrag>{{ childFrame.name }}</app-text>
             </app-canvas-item>
           }
         }

@@ -21,7 +21,8 @@ import { CommonModule } from '@angular/common';
     .property-label {
       display: flex;
       align-items: center;
-      white-space: nowrap;;
+      white-space: nowrap;
+      margin-left: 10px;
     }
   `
 })

@@ -22,6 +22,7 @@ import {SliderComponent} from "./property-items/slider.component";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent],
   template: `
+    <div class="title">Flex</div>
     <ng-container [formGroup]="formGroup">
       <app-property-item-select-button [options]="flexDirectionOptions"
                                        [control]="getFormControl('flexDirection')"
