@@ -9,7 +9,7 @@ import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-markup';
 import {CanvasItem} from "../../models/canvas-item.model";
 import {CanvasStore} from "../../store/canvas.store";
-import {SanitizeHtmlPipe} from "../../pipes/sanitize-html.pipe";
+import {UnsafeHtmlPipe} from "../../pipes/unsafe-html.pipe";
 import {ButtonModule} from "primeng/button";
 import FileSaver from 'file-saver';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -18,7 +18,7 @@ import {HtmlSerializer} from "../../data/serializers/html.serializer";
 @Component({
   selector: 'app-html-prism',
   standalone: true,
-  imports: [CommonModule, SanitizeHtmlPipe, ButtonModule],
+  imports: [CommonModule, UnsafeHtmlPipe, ButtonModule],
   template: `
     <p-button label="Download" (click)="downloadHtml()"></p-button>
     <pre><code source class="language-html">{{ code }}</code></pre>

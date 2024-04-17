@@ -16,13 +16,13 @@ import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
 import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
-import {CssPipe} from "../../../pipes/css.pipe";
+import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
 
 @Component({
   selector: 'app-frame',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent, CssPipe],
+  imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })

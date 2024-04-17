@@ -9,12 +9,12 @@ import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {CanvasItemComponent} from "./canvas-item/canvas-item.component";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {AppSettingsStore} from "../../store/app-settings-store.service";
-import {CssPipe} from "../../pipes/css.pipe";
+import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CanvasItemComponent, CssPipe],
+  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
   providers: [ContextMenuService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']

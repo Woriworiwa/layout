@@ -12,10 +12,20 @@ export class CssStyleSerializer extends Serializer {
       return [];
     }
 
-    const cssProperties: string[] = [];
     const css = items[0].css as Css
+    if (!css) {
+      return [];
+    }
+
+    const cssProperties: string[] = [];
 
     /* loop through the root keys (boxSizing, flex,...) */
+    CssStyleSerializer.serializeItems(css, cssProperties);
+
+    return cssProperties;
+  }
+
+  private static serializeItems(css: Css, cssProperties: string[]) {
     for (const key of Object.keys(css)) {
       const value = css[key as keyof Css];
 
@@ -41,7 +51,5 @@ export class CssStyleSerializer extends Serializer {
         cssProperties.push(`${cssPropertyName}: ${cssPropertyValue}`);
       }
     }
-
-    return cssProperties;
   }
 }

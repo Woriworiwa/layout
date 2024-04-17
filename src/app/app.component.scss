@@ -1,22 +1,54 @@
 :host {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  width: 100%;
   height: 100%;
+  grid-template-areas:
+    "header header header"
+    "left main right";
+  grid-template-columns: 220px 4fr 320px;
+  grid-template-rows: auto 1fr;
 
-  .template-content {
-    flex-grow: 1;
-
-    //::ng-deep p-tab-view {
-    //  flex-grow: 1;
-    //}
+  .header {
+    grid-area: header;
   }
-}
 
-p-splitter {
-  flex-grow: 1;
+  .left {
+    overflow: auto;
+    grid-area: left;
+  }
 
-  .splitter-content {
+  .right {
+    overflow: auto;
+    grid-area: right;
+  }
+
+  .main {
+    grid-area: main;
     display: flex;
-    flex-grow: 1;
+    flex-direction: column;
+    overflow: auto;
+
+    .main-toolbar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px;
+      background-color: #eeeeee;
+
+      ::ng-deep.p-button {
+        box-shadow: none;
+      }
+    }
+
+    .main-content {
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
   }
 }
+
+
+
+

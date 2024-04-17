@@ -14,8 +14,4 @@ export class SerializerService {
     const serializer: Serializer = new CssClassSerializer();
     return serializer.serialize([]);
   }
-
-
-
-
 }

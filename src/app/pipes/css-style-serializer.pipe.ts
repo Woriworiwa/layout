@@ -4,9 +4,9 @@ import {CanvasItem} from "../models/canvas-item.model";
 
 @Pipe({
   standalone: true,
-  name: 'css'
+  name: 'cssStyleSerializer'
 })
-export class CssPipe implements PipeTransform {
+export class CssStyleSerializerPipe implements PipeTransform {
   constructor() {
   }
 
