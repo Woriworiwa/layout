@@ -24,9 +24,6 @@ export class AppSettingsStore extends Store<AppSettingsState> {
 
   get previewActive() {
     return this.getState().previewActive;
-    // return this.state.pipe(
-    //   map(state => state.addItemsPanelActive)
-    // );
   }
 
   set previewActive(active: boolean) {

@@ -1,8 +1,6 @@
 <div #canvasItem class="selection-wrapper">
   <ng-content></ng-content>
 
-
-
   <p-overlayPanel #op>
     <ng-template pTemplate="content">
       <app-insert [parentFrameId]="item?.key" (componentAdded)="op.toggle($event)"></app-insert>

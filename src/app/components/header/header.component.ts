@@ -10,11 +10,12 @@ import {FormsModule} from "@angular/forms";
 import {DataService} from "../../services/data.service";
 import {SidebarModule} from "primeng/sidebar";
 import {PreviewComponent} from "../preview/preview.component";
+import {TooltipModule} from "primeng/tooltip";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent, CdkDrag, CdkDropList, ToggleButtonModule, FormsModule, SidebarModule, PreviewComponent],
+  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent, CdkDrag, CdkDropList, ToggleButtonModule, FormsModule, SidebarModule, PreviewComponent, TooltipModule],
   templateUrl: `./header.component.html`,
   styleUrls: ['./header.component.scss']
 })
