@@ -3,22 +3,26 @@
 </div>
 
 <div class="action-buttons-container">
-  <p-toggleButton class="action-button" [(ngModel)]="appSettingsStore.previewActive" onIcon="pi pi-play" offIcon="pi pi-play"></p-toggleButton>
+  <p-toggleButton class="action-button"
+                  [(ngModel)]="appSettingsStore.previewActive"
+                  onIcon="pi pi-play"
+                  offIcon="pi pi-play"
+                  pTooltip="'Preview'"
+                  tooltipPosition="bottom"></p-toggleButton>
 
-  <button type="button"
-          class="action-button p-button"
-          (click)="showConfig()">
-    <i class="pi pi-palette"></i>
-  </button>
+  <p-button class="action-button"
+            [outlined]="true"
+            (click)="showConfig()"
+            pTooltip="'Customize theme'"
+            tooltipPosition="bottom"
+            icon="pi pi-palette">
+  </p-button>
 
-  <button type="button"
-          class="action-button p-button"
-          pTooltip="'Save to local storage'"
-          tooltipPosition="left"
-          placeholder="Bottom"
-          (click)="save()">
-    <i class="pi pi-save"></i>
-  </button>
+  <p-splitButton label="Save"
+                 (onClick)="save()"
+                 appendTo="body"
+                 [model]="items"
+                 [menuStyle]="{'min-width': '200px'}"></p-splitButton>
 </div>
 
 <app-theme-options></app-theme-options>

@@ -23,7 +23,25 @@ import {HtmlSerializer} from "../../data/serializers/html.serializer";
     <p-button label="Download" (click)="downloadHtml()"></p-button>
     <pre><code source class="language-html">{{ code }}</code></pre>
   `,
-  styles: ``
+  styles: `
+    :host {
+      display: block;
+      position: relative;
+
+      p-button {
+        position: absolute;
+        right: 0;
+        margin-right: 10px;
+        margin-top: 20px;
+      }
+
+      pre {
+        margin: 0;
+        background-color: #eeeeee;
+        border-radius: 0;
+      }
+    }
+  `
 })
 export class HtmlPrismComponent {
   code: string = '';

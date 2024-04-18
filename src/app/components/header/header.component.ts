@@ -11,20 +11,33 @@ import {DataService} from "../../services/data.service";
 import {SidebarModule} from "primeng/sidebar";
 import {PreviewComponent} from "../preview/preview.component";
 import {TooltipModule} from "primeng/tooltip";
+import {SplitButtonModule} from "primeng/splitbutton";
+import {MenuItem, MessageService} from "primeng/api";
+import {MessageModule} from "primeng/message";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent, CdkDrag, CdkDropList, ToggleButtonModule, FormsModule, SidebarModule, PreviewComponent, TooltipModule],
+  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent, CdkDrag, CdkDropList, ToggleButtonModule, FormsModule, SidebarModule, PreviewComponent, TooltipModule, SplitButtonModule, MessageModule],
   templateUrl: `./header.component.html`,
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  previewVisible: boolean = false;
+  items: MenuItem[] = [
+    {
+      label: 'Empty local storage',
+      icon: 'pi pi-trash',
+      command: () => {
+        this.clearLocalStorage();
+      }
+    }
+  ];
+
 
   constructor(private themeService: ThemeService,
               protected appSettingsStore: AppSettingsStore,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private messageService: MessageService) {
   }
 
   showConfig() {
@@ -33,9 +46,11 @@ export class HeaderComponent {
 
   save() {
     this.dataService.saveDataToLocalStorage();
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Saved to local storage.' });
   }
 
-  showPreview() {
-    this.appSettingsStore.previewActive = true;
+  clearLocalStorage() {
+    this.dataService.clearLocalStorage();
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Local storage cleared.' });
   }
 }
