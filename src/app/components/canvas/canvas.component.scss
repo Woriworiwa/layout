@@ -1,9 +1,9 @@
 :host {
-  height: 100%;
   background-color: #eeeeee;
   padding: 30px;
   overflow: clip;
   display: flex;
+  flex-grow: 1;
 
   &.grab-mode {
     cursor: grab;

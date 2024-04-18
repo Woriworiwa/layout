@@ -1,11 +1,3 @@
-<p-sidebar [visible]="isActive"
-           (visibleChange)="onVisibleChange($event)"
-           position="right"
-           styleClass="layout-config w-full sm:w-26rem">
-  <div>
-    <code>
-      <pre><p>{{frames | json}}</p></pre>
-    </code>
-
-  </div>
-</p-sidebar>
+<code>
+  <pre><p>{{ canvasStore.frames$ | async | json }}</p></pre>
+</code>

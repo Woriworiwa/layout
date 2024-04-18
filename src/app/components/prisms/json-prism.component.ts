@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SidebarModule} from "primeng/sidebar";
-import {SerializerService} from "../../services/serializer.service";
 import {CanvasStore} from "../../store/canvas.store";
-import {Frame} from "../../models/frame.model";
+import {CanvasItem} from "../../models/canvas-item.model";
 
 @Component({
   selector: 'app-json-prism',
@@ -14,21 +13,12 @@ import {Frame} from "../../models/frame.model";
 })
 export class JsonPrismComponent {
 
-  frames: Frame[] | undefined = undefined;
+  frames: CanvasItem[] | undefined = undefined;
 
-  constructor(private serializerService: SerializerService,
-              public canvasStore: CanvasStore) {
+  constructor(protected canvasStore: CanvasStore) {
   }
 
-  get isActive(): boolean {
-    return this.serializerService.serializerActive;
-  }
-
-  onVisibleChange(value: boolean) {
-    if (!value) {
-      this.serializerService.hideSerializer();
-    } else {
-      this.frames = this.serializerService.serializeToJSON();
-    }
+  ngOnInit() {
+    this.frames = this.canvasStore.frames;
   }
 }

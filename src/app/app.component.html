@@ -1,35 +1,36 @@
+<!--  header-->
 <div class="header">
   <app-header></app-header>
 </div>
 
-<p-splitter styleClass="splitter-content"
-            [style]="{ height: '100%' }"
-            [panelSizes]="[20, 55, 25]"
-            [minSizes]="[20, 10, 20]">
+<!--  structure tree-->
+<div class="left">
+  <app-structure-tree *ngIf="!(appSettingsStore.previewActive$ | async)"></app-structure-tree>
+</div>
 
-  <ng-template pTemplate>
-    <div class="template-content">
-      <app-left-panel></app-left-panel>
+<!--  main-->
+<div class="main">
+    <div class="main-toolbar">
+      @for (tab of tabs; track tab.id) {
+        <p-button [label]="tab.label"
+                  [icon]="tab.icon"
+                  [text]="true"
+                  [severity]="tab.id !== selectedTabId ? 'secondary' : undefined"
+                  (onClick)="setSelectedTab(tab.id)" size="small"></p-button>
+      }
     </div>
-  </ng-template>
-
-  <ng-template pTemplate>
-    <div class="template-content">
-      <app-canvas></app-canvas>
+    <div class="main-content">
+      <app-canvas *ngIf="!(appSettingsStore.previewActive$ | async) && selectedTabId ===1 "></app-canvas>
+      <app-preview *ngIf="(appSettingsStore.previewActive$ | async)  && selectedTabId ===1 "></app-preview>
+      <app-html-prism *ngIf="selectedTabId === 2"></app-html-prism>
+      <app-json-prism *ngIf="selectedTabId === 3 "></app-json-prism>
     </div>
-  </ng-template>
+</div>
 
-  <ng-template pTemplate>
-    <div class="template-content">
-      <app-settings></app-settings>
-    </div>
-  </ng-template>
+<!--  properties -->
+<div class="right">
+  <app-settings *ngIf="!(appSettingsStore.previewActive$ | async)"></app-settings>
+</div>
 
-</p-splitter>
-
-<router-outlet/>
-
-
-
-
+<router-outlet></router-outlet>
 

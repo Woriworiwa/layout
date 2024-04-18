@@ -1,54 +1,48 @@
 import {
   ChangeDetectionStrategy,
-  Component, ElementRef,
+  Component,
   EventEmitter,
-  HostListener,
   Input,
   Output
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Frame} from "../../../models/frame.model";
+import {CanvasItem} from "../../../models/canvas-item.model";
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
-import {DisplayFlexDirective} from "../../../directives/display-flex.directive";
 import {TextComponent} from "../text/text.component";
 import { FrameType } from '../../../models/enums';
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 import {CanvasStore} from "../../../store/canvas.store";
+import {ButtonModule} from "primeng/button";
+import {OverlayPanelModule} from "primeng/overlaypanel";
+import {InsertComponent} from "../../insert/insert.component";
+import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
+import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
 
 @Component({
   selector: 'app-frame',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditorContentDirective, DisplayFlexDirective, TextComponent, CdkDrag, CdkDropList],
-  host: {
-    '[class.selected]' : 'selectedFrameKey === frame?.key'
-  },
-
+  imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })
-export class FrameComponent {
+export class FrameComponent{
   protected readonly FrameType = FrameType;
-  @Input() frame: Frame | undefined;
+  @Output() frameContentChanged = new EventEmitter<{ key: string , content: string }>();
+  @Input() item: CanvasItem | undefined;
+  @Output() clicked = new EventEmitter<string>();
   @Input() selectedFrameKey!: string | undefined;
   @Input() dragDropDisabled = true;
-  @Output() clicked = new EventEmitter<string>();
-  @Output() frameContentChanged = new EventEmitter<{ key: string , content: string }>();
-
-  @HostListener('click', ['$event'])
-  onClick($event:any) {
-    $event.stopPropagation();
-    this.clicked.emit(this.frame?.key);
-  }
 
   constructor(private canvasStore: CanvasStore) {
+
   }
 
-  onDrop(event: CdkDragDrop<string[]>) {
-    this.canvasStore.addNewPreset(event.item.data, event.container.id, event.currentIndex);
+  onDrop(event: CdkDragDrop<string | undefined, any>) {
+    this.canvasStore.moveFrameChild(event.container.data, event.previousContainer.data, event.previousIndex, event.currentIndex);
   }
 
-  protected onChildClicked(key: string) {
+  protected onClick(key: string) {
     this.clicked.emit(key);
   }
 

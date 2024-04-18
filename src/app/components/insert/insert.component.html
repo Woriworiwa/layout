@@ -1,0 +1,8 @@
+<div class="items-list">
+  @for (item of items; track item) {
+    <div class="item" (click)="addItem(item.presetId)">
+      {{item.presetName}}
+      <app-preset [preset]="item.presetDefinition"></app-preset>
+    </div>
+  }
+</div>

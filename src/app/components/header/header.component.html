@@ -2,19 +2,23 @@
   Framer Doppelganger
 </div>
 
-<div class="action-buttons-container" cdkDrop>
+<div class="action-buttons-container">
+  <p-toggleButton class="action-button" [(ngModel)]="appSettingsStore.previewActive" onIcon="pi pi-play" offIcon="pi pi-play"></p-toggleButton>
+
   <button type="button"
-          class="action-button p-button   w-2rem h-2rem  transition-all transition-duration-300 min-w-0"
+          class="action-button p-button"
           (click)="showConfig()">
     <i class="pi pi-palette"></i>
   </button>
 
   <button type="button"
-          class="action-button p-button   w-2rem h-2rem  transition-all transition-duration-300 min-w-0"
-          (click)="showSerializer()">
-    <i class="pi pi-palette"></i>
+          class="action-button p-button"
+          pTooltip="'Save to local storage'"
+          tooltipPosition="left"
+          placeholder="Bottom"
+          (click)="save()">
+    <i class="pi pi-save"></i>
   </button>
 </div>
 
 <app-theme-options></app-theme-options>
-<app-json-prism></app-json-prism>

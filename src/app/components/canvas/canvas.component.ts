@@ -2,20 +2,25 @@ import {Component, ElementRef, HostBinding, HostListener, Renderer2, ViewChild} 
 import {CommonModule} from '@angular/common';
 import {FrameComponent} from "../canvas-components/frame/frame.component";
 import {CanvasStore} from "../../store/canvas.store";
-import {Frame} from "../../models/frame.model";
+import {CanvasItem} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
+import {CanvasItemComponent} from "./canvas-item/canvas-item.component";
+import {ContextMenuService} from "../../services/context-menu.service";
+import {AppSettingsStore} from "../../store/app-settings-store.service";
+import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent],
+  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
+  providers: [ContextMenuService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent {
-  frames: Frame[] = [];
+  frames: CanvasItem[] = [];
   selectedFrameKey: string | undefined;
   translateY = 0;
   translateX = 0;
@@ -33,11 +38,13 @@ export class CanvasComponent {
   wrapper!: ElementRef;
 
   constructor(protected canvasStore: CanvasStore,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private appSettingsStore: AppSettingsStore) {
     this.canvasStore.frames$.subscribe(rootFrames => this.frames = rootFrames);
     this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
   }
 
+  /*Zoom with mouse wheel*/
   @HostListener('mousewheel', ['$event'])
   onClick(event: WheelEvent) {
     event.stopPropagation();
@@ -60,11 +67,13 @@ export class CanvasComponent {
     this.setTransformStyles();
   }
 
+  /*click*/
   @HostListener('click', ['$event'])
   oneClick(event: MouseEvent) {
     this.canvasStore.setSelectedFrameKey(undefined);
   }
 
+  /*mouse down*/
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
      if (event.button === 0) {
@@ -110,10 +119,8 @@ export class CanvasComponent {
     console.log(content);
   }
 
-  onDrop(event: CdkDragDrop<string[]>) {
-    if (event.item.data) {
-      this.canvasStore.addNewPreset(event.item.data, event.container.id, event.currentIndex);
-    }
+  onDrop(event: CdkDragDrop<string | undefined, any>) {
+    this.canvasStore.moveFrameChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
   }
 
   private setTransformStyles() {

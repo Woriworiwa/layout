@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
+import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
 
 @Component({
   selector: 'app-text',
   standalone: true,
   imports: [CommonModule],
-  template: `<p><ng-content></ng-content></p>`,
+  template: `<ng-content></ng-content>`,
 
   styles: `
   :host{
     display: block;
+    flex-grow: 1;
     padding: 5px;
     background-color: #ed9534;
     border-radius: 6px;
@@ -19,4 +21,4 @@ import {EditorContentDirective} from "../../../directives/editorcontent.directiv
   }
   `
 })
-export class TextComponent {}
+export class TextComponent{}

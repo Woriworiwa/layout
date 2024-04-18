@@ -5,16 +5,21 @@
      cdkDropListSortingDisabled="false"
      (cdkDropListDropped)="onDrop($event)">
   @for (frame of frames; track frame.key) {
-    <app-frame [frame]="frame"
-               cdkDrag
-               cdkDropList
-               [id]="frame.key!"
-               [dragDropDisabled]="isGrabMode"
-               [cdkDragDisabled]="isGrabMode"
-               [selectedFrameKey]="selectedFrameKey"
-               [cdkDropListOrientation]="frame.flexLayoutSettings?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
-               (clicked)="onFrameClicked($event)"
-               (cdkDropListDropped)="onDrop($event)"
-               (frameContentChanged)="onContentChanged($event)"></app-frame>
+    <app-canvas-item [item]="frame"
+                     cdkDrag
+                     cdkDropList
+                     [cdkDragBoundary]="'#' + CANVAS_WRAPPER_ID"
+                     [cdkDropListData]="frame?.key"
+                     [cdkDragDisabled]="isGrabMode"
+                     [cdkDropListOrientation]="frame?.css?.flex?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
+                     (cdkDropListDropped)="onDrop($event)"
+                     [selectedFrameKey]="selectedFrameKey"
+                     (clicked)="onFrameClicked($event)">
+      <app-frame [item]="frame"
+                 [id]="frame.key!"
+                 [selectedFrameKey]="selectedFrameKey"
+                 (clicked)="onFrameClicked($event)"
+                 (frameContentChanged)="onContentChanged($event)"></app-frame>
+    </app-canvas-item>
   }
 </div>

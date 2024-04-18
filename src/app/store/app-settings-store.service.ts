@@ -4,7 +4,7 @@ import {CanvasState} from "./canvas.store";
 import {distinctUntilChanged, map} from "rxjs";
 
 export class AppSettingsState {
-  addItemsPanelActive: boolean = false;
+  previewActive: boolean = false;
 }
 
 @Injectable({
@@ -15,23 +15,21 @@ export class AppSettingsStore extends Store<AppSettingsState> {
     super(new AppSettingsState());
   }
 
-  get addItemsPanelActive$() {
+  get previewActive$() {
     return this.state.pipe(
-      map(state => state.addItemsPanelActive),
+      map(state => state.previewActive),
       distinctUntilChanged()
     );
   }
-  get addItemsPanelActive() {
-    return this.getState().addItemsPanelActive;
-    // return this.state.pipe(
-    //   map(state => state.addItemsPanelActive)
-    // );
+
+  get previewActive() {
+    return this.getState().previewActive;
   }
 
-  set addItemsPanelActive(active: boolean) {
+  set previewActive(active: boolean) {
     this.setState({
       ...this.getState(),
-      addItemsPanelActive: active
+      previewActive: active
     });
   }
 }

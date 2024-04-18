@@ -3,37 +3,65 @@ export const mockData =
   [
     {
       "frameType": "FLEX",
-      "flexLayoutSettings": {
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "justifyContent": "end"
+      "css": {
+        "boxSizing": {
+          "padding": "16"
+        },
+        "display": {
+          "display": "flex"
+        },
+        "flex": {
+          "gap": 10
+        }
       },
       "children": [
         {
-          "name": "lorem ipsum",
-          "frameType": "TEXT"
+          "name": "____________________    1   ____________________",
+          "frameType": "TEXT",
+          "key": "vAHJAJ5i"
         },
         {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
+          "name": "_____    2    ______",
+          "frameType": "TEXT",
+          "key": "l6v0uyLi"
         },
         {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
-        },
-        {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
-        },
-        {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
-        },
-        {
-          "name": "lorem ipsum gaga gugu gigi",
-          "frameType": "TEXT"
+          "name": "__________    3    __________",
+          "frameType": "TEXT",
+          "key": "Mgl6xeP3"
         }
-      ]
+      ],
+      "key": "TU5cxsc7"
+    },
+    {
+      "frameType": "FLEX",
+      "children": [
+        {
+          "name": "____________________    1   ____________________",
+          "frameType": "TEXT",
+          "key": "hrgDqbxP"
+        },
+        {
+          "name": "_____    2    ______",
+          "frameType": "TEXT",
+          "key": "Fcu0T0kx"
+        },
+        {
+          "name": "__________    3    __________",
+          "frameType": "TEXT",
+          "key": "6ng1cuxY"
+        }
+      ],
+      "key": "dqJIuKDD",
+      "css": {
+        "display": {
+          "display": "flex"
+        },
+        "flex": {
+          "gap": 9,
+          "justifyContent": "end"
+        }
+      }
     },
     {
       "frameType": "FLEX",
@@ -44,29 +72,41 @@ export const mockData =
       "children": [
         {
           "frameType": "FLEX",
-          "flexLayoutSettings": {
-            "flexDirection": "column",
-            "gap": "10"
-          },
           "children": [
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT"
+              "frameType": "TEXT",
+              "key": "xzfllvrw"
             },
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT"
+              "frameType": "TEXT",
+              "key": "AAffahCX"
             },
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT"
+              "frameType": "TEXT",
+              "key": "lZzhgUi9"
             },
             {
               "name": "lorem ipsum",
-              "frameType": "TEXT"
+              "frameType": "TEXT",
+              "key": "JtswtbUN"
             }
-          ]
+          ],
+          "key": "X9ID8XUZ",
+          "css": {
+            "flex": {
+              "flexDirection": "column",
+              "gap": "13",
+              "alignItems": "center"
+            },
+            "display": {
+              "display": "flex"
+            }
+          }
         }
-      ]
+      ],
+      "key": "PL5Jbh3H"
     }
   ]

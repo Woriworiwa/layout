@@ -1,29 +1,35 @@
-@switch (frame?.frameType) {
+@switch (item?.frameType) {
   @case (FrameType.FLEX) {
-      {{ frame?.name }}
-
-    <div class="selection-wrapper">
-      <div app-display-flex
-           [model]="frame?.flexLayoutSettings">
-        @for (childFrame of frame?.children; track childFrame) {
-          @switch (childFrame.frameType) {
-            @case (FrameType.FLEX) {
-              <app-frame [frame]="childFrame"
-                         (clicked)="onChildClicked($event)"
+    <div [style]="item | cssStyleSerializer"
+         (cdkDropListDropped)="onDrop($event)"
+         [cdkDropListData]="item?.key"
+         [cdkDropListOrientation]="item?.css?.flex?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
+         cdkDropList>
+      @for (childFrame of item?.children; track childFrame) {
+        @switch (childFrame.frameType) {
+          @case (FrameType.FLEX) {
+            <app-canvas-item [item]="childFrame"
+                             [selectedFrameKey]="selectedFrameKey"
+                             cdkDrag
+                             [cdkDragDisabled]="dragDropDisabled"
+                             (clicked)="onClick($event)">
+              <app-frame [item]="childFrame"
+                         (clicked)="onClick($event)"
                          [selectedFrameKey]="selectedFrameKey"
                          [id]="childFrame.key!"
-                         cdkDrag
-                         cdkDropList
-                         [cdkDragDisabled]="dragDropDisabled"
-                         (cdkDropListDropped)="onDrop($event)"
                          (frameContentChanged)="onChildFrameContentChanged($event)"></app-frame>
-            }
-            @case (FrameType.TEXT) {
-              <app-text app-editable-content cdkDrag>{{childFrame.name}}</app-text>
-            }
+            </app-canvas-item>
+          }
+          @case (FrameType.TEXT) {
+            <app-canvas-item [item]="childFrame"
+                             [selectedFrameKey]="selectedFrameKey"
+                             (clicked)="onClick($event)">
+              <app-text app-editable-content
+                        cdkDrag>{{ childFrame.name }}</app-text>
+            </app-canvas-item>
           }
         }
-      </div>
+      }
     </div>
   }
   @case (FrameType.TEXT) {
