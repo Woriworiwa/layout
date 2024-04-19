@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
+import {CavnasBaseComponent} from "../canvas-base-component.component";
+import {Serializer} from "../../../data/serializers/serializer";
+import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer";
+import {CanvasStore} from "../../../store/canvas.store";
 
 @Component({
   selector: 'app-text',
@@ -20,4 +24,8 @@ import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.componen
   }
   `
 })
-export class TextComponent{}
+export class TextComponent extends CavnasBaseComponent{
+  constructor(private canvasStore: CanvasStore, private elementRef: ElementRef, private renderer: Renderer2) {
+    super(elementRef, renderer);
+  }
+}

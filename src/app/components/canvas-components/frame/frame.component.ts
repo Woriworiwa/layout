@@ -19,6 +19,7 @@ import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.componen
 import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
 import {Serializer} from "../../../data/serializers/serializer";
 import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer";
+import {CavnasBaseComponent} from "../canvas-base-component.component";
 
 @Component({
   selector: 'app-frame',
@@ -28,26 +29,15 @@ import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })
-export class FrameComponent{
+export class FrameComponent extends CavnasBaseComponent {
   protected readonly FrameType = FrameType;
   @Output() frameContentChanged = new EventEmitter<{ key: string , content: string }>();
-  @Input() item: CanvasItem | undefined;
   @Output() clicked = new EventEmitter<string>();
   @Input() selectedFrameKey!: string | undefined;
   @Input() dragDropDisabled = true;
 
   constructor(private canvasStore: CanvasStore, private elementRef: ElementRef, private renderer: Renderer2) {
-
-  }
-
-  ngOnChanges() {
-    const serializer: Serializer = new CssStyleSerializer();
-    const serializedStyles: string[] = [];
-
-    if (this.item) {
-      serializedStyles.push(...serializer.serialize([this.item]));
-      this.renderer.setProperty(this.elementRef.nativeElement, 'style', serializedStyles.join(';'));
-    }
+    super(elementRef, renderer);
   }
 
   onDrop(event: CdkDragDrop<string | undefined, any>) {
