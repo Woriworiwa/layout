@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from "primeng/button";
 import {InsertComponent} from "../../insert/insert.component";
@@ -27,7 +27,8 @@ export class CanvasItemComponent {
   @ViewChild(ContextMenuComponent) contextMenu!: ContextMenuComponent;
   @HostBinding('class.is-grabbing') isMouseOver = false;
 
-  constructor(private contextMenuService: ContextMenuService) {
+  constructor(protected elementRef: ElementRef,
+              private contextMenuService: ContextMenuService) {
   }
 
   @HostListener('click', ['$event'])

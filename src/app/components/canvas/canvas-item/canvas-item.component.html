@@ -1,15 +1,13 @@
-<div #canvasItem class="selection-wrapper">
-  <ng-content></ng-content>
+<ng-content></ng-content>
 
-  <p-overlayPanel #op>
-    <ng-template pTemplate="content">
-      <app-insert [parentFrameId]="item?.key" (componentAdded)="op.toggle($event)"></app-insert>
-    </ng-template>
-  </p-overlayPanel>
-</div>
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <app-insert [parentFrameId]="item?.key" (componentAdded)="op.toggle($event)"></app-insert>
+  </ng-template>
+</p-overlayPanel>
 
 <div class="add-item">
   <p-button icon="pi pi-plus" [rounded]="true" (click)="op.toggle($event)"></p-button>
 </div>
 
-<app-context-menu [target]="canvasItem" [frameKey]="item?.key"></app-context-menu>
+<app-context-menu [target]="elementRef.nativeElement" [frameKey]="item?.key"></app-context-menu>

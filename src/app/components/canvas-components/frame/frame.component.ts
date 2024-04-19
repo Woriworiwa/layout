@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, ElementRef,
   EventEmitter,
   Input,
-  Output
+  Output, Renderer2
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CanvasItem} from "../../../models/canvas-item.model";
@@ -17,6 +17,9 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
 import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
 import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
+import {Serializer} from "../../../data/serializers/serializer";
+import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer";
+import {CavnasBaseComponent} from "../canvas-base-component.component";
 
 @Component({
   selector: 'app-frame',
@@ -26,16 +29,15 @@ import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })
-export class FrameComponent{
+export class FrameComponent extends CavnasBaseComponent {
   protected readonly FrameType = FrameType;
-  @Output() frameContentChanged = new EventEmitter<{ key: string , content: string }>();
-  @Input() item: CanvasItem | undefined;
+  @Output() childTextContentChanged = new EventEmitter<{ key: string , content: string }>();
   @Output() clicked = new EventEmitter<string>();
   @Input() selectedFrameKey!: string | undefined;
   @Input() dragDropDisabled = true;
 
-  constructor(private canvasStore: CanvasStore) {
-
+  constructor(private canvasStore: CanvasStore, private elementRef: ElementRef, private renderer: Renderer2) {
+    super(elementRef, renderer);
   }
 
   onDrop(event: CdkDragDrop<string | undefined, any>) {
@@ -46,7 +48,7 @@ export class FrameComponent{
     this.clicked.emit(key);
   }
 
-  protected onChildFrameContentChanged({key, content}: {key: string, content: string}) {
-    this.frameContentChanged.emit({key, content});
+  protected onChildTextContentChanged({key, content}: {key: string, content: string}) {
+    this.childTextContentChanged.emit({key, content});
   }
 }

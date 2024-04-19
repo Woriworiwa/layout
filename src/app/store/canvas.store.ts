@@ -267,4 +267,17 @@ export class CanvasStore extends Store<CanvasState> {
   private getPreset(presetId: string) {
     return this.getPresets().find(preset => preset.presetId === presetId);
   }
+
+  updateTextContent(key: string, content: string) {
+    const frame = this.getFrameByKey(this.frames, key);
+
+    if (frame?.frameType === FrameType.TEXT) {
+      frame.name = content;
+    }
+
+    this.setState({
+      ...this.getState(),
+      frames: cloneDeep(this.getState().frames),
+    })
+  }
 }

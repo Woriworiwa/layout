@@ -8,8 +8,17 @@ import {CanvasItem} from "../../models/canvas-item.model";
   selector: 'app-json-prism',
   standalone: true,
   imports: [CommonModule, SidebarModule],
-  templateUrl: './json-prism.component.html',
-  styleUrl: './json-prism.component.scss'
+  template: `
+    <code>
+      <pre><p>{{ canvasStore.frames$ | async | json }}</p></pre>
+    </code>
+  `,
+  styles: `
+    :host{
+      background-color: #eeeeee;
+      padding: 0 16px;
+    }
+  `
 })
 export class JsonPrismComponent {
 

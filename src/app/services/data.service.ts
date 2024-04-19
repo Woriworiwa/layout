@@ -26,6 +26,10 @@ export class DataService {
     localStorage.setItem('CANVAS_ITEMS', JSON.stringify(canvasItems));
   }
 
+  clearLocalStorage() {
+    localStorage.removeItem('CANVAS_ITEMS');
+  }
+
   loadDataFromLocalStorage(): CanvasItem[] {
 
     let canvasItems: CanvasItem[] = [];

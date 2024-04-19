@@ -19,12 +19,14 @@ import {AppSettingsStore} from "./store/app-settings-store.service";
 import {PreviewComponent} from "./components/preview/preview.component";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {FormsModule} from "@angular/forms";
+import {ToastModule} from "primeng/toast";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, NgIf, SelectButtonModule, FormsModule],
-  providers: [CanvasStore, DataService],
+  imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, NgIf, SelectButtonModule, FormsModule, ToastModule],
+  providers: [CanvasStore, DataService, MessageService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
