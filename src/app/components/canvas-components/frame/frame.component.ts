@@ -31,7 +31,7 @@ import {CavnasBaseComponent} from "../canvas-base-component.component";
 })
 export class FrameComponent extends CavnasBaseComponent {
   protected readonly FrameType = FrameType;
-  @Output() frameContentChanged = new EventEmitter<{ key: string , content: string }>();
+  @Output() childTextContentChanged = new EventEmitter<{ key: string , content: string }>();
   @Output() clicked = new EventEmitter<string>();
   @Input() selectedFrameKey!: string | undefined;
   @Input() dragDropDisabled = true;
@@ -48,11 +48,7 @@ export class FrameComponent extends CavnasBaseComponent {
     this.clicked.emit(key);
   }
 
-  protected onChildFrameContentChanged({key, content}: {key: string, content: string}) {
-    this.frameContentChanged.emit({key, content});
-  }
-
-  protected onTextContentChanged({key, content}: {key: string, content: string}) {
-    this.frameContentChanged.emit({key, content});
+  protected onChildTextContentChanged({key, content}: {key: string, content: string}) {
+    this.childTextContentChanged.emit({key, content});
   }
 }

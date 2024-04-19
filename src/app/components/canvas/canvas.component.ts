@@ -46,7 +46,7 @@ export class CanvasComponent {
 
   /*Zoom with mouse wheel*/
   @HostListener('mousewheel', ['$event'])
-  onClick(event: WheelEvent) {
+  onMouseWheel(event: WheelEvent) {
     event.stopPropagation();
     event.preventDefault();
 
@@ -69,7 +69,7 @@ export class CanvasComponent {
 
   /*click*/
   @HostListener('click', ['$event'])
-  oneClick(event: MouseEvent) {
+  onClick(event: MouseEvent) {
     this.canvasStore.setSelectedFrameKey(undefined);
   }
 
@@ -115,8 +115,8 @@ export class CanvasComponent {
     this.canvasStore.setSelectedFrameKey(key);
   }
 
-  onContentChanged(content: { key: string, content: string }) {
-    console.log(content);
+  onChildTextContentChanged(content: { key: string, content: string }) {
+    this.canvasStore.updateTextContent(content.key, content.content);
   }
 
   onDrop(event: CdkDragDrop<string | undefined, any>) {

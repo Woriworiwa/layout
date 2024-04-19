@@ -17,7 +17,7 @@
                          (clicked)="onClick($event)"
                          [selectedFrameKey]="selectedFrameKey"
                          [id]="childFrame.key!"
-                         (frameContentChanged)="onChildFrameContentChanged($event)"></app-frame>
+                         (childTextContentChanged)="onChildTextContentChanged($event)"></app-frame>
             </app-canvas-item>
           }
           @case (FrameType.TEXT) {
@@ -26,7 +26,7 @@
                              (clicked)="onClick($event)">
               <app-text app-editable-content
                         [item]="childFrame"
-                        (contentChanged)="onChildFrameContentChanged($event)"
+                        (contentChanged)="onChildTextContentChanged($event)"
                         cdkDrag>{{ childFrame.name }}</app-text>
             </app-canvas-item>
           }
