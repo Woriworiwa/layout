@@ -9,9 +9,9 @@ export interface Css {
   flex?: Flex;
 }
 
-/* these properties must be prefixes with a unit. For now, the unit is px.
+/* these properties must be post-fixed with a unit. For now, the unit is px.
 * TODO: make the unit configurable per control */
-export const POSTFIXED_PROPERTIES = ['gap', 'padding', 'height'];
+export const POSTFIXED_PROPERTIES = ['gap', 'padding', 'height', 'width'];
 
 export const POSTFIX_UNIT = 'px';
 
@@ -26,7 +26,8 @@ export const Display = proxiedPropertiesOf<Enumify<Property.Display>>();
 /* Box sizing */
 export interface BoxSizing extends Pick<CSS.Properties,
   'padding' |
-  'height'
+  'height' |
+  'width'
 > {
 }
 

@@ -26,7 +26,12 @@ import {SliderComponent} from "./property-items/slider.component";
       </app-property-panel-row>
 
       <app-property-item-slider label="height"
+                                [max]="1000"
                                 [control]="getFormControl('height')"></app-property-item-slider>
+
+      <app-property-item-slider label="width"
+                                [max]="1000"
+                                [control]="getFormControl('width')"></app-property-item-slider>
     </ng-container>
   `,
   styles: `
@@ -78,7 +83,8 @@ export class BoxSizingComponent {
 
     const formGroup = this.fb.group({
       padding: new FormControl<Property.Padding | null | undefined>(null),
-      height: new FormControl<Property.Height | null | undefined>(null)
+      height: new FormControl<Property.Height | null | undefined>(null),
+      width: new FormControl<Property.Height | null | undefined>(null)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges

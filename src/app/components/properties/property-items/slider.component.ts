@@ -14,7 +14,7 @@ import {SliderModule} from "primeng/slider";
     <app-property-panel-row [label]="label">
       <div>
         <p-inputNumber inputId="integeronly" [formControl]="control" suffix=" px"></p-inputNumber>
-        <p-slider [formControl]="control"></p-slider>
+        <p-slider [formControl]="control" [max]="max"></p-slider>
       </div>
     </app-property-panel-row>
   `,
@@ -27,5 +27,5 @@ import {SliderModule} from "primeng/slider";
 export class SliderComponent {
   @Input() label: string = '';
   @Input() control: FormControl<any> = new FormControl<any>('');
-  @Input() options: {label: string, value: any}[] = [];
+  @Input() max: number = 100;
 }
