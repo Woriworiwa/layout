@@ -13,10 +13,6 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
   flex-direction: column;
   position: relative;
 
-  .selection-wrapper {
-    display: contents;
-  }
-
   &.hover-add-item-enabled,
   &.selected {
     > .add-item {
@@ -28,14 +24,14 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
     }
   }
 
-   &.selected > .selection-wrapper > ::ng-deep {
+   &.selected > ::ng-deep {
      app-frame,
      app-text {
        box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;
      }
   }
 
-  &.hover > .selection-wrapper > ::ng-deep {
+  &.hover > ::ng-deep {
     app-frame,
     app-text {
       box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;

@@ -8,7 +8,6 @@ import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.componen
   standalone: true,
   imports: [CommonModule],
   template: `<ng-content></ng-content>`,
-
   styles: `
   :host{
     display: block;

@@ -1,10 +1,10 @@
 @switch (item?.frameType) {
   @case (FrameType.FLEX) {
-    <div [style]="item | cssStyleSerializer"
-         (cdkDropListDropped)="onDrop($event)"
-         [cdkDropListData]="item?.key"
-         [cdkDropListOrientation]="item?.css?.flex?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
-         cdkDropList>
+<!--    <div [style]="item | cssStyleSerializer"-->
+<!--         (cdkDropListDropped)="onDrop($event)"-->
+<!--         [cdkDropListData]="item?.key"-->
+<!--         [cdkDropListOrientation]="item?.css?.flex?.flexDirection === 'column' ? 'vertical' : 'horizontal'"-->
+<!--         cdkDropList>-->
       @for (childFrame of item?.children; track childFrame) {
         @switch (childFrame.frameType) {
           @case (FrameType.FLEX) {
@@ -25,12 +25,14 @@
                              [selectedFrameKey]="selectedFrameKey"
                              (clicked)="onClick($event)">
               <app-text app-editable-content
+                        [item]="childFrame"
+                        (contentChanged)="onChildFrameContentChanged($event)"
                         cdkDrag>{{ childFrame.name }}</app-text>
             </app-canvas-item>
           }
         }
       }
-    </div>
+<!--    </div>-->
   }
   @case (FrameType.TEXT) {
     <app-text></app-text>

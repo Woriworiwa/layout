@@ -1,4 +1,5 @@
 import {Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output} from "@angular/core";
+import {CanvasItem} from "../models/canvas-item.model";
 
 @Directive({
   selector: '[app-editable-content]',
@@ -9,9 +10,9 @@ import {Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, O
   }
 })
 export class EditorContentDirective {
-  @Input() key: string | undefined;
+  @Input() item: CanvasItem | undefined;
 
-  @Output() frameContentChanged = new EventEmitter<{ key: string , content: string }>();
+  @Output() contentChanged = new EventEmitter<{ key: string , content: string }>();
 
   @HostBinding('attr.contenteditable')
   editMode = false;
@@ -20,7 +21,7 @@ export class EditorContentDirective {
   onDoubleClick($event:any) {
     $event.stopPropagation();
     this.editMode = true;
-    this.elementRef.nativeElement.childNodes[0].focus();
+    this.elementRef.nativeElement.focus();
 
     this.moveCursorToEnd();
   }
@@ -34,7 +35,7 @@ export class EditorContentDirective {
   @HostListener('input', ['$event'])
   onInputChanged($event:any) {
     $event.stopPropagation();
-    this.frameContentChanged.emit({key: this.key!, content: $event.target.childNodes[0].innerText});
+    this.contentChanged.emit({key: this.item?.key!, content: $event.target.innerText});
   }
 
   /*prevent propagation so the grab event on the canvas will not fire*/

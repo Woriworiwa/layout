@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, ElementRef,
   EventEmitter,
   Input,
-  Output
+  Output, Renderer2
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CanvasItem} from "../../../models/canvas-item.model";
@@ -17,6 +17,8 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
 import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
 import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
+import {Serializer} from "../../../data/serializers/serializer";
+import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer";
 
 @Component({
   selector: 'app-frame',
@@ -34,8 +36,18 @@ export class FrameComponent{
   @Input() selectedFrameKey!: string | undefined;
   @Input() dragDropDisabled = true;
 
-  constructor(private canvasStore: CanvasStore) {
+  constructor(private canvasStore: CanvasStore, private elementRef: ElementRef, private renderer: Renderer2) {
 
+  }
+
+  ngOnChanges() {
+    const serializer: Serializer = new CssStyleSerializer();
+    const serializedStyles: string[] = [];
+
+    if (this.item) {
+      serializedStyles.push(...serializer.serialize([this.item]));
+      this.renderer.setProperty(this.elementRef.nativeElement, 'style', serializedStyles.join(';'));
+    }
   }
 
   onDrop(event: CdkDragDrop<string | undefined, any>) {
@@ -47,6 +59,10 @@ export class FrameComponent{
   }
 
   protected onChildFrameContentChanged({key, content}: {key: string, content: string}) {
+    this.frameContentChanged.emit({key, content});
+  }
+
+  protected onTextContentChanged({key, content}: {key: string, content: string}) {
     this.frameContentChanged.emit({key, content});
   }
 }
