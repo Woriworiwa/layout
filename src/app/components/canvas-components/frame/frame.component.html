@@ -27,7 +27,10 @@
               <app-text app-editable-content
                         [item]="childFrame"
                         (contentChanged)="onChildTextContentChanged($event)"
-                        cdkDrag>{{ childFrame.name }}</app-text>
+                        cdkDrag
+                        [cdkDragDisabled]="true">
+                {{ childFrame.name }}
+              </app-text>
             </app-canvas-item>
           }
         }
