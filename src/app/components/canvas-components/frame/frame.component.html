@@ -1,41 +1,33 @@
 @switch (item?.frameType) {
   @case (FrameType.FLEX) {
-<!--    <div [style]="item | cssStyleSerializer"-->
-<!--         (cdkDropListDropped)="onDrop($event)"-->
-<!--         [cdkDropListData]="item?.key"-->
-<!--         [cdkDropListOrientation]="item?.css?.flex?.flexDirection === 'column' ? 'vertical' : 'horizontal'"-->
-<!--         cdkDropList>-->
-      @for (childFrame of item?.children; track childFrame) {
-        @switch (childFrame.frameType) {
-          @case (FrameType.FLEX) {
-            <app-canvas-item [item]="childFrame"
-                             [selectedFrameKey]="selectedFrameKey"
-                             cdkDrag
-                             [cdkDragDisabled]="dragDropDisabled"
-                             (clicked)="onClick($event)">
-              <app-frame [item]="childFrame"
-                         (clicked)="onClick($event)"
-                         [selectedFrameKey]="selectedFrameKey"
-                         [id]="childFrame.key!"
-                         (childTextContentChanged)="onChildTextContentChanged($event)"></app-frame>
-            </app-canvas-item>
-          }
-          @case (FrameType.TEXT) {
-            <app-canvas-item [item]="childFrame"
-                             [selectedFrameKey]="selectedFrameKey"
-                             (clicked)="onClick($event)">
-              <app-text app-editable-content
-                        [item]="childFrame"
-                        (contentChanged)="onChildTextContentChanged($event)"
-                        cdkDrag
-                        [cdkDragDisabled]="true">
-                {{ childFrame.name }}
-              </app-text>
-            </app-canvas-item>
-          }
+    @for (childFrame of item?.children; track childFrame) {
+      @switch (childFrame.frameType) {
+        @case (FrameType.FLEX) {
+          <app-frame [item]="childFrame"
+                     (clicked)="onChildFrameClick($event)"
+                     [selectedFrameKey]="selectedFrameKey"
+                     [id]="childFrame.key!"
+                     (childTextContentChanged)="onChildTextContentChanged($event)"
+                     cdkDrag
+                     [cdkDragDisabled]="dragDropDisabled"
+                     (cdkDropListDropped)="onDrop($event)"
+                     [cdkDropListData]="item?.key"
+                     [cdkDropListOrientation]="item?.css?.flex?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
+                     cdkDropList></app-frame>
+        }
+        @case (FrameType.TEXT) {
+          <app-text app-editable-content
+                    [item]="childFrame"
+                    [id]="childFrame.key!"
+                    (clicked)="onChildFrameClick($event)"
+                    (contentChanged)="onChildTextContentChanged($event)"
+                    cdkDrag
+                    [cdkDragDisabled]="dragDropDisabled">
+            {{ childFrame.name }}
+          </app-text>
         }
       }
-<!--    </div>-->
+    }
   }
   @case (FrameType.TEXT) {
     <app-text></app-text>

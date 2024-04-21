@@ -1,11 +1,8 @@
-import {Component, ElementRef, Renderer2} from '@angular/core';
+import {Component, ElementRef, Input, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {EditorContentDirective} from "../../../directives/editorcontent.directive";
-import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
 import {CavnasBaseComponent} from "../canvas-base-component.component";
-import {Serializer} from "../../../data/serializers/serializer";
-import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer";
 import {CanvasStore} from "../../../store/canvas.store";
+import {SelectionService} from "../../../services/selection.service";
 
 @Component({
   selector: 'app-text',
@@ -15,7 +12,6 @@ import {CanvasStore} from "../../../store/canvas.store";
   styles: `
   :host{
     display: block;
-    flex-grow: 1;
     padding: 5px;
     background-color: #ed9534;
     border-radius: 6px;
@@ -25,7 +21,22 @@ import {CanvasStore} from "../../../store/canvas.store";
   `
 })
 export class TextComponent extends CavnasBaseComponent{
-  constructor(private canvasStore: CanvasStore, private elementRef: ElementRef, private renderer: Renderer2) {
-    super(elementRef, renderer);
+  @Input() selectedFrameKey!: string | undefined;
+
+  constructor(private canvasStore: CanvasStore,
+              private elementRef: ElementRef,
+              private renderer: Renderer2,
+              private selectionService: SelectionService) {
+    super(elementRef, renderer, canvasStore, selectionService);
+  }
+
+  override ngOnChanges() {
+    super.ngOnChanges();
+
+    // if (this.item?.key === this.selectedFrameKey) {
+    //   setTimeout(() => {
+    //     this.selectionService.renderSelectionItem(this.item!, this.elementRef.nativeElement);
+    //   }, 0);
+    // }
   }
 }

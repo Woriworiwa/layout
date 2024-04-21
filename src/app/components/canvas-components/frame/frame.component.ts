@@ -1,12 +1,11 @@
 import {
-  ChangeDetectionStrategy,
   Component, ElementRef,
   EventEmitter,
   Input,
   Output, Renderer2
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CanvasItem} from "../../../models/canvas-item.model";
+import {CanvasItemClickEvent} from "../../../models/canvas-item.model";
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 import {TextComponent} from "../text/text.component";
 import { FrameType } from '../../../models/enums';
@@ -15,16 +14,14 @@ import {CanvasStore} from "../../../store/canvas.store";
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
-import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
+import {CanvasItemComponent} from "../../canvas/selection-item/canvas-item.component";
 import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
-import {Serializer} from "../../../data/serializers/serializer";
-import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer";
 import {CavnasBaseComponent} from "../canvas-base-component.component";
+import {SelectionService} from "../../../services/selection.service";
 
 @Component({
   selector: 'app-frame',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
@@ -32,20 +29,28 @@ import {CavnasBaseComponent} from "../canvas-base-component.component";
 export class FrameComponent extends CavnasBaseComponent {
   protected readonly FrameType = FrameType;
   @Output() childTextContentChanged = new EventEmitter<{ key: string , content: string }>();
-  @Output() clicked = new EventEmitter<string>();
   @Input() selectedFrameKey!: string | undefined;
-  @Input() dragDropDisabled = true;
+  @Input() dragDropDisabled = false;
 
-  constructor(private canvasStore: CanvasStore, private elementRef: ElementRef, private renderer: Renderer2) {
-    super(elementRef, renderer);
+  constructor(private canvasStore: CanvasStore,
+              private elementRef: ElementRef,
+              private renderer: Renderer2,
+              private selectionService: SelectionService) {
+    super(elementRef, renderer, canvasStore, selectionService);
   }
 
   onDrop(event: CdkDragDrop<string | undefined, any>) {
     this.canvasStore.moveFrameChild(event.container.data, event.previousContainer.data, event.previousIndex, event.currentIndex);
   }
 
-  protected onClick(key: string) {
-    this.clicked.emit(key);
+  override ngOnChanges() {
+    super.ngOnChanges();
+
+
+  }
+
+  protected onChildFrameClick(canvasItemClick: CanvasItemClickEvent) {
+    this.clicked.emit(canvasItemClick);
   }
 
   protected onChildTextContentChanged({key, content}: {key: string, content: string}) {

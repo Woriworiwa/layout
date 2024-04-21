@@ -13,7 +13,7 @@ import {UnsafeHtmlPipe} from "../../pipes/unsafe-html.pipe";
 import {ButtonModule} from "primeng/button";
 import FileSaver from 'file-saver';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {HtmlSerializer} from "../../data/serializers/html.serializer";
+import {SerializationService} from "../../services/serialization.service";
 
 @Component({
   selector: 'app-html-prism',
@@ -45,12 +45,13 @@ import {HtmlSerializer} from "../../data/serializers/html.serializer";
 })
 export class HtmlPrismComponent {
   code: string = '';
-  serializer: HtmlSerializer = new HtmlSerializer();
-  constructor(private canvasStore: CanvasStore) {
+
+  constructor(private canvasStore: CanvasStore,
+              private serializerService: SerializationService) {
     this.canvasStore.frames$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
-        this.code = this.serializer.serialize(items).join('\n');
+        this.code = this.serializerService.getSerializer("HTML").serialize(items).join('\n');
       });
   }
 

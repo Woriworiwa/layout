@@ -5,21 +5,23 @@
      cdkDropListSortingDisabled="false"
      (cdkDropListDropped)="onDrop($event)">
   @for (frame of frames; track frame.key) {
-    <app-canvas-item [item]="frame"
-                     cdkDrag
-                     cdkDropList
-                     [cdkDragBoundary]="'#' + CANVAS_WRAPPER_ID"
-                     [cdkDropListData]="frame?.key"
-                     [cdkDragDisabled]="isGrabMode"
-                     [cdkDropListOrientation]="frame?.css?.flex?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
-                     (cdkDropListDropped)="onDrop($event)"
-                     [selectedFrameKey]="selectedFrameKey"
-                     (clicked)="onFrameClicked($event)">
-      <app-frame [item]="frame"
-                 [id]="frame.key!"
-                 [selectedFrameKey]="selectedFrameKey"
-                 (clicked)="onFrameClicked($event)"
-                 (childTextContentChanged)="onChildTextContentChanged($event)"></app-frame>
-    </app-canvas-item>
+    <app-frame [item]="frame"
+               [id]="frame.key!"
+               [selectedFrameKey]="selectedFrameKey"
+               (clicked)="onFrameClicked($event)"
+               (childTextContentChanged)="onChildTextContentChanged($event)"
+               cdkDrag
+               cdkDropList
+               [cdkDragBoundary]="'#' + CANVAS_WRAPPER_ID"
+               [cdkDropListData]="frame?.key"
+               [cdkDragDisabled]="isGrabMode"
+               [cdkDropListOrientation]="frame?.css?.flex?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
+               (cdkDropListDropped)="onDrop($event)"></app-frame>
   }
+
+  <div class="selection-overlay">
+    <div class="selection-overly-inner">
+      <ng-template #selectionOverlay></ng-template>
+    </div>
+  </div>
 </div>
