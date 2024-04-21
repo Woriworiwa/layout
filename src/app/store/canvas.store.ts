@@ -5,7 +5,6 @@ import cloneDeep from 'lodash.clonedeep';
 import {distinctUntilChanged, map} from "rxjs";
 import {FrameType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
-import {DataService} from "../services/data.service";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Css} from "../models/css.model";
 import {Preset} from "../models/preset.model";
@@ -13,7 +12,6 @@ import {flexPresets, textPresets} from "../data/presets";
 
 export class CanvasState {
   frames: CanvasItem[] = [];
-  canvas: CanvasItem | undefined;
   selectedFrameKey: string | undefined;
 }
 
@@ -46,8 +44,8 @@ export class CanvasStore extends Store<CanvasState> {
   get selectedFrame$() {
     return this.state.pipe(
       map(state => state.selectedFrameKey),
-      map(selectedFrameKey => this.getFrameByKey(this.getState().frames, selectedFrameKey)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
+      map(selectedFrameKey => this.getFrameByKey(this.getState().frames, selectedFrameKey))
     );
   }
 
@@ -60,12 +58,6 @@ export class CanvasStore extends Store<CanvasState> {
       ...this.getState(),
       selectedFrameKey: key
     })
-  }
-
-  get frameIds$() {
-    return this.frames$.pipe(
-      map(frames => this.getFrameIds(frames)),
-    )
   }
 
   addNewPreset(presetId: string, insertAfterFrameId: string) {
@@ -83,7 +75,6 @@ export class CanvasStore extends Store<CanvasState> {
     if (parentFrameKey === CANVAS_WRAPPER_ID) {
       const frames = this.getState().frames || [];
       frames.splice(this.frames.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
-      this.frames = frames;
     } else {
       const parentFrame = this.getFrameByKey(this.frames, parentFrameKey);
       if (!parentFrame) {
@@ -95,7 +86,6 @@ export class CanvasStore extends Store<CanvasState> {
       }
 
       parentFrame?.children?.splice(parentFrame.children.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
-      this.frames = this.frames;
     }
 
     this.setSelectedFrameKey(newFrame.key);
@@ -229,9 +219,7 @@ export class CanvasStore extends Store<CanvasState> {
   }
 
   getPresets() {
-    const presets: Preset[] = [...flexPresets as Preset[], ...textPresets as Preset[]]
-
-    return presets;
+    return [...flexPresets as Preset[], ...textPresets as Preset[]]
   }
 
   private assignKeys(frames: CanvasItem[] | undefined, parentKey: string | undefined) {
@@ -253,7 +241,7 @@ export class CanvasStore extends Store<CanvasState> {
   }
 
   private generateUniqueId(): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let uniqueId = '';
 
     for (let i = 0; i < 8; i++) {

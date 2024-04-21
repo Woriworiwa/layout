@@ -1,10 +1,6 @@
 import {Component, ElementRef, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {EditorContentDirective} from "../../../directives/editorcontent.directive";
-import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
 import {CavnasBaseComponent} from "../canvas-base-component.component";
-import {Serializer} from "../../../data/serializers/serializer";
-import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer";
 import {CanvasStore} from "../../../store/canvas.store";
 
 @Component({
@@ -15,7 +11,6 @@ import {CanvasStore} from "../../../store/canvas.store";
   styles: `
   :host{
     display: block;
-    flex-grow: 1;
     padding: 5px;
     background-color: #ed9534;
     border-radius: 6px;

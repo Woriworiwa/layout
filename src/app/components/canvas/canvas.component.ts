@@ -1,8 +1,17 @@
-import {Component, ElementRef, HostBinding, HostListener, Renderer2, ViewChild} from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver, ComponentRef,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  Renderer2,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FrameComponent} from "../canvas-components/frame/frame.component";
 import {CanvasStore} from "../../store/canvas.store";
-import {CanvasItem} from "../../models/canvas-item.model";
+import {CanvasItem, CanvasItemClickEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
@@ -10,12 +19,13 @@ import {CanvasItemComponent} from "./canvas-item/canvas-item.component";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {AppSettingsStore} from "../../store/app-settings-store.service";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
+import {CanvasOverlayService} from "../../services/canvas-overlay.service";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
-  providers: [ContextMenuService],
+  providers: [ContextMenuService, CanvasOverlayService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
@@ -28,18 +38,22 @@ export class CanvasComponent {
 
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
 
+  /* this mode means that the canvas is ready to be dragged*/
   @HostBinding('class.grab-mode')
   isGrabMode = false;
 
+  /* this mode means that the user is actually dragging (mouse pressed down)*/
   @HostBinding('class.is-grabbing')
   isGrabbing = false;
 
   @ViewChild("wrapper")
   wrapper!: ElementRef;
 
+  @ViewChild("selectionOverlay", { read: ViewContainerRef }) selectionOverlay!: ViewContainerRef;
+
   constructor(protected canvasStore: CanvasStore,
               private renderer: Renderer2,
-              private appSettingsStore: AppSettingsStore) {
+              private canvasOverlayService: CanvasOverlayService) {
     this.canvasStore.frames$.subscribe(rootFrames => this.frames = rootFrames);
     this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
   }
@@ -81,6 +95,7 @@ export class CanvasComponent {
     }
   }
 
+  /*mouse up*/
   @HostListener('mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
     if (event.button === 0) {
@@ -88,6 +103,7 @@ export class CanvasComponent {
     }
   }
 
+  /*mouse move*/
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
     if (this.isGrabbing) {
@@ -97,6 +113,7 @@ export class CanvasComponent {
     }
   }
 
+  /*keydown*/
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
@@ -104,6 +121,7 @@ export class CanvasComponent {
     }
   }
 
+  /*keyup*/
   @HostListener('document:keyup ', ['$event'])
   onKeyUp(event: KeyboardEvent) {
     if (event.code === 'Space') {
@@ -111,8 +129,16 @@ export class CanvasComponent {
     }
   }
 
-  onFrameClicked(key: string) {
-    this.canvasStore.setSelectedFrameKey(key);
+  ngAfterViewInit() {
+    this.canvasOverlayService.initialize(this.selectionOverlay, this.wrapper);
+  }
+
+  onFrameClicked(canvasItemClick: CanvasItemClickEvent) {
+    if (this.isGrabMode) {
+      return;
+    }
+
+    this.canvasStore.setSelectedFrameKey(canvasItemClick.canvasItem.key);
   }
 
   onChildTextContentChanged(content: { key: string, content: string }) {

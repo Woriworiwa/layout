@@ -47,7 +47,7 @@ export class AppComponent {
               private mockService: DataService) {
     this.fetchData();
 
-    this.canvasStore.setSelectedFrameKey(this.canvasStore.frames[0]?.key)
+    // this.canvasStore.setSelectedFrameKey(this.canvasStore.frames[0]?.key)
   }
 
   fetchData() {

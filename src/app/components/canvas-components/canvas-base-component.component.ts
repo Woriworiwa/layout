@@ -1,6 +1,6 @@
-import {Component, ElementRef, Input, Renderer2} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CanvasItem} from "../../models/canvas-item.model";
+import {CanvasItem, CanvasItemClickEvent} from "../../models/canvas-item.model";
 import {Serializer} from "../../data/serializers/serializer";
 import {CssStyleSerializer} from "../../data/serializers/css-style.serializer";
 
@@ -12,8 +12,16 @@ import {CssStyleSerializer} from "../../data/serializers/css-style.serializer";
 })
 export class CavnasBaseComponent{
   @Input() item: CanvasItem | undefined;
+  @Output() clicked = new EventEmitter<CanvasItemClickEvent>();
 
   constructor(private baseElementRef: ElementRef, private baseRenderer: Renderer2) {
+  }
+
+  @HostListener('click', ['$event'])
+  onClick($event: any) {
+    $event.stopPropagation();
+    // this.contextMenuService.hide();
+    this.clicked.emit({canvasItem: this.item!, mouseEvent: $event});
   }
 
   ngOnChanges() {
