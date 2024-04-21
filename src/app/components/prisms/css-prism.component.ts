@@ -8,9 +8,7 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
 import {CanvasItem} from "../../models/canvas-item.model";
 import {CanvasStore} from "../../store/canvas.store";
-import {CssClassSerializer} from "../../data/serializers/css-class.serializer";
-import {CssStyleSerializer} from "../../data/serializers/css-style.serializer";
-import {Serializer} from "../../data/serializers/serializer";
+import {SerializationService} from "../../services/serialization.service";
 
 @Component({
   selector: 'app-css-prism',
@@ -19,20 +17,25 @@ import {Serializer} from "../../data/serializers/serializer";
   template: `
     <pre><code class="language-scss" [innerHTML]="css"></code></pre>
   `,
-  styles: ``
+  styles: `
+    pre[class*="language-"] {
+      padding: 1em;
+      margin: 0;
+    }
+  `
 })
 export class CssPrismComponent {
   @Input()
   canvasItems: CanvasItem[] = [];
 
   css: string = '';
-  serializer: Serializer = new CssClassSerializer();
 
-  constructor(private canvasStore: CanvasStore) {
+  constructor(private canvasStore: CanvasStore,
+              private serializerService: SerializationService) {
   }
 
   ngOnChanges() {
-    this.css = this.serializer.serialize(this.canvasItems).join('\n');
+    this.css = this.serializerService.getSerializer("CSS-class").serialize(this.canvasItems).join('\n');
   }
 
   ngAfterViewChecked() {

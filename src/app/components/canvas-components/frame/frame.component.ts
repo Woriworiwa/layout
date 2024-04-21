@@ -14,7 +14,7 @@ import {CanvasStore} from "../../../store/canvas.store";
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
-import {CanvasItemComponent} from "../../canvas/selection/canvas-item.component";
+import {CanvasItemComponent} from "../../canvas/selection-item/canvas-item.component";
 import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
 import {CavnasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../services/selection.service";

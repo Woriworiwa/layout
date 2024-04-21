@@ -15,7 +15,7 @@ import {CanvasItem, CanvasItemClickEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
-import {CanvasItemComponent} from "./selection/canvas-item.component";
+import {CanvasItemComponent} from "./selection-item/canvas-item.component";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {AppSettingsStore} from "../../store/app-settings-store.service";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";

@@ -33,11 +33,13 @@ export class CavnasBaseComponent{
     const serializer: Serializer = new CssStyleSerializer();
     const serializedStyles: string[] = [];
 
+    // Serialize the styles
     if (this.item) {
       serializedStyles.push(...serializer.serialize([this.item]));
       this.baseRenderer.setProperty(this.baseElementRef.nativeElement, 'style', serializedStyles.join(';'));
     }
 
+    // Re-render the selection item to update any changes to the size of the item
     if (this.item?.key === this.baseCanvasStore.selectedFrame()?.key) {
       setTimeout(() => {
         this.baseSelectionService.renderSelectionItem(this.item!, this.baseElementRef.nativeElement);
