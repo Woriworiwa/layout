@@ -1,7 +1,8 @@
-import {Component, ElementRef, Renderer2} from '@angular/core';
+import {Component, ElementRef, Input, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CavnasBaseComponent} from "../canvas-base-component.component";
 import {CanvasStore} from "../../../store/canvas.store";
+import {SelectionService} from "../../../services/selection.service";
 
 @Component({
   selector: 'app-text',
@@ -20,7 +21,22 @@ import {CanvasStore} from "../../../store/canvas.store";
   `
 })
 export class TextComponent extends CavnasBaseComponent{
-  constructor(private canvasStore: CanvasStore, private elementRef: ElementRef, private renderer: Renderer2) {
-    super(elementRef, renderer);
+  @Input() selectedFrameKey!: string | undefined;
+
+  constructor(private canvasStore: CanvasStore,
+              private elementRef: ElementRef,
+              private renderer: Renderer2,
+              private selectionService: SelectionService) {
+    super(elementRef, renderer, canvasStore, selectionService);
+  }
+
+  override ngOnChanges() {
+    super.ngOnChanges();
+
+    // if (this.item?.key === this.selectedFrameKey) {
+    //   setTimeout(() => {
+    //     this.selectionService.renderSelectionItem(this.item!, this.elementRef.nativeElement);
+    //   }, 0);
+    // }
   }
 }

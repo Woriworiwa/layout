@@ -15,17 +15,17 @@ import {CanvasItem, CanvasItemClickEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
-import {CanvasItemComponent} from "./canvas-item/canvas-item.component";
+import {CanvasItemComponent} from "./selection/canvas-item.component";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {AppSettingsStore} from "../../store/app-settings-store.service";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
-import {CanvasOverlayService} from "../../services/canvas-overlay.service";
+import {SelectionService} from "../../services/selection.service";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
-  providers: [ContextMenuService, CanvasOverlayService],
+  providers: [ContextMenuService, SelectionService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
@@ -53,7 +53,7 @@ export class CanvasComponent {
 
   constructor(protected canvasStore: CanvasStore,
               private renderer: Renderer2,
-              private canvasOverlayService: CanvasOverlayService) {
+              private selectionService: SelectionService) {
     this.canvasStore.frames$.subscribe(rootFrames => this.frames = rootFrames);
     this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
   }
@@ -130,7 +130,7 @@ export class CanvasComponent {
   }
 
   ngAfterViewInit() {
-    this.canvasOverlayService.initialize(this.selectionOverlay, this.wrapper);
+    this.selectionService.initialize(this.selectionOverlay, this.wrapper);
   }
 
   onFrameClicked(canvasItemClick: CanvasItemClickEvent) {

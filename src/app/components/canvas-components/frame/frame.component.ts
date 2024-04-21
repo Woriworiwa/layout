@@ -14,10 +14,10 @@ import {CanvasStore} from "../../../store/canvas.store";
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
-import {CanvasItemComponent} from "../../canvas/canvas-item/canvas-item.component";
+import {CanvasItemComponent} from "../../canvas/selection/canvas-item.component";
 import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
 import {CavnasBaseComponent} from "../canvas-base-component.component";
-import {CanvasOverlayService} from "../../../services/canvas-overlay.service";
+import {SelectionService} from "../../../services/selection.service";
 
 @Component({
   selector: 'app-frame',
@@ -35,8 +35,8 @@ export class FrameComponent extends CavnasBaseComponent {
   constructor(private canvasStore: CanvasStore,
               private elementRef: ElementRef,
               private renderer: Renderer2,
-              private canvasOverlayService: CanvasOverlayService) {
-    super(elementRef, renderer);
+              private selectionService: SelectionService) {
+    super(elementRef, renderer, canvasStore, selectionService);
   }
 
   onDrop(event: CdkDragDrop<string | undefined, any>) {
@@ -46,11 +46,7 @@ export class FrameComponent extends CavnasBaseComponent {
   override ngOnChanges() {
     super.ngOnChanges();
 
-    if (this.item?.key === this.selectedFrameKey) {
-      setTimeout(() => {
-        this.canvasOverlayService.renderSelectionItem(this.item!, this.elementRef.nativeElement);
-      }, 0);
-    }
+
   }
 
   protected onChildFrameClick(canvasItemClick: CanvasItemClickEvent) {
