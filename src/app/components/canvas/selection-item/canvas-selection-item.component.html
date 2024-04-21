@@ -1,0 +1,11 @@
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <app-insert [parentFrameId]="canvasItem?.key" (componentAdded)="op.toggle($event)"></app-insert>
+  </ng-template>
+</p-overlayPanel>
+
+<div class="add-item">
+  <p-button icon="pi pi-plus" [rounded]="true" (click)="op.toggle($event); $event.stopPropagation()"></p-button>
+</div>
+
+<app-context-menu [target]="elementRef.nativeElement" [frameKey]="canvasItem?.key"></app-context-menu>

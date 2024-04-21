@@ -38,8 +38,10 @@ export class AppComponent {
 
   tabs: any[] = [
     { label: 'Canvas', id: 1, icon:'pi pi-palette' },
-    { label: 'HTML', id: 2, icon:'pi pi-receipt'},
-    { label: 'JSON', id: 3,icon:'pi pi-file' }
+    { label: 'iFrame', id: 2, icon:'pi pi-palette' },
+    { label: 'CSS', id: 3, icon:'pi pi-receipt'},
+    { label: 'HTML', id: 4, icon:'pi pi-receipt'},
+    { label: 'JSON', id: 5,icon:'pi pi-file' }
   ];
 
   constructor(protected canvasStore: CanvasStore,
@@ -47,7 +49,7 @@ export class AppComponent {
               private mockService: DataService) {
     this.fetchData();
 
-    this.canvasStore.setSelectedFrameKey(this.canvasStore.frames[0]?.key)
+    // this.canvasStore.setSelectedFrameKey(this.canvasStore.frames[0]?.key)
   }
 
   fetchData() {

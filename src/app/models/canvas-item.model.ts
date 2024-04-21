@@ -10,7 +10,7 @@ export interface CanvasItem {
   editable?: boolean;
 }
 
-
+export type CanvasItemClickEvent = {canvasItem: CanvasItem, mouseEvent: MouseEvent};
 
 
 
