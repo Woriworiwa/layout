@@ -1,16 +1,17 @@
-<app-css-prism [canvasItems]="frame ? [frame] : this.canvasStore.frames"></app-css-prism>
+<ng-container *ngIf="frame">
+  <app-css-prism [canvasItems]="frame ? [frame] : this.canvasStore.frames"></app-css-prism>
 
-<div class="properties">
-  <app-properties-box-sizing [css]="frame?.css"></app-properties-box-sizing>
-  <app-properties-display [css]="frame?.css"></app-properties-display>
+  <div class="properties">
+    <app-properties-box-sizing [css]="frame?.css"></app-properties-box-sizing>
+    <app-properties-display [css]="frame?.css"></app-properties-display>
 
-  @switch (frame?.frameType) {
-    @case (FrameType.FLEX) {
-      <app-properties-flex [css]="frame?.css"></app-properties-flex>
+    @switch (frame?.frameType) {
+      @case (FrameType.FLEX) {
+        <app-properties-flex [css]="frame?.css"></app-properties-flex>
+      }
+      @case (FrameType.TEXT) {
+
+      }
     }
-    @case (FrameType.TEXT) {
-
-    }
-  }
-</div>
-
+  </div>
+</ng-container>
