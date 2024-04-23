@@ -33,9 +33,4 @@ export class CanvasSelectionItemComponent {
     this.renderer.setStyle(this.elementRef.nativeElement, 'left', `${this.left}px`);
     this.renderer.setStyle(this.elementRef.nativeElement, 'top', `${this.top}px`);
   }
-
-  onClick() {
-    console.log('click');
-    //
-  }
 }
