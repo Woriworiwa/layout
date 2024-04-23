@@ -4,7 +4,7 @@ import {ButtonModule} from "primeng/button";
 import {InsertComponent} from "../../insert/insert.component";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {SharedModule} from "primeng/api";
-import {CanvasItem, CanvasItemClickEvent} from "../../../models/canvas-item.model";
+import {CanvasItem, CanvasItemMouseEvent} from "../../../models/canvas-item.model";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
 import {ContextMenuService} from "../../../services/context-menu.service";
 
@@ -23,7 +23,7 @@ import {ContextMenuService} from "../../../services/context-menu.service";
 export class CanvasItemComponent {
   @Input() item: CanvasItem | undefined;
   @Input() selectedFrameKey!: string | undefined;
-  @Output() clicked = new EventEmitter<CanvasItemClickEvent>();
+  @Output() clicked = new EventEmitter<CanvasItemMouseEvent>();
   @ViewChild(ContextMenuComponent) contextMenu!: ContextMenuComponent;
   @HostBinding('class.is-grabbing') isMouseOver = false;
 

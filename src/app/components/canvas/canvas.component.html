@@ -9,6 +9,8 @@
                [id]="frame.key!"
                [selectedFrameKey]="selectedFrameKey"
                (clicked)="onFrameClicked($event)"
+               (mouseOver)="onMouseOver($event)"
+               (mouseOut)="onMouseOut($event)"
                (childTextContentChanged)="onChildTextContentChanged($event)"
                cdkDrag
                cdkDropList

@@ -9,12 +9,11 @@ import {
   Renderer2
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CanvasItem, CanvasItemClickEvent} from "../../models/canvas-item.model";
+import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
 import {Serializer} from "../../data/serializers/serializer";
 import {CssStyleSerializer} from "../../data/serializers/css-style.serializer";
 import {CanvasStore} from "../../store/canvas.store";
 import {SelectionService} from "../../services/selection.service";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
@@ -26,7 +25,9 @@ import {Subject, takeUntil} from "rxjs";
 })
 export class CavnasBaseComponent{
   @Input() item: CanvasItem | undefined;
-  @Output() clicked = new EventEmitter<CanvasItemClickEvent>();
+  @Output() clicked = new EventEmitter<CanvasItemMouseEvent>();
+  @Output() mouseOver = new EventEmitter<CanvasItemMouseEvent>();
+  @Output() mouseOut = new EventEmitter<CanvasItemMouseEvent>();
 
   private destroy$ = new Subject();
 
@@ -41,6 +42,19 @@ export class CavnasBaseComponent{
     $event.stopPropagation();
     // this.contextMenuService.hide();
     this.clicked.emit({canvasItem: this.item!, mouseEvent: $event});
+  }
+
+  @HostListener('mouseover', ['$event'])
+  onMouseOver($event: any) {
+    $event.stopPropagation();
+    $event.stopImmediatePropagation();
+    this.mouseOver.emit({canvasItem: this.item!, mouseEvent: $event});
+  }
+
+  @HostListener('mouseout', ['$event'])
+  onMouseLeave($event: any) {
+    $event.stopPropagation();
+    this.mouseOut.emit({canvasItem: this.item!, mouseEvent: $event});
   }
 
   ngOnChanges() {
@@ -73,8 +87,10 @@ export class CavnasBaseComponent{
     // Re-render the selection item to update any changes to the size of the item
     if (this.item?.key === this.baseCanvasStore.selectedFrame()?.key) {
       setTimeout(() => {
-        this.baseSelectionService.renderSelectionItem(this.item!, this.baseElementRef.nativeElement);
+        this.baseSelectionService.renderItem('selection', this.item!);
       }, 0);
     }
+
+
   }
 }

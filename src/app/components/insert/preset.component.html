@@ -7,13 +7,13 @@
               <app-preset [preset]="childFrame"></app-preset>
             }
             @case (FrameType.TEXT) {
-              <div>{{childFrame.name}}</div>
+              <div class="text">{{childFrame.name}}</div>
             }
           }
         }
       </div>
   }
   @case (FrameType.TEXT) {
-    <div>{{preset?.name}}</div>
+    <div class="text">{{preset?.name}}</div>
   }
 }

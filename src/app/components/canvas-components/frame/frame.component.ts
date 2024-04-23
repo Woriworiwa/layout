@@ -1,12 +1,12 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component, ElementRef,
   EventEmitter,
   Input,
   Output, Renderer2
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CanvasItemClickEvent} from "../../../models/canvas-item.model";
+import {CanvasItemMouseEvent} from "../../../models/canvas-item.model";
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 import {TextComponent} from "../text/text.component";
 import {FrameType} from '../../../models/enums';
@@ -45,8 +45,16 @@ export class FrameComponent extends CavnasBaseComponent {
     this.canvasStore.moveFrameChild(event.container.data, event.previousContainer.data, event.previousIndex, event.currentIndex);
   }
 
-  protected onChildFrameClick(canvasItemClick: CanvasItemClickEvent) {
-    this.clicked.emit(canvasItemClick);
+  protected onChildFrameClick(event: CanvasItemMouseEvent) {
+    this.clicked.emit(event);
+  }
+
+  onChildMouseOver(event: CanvasItemMouseEvent) {
+    this.mouseOver.emit(event);
+  }
+
+  onChildMouseOut(event: CanvasItemMouseEvent) {
+    this.mouseOut.emit(event);
   }
 
   protected onChildTextContentChanged({key, content}: { key: string, content: string }) {

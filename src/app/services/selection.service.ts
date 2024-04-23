@@ -2,6 +2,7 @@ import {ComponentRef, ElementRef, Injectable, ViewContainerRef} from "@angular/c
 import {CanvasStore} from "../store/canvas.store";
 import {CanvasItem} from "../models/canvas-item.model";
 import {CanvasSelectionItemComponent} from "../components/canvas/selection-item/canvas-selection-item.component";
+import {CanvasHoverItemComponent} from "../components/canvas/selection-item/canvas-hover-item.component";
 
 @Injectable()
 export class SelectionService {
@@ -9,6 +10,7 @@ export class SelectionService {
   canvas!: ElementRef;
 
   canvasSelectionItem!: ComponentRef<CanvasSelectionItemComponent>
+  canvasHoverItem!: ComponentRef<CanvasHoverItemComponent>
 
   constructor(private canvasStore: CanvasStore) {
   }
@@ -20,38 +22,67 @@ export class SelectionService {
     this.canvasStore.selectedFrame$
       .subscribe((selectedFrame) => {
           if (!selectedFrame) {
-            this.removeChild();
+            this.removeItem(this.canvasSelectionItem);
           } else {
-            const element: HTMLElement = this.canvas.nativeElement.querySelector(`#${selectedFrame?.key}`);
-            this.renderSelectionItem(selectedFrame!, element);
+            this.renderItem('selection', selectedFrame!);
+          }
+        }
+      )
+
+    this.canvasStore.hoverFrame$
+      .subscribe((hoverFrame) => {
+          if (!hoverFrame) {
+            this.removeItem(this.canvasHoverItem);
+          } else {
+            if (this.canvasStore.selectedFrame()?.key === hoverFrame.key) {
+              return;
+            }
+
+            this.renderItem('hover', hoverFrame!);
           }
         }
       )
   }
 
-  renderSelectionItem(canvasItem: CanvasItem, element: HTMLElement) {
+  private getTargetElement(hoverFrame: CanvasItem) {
+    return this.canvas.nativeElement.querySelector(`#${hoverFrame?.key}`);
+  }
+
+  renderItem(itemType: 'selection' | 'hover', canvasItem: CanvasItem) {
+    const element: HTMLElement = this.getTargetElement(canvasItem);
     if (!element) {
       return;
     }
 
-    if (this.canvasSelectionItem) {
-      this.removeChild();
+    if (itemType === 'selection') {
+      if (this.canvasSelectionItem) {
+        this.removeItem(this.canvasSelectionItem);
+      }
+      this.canvasSelectionItem = this.overlay.createComponent(CanvasSelectionItemComponent)
+      this.addItem(this.canvasSelectionItem.instance, canvasItem, element);
+    } else if(itemType === 'hover') {
+      if (this.canvasHoverItem) {
+        this.removeItem(this.canvasHoverItem);
+      }
+      this.canvasHoverItem = this.overlay.createComponent(CanvasHoverItemComponent)
+      this.addItem(this.canvasHoverItem.instance, canvasItem, element);
     }
+  }
 
+  private addItem(component: CanvasSelectionItemComponent | CanvasHoverItemComponent, canvasItem: CanvasItem, element: HTMLElement) {
     const canvasBoundingRect = this.canvas.nativeElement.getBoundingClientRect();
     const canvasItemBoundingRect = element.getBoundingClientRect();
 
-    this.canvasSelectionItem = this.overlay.createComponent(CanvasSelectionItemComponent)
-    this.canvasSelectionItem.instance.width = element.offsetWidth;
-    this.canvasSelectionItem.instance.height = element.offsetHeight;
-    this.canvasSelectionItem.instance.top = canvasItemBoundingRect.top - canvasBoundingRect.top;
-    this.canvasSelectionItem.instance.left = canvasItemBoundingRect.left - canvasBoundingRect.left;
-    this.canvasSelectionItem.instance.canvasItem = canvasItem;
-    this.canvasSelectionItem.instance.ngOnChanges();
+    component.width = element.offsetWidth;
+    component.height = element.offsetHeight;
+    component.top = canvasItemBoundingRect.top - canvasBoundingRect.top;
+    component.left = canvasItemBoundingRect.left - canvasBoundingRect.left;
+    component.canvasItem = canvasItem;
+    component.ngOnChanges();
   }
 
-  removeChild() {
-    const index = this.overlay.indexOf(this.canvasSelectionItem?.hostView)
+  private removeItem(item: ComponentRef<CanvasSelectionItemComponent | CanvasHoverItemComponent>) {
+    const index = this.overlay.indexOf(item?.hostView)
     if (index != -1) this.overlay.remove(index)
   }
 }

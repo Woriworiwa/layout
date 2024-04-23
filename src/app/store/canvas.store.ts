@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Store} from "./store";
 import {CanvasItem} from "../models/canvas-item.model";
 import cloneDeep from 'lodash.clonedeep';
-import {BehaviorSubject, distinctUntilChanged, map, Subject} from "rxjs";
+import {distinctUntilChanged, map, Subject} from "rxjs";
 import {FrameType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
@@ -13,6 +13,7 @@ import {flexPresets, textPresets} from "../data/presets";
 export class CanvasState {
   frames: CanvasItem[] = [];
   selectedFrameKey: string | undefined;
+  hoverFrameKey: string | undefined;
 }
 
 @Injectable({
@@ -63,6 +64,21 @@ export class CanvasStore extends Store<CanvasState> {
     })
   }
 
+  get hoverFrame$(){
+    return this.state.pipe(
+      map(state => state.hoverFrameKey),
+      distinctUntilChanged(),
+      map(hoverFrameKey => this.getFrameByKey(this.getState().frames, hoverFrameKey))
+    );
+  }
+
+  setHoverFrameKey(key: string | undefined) {
+    this.setState({
+      ...this.getState(),
+      hoverFrameKey: key
+    })
+  }
+
   addNewPreset(presetId: string, insertAfterFrameId: string) {
     const preset = this.getPreset(presetId);
 
@@ -71,7 +87,7 @@ export class CanvasStore extends Store<CanvasState> {
     }
 
     const newFrame = cloneDeep(preset.presetDefinition);
-    newFrame.key = this.generateUniqueId();
+    this.assignKeys([newFrame], undefined);
 
     const parentFrameKey = this.getParentFrameKey(insertAfterFrameId, this.frames, CANVAS_WRAPPER_ID);
 

@@ -1,6 +1,5 @@
 import {
   Component,
-  ComponentFactoryResolver, ComponentRef,
   ElementRef,
   HostBinding,
   HostListener,
@@ -11,13 +10,12 @@ import {
 import {CommonModule} from '@angular/common';
 import {FrameComponent} from "../canvas-components/frame/frame.component";
 import {CanvasStore} from "../../store/canvas.store";
-import {CanvasItem, CanvasItemClickEvent} from "../../models/canvas-item.model";
+import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {CanvasItemComponent} from "./selection-item/canvas-item.component";
 import {ContextMenuService} from "../../services/context-menu.service";
-import {AppSettingsStore} from "../../store/app-settings-store.service";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 import {SelectionService} from "../../services/selection.service";
 
@@ -133,12 +131,20 @@ export class CanvasComponent {
     this.selectionService.initialize(this.selectionOverlay, this.wrapper);
   }
 
-  onFrameClicked(canvasItemClick: CanvasItemClickEvent) {
+  onFrameClicked(event: CanvasItemMouseEvent) {
     if (this.isGrabMode) {
       return;
     }
 
-    this.canvasStore.setSelectedFrameKey(canvasItemClick.canvasItem.key);
+    this.canvasStore.setSelectedFrameKey(event.canvasItem.key);
+  }
+
+  onMouseOver(event: CanvasItemMouseEvent) {
+    this.canvasStore.setHoverFrameKey(event.canvasItem.key);
+  }
+
+  onMouseOut(event: CanvasItemMouseEvent) {
+    this.canvasStore.setHoverFrameKey(undefined);
   }
 
   onChildTextContentChanged(content: { key: string, content: string }) {

@@ -5,6 +5,8 @@
         @case (FrameType.FLEX) {
           <app-frame [item]="childFrame"
                      (clicked)="onChildFrameClick($event)"
+                     (mouseOver)="onChildMouseOver($event)"
+                     (mouseOut)="onChildMouseOut($event)"
                      [selectedFrameKey]="selectedFrameKey"
                      [id]="childFrame.key!"
                      (childTextContentChanged)="onChildTextContentChanged($event)"
@@ -20,6 +22,8 @@
                     [item]="childFrame"
                     [id]="childFrame.key!"
                     (clicked)="onChildFrameClick($event)"
+                    (mouseOver)="onChildMouseOver($event)"
+                    (mouseOut)="onChildMouseOut($event)"
                     (contentChanged)="onChildTextContentChanged($event)"
                     cdkDrag
                     [cdkDragDisabled]="dragDropDisabled">

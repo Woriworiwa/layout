@@ -1,0 +1,26 @@
+$shadow-color: #99CAFF;
+
+$highlight-shadow-width: 5px;
+$highlight-shadow-width-negative: -5px;
+$highlight-top: inset 0 $highlight-shadow-width 0 0 $shadow-color;
+$highlight-right: inset $highlight-shadow-width-negative 0 0 0 $shadow-color;
+$highlight-bottom: inset 0 $highlight-shadow-width-negative 0 0 $shadow-color;
+$highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
+
+
+:host {
+  display: block;
+  box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;
+  position: absolute;
+
+  .add-item {
+    display: inline-block;
+    pointer-events: auto;
+  }
+}
+
+:host ::ng-deep .p-button.p-button-icon-only.p-button-rounded {
+  font-size: 8px;
+  width: 2rem;
+  height: 2rem;
+}
