@@ -19,8 +19,12 @@ export class SelectionService {
 
     this.canvasStore.selectedFrame$
       .subscribe((selectedFrame) => {
-          const element: HTMLElement = this.canvas.nativeElement.querySelector(`#${selectedFrame?.key}`);
-          this.renderSelectionItem(selectedFrame!, element);
+          if (!selectedFrame) {
+            this.removeChild();
+          } else {
+            const element: HTMLElement = this.canvas.nativeElement.querySelector(`#${selectedFrame?.key}`);
+            this.renderSelectionItem(selectedFrame!, element);
+          }
         }
       )
   }
@@ -47,7 +51,7 @@ export class SelectionService {
   }
 
   removeChild() {
-    const index = this.overlay.indexOf(this.canvasSelectionItem.hostView)
+    const index = this.overlay.indexOf(this.canvasSelectionItem?.hostView)
     if (index != -1) this.overlay.remove(index)
   }
 }
