@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DropdownModule} from "primeng/dropdown";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -14,7 +14,7 @@ import {SliderModule} from "primeng/slider";
     <app-property-panel-row [label]="label">
       <div>
         <p-inputNumber inputId="integeronly" [formControl]="control" suffix=" px"></p-inputNumber>
-        <p-slider [formControl]="control" [max]="max"></p-slider>
+        <p-slider [formControl]="control" [max]="max" ></p-slider>
       </div>
     </app-property-panel-row>
   `,
@@ -28,4 +28,14 @@ export class SliderComponent {
   @Input() label: string = '';
   @Input() control: FormControl<any> = new FormControl<any>('');
   @Input() max: number = 100;
+  @Input() controlValue: unknown = null;
+
+  constructor(private cd: ChangeDetectorRef) {
+  }
+
+  ngOnChanges() {
+    this.control.valueChanges.subscribe((v: any) => {
+      this.control.setValue(v, {emitEvent: false});
+    })
+  }
 }
