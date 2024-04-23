@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Store} from "./store";
 import {CanvasItem} from "../models/canvas-item.model";
 import cloneDeep from 'lodash.clonedeep';
-import {distinctUntilChanged, map} from "rxjs";
+import {BehaviorSubject, distinctUntilChanged, map, Subject} from "rxjs";
 import {FrameType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
@@ -19,6 +19,9 @@ export class CanvasState {
   providedIn: 'root'
 })
 export class CanvasStore extends Store<CanvasState> {
+  private frameCssChangedSubject = new Subject();
+  frameCssChanged$ = this.frameCssChangedSubject.asObservable();
+
   constructor() {
     super(new CanvasState());
   }
@@ -136,10 +139,7 @@ export class CanvasStore extends Store<CanvasState> {
 
     selectedFrame.css = css;
 
-    this.setState({
-      ...this.getState(),
-      frames: cloneDeep(this.getState().frames),
-    })
+    this.frameCssChangedSubject.next(undefined);
   }
 
   moveFrameChild(currentFrameId: string | undefined, previousFrameId: string, previousIndex: number, currentIndex: number) {
@@ -161,39 +161,6 @@ export class CanvasStore extends Store<CanvasState> {
       ...this.getState(),
       frames: cloneDeep(this.getState().frames),
     })
-  }
-
-  private getFrameIds(frames?: CanvasItem[]): string[] {
-    if (!frames) {
-      return [];
-    }
-
-    const frameIds = frames.filter(frame => frame.frameType === FrameType.FLEX).map(frame => frame.key!);
-
-    for (let frame of frames) {
-      frameIds.push(...this.getFrameIds(frame.children));
-    }
-
-    return frameIds;
-  }
-
-  private getFrameByKey(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
-    if (!frames || !frames.length || key == null) {
-      return undefined;
-    }
-
-    for (let frame of frames) {
-      if (frame.key === key) {
-        return frame;
-      }
-
-      const childFrame = this.getFrameByKey(frame.children, key);
-      if (childFrame) {
-        return childFrame;
-      }
-    }
-
-    return undefined;
   }
 
   getParentFrameKey(childKey: string, frames: CanvasItem[], parentKey: string | undefined): string | undefined {
@@ -220,6 +187,19 @@ export class CanvasStore extends Store<CanvasState> {
 
   getPresets() {
     return [...flexPresets as Preset[], ...textPresets as Preset[]]
+  }
+
+  updateTextContent(key: string, content: string) {
+    const frame = this.getFrameByKey(this.frames, key);
+
+    if (frame?.frameType === FrameType.TEXT) {
+      frame.name = content;
+    }
+
+    this.setState({
+      ...this.getState(),
+      frames: cloneDeep(this.getState().frames),
+    })
   }
 
   private assignKeys(frames: CanvasItem[] | undefined, parentKey: string | undefined) {
@@ -256,16 +236,22 @@ export class CanvasStore extends Store<CanvasState> {
     return this.getPresets().find(preset => preset.presetId === presetId);
   }
 
-  updateTextContent(key: string, content: string) {
-    const frame = this.getFrameByKey(this.frames, key);
-
-    if (frame?.frameType === FrameType.TEXT) {
-      frame.name = content;
+  private getFrameByKey(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
+    if (!frames || !frames.length || key == null) {
+      return undefined;
     }
 
-    this.setState({
-      ...this.getState(),
-      frames: cloneDeep(this.getState().frames),
-    })
+    for (let frame of frames) {
+      if (frame.key === key) {
+        return frame;
+      }
+
+      const childFrame = this.getFrameByKey(frame.children, key);
+      if (childFrame) {
+        return childFrame;
+      }
+    }
+
+    return undefined;
   }
 }

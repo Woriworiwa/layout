@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component, ElementRef,
   EventEmitter,
   Input,
@@ -8,7 +9,7 @@ import {CommonModule} from '@angular/common';
 import {CanvasItemClickEvent} from "../../../models/canvas-item.model";
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 import {TextComponent} from "../text/text.component";
-import { FrameType } from '../../../models/enums';
+import {FrameType} from '../../../models/enums';
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 import {CanvasStore} from "../../../store/canvas.store";
 import {ButtonModule} from "primeng/button";
@@ -22,13 +23,14 @@ import {SelectionService} from "../../../services/selection.service";
 @Component({
   selector: 'app-frame',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })
 export class FrameComponent extends CavnasBaseComponent {
   protected readonly FrameType = FrameType;
-  @Output() childTextContentChanged = new EventEmitter<{ key: string , content: string }>();
+  @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;
   @Input() dragDropDisabled = false;
 
@@ -43,17 +45,11 @@ export class FrameComponent extends CavnasBaseComponent {
     this.canvasStore.moveFrameChild(event.container.data, event.previousContainer.data, event.previousIndex, event.currentIndex);
   }
 
-  override ngOnChanges() {
-    super.ngOnChanges();
-
-
-  }
-
   protected onChildFrameClick(canvasItemClick: CanvasItemClickEvent) {
     this.clicked.emit(canvasItemClick);
   }
 
-  protected onChildTextContentChanged({key, content}: {key: string, content: string}) {
+  protected onChildTextContentChanged({key, content}: { key: string, content: string }) {
     this.childTextContentChanged.emit({key, content});
   }
 }

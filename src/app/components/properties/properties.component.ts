@@ -16,7 +16,6 @@ import {DisplayComponent} from "./display.component";
 @Component({
   selector: 'app-settings',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule, PropertiesFlex, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent, CssPrismComponent, BoxSizingComponent, DisplayComponent],
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss']
@@ -37,13 +36,10 @@ export class PropertiesComponent {
   private destroy$ = new Subject();
 
   constructor(public fb: FormBuilder,
-              private cd: ChangeDetectorRef,
               protected canvasStore: CanvasStore) {
     this.canvasStore.selectedFrame$
       .subscribe(frame => {
         this.frame = frame;
-
-        this.cd.markForCheck();
     })
   }
 

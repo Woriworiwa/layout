@@ -19,7 +19,6 @@ import {SliderComponent} from "./property-items/slider.component";
 @Component({
   selector: 'app-properties-flex',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent],
   template: `
     <div class="title">Flex</div>
