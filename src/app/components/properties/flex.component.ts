@@ -45,6 +45,11 @@ import {SliderComponent} from "./property-items/slider.component";
       <app-property-item-dropdown [options]="alignContentOptions"
                                   [control]="getFormControl('alignContent')"
                                   label="align-content"></app-property-item-dropdown>
+
+      <app-property-item-slider label="flex-grow"
+                                [control]="getFormControl('flexGrow')"
+                                [suffix]="undefined"
+                                [max]="5"></app-property-item-slider>
     </ng-container>
   `,
   styles: `
@@ -140,7 +145,8 @@ export class PropertiesFlex {
       gap: new FormControl<Property.Gap | null | undefined>(null),
       justifyContent: new FormControl<Property.JustifyContent | null | undefined>(null),
       alignItems: new FormControl<Property.AlignItems | null | undefined>(null),
-      alignContent: new FormControl<Property.AlignContent | null | undefined>(null)
+      alignContent: new FormControl<Property.AlignContent | null | undefined>(null),
+      flexGrow: new FormControl<number | null | undefined>(null)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges

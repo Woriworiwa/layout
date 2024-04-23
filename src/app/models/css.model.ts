@@ -49,6 +49,7 @@ export interface Container extends Pick<CSS.Properties,
 /* Flex */
 export interface Flex extends Container, Pick<CSS.Properties,
   'flexDirection' |
-  'flexWrap'
+  'flexWrap' |
+  'flexGrow'
 > {
 }
