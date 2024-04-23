@@ -20,20 +20,8 @@
     padding: 8px;
   }
 
-  //.p-treenode-selectable.p-highlight {
-  //  color: white;
-  //  background: #3a9afe;
-  //
-  //  /* if it has a sibling change the border radius */
-  //  &:has(+.p-treenode-children) {
-  //    border-radius: 8px 8px 0 0;
-  //  }
-  //
-  //  /* sibling styles */
-  //  &+ .p-treenode-children {
-  //    background: #EFF6FF;
-  //    border-radius: 0 0 8px 8px;
-  //  }
-  //}
+  .p-tree .p-tree-container .p-treenode .p-treenode-content {
+    padding: 2px;
+  }
 }
 

@@ -107,6 +107,11 @@ export class CanvasStore extends Store<CanvasState> {
       parentFrame?.children?.splice(parentFrame.children.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
     }
 
+    this.setState({
+      ...this.getState(),
+      frames: cloneDeep(this.getState().frames),
+    })
+
     this.setSelectedFrameKey(newFrame.key);
   }
 
