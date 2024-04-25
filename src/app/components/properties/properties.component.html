@@ -7,11 +7,13 @@
 
     @switch (frame?.frameType) {
       @case (FrameType.FLEX) {
-        <app-properties-flex [css]="frame?.css"></app-properties-flex>
+        <app-properties-flex-container [css]="frame?.css"></app-properties-flex-container>
       }
       @case (FrameType.TEXT) {
 
       }
     }
+
+    <app-properties-flex-item [css]="frame?.css"></app-properties-flex-item>
   </div>
 </ng-container>

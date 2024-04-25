@@ -3,16 +3,18 @@ import {CanvasStore} from "../store/canvas.store";
 import {CanvasItem} from "../models/canvas-item.model";
 import {CanvasSelectionItemComponent} from "../components/canvas/selection-item/canvas-selection-item.component";
 import {CanvasHoverItemComponent} from "../components/canvas/selection-item/canvas-hover-item.component";
+import {ContextMenuService} from "./context-menu.service";
 
 @Injectable()
 export class SelectionService {
   overlay!: ViewContainerRef;
   canvas!: ElementRef;
 
-  canvasSelectionItem!: ComponentRef<CanvasSelectionItemComponent>
-  canvasHoverItem!: ComponentRef<CanvasHoverItemComponent>
+  canvasSelectionItem: ComponentRef<CanvasSelectionItemComponent> | undefined = undefined
+  canvasHoverItem: ComponentRef<CanvasHoverItemComponent> | undefined = undefined;
 
-  constructor(private canvasStore: CanvasStore) {
+  constructor(private canvasStore: CanvasStore,
+              private contextMenuService: ContextMenuService) {
   }
 
   initialize(overlay: ViewContainerRef, canvas: ElementRef) {
@@ -22,7 +24,8 @@ export class SelectionService {
     this.canvasStore.selectedFrame$
       .subscribe((selectedFrame) => {
           if (!selectedFrame) {
-            this.removeItem(this.canvasSelectionItem);
+            this.removeItem(this.canvasSelectionItem!);
+            this.canvasSelectionItem = undefined;
           } else {
             this.renderItem('selection', selectedFrame!);
           }
@@ -32,7 +35,8 @@ export class SelectionService {
     this.canvasStore.hoverFrame$
       .subscribe((hoverFrame) => {
           if (!hoverFrame) {
-            this.removeItem(this.canvasHoverItem);
+            this.removeItem(this.canvasHoverItem!);
+            this.canvasHoverItem = undefined;
           } else {
             if (this.canvasStore.selectedFrame()?.key === hoverFrame.key) {
               return;
@@ -44,8 +48,8 @@ export class SelectionService {
       )
   }
 
-  private getTargetElement(hoverFrame: CanvasItem) {
-    return this.canvas.nativeElement.querySelector(`#${hoverFrame?.key}`);
+  showContextMenu(event: any) {
+    setTimeout(() => this.contextMenuService.show(this.canvasSelectionItem!.instance.contextMenu.contextMenu, event), 10);
   }
 
   renderItem(itemType: 'selection' | 'hover', canvasItem: CanvasItem) {
@@ -69,6 +73,10 @@ export class SelectionService {
     }
   }
 
+  private getTargetElement(hoverFrame: CanvasItem) {
+    return this.canvas.nativeElement.querySelector(`#${hoverFrame?.key}`);
+  }
+
   private addItem(component: CanvasSelectionItemComponent | CanvasHoverItemComponent, canvasItem: CanvasItem, element: HTMLElement) {
     const canvasBoundingRect = this.canvas.nativeElement.getBoundingClientRect();
     const canvasItemBoundingRect = element.getBoundingClientRect();
@@ -83,6 +91,8 @@ export class SelectionService {
 
   private removeItem(item: ComponentRef<CanvasSelectionItemComponent | CanvasHoverItemComponent>) {
     const index = this.overlay.indexOf(item?.hostView)
-    if (index != -1) this.overlay.remove(index)
+    if (index != -1) {
+      this.overlay.remove(index)
+    }
   }
 }

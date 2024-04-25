@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, Renderer2} from "@angular/core";
+import {Component, ElementRef, Input, Renderer2, ViewChild} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
@@ -17,11 +17,11 @@ import {CanvasItem} from "../../../models/canvas-item.model";
 export class CanvasSelectionItemComponent {
   @Input() width: number = 0;
   @Input() height: number = 0;
-
   @Input() top: number = 0;
   @Input() left: number = 0;
-
   @Input() canvasItem: CanvasItem | undefined = undefined;
+
+  @ViewChild(ContextMenuComponent) contextMenu!: ContextMenuComponent;
 
   constructor(private renderer: Renderer2,
               protected elementRef: ElementRef) {

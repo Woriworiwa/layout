@@ -14,7 +14,6 @@ import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
-import {CanvasItemComponent} from "./selection-item/canvas-item.component";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 import {SelectionService} from "../../services/selection.service";
@@ -22,7 +21,7 @@ import {SelectionService} from "../../services/selection.service";
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
+  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe],
   providers: [ContextMenuService, SelectionService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
@@ -51,7 +50,8 @@ export class CanvasComponent {
 
   constructor(protected canvasStore: CanvasStore,
               private renderer: Renderer2,
-              private selectionService: SelectionService) {
+              private selectionService: SelectionService,
+              private contextMenuService: ContextMenuService) {
     this.canvasStore.frames$.subscribe(rootFrames => this.frames = rootFrames);
     this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
   }
@@ -83,6 +83,7 @@ export class CanvasComponent {
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
     this.canvasStore.setSelectedFrameKey(undefined);
+    this.contextMenuService.hide();
   }
 
   /*mouse down*/
@@ -137,6 +138,7 @@ export class CanvasComponent {
     }
 
     this.canvasStore.setSelectedFrameKey(event.canvasItem.key);
+    this.contextMenuService.hide();
   }
 
   onMouseOver(event: CanvasItemMouseEvent) {
@@ -145,6 +147,11 @@ export class CanvasComponent {
 
   onMouseOut(event: CanvasItemMouseEvent) {
     this.canvasStore.setHoverFrameKey(undefined);
+  }
+
+  onContextMenu(event: CanvasItemMouseEvent) {
+    this.canvasStore.setSelectedFrameKey(event.canvasItem.key);
+    this.selectionService.showContextMenu(event.mouseEvent);
   }
 
   onChildTextContentChanged(content: { key: string, content: string }) {

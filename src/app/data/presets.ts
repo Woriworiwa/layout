@@ -59,8 +59,14 @@ export const flexPresets = [
     "presetName": "Flex direction columns",
     "presetDefinition": {
       "frameType": "FLEX",
-      "flexLayoutSettings": {
-        "flexDirection": "column"
+      "css": {
+        "display": {
+          "display": "flex"
+        },
+        "flex": {
+          "flexDirection": "column",
+          "gap": 10
+        }
       },
       "children": [
         {

@@ -28,6 +28,7 @@ export class CavnasBaseComponent{
   @Output() clicked = new EventEmitter<CanvasItemMouseEvent>();
   @Output() mouseOver = new EventEmitter<CanvasItemMouseEvent>();
   @Output() mouseOut = new EventEmitter<CanvasItemMouseEvent>();
+  @Output() contextMenu = new EventEmitter<CanvasItemMouseEvent>();
 
   private destroy$ = new Subject();
 
@@ -55,6 +56,13 @@ export class CavnasBaseComponent{
   onMouseLeave($event: any) {
     $event.stopPropagation();
     this.mouseOut.emit({canvasItem: this.item!, mouseEvent: $event});
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  onContextMenu($event: any) {
+    $event.stopPropagation();
+    $event.preventDefault();
+    this.contextMenu.emit({canvasItem: this.item!, mouseEvent: $event});
   }
 
   ngOnChanges() {
@@ -90,7 +98,5 @@ export class CavnasBaseComponent{
         this.baseSelectionService.renderItem('selection', this.item!);
       }, 0);
     }
-
-
   }
 }

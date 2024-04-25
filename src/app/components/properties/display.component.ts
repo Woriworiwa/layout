@@ -54,9 +54,7 @@ export class DisplayComponent {
     this.formGroup = this.createFormGroup();
 
     if (this.css?.display) {
-      this.formGroup?.patchValue({
-        ...this.css.display
-      }, {emitEvent: false});
+      this.formGroup?.patchValue(this.css.display, {emitEvent: false});
     }
   }
 

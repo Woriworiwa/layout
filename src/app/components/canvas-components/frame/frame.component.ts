@@ -15,7 +15,6 @@ import {CanvasStore} from "../../../store/canvas.store";
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
-import {CanvasItemComponent} from "../../canvas/selection-item/canvas-item.component";
 import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
 import {CavnasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../services/selection.service";
@@ -24,7 +23,7 @@ import {SelectionService} from "../../../services/selection.service";
   selector: 'app-frame',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
+  imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CssStyleSerializerPipe],
   templateUrl: 'frame.component.html',
   styleUrls: ['./frame.component.scss'],
 })
@@ -55,6 +54,10 @@ export class FrameComponent extends CavnasBaseComponent {
 
   onChildMouseOut(event: CanvasItemMouseEvent) {
     this.mouseOut.emit(event);
+  }
+
+  onChildContextMenu(event: CanvasItemMouseEvent) {
+    this.contextMenu.emit(event);
   }
 
   protected onChildTextContentChanged({key, content}: { key: string, content: string }) {

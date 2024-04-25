@@ -17,11 +17,11 @@ import {SelectButtonComponent} from "./property-items/select-button.component";
 import {SliderComponent} from "./property-items/slider.component";
 
 @Component({
-  selector: 'app-properties-flex',
+  selector: 'app-properties-flex-container',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent],
   template: `
-    <div class="title">Flex</div>
+    <div class="title">Flex container</div>
     <ng-container [formGroup]="formGroup">
       <app-property-item-select-button [options]="flexDirectionOptions"
                                        [control]="getFormControl('flexDirection')"
@@ -45,11 +45,6 @@ import {SliderComponent} from "./property-items/slider.component";
       <app-property-item-dropdown [options]="alignContentOptions"
                                   [control]="getFormControl('alignContent')"
                                   label="align-content"></app-property-item-dropdown>
-
-      <app-property-item-slider label="flex-grow"
-                                [control]="getFormControl('flexGrow')"
-                                [suffix]="undefined"
-                                [max]="5"></app-property-item-slider>
     </ng-container>
   `,
   styles: `
@@ -58,7 +53,7 @@ import {SliderComponent} from "./property-items/slider.component";
     }
   `
 })
-export class PropertiesFlex {
+export class PropertiesFlexConainer {
   @Input() css: Css | undefined;
 
   /*direction*/
@@ -145,8 +140,7 @@ export class PropertiesFlex {
       gap: new FormControl<Property.Gap | null | undefined>(null),
       justifyContent: new FormControl<Property.JustifyContent | null | undefined>(null),
       alignItems: new FormControl<Property.AlignItems | null | undefined>(null),
-      alignContent: new FormControl<Property.AlignContent | null | undefined>(null),
-      flexGrow: new FormControl<number | null | undefined>(null)
+      alignContent: new FormControl<Property.AlignContent | null | undefined>(null)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges

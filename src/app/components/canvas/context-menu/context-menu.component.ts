@@ -2,7 +2,7 @@ import {Component, HostListener, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ContextMenu, ContextMenuModule} from "primeng/contextmenu";
 import {ContextMenuService} from "../../../services/context-menu.service";
-import {MenuItem} from "primeng/api";
+import {MenuItem, MenuItemCommandEvent} from "primeng/api";
 import {CanvasStore} from "../../../store/canvas.store";
 
 
@@ -22,8 +22,7 @@ export class ContextMenuComponent {
 
   items: MenuItem[] | undefined;
 
-  constructor(private canvasStore: CanvasStore,
-              private contextMenuService: ContextMenuService) {
+  constructor(private canvasStore: CanvasStore) {
   }
 
   ngOnInit() {
