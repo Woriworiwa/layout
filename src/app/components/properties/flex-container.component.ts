@@ -112,10 +112,10 @@ export class PropertiesFlexConainer {
   ngOnChanges() {
     this.formGroup = this.createFormGroup();
 
-    if (this.css?.flex) {
+    if (this.css?.flexContainer) {
       this.formGroup?.patchValue({
-        ...this.css.flex,
-        gap: this.css.flex.gap?.toString()
+        ...this.css.flexContainer,
+        gap: this.css.flexContainer.gap?.toString()
       }, {emitEvent: false});
     }
   }
@@ -150,7 +150,7 @@ export class PropertiesFlexConainer {
       .subscribe((value: any) => {
         this.frameStore.updateCss({
           ...this.css,
-          flex: value
+          flexContainer: value
         });
       });
 

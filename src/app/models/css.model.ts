@@ -6,7 +6,8 @@ export interface Css {
   boxSizing?: BoxSizing;
   display?: Display;
   container?: Container;
-  flex?: Flex;
+  flexContainer?: FlexContainer;
+  flexItem?: FlexItem;
 }
 
 /* these properties must be post-fixed with a unit. For now, the unit is px.
@@ -47,12 +48,16 @@ export interface Container extends Pick<CSS.Properties,
 }
 
 /* Flex */
-export interface Flex extends Container, Pick<CSS.Properties,
+export interface FlexContainer extends Container, Pick<CSS.Properties,
   'flexDirection' |
-  'flexWrap' |
+  'flexWrap'
+> {
+}
+
+export interface FlexItem extends Pick<CSS.Properties,
   'flexGrow' |
   'flexShrink' |
   'flexBasis' |
   'alignSelf'
 > {
-}
+  }

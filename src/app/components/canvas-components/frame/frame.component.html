@@ -15,7 +15,7 @@
                      [cdkDragDisabled]="dragDropDisabled"
                      (cdkDropListDropped)="onDrop($event)"
                      [cdkDropListData]="item?.key"
-                     [cdkDropListOrientation]="item?.css?.flex?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
+                     [cdkDropListOrientation]="item?.css?.flexContainer?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
                      cdkDropList></app-frame>
         }
         @case (FrameType.TEXT) {

@@ -57,8 +57,8 @@ export class PropertiesFlexItem {
   ngOnChanges() {
     this.formGroup = this.createFormGroup();
 
-    if (this.css?.flex) {
-      this.formGroup?.patchValue(this.css.flex, {emitEvent: false});
+    if (this.css?.flexItem) {
+      this.formGroup?.patchValue(this.css.flexItem, {emitEvent: false});
     }
   }
 
@@ -90,7 +90,7 @@ export class PropertiesFlexItem {
       .subscribe((value: any) => {
         this.frameStore.updateCss({
           ...this.css,
-          flex: value
+          flexItem: value
         });
       });
 
