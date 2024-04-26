@@ -33,11 +33,9 @@ export class CanvasStore extends Store<CanvasState> {
       distinctUntilChanged()
     )
   }
-
   get frames() {
     return this.getState().frames;
   }
-
   set frames(frames: CanvasItem[]) {
     this.setState({
       ...this.getState(),
@@ -49,14 +47,13 @@ export class CanvasStore extends Store<CanvasState> {
     return this.state.pipe(
       map(state => state.selectedFrameKey),
       distinctUntilChanged(),
-      map(selectedFrameKey => this.getFrameByKey(this.getState().frames, selectedFrameKey))
+      map(selectedFrameKey => this.getItemById(this.getState().frames, selectedFrameKey))
     );
   }
-
+  //TODO: change to getter to match the above properties
   selectedFrame() {
-    return this.getFrameByKey(this.getState().frames, this.getState().selectedFrameKey);
+    return this.getItemById(this.getState().frames, this.getState().selectedFrameKey);
   }
-
   setSelectedFrameKey(key: string | undefined) {
     this.setState({
       ...this.getState(),
@@ -68,7 +65,7 @@ export class CanvasStore extends Store<CanvasState> {
     return this.state.pipe(
       map(state => state.hoverFrameKey),
       distinctUntilChanged(),
-      map(hoverFrameKey => this.getFrameByKey(this.getState().frames, hoverFrameKey))
+      map(hoverFrameKey => this.getItemById(this.getState().frames, hoverFrameKey))
     );
   }
 
@@ -95,7 +92,7 @@ export class CanvasStore extends Store<CanvasState> {
       const frames = this.getState().frames || [];
       frames.splice(this.frames.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
     } else {
-      const parentFrame = this.getFrameByKey(this.frames, parentFrameKey);
+      const parentFrame = this.getItemById(this.frames, parentFrameKey);
       if (!parentFrame) {
         return;
       }
@@ -125,7 +122,7 @@ export class CanvasStore extends Store<CanvasState> {
     if (parentFrameKey === CANVAS_WRAPPER_ID) {
       frames = this.frames;
     } else {
-      const parentFrame = this.getFrameByKey(this.frames, parentFrameKey);
+      const parentFrame = this.getItemById(this.frames, parentFrameKey);
 
       if (!parentFrame) {
         return;
@@ -169,8 +166,8 @@ export class CanvasStore extends Store<CanvasState> {
       return;
     }
 
-    const currentContainer = this.getFrameByKey(this.frames, currentFrameId);
-    const previousContainer = this.getFrameByKey(this.frames, previousFrameId);
+    const currentContainer = this.getItemById(this.frames, currentFrameId);
+    const previousContainer = this.getItemById(this.frames, previousFrameId);
 
     if (currentFrameId === previousFrameId) {
       moveItemInArray(currentContainer?.children!, previousIndex, currentIndex);
@@ -211,11 +208,25 @@ export class CanvasStore extends Store<CanvasState> {
   }
 
   updateTextContent(key: string, content: string) {
-    const frame = this.getFrameByKey(this.frames, key);
+    const frame = this.getItemById(this.frames, key);
 
     if (frame?.frameType === FrameType.TEXT) {
       frame.name = content;
     }
+
+    this.setState({
+      ...this.getState(),
+      frames: cloneDeep(this.getState().frames),
+    })
+  }
+
+  renameItem(id: string, name: string){
+    const selectedItem = this.getItemById(this.frames, id);
+    if (!selectedItem) {
+      return;
+    }
+
+    selectedItem.name = name;
 
     this.setState({
       ...this.getState(),
@@ -257,7 +268,7 @@ export class CanvasStore extends Store<CanvasState> {
     return this.getPresets().find(preset => preset.presetId === presetId);
   }
 
-  private getFrameByKey(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
+  private getItemById(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
     if (!frames || !frames.length || key == null) {
       return undefined;
     }
@@ -267,7 +278,7 @@ export class CanvasStore extends Store<CanvasState> {
         return frame;
       }
 
-      const childFrame = this.getFrameByKey(frame.children, key);
+      const childFrame = this.getItemById(frame.children, key);
       if (childFrame) {
         return childFrame;
       }

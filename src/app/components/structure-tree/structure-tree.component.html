@@ -1,12 +1,30 @@
 <p-tree class="w-full md:w-30rem"
         [value]="treeNodes"
         ngDefaultControl
-        [(selection)]="selectedFrames"
+        [contextMenu]="contextMenu"
+        [(selection)]="selectedItems"
         selectionMode="single"
-        (selectionChange)="onSelectionChanged($event)"
+        (selectionChange)="onNodeSelectionChanged($event)"
         [draggableNodes]="true"
         [droppableNodes]="true"
         draggableScope="self"
         droppableScope="self"
+        (onNodeContextMenuSelect)="onNodeContextMenu($event)"
         (onNodeDrop)="onNodeDrop($event)">
 </p-tree>
+
+<p-contextMenu #contextMenu [model]="contextMenuItems"></p-contextMenu>
+
+<p-overlayPanel #renameItem>
+  <input #nameInput
+         pInputText
+         autofocus
+         (keydown.enter)="renameNode(selectedItems?.key!, nameInput.value)"
+         onfocus="this.select()"
+         [value]="selectedItems?.name || selectedItems?.frameType"/>
+
+  <div class="rename-button-container">
+    <p-button type="button" label="Cancel" [text]="true" (click)="renameItem.hide()"></p-button>
+    <p-button type="submit" label="Rename" (click)="renameNode(selectedItems?.key!, nameInput.value)"></p-button>
+  </div>
+</p-overlayPanel>
