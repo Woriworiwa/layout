@@ -5,7 +5,7 @@
     <app-properties-box-sizing [css]="frame?.css"></app-properties-box-sizing>
     <app-properties-display [css]="frame?.css"></app-properties-display>
 
-    @switch (frame?.frameType) {
+    @switch (frame?.itemType) {
       @case (FrameType.FLEX) {
         <app-properties-flex-container [css]="frame?.css"></app-properties-flex-container>
       }

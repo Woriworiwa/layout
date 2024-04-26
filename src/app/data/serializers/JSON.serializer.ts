@@ -1,6 +1,6 @@
 import {Serializer} from "./serializer";
 import {CanvasItem} from "../../models/canvas-item.model";
-import {FrameType} from "../../models/enums";
+import {CanvasItemType} from "../../models/enums";
 import {CssClassSerializer} from "./css-class.serializer";
 import cloneDeep from "lodash.clonedeep";
 import {Css} from "../../models/css.model";

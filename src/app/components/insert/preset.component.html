@@ -1,19 +1,19 @@
-@switch (preset?.frameType) {
+@switch (preset?.itemType) {
   @case (FrameType.FLEX) {
       <div [style]="preset | cssStyleSerializer">
         @for (childFrame of preset?.children; track childFrame) {
-          @switch (childFrame.frameType) {
+          @switch (childFrame.itemType) {
             @case (FrameType.FLEX) {
               <app-preset [preset]="childFrame"></app-preset>
             }
             @case (FrameType.TEXT) {
-              <div class="text">{{childFrame.name}}</div>
+              <div class="text">{{childFrame.label}}</div>
             }
           }
         }
       </div>
   }
   @case (FrameType.TEXT) {
-    <div class="text">{{preset?.name}}</div>
+    <div class="text">{{preset?.label}}</div>
   }
 }

@@ -5,7 +5,6 @@ import {Property} from "csstype";
 export interface Css {
   boxSizing?: BoxSizing;
   display?: Display;
-  container?: Container;
   flexContainer?: FlexContainer;
   flexItem?: FlexItem;
 }

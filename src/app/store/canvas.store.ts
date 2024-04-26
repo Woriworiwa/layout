@@ -3,7 +3,7 @@ import {Store} from "./store";
 import {CanvasItem} from "../models/canvas-item.model";
 import cloneDeep from 'lodash.clonedeep';
 import {distinctUntilChanged, map, Subject} from "rxjs";
-import {FrameType} from "../models/enums";
+import {CanvasItemType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Css} from "../models/css.model";
@@ -210,8 +210,8 @@ export class CanvasStore extends Store<CanvasState> {
   updateTextContent(key: string, content: string) {
     const frame = this.getItemById(this.frames, key);
 
-    if (frame?.frameType === FrameType.TEXT) {
-      frame.name = content;
+    if (frame?.itemType === CanvasItemType.TEXT) {
+      frame.label = content;
     }
 
     this.setState({
@@ -226,7 +226,7 @@ export class CanvasStore extends Store<CanvasState> {
       return;
     }
 
-    selectedItem.name = name;
+    selectedItem.label = name;
 
     this.setState({
       ...this.getState(),

@@ -3,8 +3,8 @@ export const textPresets = [
     "presetId": "short-text",
     "presetName": "short text",
     "presetDefinition": {
-      "frameType": "TEXT",
-      "name": "lorem"
+      "itemType": "TEXT",
+      "label": "lorem"
     }
   }
 ];
@@ -14,7 +14,7 @@ export const flexPresets = [
     "presetId": "empty-flex",
     "presetName": "empty Flex",
     "presetDefinition": {
-      "frameType": "FLEX",
+      "itemType": "FLEX",
       "css": {
         "display": {
           "display": "flex"
@@ -29,7 +29,7 @@ export const flexPresets = [
     "presetId": "flex-rows",
     "presetName": "Flex direction rows",
     "presetDefinition": {
-      "frameType": "FLEX",
+      "itemType": "FLEX",
       "css": {
         "display": {
           "display": "flex"
@@ -40,16 +40,16 @@ export const flexPresets = [
       },
       "children": [
         {
-          "name": "__    1   ____",
-          "frameType": "TEXT"
+          "label": "__    1   ____",
+          "itemType": "TEXT"
         },
         {
-          "name": "_____    2    ______",
-          "frameType": "TEXT"
+          "label": "_____    2    ______",
+          "itemType": "TEXT"
         },
         {
-          "name": "__________    3    __________",
-          "frameType": "TEXT"
+          "label": "__________    3    __________",
+          "itemType": "TEXT"
         }
       ]
     }
@@ -58,7 +58,7 @@ export const flexPresets = [
     "presetId": "flex-columns",
     "presetName": "Flex direction columns",
     "presetDefinition": {
-      "frameType": "FLEX",
+      "itemType": "FLEX",
       "css": {
         "display": {
           "display": "flex"
@@ -70,16 +70,16 @@ export const flexPresets = [
       },
       "children": [
         {
-          "name": "1",
-          "frameType": "TEXT"
+          "label": "1",
+          "itemType": "TEXT"
         },
         {
-          "name": "2",
-          "frameType": "TEXT"
+          "label": "2",
+          "itemType": "TEXT"
         },
         {
-          "name": "3",
-          "frameType": "TEXT"
+          "label": "3",
+          "itemType": "TEXT"
         }
       ]
     }

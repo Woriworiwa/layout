@@ -1,7 +1,7 @@
-@switch (item?.frameType) {
+@switch (item?.itemType) {
   @case (FrameType.FLEX) {
     @for (childFrame of item?.children; track childFrame) {
-      @switch (childFrame.frameType) {
+      @switch (childFrame.itemType) {
         @case (FrameType.FLEX) {
           <app-frame [item]="childFrame"
                      (clicked)="onChildFrameClick($event)"
@@ -29,7 +29,7 @@
                     (contentChanged)="onChildTextContentChanged($event)"
                     cdkDrag
                     [cdkDragDisabled]="dragDropDisabled">
-            {{ childFrame.name }}
+            {{ childFrame.label }}
           </app-text>
         }
       }

@@ -9,7 +9,7 @@ import {CommonModule} from '@angular/common';
 import {CanvasItemMouseEvent} from "../../../models/canvas-item.model";
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 import {TextComponent} from "../text/text.component";
-import {FrameType} from '../../../models/enums';
+import {CanvasItemType} from '../../../models/enums';
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 import {CanvasStore} from "../../../store/canvas.store";
 import {ButtonModule} from "primeng/button";
@@ -28,7 +28,7 @@ import {SelectionService} from "../../../services/selection.service";
   styleUrls: ['./frame.component.scss'],
 })
 export class FrameComponent extends CavnasBaseComponent {
-  protected readonly FrameType = FrameType;
+  protected readonly FrameType = CanvasItemType;
   @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;
   @Input() dragDropDisabled = false;

@@ -21,7 +21,7 @@
          autofocus
          (keydown.enter)="renameNode(selectedItems?.key!, nameInput.value)"
          onfocus="this.select()"
-         [value]="selectedItems?.name || selectedItems?.frameType"/>
+         [value]="selectedItems?.label || selectedItems?.itemType"/>
 
   <div class="rename-button-container">
     <p-button type="button" label="Cancel" [text]="true" (click)="renameItem.hide()"></p-button>

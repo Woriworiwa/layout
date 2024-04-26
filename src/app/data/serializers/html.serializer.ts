@@ -1,6 +1,6 @@
 import {Serializer} from "./serializer";
 import {CanvasItem} from "../../models/canvas-item.model";
-import {FrameType} from "../../models/enums";
+import {CanvasItemType} from "../../models/enums";
 import {CssClassSerializer} from "./css-class.serializer";
 
 export class HtmlSerializer extends Serializer {
@@ -64,11 +64,11 @@ export class HtmlSerializer extends Serializer {
 
     canvasItems.forEach(canvasItem => {
       /* class name and opening curl */
-      const cssClasses = `${canvasItem.frameType === FrameType.FLEX ? 'frame' : 'text'} ${canvasItem.key}`;
+      const cssClasses = `${canvasItem.itemType === CanvasItemType.FLEX ? 'frame' : 'text'} ${canvasItem.key}`;
       htmlLines.push(this.indent(`<div class="${cssClasses}">`, level * 2));
 
-      if (canvasItem.frameType === FrameType.TEXT) {
-        htmlLines.push(canvasItem.name!)
+      if (canvasItem.itemType === CanvasItemType.TEXT) {
+        htmlLines.push(canvasItem.label!)
       }
 
       /* children */

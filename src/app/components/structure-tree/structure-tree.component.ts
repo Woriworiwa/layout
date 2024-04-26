@@ -8,7 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {CdkDropList} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {ToggleButtonModule} from "primeng/togglebutton";
-import {FrameType} from "../../models/enums";
+import {CanvasItemType} from "../../models/enums";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {ContextMenuModule} from "primeng/contextmenu";
 import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
@@ -85,7 +85,7 @@ export class StructureTreeComponent {
 
     return canvasItems.map((frame) => {
       return {
-        label: frame.name || frame.frameType,
+        label: frame.label || frame.itemType,
         key: frame.key,
         icon: this.getTreeNodeIcon(frame),
         children: this.convertCanvasItemsToTreeNodes(frame.children),
@@ -122,11 +122,11 @@ export class StructureTreeComponent {
 
   private getTreeNodeIcon(canvasItem: CanvasItem) {
     let icon = '';
-    switch (canvasItem.frameType) {
-      case FrameType.FLEX:
+    switch (canvasItem.itemType) {
+      case CanvasItemType.FLEX:
         icon = 'pi pi-fw pi-bars';
         break;
-      case FrameType.TEXT:
+      case CanvasItemType.TEXT:
         icon = 'pi pi-fw pi-at'
     }
 

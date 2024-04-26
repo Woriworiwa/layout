@@ -7,7 +7,7 @@ import {PropertyPanelRowComponent} from "./property-items/property-panel-row.com
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
-import { FrameType } from '../../models/enums';
+import { CanvasItemType } from '../../models/enums';
 import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {CssPrismComponent} from "../prisms/css-prism.component";
 import {BoxSizingComponent} from "./box-sizing.component";
@@ -26,13 +26,13 @@ export class PropertiesComponent {
   frame: CanvasItem | undefined;
 
   frameTypeOptions = [
-    {label: 'Flex', value: FrameType.FLEX},
-    {label: 'Grid', value: FrameType.GRID}
+    {label: 'Flex', value: CanvasItemType.FLEX},
+    {label: 'Grid', value: CanvasItemType.GRID}
   ]
 
-  formGroup = this.fb.group({
-    frameType: [FrameType.FLEX],
-  });
+  // formGroup = this.fb.group({
+  //   canvasItemType: [CanvasItemType.FLEX],
+  // });
 
   private destroy$ = new Subject();
 
@@ -45,15 +45,15 @@ export class PropertiesComponent {
   }
 
   ngOnInit() {
-    if (this.frame){
-      this.formGroup.patchValue(this.frame)
-    }
-
-    this.formGroup.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((value: any) => {
-          // this.canvasStore.updateFlexLayoutSettings(value);
-      });
+    // if (this.frame){
+    //   this.formGroup.patchValue(this.frame)
+    // }
+    //
+    // this.formGroup.valueChanges
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((value: any) => {
+    //       // this.canvasStore.updateFlexLayoutSettings(value);
+    //   });
   }
 
   ngOnDestroy() {
@@ -61,5 +61,5 @@ export class PropertiesComponent {
     this.destroy$.complete();
   }
 
-  protected readonly FrameType = FrameType;
+  protected readonly FrameType = CanvasItemType;
 }
