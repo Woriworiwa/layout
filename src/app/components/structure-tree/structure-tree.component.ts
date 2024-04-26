@@ -42,14 +42,14 @@ export class StructureTreeComponent {
     this.initStoreSubscriptions();
   }
 
-  onNodeSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null) {
+  onTreeSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null) {
     if (treeNode != null && !Array.isArray(treeNode)) {
       this.canvasStore.setSelectedFrameKey(treeNode.key);
     }
   }
 
   onNodeDrop($event: TreeNodeDropEvent) {
-    this.canvasStore.frames = this.convertTreeNodesToFrames(this.treeNodes);
+    this.canvasStore.frames = this.convertTreeNodesToCanvasItems(this.treeNodes);
   }
 
   onNodeContextMenu(event: TreeNodeContextMenuSelectEvent) {
@@ -61,15 +61,34 @@ export class StructureTreeComponent {
     this.renameDialog.hide();
   }
 
-  private convertFramesToTreeNodes(frames: CanvasItem[] | undefined): TreeNode<CanvasItem>[] {
-    if (!frames) return [];
+  private initStoreSubscriptions() {
+    this.canvasStore.frames$
+      .subscribe((items) => {
+        if (!items) {
+          return;
+        }
 
-    return frames.map((frame) => {
+        this.treeNodes = this.convertCanvasItemsToTreeNodes(items)
+      });
+
+    this.canvasStore.selectedFrame$
+      .subscribe(selectedItem => {
+        this.selectedItems = selectedItem;
+        if (selectedItem) {
+          this.expandNodeAndItsParents(this.treeNodes, selectedItem!, undefined);
+        }
+      })
+  }
+
+  private convertCanvasItemsToTreeNodes(canvasItems: CanvasItem[] | undefined): TreeNode<CanvasItem>[] {
+    if (!canvasItems) return [];
+
+    return canvasItems.map((frame) => {
       return {
         label: frame.name || frame.frameType,
         key: frame.key,
         icon: this.getTreeNodeIcon(frame),
-        children: this.convertFramesToTreeNodes(frame.children),
+        children: this.convertCanvasItemsToTreeNodes(frame.children),
         data: frame
       }
     });
@@ -79,50 +98,31 @@ export class StructureTreeComponent {
     this.renameDialog.toggle(event.originalEvent, this.contextMenuEvent?.target);
   }
 
-  private initStoreSubscriptions() {
-    this.canvasStore.frames$
-      .subscribe((items) => {
-        if (!items) {
-          return;
-        }
-
-        this.treeNodes = this.convertFramesToTreeNodes(items)
-      });
-
-    this.canvasStore.selectedFrame$
-      .subscribe(selectedItem => {
-        this.selectedItems = selectedItem;
-        if (selectedItem) {
-          this.expandNode(this.treeNodes, selectedItem!, undefined);
-        }
-      })
-  }
-
-  private convertTreeNodesToFrames(nodes: TreeNode<CanvasItem>[]): CanvasItem[] {
-    return nodes.map((node) => {
+  private convertTreeNodesToCanvasItems(treeNodes: TreeNode<CanvasItem>[]): CanvasItem[] {
+    return treeNodes.map((node) => {
       return {
         ...node.data as CanvasItem,
-        children: this.convertTreeNodesToFrames(node.children || [])
+        children: this.convertTreeNodesToCanvasItems(node.children || [])
       }
     })
   }
 
-  private expandNode(treeNodes: TreeNode<CanvasItem>[], targetItem: CanvasItem, parentNode: TreeNode<CanvasItem> | undefined) {
+  private expandNodeAndItsParents(treeNodes: TreeNode<CanvasItem>[], targetItem: CanvasItem, parentNode: TreeNode<CanvasItem> | undefined) {
     treeNodes.forEach((node) => {
       if (node.data === targetItem && !node.expanded) {
         node.expanded = true;
-        this.expandNode(this.treeNodes, parentNode?.data!, parentNode);
+        this.expandNodeAndItsParents(this.treeNodes, parentNode?.data!, parentNode);
       } else {
         if (node.children && node.children) {
-          this.expandNode(node.children, targetItem, node);
+          this.expandNodeAndItsParents(node.children, targetItem, node);
         }
       }
     });
   }
 
-  private getTreeNodeIcon(frame: CanvasItem) {
+  private getTreeNodeIcon(canvasItem: CanvasItem) {
     let icon = '';
-    switch (frame.frameType) {
+    switch (canvasItem.frameType) {
       case FrameType.FLEX:
         icon = 'pi pi-fw pi-bars';
         break;
