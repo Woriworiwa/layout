@@ -1,8 +1,6 @@
 import {CanvasItem} from "../models/canvas-item.model";
 import {Injectable} from "@angular/core";
 import {mockData} from "../data/mock-data";
-import {flexPresets, textPresets} from "../data/presets";
-import {Preset} from "../models/preset.model";
 import {CanvasStore} from "../store/canvas.store";
 
 @Injectable()

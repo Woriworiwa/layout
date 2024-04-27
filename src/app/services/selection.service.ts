@@ -1,8 +1,8 @@
 import {ComponentRef, ElementRef, Injectable, ViewContainerRef} from "@angular/core";
 import {CanvasStore} from "../store/canvas.store";
 import {CanvasItem} from "../models/canvas-item.model";
-import {CanvasSelectionItemComponent} from "../components/canvas/selection-item/canvas-selection-item.component";
-import {CanvasHoverItemComponent} from "../components/canvas/selection-item/canvas-hover-item.component";
+import {CanvasSelectionItemComponent} from "../components/canvas/selection/canvas-selection-item.component";
+import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-hover-item.component";
 import {ContextMenuService} from "./context-menu.service";
 
 @Injectable()

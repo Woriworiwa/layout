@@ -1,15 +1,15 @@
 @switch (item?.itemType) {
   @case (FrameType.FLEX) {
-    @for (childFrame of item?.children; track childFrame) {
-      @switch (childFrame.itemType) {
+    @for (childItem of item?.children; track childItem) {
+      @switch (childItem.itemType) {
         @case (FrameType.FLEX) {
-          <app-frame [item]="childFrame"
+          <app-frame [item]="childItem"
                      (clicked)="onChildFrameClick($event)"
                      (mouseOver)="onChildMouseOver($event)"
                      (mouseOut)="onChildMouseOut($event)"
                      (contextMenu)="onChildContextMenu($event)"
                      [selectedFrameKey]="selectedFrameKey"
-                     [id]="childFrame.key!"
+                     [id]="childItem.key!"
                      (childTextContentChanged)="onChildTextContentChanged($event)"
                      cdkDrag
                      [cdkDragDisabled]="dragDropDisabled"
@@ -20,8 +20,8 @@
         }
         @case (FrameType.TEXT) {
           <app-text app-editable-content
-                    [item]="childFrame"
-                    [id]="childFrame.key!"
+                    [item]="childItem"
+                    [id]="childItem.key!"
                     (clicked)="onChildFrameClick($event)"
                     (mouseOver)="onChildMouseOver($event)"
                     (mouseOut)="onChildMouseOut($event)"
@@ -29,7 +29,6 @@
                     (contentChanged)="onChildTextContentChanged($event)"
                     cdkDrag
                     [cdkDragDisabled]="dragDropDisabled">
-            {{ childFrame.label }}
           </app-text>
         }
       }

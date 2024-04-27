@@ -1,5 +1,6 @@
 @switch (preset?.itemType) {
   @case (FrameType.FLEX) {
+    <div class="flex-container">
       <div [style]="preset | cssStyleSerializer">
         @for (childFrame of preset?.children; track childFrame) {
           @switch (childFrame.itemType) {
@@ -12,6 +13,7 @@
           }
         }
       </div>
+    </div>
   }
   @case (FrameType.TEXT) {
     <div class="text">{{preset?.label}}</div>

@@ -16,59 +16,51 @@ export const mockData =
       },
       "children": [
         {
-          "label": "____________________    1   ____________________",
+          "content": "1",
           "itemType": "TEXT",
-          "id": "vAHJAJ5i"
+          "key": "vAHJAJ5i"
         },
         {
-          "label": "_____    2    ______",
+          "content": "2",
           "itemType": "TEXT",
-          "id": "l6v0uyLi"
+          "key": "l6v0uyLi"
         },
         {
-          "label": "__________    3    __________",
+          "content": "__________    3    __________",
           "itemType": "TEXT",
-          "id": "Mgl6xeP3"
+          "key": "Mgl6xeP3"
         }
       ],
-      "id": "TU5cxsc7"
+      "key": "TU5cxsc7"
     },
     {
       "itemType": "FLEX",
       "children": [
         {
-          "label": "____________________    1   ____________________",
+          "content": "____________________    1   ____________________",
           "itemType": "TEXT",
-          "id": "hrgDqbxP"
+          "key": "hrgDqbxP"
         },
         {
-          "label": "_____    2    ______",
+          "content": "_____    2    ______",
           "itemType": "TEXT",
-          "id": "Fcu0T0kx"
+          "key": "Fcu0T0kx"
         },
         {
-          "label": "__________    3    __________",
+          "content": "__________    3    __________",
           "itemType": "TEXT",
-          "id": "nng1cuxY"
+          "key": "nng1cuxY"
         }
       ],
-      "id": "dqJIuKDD",
+      "key": "dqJIuKDD",
       "css": {
         "display": {
           "display": "flex"
-        },
-        "flex": {
-          "gap": 9,
-          "justifyContent": "end"
         }
       }
     },
     {
       "itemType": "FLEX",
-      "flexLayoutSettings": {
-        "flexDirection": "column",
-        "gap": "50"
-      },
       "children": [
         {
           "itemType": "FLEX",
@@ -76,25 +68,25 @@ export const mockData =
             {
               "label": "lorem ipsum",
               "itemType": "TEXT",
-              "id": "xzfllvrw"
+              "key": "xzfllvrw"
             },
             {
               "label": "lorem ipsum",
               "itemType": "TEXT",
-              "id": "AAffahCX"
+              "key": "AAffahCX"
             },
             {
               "label": "lorem ipsum",
               "itemType": "TEXT",
-              "id": "lZzhgUi9"
+              "key": "lZzhgUi9"
             },
             {
               "label": "lorem ipsum",
               "itemType": "TEXT",
-              "id": "JtswtbUN"
+              "key": "JtswtbUN"
             }
           ],
-          "id": "X9ID8XUZ",
+          "key": "X9key8XUZ",
           "css": {
             "flex": {
               "flexDirection": "column",
@@ -107,6 +99,6 @@ export const mockData =
           }
         }
       ],
-      "id": "PL5Jbh3H"
+      "key": "PL5Jbh3H"
     }
   ]

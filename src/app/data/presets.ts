@@ -4,7 +4,7 @@ export const textPresets = [
     "presetName": "short text",
     "presetDefinition": {
       "itemType": "TEXT",
-      "label": "lorem"
+      "content": "lorem"
     }
   }
 ];
@@ -19,7 +19,7 @@ export const flexPresets = [
         "display": {
           "display": "flex"
         },
-        "flex": {
+        "flexContainer": {
           "gap": 10
         }
       },
@@ -34,21 +34,21 @@ export const flexPresets = [
         "display": {
           "display": "flex"
         },
-        "flex": {
+        "flexContainer": {
           "gap": 10
         }
       },
       "children": [
         {
-          "label": "__    1   ____",
+          "content": "__    1   ____",
           "itemType": "TEXT"
         },
         {
-          "label": "_____    2    ______",
+          "content": "_____    2    ______",
           "itemType": "TEXT"
         },
         {
-          "label": "__________    3    __________",
+          "content": "__________    3    __________",
           "itemType": "TEXT"
         }
       ]
@@ -63,22 +63,22 @@ export const flexPresets = [
         "display": {
           "display": "flex"
         },
-        "flex": {
+        "flexContainer": {
           "flexDirection": "column",
           "gap": 10
         }
       },
       "children": [
         {
-          "label": "1",
+          "content": "1",
           "itemType": "TEXT"
         },
         {
-          "label": "2",
+          "content": "2",
           "itemType": "TEXT"
         },
         {
-          "label": "3",
+          "content": "3",
           "itemType": "TEXT"
         }
       ]

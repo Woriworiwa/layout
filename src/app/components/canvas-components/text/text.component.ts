@@ -8,7 +8,7 @@ import {SelectionService} from "../../../services/selection.service";
   selector: 'app-text',
   standalone: true,
   imports: [CommonModule],
-  template: `<ng-content></ng-content>`,
+  template: `{{ item?.content }}`,
   styles: `
   :host{
     display: block;
