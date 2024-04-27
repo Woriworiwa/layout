@@ -11,6 +11,8 @@
                      [selectedFrameKey]="selectedFrameKey"
                      [id]="childItem.key!"
                      (childTextContentChanged)="onChildTextContentChanged($event)"
+                     (copyItem)="oncChildCopy($event)"
+                     (pasteItem)="onChildPaste($event)"
                      cdkDrag
                      [cdkDragDisabled]="dragDropDisabled"
                      (cdkDropListDropped)="onDrop($event)"
@@ -22,6 +24,8 @@
           <app-text app-editable-content
                     [item]="childItem"
                     [id]="childItem.key!"
+                    (copyItem)="oncChildCopy($event)"
+                    (pasteItem)="onChildPaste($event)"
                     (clicked)="onChildFrameClick($event)"
                     (mouseOver)="onChildMouseOver($event)"
                     (mouseOut)="onChildMouseOut($event)"

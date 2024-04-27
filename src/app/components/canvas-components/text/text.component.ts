@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {CavnasBaseComponent} from "../canvas-base-component.component";
 import {CanvasStore} from "../../../store/canvas.store";
 import {SelectionService} from "../../../services/selection.service";
+import {Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-text',

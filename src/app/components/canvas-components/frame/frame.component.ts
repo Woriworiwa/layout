@@ -1,12 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component, ElementRef,
-  EventEmitter,
+  EventEmitter, HostListener,
   Input,
   Output, Renderer2
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CanvasItemMouseEvent} from "../../../models/canvas-item.model";
+import {CanvasItem, CanvasItemMouseEvent} from "../../../models/canvas-item.model";
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 import {TextComponent} from "../text/text.component";
 import {CanvasItemType} from '../../../models/enums';
@@ -25,6 +25,10 @@ import {SelectionService} from "../../../services/selection.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CssStyleSerializerPipe],
   templateUrl: 'frame.component.html',
+  host: {
+    /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
+    '[attr.tabindex]': '-1',
+  },
   styleUrls: ['./frame.component.scss'],
 })
 export class FrameComponent extends CavnasBaseComponent {
@@ -62,5 +66,13 @@ export class FrameComponent extends CavnasBaseComponent {
 
   protected onChildTextContentChanged({key, content}: { key: string, content: string }) {
     this.childTextContentChanged.emit({key, content});
+  }
+
+  oncChildCopy($event: CanvasItem) {
+    this.copyItem.emit($event);
+  }
+
+  onChildPaste($event: CanvasItem) {
+    this.pasteItem.emit($event);
   }
 }

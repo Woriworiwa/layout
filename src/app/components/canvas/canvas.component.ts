@@ -3,11 +3,12 @@ import {
   ElementRef,
   HostBinding,
   HostListener,
+  Inject,
   Renderer2,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DOCUMENT} from '@angular/common';
 import {FrameComponent} from "../canvas-components/frame/frame.component";
 import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
@@ -32,6 +33,7 @@ export class CanvasComponent {
   translateY = 0;
   translateX = 0;
   scale = 1;
+  copyItemId: string | undefined;
 
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
 
@@ -51,9 +53,16 @@ export class CanvasComponent {
   constructor(protected canvasStore: CanvasStore,
               private renderer: Renderer2,
               private selectionService: SelectionService,
-              private contextMenuService: ContextMenuService) {
-    this.canvasStore.frames$.subscribe(rootFrames => this.frames = rootFrames);
-    this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
+              private contextMenuService: ContextMenuService,
+              @Inject(DOCUMENT) document: Document) {
+    this.canvasStore.frames$.subscribe(rootFrames => {
+      this.frames = rootFrames;
+
+      /*focus the selected frame, this is needed to focus elements that are newly added*/
+      setTimeout(() => {
+        document.getElementById(`${this.canvasStore.selectedFrame()?.key}`)?.focus()
+      }, 0);
+    });
   }
 
   /*Zoom with mouse wheel*/
@@ -164,5 +173,13 @@ export class CanvasComponent {
 
   private setTransformStyles() {
     this.renderer.setStyle(this.wrapper.nativeElement, 'transform', `scale(${this.scale})  translateY(${this.translateY}px) translateX(${this.translateX}px)`);
+  }
+
+  onCopy($event: CanvasItem) {
+    this.copyItemId = $event.key;
+  }
+
+  onPaste($event: CanvasItem) {
+    this.canvasStore.pasteItem(this.copyItemId, $event.key);
   }
 }
