@@ -16,6 +16,10 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
   .add-item {
     display: inline-block;
     pointer-events: auto;
+    position: absolute;
+    bottom: -24px;
+    left: 4px;
+    z-index: 2;
   }
 }
 
