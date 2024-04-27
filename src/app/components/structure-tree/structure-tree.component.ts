@@ -85,7 +85,7 @@ export class StructureTreeComponent {
 
     return canvasItems.map((frame) => {
       return {
-        label: frame.label || frame.itemType,
+        label: frame.label || frame.content || frame.itemType,
         key: frame.key,
         icon: this.getTreeNodeIcon(frame),
         children: this.convertCanvasItemsToTreeNodes(frame.children),
