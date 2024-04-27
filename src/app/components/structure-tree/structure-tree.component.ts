@@ -1,6 +1,6 @@
 import {Component, Renderer2, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeDropEvent} from "primeng/tree";
+import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeDropEvent, TreeNodeExpandEvent} from "primeng/tree";
 import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
 import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem} from "../../models/canvas-item.model";
@@ -28,12 +28,12 @@ export class StructureTreeComponent {
 
   treeNodes!: TreeNode<CanvasItem>[];
   selectedItems: CanvasItem | undefined = undefined;
+  contextMenuEvent: Event | undefined;
+  expandedNodes: string[] = [];
 
   contextMenuItems: MenuItem[] = [
     {label: 'Rename', icon: 'pi pi-search', command: (event: any) => this.openRenameDialog(event)},
   ]
-
-  contextMenuEvent: Event | undefined;
 
   constructor(private canvasStore: CanvasStore) {
   }
@@ -69,13 +69,18 @@ export class StructureTreeComponent {
         }
 
         this.treeNodes = this.convertCanvasItemsToTreeNodes(items)
+
+        /* preserve the previous expanded nodes state of the tree */
+        this.expandedNodes.forEach(node => {
+          this.expandNodeAndItsParents(this.treeNodes, node, undefined);
+        })
       });
 
     this.canvasStore.selectedFrame$
       .subscribe(selectedItem => {
         this.selectedItems = selectedItem;
         if (selectedItem) {
-          this.expandNodeAndItsParents(this.treeNodes, selectedItem!, undefined);
+          this.expandNodeAndItsParents(this.treeNodes, selectedItem.key!, undefined);
         }
       })
   }
@@ -107,14 +112,15 @@ export class StructureTreeComponent {
     })
   }
 
-  private expandNodeAndItsParents(treeNodes: TreeNode<CanvasItem>[], targetItem: CanvasItem, parentNode: TreeNode<CanvasItem> | undefined) {
+  private expandNodeAndItsParents(treeNodes: TreeNode<CanvasItem>[], targetItemKey: string, parentNode: TreeNode<CanvasItem> | undefined) {
     treeNodes.forEach((node) => {
-      if (node.data === targetItem && !node.expanded) {
+      if (node.data?.key === targetItemKey && !node.expanded) {
         node.expanded = true;
-        this.expandNodeAndItsParents(this.treeNodes, parentNode?.data!, parentNode);
+        this.expandedNodes.push(node.key!);
+        this.expandNodeAndItsParents(this.treeNodes, parentNode?.data?.key!, parentNode);
       } else {
         if (node.children && node.children) {
-          this.expandNodeAndItsParents(node.children, targetItem, node);
+          this.expandNodeAndItsParents(node.children, targetItemKey, node);
         }
       }
     });
@@ -131,5 +137,9 @@ export class StructureTreeComponent {
     }
 
     return icon;
+  }
+
+  onNodeExpand($event: TreeNodeExpandEvent) {
+    console.log($event.node.key);
   }
 }
