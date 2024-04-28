@@ -9,6 +9,7 @@ import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Css} from "../models/css.model";
 import {Preset} from "../models/preset.model";
 import {flexPresets, textPresets} from "../data/presets";
+import {UndoRedoService} from "../services/undo-redo.service";
 
 export class CanvasState {
   frames: CanvasItem[] = [];
@@ -21,10 +22,17 @@ export class CanvasState {
 })
 export class CanvasStore extends Store<CanvasState> {
   private frameCssChangedSubject = new Subject();
+  private undoStack: CanvasItem[][] = [];
+  private redoStack: CanvasItem[][] = [];
+
   frameCssChanged$ = this.frameCssChangedSubject.asObservable();
 
-  constructor() {
+  constructor(private undoRedoService: UndoRedoService) {
     super(new CanvasState());
+
+    this.undoRedoService.data$.subscribe((currentState: CanvasItem[]) => {
+      this.setFrames(currentState, false);
+    })
   }
 
   get frames$() {
@@ -38,11 +46,15 @@ export class CanvasStore extends Store<CanvasState> {
     return this.getState().frames;
   }
 
-  set frames(frames: CanvasItem[]) {
+  setFrames(frames: CanvasItem[], pushToUndoStack = true) {
     this.setState({
       ...this.getState(),
-      frames: [...this.assignKeys(frames, undefined)]
+      frames: [...this.assignKeys(frames, undefined, false)]
     });
+
+    if (pushToUndoStack) {
+      this.undoRedoService.pushUndoStack(cloneDeep(this.getState().frames));
+    }
   }
 
   get selectedFrame$() {
@@ -88,7 +100,7 @@ export class CanvasStore extends Store<CanvasState> {
     }
 
     const newFrame = cloneDeep(preset.presetDefinition);
-    this.assignKeys([newFrame], undefined);
+    this.assignKeys([newFrame], undefined, false);
 
     this.insertItem(insertAfterFrameId, newFrame);
   }
@@ -123,7 +135,7 @@ export class CanvasStore extends Store<CanvasState> {
       frames.splice(index, 1);
     }
 
-    this.frames = this.frames;
+    this.setFrames(this.frames);
 
     this.setSelectedFrameKey(undefined);
   }
@@ -214,16 +226,35 @@ export class CanvasStore extends Store<CanvasState> {
     })
   }
 
-  private assignKeys(frames: CanvasItem[] | undefined, parentKey: string | undefined) {
+  pasteItem(copyItemId: string | undefined, pasteItemId: string | undefined) {
+    if (!copyItemId || !pasteItemId) {
+      return;
+    }
+
+    const copyItem = this.getItemById(this.frames, copyItemId);
+
+    if (!copyItem) {
+      return;
+    }
+
+    const duplicatedItem = cloneDeep(copyItem);
+    this.assignKeys([duplicatedItem], undefined, true);
+
+    this.insertItem(pasteItemId, duplicatedItem);
+  }
+
+  private assignKeys(frames: CanvasItem[] | undefined, parentKey: string | undefined, overwriteExistingKeys: boolean) {
     if (!frames) {
       return [];
     }
 
     frames.forEach(frame => {
-      frame.key = this.generateUniqueId();
+      if (overwriteExistingKeys || (!overwriteExistingKeys && !frame.key)) {
+        frame.key = this.generateUniqueId();
+      }
 
       if (frame.children && frame.children.length > 0) {
-        this.assignKeys(frame.children, frame.key);
+        this.assignKeys(frame.children, frame.key, overwriteExistingKeys);
       }
     });
 
@@ -288,24 +319,8 @@ export class CanvasStore extends Store<CanvasState> {
       ...this.getState(),
       frames: cloneDeep(this.getState().frames),
     })
+    this.setFrames(cloneDeep(this.getState().frames));
 
     this.setSelectedFrameKey(newFrame.key);
-  }
-
-  pasteItem(copyItemId: string | undefined, pasteItemId: string | undefined) {
-    if (!copyItemId || !pasteItemId) {
-      return;
-    }
-
-    const copyItem = this.getItemById(this.frames, copyItemId);
-
-    if (!copyItem) {
-      return;
-    }
-
-    const duplicatedItem = cloneDeep(copyItem);
-    this.assignKeys([duplicatedItem], undefined);
-
-    this.insertItem(pasteItemId, duplicatedItem);
   }
 }

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {PropertiesComponent} from "./components/properties/properties.component";
 import {AsyncPipe, NgIf} from "@angular/common";
@@ -21,6 +21,7 @@ import {SelectButtonModule} from "primeng/selectbutton";
 import {FormsModule} from "@angular/forms";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
+import {UndoRedoService} from "./services/undo-redo.service";
 
 @Component({
   selector: 'app-root',
@@ -46,14 +47,29 @@ export class AppComponent {
 
   constructor(protected canvasStore: CanvasStore,
               protected appSettingsStore: AppSettingsStore,
+              private undoRedoService: UndoRedoService,
               private mockService: DataService) {
     this.fetchData();
 
     // this.canvasStore.setSelectedFrameKey(this.canvasStore.frames[0]?.key)
   }
 
+  /* undo */
+  @HostListener('document:keydown.control.z', ['$event'])
+  onUndo($event: any) {
+    $event.stopPropagation();
+    this.undoRedoService.undo();
+  }
+
+  /* redo */
+  @HostListener('document:keydown.control.y', ['$event'])
+  onRedo($event: any) {
+    $event.stopPropagation();
+    this.undoRedoService.redo();
+  }
+
   fetchData() {
-    this.canvasStore.frames = this.mockService.getInitialData();
+    this.canvasStore.setFrames(this.mockService.getInitialData());
   }
 
   setSelectedTab(id: number) {

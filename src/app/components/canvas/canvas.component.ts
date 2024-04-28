@@ -18,11 +18,12 @@ import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 import {SelectionService} from "../../services/selection.service";
+import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe],
+  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent],
   providers: [ContextMenuService, SelectionService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']

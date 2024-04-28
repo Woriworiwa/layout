@@ -49,7 +49,7 @@ export class StructureTreeComponent {
   }
 
   onNodeDrop($event: TreeNodeDropEvent) {
-    this.canvasStore.frames = this.convertTreeNodesToCanvasItems(this.treeNodes);
+    this.canvasStore.setFrames(this.convertTreeNodesToCanvasItems(this.treeNodes));
   }
 
   onNodeContextMenu(event: TreeNodeContextMenuSelectEvent) {
