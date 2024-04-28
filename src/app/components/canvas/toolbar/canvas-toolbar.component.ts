@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {UndoRedoService} from "../../../services/undo-redo.service";
 import {ButtonModule} from "primeng/button";
+import {PanZoomService} from "../../../services/pan-zoom.service";
 
 @Component({
   selector: 'app-canvas-toolbar',
@@ -11,7 +12,8 @@ import {ButtonModule} from "primeng/button";
   styleUrl: './canvas-toolbar.component.scss'
 })
 export class CanvasToolbarComponent {
-  constructor(protected undoRedoService: UndoRedoService) {
+  constructor(protected undoRedoService: UndoRedoService,
+              protected panZoomService: PanZoomService) {
   }
 
   protected readonly UndoRedoService = UndoRedoService;

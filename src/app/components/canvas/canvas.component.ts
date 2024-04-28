@@ -19,12 +19,13 @@ import {ContextMenuService} from "../../services/context-menu.service";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 import {SelectionService} from "../../services/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
+import {PanZoomService} from "../../services/pan-zoom.service";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent],
-  providers: [ContextMenuService, SelectionService],
+  providers: [ContextMenuService, SelectionService, PanZoomService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
@@ -39,11 +40,11 @@ export class CanvasComponent {
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
 
   /* this mode means that the canvas is ready to be dragged*/
-  @HostBinding('class.grab-mode')
+  @HostBinding('class.pan-mode-active')
   isGrabMode = false;
 
   /* this mode means that the user is actually dragging (mouse pressed down)*/
-  @HostBinding('class.is-grabbing')
+  @HostBinding('class.is-panning')
   isGrabbing = false;
 
   @ViewChild("wrapper")
@@ -55,6 +56,7 @@ export class CanvasComponent {
               private renderer: Renderer2,
               private selectionService: SelectionService,
               private contextMenuService: ContextMenuService,
+              protected panZoomService: PanZoomService,
               @Inject(DOCUMENT) document: Document) {
     this.canvasStore.frames$.subscribe(rootFrames => {
       this.frames = rootFrames;
@@ -100,7 +102,7 @@ export class CanvasComponent {
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
      if (event.button === 0) {
-      this.isGrabbing = this.isGrabMode;
+      this.panZoomService.setIsPanning(this.isGrabMode);
     }
   }
 
@@ -108,7 +110,7 @@ export class CanvasComponent {
   @HostListener('mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
     if (event.button === 0) {
-      this.isGrabbing = false;
+      this.panZoomService.setIsPanning(false);
     }
   }
 
@@ -126,7 +128,7 @@ export class CanvasComponent {
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.isGrabMode = true;
+      this.panZoomService.setPanModeActive(true);
     }
   }
 
@@ -134,12 +136,19 @@ export class CanvasComponent {
   @HostListener('document:keyup ', ['$event'])
   onKeyUp(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.isGrabMode = false;
+      this.panZoomService.setPanModeActive(false);
     }
   }
 
   ngAfterViewInit() {
     this.selectionService.initialize(this.selectionOverlay, this.wrapper);
+  }
+
+  ngOnInit() {
+    this.panZoomService.state$.subscribe(state => {
+      this.isGrabMode = state.panModeActive;
+      this.isGrabbing = state.isPanning;
+    })
   }
 
   onFrameClicked(event: CanvasItemMouseEvent) {
