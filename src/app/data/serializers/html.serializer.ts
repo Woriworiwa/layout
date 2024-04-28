@@ -68,7 +68,7 @@ export class HtmlSerializer extends Serializer {
       htmlLines.push(this.indent(`<div class="${cssClasses}">`, level * 2));
 
       if (canvasItem.itemType === CanvasItemType.TEXT) {
-        htmlLines.push(canvasItem.label!)
+        htmlLines.push(canvasItem.content!)
       }
 
       /* children */
