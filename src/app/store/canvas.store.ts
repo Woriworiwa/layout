@@ -22,9 +22,6 @@ export class CanvasState {
 })
 export class CanvasStore extends Store<CanvasState> {
   private frameCssChangedSubject = new Subject();
-  private undoStack: CanvasItem[][] = [];
-  private redoStack: CanvasItem[][] = [];
-
   frameCssChanged$ = this.frameCssChangedSubject.asObservable();
 
   constructor(private undoRedoService: UndoRedoService) {
@@ -150,11 +147,15 @@ export class CanvasStore extends Store<CanvasState> {
     selectedFrame.css = css;
 
     this.frameCssChangedSubject.next(undefined);
+
+    // TODO: Handle undo/redo in a different way
+    this.setFrames(this.frames);
   }
 
   moveFrameChild(currentFrameId: string | undefined, previousFrameId: string, previousIndex: number, currentIndex: number) {
     if (currentFrameId === previousFrameId && currentFrameId === CANVAS_WRAPPER_ID) {
       moveItemInArray(this.frames, previousIndex, currentIndex);
+      this.setFrames(cloneDeep(this.getState().frames));
       return;
     }
 
@@ -167,10 +168,7 @@ export class CanvasStore extends Store<CanvasState> {
       transferArrayItem(previousContainer?.children!, currentContainer?.children!, previousIndex, currentIndex);
     }
 
-    this.setState({
-      ...this.getState(),
-      frames: cloneDeep(this.getState().frames),
-    })
+    this.setFrames(cloneDeep(this.getState().frames));
   }
 
   getParentFrameKey(childKey: string, frames: CanvasItem[], parentKey: string | undefined): string | undefined {
