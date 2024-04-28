@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import {UndoRedoService} from "../../../services/undo-redo.service";
 import {ButtonModule} from "primeng/button";
 import {PanZoomService} from "../../../services/pan-zoom.service";
+import {TooltipModule} from "primeng/tooltip";
 
 @Component({
   selector: 'app-canvas-toolbar',
   standalone: true,
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, TooltipModule],
   templateUrl: './canvas-toolbar.component.html',
   styleUrl: './canvas-toolbar.component.scss'
 })

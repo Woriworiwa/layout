@@ -2,6 +2,9 @@
     <p-button [rounded]="true"
               [text]="(panZoomService.state$ |async)?.panModeActive!!"
               severity="secondary"
+              pTooltip="Select"
+              tooltipPosition="bottom"
+              [showDelay]="500"
               (onClick)="panZoomService.setPanModeActive(false)">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <path
@@ -15,6 +18,9 @@
     <p-button [rounded]="true"
               [text]="!(panZoomService.state$ |async)?.panModeActive!!"
               severity="secondary"
+              pTooltip="Pan"
+              tooltipPosition="bottom"
+              [showDelay]="500"
               (onClick)="panZoomService.setPanModeActive(true)">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <path
@@ -27,6 +33,9 @@
               [rounded]="true"
               [text]="true"
               size="large"
+              pTooltip="Undo"
+              tooltipPosition="bottom"
+              [showDelay]="500"
               (onClick)="undoRedoService.undo()"
               [disabled]="(undoRedoService.state$|async)?.undoStackEmpty">
     </p-button>
@@ -36,6 +45,9 @@
                 [rounded]="true"
                 [text]="true"
                 size="large"
+                pTooltip="Redo"
+                tooltipPosition="bottom"
+                [showDelay]="500"
                 (onClick)="undoRedoService.redo()"
                 [disabled]="(undoRedoService.state$|async)?.redoStackEmpty"></p-button>
     </div>
