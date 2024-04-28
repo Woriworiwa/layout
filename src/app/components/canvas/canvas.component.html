@@ -9,13 +9,18 @@
                [id]="frame.key!"
                [selectedFrameKey]="selectedFrameKey"
                (clicked)="onFrameClicked($event)"
+               (mouseOver)="onMouseOver($event)"
+               (mouseOut)="onMouseOut($event)"
+               (contextMenu)="onContextMenu($event)"
+               (copyItem)="onCopy($event)"
+               (pasteItem)="onPaste($event)"
                (childTextContentChanged)="onChildTextContentChanged($event)"
                cdkDrag
                cdkDropList
                [cdkDragBoundary]="'#' + CANVAS_WRAPPER_ID"
                [cdkDropListData]="frame?.key"
                [cdkDragDisabled]="isGrabMode"
-               [cdkDropListOrientation]="frame?.css?.flex?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
+               [cdkDropListOrientation]="frame?.css?.flexContainer?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
                (cdkDropListDropped)="onDrop($event)"></app-frame>
   }
 
@@ -25,3 +30,5 @@
     </div>
   </div>
 </div>
+
+<app-canvas-toolbar></app-canvas-toolbar>

@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Css} from "../../models/css.model";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CanvasStore} from "../../store/canvas.store";
 import {Property} from "csstype";
 import {Subject, Subscription, takeUntil} from "rxjs";
@@ -13,17 +13,13 @@ import {SliderComponent} from "./property-items/slider.component";
 @Component({
   selector: 'app-properties-box-sizing',
   standalone: true,
-  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, SliderComponent],
+  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule],
   template: `
     <div class="title">Box sizing</div>
 
     <ng-container [formGroup]="formGroup">
-      <app-property-panel-row label="padding">
-        <div>
-          <p-inputNumber inputId="integeronly" formControlName="padding"></p-inputNumber>
-          <p-slider formControlName="padding"></p-slider>
-        </div>
-      </app-property-panel-row>
+      <app-property-item-slider label="padding"
+                                [control]="getFormControl('padding')"></app-property-item-slider>
 
       <app-property-item-slider label="height"
                                 [max]="1000"

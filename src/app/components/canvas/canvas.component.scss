@@ -6,10 +6,10 @@
   flex-grow: 1;
   position: relative;
 
-  &.grab-mode {
+  &.pan-mode-active {
     cursor: grab;
 
-    &.is-grabbing {
+    &.is-panning {
       cursor: grabbing;
     }
   }

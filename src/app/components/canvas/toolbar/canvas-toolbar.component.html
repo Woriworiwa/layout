@@ -1,0 +1,61 @@
+
+    <p-button [rounded]="true"
+              [text]="(panZoomService.state$ |async)?.panModeActive!!"
+              severity="secondary"
+              pTooltip="Select"
+              tooltipPosition="bottom"
+              [showDelay]="500"
+              (onClick)="panZoomService.setPanModeActive(false)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+        <path
+          d="M 4.346 2.449 C 3.173 2.058 2.058 3.173 2.449 4.346 L 6.232 15.697 C 6.585 16.755 7.928 17.072 8.716 16.284 L 16.284 8.716 C 17.072 7.928 16.755 6.585 15.697 6.232 Z"
+          fill="currentColor"></path>
+        <path d="M 12 12 L 16.5 16.5" fill="transparent" stroke-width="2" stroke="currentColor"
+              stroke-linecap="round"></path>
+      </svg>
+    </p-button>
+
+    <p-button [rounded]="true"
+              [text]="!(panZoomService.state$ |async)?.panModeActive!!"
+              severity="secondary"
+              pTooltip="Pan"
+              tooltipPosition="bottom"
+              [showDelay]="500"
+              (onClick)="panZoomService.setPanModeActive(true)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+        <path
+          d="M 9.077 18.462 C 12.63 19.251 16 16.548 16 12.908 L 16 5 C 16 4.448 15.552 4 15 4 L 15 4 C 14.448 4 14 4.448 14 5 L 14 8 L 14 8.5 C 14 8.776 13.776 9 13.5 9 L 13.5 9 C 13.224 9 13 8.776 13 8.5 L 13 3 C 13 2.448 12.552 2 12 2 L 12 2 C 11.448 2 11 2.448 11 3 L 11 8.5 C 11 8.776 10.776 9 10.5 9 L 10.5 9 C 10.224 9 10 8.776 10 8.5 L 10 2 C 10 1.448 9.552 1 9 1 L 9 1 C 8.448 1 8 1.448 8 2 L 8 8.5 C 8 8.776 7.776 9 7.5 9 L 7.5 9 C 7.224 9 7 8.776 7 8.5 L 7 4 C 7 3.448 6.552 3 6 3 L 6 3 C 5.448 3 5 3.448 5 4 L 5 10 L 5 10.463 C 5 10.991 4.343 11.234 4 10.833 L 2.813 9.449 C 2.356 8.915 1.563 8.828 1 9.25 L 1 9.25 C 0.46 9.655 0.379 10.433 0.823 10.941 L 5.705 16.52 C 6.546 17.482 7.672 18.149 8.919 18.426 Z"
+          fill="currentColor"></path>
+      </svg>
+    </p-button>
+
+    <p-button icon="pi pi-undo"
+              [rounded]="true"
+              [text]="true"
+              size="large"
+              pTooltip="Undo"
+              tooltipPosition="bottom"
+              [showDelay]="500"
+              (onClick)="undoRedoService.undo()"
+              [disabled]="(undoRedoService.state$|async)?.undoStackEmpty">
+    </p-button>
+
+    <div style="transform: scaleX(-1)">
+      <p-button icon="pi pi-undo"
+                [rounded]="true"
+                [text]="true"
+                size="large"
+                pTooltip="Redo"
+                tooltipPosition="bottom"
+                [showDelay]="500"
+                (onClick)="undoRedoService.redo()"
+                [disabled]="(undoRedoService.state$|async)?.redoStackEmpty"></p-button>
+    </div>
+
+  <!--  <div class="stack_s1n8l1x5 row_rr3s3mz center_c1arh7l2 nowrap_n61wj3j space-between_s17vm8i7 zoomButton_zt1ddm5"-->
+  <!--       style="&#45;&#45;shrink: 0; gap: 2px;"><span>50%</span>-->
+  <!--    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" class="base_bugo4m5">-->
+  <!--      <path d="M 0 6 L 3 3 L 0 0" transform="translate(2.5 1) rotate(90 1.5 3)" fill="transparent" stroke-width="1.5"-->
+  <!--            stroke="currentColor" stroke-linecap="round"></path>-->
+  <!--    </svg>-->
+  <!--  </div>-->

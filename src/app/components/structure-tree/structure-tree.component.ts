@@ -1,118 +1,145 @@
-import {Component, Renderer2} from '@angular/core';
+import {Component, Renderer2, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TreeModule, TreeNodeDropEvent} from "primeng/tree";
-import {TreeDragDropService, TreeNode} from "primeng/api";
+import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeDropEvent, TreeNodeExpandEvent} from "primeng/tree";
+import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
 import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem} from "../../models/canvas-item.model";
 import {FormsModule} from "@angular/forms";
 import {CdkDropList} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {ToggleButtonModule} from "primeng/togglebutton";
-import {FrameType} from "../../models/enums";
+import {CanvasItemType} from "../../models/enums";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
+import {ContextMenuModule} from "primeng/contextmenu";
+import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
+import {ButtonModule} from "primeng/button";
+import {InputTextModule} from "primeng/inputtext";
 
 @Component({
   selector: 'app-structure-tree',
   standalone: true,
-  imports: [CommonModule, TreeModule, FormsModule, CdkDropList, InsertComponent, ToggleButtonModule],
+  imports: [CommonModule, TreeModule, FormsModule, CdkDropList, InsertComponent, ToggleButtonModule, ContextMenuModule, OverlayPanelModule, ButtonModule, InputTextModule],
   providers: [TreeDragDropService],
   templateUrl: './structure-tree.component.html',
   styleUrls: ['./structure-tree.component.scss']
 })
 export class StructureTreeComponent {
+  @ViewChild(OverlayPanel) renameDialog!: OverlayPanel;
+
   treeNodes!: TreeNode<CanvasItem>[];
-  selectedFrames: TreeNode<CanvasItem> | undefined = undefined;
+  selectedItems: CanvasItem | undefined = undefined;
+  contextMenuEvent: Event | undefined;
+  expandedNodes: string[] = [];
 
-  constructor(private canvasStore: CanvasStore, private renderer: Renderer2) {}
+  contextMenuItems: MenuItem[] = [
+    {label: 'Rename', icon: 'pi pi-search', command: (event: any) => this.openRenameDialog(event)},
+  ]
 
-  ngOnInit() {
-    this.canvasStore.frames$.subscribe((rootFrames) => {
-      if (!rootFrames) {
-        return;
-      }
-
-      this.treeNodes = this.convertFramesToTreeNodes(rootFrames)
-    });
-
-    this.canvasStore.selectedFrame$.subscribe(selectedFrame => {
-      this.selectedFrames = selectedFrame;
-      this.expandNode(this.treeNodes, undefined, selectedFrame!, 'down');
-    })
+  constructor(private canvasStore: CanvasStore) {
   }
 
-  onSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null) {
-    if ( treeNode != null && !Array.isArray(treeNode)) {
+  ngOnInit() {
+    this.initStoreSubscriptions();
+  }
+
+  onTreeSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null) {
+    if (treeNode != null && !Array.isArray(treeNode)) {
       this.canvasStore.setSelectedFrameKey(treeNode.key);
     }
   }
 
   onNodeDrop($event: TreeNodeDropEvent) {
-    this.canvasStore.frames = this.convertTreeNodesToFrames(this.treeNodes);
+    this.canvasStore.setFrames(this.convertTreeNodesToCanvasItems(this.treeNodes));
   }
 
-  private convertFramesToTreeNodes(frames: CanvasItem[] | undefined): TreeNode<CanvasItem>[] {
-    if (!frames) return [];
-
-     return  frames.map((frame) => {
-       return {
-         label: frame.name || frame.frameType,
-         key: frame.key,
-         icon: this.getTreeNodeIcon(frame),
-         children: this.convertFramesToTreeNodes(frame.children),
-         data: frame
-       }
-     });
+  onNodeContextMenu(event: TreeNodeContextMenuSelectEvent) {
+    this.contextMenuEvent = event.originalEvent;
   }
 
-  private convertTreeNodesToFrames(nodes: TreeNode<CanvasItem>[]): CanvasItem[] {
-    return nodes.map((node) => {
+  renameNode(frameKey: string, name: string) {
+    this.canvasStore.renameItem(frameKey, name);
+    this.renameDialog.hide();
+  }
+
+  private initStoreSubscriptions() {
+    this.canvasStore.frames$
+      .subscribe((items) => {
+        if (!items) {
+          return;
+        }
+
+        this.treeNodes = this.convertCanvasItemsToTreeNodes(items)
+
+        /* preserve the previous expanded nodes state of the tree */
+        this.expandedNodes.forEach(node => {
+          this.expandNodeAndItsParents(this.treeNodes, node, undefined);
+        })
+      });
+
+    this.canvasStore.selectedFrame$
+      .subscribe(selectedItem => {
+        this.selectedItems = selectedItem;
+        if (selectedItem) {
+          this.expandNodeAndItsParents(this.treeNodes, selectedItem.key!, undefined);
+        }
+      })
+  }
+
+  private convertCanvasItemsToTreeNodes(canvasItems: CanvasItem[] | undefined): TreeNode<CanvasItem>[] {
+    if (!canvasItems) return [];
+
+    return canvasItems.map((frame) => {
+      return {
+        label: frame.label || frame.content || frame.itemType,
+        key: frame.key,
+        icon: this.getTreeNodeIcon(frame),
+        children: this.convertCanvasItemsToTreeNodes(frame.children),
+        data: frame
+      }
+    });
+  }
+
+  private openRenameDialog(event: any) {
+    this.renameDialog.toggle(event.originalEvent, this.contextMenuEvent?.target);
+  }
+
+  private convertTreeNodesToCanvasItems(treeNodes: TreeNode<CanvasItem>[]): CanvasItem[] {
+    return treeNodes.map((node) => {
       return {
         ...node.data as CanvasItem,
-        children: this.convertTreeNodesToFrames(node.children || [])
+        children: this.convertTreeNodesToCanvasItems(node.children || [])
       }
     })
   }
 
-  private expandNode(treeNodes: TreeNode<CanvasItem>[], parentNode: TreeNode<CanvasItem> | undefined, frame: CanvasItem, direction: 'up' | 'down') {
+  private expandNodeAndItsParents(treeNodes: TreeNode<CanvasItem>[], targetItemKey: string, parentNode: TreeNode<CanvasItem> | undefined) {
     treeNodes.forEach((node) => {
-      if (node.data === frame) {
+      if (node.data?.key === targetItemKey && !node.expanded) {
         node.expanded = true;
-
-        if (parentNode) {
-          parentNode.expanded = true;
-
-          if (parentNode.data?.key !== CANVAS_WRAPPER_ID){
-            this.expandNode(this.treeNodes, node, node.data!, 'up');
-          }
-        }
-
+        this.expandedNodes.push(node.key!);
+        this.expandNodeAndItsParents(this.treeNodes, parentNode?.data?.key!, parentNode);
       } else {
-        if (direction === 'down') {
-          this.expandNode(node.children || [], node, frame, 'down');
+        if (node.children && node.children) {
+          this.expandNodeAndItsParents(node.children, targetItemKey, node);
         }
       }
     });
   }
 
-  private expandRecursive(node: TreeNode<CanvasItem>, isExpand: boolean) {
-    node.expanded = isExpand;
-    if (node.children) {
-      node.children.forEach((childNode) => {
-        this.expandRecursive(childNode, isExpand);
-      });
-    }
-  }
-
-  private getTreeNodeIcon(frame: CanvasItem){
+  private getTreeNodeIcon(canvasItem: CanvasItem) {
     let icon = '';
-    switch (frame.frameType) {
-      case FrameType.FLEX:
+    switch (canvasItem.itemType) {
+      case CanvasItemType.FLEX:
         icon = 'pi pi-fw pi-bars';
         break;
-      case FrameType.TEXT:
+      case CanvasItemType.TEXT:
         icon = 'pi pi-fw pi-at'
     }
 
     return icon;
+  }
+
+  onNodeExpand($event: TreeNodeExpandEvent) {
+    console.log($event.node.key);
   }
 }

@@ -6,7 +6,7 @@ import {
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
-import { FrameType } from '../../models/enums';
+import { CanvasItemType } from '../../models/enums';
 import {CanvasItem} from "../../models/canvas-item.model";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 
@@ -19,6 +19,6 @@ import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
   styleUrls: ['./preset.component.scss'],
 })
 export class PresetComponent {
-  protected readonly FrameType = FrameType;
+  protected readonly FrameType = CanvasItemType;
   @Input() preset: CanvasItem | undefined;
 }

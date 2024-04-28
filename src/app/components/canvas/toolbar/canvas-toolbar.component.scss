@@ -1,0 +1,17 @@
+
+:host {
+  gap: 10px;
+  padding: 10px;
+  position: absolute;
+  display: flex;
+  bottom: 50px;
+  left: 50%;
+  box-shadow: 0 10px 20px #0000001a;
+  border-radius: 15px;
+  background-color: #ffffff;
+  transform: translate(-50%);
+
+  ::ng-deep .p-button {
+    padding: 0.5rem 0.4rem;
+  }
+}

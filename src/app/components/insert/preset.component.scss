@@ -1,8 +1,17 @@
-:host {
+.flex-container {
   display: block;
 
   background-color: #9161a7;
   border: 1px solid #ed9534;
-  padding: 15px;
+  padding: 5px;
+}
+
+.text {
+  display: block;
+  padding: 2px;
+  background-color: #ed9534;
+  border-radius: 4px;
+  border: 1px solid black;
+  box-shadow: inset 3px 3px 7px 5px #f2ad62;
 }
 

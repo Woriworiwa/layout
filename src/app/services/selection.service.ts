@@ -1,16 +1,20 @@
 import {ComponentRef, ElementRef, Injectable, ViewContainerRef} from "@angular/core";
 import {CanvasStore} from "../store/canvas.store";
 import {CanvasItem} from "../models/canvas-item.model";
-import {CanvasSelectionItemComponent} from "../components/canvas/selection-item/canvas-selection-item.component";
+import {CanvasSelectionItemComponent} from "../components/canvas/selection/canvas-selection-item.component";
+import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-hover-item.component";
+import {ContextMenuService} from "./context-menu.service";
 
 @Injectable()
 export class SelectionService {
   overlay!: ViewContainerRef;
   canvas!: ElementRef;
 
-  canvasSelectionItem!: ComponentRef<CanvasSelectionItemComponent>
+  canvasSelectionItem: ComponentRef<CanvasSelectionItemComponent> | undefined = undefined
+  canvasHoverItem: ComponentRef<CanvasHoverItemComponent> | undefined = undefined;
 
-  constructor(private canvasStore: CanvasStore) {
+  constructor(private canvasStore: CanvasStore,
+              private contextMenuService: ContextMenuService) {
   }
 
   initialize(overlay: ViewContainerRef, canvas: ElementRef) {
@@ -19,35 +23,76 @@ export class SelectionService {
 
     this.canvasStore.selectedFrame$
       .subscribe((selectedFrame) => {
-          const element: HTMLElement = this.canvas.nativeElement.querySelector(`#${selectedFrame?.key}`);
-          this.renderSelectionItem(selectedFrame!, element);
+          if (!selectedFrame) {
+            this.removeItem(this.canvasSelectionItem!);
+            this.canvasSelectionItem = undefined;
+          } else {
+            this.renderItem('selection', selectedFrame!);
+          }
+        }
+      )
+
+    this.canvasStore.hoverFrame$
+      .subscribe((hoverFrame) => {
+          if (!hoverFrame) {
+            this.removeItem(this.canvasHoverItem!);
+            this.canvasHoverItem = undefined;
+          } else {
+            if (this.canvasStore.selectedFrame()?.key === hoverFrame.key) {
+              return;
+            }
+
+            this.renderItem('hover', hoverFrame!);
+          }
         }
       )
   }
 
-  renderSelectionItem(canvasItem: CanvasItem, element: HTMLElement) {
+  showContextMenu(event: any) {
+    setTimeout(() => this.contextMenuService.show(this.canvasSelectionItem!.instance.contextMenu.contextMenu, event), 10);
+  }
+
+  renderItem(itemType: 'selection' | 'hover', canvasItem: CanvasItem) {
+    const element: HTMLElement = this.getTargetElement(canvasItem);
     if (!element) {
       return;
     }
 
-    if (this.canvasSelectionItem) {
-      this.removeChild();
+    if (itemType === 'selection') {
+      if (this.canvasSelectionItem) {
+        this.removeItem(this.canvasSelectionItem);
+      }
+      this.canvasSelectionItem = this.overlay.createComponent(CanvasSelectionItemComponent)
+      this.addItem(this.canvasSelectionItem.instance, canvasItem, element);
+    } else if(itemType === 'hover') {
+      if (this.canvasHoverItem) {
+        this.removeItem(this.canvasHoverItem);
+      }
+      this.canvasHoverItem = this.overlay.createComponent(CanvasHoverItemComponent)
+      this.addItem(this.canvasHoverItem.instance, canvasItem, element);
     }
+  }
 
+  private getTargetElement(hoverFrame: CanvasItem) {
+    return this.canvas.nativeElement.querySelector(`#${hoverFrame?.key}`);
+  }
+
+  private addItem(component: CanvasSelectionItemComponent | CanvasHoverItemComponent, canvasItem: CanvasItem, element: HTMLElement) {
     const canvasBoundingRect = this.canvas.nativeElement.getBoundingClientRect();
     const canvasItemBoundingRect = element.getBoundingClientRect();
 
-    this.canvasSelectionItem = this.overlay.createComponent(CanvasSelectionItemComponent)
-    this.canvasSelectionItem.instance.width = element.offsetWidth;
-    this.canvasSelectionItem.instance.height = element.offsetHeight;
-    this.canvasSelectionItem.instance.top = canvasItemBoundingRect.top - canvasBoundingRect.top;
-    this.canvasSelectionItem.instance.left = canvasItemBoundingRect.left - canvasBoundingRect.left;
-    this.canvasSelectionItem.instance.canvasItem = canvasItem;
-    this.canvasSelectionItem.instance.ngOnChanges();
+    component.width = element.offsetWidth;
+    component.height = element.offsetHeight;
+    component.top = canvasItemBoundingRect.top - canvasBoundingRect.top;
+    component.left = canvasItemBoundingRect.left - canvasBoundingRect.left;
+    component.canvasItem = canvasItem;
+    component.ngOnChanges();
   }
 
-  removeChild() {
-    const index = this.overlay.indexOf(this.canvasSelectionItem.hostView)
-    if (index != -1) this.overlay.remove(index)
+  private removeItem(item: ComponentRef<CanvasSelectionItemComponent | CanvasHoverItemComponent>) {
+    const index = this.overlay.indexOf(item?.hostView)
+    if (index != -1) {
+      this.overlay.remove(index)
+    }
   }
 }

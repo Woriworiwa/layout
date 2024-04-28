@@ -1,29 +1,38 @@
-@switch (item?.frameType) {
+@switch (item?.itemType) {
   @case (FrameType.FLEX) {
-    @for (childFrame of item?.children; track childFrame) {
-      @switch (childFrame.frameType) {
+    @for (childItem of item?.children; track childItem) {
+      @switch (childItem.itemType) {
         @case (FrameType.FLEX) {
-          <app-frame [item]="childFrame"
+          <app-frame [item]="childItem"
                      (clicked)="onChildFrameClick($event)"
+                     (mouseOver)="onChildMouseOver($event)"
+                     (mouseOut)="onChildMouseOut($event)"
+                     (contextMenu)="onChildContextMenu($event)"
                      [selectedFrameKey]="selectedFrameKey"
-                     [id]="childFrame.key!"
+                     [id]="childItem.key!"
                      (childTextContentChanged)="onChildTextContentChanged($event)"
+                     (copyItem)="oncChildCopy($event)"
+                     (pasteItem)="onChildPaste($event)"
                      cdkDrag
                      [cdkDragDisabled]="dragDropDisabled"
                      (cdkDropListDropped)="onDrop($event)"
                      [cdkDropListData]="item?.key"
-                     [cdkDropListOrientation]="item?.css?.flex?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
+                     [cdkDropListOrientation]="item?.css?.flexContainer?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
                      cdkDropList></app-frame>
         }
         @case (FrameType.TEXT) {
           <app-text app-editable-content
-                    [item]="childFrame"
-                    [id]="childFrame.key!"
+                    [item]="childItem"
+                    [id]="childItem.key!"
+                    (copyItem)="oncChildCopy($event)"
+                    (pasteItem)="onChildPaste($event)"
                     (clicked)="onChildFrameClick($event)"
+                    (mouseOver)="onChildMouseOver($event)"
+                    (mouseOut)="onChildMouseOut($event)"
+                    (contextMenu)="onChildContextMenu($event)"
                     (contentChanged)="onChildTextContentChanged($event)"
                     cdkDrag
                     [cdkDragDisabled]="dragDropDisabled">
-            {{ childFrame.name }}
           </app-text>
         }
       }

@@ -3,8 +3,8 @@ export const textPresets = [
     "presetId": "short-text",
     "presetName": "short text",
     "presetDefinition": {
-      "frameType": "TEXT",
-      "name": "lorem"
+      "itemType": "TEXT",
+      "content": "lorem"
     }
   }
 ];
@@ -14,12 +14,12 @@ export const flexPresets = [
     "presetId": "empty-flex",
     "presetName": "empty Flex",
     "presetDefinition": {
-      "frameType": "FLEX",
+      "itemType": "FLEX",
       "css": {
         "display": {
           "display": "flex"
         },
-        "flex": {
+        "flexContainer": {
           "gap": 10
         }
       },
@@ -29,27 +29,27 @@ export const flexPresets = [
     "presetId": "flex-rows",
     "presetName": "Flex direction rows",
     "presetDefinition": {
-      "frameType": "FLEX",
+      "itemType": "FLEX",
       "css": {
         "display": {
           "display": "flex"
         },
-        "flex": {
+        "flexContainer": {
           "gap": 10
         }
       },
       "children": [
         {
-          "name": "__    1   ____",
-          "frameType": "TEXT"
+          "content": "__    1   ____",
+          "itemType": "TEXT"
         },
         {
-          "name": "_____    2    ______",
-          "frameType": "TEXT"
+          "content": "_____    2    ______",
+          "itemType": "TEXT"
         },
         {
-          "name": "__________    3    __________",
-          "frameType": "TEXT"
+          "content": "__________    3    __________",
+          "itemType": "TEXT"
         }
       ]
     }
@@ -58,22 +58,28 @@ export const flexPresets = [
     "presetId": "flex-columns",
     "presetName": "Flex direction columns",
     "presetDefinition": {
-      "frameType": "FLEX",
-      "flexLayoutSettings": {
-        "flexDirection": "column"
+      "itemType": "FLEX",
+      "css": {
+        "display": {
+          "display": "flex"
+        },
+        "flexContainer": {
+          "flexDirection": "column",
+          "gap": 10
+        }
       },
       "children": [
         {
-          "name": "1",
-          "frameType": "TEXT"
+          "content": "1",
+          "itemType": "TEXT"
         },
         {
-          "name": "2",
-          "frameType": "TEXT"
+          "content": "2",
+          "itemType": "TEXT"
         },
         {
-          "name": "3",
-          "frameType": "TEXT"
+          "content": "3",
+          "itemType": "TEXT"
         }
       ]
     }

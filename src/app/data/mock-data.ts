@@ -2,7 +2,7 @@ export const mockData =
 
   [
     {
-      "frameType": "FLEX",
+      "itemType": "FLEX",
       "css": {
         "boxSizing": {
           "padding": "16"
@@ -10,45 +10,45 @@ export const mockData =
         "display": {
           "display": "flex"
         },
-        "flex": {
+        "flexContainer": {
           "gap": 10
         }
       },
       "children": [
         {
-          "name": "____________________    1   ____________________",
-          "frameType": "TEXT",
+          "content": "1",
+          "itemType": "TEXT",
           "key": "vAHJAJ5i"
         },
         {
-          "name": "_____    2    ______",
-          "frameType": "TEXT",
+          "content": "2",
+          "itemType": "TEXT",
           "key": "l6v0uyLi"
         },
         {
-          "name": "__________    3    __________",
-          "frameType": "TEXT",
+          "content": "__________    3    __________",
+          "itemType": "TEXT",
           "key": "Mgl6xeP3"
         }
       ],
       "key": "TU5cxsc7"
     },
     {
-      "frameType": "FLEX",
+      "itemType": "FLEX",
       "children": [
         {
-          "name": "____________________    1   ____________________",
-          "frameType": "TEXT",
+          "content": "____________________    1   ____________________",
+          "itemType": "TEXT",
           "key": "hrgDqbxP"
         },
         {
-          "name": "_____    2    ______",
-          "frameType": "TEXT",
+          "content": "_____    2    ______",
+          "itemType": "TEXT",
           "key": "Fcu0T0kx"
         },
         {
-          "name": "__________    3    __________",
-          "frameType": "TEXT",
+          "content": "__________    3    __________",
+          "itemType": "TEXT",
           "key": "nng1cuxY"
         }
       ],
@@ -56,45 +56,37 @@ export const mockData =
       "css": {
         "display": {
           "display": "flex"
-        },
-        "flex": {
-          "gap": 9,
-          "justifyContent": "end"
         }
       }
     },
     {
-      "frameType": "FLEX",
-      "flexLayoutSettings": {
-        "flexDirection": "column",
-        "gap": "50"
-      },
+      "itemType": "FLEX",
       "children": [
         {
-          "frameType": "FLEX",
+          "itemType": "FLEX",
           "children": [
             {
-              "name": "lorem ipsum",
-              "frameType": "TEXT",
+              "label": "lorem ipsum",
+              "itemType": "TEXT",
               "key": "xzfllvrw"
             },
             {
-              "name": "lorem ipsum",
-              "frameType": "TEXT",
+              "label": "lorem ipsum",
+              "itemType": "TEXT",
               "key": "AAffahCX"
             },
             {
-              "name": "lorem ipsum",
-              "frameType": "TEXT",
+              "label": "lorem ipsum",
+              "itemType": "TEXT",
               "key": "lZzhgUi9"
             },
             {
-              "name": "lorem ipsum",
-              "frameType": "TEXT",
+              "label": "lorem ipsum",
+              "itemType": "TEXT",
               "key": "JtswtbUN"
             }
           ],
-          "key": "X9ID8XUZ",
+          "key": "X9key8XUZ",
           "css": {
             "flex": {
               "flexDirection": "column",

@@ -1,31 +1,31 @@
 import {
   Component,
-  ComponentFactoryResolver, ComponentRef,
   ElementRef,
   HostBinding,
   HostListener,
+  Inject,
   Renderer2,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DOCUMENT} from '@angular/common';
 import {FrameComponent} from "../canvas-components/frame/frame.component";
 import {CanvasStore} from "../../store/canvas.store";
-import {CanvasItem, CanvasItemClickEvent} from "../../models/canvas-item.model";
+import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
-import {CanvasItemComponent} from "./selection-item/canvas-item.component";
 import {ContextMenuService} from "../../services/context-menu.service";
-import {AppSettingsStore} from "../../store/app-settings-store.service";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 import {SelectionService} from "../../services/selection.service";
+import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
+import {PanZoomService} from "../../services/pan-zoom.service";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CanvasItemComponent, CssStyleSerializerPipe],
-  providers: [ContextMenuService, SelectionService],
+  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent],
+  providers: [ContextMenuService, SelectionService, PanZoomService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
@@ -35,15 +35,16 @@ export class CanvasComponent {
   translateY = 0;
   translateX = 0;
   scale = 1;
+  copyItemId: string | undefined;
 
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
 
   /* this mode means that the canvas is ready to be dragged*/
-  @HostBinding('class.grab-mode')
+  @HostBinding('class.pan-mode-active')
   isGrabMode = false;
 
   /* this mode means that the user is actually dragging (mouse pressed down)*/
-  @HostBinding('class.is-grabbing')
+  @HostBinding('class.is-panning')
   isGrabbing = false;
 
   @ViewChild("wrapper")
@@ -53,9 +54,18 @@ export class CanvasComponent {
 
   constructor(protected canvasStore: CanvasStore,
               private renderer: Renderer2,
-              private selectionService: SelectionService) {
-    this.canvasStore.frames$.subscribe(rootFrames => this.frames = rootFrames);
-    this.canvasStore.selectedFrame$.subscribe(selectedFrame => this.selectedFrameKey = selectedFrame?.key);
+              private selectionService: SelectionService,
+              private contextMenuService: ContextMenuService,
+              protected panZoomService: PanZoomService,
+              @Inject(DOCUMENT) document: Document) {
+    this.canvasStore.frames$.subscribe(rootFrames => {
+      this.frames = rootFrames;
+
+      /*focus the selected frame, this is needed to focus elements that are newly added*/
+      setTimeout(() => {
+        document.getElementById(`${this.canvasStore.selectedFrame()?.key}`)?.focus()
+      }, 0);
+    });
   }
 
   /*Zoom with mouse wheel*/
@@ -85,13 +95,14 @@ export class CanvasComponent {
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
     this.canvasStore.setSelectedFrameKey(undefined);
+    this.contextMenuService.hide();
   }
 
   /*mouse down*/
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
      if (event.button === 0) {
-      this.isGrabbing = this.isGrabMode;
+      this.panZoomService.setIsPanning(this.isGrabMode);
     }
   }
 
@@ -99,7 +110,7 @@ export class CanvasComponent {
   @HostListener('mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
     if (event.button === 0) {
-      this.isGrabbing = false;
+      this.panZoomService.setIsPanning(false);
     }
   }
 
@@ -117,7 +128,7 @@ export class CanvasComponent {
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.isGrabMode = true;
+      this.panZoomService.setPanModeActive(true);
     }
   }
 
@@ -125,7 +136,7 @@ export class CanvasComponent {
   @HostListener('document:keyup ', ['$event'])
   onKeyUp(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.isGrabMode = false;
+      this.panZoomService.setPanModeActive(false);
     }
   }
 
@@ -133,12 +144,33 @@ export class CanvasComponent {
     this.selectionService.initialize(this.selectionOverlay, this.wrapper);
   }
 
-  onFrameClicked(canvasItemClick: CanvasItemClickEvent) {
+  ngOnInit() {
+    this.panZoomService.state$.subscribe(state => {
+      this.isGrabMode = state.panModeActive;
+      this.isGrabbing = state.isPanning;
+    })
+  }
+
+  onFrameClicked(event: CanvasItemMouseEvent) {
     if (this.isGrabMode) {
       return;
     }
 
-    this.canvasStore.setSelectedFrameKey(canvasItemClick.canvasItem.key);
+    this.canvasStore.setSelectedFrameKey(event.canvasItem.key);
+    this.contextMenuService.hide();
+  }
+
+  onMouseOver(event: CanvasItemMouseEvent) {
+    this.canvasStore.setHoverFrameKey(event.canvasItem.key);
+  }
+
+  onMouseOut(event: CanvasItemMouseEvent) {
+    this.canvasStore.setHoverFrameKey(undefined);
+  }
+
+  onContextMenu(event: CanvasItemMouseEvent) {
+    this.canvasStore.setSelectedFrameKey(event.canvasItem.key);
+    this.selectionService.showContextMenu(event.mouseEvent);
   }
 
   onChildTextContentChanged(content: { key: string, content: string }) {
@@ -151,5 +183,13 @@ export class CanvasComponent {
 
   private setTransformStyles() {
     this.renderer.setStyle(this.wrapper.nativeElement, 'transform', `scale(${this.scale})  translateY(${this.translateY}px) translateX(${this.translateX}px)`);
+  }
+
+  onCopy($event: CanvasItem) {
+    this.copyItemId = $event.key;
+  }
+
+  onPaste($event: CanvasItem) {
+    this.canvasStore.pasteItem(this.copyItemId, $event.key);
   }
 }

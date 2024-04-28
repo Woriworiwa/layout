@@ -1,16 +1,17 @@
-import {FrameType} from "./enums";
+import {CanvasItemType} from "./enums";
 import {Css} from "./css.model";
 
 export interface CanvasItem {
+  itemType: CanvasItemType;
   key?: string;
-  name?: string;
-  frameType: FrameType;
+  label?: string;
+  content?: string;
   children?: CanvasItem[];
   css?: Css;
   editable?: boolean;
 }
 
-export type CanvasItemClickEvent = {canvasItem: CanvasItem, mouseEvent: MouseEvent};
+export type CanvasItemMouseEvent = {canvasItem: CanvasItem, mouseEvent: MouseEvent};
 
 
 

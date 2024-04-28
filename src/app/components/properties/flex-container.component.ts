@@ -17,12 +17,11 @@ import {SelectButtonComponent} from "./property-items/select-button.component";
 import {SliderComponent} from "./property-items/slider.component";
 
 @Component({
-  selector: 'app-properties-flex',
+  selector: 'app-properties-flex-container',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent],
   template: `
-    <div class="title">Flex</div>
+    <div class="title">Flex container</div>
     <ng-container [formGroup]="formGroup">
       <app-property-item-select-button [options]="flexDirectionOptions"
                                        [control]="getFormControl('flexDirection')"
@@ -54,7 +53,7 @@ import {SliderComponent} from "./property-items/slider.component";
     }
   `
 })
-export class PropertiesFlex {
+export class PropertiesFlexConainer {
   @Input() css: Css | undefined;
 
   /*direction*/
@@ -113,10 +112,10 @@ export class PropertiesFlex {
   ngOnChanges() {
     this.formGroup = this.createFormGroup();
 
-    if (this.css?.flex) {
+    if (this.css?.flexContainer) {
       this.formGroup?.patchValue({
-        ...this.css.flex,
-        gap: this.css.flex.gap?.toString()
+        ...this.css.flexContainer,
+        gap: this.css.flexContainer.gap?.toString()
       }, {emitEvent: false});
     }
   }
@@ -151,7 +150,7 @@ export class PropertiesFlex {
       .subscribe((value: any) => {
         this.frameStore.updateCss({
           ...this.css,
-          flex: value
+          flexContainer: value
         });
       });
 

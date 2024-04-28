@@ -1,18 +1,12 @@
-:host {
-  flex-grow: 1;
-
-  .wrapper {
-    display: grid;
-    grid-template-areas: 'inner-area';
-    align-items: stretch;
-
-    app-insert, #structure-tree-drop-wrapper {
-      grid-area: inner-area;
-      align-self: start;
-    }
-  }
+.rename-button-container {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+  margin-top: 10px;
+  justify-content: end;
 }
 
+/*reduce padding on tree nodes*/
 :host ::ng-deep {
   .p-tree {
     font-size: 10px;
@@ -20,20 +14,8 @@
     padding: 8px;
   }
 
-  //.p-treenode-selectable.p-highlight {
-  //  color: white;
-  //  background: #3a9afe;
-  //
-  //  /* if it has a sibling change the border radius */
-  //  &:has(+.p-treenode-children) {
-  //    border-radius: 8px 8px 0 0;
-  //  }
-  //
-  //  /* sibling styles */
-  //  &+ .p-treenode-children {
-  //    background: #EFF6FF;
-  //    border-radius: 0 0 8px 8px;
-  //  }
-  //}
+  .p-tree .p-tree-container .p-treenode .p-treenode-content {
+    padding: 2px;
+  }
 }
 

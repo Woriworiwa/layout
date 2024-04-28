@@ -2,25 +2,34 @@ import {Injectable} from "@angular/core";
 import {Store} from "./store";
 import {CanvasItem} from "../models/canvas-item.model";
 import cloneDeep from 'lodash.clonedeep';
-import {distinctUntilChanged, map} from "rxjs";
-import {FrameType} from "../models/enums";
+import {distinctUntilChanged, map, Subject} from "rxjs";
+import {CanvasItemType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Css} from "../models/css.model";
 import {Preset} from "../models/preset.model";
 import {flexPresets, textPresets} from "../data/presets";
+import {UndoRedoService} from "../services/undo-redo.service";
 
 export class CanvasState {
   frames: CanvasItem[] = [];
   selectedFrameKey: string | undefined;
+  hoverFrameKey: string | undefined;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanvasStore extends Store<CanvasState> {
-  constructor() {
+  private frameCssChangedSubject = new Subject();
+  frameCssChanged$ = this.frameCssChangedSubject.asObservable();
+
+  constructor(private undoRedoService: UndoRedoService) {
     super(new CanvasState());
+
+    this.undoRedoService.data$.subscribe((currentState: CanvasItem[]) => {
+      this.setFrames(currentState, false);
+    })
   }
 
   get frames$() {
@@ -34,29 +43,49 @@ export class CanvasStore extends Store<CanvasState> {
     return this.getState().frames;
   }
 
-  set frames(frames: CanvasItem[]) {
+  setFrames(frames: CanvasItem[], pushToUndoStack = true) {
     this.setState({
       ...this.getState(),
-      frames: [...this.assignKeys(frames, undefined)]
+      frames: [...this.assignKeys(frames, undefined, false)]
     });
+
+    if (pushToUndoStack) {
+      this.undoRedoService.pushUndoStack(cloneDeep(this.getState().frames));
+    }
   }
 
   get selectedFrame$() {
     return this.state.pipe(
       map(state => state.selectedFrameKey),
       distinctUntilChanged(),
-      map(selectedFrameKey => this.getFrameByKey(this.getState().frames, selectedFrameKey))
+      map(selectedFrameKey => this.getItemById(this.getState().frames, selectedFrameKey))
     );
   }
 
+  //TODO: change to getter to match the above properties
   selectedFrame() {
-    return this.getFrameByKey(this.getState().frames, this.getState().selectedFrameKey);
+    return this.getItemById(this.getState().frames, this.getState().selectedFrameKey);
   }
 
   setSelectedFrameKey(key: string | undefined) {
     this.setState({
       ...this.getState(),
       selectedFrameKey: key
+    })
+  }
+
+  get hoverFrame$() {
+    return this.state.pipe(
+      map(state => state.hoverFrameKey),
+      distinctUntilChanged(),
+      map(hoverFrameKey => this.getItemById(this.getState().frames, hoverFrameKey))
+    );
+  }
+
+  setHoverFrameKey(key: string | undefined) {
+    this.setState({
+      ...this.getState(),
+      hoverFrameKey: key
     })
   }
 
@@ -68,27 +97,9 @@ export class CanvasStore extends Store<CanvasState> {
     }
 
     const newFrame = cloneDeep(preset.presetDefinition);
-    newFrame.key = this.generateUniqueId();
+    this.assignKeys([newFrame], undefined, false);
 
-    const parentFrameKey = this.getParentFrameKey(insertAfterFrameId, this.frames, CANVAS_WRAPPER_ID);
-
-    if (parentFrameKey === CANVAS_WRAPPER_ID) {
-      const frames = this.getState().frames || [];
-      frames.splice(this.frames.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
-    } else {
-      const parentFrame = this.getFrameByKey(this.frames, parentFrameKey);
-      if (!parentFrame) {
-        return;
-      }
-
-      if (!parentFrame?.children) {
-        parentFrame.children = [];
-      }
-
-      parentFrame?.children?.splice(parentFrame.children.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
-    }
-
-    this.setSelectedFrameKey(newFrame.key);
+    this.insertItem(insertAfterFrameId, newFrame);
   }
 
   deleteFrame(frameId: string | undefined) {
@@ -101,7 +112,7 @@ export class CanvasStore extends Store<CanvasState> {
     if (parentFrameKey === CANVAS_WRAPPER_ID) {
       frames = this.frames;
     } else {
-      const parentFrame = this.getFrameByKey(this.frames, parentFrameKey);
+      const parentFrame = this.getItemById(this.frames, parentFrameKey);
 
       if (!parentFrame) {
         return;
@@ -109,7 +120,6 @@ export class CanvasStore extends Store<CanvasState> {
 
       frames = parentFrame.children || [];
     }
-
 
 
     const index = frames.findIndex(frame => frame.key === frameId);
@@ -122,7 +132,7 @@ export class CanvasStore extends Store<CanvasState> {
       frames.splice(index, 1);
     }
 
-    this.frames = this.frames;
+    this.setFrames(this.frames);
 
     this.setSelectedFrameKey(undefined);
   }
@@ -136,20 +146,21 @@ export class CanvasStore extends Store<CanvasState> {
 
     selectedFrame.css = css;
 
-    this.setState({
-      ...this.getState(),
-      frames: cloneDeep(this.getState().frames),
-    })
+    this.frameCssChangedSubject.next(undefined);
+
+    // TODO: Handle undo/redo in a different way
+    this.setFrames(this.frames);
   }
 
   moveFrameChild(currentFrameId: string | undefined, previousFrameId: string, previousIndex: number, currentIndex: number) {
     if (currentFrameId === previousFrameId && currentFrameId === CANVAS_WRAPPER_ID) {
       moveItemInArray(this.frames, previousIndex, currentIndex);
+      this.setFrames(cloneDeep(this.getState().frames));
       return;
     }
 
-    const currentContainer = this.getFrameByKey(this.frames, currentFrameId);
-    const previousContainer = this.getFrameByKey(this.frames, previousFrameId);
+    const currentContainer = this.getItemById(this.frames, currentFrameId);
+    const previousContainer = this.getItemById(this.frames, previousFrameId);
 
     if (currentFrameId === previousFrameId) {
       moveItemInArray(currentContainer?.children!, previousIndex, currentIndex);
@@ -157,43 +168,7 @@ export class CanvasStore extends Store<CanvasState> {
       transferArrayItem(previousContainer?.children!, currentContainer?.children!, previousIndex, currentIndex);
     }
 
-    this.setState({
-      ...this.getState(),
-      frames: cloneDeep(this.getState().frames),
-    })
-  }
-
-  private getFrameIds(frames?: CanvasItem[]): string[] {
-    if (!frames) {
-      return [];
-    }
-
-    const frameIds = frames.filter(frame => frame.frameType === FrameType.FLEX).map(frame => frame.key!);
-
-    for (let frame of frames) {
-      frameIds.push(...this.getFrameIds(frame.children));
-    }
-
-    return frameIds;
-  }
-
-  private getFrameByKey(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
-    if (!frames || !frames.length || key == null) {
-      return undefined;
-    }
-
-    for (let frame of frames) {
-      if (frame.key === key) {
-        return frame;
-      }
-
-      const childFrame = this.getFrameByKey(frame.children, key);
-      if (childFrame) {
-        return childFrame;
-      }
-    }
-
-    return undefined;
+    this.setFrames(cloneDeep(this.getState().frames));
   }
 
   getParentFrameKey(childKey: string, frames: CanvasItem[], parentKey: string | undefined): string | undefined {
@@ -222,18 +197,62 @@ export class CanvasStore extends Store<CanvasState> {
     return [...flexPresets as Preset[], ...textPresets as Preset[]]
   }
 
-  private assignKeys(frames: CanvasItem[] | undefined, parentKey: string | undefined) {
+  updateTextContent(key: string, content: string) {
+    const frame = this.getItemById(this.frames, key);
+
+    if (frame?.itemType === CanvasItemType.TEXT) {
+      frame.label = content;
+    }
+
+    this.setState({
+      ...this.getState(),
+      frames: cloneDeep(this.getState().frames),
+    })
+  }
+
+  renameItem(id: string, name: string) {
+    const selectedItem = this.getItemById(this.frames, id);
+    if (!selectedItem) {
+      return;
+    }
+
+    selectedItem.label = name;
+
+    this.setState({
+      ...this.getState(),
+      frames: cloneDeep(this.getState().frames),
+    })
+  }
+
+  pasteItem(copyItemId: string | undefined, pasteItemId: string | undefined) {
+    if (!copyItemId || !pasteItemId) {
+      return;
+    }
+
+    const copyItem = this.getItemById(this.frames, copyItemId);
+
+    if (!copyItem) {
+      return;
+    }
+
+    const duplicatedItem = cloneDeep(copyItem);
+    this.assignKeys([duplicatedItem], undefined, true);
+
+    this.insertItem(pasteItemId, duplicatedItem);
+  }
+
+  private assignKeys(frames: CanvasItem[] | undefined, parentKey: string | undefined, overwriteExistingKeys: boolean) {
     if (!frames) {
       return [];
     }
 
     frames.forEach(frame => {
-      if (!frame.key) {
+      if (overwriteExistingKeys || (!overwriteExistingKeys && !frame.key)) {
         frame.key = this.generateUniqueId();
       }
 
       if (frame.children && frame.children.length > 0) {
-        this.assignKeys(frame.children, frame.key);
+        this.assignKeys(frame.children, frame.key, overwriteExistingKeys);
       }
     });
 
@@ -256,16 +275,50 @@ export class CanvasStore extends Store<CanvasState> {
     return this.getPresets().find(preset => preset.presetId === presetId);
   }
 
-  updateTextContent(key: string, content: string) {
-    const frame = this.getFrameByKey(this.frames, key);
+  private getItemById(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
+    if (!frames || !frames.length || key == null) {
+      return undefined;
+    }
 
-    if (frame?.frameType === FrameType.TEXT) {
-      frame.name = content;
+    for (let frame of frames) {
+      if (frame.key === key) {
+        return frame;
+      }
+
+      const childFrame = this.getItemById(frame.children, key);
+      if (childFrame) {
+        return childFrame;
+      }
+    }
+
+    return undefined;
+  }
+
+  private insertItem(insertAfterFrameId: string, newFrame: CanvasItem) {
+    const parentFrameKey = this.getParentFrameKey(insertAfterFrameId, this.frames, CANVAS_WRAPPER_ID);
+
+    if (parentFrameKey === CANVAS_WRAPPER_ID) {
+      const frames = this.getState().frames || [];
+      frames.splice(this.frames.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
+    } else {
+      const parentFrame = this.getItemById(this.frames, parentFrameKey);
+      if (!parentFrame) {
+        return;
+      }
+
+      if (!parentFrame?.children) {
+        parentFrame.children = [];
+      }
+
+      parentFrame?.children?.splice(parentFrame.children.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
     }
 
     this.setState({
       ...this.getState(),
       frames: cloneDeep(this.getState().frames),
     })
+    this.setFrames(cloneDeep(this.getState().frames));
+
+    this.setSelectedFrameKey(newFrame.key);
   }
 }
