@@ -38,11 +38,9 @@ export class CanvasStore extends Store<CanvasState> {
       distinctUntilChanged()
     )
   }
-
   get frames() {
     return this.getState().frames;
   }
-
   setFrames(frames: CanvasItem[], pushToUndoStack = true) {
     this.setState({
       ...this.getState(),
@@ -201,7 +199,7 @@ export class CanvasStore extends Store<CanvasState> {
     const frame = this.getItemById(this.frames, key);
 
     if (frame?.itemType === CanvasItemType.TEXT) {
-      frame.label = content;
+      frame.content = content;
     }
 
     this.setState({

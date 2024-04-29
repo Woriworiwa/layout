@@ -19,7 +19,7 @@
                cdkDropList
                [cdkDragBoundary]="'#' + CANVAS_WRAPPER_ID"
                [cdkDropListData]="frame?.key"
-               [cdkDragDisabled]="isGrabMode"
+               [cdkDragDisabled]="isPanModeActive"
                [cdkDropListOrientation]="frame?.css?.flexContainer?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
                (cdkDropListDropped)="onDrop($event)"></app-frame>
   }

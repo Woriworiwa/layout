@@ -18,6 +18,7 @@ import {InsertComponent} from "../../insert/insert.component";
 import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
 import {CavnasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../services/selection.service";
+import {PanZoomService} from "../../../services/pan-zoom.service";
 
 @Component({
   selector: 'app-frame',
@@ -35,11 +36,11 @@ export class FrameComponent extends CavnasBaseComponent {
   protected readonly FrameType = CanvasItemType;
   @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;
-  @Input() dragDropDisabled = false;
 
   constructor(private canvasStore: CanvasStore,
               private elementRef: ElementRef,
               private renderer: Renderer2,
+              protected panZoomService: PanZoomService,
               private selectionService: SelectionService) {
     super(elementRef, renderer, canvasStore, selectionService);
   }

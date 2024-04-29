@@ -41,11 +41,11 @@ export class CanvasComponent {
 
   /* this mode means that the canvas is ready to be dragged*/
   @HostBinding('class.pan-mode-active')
-  isGrabMode = false;
+  isPanModeActive = false;
 
   /* this mode means that the user is actually dragging (mouse pressed down)*/
   @HostBinding('class.is-panning')
-  isGrabbing = false;
+  isPanning = false;
 
   @ViewChild("wrapper")
   wrapper!: ElementRef;
@@ -102,7 +102,7 @@ export class CanvasComponent {
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
      if (event.button === 0) {
-      this.panZoomService.setIsPanning(this.isGrabMode);
+      this.panZoomService.setIsPanning(this.isPanModeActive);
     }
   }
 
@@ -117,7 +117,7 @@ export class CanvasComponent {
   /*mouse move*/
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
-    if (this.isGrabbing) {
+    if (this.isPanning) {
       this.translateX += event.movementX;
       this.translateY += event.movementY;
       this.setTransformStyles();
@@ -146,13 +146,13 @@ export class CanvasComponent {
 
   ngOnInit() {
     this.panZoomService.state$.subscribe(state => {
-      this.isGrabMode = state.panModeActive;
-      this.isGrabbing = state.isPanning;
+      this.isPanModeActive = state.panModeActive;
+      this.isPanning = state.isPanning;
     })
   }
 
   onFrameClicked(event: CanvasItemMouseEvent) {
-    if (this.isGrabMode) {
+    if (this.isPanModeActive) {
       return;
     }
 

@@ -80,7 +80,7 @@ export class BoxSizingComponent {
     const formGroup = this.fb.group({
       padding: new FormControl<Property.Padding | null | undefined>(null),
       height: new FormControl<Property.Height | null | undefined>(null),
-      width: new FormControl<Property.Height | null | undefined>(null)
+      width: new FormControl<Property.Height | null | undefined>(null, {updateOn: 'blur'})
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges

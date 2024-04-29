@@ -4,6 +4,7 @@ import {CanvasItem} from "../models/canvas-item.model";
 import {CanvasSelectionItemComponent} from "../components/canvas/selection/canvas-selection-item.component";
 import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-hover-item.component";
 import {ContextMenuService} from "./context-menu.service";
+import {PanZoomService} from "./pan-zoom.service";
 
 @Injectable()
 export class SelectionService {
@@ -14,6 +15,7 @@ export class SelectionService {
   canvasHoverItem: ComponentRef<CanvasHoverItemComponent> | undefined = undefined;
 
   constructor(private canvasStore: CanvasStore,
+              private panZoomService: PanZoomService,
               private contextMenuService: ContextMenuService) {
   }
 
@@ -38,6 +40,10 @@ export class SelectionService {
             this.removeItem(this.canvasHoverItem!);
             this.canvasHoverItem = undefined;
           } else {
+            if (this.panZoomService.isPanModeActive) {
+              return;
+            }
+
             if (this.canvasStore.selectedFrame()?.key === hoverFrame.key) {
               return;
             }
@@ -70,6 +76,18 @@ export class SelectionService {
       }
       this.canvasHoverItem = this.overlay.createComponent(CanvasHoverItemComponent)
       this.addItem(this.canvasHoverItem.instance, canvasItem, element);
+    }
+  }
+
+  setVisibility(visibility: 'visible' | 'hidden') {
+    if (this.canvasSelectionItem) {
+      this.canvasSelectionItem.instance.visibility = visibility;
+      this.canvasSelectionItem.instance.ngOnChanges();
+    }
+
+    if (this.canvasHoverItem) {
+      this.canvasHoverItem.instance.visibility = visibility;
+      this.canvasHoverItem.instance.ngOnChanges();
     }
   }
 

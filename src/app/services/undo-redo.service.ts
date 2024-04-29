@@ -1,6 +1,10 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 
+/*
+*  A simple undo/redo service that can be used to store and retrieve the current state of the store
+*  this is far from suitable for production use, but it's a good starting point for a simple implementation
+* */
 @Injectable({
   providedIn: 'root'
 })

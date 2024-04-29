@@ -14,7 +14,7 @@
                      (copyItem)="oncChildCopy($event)"
                      (pasteItem)="onChildPaste($event)"
                      cdkDrag
-                     [cdkDragDisabled]="dragDropDisabled"
+                     [cdkDragDisabled]="(panZoomService.state$|async)?.panModeActive"
                      (cdkDropListDropped)="onDrop($event)"
                      [cdkDropListData]="item?.key"
                      [cdkDropListOrientation]="item?.css?.flexContainer?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
@@ -32,7 +32,7 @@
                     (contextMenu)="onChildContextMenu($event)"
                     (contentChanged)="onChildTextContentChanged($event)"
                     cdkDrag
-                    [cdkDragDisabled]="dragDropDisabled">
+                    [cdkDragDisabled]="(panZoomService.state$|async)?.panModeActive">
           </app-text>
         }
       }
