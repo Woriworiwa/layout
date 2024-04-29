@@ -23,7 +23,7 @@ export class SelectionService {
     this.overlay = overlay;
     this.canvas = canvas;
 
-    this.canvasStore.selectedFrame$
+    this.canvasStore.selectedCanvasItem$
       .subscribe((selectedFrame) => {
           if (!selectedFrame) {
             this.removeItem(this.canvasSelectionItem!);
@@ -34,7 +34,7 @@ export class SelectionService {
         }
       )
 
-    this.canvasStore.hoverFrame$
+    this.canvasStore.hoverCanvasItem$
       .subscribe((hoverFrame) => {
           if (!hoverFrame) {
             this.removeItem(this.canvasHoverItem!);
@@ -44,7 +44,7 @@ export class SelectionService {
               return;
             }
 
-            if (this.canvasStore.selectedFrame()?.key === hoverFrame.key) {
+            if (this.canvasStore.selectedCanvasItem()?.key === hoverFrame.key) {
               return;
             }
 

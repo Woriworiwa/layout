@@ -78,7 +78,7 @@ export class PreviewComponent {
   protected selectedMediaQuery: { name: string, width: string } | undefined = this.mediaQueries[this.mediaQueries.findIndex((mq: { name: string, width: string }) => mq.name === 'auto')];
 
   constructor(private canvasStore: CanvasStore) {
-    this.canvasStore.frames$
+    this.canvasStore.canvasItems$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
         this.code = this.serializer.serialize(items).join('\n');

@@ -3,7 +3,7 @@
     @for (childItem of item?.children; track childItem) {
       @switch (childItem.itemType) {
         @case (FrameType.FLEX) {
-          <app-frame [item]="childItem"
+          <app-container [item]="childItem"
                      (clicked)="onChildFrameClick($event)"
                      (mouseOver)="onChildMouseOver($event)"
                      (mouseOut)="onChildMouseOut($event)"
@@ -18,7 +18,7 @@
                      (cdkDropListDropped)="onDrop($event)"
                      [cdkDropListData]="item?.key"
                      [cdkDropListOrientation]="item?.css?.flexContainer?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
-                     cdkDropList></app-frame>
+                     cdkDropList></app-container>
         }
         @case (FrameType.TEXT) {
           <app-text app-editable-content

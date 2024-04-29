@@ -20,7 +20,7 @@ export class DataService {
   }
 
   saveDataToLocalStorage() {
-    const canvasItems = this.canvasStore.frames;
+    const canvasItems = this.canvasStore.canvasItems;
     localStorage.setItem('CANVAS_ITEMS', JSON.stringify(canvasItems));
   }
 

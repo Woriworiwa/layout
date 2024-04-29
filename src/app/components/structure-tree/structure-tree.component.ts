@@ -44,12 +44,12 @@ export class StructureTreeComponent {
 
   onTreeSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null) {
     if (treeNode != null && !Array.isArray(treeNode)) {
-      this.canvasStore.setSelectedFrameKey(treeNode.key);
+      this.canvasStore.setSelectedCanvasItemKey(treeNode.key);
     }
   }
 
   onNodeDrop($event: TreeNodeDropEvent) {
-    this.canvasStore.setFrames(this.convertTreeNodesToCanvasItems(this.treeNodes));
+    this.canvasStore.setCanvasItems(this.convertTreeNodesToCanvasItems(this.treeNodes));
   }
 
   onNodeContextMenu(event: TreeNodeContextMenuSelectEvent) {
@@ -62,7 +62,7 @@ export class StructureTreeComponent {
   }
 
   private initStoreSubscriptions() {
-    this.canvasStore.frames$
+    this.canvasStore.canvasItems$
       .subscribe((items) => {
         if (!items) {
           return;
@@ -76,7 +76,7 @@ export class StructureTreeComponent {
         })
       });
 
-    this.canvasStore.selectedFrame$
+    this.canvasStore.selectedCanvasItem$
       .subscribe(selectedItem => {
         this.selectedItems = selectedItem;
         if (selectedItem) {

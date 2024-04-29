@@ -10,7 +10,7 @@ import {CanvasItem} from "../../models/canvas-item.model";
   imports: [CommonModule, SidebarModule],
   template: `
     <code>
-      <pre><p>{{ canvasStore.frames$ | async | json }}</p></pre>
+      <pre><p>{{ canvasStore.canvasItems$ | async | json }}</p></pre>
     </code>
   `,
   styles: `
@@ -28,6 +28,6 @@ export class JsonPrismComponent {
   }
 
   ngOnInit() {
-    this.frames = this.canvasStore.frames;
+    this.frames = this.canvasStore.canvasItems;
   }
 }

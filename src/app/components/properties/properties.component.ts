@@ -38,7 +38,7 @@ export class PropertiesComponent {
 
   constructor(public fb: FormBuilder,
               protected canvasStore: CanvasStore) {
-    this.canvasStore.selectedFrame$
+    this.canvasStore.selectedCanvasItem$
       .subscribe(frame => {
         this.frame = frame;
     })

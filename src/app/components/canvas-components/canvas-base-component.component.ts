@@ -81,10 +81,10 @@ export class CavnasBaseComponent{
   ngOnChanges() {
     this.updateCssAndSelection();
 
-    this.baseCanvasStore.frameCssChanged$
+    this.baseCanvasStore.cssChanged$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        if (this.baseCanvasStore.selectedFrame()?.key === this.item?.key) {
+        if (this.baseCanvasStore.selectedCanvasItem()?.key === this.item?.key) {
           this.updateCssAndSelection();
         }
       });
@@ -106,7 +106,7 @@ export class CavnasBaseComponent{
     }
 
     // Re-render the selection item to update any changes to the size of the item
-    if (this.item?.key === this.baseCanvasStore.selectedFrame()?.key) {
+    if (this.item?.key === this.baseCanvasStore.selectedCanvasItem()?.key) {
       setTimeout(() => {
         this.baseSelectionService.renderItem('selection', this.item!);
       }, 0);

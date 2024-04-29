@@ -69,7 +69,7 @@ export class AppComponent {
   }
 
   fetchData() {
-    this.canvasStore.setFrames(this.mockService.getInitialData());
+    this.canvasStore.setCanvasItems(this.mockService.getInitialData());
   }
 
   setSelectedTab(id: number) {

@@ -5,7 +5,7 @@
      cdkDropListSortingDisabled="false"
      (cdkDropListDropped)="onDrop($event)">
   @for (frame of frames; track frame.key) {
-    <app-frame [item]="frame"
+    <app-container [item]="frame"
                [id]="frame.key!"
                [selectedFrameKey]="selectedFrameKey"
                (clicked)="onFrameClicked($event)"
@@ -21,7 +21,7 @@
                [cdkDropListData]="frame?.key"
                [cdkDragDisabled]="isPanModeActive"
                [cdkDropListOrientation]="frame?.css?.flexContainer?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
-               (cdkDropListDropped)="onDrop($event)"></app-frame>
+               (cdkDropListDropped)="onDrop($event)"></app-container>
   }
 
   <div class="selection-overlay">
