@@ -21,7 +21,6 @@ import {SliderComponent} from "./property-items/slider.component";
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent],
   template: `
-    <div class="title">Flex container</div>
     <ng-container [formGroup]="formGroup">
       <app-property-item-select-button [options]="flexDirectionOptions"
                                        [control]="getFormControl('flexDirection')"

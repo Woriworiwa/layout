@@ -2,18 +2,30 @@
   <app-css-prism [canvasItems]="frame ? [frame] : this.canvasStore.canvasItems"></app-css-prism>
 
   <div class="properties">
-    <app-properties-box-sizing [css]="frame?.css"></app-properties-box-sizing>
-    <app-properties-display [css]="frame?.css"></app-properties-display>
+    <p-accordion [multiple]="true" [activeIndex]="[0]">
+      <p-accordionTab header="Box sizing">
+        <app-properties-box-sizing [css]="frame?.css"></app-properties-box-sizing>
+      </p-accordionTab>
 
-    @switch (frame?.itemType) {
-      @case (FrameType.FLEX) {
-        <app-properties-flex-container [css]="frame?.css"></app-properties-flex-container>
-      }
-      @case (FrameType.TEXT) {
+      <p-accordionTab header="Display">
+        <app-properties-display [css]="frame?.css"></app-properties-display>
+      </p-accordionTab>
 
-      }
-    }
 
-    <app-properties-flex-item [css]="frame?.css"></app-properties-flex-item>
+        @switch (frame?.itemType) {
+          @case (FrameType.FLEX) {
+            <p-accordionTab header="Flex container">
+              <app-properties-flex-container [css]="frame?.css"></app-properties-flex-container>
+            </p-accordionTab>
+          }
+          @case (FrameType.TEXT) {
+
+          }
+        }
+
+      <p-accordionTab header="Flex item">
+        <app-properties-flex-item [css]="frame?.css"></app-properties-flex-item>
+      </p-accordionTab>
+    </p-accordion>
   </div>
 </ng-container>

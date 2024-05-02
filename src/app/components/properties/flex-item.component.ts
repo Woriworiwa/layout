@@ -13,7 +13,6 @@ import {SliderComponent} from "./property-items/slider.component";
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent],
   template: `
-    <div class="title">Flex item</div>
     <ng-container [formGroup]="formGroup">
       <app-property-item-slider label="flex-grow"
                                 [control]="getFormControl('flexGrow')"

@@ -13,11 +13,12 @@ import {CssPrismComponent} from "../prisms/css-prism.component";
 import {BoxSizingComponent} from "./box-sizing.component";
 import {DisplayComponent} from "./display.component";
 import {PropertiesFlexItem} from "./flex-item.component";
+import {AccordionModule} from "primeng/accordion";
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, PropertiesFlexConainer, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent, CssPrismComponent, BoxSizingComponent, DisplayComponent, PropertiesFlexItem],
+    imports: [CommonModule, ReactiveFormsModule, PropertiesFlexConainer, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent, CssPrismComponent, BoxSizingComponent, DisplayComponent, PropertiesFlexItem, AccordionModule],
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss']
 })

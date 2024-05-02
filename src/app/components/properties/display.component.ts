@@ -9,14 +9,15 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SliderModule} from "primeng/slider";
 import {DropdownComponent} from "./property-items/dropdown.component";
+import {AccordionModule} from "primeng/accordion";
 
 @Component({
   selector: 'app-properties-display',
   standalone: true,
-  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, DropdownComponent],
+  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, DropdownComponent, AccordionModule],
   template: `
-    <div class="title">Display</div>
-    <app-property-item-dropdown [options]="displayOptions"
+
+        <app-property-item-dropdown [options]="displayOptions"
                                 [control]="getFormControl('display')"
                                 label="display"></app-property-item-dropdown>
   `,

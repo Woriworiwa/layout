@@ -9,14 +9,13 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SliderModule} from "primeng/slider";
 import {SliderComponent} from "./property-items/slider.component";
+import {AccordionModule} from "primeng/accordion";
 
 @Component({
   selector: 'app-properties-box-sizing',
   standalone: true,
-  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule],
+  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule, AccordionModule],
   template: `
-    <div class="title">Box sizing</div>
-
     <ng-container [formGroup]="formGroup">
       <app-property-item-slider label="padding"
                                 [control]="getFormControl('padding')"></app-property-item-slider>
