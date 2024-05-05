@@ -59,6 +59,8 @@ export class SliderComponent {
   @Input() max: number = 100;
   @Input() controlValue: unknown = null;
   @Input() suffix: string | undefined = POSTFIX_UNIT;
+  @Input() visible: boolean = true;
+
   @ViewChild(InputNumber) inputNumber!: InputNumber;
 
   constructor(private cd: ChangeDetectorRef) {

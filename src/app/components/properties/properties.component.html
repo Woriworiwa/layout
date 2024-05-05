@@ -1,31 +1,39 @@
 <ng-container *ngIf="frame">
-  <app-css-prism [canvasItems]="frame ? [frame] : this.canvasStore.canvasItems"></app-css-prism>
-
   <div class="properties">
-    <p-accordion [multiple]="true" [activeIndex]="[0]">
-      <p-accordionTab header="Box sizing">
-        <app-properties-box-sizing [css]="frame?.css"></app-properties-box-sizing>
-      </p-accordionTab>
+    <div class="form-group">
+      <p-inputGroup>
+        <input type="text" pInputText placeholder="Search" [(ngModel)]="searchText" />
+        <button type="button"
+                pButton
+                icon="pi pi-times"
+                class="p-button-secondary"
+                [disabled]="searchText === ''"
+                (click)="searchText = ''"></button>
+        </p-inputGroup>
+    </div>
 
-      <p-accordionTab header="Display">
-        <app-properties-display [css]="frame?.css"></app-properties-display>
-      </p-accordionTab>
+    <p-panel header="CSS" [toggleable]="true" [collapsed]="true" toggler="header">
+      <app-css-prism [canvasItems]="frame ? [frame] : this.canvasStore.canvasItems"></app-css-prism>
+    </p-panel>
 
+    <app-properties-box-sizing [css]="frame?.css"
+                               [title]="'Box sizing'"
+                               [searchText]="searchText"></app-properties-box-sizing>
 
-        @switch (frame?.itemType) {
-          @case (FrameType.FLEX) {
-            <p-accordionTab header="Flex container">
-              <app-properties-flex-container [css]="frame?.css"></app-properties-flex-container>
-            </p-accordionTab>
-          }
-          @case (FrameType.TEXT) {
+    <app-properties-display [css]="frame?.css"
+                            [title]="'Display'"
+                            [searchText]="searchText"></app-properties-display>
 
-          }
-        }
+    @switch (frame?.itemType) {
+      @case (FrameType.FLEX) {
+        <app-properties-flex-container [css]="frame?.css"
+                                       [title]="'Flex container'"
+                                       [searchText]="searchText"></app-properties-flex-container>
+      }
+    }
 
-      <p-accordionTab header="Flex item">
-        <app-properties-flex-item [css]="frame?.css"></app-properties-flex-item>
-      </p-accordionTab>
-    </p-accordion>
+    <app-properties-flex-item [css]="frame?.css"
+                              [title]="'Flex item'"
+                              [searchText]="searchText"></app-properties-flex-item>
   </div>
 </ng-container>

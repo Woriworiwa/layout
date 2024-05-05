@@ -1,49 +1,53 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {Subject, Subscription, takeUntil} from "rxjs";
+import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
+import {takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
 import {Property} from "csstype";
-import {
-  AlignContent,
-  AlignItems,
-  FlexDirection,
-  FlexWrap,
-  JustifyContent
-} from "../../models/css.model";
-import {Css} from "../../models/css.model";
+import {AlignContent, AlignItems, FlexDirection, FlexWrap, JustifyContent} from "../../models/css.model";
 import {DropdownComponent} from "./property-items/dropdown.component";
 import {SelectButtonComponent} from "./property-items/select-button.component";
 import {SliderComponent} from "./property-items/slider.component";
+import {BasePropertyGroup} from "./base-property-group";
+import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
+import {PanelModule} from "primeng/panel";
 
 @Component({
   selector: 'app-properties-flex-container',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent],
+  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, AppPropertyFilterPipe, PanelModule],
   template: `
     <ng-container [formGroup]="formGroup">
-      <app-property-item-select-button [options]="flexDirectionOptions"
-                                       [control]="getFormControl('flexDirection')"
-                                       label="Direction"></app-property-item-select-button>
+      <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">
+        <app-property-item-select-button [options]="flexDirectionOptions"
+                                         [control]="getFormControl('flexDirection')"
+                                         *ngIf="mustBeVisible || ('flexDirection' | appPropertyFilter: searchText)"
+                                         label="Direction"></app-property-item-select-button>
 
-      <app-property-item-slider label="gap"
-                                [control]="getFormControl('gap')"></app-property-item-slider>
+        <app-property-item-slider label="gap"
+                                  *ngIf="mustBeVisible || ('gap' | appPropertyFilter: searchText)"
+                                  [control]="getFormControl('gap')"></app-property-item-slider>
 
-      <app-property-item-select-button [options]="flexWrapOptions"
-                                       [control]="getFormControl('flexWrap')"
-                                       label="Wrap"></app-property-item-select-button>
+        <app-property-item-select-button [options]="flexWrapOptions"
+                                         [control]="getFormControl('flexWrap')"
+                                         *ngIf="mustBeVisible || ('flexWrap' | appPropertyFilter: searchText)"
+                                         label="Wrap"></app-property-item-select-button>
 
-      <app-property-item-dropdown [options]="justifyContentOptions"
-                         [control]="getFormControl('justifyContent')"
-                         label="justify-content"></app-property-item-dropdown>
+        <app-property-item-dropdown [options]="justifyContentOptions"
+                                    [control]="getFormControl('justifyContent')"
+                                    *ngIf="mustBeVisible || ('justifyContent' | appPropertyFilter: searchText)"
+                                    label="justify-content"></app-property-item-dropdown>
 
-      <app-property-item-dropdown [options]="alignItemsOptions"
-                         [control]="getFormControl('alignItems')"
-                         label="align-items"></app-property-item-dropdown>
+        <app-property-item-dropdown [options]="alignItemsOptions"
+                                    [control]="getFormControl('alignItems')"
+                                    *ngIf="mustBeVisible || ('alignItems' | appPropertyFilter: searchText)"
+                                    label="align-items"></app-property-item-dropdown>
 
-      <app-property-item-dropdown [options]="alignContentOptions"
-                                  [control]="getFormControl('alignContent')"
-                                  label="align-content"></app-property-item-dropdown>
+        <app-property-item-dropdown [options]="alignContentOptions"
+                                    [control]="getFormControl('alignContent')"
+                                    *ngIf="mustBeVisible || ('alignContent' | appPropertyFilter: searchText)"
+                                    label="align-content"></app-property-item-dropdown>
+      </p-panel>
     </ng-container>
   `,
   styles: `
@@ -52,8 +56,7 @@ import {SliderComponent} from "./property-items/slider.component";
     }
   `
 })
-export class PropertiesFlexConainer {
-  @Input() css: Css | undefined;
+export class PropertiesFlexConainer extends BasePropertyGroup {
 
   /*direction*/
   flexDirectionOptions = [
@@ -98,18 +101,15 @@ export class PropertiesFlexConainer {
     AlignContent.baseline
   ];
 
-  formGroup: FormGroup;
-  formGroupValueChangedSubscription: Subscription | undefined;
-
-  private destroy$ = new Subject();
 
   constructor(public fb: FormBuilder,
-              protected frameStore: CanvasStore) {
-    this.formGroup = this.createFormGroup();
+              protected canvasStore: CanvasStore,
+              private propertyFilter: AppPropertyFilterPipe) {
+    super(fb, canvasStore, propertyFilter);
   }
 
-  ngOnChanges() {
-    this.formGroup = this.createFormGroup();
+  override ngOnChanges() {
+    super.ngOnChanges();
 
     if (this.css?.flexContainer) {
       this.formGroup?.patchValue({
@@ -119,21 +119,12 @@ export class PropertiesFlexConainer {
     }
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.complete();
-  }
-
-  getFormControl(name: string) {
-    return this.formGroup.get(name) as FormControl;
-  }
-
-  private createFormGroup() {
+  protected override createFormGroup() {
     if (this.formGroupValueChangedSubscription) {
       this.formGroupValueChangedSubscription.unsubscribe();
     }
 
-    const formGroup = this.fb.group({
+    const formGroup = this.baseFb.group({
       flexDirection: new FormControl<Property.FlexDirection | null | undefined>(undefined),
       flexWrap: new FormControl<Property.FlexWrap | null | undefined>(undefined),
       gap: new FormControl<Property.Gap | null | undefined>(null),
@@ -147,7 +138,7 @@ export class PropertiesFlexConainer {
         takeUntil(this.destroy$)
       )
       .subscribe((value: any) => {
-        this.frameStore.updateCss({
+        this.baseCanvasStore.updateCss({
           ...this.css,
           flexContainer: value
         });
