@@ -51,7 +51,7 @@ export class AppComponent {
               private mockService: DataService) {
     this.fetchData();
 
-    // this.canvasStore.setSelectedFrameKey(this.canvasStore.frames[0]?.key)
+    this.canvasStore.setSelectedCanvasItemKey(this.canvasStore.canvasItems[0]?.key)
   }
 
   /* undo */
@@ -69,7 +69,7 @@ export class AppComponent {
   }
 
   fetchData() {
-    this.canvasStore.setFrames(this.mockService.getInitialData());
+    this.canvasStore.setCanvasItems(this.mockService.getInitialData());
   }
 
   setSelectedTab(id: number) {

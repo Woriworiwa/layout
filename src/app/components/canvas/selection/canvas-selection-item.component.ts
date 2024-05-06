@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, Renderer2, ViewChild} from "@angular/core";
+import {Component, ElementRef, HostListener, Input, Renderer2, SimpleChange, ViewChild} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
@@ -20,6 +20,7 @@ export class CanvasSelectionItemComponent {
   @Input() top: number = 0;
   @Input() left: number = 0;
   @Input() canvasItem: CanvasItem | undefined = undefined;
+  @Input() visibility: 'visible' | 'hidden' = 'visible';
 
   @ViewChild(ContextMenuComponent) contextMenu!: ContextMenuComponent;
 
@@ -28,9 +29,10 @@ export class CanvasSelectionItemComponent {
   }
 
   ngOnChanges() {
-    this.renderer.setStyle(this.elementRef.nativeElement, 'width', `${this.width}px`);
-    this.renderer.setStyle(this.elementRef.nativeElement, 'height', `${this.height}px`);
-    this.renderer.setStyle(this.elementRef.nativeElement, 'left', `${this.left}px`);
-    this.renderer.setStyle(this.elementRef.nativeElement, 'top', `${this.top}px`);
+      this.renderer.setStyle(this.elementRef.nativeElement, 'visibility', this.visibility);
+      this.renderer.setStyle(this.elementRef.nativeElement, 'width', `${this.width}px`);
+      this.renderer.setStyle(this.elementRef.nativeElement, 'height', `${this.height}px`);
+      this.renderer.setStyle(this.elementRef.nativeElement, 'left', `${this.left}px`);
+      this.renderer.setStyle(this.elementRef.nativeElement, 'top', `${this.top}px`);
   }
 }

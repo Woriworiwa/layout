@@ -9,7 +9,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
-import {FrameComponent} from "../canvas-components/frame/frame.component";
+import {ContainerComponent} from "../canvas-components/frame/container.component";
 import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
@@ -24,7 +24,7 @@ import {PanZoomService} from "../../services/pan-zoom.service";
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FrameComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent],
+  imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent],
   providers: [ContextMenuService, SelectionService, PanZoomService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
@@ -41,11 +41,11 @@ export class CanvasComponent {
 
   /* this mode means that the canvas is ready to be dragged*/
   @HostBinding('class.pan-mode-active')
-  isGrabMode = false;
+  isPanModeActive = false;
 
   /* this mode means that the user is actually dragging (mouse pressed down)*/
   @HostBinding('class.is-panning')
-  isGrabbing = false;
+  isPanning = false;
 
   @ViewChild("wrapper")
   wrapper!: ElementRef;
@@ -58,12 +58,15 @@ export class CanvasComponent {
               private contextMenuService: ContextMenuService,
               protected panZoomService: PanZoomService,
               @Inject(DOCUMENT) document: Document) {
-    this.canvasStore.frames$.subscribe(rootFrames => {
+    this.canvasStore.canvasItems$.subscribe(rootFrames => {
       this.frames = rootFrames;
 
-      /*focus the selected frame, this is needed to focus elements that are newly added*/
+      /* focus the selected frame, most of the times the focus will be set by the mouse when the user clicks on an item,
+      * but when programatically add new items, we need to focus them.
+      * Items should be focused in order to listen to keyboard events*/
+      /*TODO: Find another way other than setTimeout*/
       setTimeout(() => {
-        document.getElementById(`${this.canvasStore.selectedFrame()?.key}`)?.focus()
+        document.getElementById(`${this.canvasStore.selectedCanvasItem()?.key}`)?.focus()
       }, 0);
     });
   }
@@ -94,7 +97,7 @@ export class CanvasComponent {
   /*click*/
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
-    this.canvasStore.setSelectedFrameKey(undefined);
+    this.canvasStore.setSelectedCanvasItemKey(undefined);
     this.contextMenuService.hide();
   }
 
@@ -102,7 +105,7 @@ export class CanvasComponent {
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
      if (event.button === 0) {
-      this.panZoomService.setIsPanning(this.isGrabMode);
+      this.panZoomService.setIsPanning(this.isPanModeActive);
     }
   }
 
@@ -117,7 +120,7 @@ export class CanvasComponent {
   /*mouse move*/
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
-    if (this.isGrabbing) {
+    if (this.isPanning) {
       this.translateX += event.movementX;
       this.translateY += event.movementY;
       this.setTransformStyles();
@@ -146,30 +149,30 @@ export class CanvasComponent {
 
   ngOnInit() {
     this.panZoomService.state$.subscribe(state => {
-      this.isGrabMode = state.panModeActive;
-      this.isGrabbing = state.isPanning;
+      this.isPanModeActive = state.panModeActive;
+      this.isPanning = state.isPanning;
     })
   }
 
   onFrameClicked(event: CanvasItemMouseEvent) {
-    if (this.isGrabMode) {
+    if (this.isPanModeActive) {
       return;
     }
 
-    this.canvasStore.setSelectedFrameKey(event.canvasItem.key);
+    this.canvasStore.setSelectedCanvasItemKey(event.canvasItem.key);
     this.contextMenuService.hide();
   }
 
   onMouseOver(event: CanvasItemMouseEvent) {
-    this.canvasStore.setHoverFrameKey(event.canvasItem.key);
+    this.canvasStore.setHoverItemKey(event.canvasItem.key);
   }
 
   onMouseOut(event: CanvasItemMouseEvent) {
-    this.canvasStore.setHoverFrameKey(undefined);
+    this.canvasStore.setHoverItemKey(undefined);
   }
 
   onContextMenu(event: CanvasItemMouseEvent) {
-    this.canvasStore.setSelectedFrameKey(event.canvasItem.key);
+    this.canvasStore.setSelectedCanvasItemKey(event.canvasItem.key);
     this.selectionService.showContextMenu(event.mouseEvent);
   }
 
@@ -178,7 +181,7 @@ export class CanvasComponent {
   }
 
   onDrop(event: CdkDragDrop<string | undefined, any>) {
-    this.canvasStore.moveFrameChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
+    this.canvasStore.moveItemChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
   }
 
   private setTransformStyles() {

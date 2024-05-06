@@ -1,7 +1,9 @@
 <p-overlayPanel #op>
-  <ng-template pTemplate="content">
-    <app-insert [parentFrameId]="canvasItem?.key" (componentAdded)="op.toggle($event)"></app-insert>
-  </ng-template>
+  <app-insert [parentFrameId]="canvasItem?.key" (componentAdded)="op.toggle($event)"></app-insert>
+</p-overlayPanel>
+
+<p-overlayPanel #quickActions>
+  <div>quick actions</div>
 </p-overlayPanel>
 
 <div class="add-item">

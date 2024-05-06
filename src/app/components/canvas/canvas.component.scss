@@ -15,13 +15,14 @@
   }
 
   .pan-zoom-wrapper {
+
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     gap: 20px;
   }
 
-  > app-frame {
+  > app-container {
     background: #eeeeee;
   }
 }

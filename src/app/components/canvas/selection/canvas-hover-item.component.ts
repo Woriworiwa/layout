@@ -17,17 +17,17 @@ import {CanvasItem} from "../../../models/canvas-item.model";
 export class CanvasHoverItemComponent {
   @Input() width: number = 0;
   @Input() height: number = 0;
-
   @Input() top: number = 0;
   @Input() left: number = 0;
-
   @Input() canvasItem: CanvasItem | undefined = undefined;
+  @Input() visibility: 'visible' | 'hidden' = 'visible';
 
   constructor(private renderer: Renderer2,
               protected elementRef: ElementRef) {
   }
 
   ngOnChanges() {
+    this.renderer.setStyle(this.elementRef.nativeElement, 'visibility', this.visibility);
     this.renderer.setStyle(this.elementRef.nativeElement, 'width', `${this.width}px`);
     this.renderer.setStyle(this.elementRef.nativeElement, 'height', `${this.height}px`);
     this.renderer.setStyle(this.elementRef.nativeElement, 'left', `${this.left}px`);

@@ -48,7 +48,7 @@ export class HtmlPrismComponent {
 
   constructor(private canvasStore: CanvasStore,
               private serializerService: SerializationService) {
-    this.canvasStore.frames$
+    this.canvasStore.canvasItems$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
         this.code = this.serializerService.getSerializer("HTML").serialize(items).join('\n');

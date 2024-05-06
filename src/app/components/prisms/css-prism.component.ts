@@ -41,7 +41,7 @@ export class CssPrismComponent {
   ngOnChanges() {
     this.serializeToCss()
 
-    this.canvasStore.frameCssChanged$
+    this.canvasStore.cssChanged$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.serializeToCss();

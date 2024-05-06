@@ -30,7 +30,7 @@ export class ContextMenuComponent {
       {
         label: 'Delete', icon: 'pi pi-fw pi-trash',
         command: () => {
-          this.canvasStore.deleteFrame(this.frameKey);
+          this.canvasStore.deleteCanvasItem(this.frameKey);
         }
       }
     ];

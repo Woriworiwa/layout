@@ -4,6 +4,7 @@ import {CanvasItem} from "../models/canvas-item.model";
 import {CanvasSelectionItemComponent} from "../components/canvas/selection/canvas-selection-item.component";
 import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-hover-item.component";
 import {ContextMenuService} from "./context-menu.service";
+import {PanZoomService} from "./pan-zoom.service";
 
 @Injectable()
 export class SelectionService {
@@ -14,6 +15,7 @@ export class SelectionService {
   canvasHoverItem: ComponentRef<CanvasHoverItemComponent> | undefined = undefined;
 
   constructor(private canvasStore: CanvasStore,
+              private panZoomService: PanZoomService,
               private contextMenuService: ContextMenuService) {
   }
 
@@ -21,7 +23,7 @@ export class SelectionService {
     this.overlay = overlay;
     this.canvas = canvas;
 
-    this.canvasStore.selectedFrame$
+    this.canvasStore.selectedCanvasItem$
       .subscribe((selectedFrame) => {
           if (!selectedFrame) {
             this.removeItem(this.canvasSelectionItem!);
@@ -32,13 +34,17 @@ export class SelectionService {
         }
       )
 
-    this.canvasStore.hoverFrame$
+    this.canvasStore.hoverCanvasItem$
       .subscribe((hoverFrame) => {
           if (!hoverFrame) {
             this.removeItem(this.canvasHoverItem!);
             this.canvasHoverItem = undefined;
           } else {
-            if (this.canvasStore.selectedFrame()?.key === hoverFrame.key) {
+            if (this.panZoomService.isPanModeActive) {
+              return;
+            }
+
+            if (this.canvasStore.selectedCanvasItem()?.key === hoverFrame.key) {
               return;
             }
 
@@ -70,6 +76,18 @@ export class SelectionService {
       }
       this.canvasHoverItem = this.overlay.createComponent(CanvasHoverItemComponent)
       this.addItem(this.canvasHoverItem.instance, canvasItem, element);
+    }
+  }
+
+  setVisibility(visibility: 'visible' | 'hidden') {
+    if (this.canvasSelectionItem) {
+      this.canvasSelectionItem.instance.visibility = visibility;
+      this.canvasSelectionItem.instance.ngOnChanges();
+    }
+
+    if (this.canvasHoverItem) {
+      this.canvasHoverItem.instance.visibility = visibility;
+      this.canvasHoverItem.instance.ngOnChanges();
     }
   }
 

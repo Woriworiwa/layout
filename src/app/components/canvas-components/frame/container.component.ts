@@ -18,34 +18,35 @@ import {InsertComponent} from "../../insert/insert.component";
 import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
 import {CavnasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../services/selection.service";
+import {PanZoomService} from "../../../services/pan-zoom.service";
 
 @Component({
-  selector: 'app-frame',
+  selector: 'app-container',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CssStyleSerializerPipe],
-  templateUrl: 'frame.component.html',
+  templateUrl: 'container.component.html',
   host: {
     /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
     '[attr.tabindex]': '-1',
   },
-  styleUrls: ['./frame.component.scss'],
+  styleUrls: ['./container.component.scss'],
 })
-export class FrameComponent extends CavnasBaseComponent {
+export class ContainerComponent extends CavnasBaseComponent {
   protected readonly FrameType = CanvasItemType;
   @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;
-  @Input() dragDropDisabled = false;
 
   constructor(private canvasStore: CanvasStore,
               private elementRef: ElementRef,
               private renderer: Renderer2,
+              protected panZoomService: PanZoomService,
               private selectionService: SelectionService) {
     super(elementRef, renderer, canvasStore, selectionService);
   }
 
   onDrop(event: CdkDragDrop<string | undefined, any>) {
-    this.canvasStore.moveFrameChild(event.container.data, event.previousContainer.data, event.previousIndex, event.currentIndex);
+    this.canvasStore.moveItemChild(event.container.data, event.previousContainer.data, event.previousIndex, event.currentIndex);
   }
 
   protected onChildFrameClick(event: CanvasItemMouseEvent) {
