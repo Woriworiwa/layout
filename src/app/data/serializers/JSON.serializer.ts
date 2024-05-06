@@ -24,9 +24,18 @@ export class JSONSerializer extends Serializer {
 
       this.sanitizeObject(frame.css);
 
+
       if (frame.css) {
         for (const key of Object.keys(frame.css)) {
-          this.sanitizeObject(frame.css[key as keyof Css]);
+          if (frame.css[key as keyof Css] != null ) {
+            const x = frame.css[key as keyof Css];
+            if (x) {
+              for (const k of Object.keys(x)) {
+                this.sanitizeObject(frame.css[key as keyof Css]);
+              }
+            }
+
+          }
         }
       }
 
