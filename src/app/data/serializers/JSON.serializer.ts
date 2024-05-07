@@ -14,7 +14,7 @@ export class JSONSerializer extends Serializer {
     return [];
   }
 
-  private sanitizeFrames(frames: CanvasItem[]) {
+  sanitizeFrames(frames: CanvasItem[]) {
     if (!frames || !frames.length) {
       return;
     }
