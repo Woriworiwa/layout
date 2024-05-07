@@ -9,7 +9,7 @@ import {ThemeModel} from "../models/theme.model";
 export class ThemeService {
 
   _config: ThemeModel = {
-    theme: 'lara-light-blue',
+    theme: 'mira',
     inputStyle: 'outlined',
     ripple: true,
     scale: 12
