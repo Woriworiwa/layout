@@ -1,27 +1,12 @@
-# Layout
+# Layout, a Framer Dopplegagner
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.0.
+This project is an low-code CSS generator built with Angular. It serves several purposes:
 
-## Development server
+- Level up my Angular skills: It's a hands-on learning experience to explore building user-friendly low-code tools.
+Experiment with interactivity: The builder serves as a playground to test different ways users can interact with the program.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- UX Experimentation: It's also a playground to experiment with different user interaction methods and user experience design. The goal is to explore innovative ways of interacting with low-code builders, potentially integrating AI, speech recognition, and eye tracking.
 
-## Code scaffolding
+- Portfolio Project: This project serves as a practical demonstration of my Angular skills and a showcase for my UX design experience.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  Demo: https://layout-b57ab.web.app
