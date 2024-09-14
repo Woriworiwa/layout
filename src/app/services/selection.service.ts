@@ -5,6 +5,8 @@ import {CanvasSelectionItemComponent} from "../components/canvas/selection/canva
 import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-hover-item.component";
 import {ContextMenuService} from "./context-menu.service";
 import {PanZoomService} from "./pan-zoom.service";
+import {DragDropService} from "./drag-drop.service";
+import {combineLatestWith} from "rxjs";
 
 @Injectable()
 export class SelectionService {
@@ -16,7 +18,8 @@ export class SelectionService {
 
   constructor(private canvasStore: CanvasStore,
               private panZoomService: PanZoomService,
-              private contextMenuService: ContextMenuService) {
+              private contextMenuService: ContextMenuService,
+              private dragDropService: DragDropService) {
   }
 
   initialize(overlay: ViewContainerRef, canvas: ElementRef) {
@@ -24,8 +27,9 @@ export class SelectionService {
     this.canvas = canvas;
 
     this.canvasStore.selectedCanvasItem$
-      .subscribe((selectedFrame) => {
-          if (!selectedFrame) {
+      .pipe(combineLatestWith(this.dragDropService.state$))
+      .subscribe(([selectedFrame, dragDropState]) => {
+          if (!selectedFrame || dragDropState.isDragging) {
             this.removeItem(this.canvasSelectionItem!);
             this.canvasSelectionItem = undefined;
           } else {
@@ -35,11 +39,15 @@ export class SelectionService {
       )
 
     this.canvasStore.hoverCanvasItem$
-      .subscribe((hoverFrame) => {
+      .pipe(combineLatestWith(this.dragDropService.state$))
+      .subscribe(([hoverFrame, dragDropState]) => {
           if (!hoverFrame) {
             this.removeItem(this.canvasHoverItem!);
             this.canvasHoverItem = undefined;
           } else {
+            if (dragDropState.isDragging) {
+              return;
+            }
             if (this.panZoomService.isPanModeActive) {
               return;
             }
@@ -70,7 +78,7 @@ export class SelectionService {
       }
       this.canvasSelectionItem = this.overlay.createComponent(CanvasSelectionItemComponent)
       this.addItem(this.canvasSelectionItem.instance, canvasItem, element);
-    } else if(itemType === 'hover') {
+    } else if (itemType === 'hover') {
       if (this.canvasHoverItem) {
         this.removeItem(this.canvasHoverItem);
       }

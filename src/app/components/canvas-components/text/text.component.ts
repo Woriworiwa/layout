@@ -4,6 +4,7 @@ import {CavnasBaseComponent} from "../canvas-base-component.component";
 import {CanvasStore} from "../../../store/canvas.store";
 import {SelectionService} from "../../../services/selection.service";
 import {Clipboard} from '@angular/cdk/clipboard';
+import {DragulaService} from "ng2-dragula";
 
 @Component({
   selector: 'app-text',
@@ -27,8 +28,9 @@ export class TextComponent extends CavnasBaseComponent{
   constructor(private canvasStore: CanvasStore,
               private elementRef: ElementRef,
               private renderer: Renderer2,
+              private dragulaService: DragulaService,
               private selectionService: SelectionService) {
-    super(elementRef, renderer, canvasStore, selectionService);
+    super(elementRef, renderer, canvasStore, dragulaService, selectionService);
   }
 
   override ngOnChanges() {

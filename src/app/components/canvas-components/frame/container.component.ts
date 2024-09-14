@@ -10,7 +10,6 @@ import {CanvasItem, CanvasItemMouseEvent} from "../../../models/canvas-item.mode
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 import {TextComponent} from "../text/text.component";
 import {CanvasItemType} from '../../../models/enums';
-import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 import {CanvasStore} from "../../../store/canvas.store";
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
@@ -19,12 +18,13 @@ import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
 import {CavnasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../services/selection.service";
 import {PanZoomService} from "../../../services/pan-zoom.service";
+import {DragulaModule, DragulaService} from "ng2-dragula";
 
 @Component({
   selector: 'app-container',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditorContentDirective, TextComponent, CdkDrag, CdkDropList, ButtonModule, OverlayPanelModule, InsertComponent, CssStyleSerializerPipe],
+  imports: [CommonModule, EditorContentDirective, TextComponent, ButtonModule, OverlayPanelModule, InsertComponent, CssStyleSerializerPipe, DragulaModule],
   templateUrl: 'container.component.html',
   host: {
     /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
@@ -37,16 +37,13 @@ export class ContainerComponent extends CavnasBaseComponent {
   @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;
 
-  constructor(private canvasStore: CanvasStore,
+  constructor(protected canvasStore: CanvasStore,
               private elementRef: ElementRef,
               private renderer: Renderer2,
               protected panZoomService: PanZoomService,
+              private dragulaService: DragulaService,
               private selectionService: SelectionService) {
-    super(elementRef, renderer, canvasStore, selectionService);
-  }
-
-  onDrop(event: CdkDragDrop<string | undefined, any>) {
-    this.canvasStore.moveItemChild(event.container.data, event.previousContainer.data, event.previousIndex, event.currentIndex);
+    super(elementRef, renderer, canvasStore, dragulaService, selectionService);
   }
 
   protected onChildFrameClick(event: CanvasItemMouseEvent) {

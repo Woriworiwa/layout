@@ -1,24 +1,20 @@
+<span class="dragula-wrapper" dragula="canvas">
 @switch (item?.itemType) {
   @case (FrameType.FLEX) {
     @for (childItem of item?.children; track childItem) {
       @switch (childItem.itemType) {
         @case (FrameType.FLEX) {
           <app-container [item]="childItem"
-                     (clicked)="onChildFrameClick($event)"
-                     (mouseOver)="onChildMouseOver($event)"
-                     (mouseOut)="onChildMouseOut($event)"
-                     (contextMenu)="onChildContextMenu($event)"
-                     [selectedFrameKey]="selectedFrameKey"
-                     [id]="childItem.key!"
-                     (childTextContentChanged)="onChildTextContentChanged($event)"
-                     (copyItem)="oncChildCopy($event)"
-                     (pasteItem)="onChildPaste($event)"
-                     cdkDrag
-                     [cdkDragDisabled]="(panZoomService.state$|async)?.panModeActive"
-                     (cdkDropListDropped)="onDrop($event)"
-                     [cdkDropListData]="item?.key"
-                     [cdkDropListOrientation]="item?.css?.flexContainer?.flexDirection === 'column' ? 'vertical' : 'horizontal'"
-                     cdkDropList></app-container>
+                         (clicked)="onChildFrameClick($event)"
+                         (mouseOver)="onChildMouseOver($event)"
+                         (mouseOut)="onChildMouseOut($event)"
+                         (contextMenu)="onChildContextMenu($event)"
+                         [selectedFrameKey]="selectedFrameKey"
+                         [id]="childItem.key!"
+                         (childTextContentChanged)="onChildTextContentChanged($event)"
+                         (copyItem)="oncChildCopy($event)"
+                         (pasteItem)="onChildPaste($event)">
+            </app-container>
         }
         @case (FrameType.TEXT) {
           <app-text app-editable-content
@@ -30,9 +26,7 @@
                     (mouseOver)="onChildMouseOver($event)"
                     (mouseOut)="onChildMouseOut($event)"
                     (contextMenu)="onChildContextMenu($event)"
-                    (contentChanged)="onChildTextContentChanged($event)"
-                    cdkDrag
-                    [cdkDragDisabled]="(panZoomService.state$|async)?.panModeActive">
+                    (contentChanged)="onChildTextContentChanged($event)">
           </app-text>
         }
       }
@@ -42,3 +36,4 @@
     <app-text></app-text>
   }
 }
+</span>

@@ -15,6 +15,7 @@ import {CssStyleSerializer} from "../../data/serializers/css-style.serializer";
 import {CanvasStore} from "../../store/canvas.store";
 import {SelectionService} from "../../services/selection.service";
 import {Subject, takeUntil} from "rxjs";
+import {DragulaService} from "ng2-dragula";
 
 @Component({
   selector: 'app-canvas-base-component',
@@ -37,6 +38,7 @@ export class CavnasBaseComponent{
   constructor(private baseElementRef: ElementRef,
               private baseRenderer: Renderer2,
               private baseCanvasStore: CanvasStore,
+              private baseDragulaService: DragulaService,
               private baseSelectionService: SelectionService) {
   }
 
@@ -88,6 +90,10 @@ export class CavnasBaseComponent{
           this.updateCssAndSelection();
         }
       });
+
+    this.baseDragulaService.drag(this.item?.key).subscribe(() => {
+      this.clicked.emit({canvasItem: this.item!, mouseEvent: new MouseEvent('click')});
+    });
   }
 
   ngOnDestroy() {

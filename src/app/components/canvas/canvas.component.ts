@@ -20,12 +20,16 @@ import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 import {SelectionService} from "../../services/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
 import {PanZoomService} from "../../services/pan-zoom.service";
+import {DragDropService} from "../../services/drag-drop.service";
+import {DragulaModule, DragulaService} from "ng2-dragula";
+import {distinctUntilChanged, map} from "rxjs";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent],
-  providers: [ContextMenuService, SelectionService, PanZoomService],
+  imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, DragulaModule],
+  providers: [ContextMenuService, SelectionService, PanZoomService, DragDropService],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
@@ -50,13 +54,16 @@ export class CanvasComponent {
   @ViewChild("wrapper")
   wrapper!: ElementRef;
 
-  @ViewChild("selectionOverlay", { read: ViewContainerRef }) selectionOverlay!: ViewContainerRef;
+  @ViewChild("selectionOverlay", {read: ViewContainerRef}) selectionOverlay!: ViewContainerRef;
 
   constructor(protected canvasStore: CanvasStore,
               private renderer: Renderer2,
               private selectionService: SelectionService,
               private contextMenuService: ContextMenuService,
               protected panZoomService: PanZoomService,
+              protected dragDropService: DragDropService,
+              protected dragulaService: DragulaService,
+              private messageService: MessageService,
               @Inject(DOCUMENT) document: Document) {
     this.canvasStore.canvasItems$.subscribe(rootFrames => {
       this.frames = rootFrames;
@@ -104,7 +111,7 @@ export class CanvasComponent {
   /*mouse down*/
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
-     if (event.button === 0) {
+    if (event.button === 0) {
       this.panZoomService.setIsPanning(this.isPanModeActive);
     }
   }
@@ -143,6 +150,10 @@ export class CanvasComponent {
     }
   }
 
+  onDrop(event: CdkDragDrop<string | undefined, any>) {
+    this.canvasStore.moveItemChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
+  }
+
   ngAfterViewInit() {
     this.selectionService.initialize(this.selectionOverlay, this.wrapper);
   }
@@ -151,7 +162,25 @@ export class CanvasComponent {
     this.panZoomService.state$.subscribe(state => {
       this.isPanModeActive = state.panModeActive;
       this.isPanning = state.isPanning;
-    })
+    });
+
+    const group = this.dragulaService.createGroup('canvas', {});
+
+    this.dragulaService.drag().subscribe(() => {
+      group.drake.cancel();
+
+      if (this.panZoomService.isPanModeActive) {
+        return;
+      }
+
+      this.messageService.add({
+        life: 5000,
+        severity: 'info',
+        summary: 'Drag and Drop',
+        detail: 'Drag and Drop of elements is disabled in this version. Please use the elements tree on the left side to re-order elements'
+      });
+      return false;
+    });
   }
 
   onFrameClicked(event: CanvasItemMouseEvent) {
@@ -178,10 +207,6 @@ export class CanvasComponent {
 
   onChildTextContentChanged(content: { key: string, content: string }) {
     this.canvasStore.updateTextContent(content.key, content.content);
-  }
-
-  onDrop(event: CdkDragDrop<string | undefined, any>) {
-    this.canvasStore.moveItemChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
   }
 
   private setTransformStyles() {
