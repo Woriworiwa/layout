@@ -9,7 +9,7 @@ import {PresetComponent} from "./preset.component";
 @Component({
   selector: 'app-insert',
   standalone: true,
-  imports: [CommonModule, CdkDrag, CdkDropList, PresetComponent],
+  imports: [CommonModule, PresetComponent],
   templateUrl: 'insert.component.html',
   styleUrls: [`insert.component.scss`]
 })

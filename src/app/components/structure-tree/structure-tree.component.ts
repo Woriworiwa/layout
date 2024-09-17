@@ -14,11 +14,12 @@ import {ContextMenuModule} from "primeng/contextmenu";
 import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
+import {ToastModule} from "primeng/toast";
 
 @Component({
   selector: 'app-structure-tree',
   standalone: true,
-  imports: [CommonModule, TreeModule, FormsModule, CdkDropList, InsertComponent, ToggleButtonModule, ContextMenuModule, OverlayPanelModule, ButtonModule, InputTextModule],
+  imports: [CommonModule, TreeModule, FormsModule, CdkDropList, InsertComponent, ToggleButtonModule, ContextMenuModule, OverlayPanelModule, ButtonModule, InputTextModule, ToastModule],
   providers: [TreeDragDropService],
   templateUrl: './structure-tree.component.html',
   styleUrls: ['./structure-tree.component.scss']

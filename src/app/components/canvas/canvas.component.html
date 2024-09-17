@@ -1,28 +1,18 @@
-
 <div #wrapper
      class="pan-zoom-wrapper"
-     [id]="CANVAS_WRAPPER_ID"
-     cdkDropList
-     cdkDropListSortingDisabled="false"
-     (cdkDropListDropped)="onDrop($event)">
+      dragula="canvas"
+     [id]="CANVAS_WRAPPER_ID">
   @for (frame of frames; track frame.key) {
     <app-container [item]="frame"
-               [id]="frame.key!"
-               [selectedFrameKey]="selectedFrameKey"
-               (clicked)="onFrameClicked($event)"
-               (mouseOver)="onMouseOver($event)"
-               (mouseOut)="onMouseOut($event)"
-               (contextMenu)="onContextMenu($event)"
-               (copyItem)="onCopy($event)"
-               (pasteItem)="onPaste($event)"
-               (childTextContentChanged)="onChildTextContentChanged($event)"
-               cdkDrag
-               cdkDropList
-               [cdkDragBoundary]="'#' + CANVAS_WRAPPER_ID"
-               [cdkDropListData]="frame?.key"
-               [cdkDragDisabled]="isPanModeActive"
-               [cdkDropListOrientation]="frame?.css?.flexContainer?.flexDirection === 'row' ? 'horizontal' : 'vertical'"
-               (cdkDropListDropped)="onDrop($event)"></app-container>
+                   [id]="frame.key!"
+                   [selectedFrameKey]="selectedFrameKey"
+                   (clicked)="onFrameClicked($event)"
+                   (mouseOver)="onMouseOver($event)"
+                   (mouseOut)="onMouseOut($event)"
+                   (contextMenu)="onContextMenu($event)"
+                   (copyItem)="onCopy($event)"
+                   (pasteItem)="onPaste($event)"
+                   (childTextContentChanged)="onChildTextContentChanged($event)"></app-container>
   }
 
   <div class="selection-overlay">
