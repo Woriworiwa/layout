@@ -293,11 +293,16 @@ export class CanvasStore extends Store<CanvasState> {
   }
 
   private insertItem(insertAfterFrameId: string, newFrame: CanvasItem) {
-    const parentFrameKey = this.getParentItemKey(insertAfterFrameId, this.canvasItems, CANVAS_WRAPPER_ID);
+    const parentFrameKey = this.getParentItemKey(insertAfterFrameId, this.canvasItems, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
 
     if (parentFrameKey === CANVAS_WRAPPER_ID) {
       const frames = this.getState().canvasItems || [];
-      frames.splice(this.canvasItems.findIndex(frame => frame.key === insertAfterFrameId) + 1, 0, newFrame);
+      if (!insertAfterFrameId) {
+        frames.push(newFrame);
+      } else {
+        const insertAfterFrameIndex = this.canvasItems.findIndex(frame => frame.key === insertAfterFrameId);
+        frames.splice(insertAfterFrameIndex + 1, 0, newFrame);
+      }
     } else {
       const parentFrame = this.getItemById(this.canvasItems, parentFrameKey);
       if (!parentFrame) {
@@ -315,6 +320,7 @@ export class CanvasStore extends Store<CanvasState> {
       ...this.getState(),
       canvasItems: cloneDeep(this.getState().canvasItems),
     })
+
     this.setCanvasItems(cloneDeep(this.getState().canvasItems));
 
     this.setSelectedCanvasItemKey(newFrame.key);

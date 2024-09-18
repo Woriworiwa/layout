@@ -1,0 +1,10 @@
+<div class="selection-wrapper">
+  <p-selectButton
+    [options]="tabs"
+    [(ngModel)]="selectedTab"
+    optionLabel="label"
+    optionValue="tab" />
+</div>
+
+<app-insert *ngIf="selectedTab === LeftMenuTabs.insert"></app-insert>
+<app-structure-tree *ngIf="selectedTab === LeftMenuTabs.elements"></app-structure-tree>

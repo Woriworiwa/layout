@@ -14,13 +14,13 @@ import {PresetComponent} from "./preset.component";
   styleUrls: [`insert.component.scss`]
 })
 export class InsertComponent {
-  items: Preset[];
-
   @Input()
   parentFrameId: string | undefined;
 
   @Output()
   componentAdded = new EventEmitter<boolean>();
+
+  items: Preset[];
 
   constructor(private canvasStore: CanvasStore) {
     this.items = this.canvasStore.getPresets();
