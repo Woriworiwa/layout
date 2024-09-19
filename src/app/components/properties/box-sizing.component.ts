@@ -1,16 +1,15 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import type * as CSS from "csstype";
 import {Property} from "csstype";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CanvasStore} from "../../store/canvas.store";
-import {Subject, Subscription, takeUntil} from "rxjs";
+import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SliderModule} from "primeng/slider";
 import {SliderComponent} from "./property-items/slider.component";
 import {AccordionModule} from "primeng/accordion";
-import {BasePropertyGroup} from "./base-property-group";
+import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {MenuModule} from "primeng/menu";
 import {PanelModule} from "primeng/panel";
@@ -48,7 +47,7 @@ import {PanelModule} from "primeng/panel";
     }
   `
 })
-export class BoxSizingComponent extends BasePropertyGroup {
+export class BoxSizingComponent extends BasePropertyGroupComponent implements OnChanges{
 
   items: { label?: string; icon?: string; separator?: boolean }[] = [];
 

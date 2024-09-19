@@ -29,11 +29,13 @@ export class SelectionService {
     this.canvasStore.selectedCanvasItem$
       .pipe(combineLatestWith(this.dragDropService.state$))
       .subscribe(([selectedFrame, dragDropState]) => {
-          if (!selectedFrame || dragDropState.isDragging) {
-            this.removeItem(this.canvasSelectionItem!);
+          if ((!selectedFrame || dragDropState.isDragging) && this.canvasSelectionItem) {
+            this.removeItem(this.canvasSelectionItem);
             this.canvasSelectionItem = undefined;
           } else {
-            this.renderItem('selection', selectedFrame!);
+            if (selectedFrame) {
+              this.renderItem('selection', selectedFrame);
+            }
           }
         }
       )
@@ -41,14 +43,19 @@ export class SelectionService {
     this.canvasStore.hoverCanvasItem$
       .pipe(combineLatestWith(this.dragDropService.state$))
       .subscribe(([hoverFrame, dragDropState]) => {
-          if (!hoverFrame) {
-            this.removeItem(this.canvasHoverItem!);
+          if (!hoverFrame && this.canvasHoverItem) {
+            this.removeItem(this.canvasHoverItem);
             this.canvasHoverItem = undefined;
           } else {
             if (dragDropState.isDragging) {
               return;
             }
+
             if (this.panZoomService.isPanModeActive) {
+              return;
+            }
+
+            if (!hoverFrame || !hoverFrame?.key) {
               return;
             }
 
@@ -56,14 +63,18 @@ export class SelectionService {
               return;
             }
 
-            this.renderItem('hover', hoverFrame!);
+            this.renderItem('hover', hoverFrame);
           }
         }
       )
   }
 
   showContextMenu(event: any) {
-    setTimeout(() => this.contextMenuService.show(this.canvasSelectionItem!.instance.contextMenu.contextMenu, event), 10);
+    setTimeout(() => {
+      if (this.canvasSelectionItem) {
+        this.contextMenuService.show(this.canvasSelectionItem.instance.contextMenu.contextMenu, event)
+      }
+    }, 10);
   }
 
   renderItem(itemType: 'selection' | 'hover', canvasItem: CanvasItem) {

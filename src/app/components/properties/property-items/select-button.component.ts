@@ -31,5 +31,5 @@ export class SelectButtonComponent {
   control: FormControl<any> = new FormControl<any>('');
 
   @Input()
-  label: string = '';
+  label = '';
 }

@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
 import {DragulaService} from "ng2-dragula";
-import {MessageService} from "primeng/api";
 
 @Injectable()
 export class DragDropService {

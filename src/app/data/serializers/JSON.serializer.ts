@@ -1,8 +1,5 @@
 import {Serializer} from "./serializer";
 import {CanvasItem} from "../../models/canvas-item.model";
-import {CanvasItemType} from "../../models/enums";
-import {CssClassSerializer} from "./css-class.serializer";
-import cloneDeep from "lodash.clonedeep";
 import {Css} from "../../models/css.model";
 
 export class JSONSerializer extends Serializer {
@@ -10,7 +7,7 @@ export class JSONSerializer extends Serializer {
     super();
   }
 
-  serialize(items: CanvasItem[]): string[] {
+  serialize(): string[] {
     return [];
   }
 

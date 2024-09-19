@@ -5,7 +5,7 @@
 
 <!--  structure tree-->
 <div class="left">
-  <app-left-menu *ngIf="!(appSettingsStore.previewActive$ | async)"></app-left-menu>
+  <app-left-menu *ngIf="(appSettingsStore.previewActive$ | async) === false"></app-left-menu>
 </div>
 
 <!--  main-->
@@ -30,7 +30,7 @@
 
 <!--  properties -->
 <div class="right">
-  <app-settings *ngIf="!(appSettingsStore.previewActive$ | async)"></app-settings>
+  <app-settings *ngIf="(appSettingsStore.previewActive$ | async) === false"></app-settings>
 </div>
 
 <!-- toast messages -->

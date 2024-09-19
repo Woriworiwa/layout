@@ -11,7 +11,7 @@
         droppableScope="self"
         (onNodeContextMenuSelect)="onNodeContextMenu($event)"
         (onNodeExpand)="onNodeExpand($event)"
-        (onNodeDrop)="onNodeDrop($event)">
+        (onNodeDrop)="onNodeDrop()">
 </p-tree>
 
 <p-contextMenu #contextMenu [model]="contextMenuItems"></p-contextMenu>

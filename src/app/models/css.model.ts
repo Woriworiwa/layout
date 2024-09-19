@@ -24,6 +24,7 @@ export const AlignContent = proxiedPropertiesOf<Enumify<Property.AlignContent>>(
 export const Display = proxiedPropertiesOf<Enumify<Property.Display>>();
 
 /* Box sizing */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface BoxSizing extends Pick<CSS.Properties,
   'padding' |
   'height' |
@@ -32,12 +33,14 @@ export interface BoxSizing extends Pick<CSS.Properties,
 }
 
 /* Display */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface Display extends Pick<CSS.Properties,
   'display'
 > {
 }
 
 /* Container */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface Container extends Pick<CSS.Properties,
   'justifyContent' |
   'alignItems' |
@@ -47,12 +50,14 @@ export interface Container extends Pick<CSS.Properties,
 }
 
 /* Flex */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface FlexContainer extends Container, Pick<CSS.Properties,
   'flexDirection' |
   'flexWrap'
 > {
 }
 
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface FlexItem extends Pick<CSS.Properties,
   'flexGrow' |
   'flexShrink' |

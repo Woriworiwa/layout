@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DropdownModule} from "primeng/dropdown";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
@@ -11,7 +11,6 @@ import {ButtonModule} from "primeng/button";
 import {FloatLabelModule} from "primeng/floatlabel";
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 import {InputTextModule} from "primeng/inputtext";
-import {ContextMenu} from "primeng/contextmenu";
 
 @Component({
   selector: 'app-property-item-slider',
@@ -23,7 +22,7 @@ import {ContextMenu} from "primeng/contextmenu";
         <p-inputGroup>
           <p-inputNumber [id]="label" inputId="integeronly" [formControl]="control" [suffix]="suffix" (onKeyDown)="onKeyDown($event)"></p-inputNumber>
           <button type="button" pButton icon="pi pi-times" (click)="onClearButtonClick()"
-                  [disabled]="control.value == null" class="p-button-secondary"></button>
+                  [disabled]="control.value === null || control.value === undefined" class="p-button-secondary"></button>
         </p-inputGroup>
         <p-slider [formControl]="control" [max]="max" (onChange)="onSliderChange($event)"></p-slider>
       </div>
@@ -54,17 +53,14 @@ import {ContextMenu} from "primeng/contextmenu";
   `
 })
 export class SliderComponent {
-  @Input() label: string = '';
+  @Input() label = '';
   @Input() control: FormControl<any> = new FormControl<any>('');
-  @Input() max: number = 100;
+  @Input() max = 100;
   @Input() controlValue: unknown = null;
   @Input() suffix: string | undefined = POSTFIX_UNIT;
-  @Input() visible: boolean = true;
+  @Input() visible = true;
 
   @ViewChild(InputNumber) inputNumber!: InputNumber;
-
-  constructor(private cd: ChangeDetectorRef) {
-  }
 
   onClearButtonClick() {
     this.control.setValue(null);

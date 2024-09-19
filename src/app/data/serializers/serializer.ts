@@ -5,7 +5,7 @@ export abstract class Serializer {
 
   public abstract serialize(items: CanvasItem[]): string[];
 
-  protected indent(value: string, depth: number = 0): string {
+  protected indent(value: string, depth = 0): string {
     return this.paddingCharacter.repeat(depth * 2) + value;
   }
 }

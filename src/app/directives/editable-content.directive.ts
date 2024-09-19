@@ -1,7 +1,6 @@
 import {Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output} from "@angular/core";
 import {CanvasItem} from "../models/canvas-item.model";
-import {BehaviorSubject, debounceTime} from "rxjs";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {BehaviorSubject} from "rxjs";
 import {SelectionService} from "../services/selection.service";
 
 /*
@@ -10,14 +9,14 @@ import {SelectionService} from "../services/selection.service";
 * it works by simple setting @HostBinding('attr.contenteditable') to true when the element is double clicked.
 * */
 @Directive({
-  selector: '[app-editable-content]',
+  selector: '[appEditableContent]',
   standalone: true,
   host: {
     '[attr.tabindex]': '-1',
     '[class.editable]': 'true',
   }
 })
-export class EditorContentDirective {
+export class EditableContentDirective {
   @HostBinding('attr.contenteditable')
   editMode = false;
 
@@ -25,7 +24,7 @@ export class EditorContentDirective {
   @Output() contentChanged = new EventEmitter<{ key: string, content: string }>();
 
   @HostListener('dblclick', ['$event'])
-  onDoubleClick($event: any) {
+  onDoubleClick($event: MouseEvent) {
     $event.stopPropagation();
     this.editMode = true;
     this.elementRef.nativeElement.focus();
@@ -51,8 +50,8 @@ export class EditorContentDirective {
   onKeyDown(event: any) {
     event.stopPropagation();
 
-    if (event.key === 'Enter') {
-      this.contentChanged.emit({key: this.item?.key!, content: this.elementRef.nativeElement.innerText});
+    if (event.key === 'Enter' && this.item?.key) {
+      this.contentChanged.emit({key: this.item?.key, content: this.elementRef.nativeElement.innerText});
       this.selectionService.setVisibility('visible');
     }
   }

@@ -15,8 +15,7 @@ export class DataService {
       return savedData;
     }
 
-    const frames: CanvasItem[] = mockData as CanvasItem[];
-    return frames;
+    return mockData as CanvasItem[];
   }
 
   saveDataToLocalStorage() {
@@ -33,7 +32,10 @@ export class DataService {
     let canvasItems: CanvasItem[] = [];
 
     try {
-      canvasItems = JSON.parse(localStorage.getItem('CANVAS_ITEMS')!);
+      const localStorageItem = localStorage.getItem('CANVAS_ITEMS');
+      if (localStorageItem) {
+        canvasItems = JSON.parse(localStorageItem);
+      }
     } catch (e) {
       console.warn('no data available in localStorage');
     }

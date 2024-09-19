@@ -1,9 +1,8 @@
-import {Component, ElementRef, Input, Renderer2} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CavnasBaseComponent} from "../canvas-base-component.component";
+import {CanvasBaseComponent} from "../canvas-base-component.component";
 import {CanvasStore} from "../../../store/canvas.store";
 import {SelectionService} from "../../../services/selection.service";
-import {Clipboard} from '@angular/cdk/clipboard';
 import {DragulaService} from "ng2-dragula";
 
 @Component({
@@ -22,7 +21,7 @@ import {DragulaService} from "ng2-dragula";
   }
   `
 })
-export class TextComponent extends CavnasBaseComponent{
+export class TextComponent extends CanvasBaseComponent implements OnChanges{
   @Input() selectedFrameKey!: string | undefined;
 
   constructor(private canvasStore: CanvasStore,

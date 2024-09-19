@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, Renderer2} from "@angular/core";
+import {Component, ElementRef, Input, OnChanges, Renderer2} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
@@ -14,11 +14,11 @@ import {CanvasItem} from "../../../models/canvas-item.model";
   templateUrl: './canvas-hover-item.component.html',
   styleUrls: ['./canvas-hover-item.component.scss']
 })
-export class CanvasHoverItemComponent {
-  @Input() width: number = 0;
-  @Input() height: number = 0;
-  @Input() top: number = 0;
-  @Input() left: number = 0;
+export class CanvasHoverItemComponent implements OnChanges{
+  @Input() width = 0;
+  @Input() height = 0;
+  @Input() top = 0;
+  @Input() left = 0;
   @Input() canvasItem: CanvasItem | undefined = undefined;
   @Input() visibility: 'visible' | 'hidden' = 'visible';
 
