@@ -43,3 +43,6 @@ Thumbs.db
 
 
 .nx/cache
+.angular
+/.nx/
+/.nx/workspace-data/
