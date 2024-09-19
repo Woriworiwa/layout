@@ -38,9 +38,11 @@ export class CanvasStore extends Store<CanvasState> {
       distinctUntilChanged()
     )
   }
+
   get canvasItems() {
     return this.getState().canvasItems;
   }
+
   setCanvasItems(frames: CanvasItem[], pushToUndoStack = true) {
     this.setState({
       ...this.getState(),

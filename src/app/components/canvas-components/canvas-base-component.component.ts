@@ -30,8 +30,6 @@ export class CavnasBaseComponent{
   @Output() mouseOver = new EventEmitter<CanvasItemMouseEvent>();
   @Output() mouseOut = new EventEmitter<CanvasItemMouseEvent>();
   @Output() contextMenu = new EventEmitter<CanvasItemMouseEvent>();
-  @Output() copyItem = new EventEmitter<CanvasItem>();
-  @Output() pasteItem = new EventEmitter<CanvasItem>();
 
   private destroy$ = new Subject();
 
@@ -68,17 +66,7 @@ export class CavnasBaseComponent{
     this.contextMenu.emit({canvasItem: this.item!, mouseEvent: $event});
   }
 
-  @HostListener('keydown.control.c', ['$event'])
-  onCopy($event: any) {
-    $event.stopPropagation();
-    this.copyItem.emit(this.item!);
-  }
 
-  @HostListener('keydown.control.v', ['$event'])
-  onPaste($event: any) {
-    $event.stopPropagation();
-    this.pasteItem.emit(this.item!);
-  }
 
   ngOnChanges() {
     this.updateCssAndSelection();

@@ -1,12 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component, ElementRef,
-  EventEmitter, HostListener,
+  EventEmitter,
   Input,
   Output, Renderer2
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CanvasItem, CanvasItemMouseEvent} from "../../../models/canvas-item.model";
+import {CanvasItemMouseEvent} from "../../../models/canvas-item.model";
 import {EditorContentDirective} from "../../../directives/editorcontent.directive";
 import {TextComponent} from "../text/text.component";
 import {CanvasItemType} from '../../../models/enums';
@@ -64,13 +64,5 @@ export class ContainerComponent extends CavnasBaseComponent {
 
   protected onChildTextContentChanged({key, content}: { key: string, content: string }) {
     this.childTextContentChanged.emit({key, content});
-  }
-
-  oncChildCopy($event: CanvasItem) {
-    this.copyItem.emit($event);
-  }
-
-  onChildPaste($event: CanvasItem) {
-    this.pasteItem.emit($event);
   }
 }

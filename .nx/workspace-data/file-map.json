@@ -115,7 +115,7 @@
         },
         {
           "file": "src/app/app.component.html",
-          "hash": "5552976086440797713"
+          "hash": "18215706416329297170"
         },
         {
           "file": "src/app/app.component.scss",
@@ -130,7 +130,7 @@
         },
         {
           "file": "src/app/app.component.ts",
-          "hash": "16872045661140949386",
+          "hash": "5434696637857498433",
           "deps": [
             "npm:@angular/core",
             "npm:@angular/router",
@@ -157,7 +157,7 @@
         },
         {
           "file": "src/app/components/canvas-components/canvas-base-component.component.ts",
-          "hash": "11438657156829903994",
+          "hash": "6120571362655678233",
           "deps": [
             "npm:@angular/core",
             "npm:@angular/common",
@@ -167,7 +167,7 @@
         },
         {
           "file": "src/app/components/canvas-components/frame/container.component.html",
-          "hash": "12538708111303672687"
+          "hash": "5885443611291273500"
         },
         {
           "file": "src/app/components/canvas-components/frame/container.component.scss",
@@ -175,7 +175,7 @@
         },
         {
           "file": "src/app/components/canvas-components/frame/container.component.ts",
-          "hash": "10202573127760098942",
+          "hash": "756804407465730577",
           "deps": [
             "npm:@angular/core",
             "npm:@angular/common",
@@ -195,7 +195,7 @@
         },
         {
           "file": "src/app/components/canvas/canvas.component.html",
-          "hash": "17068851907702382388"
+          "hash": "12228426129026539464"
         },
         {
           "file": "src/app/components/canvas/canvas.component.scss",
@@ -203,19 +203,18 @@
         },
         {
           "file": "src/app/components/canvas/canvas.component.ts",
-          "hash": "15361535072669195399",
+          "hash": "11327023288646734267",
           "deps": [
             "npm:@angular/core",
             "npm:@angular/common",
             "npm:@angular/cdk",
             "npm:ng2-dragula",
-            "npm:rxjs",
             "npm:primeng"
           ]
         },
         {
           "file": "src/app/components/canvas/context-menu/context-menu.component.ts",
-          "hash": "2674123363417579939",
+          "hash": "13403875156294392047",
           "deps": [
             "npm:@angular/core",
             "npm:@angular/common",
@@ -294,15 +293,15 @@
         },
         {
           "file": "src/app/components/insert/insert.component.html",
-          "hash": "5950465845799599265"
+          "hash": "2976784145014416221"
         },
         {
           "file": "src/app/components/insert/insert.component.scss",
-          "hash": "46826182970561013"
+          "hash": "15486508626454073372"
         },
         {
           "file": "src/app/components/insert/insert.component.ts",
-          "hash": "7266995216088326773",
+          "hash": "9944769014556350377",
           "deps": [
             "npm:@angular/core",
             "npm:@angular/common",
@@ -324,6 +323,31 @@
             "npm:@angular/core",
             "npm:@angular/common",
             "npm:primeng"
+          ]
+        },
+        {
+          "file": "src/app/components/left-menu/left-menu.component.html",
+          "hash": "13261016593954471599"
+        },
+        {
+          "file": "src/app/components/left-menu/left-menu.component.scss",
+          "hash": "8055868055617440979"
+        },
+        {
+          "file": "src/app/components/left-menu/left-menu.component.spec.ts",
+          "hash": "11668581593360614766",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "src/app/components/left-menu/left-menu.component.ts",
+          "hash": "10371236657916525937",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common",
+            "npm:primeng",
+            "npm:@angular/forms"
           ]
         },
         {
@@ -521,7 +545,7 @@
         },
         {
           "file": "src/app/data/mock-data.ts",
-          "hash": "11813439378641444723"
+          "hash": "6567804002912983341"
         },
         {
           "file": "src/app/data/presets.ts",
@@ -549,6 +573,13 @@
         {
           "file": "src/app/data/serializers/serializer.ts",
           "hash": "8949853157639411388"
+        },
+        {
+          "file": "src/app/directives/copy-paste.directive.ts",
+          "hash": "6663647092272263116",
+          "deps": [
+            "npm:@angular/core"
+          ]
         },
         {
           "file": "src/app/directives/editorcontent.directive.ts",
@@ -620,6 +651,13 @@
           ]
         },
         {
+          "file": "src/app/services/copy-paste.service.ts",
+          "hash": "7882222941157432093",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
           "file": "src/app/services/data.service.ts",
           "hash": "1040716837153489947",
           "deps": [
@@ -686,7 +724,7 @@
         },
         {
           "file": "src/app/store/canvas.store.ts",
-          "hash": "6206667474558526571",
+          "hash": "5749585319634276882",
           "deps": [
             "npm:@angular/core",
             "npm:lodash.clonedeep",

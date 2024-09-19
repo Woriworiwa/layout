@@ -1,7 +1,7 @@
 <span class="dragula-wrapper" dragula="canvas">
 @switch (item?.itemType) {
   @case (FrameType.FLEX) {
-    @for (childItem of item?.children; track childItem) {
+    @for (childItem of item?.children; track childItem.key) {
       @switch (childItem.itemType) {
         @case (FrameType.FLEX) {
           <app-container [item]="childItem"
@@ -11,17 +11,13 @@
                          (contextMenu)="onChildContextMenu($event)"
                          [selectedFrameKey]="selectedFrameKey"
                          [id]="childItem.key!"
-                         (childTextContentChanged)="onChildTextContentChanged($event)"
-                         (copyItem)="oncChildCopy($event)"
-                         (pasteItem)="onChildPaste($event)">
+                         (childTextContentChanged)="onChildTextContentChanged($event)">
             </app-container>
         }
         @case (FrameType.TEXT) {
           <app-text app-editable-content
                     [item]="childItem"
                     [id]="childItem.key!"
-                    (copyItem)="oncChildCopy($event)"
-                    (pasteItem)="onChildPaste($event)"
                     (clicked)="onChildFrameClick($event)"
                     (mouseOver)="onChildMouseOver($event)"
                     (mouseOut)="onChildMouseOut($event)"

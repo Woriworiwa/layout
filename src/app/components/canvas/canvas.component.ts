@@ -22,14 +22,16 @@ import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
 import {PanZoomService} from "../../services/pan-zoom.service";
 import {DragDropService} from "../../services/drag-drop.service";
 import {DragulaModule, DragulaService} from "ng2-dragula";
-import {distinctUntilChanged, map} from "rxjs";
 import {MessageService} from "primeng/api";
+import {CopyPasteService} from "../../services/copy-paste.service";
+import {CopyPasteDirective} from "../../directives/copy-paste.directive";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, DragulaModule],
-  providers: [ContextMenuService, SelectionService, PanZoomService, DragDropService],
+  providers: [ContextMenuService, SelectionService, PanZoomService, DragDropService, CopyPasteService],
+  hostDirectives: [CopyPasteDirective],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
@@ -150,6 +152,8 @@ export class CanvasComponent {
     }
   }
 
+
+
   onDrop(event: CdkDragDrop<string | undefined, any>) {
     this.canvasStore.moveItemChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
   }
@@ -173,13 +177,13 @@ export class CanvasComponent {
         return;
       }
 
-      this.messageService.add({
-        life: 5000,
-        severity: 'info',
-        summary: 'Drag and Drop',
-        detail: 'Drag and Drop of elements is disabled in this version. Please use the elements tree on the left side to re-order elements'
-      });
-      return false;
+      // this.messageService.add({
+      //   life: 5000,
+      //   severity: 'info',
+      //   summary: 'Drag and Drop',
+      //   detail: 'Drag and Drop of elements is disabled in this version. Please use the elements tree on the left side to re-order elements'
+      // });
+      // return false;
     });
   }
 
@@ -211,13 +215,5 @@ export class CanvasComponent {
 
   private setTransformStyles() {
     this.renderer.setStyle(this.wrapper.nativeElement, 'transform', `scale(${this.scale})  translateY(${this.translateY}px) translateX(${this.translateX}px)`);
-  }
-
-  onCopy($event: CanvasItem) {
-    this.copyItemId = $event.key;
-  }
-
-  onPaste($event: CanvasItem) {
-    this.canvasStore.pasteItem(this.copyItemId, $event.key);
   }
 }

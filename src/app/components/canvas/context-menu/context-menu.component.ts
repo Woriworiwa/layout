@@ -1,9 +1,9 @@
-import {Component, HostListener, Input, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ContextMenu, ContextMenuModule} from "primeng/contextmenu";
-import {ContextMenuService} from "../../../services/context-menu.service";
-import {MenuItem, MenuItemCommandEvent} from "primeng/api";
+import {MenuItem} from "primeng/api";
 import {CanvasStore} from "../../../store/canvas.store";
+import {CopyPasteService} from "../../../services/copy-paste.service";
 
 
 @Component({
@@ -22,7 +22,8 @@ export class ContextMenuComponent {
 
   items: MenuItem[] | undefined;
 
-  constructor(private canvasStore: CanvasStore) {
+  constructor(private canvasStore: CanvasStore,
+              private copyPasteService: CopyPasteService) {
   }
 
   ngOnInit() {
@@ -31,6 +32,18 @@ export class ContextMenuComponent {
         label: 'Delete', icon: 'pi pi-fw pi-trash',
         command: () => {
           this.canvasStore.deleteCanvasItem(this.frameKey);
+        }
+      },
+      {
+        label: 'Copy', icon: 'pi pi-fw pi-copy',
+        command: () => {
+          this.copyPasteService.copy();
+        }
+      },
+      {
+        label: 'Paste', icon: 'pi pi-fw pi-file',
+        command: () => {
+          this.copyPasteService.paste();
         }
       }
     ];
