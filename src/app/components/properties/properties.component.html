@@ -16,23 +16,23 @@
       <app-css-prism [canvasItems]="frame ? [frame] : this.canvasStore.canvasItems"></app-css-prism>
     </p-panel>
 
-    <app-properties-box-sizing [css]="frame?.css"
+    <app-properties-box-sizing [css]="frame.css"
                                [title]="'Box sizing'"
                                [searchText]="searchText"></app-properties-box-sizing>
 
-    <app-properties-display [css]="frame?.css"
+    <app-properties-display [css]="frame.css"
                             [title]="'Display'"
                             [searchText]="searchText"></app-properties-display>
 
-    @switch (frame?.itemType) {
+    @switch (frame.itemType) {
       @case (FrameType.FLEX) {
-        <app-properties-flex-container [css]="frame?.css"
+        <app-properties-flex-container [css]="frame.css"
                                        [title]="'Flex container'"
                                        [searchText]="searchText"></app-properties-flex-container>
       }
     }
 
-    <app-properties-flex-item [css]="frame?.css"
+    <app-properties-flex-item [css]="frame.css"
                               [title]="'Flex item'"
                               [searchText]="searchText"></app-properties-flex-item>
   </div>

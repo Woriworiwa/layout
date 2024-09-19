@@ -162,10 +162,10 @@ export class CanvasStore extends Store<CanvasState> {
     const currentContainer = this.getItemById(this.canvasItems, currentItemId);
     const previousContainer = this.getItemById(this.canvasItems, previousItemId);
 
-    if (currentItemId === previousItemId) {
-      moveItemInArray(currentContainer?.children!, previousIndex, currentIndex);
-    } else {
-      transferArrayItem(previousContainer?.children!, currentContainer?.children!, previousIndex, currentIndex);
+    if (currentItemId === previousItemId && currentContainer?.children) {
+      moveItemInArray(currentContainer?.children, previousIndex, currentIndex);
+    } else if(previousContainer?.children && currentContainer?.children) {
+      transferArrayItem(previousContainer?.children, currentContainer?.children, previousIndex, currentIndex);
     }
 
     this.setCanvasItems(cloneDeep(this.getState().canvasItems));
@@ -280,7 +280,7 @@ export class CanvasStore extends Store<CanvasState> {
       return undefined;
     }
 
-    for (let frame of frames) {
+    for (const frame of frames) {
       if (frame.key === key) {
         return frame;
       }

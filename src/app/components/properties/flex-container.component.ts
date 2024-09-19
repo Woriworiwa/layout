@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
@@ -8,7 +8,7 @@ import {AlignContent, AlignItems, FlexDirection, FlexWrap, JustifyContent} from 
 import {DropdownComponent} from "./property-items/dropdown.component";
 import {SelectButtonComponent} from "./property-items/select-button.component";
 import {SliderComponent} from "./property-items/slider.component";
-import {BasePropertyGroup} from "./base-property-group";
+import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {PanelModule} from "primeng/panel";
 
@@ -56,7 +56,7 @@ import {PanelModule} from "primeng/panel";
     }
   `
 })
-export class PropertiesFlexConainer extends BasePropertyGroup {
+export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent implements OnChanges{
 
   /*direction*/
   flexDirectionOptions = [
@@ -119,7 +119,7 @@ export class PropertiesFlexConainer extends BasePropertyGroup {
     }
   }
 
-  protected override createFormGroup() {
+  override createFormGroup() {
     if (this.formGroupValueChangedSubscription) {
       this.formGroupValueChangedSubscription.unsubscribe();
     }

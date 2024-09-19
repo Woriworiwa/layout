@@ -1,8 +1,6 @@
-import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {CanvasStore} from "../../store/canvas.store";
-import {DataService} from "../../services/data.service";
 import {Preset} from "../../models/preset.model";
 import {PresetComponent} from "./preset.component";
 
@@ -27,7 +25,11 @@ export class InsertComponent {
   }
 
   addItem(presetId: string) {
-    this.canvasStore.addNewPreset(presetId, this.parentFrameId!);
+    if (!this.parentFrameId) {
+      return;
+    }
+
+    this.canvasStore.addNewPreset(presetId, this.parentFrameId);
     this.componentAdded.emit(true);
   }
 }

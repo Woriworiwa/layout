@@ -1,16 +1,16 @@
-import {Component, Input} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Css, Display} from "../../models/css.model";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {Display} from "../../models/css.model";
+import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {CanvasStore} from "../../store/canvas.store";
 import {Property} from "csstype";
-import {Subject, Subscription, takeUntil} from "rxjs";
+import { takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SliderModule} from "primeng/slider";
 import {DropdownComponent} from "./property-items/dropdown.component";
 import {AccordionModule} from "primeng/accordion";
-import {BasePropertyGroup} from "./base-property-group";
+import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {PanelModule} from "primeng/panel";
 
@@ -32,7 +32,7 @@ import {PanelModule} from "primeng/panel";
     }
   `
 })
-export class DisplayComponent extends BasePropertyGroup {
+export class DisplayComponent extends BasePropertyGroupComponent implements OnChanges{
   displayOptions = [
     Display.block,
     Display.flex,
@@ -59,7 +59,7 @@ export class DisplayComponent extends BasePropertyGroup {
   }
 
 
-  protected override createFormGroup() {
+  override createFormGroup() {
     if (this.formGroupValueChangedSubscription) {
       this.formGroupValueChangedSubscription.unsubscribe();
     }

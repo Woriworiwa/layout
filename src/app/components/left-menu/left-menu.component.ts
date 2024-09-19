@@ -17,13 +17,10 @@ import {CANVAS_WRAPPER_ID} from "../../models/constants";
 })
 export class LeftMenuComponent {
   selectedTab: LeftMenuTabs = LeftMenuTabs.insert;
-  tabs: any[] = [
+  tabs: {label: string, tab: LeftMenuTabs}[] = [
     { label: 'Insert', tab: LeftMenuTabs.insert },
     { label: 'Elements', tab: LeftMenuTabs.elements }
   ];
-
-  constructor() {
-  }
 
   protected readonly LeftMenuTabs = LeftMenuTabs;
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;

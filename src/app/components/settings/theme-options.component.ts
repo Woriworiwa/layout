@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Output, Renderer2} from '@angular/core';
+import {Component, Inject, Renderer2} from '@angular/core';
 import {CommonModule, DOCUMENT} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ThemeService} from "../../services/theme.service";
@@ -73,7 +73,7 @@ export class ThemeOptionsComponent {
   }
 
   onVisibleChange(value: boolean) {
-    if (value === false) {
+    if (!value) {
       this.themeService.hideConfig();
     }
   }

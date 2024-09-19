@@ -4,7 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
-  Input,
+  Input, OnChanges, OnDestroy,
   Output,
   Renderer2
 } from '@angular/core';
@@ -24,7 +24,7 @@ import {DragulaService} from "ng2-dragula";
   imports: [CommonModule],
   template: ``
 })
-export class CavnasBaseComponent{
+export class CanvasBaseComponent implements OnDestroy, OnChanges {
   @Input() item: CanvasItem | undefined;
   @Output() clicked = new EventEmitter<CanvasItemMouseEvent>();
   @Output() mouseOver = new EventEmitter<CanvasItemMouseEvent>();
@@ -41,32 +41,50 @@ export class CavnasBaseComponent{
   }
 
   @HostListener('click', ['$event'])
-  onClick($event: any) {
+  onClick($event: MouseEvent) {
     $event.stopPropagation();
-    this.clicked.emit({canvasItem: this.item!, mouseEvent: $event});
+
+    if (!this.item) {
+      return;
+    }
+
+    this.clicked.emit({canvasItem: this.item, mouseEvent: $event});
   }
 
   @HostListener('mouseover', ['$event'])
-  onMouseOver($event: any) {
+  onMouseOver($event: MouseEvent) {
     $event.stopPropagation();
     $event.stopImmediatePropagation();
-    this.mouseOver.emit({canvasItem: this.item!, mouseEvent: $event});
+
+    if (!this.item) {
+      return;
+    }
+
+    this.mouseOver.emit({canvasItem: this.item, mouseEvent: $event});
   }
 
   @HostListener('mouseout', ['$event'])
-  onMouseLeave($event: any) {
+  onMouseLeave($event: MouseEvent) {
     $event.stopPropagation();
-    this.mouseOut.emit({canvasItem: this.item!, mouseEvent: $event});
+
+    if (!this.item) {
+      return;
+    }
+
+    this.mouseOut.emit({canvasItem: this.item, mouseEvent: $event});
   }
 
   @HostListener('contextmenu', ['$event'])
-  onContextMenu($event: any) {
+  onContextMenu($event: MouseEvent) {
     $event.stopPropagation();
     $event.preventDefault();
-    this.contextMenu.emit({canvasItem: this.item!, mouseEvent: $event});
+
+    if (!this.item) {
+      return;
+    }
+
+    this.contextMenu.emit({canvasItem: this.item, mouseEvent: $event});
   }
-
-
 
   ngOnChanges() {
     this.updateCssAndSelection();
@@ -80,7 +98,11 @@ export class CavnasBaseComponent{
       });
 
     this.baseDragulaService.drag(this.item?.key).subscribe(() => {
-      this.clicked.emit({canvasItem: this.item!, mouseEvent: new MouseEvent('click')});
+      if(!this.item) {
+        return;
+      }
+
+      this.clicked.emit({canvasItem: this.item, mouseEvent: new MouseEvent('click')});
     });
   }
 
@@ -102,7 +124,11 @@ export class CavnasBaseComponent{
     // Re-render the selection item to update any changes to the size of the item
     if (this.item?.key === this.baseCanvasStore.selectedCanvasItem()?.key) {
       setTimeout(() => {
-        this.baseSelectionService.renderItem('selection', this.item!);
+        if (!this.item) {
+          return;
+        }
+
+        this.baseSelectionService.renderItem('selection', this.item);
       }, 0);
     }
   }

@@ -1,6 +1,6 @@
-import {Component, Renderer2, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeDropEvent, TreeNodeExpandEvent} from "primeng/tree";
+import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeExpandEvent} from "primeng/tree";
 import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
 import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem} from "../../models/canvas-item.model";
@@ -9,7 +9,6 @@ import {CdkDropList} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {CanvasItemType} from "../../models/enums";
-import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {ContextMenuModule} from "primeng/contextmenu";
 import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
 import {ButtonModule} from "primeng/button";
@@ -24,7 +23,7 @@ import {ToastModule} from "primeng/toast";
   templateUrl: './structure-tree.component.html',
   styleUrls: ['./structure-tree.component.scss']
 })
-export class StructureTreeComponent {
+export class StructureTreeComponent implements OnInit {
   @ViewChild(OverlayPanel) renameDialog!: OverlayPanel;
 
   treeNodes!: TreeNode<CanvasItem>[];
@@ -49,7 +48,7 @@ export class StructureTreeComponent {
     }
   }
 
-  onNodeDrop($event: TreeNodeDropEvent) {
+  onNodeDrop() {
     this.canvasStore.setCanvasItems(this.convertTreeNodesToCanvasItems(this.treeNodes));
   }
 
@@ -80,8 +79,8 @@ export class StructureTreeComponent {
     this.canvasStore.selectedCanvasItem$
       .subscribe(selectedItem => {
         this.selectedItems = selectedItem;
-        if (selectedItem) {
-          this.expandNodeAndItsParents(this.treeNodes, selectedItem.key!, undefined);
+        if (selectedItem && selectedItem.key) {
+          this.expandNodeAndItsParents(this.treeNodes, selectedItem.key, undefined);
         }
       })
   }
@@ -115,10 +114,10 @@ export class StructureTreeComponent {
 
   private expandNodeAndItsParents(treeNodes: TreeNode<CanvasItem>[], targetItemKey: string, parentNode: TreeNode<CanvasItem> | undefined) {
     treeNodes.forEach((node) => {
-      if (node.data?.key === targetItemKey && !node.expanded) {
+      if (parentNode?.data?.key && node.key && node.data?.key === targetItemKey && !node.expanded) {
         node.expanded = true;
-        this.expandedNodes.push(node.key!);
-        this.expandNodeAndItsParents(this.treeNodes, parentNode?.data?.key!, parentNode);
+        this.expandedNodes.push(node.key);
+        this.expandNodeAndItsParents(this.treeNodes, parentNode?.data?.key, parentNode);
       } else {
         if (node.children && node.children) {
           this.expandNodeAndItsParents(node.children, targetItemKey, node);

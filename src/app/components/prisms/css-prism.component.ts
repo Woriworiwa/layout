@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import * as Prism from 'prismjs';
 import 'prismjs';
@@ -26,11 +34,11 @@ import {Subject, takeUntil} from "rxjs";
     }
   `
 })
-export class CssPrismComponent {
+export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy{
   @Input()
   canvasItems: CanvasItem[] = [];
 
-  protected css: string = '';
+  protected css = '';
   private destroy$ = new Subject();
 
   constructor(private canvasStore: CanvasStore,

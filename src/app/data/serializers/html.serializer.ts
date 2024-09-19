@@ -59,7 +59,7 @@ export class HtmlSerializer extends Serializer {
     return htmlLines;
   }
 
-  private serializeChildren(canvasItems: CanvasItem[], level: number = 0) {
+  private serializeChildren(canvasItems: CanvasItem[], level = 0) {
     const htmlLines: string[] = [];
 
     canvasItems.forEach(canvasItem => {
@@ -67,8 +67,8 @@ export class HtmlSerializer extends Serializer {
       const cssClasses = `${canvasItem.itemType === CanvasItemType.FLEX ? 'frame' : 'text'} ${canvasItem.key}`;
       htmlLines.push(this.indent(`<div class="${cssClasses}">`, level * 2));
 
-      if (canvasItem.itemType === CanvasItemType.TEXT) {
-        htmlLines.push(canvasItem.content!)
+      if (canvasItem.itemType === CanvasItemType.TEXT && canvasItem.content) {
+        htmlLines.push(canvasItem.content)
       }
 
       /* children */

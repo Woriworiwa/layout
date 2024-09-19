@@ -55,10 +55,14 @@ export class ThemeService {
   changeTheme() {
     const config = this.config();
     const themeLink = <HTMLLinkElement>document.getElementById('app-theme');
-    const themeLinkHref = themeLink.getAttribute('href')!;
+    const themeLinkHref = themeLink.getAttribute('href');
+    if (!themeLinkHref) {
+      return;
+    }
+
     const newHref = themeLinkHref
       .split('/')
-      .map((el) => `${config.theme}.css`)
+      .map(() => `${config.theme}.css`)
       .join('/');
 
     this.replaceThemeLink(newHref);
@@ -66,13 +70,16 @@ export class ThemeService {
 
   replaceThemeLink(href: string) {
     const id = 'app-theme';
-    let themeLink = <HTMLLinkElement>document.getElementById(id);
+    const themeLink = <HTMLLinkElement>document.getElementById(id);
     const cloneLinkElement = <HTMLLinkElement>themeLink.cloneNode(true);
 
     cloneLinkElement.setAttribute('href', href);
     cloneLinkElement.setAttribute('id', id + '-clone');
 
-    themeLink.parentNode!.insertBefore(cloneLinkElement, themeLink.nextSibling);
+    if (themeLink.parentNode) {
+      themeLink.parentNode.insertBefore(cloneLinkElement, themeLink.nextSibling);
+    }
+
     cloneLinkElement.addEventListener('load', () => {
       themeLink.remove();
       cloneLinkElement.setAttribute('id', id);

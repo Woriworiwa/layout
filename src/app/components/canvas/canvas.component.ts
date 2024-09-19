@@ -1,9 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   HostBinding,
   HostListener,
-  Inject,
+  Inject, OnInit,
   Renderer2,
   ViewChild,
   ViewContainerRef
@@ -12,7 +13,7 @@ import {CommonModule, DOCUMENT} from '@angular/common';
 import {ContainerComponent} from "../canvas-components/frame/container.component";
 import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
-import {CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {ContextMenuService} from "../../services/context-menu.service";
@@ -35,7 +36,7 @@ import {CopyPasteDirective} from "../../directives/copy-paste.directive";
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
-export class CanvasComponent {
+export class CanvasComponent implements AfterViewInit, OnInit{
   frames: CanvasItem[] = [];
   selectedFrameKey: string | undefined;
   translateY = 0;
@@ -105,7 +106,7 @@ export class CanvasComponent {
 
   /*click*/
   @HostListener('click', ['$event'])
-  onClick(event: MouseEvent) {
+  onClick() {
     this.canvasStore.setSelectedCanvasItemKey(undefined);
     this.contextMenuService.hide();
   }
@@ -154,9 +155,9 @@ export class CanvasComponent {
 
 
 
-  onDrop(event: CdkDragDrop<string | undefined, any>) {
-    this.canvasStore.moveItemChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
-  }
+  // onDrop(event: CdkDragDrop<string | undefined, any>) {
+  //   this.canvasStore.moveItemChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
+  // }
 
   ngAfterViewInit() {
     this.selectionService.initialize(this.selectionOverlay, this.wrapper);
@@ -200,7 +201,7 @@ export class CanvasComponent {
     this.canvasStore.setHoverItemKey(event.canvasItem.key);
   }
 
-  onMouseOut(event: CanvasItemMouseEvent) {
+  onMouseOut() {
     this.canvasStore.setHoverItemKey(undefined);
   }
 

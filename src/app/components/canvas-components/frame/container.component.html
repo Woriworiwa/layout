@@ -15,7 +15,7 @@
             </app-container>
         }
         @case (FrameType.TEXT) {
-          <app-text app-editable-content
+          <app-text appEditableContent
                     [item]="childItem"
                     [id]="childItem.key!"
                     (clicked)="onChildFrameClick($event)"

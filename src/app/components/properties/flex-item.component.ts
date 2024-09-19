@@ -1,13 +1,12 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {Subject, Subscription, takeUntil} from "rxjs";
+import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
+import {takeUntil} from "rxjs";
 import {CanvasStore} from "../../store/canvas.store";
-import {Css} from "../../models/css.model";
 import {DropdownComponent} from "./property-items/dropdown.component";
 import {SelectButtonComponent} from "./property-items/select-button.component";
 import {SliderComponent} from "./property-items/slider.component";
-import {BasePropertyGroup} from "./base-property-group";
+import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {PanelModule} from "primeng/panel";
 
@@ -49,8 +48,7 @@ import {PanelModule} from "primeng/panel";
     }
   `
 })
-export class PropertiesFlexItem extends BasePropertyGroup {
-
+export class PropertiesFlexItemComponent extends BasePropertyGroupComponent implements OnChanges {
   constructor(public fb: FormBuilder,
               protected frameStore: CanvasStore,
               private propertyFilter: AppPropertyFilterPipe) {

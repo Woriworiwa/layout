@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, Renderer2, SimpleChange, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnChanges, Renderer2, ViewChild} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
@@ -14,11 +14,11 @@ import {CanvasItem} from "../../../models/canvas-item.model";
   templateUrl: './canvas-selection-item.component.html',
   styleUrls: ['./canvas-selection-item.component.scss']
 })
-export class CanvasSelectionItemComponent {
-  @Input() width: number = 0;
-  @Input() height: number = 0;
-  @Input() top: number = 0;
-  @Input() left: number = 0;
+export class CanvasSelectionItemComponent implements OnChanges{
+  @Input() width = 0;
+  @Input() height = 0;
+  @Input() top = 0;
+  @Input() left = 0;
   @Input() canvasItem: CanvasItem | undefined = undefined;
   @Input() visibility: 'visible' | 'hidden' = 'visible';
 

@@ -38,7 +38,7 @@ export class AppComponent {
 
   selectedTabId = 1;
 
-  tabs: any[] = [
+  tabs: { label: string, id: number, icon: string }[] = [
     { label: 'Canvas', id: 1, icon:'pi pi-palette' },
     { label: 'iFrame', id: 2, icon:'pi pi-palette' },
     { label: 'CSS', id: 3, icon:'pi pi-receipt'},
@@ -57,14 +57,14 @@ export class AppComponent {
 
   /* undo */
   @HostListener('document:keydown.control.z', ['$event'])
-  onUndo($event: any) {
+  onUndo($event: KeyboardEvent) {
     $event.stopPropagation();
     this.undoRedoService.undo();
   }
 
   /* redo */
   @HostListener('document:keydown.control.y', ['$event'])
-  onRedo($event: any) {
+  onRedo($event: KeyboardEvent) {
     $event.stopPropagation();
     this.undoRedoService.redo();
   }

@@ -1,7 +1,6 @@
-import {ComponentRef, Injectable} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {ContextMenu} from "primeng/contextmenu";
 import {Subscription} from "rxjs";
-import {CanvasSelectionItemComponent} from "../components/canvas/selection/canvas-selection-item.component";
 
 /* PrimeNg context menu is buggy and does not always close https://github.com/primefaces/primeng/issues/2456 */
 @Injectable()

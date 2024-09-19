@@ -4,7 +4,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable()
 export class PanZoomService {
-  private currentStateSubject: BehaviorSubject<any> = new BehaviorSubject<{panModeActive: boolean, isPanning: boolean}>({
+  private currentStateSubject: BehaviorSubject<{panModeActive: boolean, isPanning: boolean}> = new BehaviorSubject<{panModeActive: boolean, isPanning: boolean}>({
     panModeActive: false,
     isPanning: false
   });

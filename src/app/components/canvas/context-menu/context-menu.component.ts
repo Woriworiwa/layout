@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ContextMenu, ContextMenuModule} from "primeng/contextmenu";
 import {MenuItem} from "primeng/api";
@@ -15,7 +15,7 @@ import {CopyPasteService} from "../../../services/copy-paste.service";
     <p-contextMenu [target]="target" [model]="items" triggerEvent="''" appendTo="body"></p-contextMenu>`,
   styles: ``
 })
-export class ContextMenuComponent {
+export class ContextMenuComponent implements OnInit{
   @Input() target: any;
   @Input() frameKey: string | undefined;
   @ViewChild(ContextMenu) contextMenu!: ContextMenu;

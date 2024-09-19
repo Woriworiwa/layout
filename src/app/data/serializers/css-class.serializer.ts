@@ -13,7 +13,7 @@ export class CssClassSerializer extends Serializer {
     return this.serializeItems(items);
   }
 
-  private serializeItems(items: CanvasItem[], level: number = 0) {
+  private serializeItems(items: CanvasItem[], level = 0) {
     const cssLines: string[] = [];
 
     items.forEach(canvasItem => {

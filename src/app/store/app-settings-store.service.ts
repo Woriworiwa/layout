@@ -1,10 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Store} from "./store";
-import {CanvasState} from "./canvas.store";
 import {distinctUntilChanged, map} from "rxjs";
 
 export class AppSettingsState {
-  previewActive: boolean = false;
+  previewActive = false;
 }
 
 @Injectable({

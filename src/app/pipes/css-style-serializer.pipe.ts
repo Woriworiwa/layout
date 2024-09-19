@@ -7,9 +7,6 @@ import {CanvasItem} from "../models/canvas-item.model";
   name: 'cssStyleSerializer'
 })
 export class CssStyleSerializerPipe implements PipeTransform {
-  constructor() {
-  }
-
   transform(value: CanvasItem | undefined): string {
     if (value == null) {
       return '';

@@ -30,5 +30,5 @@ export class DropdownComponent {
   control: FormControl<any> = new FormControl<any>('');
 
   @Input()
-  label: string = '';
+  label = '';
 }

@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SidebarModule} from "primeng/sidebar";
 import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem} from "../../models/canvas-item.model";
 import {SerializationService} from "../../services/serialization.service";
-import { Serializer } from '../../data/serializers/serializer';
-import {Subject, takeUntil} from "rxjs";
 import {JSONSerializer} from "../../data/serializers/JSON.serializer";
 
 @Component({
@@ -24,7 +22,7 @@ import {JSONSerializer} from "../../data/serializers/JSON.serializer";
     }
   `
 })
-export class JsonPrismComponent {
+export class JsonPrismComponent implements OnChanges, OnInit {
   frames: CanvasItem[] | undefined = undefined;
 
   constructor(protected canvasStore: CanvasStore,

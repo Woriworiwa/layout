@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {AfterViewChecked, Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import * as Prism from 'prismjs';
 import 'prismjs';
@@ -43,8 +43,8 @@ import {SerializationService} from "../../services/serialization.service";
     }
   `
 })
-export class HtmlPrismComponent {
-  code: string = '';
+export class HtmlPrismComponent implements AfterViewChecked {
+  code = '';
 
   constructor(private canvasStore: CanvasStore,
               private serializerService: SerializationService) {

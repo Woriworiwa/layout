@@ -17,7 +17,7 @@ export class CopyPasteDirective {
 
   @HostListener('keydown.control.c', ['$event'])
   @HostListener('keydown.meta.c', ['$event'])
-  onCopy($event: any) {
+  onCopy($event: KeyboardEvent) {
     $event.stopPropagation();
     this.copyPasteService.copy();
   }
