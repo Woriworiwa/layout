@@ -47,11 +47,14 @@ export class EditableContentDirective {
 
   /*prevent propagation so the grab event on the canvas will not fire*/
   @HostListener('keydown', ['$event'])
-  onKeyDown(event: any) {
+  onKeyDown(event: KeyboardEvent) {
     event.stopPropagation();
 
-    if (event.key === 'Enter' && this.item?.key) {
-      this.contentChanged.emit({key: this.item?.key, content: this.elementRef.nativeElement.innerText});
+    const finishEditing = (event.key === 'Enter' && (event.altKey || event.ctrlKey)) || event.key === 'Escape';
+
+    if (finishEditing && this.item?.key) {
+      this.editMode = false;
+      this.contentChanged.emit({key: this.item.key, content: this.elementRef.nativeElement.innerText});
       this.selectionService.setVisibility('visible');
     }
   }
@@ -60,18 +63,6 @@ export class EditableContentDirective {
 
   constructor(private elementRef: ElementRef,
               private selectionService: SelectionService) {
-    // this.inputChangedStream$
-    //   .pipe(
-    //     debounceTime(250),
-    //     takeUntilDestroyed()
-    //   )
-    //   .subscribe((value) => {
-    //     if (!value) {
-    //       return;
-    //     }
-    //
-    //     this.contentChanged.emit({key: this.item?.key!, content: value});
-    //   });
   }
 
   private moveCursorToEnd() {
