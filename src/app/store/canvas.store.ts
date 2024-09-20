@@ -207,7 +207,9 @@ export class CanvasStore extends Store<CanvasState> {
     this.setState({
       ...this.getState(),
       canvasItems: cloneDeep(this.getState().canvasItems),
-    })
+    });
+
+    this.undoRedoService.pushUndoStack(cloneDeep(this.getState().canvasItems));
   }
 
   renameItem(id: string, name: string) {
