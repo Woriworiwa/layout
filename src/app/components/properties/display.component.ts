@@ -36,7 +36,6 @@ export class DisplayComponent extends BasePropertyGroupComponent implements OnCh
   displayOptions = [
     Display.block,
     Display.flex,
-    Display.block,
     Display.contents,
     Display.flow,
     Display.grid,

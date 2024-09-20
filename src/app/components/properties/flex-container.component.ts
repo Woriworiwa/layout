@@ -127,7 +127,7 @@ export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent
     const formGroup = this.baseFb.group({
       flexDirection: new FormControl<Property.FlexDirection | null | undefined>(undefined),
       flexWrap: new FormControl<Property.FlexWrap | null | undefined>(undefined),
-      gap: new FormControl<Property.Gap | null | undefined>(null),
+      gap: new FormControl<Property.Gap | null | undefined>(null, {updateOn: 'blur'}),
       justifyContent: new FormControl<Property.JustifyContent | null | undefined>(null),
       alignItems: new FormControl<Property.AlignItems | null | undefined>(null),
       alignContent: new FormControl<Property.AlignContent | null | undefined>(null)

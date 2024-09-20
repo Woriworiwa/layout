@@ -74,8 +74,8 @@ export class BoxSizingComponent extends BasePropertyGroupComponent implements On
     }
 
     const formGroup = this.baseFb.group({
-      padding: new FormControl<Property.Padding | null | undefined>(null),
-      height: new FormControl<Property.Height | null | undefined>(null),
+      padding: new FormControl<Property.Padding | null | undefined>(null, {updateOn: 'blur'}),
+      height: new FormControl<Property.Height | null | undefined>(null, {updateOn: 'blur'}),
       width: new FormControl<Property.Height | null | undefined>(null, {updateOn: 'blur'})
     });
 
