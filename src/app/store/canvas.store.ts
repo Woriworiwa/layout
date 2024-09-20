@@ -207,7 +207,9 @@ export class CanvasStore extends Store<CanvasState> {
     this.setState({
       ...this.getState(),
       canvasItems: cloneDeep(this.getState().canvasItems),
-    })
+    });
+
+    this.undoRedoService.pushUndoStack(cloneDeep(this.getState().canvasItems));
   }
 
   renameItem(id: string, name: string) {
@@ -299,7 +301,7 @@ export class CanvasStore extends Store<CanvasState> {
 
     if (parentFrameKey === CANVAS_WRAPPER_ID) {
       const frames = this.getState().canvasItems || [];
-      if (!insertAfterFrameId) {
+      if (!insertAfterFrameId || insertAfterFrameId === CANVAS_WRAPPER_ID) {
         frames.push(newFrame);
       } else {
         const insertAfterFrameIndex = this.canvasItems.findIndex(frame => frame.key === insertAfterFrameId);

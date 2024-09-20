@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {CanvasStore} from "../../store/canvas.store";
 import {Preset} from "../../models/preset.model";
 import {PresetComponent} from "./preset.component";
+import {CANVAS_WRAPPER_ID} from "../../models/constants";
 
 @Component({
   selector: 'app-insert',
@@ -25,11 +26,7 @@ export class InsertComponent {
   }
 
   addItem(presetId: string) {
-    if (!this.parentFrameId) {
-      return;
-    }
-
-    this.canvasStore.addNewPreset(presetId, this.parentFrameId);
+    this.canvasStore.addNewPreset(presetId, this.parentFrameId || CANVAS_WRAPPER_ID);
     this.componentAdded.emit(true);
   }
 }

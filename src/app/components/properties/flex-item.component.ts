@@ -69,10 +69,10 @@ export class PropertiesFlexItemComponent extends BasePropertyGroupComponent impl
     }
 
     const formGroup = this.baseFb.group({
-      flexGrow: new FormControl<number | null | undefined>(null),
-      flexShrink: new FormControl<number | null | undefined>(null),
-      flexBasis: new FormControl<number | null | undefined>(null),
-      alignSelf: new FormControl<number | null | undefined>(null),
+      flexGrow: new FormControl<number | null | undefined>(null, {updateOn: 'blur'}),
+      flexShrink: new FormControl<number | null | undefined>(null, {updateOn: 'blur'}),
+      flexBasis: new FormControl<number | null | undefined>(null, {updateOn: 'blur'}),
+      alignSelf: new FormControl<number | null | undefined>(null, {updateOn: 'blur'}),
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
