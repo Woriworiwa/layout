@@ -39,7 +39,7 @@ export const mockData =
               "alignContent": "center"
             },
             "boxSizing": {
-              "padding": null,
+              "padding": '16',
               "height": null,
               "width": null
             },
@@ -89,7 +89,7 @@ export const mockData =
               "alignContent": "end"
             },
             "boxSizing": {
-              "padding": null,
+              "padding": "16",
               "height": null,
               "width": null
             },
@@ -129,6 +129,9 @@ export const mockData =
           "css": {
             "display": {
               "display": "flex"
+            },
+            "boxSizing": {
+              "padding": "16"
             },
             "flexContainer": {
               "flexDirection": null,
@@ -189,7 +192,7 @@ export const mockData =
               "alignContent": null
             },
             "boxSizing": {
-              "padding": null,
+              "padding": '16',
               "height": 100,
               "width": null
             }
@@ -221,6 +224,9 @@ export const mockData =
           "css": {
             "display": {
               "display": "flex"
+            },
+            "boxSizing": {
+              "padding": "16"
             },
             "flexContainer": {
               "flexDirection": null,
@@ -259,6 +265,9 @@ export const mockData =
             "display": {
               "display": "flex"
             },
+            "boxSizing": {
+              "padding": "16"
+            },
             "flexContainer": {
               "flexDirection": "row",
               "flexWrap": null,
@@ -295,6 +304,9 @@ export const mockData =
           "css": {
             "display": {
               "display": "flex"
+            },
+            "boxSizing": {
+              "padding": "16"
             },
             "flexContainer": {
               "flexDirection": null,
@@ -333,132 +345,14 @@ export const mockData =
         "display": {
           "display": "flex"
         },
+        "boxSizing": {
+          "padding": "16"
+        },
         "flexContainer": {
           "gap": 10,
           "justifyContent": "center"
         }
       },
       "label": "justify-content"
-    },
-    {
-      "itemType": "FLEX",
-      "css": {
-        "display": {
-          "display": "flex"
-        },
-        "flexContainer": {
-          "gap": 10
-        }
-      },
-      "key": "bSEqcgVF",
-      "children": [
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": null,
-              "alignContent": "start"
-            },
-            "boxSizing": {
-              "height": 300
-            },
-            "flexItem": {
-              "flexGrow": 1,
-              "flexShrink": null,
-              "flexBasis": null,
-              "alignSelf": null
-            }
-          },
-          "children": [
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "FtCzfhBm",
-              "children": [],
-              "css": {
-                "boxSizing": {
-                  "padding": null,
-                  "height": null,
-                  "width": 45
-                }
-              }
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "MUTDjfXq",
-              "children": [],
-              "css": {
-                "boxSizing": {
-                  "padding": null,
-                  "height": null,
-                  "width": 70
-                }
-              }
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "XdkyqguJ",
-              "children": [],
-              "css": {
-                "boxSizing": {
-                  "padding": null,
-                  "height": null,
-                  "width": 50
-                }
-              }
-            },
-            {
-              "itemType": "TEXT",
-              "content": "",
-              "key": "gYAgNkpy",
-              "css": {
-                "boxSizing": {
-                  "padding": null,
-                  "height": null,
-                  "width": 20
-                }
-              }
-            },
-            {
-              "itemType": "TEXT",
-              "content": "",
-              "key": "OGRfiupv",
-              "css": {
-                "boxSizing": {
-                  "padding": null,
-                  "height": null,
-                  "width": 90
-                }
-              }
-            },
-            {
-              "itemType": "TEXT",
-              "content": "",
-              "key": "ezrFUMSH"
-            },
-            {
-              "itemType": "TEXT",
-              "content": "",
-              "key": "PNaNyzSP"
-            }
-          ],
-          "key": "wwDCLyLi"
-        }
-      ]
-    },
-    {
-      "itemType": "TEXT",
-      "content": "lorem",
-      "key": "AUPUYMii",
-      "children": []
     }
   ]

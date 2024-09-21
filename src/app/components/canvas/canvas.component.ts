@@ -26,12 +26,13 @@ import {DragulaModule, DragulaService} from "ng2-dragula";
 import {MessageService} from "primeng/api";
 import {CopyPasteService} from "../../services/copy-paste.service";
 import {CopyPasteDirective} from "../../directives/copy-paste.directive";
+import {PresetsService} from "../../services/presets.service";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, DragulaModule],
-  providers: [ContextMenuService, SelectionService, PanZoomService, DragDropService, CopyPasteService],
+  providers: [ContextMenuService, SelectionService, PanZoomService, DragDropService, CopyPasteService, PresetsService],
   hostDirectives: [CopyPasteDirective],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']

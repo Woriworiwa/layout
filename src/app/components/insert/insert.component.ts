@@ -4,6 +4,7 @@ import {CanvasStore} from "../../store/canvas.store";
 import {Preset} from "../../models/preset.model";
 import {PresetComponent} from "./preset.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
+import {PresetsService} from "../../services/presets.service";
 
 @Component({
   selector: 'app-insert',
@@ -21,8 +22,9 @@ export class InsertComponent {
 
   items: Preset[];
 
-  constructor(private canvasStore: CanvasStore) {
-    this.items = this.canvasStore.getPresets();
+  constructor(private canvasStore: CanvasStore,
+              private presetsService: PresetsService) {
+    this.items = this.presetsService.getPresets();
   }
 
   addItem(presetId: string) {

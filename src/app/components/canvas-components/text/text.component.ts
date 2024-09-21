@@ -12,11 +12,13 @@ import {DragulaService} from "ng2-dragula";
   template: `{{ item?.content }}`,
   styles: `
   :host{
+    font-family:sans-serif;
+    font-weight: lighter;
     display: block;
     padding: 5px;
     background-color: #ed9534;
-    border-radius: 6px;
-    border: 2px solid black;
+    border-radius: 3px;
+    border: 1px solid black;
     box-shadow: inset 3px 3px 7px 5px #f2ad62;
   }
   `

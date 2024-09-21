@@ -7,9 +7,8 @@ import {CanvasItemType} from "../models/enums";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Css} from "../models/css.model";
-import {Preset} from "../models/preset.model";
-import {flexPresets, textPresets} from "../data/presets";
 import {UndoRedoService} from "../services/undo-redo.service";
+import {PresetsService} from "../services/presets.service";
 
 export class CanvasState {
   canvasItems: CanvasItem[] = [];
@@ -24,7 +23,8 @@ export class CanvasStore extends Store<CanvasState> {
   private cssChangedSubject = new Subject();
   cssChanged$ = this.cssChangedSubject.asObservable();
 
-  constructor(private undoRedoService: UndoRedoService) {
+  constructor(private undoRedoService: UndoRedoService,
+              private presetsService: PresetsService) {
     super(new CanvasState());
 
     this.undoRedoService.data$.subscribe((currentState: CanvasItem[]) => {
@@ -90,7 +90,7 @@ export class CanvasStore extends Store<CanvasState> {
   }
 
   addNewPreset(presetId: string, insertAfterItemId: string) {
-    const preset = this.getPreset(presetId);
+    const preset = this.presetsService.getPreset(presetId);
 
     if (!preset) {
       return;
@@ -98,7 +98,7 @@ export class CanvasStore extends Store<CanvasState> {
 
     const newItem = cloneDeep(preset.presetDefinition);
     this.assignKeys([newItem], undefined, false);
-
+    this.presetsService.assignDefaultPaddings(newItem);
     this.insertItem(insertAfterItemId, newItem);
   }
 
@@ -193,10 +193,6 @@ export class CanvasStore extends Store<CanvasState> {
     return undefined;
   }
 
-  getPresets() {
-    return [...flexPresets as Preset[], ...textPresets as Preset[]]
-  }
-
   updateTextContent(key: string, content: string) {
     const frame = this.getItemById(this.canvasItems, key);
 
@@ -273,9 +269,7 @@ export class CanvasStore extends Store<CanvasState> {
     return uniqueId;
   }
 
-  private getPreset(presetId: string) {
-    return this.getPresets().find(preset => preset.presetId === presetId);
-  }
+
 
   private getItemById(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
     if (!frames || !frames.length || key == null) {

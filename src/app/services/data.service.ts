@@ -15,7 +15,7 @@ export class DataService {
       return savedData;
     }
 
-    return mockData as CanvasItem[];
+    return mockData as unknown as CanvasItem[];
   }
 
   saveDataToLocalStorage() {
