@@ -118,7 +118,9 @@ export class CanvasBaseComponent implements OnDestroy, OnChanges {
     // Serialize the styles
     if (this.item) {
       serializedStyles.push(...serializer.serialize([this.item]));
-      this.baseRenderer.setProperty(this.baseElementRef.nativeElement, 'style', serializedStyles.join(';'));
+      if (serializedStyles.length) {
+        this.baseRenderer.setProperty(this.baseElementRef.nativeElement, 'style', serializedStyles.join(';'));
+      }
     }
 
     // Re-render the selection item to update any changes to the size of the item

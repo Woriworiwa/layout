@@ -4,12 +4,14 @@ import {CanvasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../services/selection.service";
 import {DragulaService} from "ng2-dragula";
 import {CanvasService} from "../../../services/canvas.service";
+import {CopyPasteDirective} from "../../../directives/copy-paste.directive";
 
 @Component({
   selector: 'app-text',
   standalone: true,
   imports: [CommonModule],
   template: `{{ item?.content }}`,
+  hostDirectives: [CopyPasteDirective],
   styles: `
   :host{
     font-family:sans-serif;
@@ -20,6 +22,7 @@ import {CanvasService} from "../../../services/canvas.service";
     border-radius: 3px;
     border: 1px solid black;
     box-shadow: inset 3px 3px 7px 5px #f2ad62;
+    white-space: pre-wrap;
   }
   `
 })

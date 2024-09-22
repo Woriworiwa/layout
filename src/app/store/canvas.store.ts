@@ -93,11 +93,6 @@ export class CanvasStore extends Store<CanvasState> {
       parentItem?.children?.splice(parentItem.children.findIndex(frame => frame.key === insertAfterItemId) + 1, 0, item);
     }
 
-    this.setState({
-      ...this.getState(),
-      canvasItems: cloneDeep(this.getState().canvasItems),
-    })
-
     this.setItems(cloneDeep(this.getState().canvasItems));
   }
 

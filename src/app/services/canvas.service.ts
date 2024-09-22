@@ -108,8 +108,8 @@ export class CanvasService {
     selectedFrame.css = css;
 
     // TODO: Handle undo/redo in a different way
-    this.setItems([...this.items]);
-
+    // this.setItems([...this.items]);
+    this.undoRedoService.takeSnapshot();
     this.cssChangedSubject.next(undefined);
   }
 
