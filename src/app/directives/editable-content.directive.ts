@@ -1,6 +1,15 @@
-import {Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output} from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  Output
+} from "@angular/core";
 import {CanvasItem} from "../models/canvas-item.model";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, distinctUntilChanged} from "rxjs";
 import {SelectionService} from "../services/selection.service";
 
 /*
@@ -37,6 +46,9 @@ export class EditableContentDirective {
   onBlur($event: any) {
     $event.stopPropagation();
     this.editMode = false;
+    if (this.item?.key) {
+      this.contentChanged.emit({key: this.item.key, content: this.elementRef.nativeElement.innerText});
+    }
   }
 
   @HostListener('input', ['$event'])
@@ -62,7 +74,13 @@ export class EditableContentDirective {
   private inputChangedStream$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
 
   constructor(private elementRef: ElementRef,
+              private ref: ElementRef,
               private selectionService: SelectionService) {
+    this.selectionService.selectedItem$.pipe(
+      distinctUntilChanged((prev, curr) => prev?.key === curr?.key)
+    ).subscribe(() => {
+      this.ref.nativeElement.blur();
+    });
   }
 
   private moveCursorToEnd() {
