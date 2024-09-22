@@ -40,8 +40,8 @@ export class UndoRedoService {
       return;
     }
 
-    this.redoStack.push(item);
-    this.currentDataSubject.next(this.undoStack[this.undoStack.length - 1])
+    this.redoStack.push(cloneDeep(item));
+    this.currentDataSubject.next(cloneDeep(this.undoStack[this.undoStack.length - 1]))
     this.updateState();
   }
 
@@ -56,7 +56,7 @@ export class UndoRedoService {
     }
 
     this.undoStack.push(item);
-    this.currentDataSubject.next(item);
+    this.currentDataSubject.next(cloneDeep(item));
     this.updateState();
   }
 

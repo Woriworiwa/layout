@@ -22,6 +22,7 @@ export class CanvasService {
               private presetsService: PresetsService) {
     this.undoRedoService.data$.subscribe((currentState: CanvasItem[]) => {
       this.canvasStore.setItems(currentState);
+      this.selectionService.setSelectedItemKey(this.selectionService.selectedItem?.key);
     })
   }
 

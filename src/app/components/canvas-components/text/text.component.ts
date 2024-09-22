@@ -23,6 +23,13 @@ import {CopyPasteDirective} from "../../../directives/copy-paste.directive";
     border: 1px solid black;
     box-shadow: inset 3px 3px 7px 5px #f2ad62;
     white-space: pre-wrap;
+
+    &[contenteditable=true]:focus {
+      outline: none;
+      background-color: transparent;
+      box-shadow: none;
+      border: 1px dashed black;
+    }
   }
   `
 })

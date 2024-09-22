@@ -22,7 +22,7 @@ import {CanvasService} from "../../services/canvas.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule],
-  template: ``
+  template: ``,
 })
 export class CanvasBaseComponent implements OnDestroy, OnChanges {
   @Input() item: CanvasItem | undefined;
