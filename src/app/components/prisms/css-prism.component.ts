@@ -15,9 +15,9 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
 import {CanvasItem} from "../../models/canvas-item.model";
-import {CanvasStore} from "../../store/canvas.store";
 import {SerializationService} from "../../services/serialization.service";
 import {Subject, takeUntil} from "rxjs";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-css-prism',
@@ -41,7 +41,7 @@ export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy
   protected css = '';
   private destroy$ = new Subject();
 
-  constructor(private canvasStore: CanvasStore,
+  constructor(private canvasService: CanvasService,
               private cd: ChangeDetectorRef,
               private serializerService: SerializationService) {
   }
@@ -49,7 +49,7 @@ export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy
   ngOnChanges() {
     this.serializeToCss()
 
-    this.canvasStore.cssChanged$
+    this.canvasService.cssChanged$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.serializeToCss();

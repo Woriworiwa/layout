@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {CanvasStore} from "../store/canvas.store";
+import cloneDeep from "lodash.clonedeep";
 
 /*
 *  A simple undo/redo service that can be used to store and retrieve the current state of the store
 *  this is far from suitable for production use, but it's a good starting point for a simple implementation
 * */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UndoRedoService {
   private undoStack: any[][] = [];
   private redoStack: any[][] = [];
@@ -22,8 +22,11 @@ export class UndoRedoService {
 
   state$ = this.currentStateSubject.asObservable();
 
-  pushUndoStack(item: any[]) {
-    this.undoStack.push(item);
+  constructor(private canvasStore: CanvasStore) {
+  }
+
+  takeSnapshot() {
+    this.undoStack.push(cloneDeep(this.canvasStore.items));
     this.updateState();
   }
 

@@ -28,5 +28,4 @@ export class PanZoomService {
       isPanning: isPanning
     });
   }
-
 }

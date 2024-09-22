@@ -2,7 +2,6 @@ import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {CanvasStore} from "../../store/canvas.store";
 import {Property} from "csstype";
 import {AlignContent, AlignItems, FlexDirection, FlexWrap, JustifyContent} from "../../models/css.model";
 import {DropdownComponent} from "./property-items/dropdown.component";
@@ -11,6 +10,7 @@ import {SliderComponent} from "./property-items/slider.component";
 import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {PanelModule} from "primeng/panel";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-properties-flex-container',
@@ -103,9 +103,9 @@ export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent
 
 
   constructor(public fb: FormBuilder,
-              protected canvasStore: CanvasStore,
+              protected canvasService: CanvasService,
               private propertyFilter: AppPropertyFilterPipe) {
-    super(fb, canvasStore, propertyFilter);
+    super(fb, canvasService, propertyFilter);
   }
 
   override ngOnChanges() {
@@ -138,7 +138,7 @@ export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent
         takeUntil(this.destroy$)
       )
       .subscribe((value: any) => {
-        this.baseCanvasStore.updateCss({
+        this.baseCanvasService.updateCss({
           ...this.css,
           flexContainer: value
         });

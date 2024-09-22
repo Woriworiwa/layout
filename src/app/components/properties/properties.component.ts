@@ -6,7 +6,6 @@ import {PropertiesFlexContainerComponent} from "./flex-container.component";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject} from "rxjs";
-import {CanvasStore} from "../../store/canvas.store";
 import { CanvasItemType } from '../../models/enums';
 import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {CssPrismComponent} from "../prisms/css-prism.component";
@@ -25,6 +24,8 @@ import {IconFieldModule} from "primeng/iconfield";
 import {InputIconModule} from "primeng/inputicon";
 import {InputGroupModule} from "primeng/inputgroup";
 import {ButtonModule} from "primeng/button";
+import {SelectionService} from "../../services/selection.service";
+import {CanvasService} from "../../services/canvas.service";
 
 export interface Property {
   showSpecificPropertyName?: string;
@@ -50,8 +51,9 @@ export class PropertiesComponent implements OnDestroy{
   private destroy$ = new Subject();
 
   constructor(public fb: FormBuilder,
-              protected canvasStore: CanvasStore) {
-    this.canvasStore.selectedCanvasItem$
+              protected canvasService: CanvasService,
+              protected selectionService: SelectionService) {
+    this.selectionService.selectedItem$
       .subscribe(frame => {
         this.frame = frame;
     });

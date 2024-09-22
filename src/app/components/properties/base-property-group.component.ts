@@ -2,10 +2,10 @@ import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren} from '@
 import {CommonModule} from '@angular/common';
 import {Css} from "../../models/css.model";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {CanvasStore} from "../../store/canvas.store";
 import {Subject, Subscription} from "rxjs";
 import {SliderComponent} from "./property-items/slider.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-base-app-properties',
@@ -27,7 +27,7 @@ export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy
   protected destroy$ = new Subject();
 
   protected constructor(public baseFb: FormBuilder,
-              protected baseCanvasStore: CanvasStore,
+              protected baseCanvasService: CanvasService,
               private basePropertyFilter: AppPropertyFilterPipe) {
     this.formGroup = this.createFormGroup();
   }

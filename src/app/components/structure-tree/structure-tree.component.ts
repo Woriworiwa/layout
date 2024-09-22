@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeExpandEvent} from "primeng/tree";
 import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
-import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem} from "../../models/canvas-item.model";
 import {FormsModule} from "@angular/forms";
 import {CdkDropList} from "@angular/cdk/drag-drop";
@@ -14,6 +13,8 @@ import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {ToastModule} from "primeng/toast";
+import {CanvasService} from "../../services/canvas.service";
+import {SelectionService} from "../../services/selection.service";
 
 @Component({
   selector: 'app-structure-tree',
@@ -35,7 +36,8 @@ export class StructureTreeComponent implements OnInit {
     {label: 'Rename', icon: 'pi pi-search', command: (event: any) => this.openRenameDialog(event)},
   ]
 
-  constructor(private canvasStore: CanvasStore) {
+  constructor(private canvasService: CanvasService,
+              private selectionService: SelectionService) {
   }
 
   ngOnInit() {
@@ -44,12 +46,12 @@ export class StructureTreeComponent implements OnInit {
 
   onTreeSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null) {
     if (treeNode != null && !Array.isArray(treeNode)) {
-      this.canvasStore.setSelectedCanvasItemKey(treeNode.key);
+      this.selectionService.setSelectedItemKey(treeNode.key);
     }
   }
 
   onNodeDrop() {
-    this.canvasStore.setCanvasItems(this.convertTreeNodesToCanvasItems(this.treeNodes));
+    this.canvasService.setItems(this.convertTreeNodesToCanvasItems(this.treeNodes));
   }
 
   onNodeContextMenu(event: TreeNodeContextMenuSelectEvent) {
@@ -57,12 +59,12 @@ export class StructureTreeComponent implements OnInit {
   }
 
   renameNode(frameKey: string, name: string) {
-    this.canvasStore.renameItem(frameKey, name);
+    this.canvasService.renameItem(frameKey, name);
     this.renameDialog.hide();
   }
 
   private initStoreSubscriptions() {
-    this.canvasStore.canvasItems$
+    this.canvasService.items$
       .subscribe((items) => {
         if (!items) {
           return;
@@ -76,7 +78,7 @@ export class StructureTreeComponent implements OnInit {
         })
       });
 
-    this.canvasStore.selectedCanvasItem$
+    this.selectionService.selectedItem$
       .subscribe(selectedItem => {
         this.selectedItems = selectedItem;
         if (selectedItem && selectedItem.key) {

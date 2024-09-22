@@ -1,9 +1,9 @@
 import {Component, ElementRef, Input, OnChanges, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CanvasBaseComponent} from "../canvas-base-component.component";
-import {CanvasStore} from "../../../store/canvas.store";
 import {SelectionService} from "../../../services/selection.service";
 import {DragulaService} from "ng2-dragula";
+import {CanvasService} from "../../../services/canvas.service";
 
 @Component({
   selector: 'app-text',
@@ -26,12 +26,12 @@ import {DragulaService} from "ng2-dragula";
 export class TextComponent extends CanvasBaseComponent implements OnChanges{
   @Input() selectedFrameKey!: string | undefined;
 
-  constructor(private canvasStore: CanvasStore,
+  constructor(private canvasService: CanvasService,
               private elementRef: ElementRef,
               private renderer: Renderer2,
               private dragulaService: DragulaService,
               private selectionService: SelectionService) {
-    super(elementRef, renderer, canvasStore, dragulaService, selectionService);
+    super(elementRef, renderer, canvasService, dragulaService, selectionService);
   }
 
   override ngOnChanges() {
