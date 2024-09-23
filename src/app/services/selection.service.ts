@@ -137,6 +137,10 @@ export class SelectionService {
     const canvasBoundingRect = this.canvas.nativeElement.getBoundingClientRect();
     const canvasItemBoundingRect = element.getBoundingClientRect();
 
+    if (!canvasBoundingRect || !canvasItemBoundingRect) {
+      return;
+    }
+
     component.width = element.offsetWidth;
     component.height = element.offsetHeight;
     component.top = canvasItemBoundingRect.top - canvasBoundingRect.top;
