@@ -23,12 +23,18 @@ import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {UndoRedoService} from "./services/undo-redo.service";
 import {LeftMenuComponent} from "./components/left-menu/left-menu.component";
+import {PresetsService} from "./services/presets.service";
+import {SelectionService} from "./services/selection.service";
+import {CanvasService} from "./services/canvas.service";
+import {PanZoomService} from "./services/pan-zoom.service";
+import {ContextMenuService} from "./services/context-menu.service";
+import {DragDropService} from "./services/drag-drop.service";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, NgIf, SelectButtonModule, FormsModule, ToastModule, LeftMenuComponent],
-  providers: [CanvasStore, DataService, MessageService],
+  providers: [CanvasStore, CanvasService, DataService, MessageService, PresetsService, SelectionService, PanZoomService, ContextMenuService, DragDropService, UndoRedoService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -46,13 +52,14 @@ export class AppComponent {
     { label: 'JSON', id: 5,icon:'pi pi-file' }
   ];
 
-  constructor(protected canvasStore: CanvasStore,
+  constructor(protected canvasService: CanvasService,
               protected appSettingsStore: AppSettingsStore,
               private undoRedoService: UndoRedoService,
+              private selectionService: SelectionService,
               private mockService: DataService) {
     this.fetchData();
 
-    this.canvasStore.setSelectedCanvasItemKey(this.canvasStore.canvasItems[0]?.key)
+    this.selectionService.setSelectedItemKey(this.canvasService.items[0]?.key)
   }
 
   /* undo */
@@ -70,7 +77,7 @@ export class AppComponent {
   }
 
   fetchData() {
-    this.canvasStore.setCanvasItems(this.mockService.getInitialData());
+    this.canvasService.setItems(this.mockService.getInitialData());
   }
 
   setSelectedTab(id: number) {

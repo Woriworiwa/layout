@@ -12,17 +12,17 @@ import { CommonModule } from '@angular/common';
 import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
 import {Serializer} from "../../data/serializers/serializer";
 import {CssStyleSerializer} from "../../data/serializers/css-style.serializer";
-import {CanvasStore} from "../../store/canvas.store";
 import {SelectionService} from "../../services/selection.service";
 import {Subject, takeUntil} from "rxjs";
 import {DragulaService} from "ng2-dragula";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-canvas-base-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule],
-  template: ``
+  template: ``,
 })
 export class CanvasBaseComponent implements OnDestroy, OnChanges {
   @Input() item: CanvasItem | undefined;
@@ -35,7 +35,7 @@ export class CanvasBaseComponent implements OnDestroy, OnChanges {
 
   constructor(private baseElementRef: ElementRef,
               private baseRenderer: Renderer2,
-              private baseCanvasStore: CanvasStore,
+              private baseCanvasService: CanvasService,
               private baseDragulaService: DragulaService,
               private baseSelectionService: SelectionService) {
   }
@@ -89,10 +89,10 @@ export class CanvasBaseComponent implements OnDestroy, OnChanges {
   ngOnChanges() {
     this.updateCssAndSelection();
 
-    this.baseCanvasStore.cssChanged$
+    this.baseCanvasService.cssChanged$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        if (this.baseCanvasStore.selectedCanvasItem()?.key === this.item?.key) {
+        if (this.baseSelectionService.selectedItem?.key === this.item?.key) {
           this.updateCssAndSelection();
         }
       });
@@ -118,11 +118,13 @@ export class CanvasBaseComponent implements OnDestroy, OnChanges {
     // Serialize the styles
     if (this.item) {
       serializedStyles.push(...serializer.serialize([this.item]));
-      this.baseRenderer.setProperty(this.baseElementRef.nativeElement, 'style', serializedStyles.join(';'));
+      if (serializedStyles.length) {
+        this.baseRenderer.setProperty(this.baseElementRef.nativeElement, 'style', serializedStyles.join(';'));
+      }
     }
 
     // Re-render the selection item to update any changes to the size of the item
-    if (this.item?.key === this.baseCanvasStore.selectedCanvasItem()?.key) {
+    if (this.item?.key === this.baseSelectionService.selectedItem?.key) {
       setTimeout(() => {
         if (!this.item) {
           return;

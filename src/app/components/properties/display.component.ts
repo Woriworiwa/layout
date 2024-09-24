@@ -2,7 +2,6 @@ import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Display} from "../../models/css.model";
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
-import {CanvasStore} from "../../store/canvas.store";
 import {Property} from "csstype";
 import { takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
@@ -13,6 +12,7 @@ import {AccordionModule} from "primeng/accordion";
 import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {PanelModule} from "primeng/panel";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-properties-display',
@@ -44,9 +44,9 @@ export class DisplayComponent extends BasePropertyGroupComponent implements OnCh
   ];
 
   constructor(public fb: FormBuilder,
-              protected canvasStore: CanvasStore,
+              protected canvasService: CanvasService,
               private propertyFilter: AppPropertyFilterPipe) {
-    super(fb, canvasStore, propertyFilter);
+    super(fb, canvasService, propertyFilter);
   }
 
   override ngOnChanges() {
@@ -72,7 +72,7 @@ export class DisplayComponent extends BasePropertyGroupComponent implements OnCh
         takeUntil(this.destroy$)
       )
       .subscribe((value: any) => {
-        this.baseCanvasStore.updateCss({
+        this.baseCanvasService.updateCss({
           ...this.css,
           display: value
         });

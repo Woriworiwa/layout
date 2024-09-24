@@ -1,7 +1,7 @@
-$shadow-color: #99CAFF;
+$shadow-color: #0099ff;
 
-$highlight-shadow-width: 5px;
-$highlight-shadow-width-negative: -5px;
+$highlight-shadow-width: 2px;
+$highlight-shadow-width-negative: -2px;
 $highlight-top: inset 0 $highlight-shadow-width 0 0 $shadow-color;
 $highlight-right: inset $highlight-shadow-width-negative 0 0 0 $shadow-color;
 $highlight-bottom: inset 0 $highlight-shadow-width-negative 0 0 $shadow-color;

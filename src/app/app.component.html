@@ -22,7 +22,7 @@
     <div class="main-content">
       <app-canvas *ngIf="selectedTabId ===1 "></app-canvas>
       <app-preview *ngIf="selectedTabId ===2 "></app-preview>
-      <app-css-prism [canvasItems]="canvasStore.canvasItems" *ngIf="selectedTabId === 3"></app-css-prism>
+      <app-css-prism [canvasItems]="canvasService.items" *ngIf="selectedTabId === 3"></app-css-prism>
       <app-html-prism *ngIf="selectedTabId === 4"></app-html-prism>
       <app-json-prism *ngIf="selectedTabId === 5"></app-json-prism>
     </div>

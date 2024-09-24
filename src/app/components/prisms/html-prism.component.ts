@@ -8,12 +8,12 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-markup';
 import {CanvasItem} from "../../models/canvas-item.model";
-import {CanvasStore} from "../../store/canvas.store";
 import {UnsafeHtmlPipe} from "../../pipes/unsafe-html.pipe";
 import {ButtonModule} from "primeng/button";
 import FileSaver from 'file-saver';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SerializationService} from "../../services/serialization.service";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-html-prism',
@@ -46,9 +46,9 @@ import {SerializationService} from "../../services/serialization.service";
 export class HtmlPrismComponent implements AfterViewChecked {
   code = '';
 
-  constructor(private canvasStore: CanvasStore,
+  constructor(private canvasService: CanvasService,
               private serializerService: SerializationService) {
-    this.canvasStore.canvasItems$
+    this.canvasService.items$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
         this.code = this.serializerService.getSerializer("HTML").serialize(items).join('\n');

@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {ContainerComponent} from "../canvas-components/frame/container.component";
-import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
@@ -26,12 +25,14 @@ import {DragulaModule, DragulaService} from "ng2-dragula";
 import {MessageService} from "primeng/api";
 import {CopyPasteService} from "../../services/copy-paste.service";
 import {CopyPasteDirective} from "../../directives/copy-paste.directive";
+import {PresetsService} from "../../services/presets.service";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, DragulaModule],
-  providers: [ContextMenuService, SelectionService, PanZoomService, DragDropService, CopyPasteService],
+  providers: [ContextMenuService, CopyPasteService, PresetsService],
   hostDirectives: [CopyPasteDirective],
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
@@ -59,7 +60,7 @@ export class CanvasComponent implements AfterViewInit, OnInit{
 
   @ViewChild("selectionOverlay", {read: ViewContainerRef}) selectionOverlay!: ViewContainerRef;
 
-  constructor(protected canvasStore: CanvasStore,
+  constructor(private canvasService: CanvasService,
               private renderer: Renderer2,
               private selectionService: SelectionService,
               private contextMenuService: ContextMenuService,
@@ -68,7 +69,7 @@ export class CanvasComponent implements AfterViewInit, OnInit{
               protected dragulaService: DragulaService,
               private messageService: MessageService,
               @Inject(DOCUMENT) document: Document) {
-    this.canvasStore.canvasItems$.subscribe(rootFrames => {
+    this.canvasService.items$.subscribe(rootFrames => {
       this.frames = rootFrames;
 
       /* focus the selected frame, most of the times the focus will be set by the mouse when the user clicks on an item,
@@ -76,7 +77,7 @@ export class CanvasComponent implements AfterViewInit, OnInit{
       * Items should be focused in order to listen to keyboard events*/
       /*TODO: Find another way other than setTimeout*/
       setTimeout(() => {
-        document.getElementById(`${this.canvasStore.selectedCanvasItem()?.key}`)?.focus()
+        document.getElementById(`${this.selectionService.selectedItem?.key}`)?.focus()
       }, 0);
     });
   }
@@ -107,7 +108,7 @@ export class CanvasComponent implements AfterViewInit, OnInit{
   /*click*/
   @HostListener('click', ['$event'])
   onClick() {
-    this.canvasStore.setSelectedCanvasItemKey(undefined);
+    this.selectionService.setSelectedItemKey(undefined);
     this.contextMenuService.hide();
   }
 
@@ -193,25 +194,25 @@ export class CanvasComponent implements AfterViewInit, OnInit{
       return;
     }
 
-    this.canvasStore.setSelectedCanvasItemKey(event.canvasItem.key);
+    this.selectionService.setSelectedItemKey(event.canvasItem.key);
     this.contextMenuService.hide();
   }
 
   onMouseOver(event: CanvasItemMouseEvent) {
-    this.canvasStore.setHoverItemKey(event.canvasItem.key);
+    this.selectionService.setHoverItemKey(event.canvasItem.key);
   }
 
   onMouseOut() {
-    this.canvasStore.setHoverItemKey(undefined);
+    this.selectionService.setHoverItemKey(undefined);
   }
 
   onContextMenu(event: CanvasItemMouseEvent) {
-    this.canvasStore.setSelectedCanvasItemKey(event.canvasItem.key);
+    this.selectionService.setSelectedItemKey(event.canvasItem.key);
     this.selectionService.showContextMenu(event.mouseEvent);
   }
 
   onChildTextContentChanged(content: { key: string, content: string }) {
-    this.canvasStore.updateTextContent(content.key, content.content);
+    this.canvasService.updateTextContent(content.key, content.content);
   }
 
   private setTransformStyles() {

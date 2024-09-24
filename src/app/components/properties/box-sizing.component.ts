@@ -2,7 +2,6 @@ import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Property} from "csstype";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CanvasStore} from "../../store/canvas.store";
 import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
@@ -13,6 +12,7 @@ import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {MenuModule} from "primeng/menu";
 import {PanelModule} from "primeng/panel";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-properties-box-sizing',
@@ -52,9 +52,9 @@ export class BoxSizingComponent extends BasePropertyGroupComponent implements On
   items: { label?: string; icon?: string; separator?: boolean }[] = [];
 
   constructor(public fb: FormBuilder,
-              protected canvasStore: CanvasStore,
+              protected canvasService: CanvasService,
               private propertyFilter: AppPropertyFilterPipe) {
-    super(fb, canvasStore, propertyFilter);
+    super(fb, canvasService, propertyFilter);
   }
 
   override ngOnChanges() {
@@ -84,7 +84,7 @@ export class BoxSizingComponent extends BasePropertyGroupComponent implements On
         takeUntil(this.destroy$)
       )
       .subscribe((value: any) => {
-        this.canvasStore.updateCss({
+        this.canvasService.updateCss({
           ...this.css,
           boxSizing: value
         });

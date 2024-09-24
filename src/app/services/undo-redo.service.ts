@@ -1,30 +1,40 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {BehaviorSubject, debounceTime, Observable, Subject} from "rxjs";
+import {CanvasStore} from "../store/canvas.store";
+import cloneDeep from "lodash.clonedeep";
+import {CanvasItem} from "../models/canvas-item.model";
 
 /*
 *  A simple undo/redo service that can be used to store and retrieve the current state of the store
 *  this is far from suitable for production use, but it's a good starting point for a simple implementation
 * */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UndoRedoService {
   private undoStack: any[][] = [];
   private redoStack: any[][] = [];
 
-  private currentDataSubject: Subject<any[]> = new Subject<any[]>();
-  data$: Observable<any[]> = this.currentDataSubject.asObservable();
+  private undoRedoExecutedSubject: Subject<any[]> = new Subject<any[]>();
+  undoRedoExecuted$: Observable<any[]> = this.undoRedoExecutedSubject.asObservable();
 
-  private currentStateSubject: BehaviorSubject<any> = new BehaviorSubject({
+  private statusSubject: BehaviorSubject<any> = new BehaviorSubject({
     undoStackEmpty: true,
     redoStackEmpty: true
   });
+  status$ = this.statusSubject.asObservable();
 
-  state$ = this.currentStateSubject.asObservable();
+  private undoStackSubject: Subject<CanvasItem[]> = new Subject<CanvasItem[]>();
 
-  pushUndoStack(item: any[]) {
-    this.undoStack.push(item);
-    this.updateState();
+  constructor(private canvasStore: CanvasStore) {
+    this.undoStackSubject.pipe(
+      debounceTime(250)
+    ).subscribe((data) => {
+      this.undoStack.push(data);
+      this.updateState();
+    });
+  }
+
+  takeSnapshot() {
+    this.undoStackSubject.next(cloneDeep(this.canvasStore.items));
   }
 
   undo() {
@@ -37,8 +47,8 @@ export class UndoRedoService {
       return;
     }
 
-    this.redoStack.push(item);
-    this.currentDataSubject.next(this.undoStack[this.undoStack.length - 1])
+    this.redoStack.push(cloneDeep(item));
+    this.undoRedoExecutedSubject.next(cloneDeep(this.undoStack[this.undoStack.length - 1]))
     this.updateState();
   }
 
@@ -53,12 +63,12 @@ export class UndoRedoService {
     }
 
     this.undoStack.push(item);
-    this.currentDataSubject.next(item);
+    this.undoRedoExecutedSubject.next(cloneDeep(item));
     this.updateState();
   }
 
   private updateState() {
-    this.currentStateSubject.next({
+    this.statusSubject.next({
       undoStackEmpty: this.undoStack.length <= 1,
       redoStackEmpty: this.redoStack.length === 0
     });

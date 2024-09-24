@@ -1,11 +1,11 @@
 import {CanvasItem} from "../models/canvas-item.model";
 import {Injectable} from "@angular/core";
 import {mockData} from "../data/mock-data";
-import {CanvasStore} from "../store/canvas.store";
+import {CanvasService} from "./canvas.service";
 
 @Injectable()
 export class DataService {
-  constructor(private canvasStore: CanvasStore) {
+  constructor(private canvasService: CanvasService) {
   }
 
   getInitialData() {
@@ -15,11 +15,11 @@ export class DataService {
       return savedData;
     }
 
-    return mockData as CanvasItem[];
+    return mockData as unknown as CanvasItem[];
   }
 
   saveDataToLocalStorage() {
-    const canvasItems = this.canvasStore.canvasItems;
+    const canvasItems = this.canvasService.items;
     localStorage.setItem('CANVAS_ITEMS', JSON.stringify(canvasItems));
   }
 

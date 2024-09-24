@@ -1,10 +1,10 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SidebarModule} from "primeng/sidebar";
-import {CanvasStore} from "../../store/canvas.store";
 import {CanvasItem} from "../../models/canvas-item.model";
 import {SerializationService} from "../../services/serialization.service";
 import {JSONSerializer} from "../../data/serializers/JSON.serializer";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-json-prism',
@@ -25,12 +25,12 @@ import {JSONSerializer} from "../../data/serializers/JSON.serializer";
 export class JsonPrismComponent implements OnChanges, OnInit {
   frames: CanvasItem[] | undefined = undefined;
 
-  constructor(protected canvasStore: CanvasStore,
+  constructor(protected canvasService: CanvasService,
               private serializerService: SerializationService) {
   }
 
   ngOnChanges() {
-    this.canvasStore.canvasItems$
+    this.canvasService.items$
       .subscribe(items => {
 
         //TODO: I don't know if this is a good design
@@ -39,6 +39,6 @@ export class JsonPrismComponent implements OnChanges, OnInit {
   }
 
   ngOnInit() {
-    this.frames = this.canvasStore.canvasItems;
+    this.frames = this.canvasService.items;
   }
 }

@@ -6,7 +6,7 @@ import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-ho
 import {ContextMenuService} from "./context-menu.service";
 import {PanZoomService} from "./pan-zoom.service";
 import {DragDropService} from "./drag-drop.service";
-import {combineLatestWith} from "rxjs";
+import {BehaviorSubject, combineLatestWith, distinctUntilChanged, map, Observable} from "rxjs";
 
 @Injectable()
 export class SelectionService {
@@ -16,17 +16,41 @@ export class SelectionService {
   canvasSelectionItem: ComponentRef<CanvasSelectionItemComponent> | undefined = undefined
   canvasHoverItem: ComponentRef<CanvasHoverItemComponent> | undefined = undefined;
 
+  private selectedItemId: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
+  private selectedItemId$: Observable<string | undefined>;
+
+  protected hoverCanvasItemIdSubject: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
+
   constructor(private canvasStore: CanvasStore,
               private panZoomService: PanZoomService,
               private contextMenuService: ContextMenuService,
               private dragDropService: DragDropService) {
+    this.selectedItemId$ = this.selectedItemId.asObservable();
+  }
+
+  setSelectedItemKey(key: string | undefined) {
+    this.selectedItemId.next(key);
+  }
+
+  setHoverItemKey(key: string | undefined) {
+    this.hoverCanvasItemIdSubject.next(key);
+  }
+
+  get selectedItem() {
+    return this.canvasStore.getItemById(undefined, this.selectedItemId.getValue());
+  }
+
+  get selectedItem$() {
+    return this.selectedItemId$.pipe(
+      map((selectedItemId) => this.canvasStore.getItemById(undefined, selectedItemId))
+    )
   }
 
   initialize(overlay: ViewContainerRef, canvas: ElementRef) {
     this.overlay = overlay;
     this.canvas = canvas;
 
-    this.canvasStore.selectedCanvasItem$
+    this.selectedItem$
       .pipe(combineLatestWith(this.dragDropService.state$))
       .subscribe(([selectedFrame, dragDropState]) => {
           if ((!selectedFrame || dragDropState.isDragging) && this.canvasSelectionItem) {
@@ -40,26 +64,21 @@ export class SelectionService {
         }
       )
 
-    this.canvasStore.hoverCanvasItem$
+    this.hoverCanvasItemIdSubject.pipe(
+      distinctUntilChanged(),
+      map(hoverItemKey => this.canvasStore.getItemById(undefined, hoverItemKey))
+    )
       .pipe(combineLatestWith(this.dragDropService.state$))
       .subscribe(([hoverFrame, dragDropState]) => {
           if (!hoverFrame && this.canvasHoverItem) {
             this.removeItem(this.canvasHoverItem);
             this.canvasHoverItem = undefined;
           } else {
-            if (dragDropState.isDragging) {
+            if (dragDropState.isDragging || this.panZoomService.isPanModeActive || !hoverFrame || !hoverFrame.key) {
               return;
             }
 
-            if (this.panZoomService.isPanModeActive) {
-              return;
-            }
-
-            if (!hoverFrame || !hoverFrame?.key) {
-              return;
-            }
-
-            if (this.canvasStore.selectedCanvasItem()?.key === hoverFrame.key) {
+            if (this.selectedItem?.key === hoverFrame.key) {
               return;
             }
 
@@ -117,6 +136,10 @@ export class SelectionService {
   private addItem(component: CanvasSelectionItemComponent | CanvasHoverItemComponent, canvasItem: CanvasItem, element: HTMLElement) {
     const canvasBoundingRect = this.canvas.nativeElement.getBoundingClientRect();
     const canvasItemBoundingRect = element.getBoundingClientRect();
+
+    if (!canvasBoundingRect || !canvasItemBoundingRect) {
+      return;
+    }
 
     component.width = element.offsetWidth;
     component.height = element.offsetHeight;

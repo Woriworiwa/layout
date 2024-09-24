@@ -1,18 +1,20 @@
 import {Injectable} from "@angular/core";
-import {CanvasStore} from "../store/canvas.store";
+import {CanvasService} from "./canvas.service";
+import {SelectionService} from "./selection.service";
 
 @Injectable()
 export class CopyPasteService {
   private copyItemKey: string | undefined;
 
-  constructor(private canvasStore: CanvasStore) {
+  constructor(private selectionService: SelectionService,
+              private canvasService: CanvasService) {
   }
 
   copy() {
-    this.copyItemKey = this.canvasStore.selectedCanvasItem()?.key;
+    this.copyItemKey = this.selectionService.selectedItem?.key;
   }
 
   paste() {
-    this.canvasStore.pasteItem(this.copyItemKey, this.canvasStore.selectedCanvasItem()?.key);
+    this.canvasService.pasteItem(this.copyItemKey, this.selectionService.selectedItem?.key);
   }
 }

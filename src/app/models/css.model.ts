@@ -22,6 +22,7 @@ export const JustifyContent = proxiedPropertiesOf<Enumify<Property.JustifyConten
 export const AlignItems = proxiedPropertiesOf<Enumify<Property.AlignItems>>();
 export const AlignContent = proxiedPropertiesOf<Enumify<Property.AlignContent>>();
 export const Display = proxiedPropertiesOf<Enumify<Property.Display>>();
+export const AlignSelf = proxiedPropertiesOf<Enumify<Property.AlignSelf>>()
 
 /* Box sizing */
 /* eslint-disable-next-line @typescript-eslint/no-empty-interface */

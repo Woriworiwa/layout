@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HtmlSerializer} from "../../data/serializers/html.serializer";
-import {CanvasStore} from "../../store/canvas.store";
 import {UnsafeHtmlPipe} from "../../pipes/unsafe-html.pipe";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {CanvasItem} from "../../models/canvas-item.model";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-preview',
@@ -77,8 +77,8 @@ export class PreviewComponent {
   ];
   protected selectedMediaQuery: { name: string, width: string } | undefined = this.mediaQueries[this.mediaQueries.findIndex((mq: { name: string, width: string }) => mq.name === 'auto')];
 
-  constructor(private canvasStore: CanvasStore) {
-    this.canvasStore.canvasItems$
+  constructor(private canvasService: CanvasService) {
+    this.canvasService.items$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
         this.code = this.serializer.serialize(items).join('\n');

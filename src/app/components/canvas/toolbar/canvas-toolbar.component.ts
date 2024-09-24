@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {UndoRedoService} from "../../../services/undo-redo.service";
 import {ButtonModule} from "primeng/button";
@@ -13,6 +13,11 @@ import {TooltipModule} from "primeng/tooltip";
   styleUrl: './canvas-toolbar.component.scss'
 })
 export class CanvasToolbarComponent {
+  @HostListener('click', ['$event'])
+  onClick($event: MouseEvent) {
+    $event.stopPropagation();
+  }
+
   constructor(protected undoRedoService: UndoRedoService,
               protected panZoomService: PanZoomService) {
   }

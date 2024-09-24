@@ -2,13 +2,14 @@ import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {CanvasStore} from "../../store/canvas.store";
 import {DropdownComponent} from "./property-items/dropdown.component";
 import {SelectButtonComponent} from "./property-items/select-button.component";
 import {SliderComponent} from "./property-items/slider.component";
 import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {PanelModule} from "primeng/panel";
+import {CanvasService} from "../../services/canvas.service";
+import {AlignSelf} from "../../models/css.model";
 
 @Component({
   selector: 'app-properties-flex-item',
@@ -34,11 +35,10 @@ import {PanelModule} from "primeng/panel";
                                   *ngIf="mustBeVisible || ('flexBasis' | appPropertyFilter: searchText)"
                                   [suffix]="undefined"
                                   [max]="5"></app-property-item-slider>
-        <app-property-item-slider label="align-self"
-                                  [control]="getFormControl('alignSelf')"
-                                  *ngIf="mustBeVisible || ('alignSelf' | appPropertyFilter: searchText)"
-                                  [suffix]="undefined"
-                                  [max]="5"></app-property-item-slider>
+        <app-property-item-dropdown [options]="alignSelfOptions"
+                                    [control]="getFormControl('alignSelf')"
+                                    *ngIf="mustBeVisible || ('alignSelf' | appPropertyFilter: searchText)"
+                                    label="align-self"></app-property-item-dropdown>
       </p-panel>
     </ng-container>
   `,
@@ -49,10 +49,19 @@ import {PanelModule} from "primeng/panel";
   `
 })
 export class PropertiesFlexItemComponent extends BasePropertyGroupComponent implements OnChanges {
+  /*justify content*/
+  alignSelfOptions = [
+    AlignSelf.start,
+    AlignSelf.end,
+    AlignSelf.center,
+    AlignSelf.baseline,
+    AlignSelf.stretch
+  ]
+
   constructor(public fb: FormBuilder,
-              protected frameStore: CanvasStore,
+              protected canvasService: CanvasService,
               private propertyFilter: AppPropertyFilterPipe) {
-    super(fb, frameStore, propertyFilter);
+    super(fb, canvasService, propertyFilter);
   }
 
   override ngOnChanges() {
@@ -80,7 +89,7 @@ export class PropertiesFlexItemComponent extends BasePropertyGroupComponent impl
         takeUntil(this.destroy$)
       )
       .subscribe((value: any) => {
-        this.baseCanvasStore.updateCss({
+        this.baseCanvasService.updateCss({
           ...this.css,
           flexItem: value
         });

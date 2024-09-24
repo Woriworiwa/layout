@@ -10,7 +10,6 @@ import {CanvasItemMouseEvent} from "../../../models/canvas-item.model";
 import {EditableContentDirective} from "../../../directives/editable-content.directive";
 import {TextComponent} from "../text/text.component";
 import {CanvasItemType} from '../../../models/enums';
-import {CanvasStore} from "../../../store/canvas.store";
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {InsertComponent} from "../../insert/insert.component";
@@ -19,6 +18,7 @@ import {CanvasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../services/selection.service";
 import {PanZoomService} from "../../../services/pan-zoom.service";
 import {DragulaModule, DragulaService} from "ng2-dragula";
+import {CanvasService} from "../../../services/canvas.service";
 
 @Component({
   selector: 'app-container',
@@ -37,13 +37,13 @@ export class ContainerComponent extends CanvasBaseComponent {
   @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;
 
-  constructor(protected canvasStore: CanvasStore,
+  constructor(protected canvasService: CanvasService,
               private elementRef: ElementRef,
               private renderer: Renderer2,
               protected panZoomService: PanZoomService,
               private dragulaService: DragulaService,
               private selectionService: SelectionService) {
-    super(elementRef, renderer, canvasStore, dragulaService, selectionService);
+    super(elementRef, renderer, canvasService, dragulaService, selectionService);
   }
 
   protected onChildFrameClick(event: CanvasItemMouseEvent) {
