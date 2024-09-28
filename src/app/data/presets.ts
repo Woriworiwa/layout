@@ -1,7 +1,7 @@
 export const textPresets = [
   {
-    "presetId": "short-text",
-    "presetName": "short text",
+    "presetId": "text",
+    "presetName": "Text",
     "presetDefinition": {
       "itemType": "TEXT",
       "content": "lorem"
@@ -12,15 +12,15 @@ export const textPresets = [
 export const flexPresets = [
   {
     "presetId": "empty-flex",
-    "presetName": "empty Flex",
+    "presetName": "Empty Flex",
     "presetDefinition": {
       "itemType": "FLEX",
       "css": {
         "display": {
           "display": "flex"
         },
-        "flexContainer": {
-          "gap": 10
+        "boxSizing": {
+          "padding": "6px"
         }
       },
     }
@@ -36,6 +36,9 @@ export const flexPresets = [
         },
         "flexContainer": {
           "gap": 10
+        },
+        "boxSizing": {
+          "padding": "6px"
         }
       },
       "children": [
@@ -66,6 +69,9 @@ export const flexPresets = [
         "flexContainer": {
           "flexDirection": "column",
           "gap": 10
+        },
+        "boxSizing": {
+          "padding": "6px"
         }
       },
       "children": [
@@ -80,6 +86,130 @@ export const flexPresets = [
         {
           "content": "3",
           "itemType": "TEXT"
+        }
+      ]
+    }
+  },
+  {
+    "presetId": "holy-grail",
+    "presetName": "Holy grail layout",
+    "presetDefinition": {
+      "itemType": "FLEX",
+      "css": {
+        "display": {
+          "display": "flex"
+        },
+        "flexContainer": {
+          "flexDirection": "column",
+          "gap": 2
+        },
+        "boxSizing": {
+          "padding": "6px"
+        }
+      },
+      "key": "MfcOBkWs",
+      "children": [
+        {
+          "itemType": "FLEX",
+          "css": {
+            "display": {
+              "display": "flex"
+            },
+            "boxSizing": {
+              "padding": "2px"
+            }
+          },
+          "key": "qqFDrdxw"
+        },
+        {
+          "itemType": "FLEX",
+          "css": {
+            "display": {
+              "display": "flex"
+            },
+            "flexContainer": {
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "gap": 2
+            },
+            "boxSizing": {
+              "padding": "5px",
+              "height": "100px"
+            }
+          },
+          "key": "aBvkOlIv",
+          "children": [
+            {
+              "itemType": "FLEX",
+              "css": {
+                "display": {
+                  "display": "flex"
+                },
+                "flexContainer": {
+                  "gap": 2
+                },
+                "boxSizing": {
+                  "padding": "2px"
+                },
+                "flexItem": {
+                  "flexGrow": 1,
+                }
+              },
+              "key": "MeRucrVe"
+            },
+            {
+              "itemType": "FLEX",
+              "css": {
+                "display": {
+                  "display": "flex"
+                },
+                "flexContainer": {
+                  "flexWrap": "nowrap",
+                  "gap": "2",
+                },
+                "boxSizing": {
+                  "padding": "2px"
+                },
+                "flexItem": {
+                  "flexGrow": 2
+                }
+              },
+              "key": "gqAngmoD"
+            },
+            {
+              "itemType": "FLEX",
+              "css": {
+                "display": {
+                  "display": "flex"
+                },
+                "flexContainer": {
+                  "gap": 2
+                },
+                "boxSizing": {
+                  "padding": "2px"
+                },
+                "flexItem": {
+                  "flexGrow": 1
+                }
+              },
+              "key": "WjBxoHUn"
+            }
+          ]
+        },
+        {
+          "itemType": "FLEX",
+          "css": {
+            "display": {
+              "display": "flex"
+            },
+            "flexContainer": {
+              "gap": 2
+            },
+            "boxSizing": {
+              "padding": "2px",
+            }
+          },
+          "key": "buMSVyjs",
         }
       ]
     }
