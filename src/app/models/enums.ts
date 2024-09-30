@@ -4,6 +4,10 @@ export enum CanvasItemType {
   TEXT = 'TEXT',
 }
 
-
+export enum InsertPosition {
+  BEFORE = 'BEFORE',
+  AFTER = 'AFTER',
+  INSIDE = 'INSIDE',
+}
 
 

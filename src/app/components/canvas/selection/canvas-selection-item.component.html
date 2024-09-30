@@ -1,5 +1,15 @@
 <p-overlayPanel #op>
-  <app-insert [parentFrameId]="canvasItem?.key" (componentAdded)="op.toggle($event)"></app-insert>
+  <div class="insert-position">
+    <p-selectButton
+      [options]="insertPositions"
+      [(ngModel)]="insertPosition"
+      optionLabel="name"
+      optionValue="value" />
+  </div>
+
+  <app-insert [parentFrameId]="canvasItem?.key"
+              [insertPosition]="insertPosition"
+              (componentAdded)="op.toggle($event)"></app-insert>
 </p-overlayPanel>
 
 <p-overlayPanel #quickActions>

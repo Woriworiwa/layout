@@ -2,8 +2,8 @@
   @for (item of components; track item) {
     <div class="item-wrapper">
       <div class="item"
-           (click)="addItem(item.preset.presetId)">
-        {{ item.preset.presetName }}
+           (click)="addItem($event, item.preset.presetId)">
+        <div class="item-name">{{ item.preset.presetName }}</div>
         <ng-container *ngComponentOutlet="item.component; inputs: item.inputs" />
       </div>
     </div>
