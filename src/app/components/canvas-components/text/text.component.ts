@@ -13,12 +13,14 @@ import {CopyPasteDirective} from "../../../directives/copy-paste.directive";
   template: `{{ item?.content }}`,
   hostDirectives: [CopyPasteDirective],
   styles: `
-  :host{
-    font-family:sans-serif;
+  :host {
+    color-scheme: light;
+    font-family: sans-serif;
     font-weight: lighter;
     display: block;
     padding: 5px;
-    background-color: #FDF6EAFF;
+    background: var(--yellow-50);
+    color: black;
     border: 1px solid #fec300;
     white-space: pre-wrap;
 

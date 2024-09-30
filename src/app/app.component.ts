@@ -41,16 +41,8 @@ import {DragDropService} from "./services/drag-drop.service";
 export class AppComponent {
   title = 'layout';
   frame: CanvasItem | undefined;
+  selectedContentId = 1;
 
-  selectedTabId = 1;
-
-  tabs: { label: string, id: number, icon: string }[] = [
-    { label: 'Canvas', id: 1, icon:'pi pi-palette' },
-    { label: 'iFrame', id: 2, icon:'pi pi-palette' },
-    { label: 'CSS', id: 3, icon:'pi pi-receipt'},
-    { label: 'HTML', id: 4, icon:'pi pi-receipt'},
-    { label: 'JSON', id: 5,icon:'pi pi-file' }
-  ];
 
   constructor(protected canvasService: CanvasService,
               protected appSettingsStore: AppSettingsStore,
@@ -78,9 +70,5 @@ export class AppComponent {
 
   fetchData() {
     this.canvasService.setItems(this.mockService.getInitialData());
-  }
-
-  setSelectedTab(id: number) {
-    this.selectedTabId = id;
   }
 }

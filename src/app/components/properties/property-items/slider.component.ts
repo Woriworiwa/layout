@@ -28,7 +28,7 @@ import {SpeedDialModule} from "primeng/speeddial";
             [options]="items"
             [formControl]="unit"/>
           <button type="button" pButton icon="pi pi-times" (click)="onClearButtonClick()"
-                  [disabled]="control.value === null || control.value === undefined" class="p-button-secondary"></button>
+                  [disabled]="control.value === null || control.value === undefined"></button>
 
         </p-inputGroup>
         <p-slider [formControl]="control" [max]="max" (onChange)="onSliderChange($event)"></p-slider>
@@ -67,8 +67,8 @@ import {SpeedDialModule} from "primeng/speeddial";
 
     ::ng-deep p-dropdown {
       position: absolute;
-      right: 12px;
-      top: 2px;
+      right: 22px;
+      top: 1px;
       width: 40px !important;
     }
     ::ng-deep .p-dropdown {

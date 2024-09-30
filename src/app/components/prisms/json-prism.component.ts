@@ -17,7 +17,6 @@ import {CanvasService} from "../../services/canvas.service";
   `,
   styles: `
     :host{
-      background-color: #eeeeee;
       padding: 0 16px;
     }
   `

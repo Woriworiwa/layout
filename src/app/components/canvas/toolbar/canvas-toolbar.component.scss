@@ -2,16 +2,27 @@
 :host {
   gap: 10px;
   padding: 10px;
-  position: absolute;
+  position: sticky;
   display: flex;
   bottom: 50px;
-  left: 50%;
   box-shadow: 0 10px 20px #0000001a;
   border-radius: 15px;
   background-color: #ffffff;
-  transform: translate(-50%);
 
-  ::ng-deep .p-button {
-    padding: 0.5rem 0.4rem;
-  }
+  //::ng-deep .undo-button .p-button:disabled{
+  //  color: rgba(90, 90, 255, 1) !important;
+  //  opacity: 1 !important;
+  //}
+  //
+  //::ng-deep .p-button:disabled.p-button-text {
+  //  background-color: transparent !important;
+  //  color: rgba(90, 90, 90, 1) !important;
+  //}
+  //
+  //::ng-deep .p-button {
+  //  padding: 0.5rem 0.4rem;
+  //  &:disabled {
+  //    //color: var(--primary-color) !important;
+  //  }
+  //}
 }

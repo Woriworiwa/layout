@@ -18,6 +18,7 @@ import {CanvasItem} from "../../models/canvas-item.model";
 import {SerializationService} from "../../services/serialization.service";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasService} from "../../services/canvas.service";
+import {SelectionService} from "../../services/selection.service";
 
 @Component({
   selector: 'app-css-prism',
@@ -42,6 +43,7 @@ export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy
   private destroy$ = new Subject();
 
   constructor(private canvasService: CanvasService,
+              private selectionService: SelectionService,
               private cd: ChangeDetectorRef,
               private serializerService: SerializationService) {
   }
@@ -52,6 +54,12 @@ export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy
     this.canvasService.cssChanged$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
+        this.serializeToCss();
+        this.cd.markForCheck();
+      });
+
+    this.selectionService.selectedItem$
+      .subscribe(frame => {
         this.serializeToCss();
         this.cd.markForCheck();
       });
@@ -67,6 +75,15 @@ export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy
   }
 
   private serializeToCss() {
-    this.css = this.serializerService.getSerializer("CSS-class").serialize(this.canvasItems).join('\n');
+
+    if (this.canvasItems) {
+      this.css = this.serializerService.getSerializer("CSS-class").serialize(this.canvasItems).join('\n');
+      return;
+    } else {
+      const selectedItem = this.selectionService.selectedItem;
+      if (selectedItem) {
+        this.css = this.serializerService.getSerializer("CSS-class").serialize([selectedItem]).join('\n');
+      }
+    }
   }
 }

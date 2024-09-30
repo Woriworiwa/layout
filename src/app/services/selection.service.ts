@@ -129,8 +129,26 @@ export class SelectionService {
     }
   }
 
+  getSelectionCoordinates() {
+    if (!this.selectedItem) {
+      return;
+    }
+
+    const element: HTMLElement = this.getTargetElement(this.selectedItem);
+    if (!element || !this.canvas) {
+      return;
+    }
+    const canvasBoundingRect = this.canvas.nativeElement.getBoundingClientRect();
+    const canvasItemBoundingRect = element.getBoundingClientRect();
+
+    return {
+      top: canvasItemBoundingRect.top - canvasBoundingRect.top,
+      right: canvasBoundingRect.right - canvasItemBoundingRect.right
+    }
+  }
+
   private getTargetElement(hoverFrame: CanvasItem) {
-    return this.canvas.nativeElement.querySelector(`#${hoverFrame?.key}`);
+    return this.canvas?.nativeElement.querySelector(`#${hoverFrame?.key}`);
   }
 
   private addItem(component: CanvasSelectionItemComponent | CanvasHoverItemComponent, canvasItem: CanvasItem, element: HTMLElement) {

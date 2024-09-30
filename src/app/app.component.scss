@@ -7,6 +7,7 @@
     "left main right";
   grid-template-columns: 220px 4fr 340px;
   grid-template-rows: auto 1fr;
+  overflow: clip;
 
   .header {
     grid-area: header;
@@ -22,30 +23,26 @@
     grid-area: right;
   }
 
-  .main {
+  .center {
+    overflow: auto;
+    background-color: var(--surface-100);
     grid-area: main;
     display: flex;
     flex-direction: column;
-    overflow: auto;
 
-    .main-toolbar {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 10px;
-      background-color: #eeeeee;
-
-      ::ng-deep.p-button {
-        box-shadow: none;
-      }
-    }
-
-    .main-content {
-      overflow: auto;
+    .center-canvas, .center-preview {
+      overflow: clip;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
+
+    .bottom {
+      flex-grow: 1;
+      flex-shrink: 0;
+      overflow: auto;
+    }
+
   }
 }
 

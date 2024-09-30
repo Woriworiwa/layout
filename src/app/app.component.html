@@ -1,6 +1,6 @@
 <!--  header-->
 <div class="header">
-  <app-header></app-header>
+  <app-header (selectedContentChanged)="selectedContentId = $event"></app-header>
 </div>
 
 <!--  structure tree-->
@@ -8,24 +8,20 @@
   <app-left-menu *ngIf="(appSettingsStore.previewActive$ | async) === false"></app-left-menu>
 </div>
 
-<!--  main-->
-<div class="main">
-    <div class="main-toolbar">
-      @for (tab of tabs; track tab.id) {
-        <p-button [label]="tab.label"
-                  [icon]="tab.icon"
-                  [text]="true"
-                  [severity]="tab.id !== selectedTabId ? 'secondary' : undefined"
-                  (onClick)="setSelectedTab(tab.id)" size="small"></p-button>
-      }
-    </div>
-    <div class="main-content">
-      <app-canvas *ngIf="selectedTabId ===1 "></app-canvas>
-      <app-preview *ngIf="selectedTabId ===2 "></app-preview>
-      <app-css-prism [canvasItems]="canvasService.items" *ngIf="selectedTabId === 3"></app-css-prism>
-      <app-html-prism *ngIf="selectedTabId === 4"></app-html-prism>
-      <app-json-prism *ngIf="selectedTabId === 5"></app-json-prism>
-    </div>
+<!--  main content -->
+<div class="center">
+  <div class="center-canvas" *ngIf="selectedContentId ===1" >
+    <app-canvas></app-canvas>
+  </div>
+  <div class="center-preview" *ngIf="selectedContentId === 2">
+    <app-preview></app-preview>
+  </div>
+
+  <div class="gaga">
+    <app-css-prism [canvasItems]="canvasService.items" *ngIf="selectedContentId === 3"></app-css-prism>
+    <app-html-prism *ngIf="selectedContentId === 4"></app-html-prism>
+    <app-json-prism *ngIf="selectedContentId === 5"></app-json-prism>
+  </div>
 </div>
 
 <!--  properties -->

@@ -3,4 +3,5 @@ export interface ThemeModel {
   theme: string;
   ripple: boolean;
   scale: number;
+  darkMode: boolean;
 }

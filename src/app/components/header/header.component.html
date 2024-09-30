@@ -2,6 +2,14 @@
   Framer Doppelganger
 </div>
 
+<div class="content-switcher">
+  @for (tab of tabs; track tab.id) {
+    <p-button [label]="tab.label"
+              [text]="tab.id !== selectedTabId ? 'secondary' : undefined"
+              (onClick)="setSelectedTab(tab.id)" size="small"></p-button>
+  }
+</div>
+
 <div class="action-buttons-container">
   <p-toggleButton class="action-button"
                   [(ngModel)]="appSettingsStore.previewActive"
@@ -11,11 +19,14 @@
                   tooltipPosition="bottom"></p-toggleButton>
 
   <p-button class="action-button"
+            (onClick)="op.toggle($event)"
             [outlined]="true"
-            (click)="showConfig()"
             pTooltip="'Customize theme'"
             tooltipPosition="bottom"
             icon="pi pi-palette">
+    <p-overlayPanel #op>
+      <app-theme-options></app-theme-options>
+    </p-overlayPanel>
   </p-button>
 
   <p-splitButton label="Save"
@@ -25,4 +36,3 @@
                  [menuStyle]="{'min-width': '200px'}"></p-splitButton>
 </div>
 
-<app-theme-options></app-theme-options>
