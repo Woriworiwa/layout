@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Css} from "../../models/css.model";
+import {Css, Unit} from "../../models/css.model";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
 import {SliderComponent} from "./property-items/slider.component";
@@ -47,6 +47,14 @@ export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy
 
   getFormControl(name: string) {
     return this.formGroup.get(name) as FormControl;
+  }
+
+  protected extractValue(postFixedValue: any) {
+    return postFixedValue?.toString().replace(/\D/g, '')
+  }
+
+  protected extractUnit(postFixedValue: any) {
+    return postFixedValue?.toString().replace(/[0-9]/g, '') || Unit.px
   }
 }
 

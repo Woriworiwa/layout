@@ -37,7 +37,6 @@ import {CanvasService} from "../../services/canvas.service";
 
       pre {
         margin: 0;
-        background-color: #eeeeee;
         border-radius: 0;
       }
     }

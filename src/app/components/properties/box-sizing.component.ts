@@ -13,6 +13,7 @@ import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {MenuModule} from "primeng/menu";
 import {PanelModule} from "primeng/panel";
 import {CanvasService} from "../../services/canvas.service";
+import {Unit} from "../../models/css.model";
 
 @Component({
   selector: 'app-properties-box-sizing',
@@ -23,17 +24,20 @@ import {CanvasService} from "../../services/canvas.service";
       <ng-container [formGroup]="formGroup">
         <app-property-item-slider label="padding"
                                   *ngIf="mustBeVisible || ('padding' | appPropertyFilter: searchText)"
-                                  [control]="getFormControl('padding')"></app-property-item-slider>
+                                  [control]="getFormControl('padding')"
+                                  [unit]="getFormControl('paddingUnit')"></app-property-item-slider>
 
         <app-property-item-slider label="height"
                                   *ngIf="mustBeVisible || ('height' | appPropertyFilter: searchText)"
                                   [max]="1000"
-                                  [control]="getFormControl('height')"></app-property-item-slider>
+                                  [control]="getFormControl('height')"
+                                  [unit]="getFormControl('heightUnit')"></app-property-item-slider>
 
         <app-property-item-slider label="width"
                                   [max]="1000"
                                   *ngIf="mustBeVisible || ('width' | appPropertyFilter: searchText)"
-                                  [control]="getFormControl('width')"></app-property-item-slider>
+                                  [control]="getFormControl('width')"
+                                  [unit]="getFormControl('widthUnit')"></app-property-item-slider>
       </ng-container>
     </p-panel>
   `,
@@ -62,11 +66,15 @@ export class BoxSizingComponent extends BasePropertyGroupComponent implements On
 
     if (this.css?.boxSizing) {
       this.formGroup?.patchValue({
-        ...this.css.boxSizing
+        padding: this.extractValue(this.css.boxSizing.padding),
+        paddingUnit: this.extractUnit(this.css.boxSizing.padding),
+        height: this.extractValue(this.css.boxSizing.height),
+        heightUnit: this.extractUnit(this.css.boxSizing.height),
+        width: this.extractValue(this.css.boxSizing.width),
+        widthUnit: this.extractUnit(this.css.boxSizing.width)
       }, {emitEvent: false});
     }
   }
-
 
   protected override createFormGroup() {
     if (this.formGroupValueChangedSubscription) {
@@ -75,8 +83,11 @@ export class BoxSizingComponent extends BasePropertyGroupComponent implements On
 
     const formGroup = this.baseFb.group({
       padding: new FormControl<Property.Padding | null | undefined>(null, {updateOn: 'blur'}),
+      paddingUnit: new FormControl<Unit>(Unit.px),
       height: new FormControl<Property.Height | null | undefined>(null, {updateOn: 'blur'}),
-      width: new FormControl<Property.Height | null | undefined>(null, {updateOn: 'blur'})
+      heightUnit: new FormControl<Unit>(Unit.px),
+      width: new FormControl<Property.Height | null | undefined>(null, {updateOn: 'blur'}),
+      widthUnit: new FormControl<Unit>(Unit.px)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
@@ -86,7 +97,11 @@ export class BoxSizingComponent extends BasePropertyGroupComponent implements On
       .subscribe((value: any) => {
         this.canvasService.updateCss({
           ...this.css,
-          boxSizing: value
+          boxSizing: {
+            height: !!value.height ? `${value.height}${value.heightUnit}` : value.height,
+            padding: !!value.padding ? `${value.padding}${value.paddingUnit}` : value.padding,
+            width: !!value.width ? `${value.width}${value.widthUnit}` : value.width
+          }
         });
       });
 

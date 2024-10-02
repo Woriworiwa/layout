@@ -1,28 +1,35 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DropdownModule} from "primeng/dropdown";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputNumber, InputNumberModule} from "primeng/inputnumber";
 import {SliderChangeEvent, SliderModule} from "primeng/slider";
-import {POSTFIX_UNIT} from "../../../models/css.model";
+import {POSTFIX_UNIT, Unit} from "../../../models/css.model";
 import {InputGroupModule} from "primeng/inputgroup";
 import {ButtonModule} from "primeng/button";
 import {FloatLabelModule} from "primeng/floatlabel";
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 import {InputTextModule} from "primeng/inputtext";
+import {IconFieldModule} from "primeng/iconfield";
+import {InputIconModule} from "primeng/inputicon";
+import {SpeedDialModule} from "primeng/speeddial";
 
 @Component({
   selector: 'app-property-item-slider',
   standalone: true,
-  imports: [CommonModule, DropdownModule, PropertyPanelRowComponent, ReactiveFormsModule, InputNumberModule, SliderModule, InputGroupModule, ButtonModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule],
+  imports: [CommonModule, DropdownModule, PropertyPanelRowComponent, ReactiveFormsModule, InputNumberModule, SliderModule, InputGroupModule, ButtonModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule, SpeedDialModule],
   template: `
     <app-property-panel-row [label]="label">
       <div>
         <p-inputGroup>
-          <p-inputNumber [id]="label" inputId="integeronly" [formControl]="control" [suffix]="suffix" (onKeyDown)="onKeyDown($event)"></p-inputNumber>
+          <p-inputNumber [id]="label" inputId="integeronly" [formControl]="control" (onKeyDown)="onKeyDown($event)"></p-inputNumber>
+          <p-dropdown *ngIf="unit"
+            [options]="items"
+            [formControl]="unit"/>
           <button type="button" pButton icon="pi pi-times" (click)="onClearButtonClick()"
-                  [disabled]="control.value === null || control.value === undefined" class="p-button-secondary"></button>
+                  [disabled]="control.value === null || control.value === undefined"></button>
+
         </p-inputGroup>
         <p-slider [formControl]="control" [max]="max" (onChange)="onSliderChange($event)"></p-slider>
       </div>
@@ -49,16 +56,38 @@ import {InputTextModule} from "primeng/inputtext";
       border-bottom-left-radius: 3px;
     }
     // end temporary workaround
+
+    ::ng-deep .p-inputgroup {
+      position: relative;
+    }
+
+    ::ng-deep .p-dropdown-trigger {
+      display: none;
+    }
+
+    ::ng-deep p-dropdown {
+      position: absolute;
+      right: 22px;
+      top: 1px;
+      width: 40px !important;
+    }
+    ::ng-deep .p-dropdown {
+      border: 0;
+      tab-index: -1;
+    }
   }
   `
 })
 export class SliderComponent {
   @Input() label = '';
   @Input() control: FormControl<any> = new FormControl<any>('');
+  @Input() unit: FormControl | undefined = undefined;
   @Input() max = 100;
   @Input() controlValue: unknown = null;
   @Input() suffix: string | undefined = POSTFIX_UNIT;
   @Input() visible = true;
+
+  items = [ Unit.px, Unit.vh, Unit["%"]];
 
   @ViewChild(InputNumber) inputNumber!: InputNumber;
 

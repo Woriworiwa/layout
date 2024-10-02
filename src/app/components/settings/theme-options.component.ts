@@ -18,15 +18,11 @@ import {ListboxChangeEvent, ListboxModule} from "primeng/listbox";
 })
 export class ThemeOptionsComponent {
   themes = [
-    {name: 'lara', value: 'lara-light-blue'},
-    {name: 'material', value: 'md-light-indigo'},
-    {name: 'material compact', value: 'mdc-light-indigo'},
-    {name: 'bootstrap', value: 'bootstrap4-light-blue'},
-    {name: 'soho', value: 'soho-light'},
-    {name: 'viva', value: 'viva-light'},
-    {name: 'fluent', value: 'fluent-light'},
-    {name: 'mira', value: 'mira'},
-    {name: 'nano', value: 'nano'}
+    {name: 'aura blue', value: 'aura-blue'},
+    {name: 'lara blue', value: 'lara-blue'},
+    {name: 'material', value: 'md-deeppurple'},
+    {name: 'material condensed', value: 'mdc-deeppurple'},
+    {name: 'mira', value: 'mira'}
   ]
 
   inputStyles = [
@@ -64,6 +60,14 @@ export class ThemeOptionsComponent {
     this.themeService.config.update((config) => ({...config, ripple: val}));
   }
 
+  get darkMode() {
+    return this.themeService.config().darkMode;
+  }
+
+  set darkMode(val: boolean) {
+    this.themeService.config.update((config) => ({...config, darkMode: val}));
+  }
+
   get scale(): number {
     return this.themeService.config().scale;
   }
@@ -88,6 +92,10 @@ export class ThemeOptionsComponent {
 
   onRippleChange(event: InputSwitchChangeEvent) {
     this.ripple = event.checked;
+  }
+
+  onDarkModeChange(event: InputSwitchChangeEvent) {
+    this.darkMode = event.checked;
   }
 
   onInputStyleChange(event: SelectButtonChangeEvent) {

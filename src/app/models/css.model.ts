@@ -11,10 +11,15 @@ export interface Css {
 
 /* these properties must be post-fixed with a unit. For now, the unit is px.
 * TODO: make the unit configurable per control */
-export const POSTFIXED_PROPERTIES = ['gap', 'padding', 'height', 'width'];
+export const POSTFIXED_PROPERTIES = ['gap'];
 
 export const POSTFIX_UNIT = 'px';
 
+export enum Unit {
+  px = 'px',
+  vh = 'vh',
+  '%' = '%'
+}
 /* Enums */
 export const FlexDirection = proxiedPropertiesOf<Enumify<Property.FlexDirection>>();
 export const FlexWrap = proxiedPropertiesOf<Enumify<Property.FlexWrap>>();

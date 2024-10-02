@@ -5,7 +5,7 @@ export const mockData =
       "itemType": "FLEX",
       "css": {
         "boxSizing": {
-          "padding": "16"
+          "padding": "16px"
         },
         "display": {
           "display": "flex"
@@ -39,7 +39,7 @@ export const mockData =
               "alignContent": "center"
             },
             "boxSizing": {
-              "padding": "16",
+              "padding": "16px",
               "height": null,
               "width": null
             },
@@ -89,7 +89,7 @@ export const mockData =
               "alignContent": null
             },
             "boxSizing": {
-              "padding": "16",
+              "padding": "16px",
               "height": null,
               "width": null
             },
@@ -131,7 +131,7 @@ export const mockData =
               "display": "flex"
             },
             "boxSizing": {
-              "padding": "16"
+              "padding": "16px"
             },
             "flexContainer": {
               "flexDirection": null,
@@ -192,8 +192,8 @@ export const mockData =
               "alignContent": null
             },
             "boxSizing": {
-              "padding": "16",
-              "height": 100,
+              "padding": "16px",
+              "height": "100px",
               "width": null
             }
           },
@@ -226,7 +226,7 @@ export const mockData =
               "display": "flex"
             },
             "boxSizing": {
-              "padding": "16"
+              "padding": "16px"
             },
             "flexContainer": {
               "flexDirection": null,
@@ -266,7 +266,7 @@ export const mockData =
               "display": "flex"
             },
             "boxSizing": {
-              "padding": "16"
+              "padding": "16px"
             },
             "flexContainer": {
               "flexDirection": "row",
@@ -306,7 +306,7 @@ export const mockData =
               "display": "flex"
             },
             "boxSizing": {
-              "padding": "16"
+              "padding": "16px"
             },
             "flexContainer": {
               "flexDirection": null,
@@ -346,7 +346,7 @@ export const mockData =
           "display": "flex"
         },
         "boxSizing": {
-          "padding": "16"
+          "padding": "16px"
         },
         "flexContainer": {
           "gap": 10,
@@ -373,9 +373,9 @@ export const mockData =
               "alignContent": "start"
             },
             "boxSizing": {
-              "padding": "16",
-              "height": 167,
-              "width": 247
+              "padding": "16px",
+              "height": "167px",
+              "width": "247px"
             }
           },
           "children": [
@@ -433,9 +433,9 @@ export const mockData =
               "alignContent": "end"
             },
             "boxSizing": {
-              "padding": "16",
-              "height": 167,
-              "width": 247
+              "padding": "16px",
+              "height": "167px",
+              "width": "247px"
             }
           },
           "children": [
@@ -493,9 +493,9 @@ export const mockData =
               "alignContent": "center"
             },
             "boxSizing": {
-              "padding": "16",
-              "height": 167,
-              "width": 247
+              "padding": "16px",
+              "height": "167px",
+              "width": "247px"
             }
           },
           "children": [
@@ -547,9 +547,9 @@ export const mockData =
               "alignContent": "stretch"
             },
             "boxSizing": {
-              "padding": "16",
-              "height": 167,
-              "width": 247
+              "padding": "16px",
+              "height": "167px",
+              "width": "247px"
             }
           },
           "children": [
@@ -593,7 +593,7 @@ export const mockData =
           "display": "flex"
         },
         "boxSizing": {
-          "padding": "16"
+          "padding": "16px"
         },
         "flexContainer": {
           "gap": 10,
@@ -620,8 +620,8 @@ export const mockData =
               "alignContent": null
             },
             "boxSizing": {
-              "padding": "16",
-              "height": 100,
+              "padding": "16px",
+              "height": "100px",
               "width": null
             }
           },
@@ -662,7 +662,7 @@ export const mockData =
           "display": "flex"
         },
         "boxSizing": {
-          "padding": "16"
+          "padding": "16px"
         },
         "flexContainer": {
           "gap": 10,

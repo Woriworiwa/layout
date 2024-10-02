@@ -8,7 +8,7 @@ import cloneDeep from "lodash.clonedeep";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {Css} from "../models/css.model";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {CanvasItemType} from "../models/enums";
+import {CanvasItemType, InsertPosition} from "../models/enums";
 import {SelectionService} from "./selection.service";
 
 @Injectable()
@@ -45,8 +45,8 @@ export class CanvasService {
     }
   }
 
-  insertItem(insertAfterFrameId: string, newFrame: CanvasItem, overrideKey: boolean = false) {
-    this.canvasStore.insertItem(insertAfterFrameId, newFrame);
+  insertItem(insertAfterFrameId: string, newFrame: CanvasItem, insertPosition: InsertPosition) {
+    this.canvasStore.insertItem(insertAfterFrameId, newFrame, insertPosition);
     this.selectionService.setSelectedItemKey(newFrame.key);
     this.undoRedoService.takeSnapshot();
   }
@@ -85,7 +85,7 @@ export class CanvasService {
     this.selectionService.setSelectedItemKey(undefined);
   }
 
-  addPreset(presetId: string, insertAfterItemId: string) {
+  addPreset(presetId: string, targetItemId: string, insertPosition: InsertPosition) {
     const preset = this.presetsService.getPreset(presetId);
 
     if (!preset) {
@@ -96,7 +96,7 @@ export class CanvasService {
 
     this.presetsService.assignDefaultPaddings(newItem);
 
-    this.insertItem(insertAfterItemId, newItem);
+    this.insertItem(targetItemId, newItem, insertPosition);
   }
 
   updateCss(css: Css) {
@@ -108,8 +108,6 @@ export class CanvasService {
 
     selectedFrame.css = css;
 
-    // TODO: Handle undo/redo in a different way
-    // this.setItems([...this.items]);
     this.undoRedoService.takeSnapshot();
     this.cssChangedSubject.next(undefined);
   }
@@ -170,6 +168,6 @@ export class CanvasService {
 
     const duplicatedItem = cloneDeep(copyItem);
 
-    this.insertItem(pasteItemId, duplicatedItem);
+    this.insertItem(pasteItemId, duplicatedItem, InsertPosition.AFTER);
   }
 }

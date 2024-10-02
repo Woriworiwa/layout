@@ -23,22 +23,30 @@ import {CanvasService} from "../../services/canvas.service";
       </div>
     </div>
 
-    <div style="overflow: auto; flex-grow: 1; display: flex; flex-direction: column">
+    <div class="iframe-container">
       <iframe [srcdoc]="code | unsafeHtml"
               [ngStyle]="{ 'width': selectedMediaQuery?.width, 'flex-grow': 1}"></iframe>
     </div>
   `,
   styles: `
     :host {
-      background-color: #eeeeee;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
 
-    iframe {
-      border: none;
+    .iframe-container {
+      overflow: auto;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      iframe {
+        border: none;
+        height: 100%;
+      }
     }
 
     .screen-size-selector {
@@ -57,7 +65,7 @@ export class PreviewComponent {
   serializer: HtmlSerializer = new HtmlSerializer();
   mediaQueries: { name: string, width: string }[] = [{
     name: 'auto',
-    width: 'auto',
+    width: '100%',
   }, {
     name: 'Desktops (1920)',
     width: '1920px'
@@ -75,7 +83,8 @@ export class PreviewComponent {
     width: '480px',
   }
   ];
-  protected selectedMediaQuery: { name: string, width: string } | undefined = this.mediaQueries[this.mediaQueries.findIndex((mq: { name: string, width: string }) => mq.name === 'auto')];
+
+  protected selectedMediaQuery: { name: string, width: string } | undefined = this.mediaQueries[this.mediaQueries.findIndex((mq: { name: string, width: string }) => mq.name === 'Tablets, Ipads (1024px)')];
 
   constructor(private canvasService: CanvasService) {
     this.canvasService.items$

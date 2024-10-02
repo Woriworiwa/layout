@@ -1,10 +1,11 @@
 :host {
-  background-color: #eeeeee;
   padding: 30px;
   overflow: clip;
   display: flex;
   flex-grow: 1;
   position: relative;
+  flex-direction: column;
+  align-items: center;
 
   &.pan-mode-active {
     cursor: grab;
@@ -15,7 +16,6 @@
   }
 
   .pan-zoom-wrapper {
-
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -24,6 +24,12 @@
 
   > app-container {
     background: #eeeeee;
+  }
+
+  app-css-prism {
+    position: absolute;
+    right: 180px;
+    width: 260px;
   }
 }
 

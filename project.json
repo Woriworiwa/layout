@@ -25,41 +25,15 @@
         ],
         "styles": [
           "src/styles.scss",
-          "node_modules/prismjs/themes/prism.css",
           "node_modules/primeng/resources/primeng.min.css",
           {
-            "input": "src/primeng-themes/bootstrap4-light-blue.scss",
-            "bundleName": "bootstrap4-light-blue",
+            "input": "node_modules/prismjs/themes/prism.css",
+            "bundleName": "prism-light",
             "inject": false
           },
           {
-            "input": "src/primeng-themes/md-light-indigo.scss",
-            "bundleName": "md-light-indigo",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/mdc-light-indigo.scss",
-            "bundleName": "mdc-light-indigo",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/fluent-light.scss",
-            "bundleName": "fluent-light",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/lara-light-blue.scss",
-            "bundleName": "lara-light-blue",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/soho-light.scss",
-            "bundleName": "soho-light",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/viva-light.scss",
-            "bundleName": "viva-light",
+            "input": "node_modules/prismjs/themes/prism-okaidia.css",
+            "bundleName": "prism-dark",
             "inject": false
           },
           {
@@ -68,8 +42,43 @@
             "inject": false
           },
           {
-            "input": "src/primeng-themes/nano.scss",
-            "bundleName": "nano",
+            "input": "src/primeng-themes/md-deeppurple-light.scss",
+            "bundleName": "md-deeppurple-light",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/md-deeppurple-dark.scss",
+            "bundleName": "md-deeppurple-dark",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/mdc-deeppurple-light.scss",
+            "bundleName": "mdc-deeppurple-light",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/mdc-deeppurple-dark.scss",
+            "bundleName": "mdc-deeppurple-dark",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/aura-blue-dark.scss",
+            "bundleName": "aura-blue-dark",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/aura-blue-light.scss",
+            "bundleName": "aura-blue-light",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/lara-blue-light.scss",
+            "bundleName": "lara-blue-light",
+            "inject": false
+          },
+          {
+            "input": "src/primeng-themes/lara-blue-dark.scss",
+            "bundleName": "lara-blue-dark",
             "inject": false
           }
         ],

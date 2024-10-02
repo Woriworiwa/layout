@@ -9,10 +9,11 @@ import {ThemeModel} from "../models/theme.model";
 export class ThemeService {
 
   _config: ThemeModel = {
-    theme: 'mira',
+    theme: 'mdc-deeppurple',
     inputStyle: 'outlined',
     ripple: true,
-    scale: 12
+    scale: 12,
+    darkMode: false
   };
 
   themeSwitcherActive = false;
@@ -35,7 +36,7 @@ export class ThemeService {
   }
 
   updateStyle(config: ThemeModel) {
-    return config.theme !== this._config.theme;
+    return config.theme !== this._config.theme || config.darkMode !== this._config.darkMode;
   }
 
   onConfigUpdate() {
@@ -62,14 +63,14 @@ export class ThemeService {
 
     const newHref = themeLinkHref
       .split('/')
-      .map(() => `${config.theme}.css`)
+      .map(() => `${config.theme}${config.darkMode? '-dark': '-light'}.css`)
       .join('/');
 
-    this.replaceThemeLink(newHref);
+    this.replaceThemeLink(newHref, 'app-theme');
+    this.replaceThemeLink(`prism${config.darkMode? '-dark': '-light'}.css`, 'prism-theme');
   }
 
-  replaceThemeLink(href: string) {
-    const id = 'app-theme';
+  replaceThemeLink(href: string, id: string) {
     const themeLink = <HTMLLinkElement>document.getElementById(id);
     const cloneLinkElement = <HTMLLinkElement>themeLink.cloneNode(true);
 

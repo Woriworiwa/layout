@@ -1,11 +1,11 @@
 <div class="items-list">
-  @for (item of items; track item) {
+  @for (item of components; track item) {
     <div class="item-wrapper">
-    <div class="item"
-         (click)="addItem(item.presetId)">
-      {{item.presetName}}
-      <app-preset [preset]="item.presetDefinition"></app-preset>
-    </div>
+      <div class="item"
+           (click)="addItem($event, item.preset.presetId)">
+        <div class="item-name">{{ item.preset.presetName }}</div>
+        <ng-container *ngComponentOutlet="item.component; inputs: item.inputs" />
+      </div>
     </div>
   }
 </div>

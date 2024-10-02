@@ -11,7 +11,6 @@
 }
 
 .items-list {
-  background: white;
   border-radius: 4px;
   overflow: auto;
   display: flex;
@@ -25,7 +24,7 @@
 
   .item {
     padding: 8px;
-    background: #f3f3f3;
+    background: var(--surface-100);
     border-radius: 4px;
     cursor: pointer;
 
@@ -33,6 +32,34 @@
       transform: scale(1.03);
       transition: all .25s ease;
     }
+
+    .item-name {
+      margin-bottom: 6px;
+    }
   }
 }
 
+:host ::ng-deep {
+  app-preset-container {
+    border: 1px solid #ed9534;
+    background: white;
+    border-radius: 3px;
+  }
+
+  app-preset-text {
+    display: block;
+    padding: 2px;
+    background-color: #FDF6EAFF;
+
+    border: 1px solid #fec300;
+  }
+}
+
+
+//.flex-container {
+//  display: block;
+//
+//  background-color: #9161a7;
+//  border: 1px solid #ed9534;
+//  padding: 5px;
+//}

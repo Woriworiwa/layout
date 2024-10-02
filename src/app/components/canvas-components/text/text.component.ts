@@ -13,15 +13,15 @@ import {CopyPasteDirective} from "../../../directives/copy-paste.directive";
   template: `{{ item?.content }}`,
   hostDirectives: [CopyPasteDirective],
   styles: `
-  :host{
-    font-family:sans-serif;
+  :host {
+    color-scheme: light;
+    font-family: sans-serif;
     font-weight: lighter;
     display: block;
     padding: 5px;
-    background-color: #ed9534;
-    border-radius: 3px;
-    border: 1px solid black;
-    box-shadow: inset 3px 3px 7px 5px #f2ad62;
+    background: var(--yellow-50);
+    color: black;
+    border: 1px solid #fec300;
     white-space: pre-wrap;
 
     &[contenteditable=true]:focus {

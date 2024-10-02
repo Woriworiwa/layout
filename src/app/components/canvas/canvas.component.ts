@@ -27,13 +27,17 @@ import {CopyPasteService} from "../../services/copy-paste.service";
 import {CopyPasteDirective} from "../../directives/copy-paste.directive";
 import {PresetsService} from "../../services/presets.service";
 import {CanvasService} from "../../services/canvas.service";
+import {CssPrismComponent} from "../prisms/css-prism.component";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, DragulaModule],
+  imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, DragulaModule, CssPrismComponent],
   providers: [ContextMenuService, CopyPasteService, PresetsService],
   hostDirectives: [CopyPasteDirective],
+  host: {
+    '[class.surface-100]': 'true',
+  },
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
@@ -58,11 +62,15 @@ export class CanvasComponent implements AfterViewInit, OnInit{
   @ViewChild("wrapper")
   wrapper!: ElementRef;
 
-  @ViewChild("selectionOverlay", {read: ViewContainerRef}) selectionOverlay!: ViewContainerRef;
+  @ViewChild("selectionOverlay", {read: ViewContainerRef})
+  selectionOverlay!: ViewContainerRef;
+
+  @ViewChild("cssPrism",  {read: ElementRef})
+  cssPrism!: ElementRef;
 
   constructor(private canvasService: CanvasService,
               private renderer: Renderer2,
-              private selectionService: SelectionService,
+              protected selectionService: SelectionService,
               private contextMenuService: ContextMenuService,
               protected panZoomService: PanZoomService,
               protected dragDropService: DragDropService,
@@ -79,6 +87,10 @@ export class CanvasComponent implements AfterViewInit, OnInit{
       setTimeout(() => {
         document.getElementById(`${this.selectionService.selectedItem?.key}`)?.focus()
       }, 0);
+    });
+
+    this.selectionService.selectedItem$.subscribe(frame => {
+      this.setCssPrismPosition();
     });
   }
 
@@ -99,6 +111,9 @@ export class CanvasComponent implements AfterViewInit, OnInit{
         this.translateX -= event.deltaY;
       } else {
         this.translateY -= event.deltaY;
+        // this.translateX -= event.deltaX;
+
+        this.setCssPrismPosition();
       }
     }
 
@@ -135,6 +150,7 @@ export class CanvasComponent implements AfterViewInit, OnInit{
       this.translateX += event.movementX;
       this.translateY += event.movementY;
       this.setTransformStyles();
+      this.setCssPrismPosition();
     }
   }
 
@@ -217,5 +233,13 @@ export class CanvasComponent implements AfterViewInit, OnInit{
 
   private setTransformStyles() {
     this.renderer.setStyle(this.wrapper.nativeElement, 'transform', `scale(${this.scale})  translateY(${this.translateY}px) translateX(${this.translateX}px)`);
+  }
+
+  private setCssPrismPosition() {
+    const coordinates = this.selectionService.getSelectionCoordinates();
+    if (coordinates && this.cssPrism) {
+      this.renderer.setStyle(this.cssPrism.nativeElement, 'transform', `translateY(${coordinates.top + this.translateY}px)`);
+      // this.renderer.setStyle(this.cssPrism.nativeElement, 'left', `${coordinates.right}px)`);
+    }
   }
 }

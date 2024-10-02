@@ -19,7 +19,7 @@ export class LeftMenuComponent {
   selectedTab: LeftMenuTabs = LeftMenuTabs.insert;
   tabs: {label: string, tab: LeftMenuTabs}[] = [
     { label: 'Insert', tab: LeftMenuTabs.insert },
-    { label: 'Elements', tab: LeftMenuTabs.elements }
+    { label: 'Layers', tab: LeftMenuTabs.elements }
   ];
 
   protected readonly LeftMenuTabs = LeftMenuTabs;

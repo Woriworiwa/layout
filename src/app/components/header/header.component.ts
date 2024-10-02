@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {ThemeService} from "../../services/theme.service";
@@ -14,15 +14,22 @@ import {TooltipModule} from "primeng/tooltip";
 import {SplitButtonModule} from "primeng/splitbutton";
 import {MenuItem, MessageService} from "primeng/api";
 import {MessageModule} from "primeng/message";
+import {OverlayPanelModule} from "primeng/overlaypanel";
+import {CanvasService} from "../../services/canvas.service";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent, CdkDrag, CdkDropList, ToggleButtonModule, FormsModule, SidebarModule, PreviewComponent, TooltipModule, SplitButtonModule, MessageModule],
+  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent, CdkDrag, CdkDropList, ToggleButtonModule, FormsModule, SidebarModule, PreviewComponent, TooltipModule, SplitButtonModule, MessageModule, OverlayPanelModule],
   templateUrl: `./header.component.html`,
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  @Output()
+  selectedContentChanged = new EventEmitter<number>();
+
+  selectedTabId = 1;
+
   items: MenuItem[] = [
     {
       label: 'Empty local storage',
@@ -33,10 +40,18 @@ export class HeaderComponent {
     }
   ];
 
+  tabs: { label: string, id: number}[] = [
+    { label: 'Canvas', id: 1 },
+    { label: 'Preview', id: 2 },
+    { label: 'CSS', id: 3 },
+    { label: 'HTML', id: 4 },
+    { label: 'JSON', id: 5 }
+  ];
 
   constructor(private themeService: ThemeService,
               protected appSettingsStore: AppSettingsStore,
               private dataService: DataService,
+              private canvasService: CanvasService,
               private messageService: MessageService) {
   }
 
@@ -51,6 +66,12 @@ export class HeaderComponent {
 
   clearLocalStorage() {
     this.dataService.clearLocalStorage();
+    this.canvasService.setItems(this.dataService.getInitialData());
     this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Local storage cleared.' });
+  }
+
+  setSelectedTab(id: number) {
+    this.selectedContentChanged.emit(id);
+    this.selectedTabId = id;
   }
 }
