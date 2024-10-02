@@ -238,7 +238,8 @@ export class CanvasComponent implements AfterViewInit, OnInit{
   private setCssPrismPosition() {
     const coordinates = this.selectionService.getSelectionCoordinates();
     if (coordinates && this.cssPrism) {
-      this.renderer.setStyle(this.cssPrism.nativeElement, 'transform', `translateY(${coordinates.top + this.translateY}px) translateX(${this.translateX}px)`);
+      this.renderer.setStyle(this.cssPrism.nativeElement, 'transform', `translateY(${coordinates.top + this.translateY}px)`);
+      // this.renderer.setStyle(this.cssPrism.nativeElement, 'left', `${coordinates.right}px)`);
     }
   }
 }

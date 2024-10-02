@@ -1,36 +1,17 @@
-<!--  header-->
-<div class="header">
-  <app-header (selectedContentChanged)="selectedContentId = $event"></app-header>
-</div>
-
-<!--  structure tree-->
-<div class="left">
-  <app-left-menu *ngIf="(appSettingsStore.previewActive$ | async) === false"></app-left-menu>
-</div>
-
-<!--  main content -->
-<div class="center">
-  <div class="center-canvas" *ngIf="selectedContentId ===1" >
-    <app-canvas></app-canvas>
-  </div>
-  <div class="center-preview" *ngIf="selectedContentId === 2">
-    <app-preview></app-preview>
-  </div>
-
-  <div class="gaga">
-    <app-css-prism [canvasItems]="canvasService.items" *ngIf="selectedContentId === 3"></app-css-prism>
-    <app-html-prism *ngIf="selectedContentId === 4"></app-html-prism>
-    <app-json-prism *ngIf="selectedContentId === 5"></app-json-prism>
-  </div>
-</div>
-
-<!--  properties -->
-<div class="right">
-  <app-settings *ngIf="(appSettingsStore.previewActive$ | async) === false"></app-settings>
-</div>
-
-<!-- toast messages -->
+<app-header (selectedContentChanged)="selectedContentId = $event"></app-header>
+<app-left-menu *ngIf="(appSettingsStore.previewActive$ | async) === false"></app-left-menu>
+<app-settings *ngIf="(appSettingsStore.previewActive$ | async) === false"></app-settings>
 <p-toast position="bottom-center"></p-toast>
+
+<div class="center">
+  <div class="center-canvas">
+    <app-canvas *ngIf="selectedContentId ===1"></app-canvas>
+    <app-preview *ngIf="selectedContentId === 2"></app-preview>
+  </div>
+  <app-css-prism [canvasItems]="canvasService.items" *ngIf="selectedContentId === 3"></app-css-prism>
+  <app-html-prism *ngIf="selectedContentId === 4"></app-html-prism>
+  <app-json-prism *ngIf="selectedContentId === 5"></app-json-prism>
+</div>
 
 <router-outlet></router-outlet>
 
