@@ -1,10 +1,11 @@
-<span class="dragula-wrapper" dragula="canvas">
 @switch (item?.itemType) {
   @case (FrameType.FLEX) {
     @for (childItem of item?.children; track childItem.key) {
       @switch (childItem.itemType) {
         @case (FrameType.FLEX) {
           <app-container [item]="childItem"
+                         [nxtSortablejs]="childItem.children"
+                         [config]="dragOptions"
                          (clicked)="onChildFrameClick($event)"
                          (mouseOver)="onChildMouseOver($event)"
                          (mouseOut)="onChildMouseOut($event)"
@@ -17,6 +18,7 @@
         @case (FrameType.TEXT) {
           <app-text appEditableContent
                     [item]="childItem"
+                    [nxtSortablejs]="childItem.children"
                     [id]="childItem.key!"
                     (clicked)="onChildFrameClick($event)"
                     (mouseOver)="onChildMouseOver($event)"
@@ -32,4 +34,3 @@
     <app-text></app-text>
   }
 }
-</span>

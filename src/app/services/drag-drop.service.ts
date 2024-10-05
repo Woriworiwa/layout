@@ -1,25 +1,57 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, Observable} from "rxjs";
-import {DragulaService} from "ng2-dragula";
+import {BehaviorSubject, distinctUntilChanged, map, Observable, Subject} from "rxjs";
+import {Options} from 'sortablejs'
+import {CanvasStore} from "../store/canvas.store";
 
 @Injectable()
 export class DragDropService {
-  private currentStateSubject: BehaviorSubject<any> = new BehaviorSubject<{ draggingStarted: boolean, isDragging: boolean , draggingEnded: boolean}>({
+  private currentStateSubject: BehaviorSubject<any> = new BehaviorSubject<{
+    draggingStarted: boolean,
+    isDragging: boolean,
+    draggingEnded: boolean
+  }>({
     isDragging: false,
     draggingStarted: false,
     draggingEnded: false
   });
 
-  state$: Observable<{ draggingStarted: boolean, isDragging: boolean, draggingEnded: boolean }> = this.currentStateSubject.asObservable();
+  state$: Observable<{
+    draggingStarted: boolean,
+    isDragging: boolean,
+    draggingEnded: boolean
+  }> = this.currentStateSubject.asObservable();
 
-  constructor(private dragulaService: DragulaService) {
+  private dropSubject = new Subject();
+  drop$ = this.dropSubject.asObservable();
 
-    this.dragulaService.drag().subscribe(() => {
-      this.currentStateSubject.next({ draggingStarted: true, isDragging: true , draggingEnded: false });
+  constructor(private canvasService: CanvasStore) {
+
+  }
+
+  startDragging() {
+    this.currentStateSubject.next({
+      ...this.currentStateSubject.getValue(),
+      isDragging: true
     });
+  }
 
-    this.dragulaService.dragend().subscribe(() => {
-      this.currentStateSubject.next({ draggingStarted: false, isDragging: false, draggingEnded: true });
+  endDragging() {
+    this.currentStateSubject.next({
+      ...this.currentStateSubject.getValue(),
+      isDragging: false
     });
+  }
+
+  createGroup(options: Options = {}) {
+    return {
+      swapThreshold: 0.5,
+      ghostClass: 'blue-background-class',
+      fallbackOnBody: true,
+      onUpdate: (event) => this.dropSubject.next(undefined), // this.canvasService.setItems([...this.canvasService.items]), // .moveItemChild(event.from.id || event.to.id, event.to.id, event.oldIndex!, event.newIndex!),
+      onStart: (event) => this.startDragging(),
+      onEnd: (event) => this.endDragging(),
+      ...options
+    } as Options;
+
   }
 }
