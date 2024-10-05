@@ -1,9 +1,9 @@
 import {Component, ElementRef, Input, OnChanges, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CanvasBaseComponent} from "../canvas-base-component.component";
-import {SelectionService} from "../../../services/selection.service";
-import {CanvasService} from "../../../services/canvas.service";
-import {CopyPasteDirective} from "../../../directives/copy-paste.directive";
+import {SelectionService} from "../../../../services/selection.service";
+import {CanvasService} from "../../../../services/canvas.service";
+import {CopyPasteDirective} from "../../../../directives/copy-paste.directive";
 
 @Component({
   selector: 'app-text',

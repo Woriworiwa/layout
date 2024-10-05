@@ -6,21 +6,21 @@ import {
   Output, Renderer2
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CanvasItemMouseEvent} from "../../../models/canvas-item.model";
-import {EditableContentDirective} from "../../../directives/editable-content.directive";
+import {CanvasItemMouseEvent} from "../../../../models/canvas-item.model";
+import {EditableContentDirective} from "../../../../directives/editable-content.directive";
 import {TextComponent} from "../text/text.component";
-import {CanvasItemType} from '../../../models/enums';
+import {CanvasItemType} from '../../../../models/enums';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
-import {InsertComponent} from "../../insert/insert.component";
-import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
+import {InsertComponent} from "../../../insert/insert.component";
+import {CssStyleSerializerPipe} from "../../../../pipes/css-style-serializer.pipe";
 import {CanvasBaseComponent} from "../canvas-base-component.component";
-import {SelectionService} from "../../../services/selection.service";
-import {PanZoomService} from "../../../services/pan-zoom.service";
-import {CanvasService} from "../../../services/canvas.service";
+import {SelectionService} from "../../../../services/selection.service";
+import {PanZoomService} from "../../../../services/pan-zoom.service";
+import {CanvasService} from "../../../../services/canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from "sortablejs";
-import {DragDropService} from "../../../services/drag-drop.service";
+import {DragDropService} from "../../../../services/drag-drop.service";
 
 @Component({
   selector: 'app-container',

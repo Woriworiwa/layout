@@ -1,6 +1,6 @@
 <app-header (selectedContentChanged)="selectedContentId = $event"></app-header>
-<app-left-menu *ngIf="(appSettingsStore.previewActive$ | async) === false"></app-left-menu>
-<app-settings *ngIf="(appSettingsStore.previewActive$ | async) === false"></app-settings>
+<app-left-menu></app-left-menu>
+<app-settings></app-settings>
 <p-toast position="bottom-center"></p-toast>
 
 <div class="center">

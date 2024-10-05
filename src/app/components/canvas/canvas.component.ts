@@ -10,7 +10,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
-import {ContainerComponent} from "../canvas-components/frame/container.component";
+import {ContainerComponent} from "./canvas-components/container/container.component";
 import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
@@ -94,7 +94,7 @@ export class CanvasComponent implements AfterViewInit, OnInit{
       }, 0);
     });
 
-    this.selectionService.selectedItem$.subscribe(frame => {
+    this.selectionService.selectedItem$.subscribe(() => {
       this.setCssPrismPosition();
     });
   }

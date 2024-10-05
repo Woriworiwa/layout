@@ -9,12 +9,12 @@ import {
   Renderer2
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
-import {Serializer} from "../../data/serializers/serializer";
-import {CssStyleSerializer} from "../../data/serializers/css-style.serializer";
-import {SelectionService} from "../../services/selection.service";
+import {CanvasItem, CanvasItemMouseEvent} from "../../../models/canvas-item.model";
+import {Serializer} from "../../../data/serializers/serializer";
+import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer";
+import {SelectionService} from "../../../services/selection.service";
 import {Subject, takeUntil} from "rxjs";
-import {CanvasService} from "../../services/canvas.service";
+import {CanvasService} from "../../../services/canvas.service";
 
 @Component({
   selector: 'app-canvas-base-component',

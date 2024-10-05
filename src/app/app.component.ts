@@ -15,7 +15,6 @@ import {TabViewModule} from "primeng/tabview";
 import {JsonPrismComponent} from "./components/prisms/json-prism.component";
 import {CssPrismComponent} from "./components/prisms/css-prism.component";
 import {HtmlPrismComponent} from "./components/prisms/html-prism.component";
-import {AppSettingsStore} from "./store/app-settings-store.service";
 import {PreviewComponent} from "./components/preview/preview.component";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {FormsModule} from "@angular/forms";
@@ -45,7 +44,6 @@ export class AppComponent {
 
 
   constructor(protected canvasService: CanvasService,
-              protected appSettingsStore: AppSettingsStore,
               private undoRedoService: UndoRedoService,
               private selectionService: SelectionService,
               private mockService: DataService) {
