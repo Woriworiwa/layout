@@ -9,13 +9,12 @@ import {
   Renderer2
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
-import {Serializer} from "../../data/serializers/serializer";
-import {CssStyleSerializer} from "../../data/serializers/css-style.serializer";
-import {SelectionService} from "../../services/selection.service";
+import {CanvasItem, CanvasItemMouseEvent} from "../../../models/canvas-item.model";
+import {Serializer} from "../../../data/serializers/serializer";
+import {CssStyleSerializer} from "../../../data/serializers/css-style.serializer";
+import {SelectionService} from "../../../services/selection.service";
 import {Subject, takeUntil} from "rxjs";
-import {DragulaService} from "ng2-dragula";
-import {CanvasService} from "../../services/canvas.service";
+import {CanvasService} from "../../../services/canvas.service";
 
 @Component({
   selector: 'app-canvas-base-component',
@@ -36,7 +35,6 @@ export class CanvasBaseComponent implements OnDestroy, OnChanges {
   constructor(private baseElementRef: ElementRef,
               private baseRenderer: Renderer2,
               private baseCanvasService: CanvasService,
-              private baseDragulaService: DragulaService,
               private baseSelectionService: SelectionService) {
   }
 
@@ -96,14 +94,6 @@ export class CanvasBaseComponent implements OnDestroy, OnChanges {
           this.updateCssAndSelection();
         }
       });
-
-    this.baseDragulaService.drag(this.item?.key).subscribe(() => {
-      if(!this.item) {
-        return;
-      }
-
-      this.clicked.emit({canvasItem: this.item, mouseEvent: new MouseEvent('click')});
-    });
   }
 
   ngOnDestroy() {

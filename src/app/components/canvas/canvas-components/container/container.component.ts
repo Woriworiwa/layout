@@ -6,25 +6,27 @@ import {
   Output, Renderer2
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CanvasItemMouseEvent} from "../../../models/canvas-item.model";
-import {EditableContentDirective} from "../../../directives/editable-content.directive";
+import {CanvasItemMouseEvent} from "../../../../models/canvas-item.model";
+import {EditableContentDirective} from "../../../../directives/editable-content.directive";
 import {TextComponent} from "../text/text.component";
-import {CanvasItemType} from '../../../models/enums';
+import {CanvasItemType} from '../../../../models/enums';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
-import {InsertComponent} from "../../insert/insert.component";
-import {CssStyleSerializerPipe} from "../../../pipes/css-style-serializer.pipe";
+import {InsertComponent} from "../../../insert/insert.component";
+import {CssStyleSerializerPipe} from "../../../../pipes/css-style-serializer.pipe";
 import {CanvasBaseComponent} from "../canvas-base-component.component";
-import {SelectionService} from "../../../services/selection.service";
-import {PanZoomService} from "../../../services/pan-zoom.service";
-import {DragulaModule, DragulaService} from "ng2-dragula";
-import {CanvasService} from "../../../services/canvas.service";
+import {SelectionService} from "../../../../services/selection.service";
+import {PanZoomService} from "../../../../services/pan-zoom.service";
+import {CanvasService} from "../../../../services/canvas.service";
+import {SortablejsModule} from "nxt-sortablejs";
+import {Options} from "sortablejs";
+import {DragDropService} from "../../../../services/drag-drop.service";
 
 @Component({
   selector: 'app-container',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditableContentDirective, TextComponent, ButtonModule, OverlayPanelModule, InsertComponent, CssStyleSerializerPipe, DragulaModule],
+  imports: [CommonModule, EditableContentDirective, TextComponent, ButtonModule, OverlayPanelModule, InsertComponent, CssStyleSerializerPipe, SortablejsModule],
   templateUrl: 'container.component.html',
   host: {
     /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
@@ -37,13 +39,16 @@ export class ContainerComponent extends CanvasBaseComponent {
   @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;
 
+  dragOptions: Options;
+
   constructor(protected canvasService: CanvasService,
               private elementRef: ElementRef,
               private renderer: Renderer2,
               protected panZoomService: PanZoomService,
-              private dragulaService: DragulaService,
+              private dragDropService: DragDropService,
               private selectionService: SelectionService) {
-    super(elementRef, renderer, canvasService, dragulaService, selectionService);
+    super(elementRef, renderer, canvasService, selectionService);
+    this.dragOptions = this.dragDropService.createGroup({group: 'child', ghostClass: 'drag-background-lvl-1'});
   }
 
   protected onChildFrameClick(event: CanvasItemMouseEvent) {

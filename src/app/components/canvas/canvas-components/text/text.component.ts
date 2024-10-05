@@ -1,10 +1,9 @@
 import {Component, ElementRef, Input, OnChanges, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CanvasBaseComponent} from "../canvas-base-component.component";
-import {SelectionService} from "../../../services/selection.service";
-import {DragulaService} from "ng2-dragula";
-import {CanvasService} from "../../../services/canvas.service";
-import {CopyPasteDirective} from "../../../directives/copy-paste.directive";
+import {SelectionService} from "../../../../services/selection.service";
+import {CanvasService} from "../../../../services/canvas.service";
+import {CopyPasteDirective} from "../../../../directives/copy-paste.directive";
 
 @Component({
   selector: 'app-text',
@@ -39,9 +38,8 @@ export class TextComponent extends CanvasBaseComponent implements OnChanges{
   constructor(private canvasService: CanvasService,
               private elementRef: ElementRef,
               private renderer: Renderer2,
-              private dragulaService: DragulaService,
               private selectionService: SelectionService) {
-    super(elementRef, renderer, canvasService, dragulaService, selectionService);
+    super(elementRef, renderer, canvasService, selectionService);
   }
 
   override ngOnChanges() {

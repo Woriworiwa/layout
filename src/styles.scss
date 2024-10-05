@@ -1,7 +1,6 @@
 @import "primeicons/primeicons.css";
 @import 'primeflex/primeflex.scss';
 @import "prismjs/plugins/toolbar/prism-toolbar.css";
-@import "dragula/dist/dragula.min.css";
 
 html,body {
   height:100vh;
@@ -20,30 +19,12 @@ html,body {
   color: var(--primary-color);
 }
 
-/* in-flight clone */
-.gu-mirror {
-  position: fixed !important;
-  margin: 0 !important;
-  z-index: 9999 !important;
-  opacity: 0.8;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-  filter: alpha(opacity=80);
-  pointer-events: none;
+/* drag and drop */
+.drag-background-lvl-1 {
+  background-color: var(--blue-100) !important;
 }
-/* high-performance display:none; helper */
-.gu-hide {
-  left: -9999px !important;
+
+.drag-background-lvl-2 {
+  background-color: var(--green-100) !important;
 }
-/* added to mirrorContainer (default = body) while dragging */
-.gu-unselectable {
-  -webkit-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
-  user-select: none !important;
-}
-/* added to the source element while its mirror is dragged */
-.gu-transit {
-  opacity: 0.2;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-  filter: alpha(opacity=20);
-}
+

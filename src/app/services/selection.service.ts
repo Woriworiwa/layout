@@ -6,7 +6,7 @@ import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-ho
 import {ContextMenuService} from "./context-menu.service";
 import {PanZoomService} from "./pan-zoom.service";
 import {DragDropService} from "./drag-drop.service";
-import {BehaviorSubject, combineLatestWith, distinctUntilChanged, map, Observable} from "rxjs";
+import {BehaviorSubject, combineLatestWith, distinctUntilChanged, filter, map, Observable} from "rxjs";
 
 @Injectable()
 export class SelectionService {
@@ -75,6 +75,11 @@ export class SelectionService {
             this.canvasHoverItem = undefined;
           } else {
             if (dragDropState.isDragging || this.panZoomService.isPanModeActive || !hoverFrame || !hoverFrame.key) {
+              if (this.canvasHoverItem) {
+                this.removeItem(this.canvasHoverItem);
+                this.canvasHoverItem = undefined;
+              }
+
               return;
             }
 

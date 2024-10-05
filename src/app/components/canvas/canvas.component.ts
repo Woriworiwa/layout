@@ -10,7 +10,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
-import {ContainerComponent} from "../canvas-components/frame/container.component";
+import {ContainerComponent} from "./canvas-components/container/container.component";
 import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
 import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import {InsertComponent} from "../insert/insert.component";
@@ -21,18 +21,19 @@ import {SelectionService} from "../../services/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
 import {PanZoomService} from "../../services/pan-zoom.service";
 import {DragDropService} from "../../services/drag-drop.service";
-import {DragulaModule, DragulaService} from "ng2-dragula";
 import {MessageService} from "primeng/api";
 import {CopyPasteService} from "../../services/copy-paste.service";
 import {CopyPasteDirective} from "../../directives/copy-paste.directive";
 import {PresetsService} from "../../services/presets.service";
 import {CanvasService} from "../../services/canvas.service";
 import {CssPrismComponent} from "../prisms/css-prism.component";
+import {SortablejsModule} from "nxt-sortablejs";
+import { Options } from 'sortablejs'
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, DragulaModule, CssPrismComponent],
+  imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, CssPrismComponent, SortablejsModule],
   providers: [ContextMenuService, CopyPasteService, PresetsService],
   hostDirectives: [CopyPasteDirective],
   host: {
@@ -68,18 +69,22 @@ export class CanvasComponent implements AfterViewInit, OnInit{
   @ViewChild("cssPrism",  {read: ElementRef})
   cssPrism!: ElementRef;
 
+  canvasDragOptions: Options;
+  childDragOptions: Options;
+
   constructor(private canvasService: CanvasService,
               private renderer: Renderer2,
               protected selectionService: SelectionService,
               private contextMenuService: ContextMenuService,
               protected panZoomService: PanZoomService,
               protected dragDropService: DragDropService,
-              protected dragulaService: DragulaService,
               private messageService: MessageService,
               @Inject(DOCUMENT) document: Document) {
+    this.canvasDragOptions = this.dragDropService.createGroup({ swapThreshold: 0.8, ghostClass: 'drag-background-lvl-1'});
+    this.childDragOptions = this.dragDropService.createGroup({ swapThreshold: 0.9, group: 'child', ghostClass: 'drag-background-lvl-2'});
+9
     this.canvasService.items$.subscribe(rootFrames => {
       this.frames = rootFrames;
-
       /* focus the selected frame, most of the times the focus will be set by the mouse when the user clicks on an item,
       * but when programatically add new items, we need to focus them.
       * Items should be focused in order to listen to keyboard events*/
@@ -89,7 +94,7 @@ export class CanvasComponent implements AfterViewInit, OnInit{
       }, 0);
     });
 
-    this.selectionService.selectedItem$.subscribe(frame => {
+    this.selectionService.selectedItem$.subscribe(() => {
       this.setCssPrismPosition();
     });
   }
@@ -172,8 +177,10 @@ export class CanvasComponent implements AfterViewInit, OnInit{
 
 
 
+
+
   // onDrop(event: CdkDragDrop<string | undefined, any>) {
-  //   this.canvasStore.moveItemChild(event.container.data || event.container.id, event.previousContainer.id, event.previousIndex, event.currentIndex);
+  //
   // }
 
   ngAfterViewInit() {
@@ -184,24 +191,6 @@ export class CanvasComponent implements AfterViewInit, OnInit{
     this.panZoomService.state$.subscribe(state => {
       this.isPanModeActive = state.panModeActive;
       this.isPanning = state.isPanning;
-    });
-
-    const group = this.dragulaService.createGroup('canvas', {});
-
-    this.dragulaService.drag().subscribe(() => {
-      group.drake.cancel();
-
-      if (this.panZoomService.isPanModeActive) {
-        return;
-      }
-
-      // this.messageService.add({
-      //   life: 5000,
-      //   severity: 'info',
-      //   summary: 'Drag and Drop',
-      //   detail: 'Drag and Drop of elements is disabled in this version. Please use the elements tree on the left side to re-order elements'
-      // });
-      // return false;
     });
   }
 

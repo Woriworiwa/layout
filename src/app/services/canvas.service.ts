@@ -10,6 +10,7 @@ import {Css} from "../models/css.model";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CanvasItemType, InsertPosition} from "../models/enums";
 import {SelectionService} from "./selection.service";
+import {DragDropService} from "./drag-drop.service";
 
 @Injectable()
 export class CanvasService {
@@ -19,11 +20,17 @@ export class CanvasService {
   constructor(private canvasStore: CanvasStore,
               private undoRedoService: UndoRedoService,
               private selectionService: SelectionService,
-              private presetsService: PresetsService) {
+              private presetsService: PresetsService,
+              private dragDropService: DragDropService) {
     this.undoRedoService.undoRedoExecuted$.subscribe((currentState: CanvasItem[]) => {
       this.canvasStore.setItems(currentState);
       this.selectionService.setSelectedItemKey(this.selectionService.selectedItem?.key);
     })
+
+    this.dragDropService.drop$.subscribe(() => {
+      this.undoRedoService.takeSnapshot();
+      this.setItems([...this.canvasStore.items]);
+    });
   }
 
   get items() {
@@ -32,8 +39,7 @@ export class CanvasService {
 
   get items$() {
     return this.canvasStore.state.pipe(
-      map(state => state.canvasItems),
-      distinctUntilChanged()
+      map(state => state.canvasItems)
     )
   }
 
@@ -114,7 +120,7 @@ export class CanvasService {
 
   moveItemChild(currentItemId: string | undefined, previousItemId: string, previousIndex: number, currentIndex: number) {
     if (currentItemId === previousItemId && currentItemId === CANVAS_WRAPPER_ID) {
-      moveItemInArray(this.items, previousIndex, currentIndex);
+      // moveItemInArray(this.items, previousIndex, currentIndex);
       this.setItems([...this.canvasStore.items]);
       return;
     }

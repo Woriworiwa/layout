@@ -5,7 +5,6 @@ import {ThemeService} from "../../services/theme.service";
 import {JsonPrismComponent} from "../prisms/json-prism.component";
 import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {ToggleButtonModule} from "primeng/togglebutton";
-import {AppSettingsStore} from "../../store/app-settings-store.service";
 import {FormsModule} from "@angular/forms";
 import {DataService} from "../../services/data.service";
 import {SidebarModule} from "primeng/sidebar";
@@ -49,7 +48,6 @@ export class HeaderComponent {
   ];
 
   constructor(private themeService: ThemeService,
-              protected appSettingsStore: AppSettingsStore,
               private dataService: DataService,
               private canvasService: CanvasService,
               private messageService: MessageService) {

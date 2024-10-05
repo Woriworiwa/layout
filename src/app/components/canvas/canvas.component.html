@@ -1,9 +1,12 @@
 <div #wrapper
      class="pan-zoom-wrapper"
-     dragula="canvas"
+     [nxtSortablejs]="frames"
+     [config]="canvasDragOptions"
      [id]="CANVAS_WRAPPER_ID">
   @for (frame of frames; track frame.key) {
     <app-container [item]="frame"
+                   [nxtSortablejs]="frame.children"
+                   [config]="childDragOptions"
                    [id]="frame.key!"
                    [selectedFrameKey]="selectedFrameKey"
                    (clicked)="onFrameClicked($event)"
