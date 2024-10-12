@@ -27,6 +27,8 @@ export class HeaderComponent {
   @Output()
   selectedContentChanged = new EventEmitter<number>();
 
+  protected readonly window = window;
+
   selectedTabId = 1;
 
   items: MenuItem[] = [

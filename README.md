@@ -1,16 +1,12 @@
 # Layout, a Framer Dopplegagner
 
-"This project is a low-code CSS generator built with Angular, designed to simplify the process of creating responsive layouts using Grid and Flexbox. It allows users to visually design layouts, reducing the need for manual CSS coding and providing an intuitive interface for developers of all levels.
+This project is a low-code CSS generator built with Angular, focused on simplifying the process of creating responsive layouts using Grid and Flexbox. It provides an intuitive interface, reducing the need for manual coding, while showcasing my expertise in front-end development and user experience design.
 
-The primary goal of this project is to refine and demonstrate my skills in Angular and CSS. By focusing on these core technologies, I aim to build a tool that not only offers practical functionality but also serves as a stepping stone in my continuous learning journey. The project has allowed me to explore advanced layout techniques and further my understanding of front-end frameworks.
+The primary motivation behind the project is to refine and demonstrate my skills in Angular and CSS. By focusing on these core technologies, I aim to build a practical tool that also serves as a stepping stone in my continuous learning journey. The project explores advanced layout techniques and challenges me to push my understanding of front-end frameworks.
 
-Beyond layout design, this tool serves as an experimental platform for UX innovation. By incorporating AI-driven features and speech recognition, the project pushes the boundaries of user interaction and aims to create more dynamic and accessible user experiences. These experiments in user interaction highlight my commitment to both technical excellence and creative problem-solving in the field of web development.
+Currently, the project is ongoing, with plans to expand its features, particularly in user interaction. By incorporating AI-driven functionality and speech recognition, the goal is to create more dynamic, accessible experiences. Once fully developed, I plan to add this tool to my portfolio site, showcasing both its practical use and my growth as a developer.
 
-Ultimately, this project serves as a portfolio piece, showcasing my front-end development expertise and my passion for user experience design. Through this, I hope to present not just my technical abilities but also my focus on delivering user-centric, cutting-edge solutions."
-
-This version spreads out the key points while keeping the focus on your skills and the project’s features.
-
-Demo: https://layout-b57ab.web.app
+Demo: https://demo.dalgamuni.me
 
 TLDR; The fluffy introduction above was written by AI. Here are the important w's:
 - Who built this: Me, a front-end developer with a passion for user experience design

@@ -14,12 +14,21 @@
   <p-button class="action-button"
             (onClick)="op.toggle($event)"
             [outlined]="true"
-            pTooltip="'Customize theme'"
+            pTooltip="Customize theme"
             tooltipPosition="bottom"
             icon="pi pi-palette">
     <p-overlayPanel #op>
       <app-theme-options></app-theme-options>
     </p-overlayPanel>
+  </p-button>
+
+  <p-button class="action-button"
+            [outlined]="true"
+            [link]="true"
+            (onClick)="window.open('https://github.com/Woriworiwa/layout', '_blank');"
+            pTooltip="View code on Github"
+            tooltipPosition="bottom"
+            icon="pi pi-github">
   </p-button>
 
   <p-splitButton label="Save"
