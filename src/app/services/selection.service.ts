@@ -157,17 +157,10 @@ export class SelectionService {
   }
 
   private addItem(component: CanvasSelectionItemComponent | CanvasHoverItemComponent, canvasItem: CanvasItem, element: HTMLElement) {
-    const canvasBoundingRect = this.canvas.nativeElement.getBoundingClientRect();
-    const canvasItemBoundingRect = element.getBoundingClientRect();
-
-    if (!canvasBoundingRect || !canvasItemBoundingRect) {
-      return;
-    }
-
     component.width = element.offsetWidth;
     component.height = element.offsetHeight;
-    component.top = canvasItemBoundingRect.top - canvasBoundingRect.top;
-    component.left = canvasItemBoundingRect.left - canvasBoundingRect.left;
+    component.top = element.offsetTop;
+    component.left = element.offsetLeft;
     component.canvasItem = canvasItem;
     component.ngOnChanges();
   }

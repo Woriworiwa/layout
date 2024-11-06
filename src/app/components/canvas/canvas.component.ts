@@ -4,7 +4,7 @@ import {
   ElementRef,
   HostBinding,
   HostListener,
-  Inject, OnInit,
+  Inject,
   Renderer2,
   ViewChild,
   ViewContainerRef
@@ -29,20 +29,21 @@ import {CanvasService} from "../../services/canvas.service";
 import {CssPrismComponent} from "../prisms/css-prism.component";
 import {SortablejsModule} from "nxt-sortablejs";
 import { Options } from 'sortablejs'
+import {PanZoomDirective} from "../../directives/pan-zoom.directive";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, CssPrismComponent, SortablejsModule],
-  providers: [ContextMenuService, CopyPasteService, PresetsService],
-  hostDirectives: [CopyPasteDirective],
+  providers: [ContextMenuService, CopyPasteService, PresetsService, DragDropService, SelectionService, CanvasService, PanZoomService],
+  hostDirectives: [CopyPasteDirective, PanZoomDirective],
   host: {
     '[class.surface-100]': 'true',
   },
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
-export class CanvasComponent implements AfterViewInit, OnInit{
+export class CanvasComponent implements AfterViewInit{
   frames: CanvasItem[] = [];
   selectedFrameKey: string | undefined;
   translateY = 0;
@@ -51,10 +52,6 @@ export class CanvasComponent implements AfterViewInit, OnInit{
   copyItemId: string | undefined;
 
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
-
-  /* this mode means that the canvas is ready to be dragged*/
-  @HostBinding('class.pan-mode-active')
-  isPanModeActive = false;
 
   /* this mode means that the user is actually dragging (mouse pressed down)*/
   @HostBinding('class.is-panning')
@@ -99,32 +96,6 @@ export class CanvasComponent implements AfterViewInit, OnInit{
     });
   }
 
-  /*Zoom with mouse wheel*/
-  @HostListener('mousewheel', ['$event'])
-  onMouseWheel(event: WheelEvent) {
-    event.stopPropagation();
-    event.preventDefault();
-
-    if (event.ctrlKey) {
-      if (event.deltaY > 0) {
-        this.scale -= 0.1;
-      } else {
-        this.scale += 0.1;
-      }
-    } else {
-      if (event.shiftKey) {
-        this.translateX -= event.deltaY;
-      } else {
-        this.translateY -= event.deltaY;
-        // this.translateX -= event.deltaX;
-
-        this.setCssPrismPosition();
-      }
-    }
-
-    this.setTransformStyles();
-  }
-
   /*click*/
   @HostListener('click', ['$event'])
   onClick() {
@@ -132,70 +103,13 @@ export class CanvasComponent implements AfterViewInit, OnInit{
     this.contextMenuService.hide();
   }
 
-  /*mouse down*/
-  @HostListener('mousedown', ['$event'])
-  onMouseDown(event: MouseEvent) {
-    if (event.button === 0) {
-      this.panZoomService.setIsPanning(this.isPanModeActive);
-    }
-  }
-
-  /*mouse up*/
-  @HostListener('mouseup', ['$event'])
-  onMouseUp(event: MouseEvent) {
-    if (event.button === 0) {
-      this.panZoomService.setIsPanning(false);
-    }
-  }
-
-  /*mouse move*/
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    if (this.isPanning) {
-      this.translateX += event.movementX;
-      this.translateY += event.movementY;
-      this.setTransformStyles();
-      this.setCssPrismPosition();
-    }
-  }
-
-  /*keydown*/
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    if (event.code === 'Space') {
-      this.panZoomService.setPanModeActive(true);
-    }
-  }
-
-  /*keyup*/
-  @HostListener('document:keyup ', ['$event'])
-  onKeyUp(event: KeyboardEvent) {
-    if (event.code === 'Space') {
-      this.panZoomService.setPanModeActive(false);
-    }
-  }
-
-
-
-
-
-  // onDrop(event: CdkDragDrop<string | undefined, any>) {
-  //
-  // }
-
   ngAfterViewInit() {
     this.selectionService.initialize(this.selectionOverlay, this.wrapper);
-  }
-
-  ngOnInit() {
-    this.panZoomService.state$.subscribe(state => {
-      this.isPanModeActive = state.panModeActive;
-      this.isPanning = state.isPanning;
-    });
+    this.panZoomService.initialize(this.wrapper);
   }
 
   onFrameClicked(event: CanvasItemMouseEvent) {
-    if (this.isPanModeActive) {
+    if (this.panZoomService.isPanModeActive) {
       return;
     }
 
@@ -218,10 +132,6 @@ export class CanvasComponent implements AfterViewInit, OnInit{
 
   onChildTextContentChanged(content: { key: string, content: string }) {
     this.canvasService.updateTextContent(content.key, content.content);
-  }
-
-  private setTransformStyles() {
-    this.renderer.setStyle(this.wrapper.nativeElement, 'transform', `scale(${this.scale})  translateY(${this.translateY}px) translateX(${this.translateX}px)`);
   }
 
   private setCssPrismPosition() {
