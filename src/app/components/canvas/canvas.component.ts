@@ -2,10 +2,8 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  HostBinding,
   HostListener,
   Inject,
-  Renderer2,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -21,7 +19,6 @@ import {SelectionService} from "../../services/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
 import {PanZoomService} from "../../services/pan-zoom.service";
 import {DragDropService} from "../../services/drag-drop.service";
-import {MessageService} from "primeng/api";
 import {CopyPasteService} from "../../services/copy-paste.service";
 import {CopyPasteDirective} from "../../directives/copy-paste.directive";
 import {PresetsService} from "../../services/presets.service";
