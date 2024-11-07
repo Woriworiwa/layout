@@ -39,6 +39,59 @@
   }
 }
 
+// loading indicator
+.loader-wrapper {
+  grid-area: main;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100vw;
+
+  .loader {
+    position: absolute;
+    color: green;
+    font-family: Consolas, Menlo, Monaco, monospace;
+    font-weight: bold;
+    font-size: 128px;
+    opacity: 0.8;
+    z-index: 2;
+  }
+  .loader:before {
+    content: "{";
+    display: inline-block;
+    animation: pulse 0.4s alternate infinite ease-in-out;
+  }
+  .loader:after {
+    content: "}";
+    display: inline-block;
+    animation: pulse 0.4s 0.3s alternate infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    to {
+      transform: scale(0.8);
+      opacity: 0.5;
+    }
+  }
+
+  .branding{
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+
+
+    .branding-name {
+      font-size: 28px;
+      align-self:center;
+      color: white;
+    }
+  }
+
+
+}
+
 
 
 
