@@ -1,7 +1,7 @@
 :host {
   display: flex;
   padding: 20px;
-  height: 60px;
+  height: 40px;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--surface-200);
@@ -28,9 +28,12 @@
     display: flex;
 
     .action-button {
-      margin-right: 20px;
       align-items: center;
       justify-content: center;
+
+      &:last-of-type{
+        margin-right: 10px;
+      }
     }
   }
 }
