@@ -32,7 +32,7 @@ import {PanZoomDirective} from "../../directives/pan-zoom.directive";
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, CssPrismComponent, SortablejsModule],
-  providers: [CopyPasteService, PresetsService, DragDropService, CanvasService],
+  providers: [CopyPasteService, PresetsService, DragDropService],
   hostDirectives: [CopyPasteDirective, PanZoomDirective],
   host: {
     '[class.surface-100]': 'true',
