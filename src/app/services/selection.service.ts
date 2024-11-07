@@ -1,4 +1,4 @@
-import {ComponentRef, ElementRef, Injectable, ViewContainerRef} from "@angular/core";
+import {ComponentRef, ElementRef, Injectable, OnDestroy, ViewContainerRef} from "@angular/core";
 import {CanvasStore} from "../store/canvas.store";
 import {CanvasItem} from "../models/canvas-item.model";
 import {CanvasSelectionItemComponent} from "../components/canvas/selection/canvas-selection-item.component";
@@ -6,10 +6,10 @@ import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-ho
 import {ContextMenuService} from "./context-menu.service";
 import {PanZoomService} from "./pan-zoom.service";
 import {DragDropService} from "./drag-drop.service";
-import {BehaviorSubject, combineLatestWith, distinctUntilChanged, map, Observable} from "rxjs";
+import {BehaviorSubject, combineLatestWith, distinctUntilChanged, map, Observable, Subject, takeUntil} from "rxjs";
 
 @Injectable()
-export class SelectionService {
+export class SelectionService implements OnDestroy {
   overlay!: ViewContainerRef;
   canvas!: ElementRef;
 
@@ -18,6 +18,7 @@ export class SelectionService {
 
   private selectedItemId: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
   private selectedItemId$: Observable<string | undefined>;
+  private destroy$ = new Subject<boolean>();
 
   protected hoverCanvasItemIdSubject: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
 
@@ -26,6 +27,11 @@ export class SelectionService {
               private contextMenuService: ContextMenuService,
               private dragDropService: DragDropService) {
     this.selectedItemId$ = this.selectedItemId.asObservable();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
   setSelectedItemKey(key: string | undefined) {
@@ -51,7 +57,10 @@ export class SelectionService {
     this.canvas = canvas;
 
     this.selectedItem$
-      .pipe(combineLatestWith(this.dragDropService.state$))
+      .pipe(
+        combineLatestWith(this.dragDropService.state$),
+        takeUntil(this.destroy$)
+      )
       .subscribe(([selectedFrame, dragDropState]) => {
           if ((!selectedFrame || dragDropState.isDragging) && this.canvasSelectionItem) {
             this.removeItem(this.canvasSelectionItem);
@@ -66,6 +75,7 @@ export class SelectionService {
 
     this.hoverCanvasItemIdSubject.pipe(
       distinctUntilChanged(),
+      takeUntil(this.destroy$),
       map(hoverItemKey => this.canvasStore.getItemById(undefined, hoverItemKey))
     )
       .pipe(combineLatestWith(this.dragDropService.state$))

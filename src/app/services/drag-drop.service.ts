@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, distinctUntilChanged, map, Observable, Subject} from "rxjs";
 import {Options} from 'sortablejs'
-import {CanvasStore} from "../store/canvas.store";
 
 @Injectable()
 export class DragDropService {
@@ -23,10 +22,6 @@ export class DragDropService {
 
   private dropSubject = new Subject();
   drop$ = this.dropSubject.asObservable();
-
-  constructor(private canvasService: CanvasStore) {
-
-  }
 
   startDragging() {
     this.currentStateSubject.next({

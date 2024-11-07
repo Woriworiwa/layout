@@ -3,7 +3,7 @@ import {
   Component,
   ElementRef,
   HostListener,
-  Inject,
+  Inject, OnDestroy,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -25,8 +25,9 @@ import {PresetsService} from "../../services/presets.service";
 import {CanvasService} from "../../services/canvas.service";
 import {CssPrismComponent} from "../prisms/css-prism.component";
 import {SortablejsModule} from "nxt-sortablejs";
-import { Options } from 'sortablejs'
+import {Options} from 'sortablejs'
 import {PanZoomDirective} from "../../directives/pan-zoom.directive";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-canvas',
@@ -40,11 +41,12 @@ import {PanZoomDirective} from "../../directives/pan-zoom.directive";
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
-export class CanvasComponent implements AfterViewInit{
+export class CanvasComponent implements AfterViewInit, OnDestroy {
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
   frames: CanvasItem[] = [];
   canvasDragOptions: Options | undefined;
   childDragOptions: Options | undefined;
+  private destroy$ = new Subject<boolean>();
 
   @ViewChild("wrapper")
   wrapper!: ElementRef;
@@ -61,20 +63,29 @@ export class CanvasComponent implements AfterViewInit{
 
     this.initDragDrop();
 
-    this.canvasService.items$.subscribe(rootFrames => {
-      this.frames = rootFrames;
-      /* focus the selected frame, most of the times the focus will be set by the mouse when the user clicks on an item,
-      * but when programatically add new items, we need to focus them.
-      * Items should be focused in order to listen to keyboard events*/
-      /*TODO: Find another way other than setTimeout*/
-      setTimeout(() => {
-        document.getElementById(`${this.selectionService.selectedItem?.key}`)?.focus()
-      }, 0);
-    });
+    this.canvasService.items$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(rootFrames => {
+        this.frames = rootFrames;
+        /* focus the selected frame, most of the times the focus will be set by the mouse when the user clicks on an item,
+        * but when programatically add new items, we need to focus them.
+        * Items should be focused in order to listen to keyboard events*/
+        /*TODO: Find another way other than setTimeout*/
+        setTimeout(() => {
+          document.getElementById(`${this.selectionService.selectedItem?.key}`)?.focus()
+        }, 0);
+      });
 
-    this.panZoomService.state$.subscribe(state => {
-      this.initDragDrop();
-    });
+    this.panZoomService.state$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(state => {
+        this.initDragDrop();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
   /*click*/
@@ -116,7 +127,16 @@ export class CanvasComponent implements AfterViewInit{
   }
 
   private initDragDrop() {
-    this.canvasDragOptions = this.dragDropService.createGroup({ swapThreshold: 0.8, ghostClass: 'drag-background-lvl-1', disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning});
-    this.childDragOptions = this.dragDropService.createGroup({ swapThreshold: 0.9, group: 'child', ghostClass: 'drag-background-lvl-2', disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning});
+    this.canvasDragOptions = this.dragDropService.createGroup({
+      swapThreshold: 0.8,
+      ghostClass: 'drag-background-lvl-1',
+      disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning
+    });
+    this.childDragOptions = this.dragDropService.createGroup({
+      swapThreshold: 0.9,
+      group: 'child',
+      ghostClass: 'drag-background-lvl-2',
+      disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning
+    });
   }
 }

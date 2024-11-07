@@ -5,11 +5,11 @@ import {
   EventEmitter,
   HostBinding,
   HostListener,
-  Input,
+  Input, OnDestroy,
   Output
 } from "@angular/core";
 import {CanvasItem} from "../models/canvas-item.model";
-import {BehaviorSubject, distinctUntilChanged} from "rxjs";
+import {BehaviorSubject, distinctUntilChanged, Subject, takeUntil} from "rxjs";
 import {SelectionService} from "../services/selection.service";
 
 /*
@@ -25,7 +25,7 @@ import {SelectionService} from "../services/selection.service";
     '[class.editable]': 'true',
   }
 })
-export class EditableContentDirective {
+export class EditableContentDirective implements OnDestroy {
   @HostBinding('attr.contenteditable')
   editMode = false;
 
@@ -73,14 +73,22 @@ export class EditableContentDirective {
 
   private inputChangedStream$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
 
+  protected destroy$ = new Subject();
+
   constructor(private elementRef: ElementRef,
               private ref: ElementRef,
               private selectionService: SelectionService) {
     this.selectionService.selectedItem$.pipe(
+      takeUntil(this.destroy$),
       distinctUntilChanged((prev, curr) => prev?.key === curr?.key)
     ).subscribe(() => {
       this.ref.nativeElement.blur();
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
   private moveCursorToEnd() {
