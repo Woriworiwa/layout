@@ -28,12 +28,13 @@ import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'
 import {PanZoomDirective} from "../../directives/pan-zoom.directive";
 import {Subject, takeUntil} from "rxjs";
+import {UndoRedoService} from "../../services/undo-redo.service";
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, CssPrismComponent, SortablejsModule],
-  providers: [CopyPasteService, PresetsService, DragDropService],
+  providers: [CopyPasteService, PresetsService, DragDropService, PanZoomService],
   hostDirectives: [CopyPasteDirective, PanZoomDirective],
   host: {
     '[class.surface-100]': 'true',
@@ -110,6 +111,10 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   onMouseOver(event: CanvasItemMouseEvent) {
+    if (this.panZoomService.isPanning || this.panZoomService.isPanModeActive) {
+      return;
+    }
+
     this.selectionService.setHoverItemKey(event.canvasItem.key);
   }
 

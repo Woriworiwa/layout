@@ -23,7 +23,6 @@ export class SelectionService implements OnDestroy {
   protected hoverCanvasItemIdSubject: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
 
   constructor(private canvasStore: CanvasStore,
-              private panZoomService: PanZoomService,
               private contextMenuService: ContextMenuService,
               private dragDropService: DragDropService) {
     this.selectedItemId$ = this.selectedItemId.asObservable();
@@ -84,7 +83,7 @@ export class SelectionService implements OnDestroy {
             this.removeItem(this.canvasHoverItem);
             this.canvasHoverItem = undefined;
           } else {
-            if (dragDropState.isDragging || this.panZoomService.isPanModeActive || !hoverFrame || !hoverFrame.key) {
+            if (dragDropState.isDragging || !hoverFrame || !hoverFrame.key) {
               if (this.canvasHoverItem) {
                 this.removeItem(this.canvasHoverItem);
                 this.canvasHoverItem = undefined;

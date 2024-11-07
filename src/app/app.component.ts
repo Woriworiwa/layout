@@ -24,7 +24,6 @@ import {LeftMenuComponent} from "./components/left-menu/left-menu.component";
 import {PresetsService} from "./services/presets.service";
 import {SelectionService} from "./services/selection.service";
 import {CanvasService} from "./services/canvas.service";
-import {PanZoomService} from "./services/pan-zoom.service";
 import {ContextMenuService} from "./services/context-menu.service";
 import {DragDropService} from "./services/drag-drop.service";
 import {UndoRedoDirective} from "./directives/undo-redo.directive";
@@ -33,7 +32,7 @@ import {UndoRedoDirective} from "./directives/undo-redo.directive";
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, PropertiesComponent, AsyncPipe, ButtonModule, StructureTreeComponent, CanvasComponent, HeaderComponent, ThemeOptionsComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, NgIf, SelectButtonModule, FormsModule, ToastModule, LeftMenuComponent],
-  providers: [CanvasStore, CanvasService, DataService, MessageService, PresetsService, SelectionService, PanZoomService, ContextMenuService, DragDropService, UndoRedoService],
+  providers: [CanvasStore, CanvasService, DataService, MessageService, PresetsService, SelectionService, ContextMenuService, DragDropService, UndoRedoService],
   hostDirectives: [UndoRedoDirective],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
