@@ -44,18 +44,10 @@ import {PanZoomDirective} from "../../directives/pan-zoom.directive";
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements AfterViewInit{
-  frames: CanvasItem[] = [];
-  selectedFrameKey: string | undefined;
-  translateY = 0;
-  translateX = 0;
-  scale = 1;
-  copyItemId: string | undefined;
-
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
-
-  /* this mode means that the user is actually dragging (mouse pressed down)*/
-  @HostBinding('class.is-panning')
-  isPanning = false;
+  frames: CanvasItem[] = [];
+  canvasDragOptions: Options | undefined;
+  childDragOptions: Options | undefined;
 
   @ViewChild("wrapper")
   wrapper!: ElementRef;
@@ -63,23 +55,15 @@ export class CanvasComponent implements AfterViewInit{
   @ViewChild("selectionOverlay", {read: ViewContainerRef})
   selectionOverlay!: ViewContainerRef;
 
-  @ViewChild("cssPrism",  {read: ElementRef})
-  cssPrism!: ElementRef;
-
-  canvasDragOptions: Options;
-  childDragOptions: Options;
-
   constructor(private canvasService: CanvasService,
-              private renderer: Renderer2,
               protected selectionService: SelectionService,
               private contextMenuService: ContextMenuService,
               protected panZoomService: PanZoomService,
               protected dragDropService: DragDropService,
-              private messageService: MessageService,
               @Inject(DOCUMENT) document: Document) {
-    this.canvasDragOptions = this.dragDropService.createGroup({ swapThreshold: 0.8, ghostClass: 'drag-background-lvl-1'});
-    this.childDragOptions = this.dragDropService.createGroup({ swapThreshold: 0.9, group: 'child', ghostClass: 'drag-background-lvl-2'});
-9
+
+    this.initDragDrop();
+
     this.canvasService.items$.subscribe(rootFrames => {
       this.frames = rootFrames;
       /* focus the selected frame, most of the times the focus will be set by the mouse when the user clicks on an item,
@@ -91,14 +75,14 @@ export class CanvasComponent implements AfterViewInit{
       }, 0);
     });
 
-    this.selectionService.selectedItem$.subscribe(() => {
-      this.setCssPrismPosition();
+    this.panZoomService.state$.subscribe(state => {
+      this.initDragDrop();
     });
   }
 
   /*click*/
   @HostListener('click', ['$event'])
-  onClick() {
+  clearSelection() {
     this.selectionService.setSelectedItemKey(undefined);
     this.contextMenuService.hide();
   }
@@ -134,11 +118,8 @@ export class CanvasComponent implements AfterViewInit{
     this.canvasService.updateTextContent(content.key, content.content);
   }
 
-  private setCssPrismPosition() {
-    const coordinates = this.selectionService.getSelectionCoordinates();
-    if (coordinates && this.cssPrism) {
-      this.renderer.setStyle(this.cssPrism.nativeElement, 'transform', `translateY(${coordinates.top + this.translateY}px)`);
-      // this.renderer.setStyle(this.cssPrism.nativeElement, 'left', `${coordinates.right}px)`);
-    }
+  private initDragDrop() {
+    this.canvasDragOptions = this.dragDropService.createGroup({ swapThreshold: 0.8, ghostClass: 'drag-background-lvl-1', disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning});
+    this.childDragOptions = this.dragDropService.createGroup({ swapThreshold: 0.9, group: 'child', ghostClass: 'drag-background-lvl-2', disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning});
   }
 }
