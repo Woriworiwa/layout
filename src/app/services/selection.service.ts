@@ -6,7 +6,7 @@ import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-ho
 import {ContextMenuService} from "./context-menu.service";
 import {PanZoomService} from "./pan-zoom.service";
 import {DragDropService} from "./drag-drop.service";
-import {BehaviorSubject, combineLatestWith, distinctUntilChanged, filter, map, Observable} from "rxjs";
+import {BehaviorSubject, combineLatestWith, distinctUntilChanged, map, Observable} from "rxjs";
 
 @Injectable()
 export class SelectionService {

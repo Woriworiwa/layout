@@ -58,7 +58,7 @@ export class PanZoomService {
   zoomOut() {
     if (this.scale() <= this.MINIMUM_ZOOM) {
       return;
-    };
+    }
 
     this.scale.update(value => value - this.ZOOM_STEP);
   }
