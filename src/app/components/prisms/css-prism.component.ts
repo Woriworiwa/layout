@@ -35,7 +35,7 @@ import {SelectionService} from "../../services/selection.service";
     }
   `
 })
-export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy{
+export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy {
   @Input()
   canvasItems: CanvasItem[] = [];
 
@@ -59,6 +59,7 @@ export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy
       });
 
     this.selectionService.selectedItem$
+      .pipe(takeUntil(this.destroy$))
       .subscribe(frame => {
         this.serializeToCss();
         this.cd.markForCheck();

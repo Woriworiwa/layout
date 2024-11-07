@@ -1,18 +1,17 @@
-import {Component, Inject, Renderer2} from '@angular/core';
-import {CommonModule, DOCUMENT} from "@angular/common";
+import {Component} from '@angular/core';
+import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ThemeService} from "../../services/theme.service";
 import {SidebarModule} from "primeng/sidebar";
 import {InputSwitchChangeEvent, InputSwitchModule} from "primeng/inputswitch";
 import {ButtonModule} from "primeng/button";
 import {RadioButtonModule} from "primeng/radiobutton";
-import {SelectButtonChangeEvent, SelectButtonModule} from "primeng/selectbutton";
 import {ListboxChangeEvent, ListboxModule} from "primeng/listbox";
 
 @Component({
   selector: 'app-theme-options',
   standalone: true,
-  imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule, ListboxModule],
+  imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, ListboxModule],
   templateUrl: './theme-options.component.html',
   styleUrl: './theme-options.component.scss'
 })
@@ -25,31 +24,10 @@ export class ThemeOptionsComponent {
     {name: 'mira', value: 'mira'}
   ]
 
-  inputStyles = [
-    {label: 'Outlined', value: 'outlined'},
-    {label: 'Filled', value: 'filled'}
-  ];
-
-  scales: number[] = [12, 13, 14, 15, 16];
-
   selectedTheme: { name: string, value: string } | undefined = undefined;
 
-  constructor(@Inject(DOCUMENT) private document: Document,
-              private renderer: Renderer2,
-              private themeService: ThemeService) {
+  constructor(private themeService: ThemeService) {
     this.selectedTheme = this.themes.find((theme) => theme.value === this.themeService.config().theme);
-  }
-
-  get isActive(): boolean {
-    return this.themeService.themeSwitcherActive;
-  }
-
-  get inputStyle(): string {
-    return this.themeService.config().inputStyle;
-  }
-
-  set inputStyle(val: string) {
-    this.themeService.config.update((config) => ({...config, inputStyle: val}));
   }
 
   get ripple(): boolean {
@@ -68,38 +46,12 @@ export class ThemeOptionsComponent {
     this.themeService.config.update((config) => ({...config, darkMode: val}));
   }
 
-  get scale(): number {
-    return this.themeService.config().scale;
-  }
-
-  set scale(val: number) {
-    this.themeService.config.update((config) => ({...config, scale: val}));
-  }
-
-  onVisibleChange(value: boolean) {
-    if (!value) {
-      this.themeService.hideConfig();
-    }
-  }
-
-  decrementScale() {
-    this.scale--;
-  }
-
-  incrementScale() {
-    this.scale++;
-  }
-
   onRippleChange(event: InputSwitchChangeEvent) {
     this.ripple = event.checked;
   }
 
   onDarkModeChange(event: InputSwitchChangeEvent) {
     this.darkMode = event.checked;
-  }
-
-  onInputStyleChange(event: SelectButtonChangeEvent) {
-    this.inputStyle = event.value;
   }
 
   onSelectedThemeChange($event: ListboxChangeEvent) {

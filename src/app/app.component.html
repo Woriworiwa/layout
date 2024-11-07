@@ -1,17 +1,47 @@
-<app-header (selectedContentChanged)="selectedContentId = $event"></app-header>
-<app-left-menu></app-left-menu>
-<app-settings></app-settings>
-<p-toast position="bottom-center"></p-toast>
+@defer {
+  <app-header (selectedContentChanged)="selectedContentId = $event"></app-header>
+  <app-left-menu></app-left-menu>
+  <app-settings></app-settings>
 
-<div class="center">
-  <div class="center-canvas">
-    <app-canvas *ngIf="selectedContentId ===1"></app-canvas>
-    <app-preview *ngIf="selectedContentId === 2"></app-preview>
+  <div class="center">
+    <div class="center-canvas">
+      <app-canvas *ngIf="selectedContentId === 1"></app-canvas>
+
+      @defer (on viewport) {
+        <app-preview *ngIf="selectedContentId === 2"></app-preview>
+      } @placeholder {
+        <div>loading...</div>
+      }
+
+      @defer (on viewport) {
+        <app-css-prism [canvasItems]="canvasService.items" *ngIf="selectedContentId === 3"></app-css-prism>
+      } @placeholder {
+        <div>loading...</div>
+      }
+
+      @defer (on viewport) {
+        <app-html-prism *ngIf="selectedContentId === 4"></app-html-prism>
+      } @placeholder {
+        <div>loading...</div>
+      }
+
+      @defer (on viewport) {
+        <app-json-prism *ngIf="selectedContentId === 5"></app-json-prism>
+      } @placeholder {
+        <div>loading...</div>
+      }
+    </div>
   </div>
-  <app-css-prism [canvasItems]="canvasService.items" *ngIf="selectedContentId === 3"></app-css-prism>
-  <app-html-prism *ngIf="selectedContentId === 4"></app-html-prism>
-  <app-json-prism *ngIf="selectedContentId === 5"></app-json-prism>
-</div>
+
+  <p-toast position="bottom-center"></p-toast>
+} @placeholder (minimum 2s) {
+  <div class="loader-wrapper">
+    <span class="loader"></span>
+    <div class="branding">
+      <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/512/external-layout-user-interface-flatart-icons-flat-flatarticons-1.png">
+      <div class="branding-name">boxOut</div>
+    </div>
+  </div>
+}
 
 <router-outlet></router-outlet>
-

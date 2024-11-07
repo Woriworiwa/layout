@@ -8,7 +8,6 @@
                    [nxtSortablejs]="frame.children"
                    [config]="childDragOptions"
                    [id]="frame.key!"
-                   [selectedFrameKey]="selectedFrameKey"
                    (clicked)="onFrameClicked($event)"
                    (mouseOver)="onMouseOver($event)"
                    (mouseOut)="onMouseOut()"
@@ -24,7 +23,3 @@
 </div>
 
 <app-canvas-toolbar></app-canvas-toolbar>
-
-<!--<app-css-prism #cssPrism-->
-<!--               *ngIf="(selectionService.selectedItem$ | async) && selectionService.selectedItem"-->
-<!--               [canvasItems]="[selectionService.selectedItem]"></app-css-prism>-->

@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
+import {Injectable, OnDestroy} from "@angular/core";
 import {UndoRedoService} from "./undo-redo.service";
 import {PresetsService} from "./presets.service";
 import {CanvasItem} from "../models/canvas-item.model";
 import {CanvasStore} from "../store/canvas.store";
-import {distinctUntilChanged, map, Subject} from "rxjs";
+import {distinctUntilChanged, map, Subject, takeUntil} from "rxjs";
 import cloneDeep from "lodash.clonedeep";
 import {CANVAS_WRAPPER_ID} from "../models/constants";
 import {Css} from "../models/css.model";
@@ -11,9 +11,11 @@ import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CanvasItemType, InsertPosition} from "../models/enums";
 import {SelectionService} from "./selection.service";
 import {DragDropService} from "./drag-drop.service";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Injectable()
-export class CanvasService {
+export class CanvasService implements OnDestroy {
+  private destroy$ = new Subject<boolean>();
   private cssChangedSubject = new Subject();
   cssChanged$ = this.cssChangedSubject.asObservable();
 
@@ -22,15 +24,24 @@ export class CanvasService {
               private selectionService: SelectionService,
               private presetsService: PresetsService,
               private dragDropService: DragDropService) {
-    this.undoRedoService.undoRedoExecuted$.subscribe((currentState: CanvasItem[]) => {
-      this.canvasStore.setItems(currentState);
-      this.selectionService.setSelectedItemKey(this.selectionService.selectedItem?.key);
-    })
+    this.undoRedoService.undoRedoExecuted$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((currentState: CanvasItem[]) => {
+        this.canvasStore.setItems(currentState);
+        this.selectionService.setSelectedItemKey(this.selectionService.selectedItem?.key);
+      })
 
-    this.dragDropService.drop$.subscribe(() => {
-      this.undoRedoService.takeSnapshot();
-      this.setItems([...this.canvasStore.items]);
-    });
+    this.dragDropService.drop$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.undoRedoService.takeSnapshot();
+        this.setItems([...this.canvasStore.items]);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
   get items() {
@@ -130,7 +141,7 @@ export class CanvasService {
 
     if (currentItemId === previousItemId && currentContainer?.children) {
       moveItemInArray(currentContainer?.children, previousIndex, currentIndex);
-    } else if(previousContainer?.children && currentContainer?.children) {
+    } else if (previousContainer?.children && currentContainer?.children) {
       transferArrayItem(previousContainer?.children, currentContainer?.children, previousIndex, currentIndex);
     }
 

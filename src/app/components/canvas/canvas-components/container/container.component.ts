@@ -52,6 +52,7 @@ export class ContainerComponent extends CanvasBaseComponent {
   }
 
   protected onChildFrameClick(event: CanvasItemMouseEvent) {
+    this.dragOptions = {};
     this.clicked.emit(event);
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeExpandEvent} from "primeng/tree";
 import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
@@ -15,6 +15,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {ToastModule} from "primeng/toast";
 import {CanvasService} from "../../services/canvas.service";
 import {SelectionService} from "../../services/selection.service";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-structure-tree',
@@ -24,13 +25,15 @@ import {SelectionService} from "../../services/selection.service";
   templateUrl: './structure-tree.component.html',
   styleUrls: ['./structure-tree.component.scss']
 })
-export class StructureTreeComponent implements OnInit {
+export class StructureTreeComponent implements OnInit, OnDestroy {
   @ViewChild(OverlayPanel) renameDialog!: OverlayPanel;
 
   treeNodes!: TreeNode<CanvasItem>[];
   selectedItems: CanvasItem | undefined = undefined;
   contextMenuEvent: Event | undefined;
   expandedNodes: string[] = [];
+
+  private destroy$ = new Subject();
 
   contextMenuItems: MenuItem[] = [
     {label: 'Rename', icon: 'pi pi-search', command: (event: any) => this.openRenameDialog(event)},
@@ -42,6 +45,11 @@ export class StructureTreeComponent implements OnInit {
 
   ngOnInit() {
     this.initStoreSubscriptions();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
   onTreeSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null) {
@@ -65,6 +73,7 @@ export class StructureTreeComponent implements OnInit {
 
   private initStoreSubscriptions() {
     this.canvasService.items$
+      .pipe(takeUntil(this.destroy$))
       .subscribe((items) => {
         if (!items) {
           return;
@@ -79,6 +88,7 @@ export class StructureTreeComponent implements OnInit {
       });
 
     this.selectionService.selectedItem$
+      .pipe(takeUntil(this.destroy$))
       .subscribe(selectedItem => {
         this.selectedItems = selectedItem;
         if (selectedItem && selectedItem.key) {

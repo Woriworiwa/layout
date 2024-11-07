@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {Display} from "../../models/css.model";
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
-import { takeUntil} from "rxjs";
+import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SliderModule} from "primeng/slider";
@@ -32,7 +32,7 @@ import {CanvasService} from "../../services/canvas.service";
     }
   `
 })
-export class DisplayComponent extends BasePropertyGroupComponent implements OnChanges{
+export class DisplayComponent extends BasePropertyGroupComponent implements OnChanges {
   displayOptions = [
     Display.block,
     Display.flex,
@@ -68,9 +68,7 @@ export class DisplayComponent extends BasePropertyGroupComponent implements OnCh
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
-      .pipe(
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
         this.baseCanvasService.updateCss({
           ...this.css,

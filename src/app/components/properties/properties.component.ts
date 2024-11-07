@@ -5,7 +5,7 @@ import {CanvasItem} from "../../models/canvas-item.model";
 import {PropertiesFlexContainerComponent} from "./flex-container.component";
 import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
-import {Subject} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 import { CanvasItemType } from '../../models/enums';
 import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {CssPrismComponent} from "../prisms/css-prism.component";
@@ -54,6 +54,7 @@ export class PropertiesComponent implements OnDestroy{
               protected canvasService: CanvasService,
               protected selectionService: SelectionService) {
     this.selectionService.selectedItem$
+      .pipe(takeUntil(this.destroy$))
       .subscribe(frame => {
         this.frame = frame;
     });
