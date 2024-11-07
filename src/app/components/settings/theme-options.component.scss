@@ -1,4 +1,8 @@
 @use '../../../../node_modules/primeflex/primeflex.css';
+:host {
+  display: block;
+  min-width: 250px;
+}
 
 .scale {
   display: flex;
