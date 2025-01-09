@@ -43,6 +43,7 @@
 .loader-wrapper {
   grid-area: main;
   display: flex;
+  flex-direction: column;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -50,11 +51,10 @@
   width: 100vw;
 
   .loader {
-    position: absolute;
     color: green;
     font-family: Consolas, Menlo, Monaco, monospace;
     font-weight: bold;
-    font-size: 128px;
+    font-size: 28px;
     opacity: 0.8;
     z-index: 2;
   }
@@ -77,7 +77,6 @@
   }
 
   .branding{
-    position:absolute;
     display: flex;
     flex-direction: column;
 
