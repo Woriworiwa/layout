@@ -13,7 +13,7 @@ export class ThemeService {
     inputStyle: 'outlined',
     ripple: true,
     scale: 12,
-    darkMode: true
+    darkMode: false
   };
 
   themeSwitcherActive = false;

@@ -35,20 +35,14 @@ import {CopyPasteDirective} from "../../../../directives/copy-paste.directive";
 export class TextComponent extends CanvasBaseComponent implements OnChanges{
   @Input() selectedFrameKey!: string | undefined;
 
-  constructor(private canvasService: CanvasService,
-              private elementRef: ElementRef,
-              private renderer: Renderer2,
-              private selectionService: SelectionService) {
+  constructor(canvasService: CanvasService,
+              elementRef: ElementRef,
+              renderer: Renderer2,
+              selectionService: SelectionService) {
     super(elementRef, renderer, canvasService, selectionService);
   }
 
   override ngOnChanges() {
     super.ngOnChanges();
-
-    // if (this.item?.key === this.selectedFrameKey) {
-    //   setTimeout(() => {
-    //     this.selectionService.renderSelectionItem(this.item!, this.elementRef.nativeElement);
-    //   }, 0);
-    // }
   }
 }
