@@ -42,11 +42,11 @@ export class ContainerComponent extends CanvasBaseComponent {
   dragOptions: Options;
 
   constructor(protected canvasService: CanvasService,
-              private elementRef: ElementRef,
-              private renderer: Renderer2,
+              elementRef: ElementRef,
+              renderer: Renderer2,
               protected panZoomService: PanZoomService,
               private dragDropService: DragDropService,
-              private selectionService: SelectionService) {
+              selectionService: SelectionService) {
     super(elementRef, renderer, canvasService, selectionService);
     this.dragOptions = this.dragDropService.createGroup({group: 'child', ghostClass: 'drag-background-lvl-1'});
   }
