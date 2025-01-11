@@ -6,12 +6,11 @@ import {CanvasService} from "../../../../services/canvas.service";
 import {CopyPasteDirective} from "../../../../directives/copy-paste.directive";
 
 @Component({
-  selector: 'app-text',
-  standalone: true,
-  imports: [CommonModule],
-  template: `{{ item?.content }}`,
-  hostDirectives: [CopyPasteDirective],
-  styles: `
+    selector: 'app-text',
+    imports: [CommonModule],
+    template: `{{ item?.content }}`,
+    hostDirectives: [CopyPasteDirective],
+    styles: `
   :host {
     color-scheme: light;
     font-family: sans-serif;

@@ -4,8 +4,6 @@ import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeExpandEvent} from "p
 import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
 import {CanvasItem} from "../../models/canvas-item.model";
 import {FormsModule} from "@angular/forms";
-import {CdkDropList} from "@angular/cdk/drag-drop";
-import {InsertComponent} from "../insert/insert.component";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {CanvasItemType} from "../../models/enums";
 import {ContextMenuModule} from "primeng/contextmenu";
@@ -18,12 +16,11 @@ import {SelectionService} from "../../services/selection.service";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-  selector: 'app-structure-tree',
-  standalone: true,
-  imports: [CommonModule, TreeModule, FormsModule, CdkDropList, InsertComponent, ToggleButtonModule, ContextMenuModule, OverlayPanelModule, ButtonModule, InputTextModule, ToastModule],
-  providers: [TreeDragDropService],
-  templateUrl: './structure-tree.component.html',
-  styleUrls: ['./structure-tree.component.scss']
+    selector: 'app-structure-tree',
+    imports: [CommonModule, TreeModule, FormsModule, ToggleButtonModule, ContextMenuModule, OverlayPanelModule, ButtonModule, InputTextModule, ToastModule],
+    providers: [TreeDragDropService],
+    templateUrl: './structure-tree.component.html',
+    styleUrls: ['./structure-tree.component.scss']
 })
 export class StructureTreeComponent implements OnInit, OnDestroy {
   @ViewChild(OverlayPanel) renameDialog!: OverlayPanel;

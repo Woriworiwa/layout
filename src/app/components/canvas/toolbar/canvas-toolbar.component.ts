@@ -7,14 +7,13 @@ import {TooltipModule} from "primeng/tooltip";
 import {ThemeService} from "../../../services/theme.service";
 
 @Component({
-  selector: 'app-canvas-toolbar',
-  standalone: true,
-  imports: [CommonModule, ButtonModule, TooltipModule],
-  host: {
-    '[class.surface-0]': 'true',
-  },
-  templateUrl: './canvas-toolbar.component.html',
-  styleUrl: './canvas-toolbar.component.scss'
+    selector: 'app-canvas-toolbar',
+    imports: [CommonModule, ButtonModule, TooltipModule],
+    host: {
+        '[class.surface-0]': 'true',
+    },
+    templateUrl: './canvas-toolbar.component.html',
+    styleUrl: './canvas-toolbar.component.scss'
 })
 export class CanvasToolbarComponent {
   @HostListener('click', ['$event'])

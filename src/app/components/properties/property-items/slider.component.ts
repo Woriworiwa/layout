@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DropdownModule} from "primeng/dropdown";
 import {PropertyPanelRowComponent} from "./property-panel-row.component";
@@ -16,10 +16,9 @@ import {InputIconModule} from "primeng/inputicon";
 import {SpeedDialModule} from "primeng/speeddial";
 
 @Component({
-  selector: 'app-property-item-slider',
-  standalone: true,
-  imports: [CommonModule, DropdownModule, PropertyPanelRowComponent, ReactiveFormsModule, InputNumberModule, SliderModule, InputGroupModule, ButtonModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule, SpeedDialModule],
-  template: `
+    selector: 'app-property-item-slider',
+    imports: [CommonModule, DropdownModule, PropertyPanelRowComponent, ReactiveFormsModule, InputNumberModule, SliderModule, InputGroupModule, ButtonModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule, SpeedDialModule],
+    template: `
     <app-property-panel-row [label]="label">
       <div>
         <p-inputGroup>
@@ -35,7 +34,7 @@ import {SpeedDialModule} from "primeng/speeddial";
       </div>
     </app-property-panel-row>
   `,
-  styles: `
+    styles: `
   :host {
     display: contents;
 

@@ -11,11 +11,10 @@ import {InsertPosition} from "../../../models/enums";
 import {FormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'app-canvas-selection-item',
-  standalone: true,
-  imports: [CommonModule, ButtonModule, ContextMenuComponent, InsertComponent, OverlayPanelModule, SharedModule, SelectButtonModule, FormsModule],
-  templateUrl: './canvas-selection-item.component.html',
-  styleUrls: ['./canvas-selection-item.component.scss']
+    selector: 'app-canvas-selection-item',
+    imports: [CommonModule, ButtonModule, ContextMenuComponent, InsertComponent, OverlayPanelModule, SharedModule, SelectButtonModule, FormsModule],
+    templateUrl: './canvas-selection-item.component.html',
+    styleUrls: ['./canvas-selection-item.component.scss']
 })
 export class CanvasSelectionItemComponent implements OnChanges{
   @Input() width = 0;

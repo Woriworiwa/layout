@@ -8,10 +8,9 @@ import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
 import {CanvasService} from "../../services/canvas.service";
 
 @Component({
-  selector: 'app-base-app-properties',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-base-app-properties',
+    imports: [CommonModule],
+    template: `
   `
 })
 export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy {

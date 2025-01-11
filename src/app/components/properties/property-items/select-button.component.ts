@@ -6,10 +6,9 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {SelectButtonModule} from "primeng/selectbutton";
 
 @Component({
-  selector: 'app-property-item-select-button',
-  standalone: true,
-  imports: [CommonModule, DropdownModule, PropertyPanelRowComponent, ReactiveFormsModule, SelectButtonModule],
-  template: `
+    selector: 'app-property-item-select-button',
+    imports: [CommonModule, DropdownModule, PropertyPanelRowComponent, ReactiveFormsModule, SelectButtonModule],
+    template: `
     <app-property-panel-row [label]="label">
       <p-selectButton [options]="options"
                       [formControl]="control"
@@ -17,7 +16,7 @@ import {SelectButtonModule} from "primeng/selectbutton";
                       optionValue="value"></p-selectButton>
     </app-property-panel-row>
   `,
-  styles: `
+    styles: `
   :host {
     display: contents;
   }

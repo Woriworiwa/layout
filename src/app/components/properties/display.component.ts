@@ -5,7 +5,6 @@ import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
 import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
-import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SliderModule} from "primeng/slider";
 import {DropdownComponent} from "./property-items/dropdown.component";
 import {AccordionModule} from "primeng/accordion";
@@ -15,10 +14,9 @@ import {PanelModule} from "primeng/panel";
 import {CanvasService} from "../../services/canvas.service";
 
 @Component({
-  selector: 'app-properties-display',
-  standalone: true,
-  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, DropdownComponent, AccordionModule, AppPropertyFilterPipe, PanelModule],
-  template: `
+    selector: 'app-properties-display',
+    imports: [CommonModule, InputNumberModule, ReactiveFormsModule, SliderModule, DropdownComponent, AccordionModule, AppPropertyFilterPipe, PanelModule],
+    template: `
     <p-panel header="Display" [toggleable]="true" [collapsed]="false" toggler="header">
       <app-property-item-dropdown [options]="displayOptions"
                                   [control]="getFormControl('display')"
@@ -26,7 +24,7 @@ import {CanvasService} from "../../services/canvas.service";
                                   label="display"></app-property-item-dropdown>
     </p-panel>
   `,
-  styles: `
+    styles: `
     :host {
       display: contents;
     }

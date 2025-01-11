@@ -1,18 +1,15 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PresetContainerComponent} from "./preset-container.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {PresetsService} from "../../services/presets.service";
 import {CanvasService} from "../../services/canvas.service";
-import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 import {InsertPosition} from "../../models/enums";
 
 @Component({
-  selector: 'app-insert',
-  standalone: true,
-  imports: [CommonModule, PresetContainerComponent, CssStyleSerializerPipe],
-  templateUrl: 'insert.component.html',
-  styleUrls: [`insert.component.scss`]
+    selector: 'app-insert',
+    imports: [CommonModule],
+    templateUrl: 'insert.component.html',
+    styleUrls: [`insert.component.scss`]
 })
 export class InsertComponent {
   @Input()

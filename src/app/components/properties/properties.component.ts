@@ -3,11 +3,9 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CanvasItem} from "../../models/canvas-item.model";
 import {PropertiesFlexContainerComponent} from "./flex-container.component";
-import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
 import { CanvasItemType } from '../../models/enums';
-import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {CssPrismComponent} from "../prisms/css-prism.component";
 import {BoxSizingComponent} from "./box-sizing.component";
 import {DisplayComponent} from "./display.component";
@@ -33,12 +31,11 @@ export interface Property {
 }
 
 @Component({
-  selector: 'app-settings',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, PropertiesFlexContainerComponent, PropertyPanelRowComponent, SelectButtonModule, ThemeOptionsComponent, CssPrismComponent, BoxSizingComponent, DisplayComponent, PropertiesFlexItemComponent, AccordionModule, PanelModule, MenuModule, DropdownModule, FormsModule, ListboxModule, AppPropertyFilterPipe, FloatLabelModule, InputTextModule, IconFieldModule, InputIconModule, InputGroupModule, ButtonModule],
-  providers: [AppPropertyFilterPipe],
-  templateUrl: './properties.component.html',
-  styleUrls: ['./properties.component.scss']
+    selector: 'app-settings',
+    imports: [CommonModule, ReactiveFormsModule, PropertiesFlexContainerComponent, SelectButtonModule, CssPrismComponent, BoxSizingComponent, DisplayComponent, PropertiesFlexItemComponent, AccordionModule, PanelModule, MenuModule, DropdownModule, FormsModule, ListboxModule, FloatLabelModule, InputTextModule, IconFieldModule, InputIconModule, InputGroupModule, ButtonModule],
+    providers: [AppPropertyFilterPipe],
+    templateUrl: './properties.component.html',
+    styleUrls: ['./properties.component.scss']
 })
 export class PropertiesComponent implements OnDestroy{
   css: string[] = [];

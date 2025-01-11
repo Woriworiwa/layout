@@ -12,8 +12,6 @@ import {TextComponent} from "../text/text.component";
 import {CanvasItemType} from '../../../../models/enums';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
-import {InsertComponent} from "../../../insert/insert.component";
-import {CssStyleSerializerPipe} from "../../../../pipes/css-style-serializer.pipe";
 import {CanvasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../../services/selection.service";
 import {PanZoomService} from "../../../../services/pan-zoom.service";
@@ -23,16 +21,15 @@ import {Options} from "sortablejs";
 import {DragDropService} from "../../../../services/drag-drop.service";
 
 @Component({
-  selector: 'app-container',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, EditableContentDirective, TextComponent, ButtonModule, OverlayPanelModule, InsertComponent, CssStyleSerializerPipe, SortablejsModule],
-  templateUrl: 'container.component.html',
-  host: {
-    /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
-    '[attr.tabindex]': '-1',
-  },
-  styleUrls: ['./container.component.scss'],
+    selector: 'app-container',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, EditableContentDirective, TextComponent, ButtonModule, OverlayPanelModule, SortablejsModule],
+    templateUrl: 'container.component.html',
+    host: {
+        /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
+        '[attr.tabindex]': '-1',
+    },
+    styleUrls: ['./container.component.scss']
 })
 export class ContainerComponent extends CanvasBaseComponent {
   protected readonly FrameType = CanvasItemType;

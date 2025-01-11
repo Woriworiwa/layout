@@ -4,7 +4,6 @@ import {Property} from "csstype";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
-import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
 import {SliderModule} from "primeng/slider";
 import {SliderComponent} from "./property-items/slider.component";
 import {AccordionModule} from "primeng/accordion";
@@ -16,10 +15,9 @@ import {CanvasService} from "../../services/canvas.service";
 import {Unit} from "../../models/css.model";
 
 @Component({
-  selector: 'app-properties-box-sizing',
-  standalone: true,
-  imports: [CommonModule, InputNumberModule, PropertyPanelRowComponent, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule, AccordionModule, AppPropertyFilterPipe, MenuModule, PanelModule],
-  template: `
+    selector: 'app-properties-box-sizing',
+    imports: [CommonModule, InputNumberModule, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule, AccordionModule, AppPropertyFilterPipe, MenuModule, PanelModule],
+    template: `
     <p-panel header="Box sizing" [toggleable]="true" [collapsed]="false" toggler="header">
       <ng-container [formGroup]="formGroup">
         <app-property-item-slider label="padding"
@@ -41,7 +39,7 @@ import {Unit} from "../../models/css.model";
       </ng-container>
     </p-panel>
   `,
-  styles: `
+    styles: `
     :host {
       display: contents;
 

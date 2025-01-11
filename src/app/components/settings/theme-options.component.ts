@@ -9,11 +9,10 @@ import {RadioButtonModule} from "primeng/radiobutton";
 import {ListboxChangeEvent, ListboxModule} from "primeng/listbox";
 
 @Component({
-  selector: 'app-theme-options',
-  standalone: true,
-  imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, ListboxModule],
-  templateUrl: './theme-options.component.html',
-  styleUrl: './theme-options.component.scss'
+    selector: 'app-theme-options',
+    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, ListboxModule],
+    templateUrl: './theme-options.component.html',
+    styleUrl: './theme-options.component.scss'
 })
 export class ThemeOptionsComponent {
   themes = [

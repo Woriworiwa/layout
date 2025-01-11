@@ -21,14 +21,13 @@ import {CanvasService} from "../../services/canvas.service";
 import {SelectionService} from "../../services/selection.service";
 
 @Component({
-  selector: 'app-css-prism',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-css-prism',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule],
+    template: `
     <pre><code class="language-scss" [innerHTML]="css"></code></pre>
   `,
-  styles: `
+    styles: `
     pre[class*="language-"] {
       padding: 1em;
       margin: 0;
@@ -60,7 +59,7 @@ export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy
 
     this.selectionService.selectedItem$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(frame => {
+      .subscribe(_ => {
         this.serializeToCss();
         this.cd.markForCheck();
       });

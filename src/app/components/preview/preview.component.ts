@@ -9,10 +9,9 @@ import {FormsModule} from "@angular/forms";
 import {CanvasService} from "../../services/canvas.service";
 
 @Component({
-  selector: 'app-preview',
-  standalone: true,
-  imports: [CommonModule, UnsafeHtmlPipe, DropdownModule, FormsModule],
-  template: `
+    selector: 'app-preview',
+    imports: [CommonModule, UnsafeHtmlPipe, DropdownModule, FormsModule],
+    template: `
     <div class="screen-size-selector">
       <div>
         <label>Screen width: </label>
@@ -28,7 +27,7 @@ import {CanvasService} from "../../services/canvas.service";
               [ngStyle]="{ 'width': selectedMediaQuery?.width, 'flex-grow': 1}"></iframe>
     </div>
   `,
-  styles: `
+    styles: `
     :host {
       overflow-y: auto;
       display: flex;

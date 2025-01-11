@@ -8,7 +8,6 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-markup';
 import {CanvasItem} from "../../models/canvas-item.model";
-import {UnsafeHtmlPipe} from "../../pipes/unsafe-html.pipe";
 import {ButtonModule} from "primeng/button";
 import FileSaver from 'file-saver';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -16,14 +15,13 @@ import {SerializationService} from "../../services/serialization.service";
 import {CanvasService} from "../../services/canvas.service";
 
 @Component({
-  selector: 'app-html-prism',
-  standalone: true,
-  imports: [CommonModule, UnsafeHtmlPipe, ButtonModule],
-  template: `
+    selector: 'app-html-prism',
+    imports: [CommonModule, ButtonModule],
+    template: `
     <p-button label="Download" (click)="downloadHtml()"></p-button>
     <pre><code source class="language-html">{{ code }}</code></pre>
   `,
-  styles: `
+    styles: `
     :host {
       display: block;
       position: relative;

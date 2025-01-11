@@ -9,11 +9,10 @@ import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
 
 @Component({
-  selector: 'app-left-menu',
-  standalone: true,
-  imports: [CommonModule, StructureTreeComponent, ButtonModule, TooltipModule, SelectButtonModule, FormsModule, InsertComponent],
-  templateUrl: './left-menu.component.html',
-  styleUrl: './left-menu.component.scss'
+    selector: 'app-left-menu',
+    imports: [CommonModule, StructureTreeComponent, ButtonModule, TooltipModule, SelectButtonModule, FormsModule, InsertComponent],
+    templateUrl: './left-menu.component.html',
+    styleUrl: './left-menu.component.scss'
 })
 export class LeftMenuComponent {
   selectedTab: LeftMenuTabs = LeftMenuTabs.insert;

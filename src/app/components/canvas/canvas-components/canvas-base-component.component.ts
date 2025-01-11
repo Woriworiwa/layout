@@ -17,11 +17,10 @@ import {Subject, takeUntil} from "rxjs";
 import {CanvasService} from "../../../services/canvas.service";
 
 @Component({
-  selector: 'app-canvas-base-component',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule],
-  template: ``,
+    selector: 'app-canvas-base-component',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule],
+    template: ``
 })
 export class CanvasBaseComponent implements OnDestroy, OnChanges {
   @Input() item: CanvasItem | undefined;
