@@ -12,10 +12,12 @@ import {MenuItem, MessageService} from "primeng/api";
 import {MessageModule} from "primeng/message";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {CanvasService} from "../../services/canvas.service";
+import {ButtonModule} from "primeng/button";
+import {Popover} from "primeng/popover";
 
 @Component({
     selector: 'app-header',
-    imports: [CommonModule, ThemeOptionsComponent, ToggleButtonModule, FormsModule, SidebarModule, TooltipModule, SplitButtonModule, MessageModule, OverlayPanelModule],
+  imports: [CommonModule, ButtonModule, ThemeOptionsComponent, ToggleButtonModule, FormsModule, SidebarModule, TooltipModule, SplitButtonModule, MessageModule, OverlayPanelModule, Popover],
     templateUrl: `./header.component.html`,
     styleUrls: ['./header.component.scss']
 })

@@ -66,7 +66,7 @@ import {SpeedDialModule} from "primeng/speeddial";
 
     ::ng-deep p-dropdown {
       position: absolute;
-      right: 22px;
+      right: 36px;
       top: 1px;
       width: 40px !important;
     }

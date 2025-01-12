@@ -5,6 +5,7 @@ import {ButtonModule} from "primeng/button";
 import {PanZoomService} from "../../../services/pan-zoom.service";
 import {TooltipModule} from "primeng/tooltip";
 import {ThemeService} from "../../../services/theme.service";
+import {AppStateService} from "../../../services/app-state.service";
 
 @Component({
     selector: 'app-canvas-toolbar',
@@ -23,10 +24,11 @@ export class CanvasToolbarComponent {
 
   constructor(protected undoRedoService: UndoRedoService,
               protected panZoomService: PanZoomService,
-              protected themeService: ThemeService) {
+              protected themeService: ThemeService,
+              protected appStateService: AppStateService) {
   }
 
-  onDarkModeChanged() {
-    this.themeService.config.update((config) => ({...config, darkMode: !this.themeService._config.darkMode}));
+  toggleDarkMode() {
+    this.appStateService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
   }
 }

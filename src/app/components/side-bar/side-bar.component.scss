@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+
+  .tabs, .content {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.5rem;
+    background-color: var(--bg-secondary);
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .content {
+    flex-grow: 1;
+  }
+}

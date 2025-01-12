@@ -18,17 +18,17 @@ import {FormsModule} from "@angular/forms";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {UndoRedoService} from "./services/undo-redo.service";
-import {LeftMenuComponent} from "./components/left-menu/left-menu.component";
 import {PresetsService} from "./services/presets.service";
 import {SelectionService} from "./services/selection.service";
 import {CanvasService} from "./services/canvas.service";
 import {ContextMenuService} from "./services/context-menu.service";
 import {DragDropService} from "./services/drag-drop.service";
 import {UndoRedoDirective} from "./directives/undo-redo.directive";
+import {SideBarComponent} from "./components/side-bar/side-bar.component";
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, PropertiesComponent, ButtonModule, CanvasComponent, HeaderComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, NgIf, SelectButtonModule, FormsModule, ToastModule, LeftMenuComponent],
+  imports: [RouterOutlet, PropertiesComponent, ButtonModule, CanvasComponent, HeaderComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, NgIf, SelectButtonModule, FormsModule, ToastModule, SideBarComponent],
     providers: [CanvasStore, CanvasService, DataService, MessageService, PresetsService, SelectionService, ContextMenuService, DragDropService, UndoRedoService],
     hostDirectives: [UndoRedoDirective],
     templateUrl: './app.component.html',

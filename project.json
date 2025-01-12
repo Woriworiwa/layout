@@ -24,63 +24,7 @@
           "src/assets"
         ],
         "styles": [
-          "src/styles.scss",
-          "node_modules/primeng/resources/primeng.min.css",
-          {
-            "input": "node_modules/prismjs/themes/prism.css",
-            "bundleName": "prism-light",
-            "inject": false
-          },
-          {
-            "input": "node_modules/prismjs/themes/prism-okaidia.css",
-            "bundleName": "prism-dark",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/mira.scss",
-            "bundleName": "mira",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/md-deeppurple-light.scss",
-            "bundleName": "md-deeppurple-light",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/md-deeppurple-dark.scss",
-            "bundleName": "md-deeppurple-dark",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/mdc-deeppurple-light.scss",
-            "bundleName": "mdc-deeppurple-light",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/mdc-deeppurple-dark.scss",
-            "bundleName": "mdc-deeppurple-dark",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/aura-blue-dark.scss",
-            "bundleName": "aura-blue-dark",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/aura-blue-light.scss",
-            "bundleName": "aura-blue-light",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/lara-blue-light.scss",
-            "bundleName": "lara-blue-light",
-            "inject": false
-          },
-          {
-            "input": "src/primeng-themes/lara-blue-dark.scss",
-            "bundleName": "lara-blue-dark",
-            "inject": false
-          }
+          "src/styles.scss"
         ],
         "scripts": [
           "node_modules/prismjs/prism.js"

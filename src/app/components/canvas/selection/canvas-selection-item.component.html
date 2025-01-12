@@ -1,4 +1,4 @@
-<p-overlayPanel #op>
+<p-popover #op>
   <div class="insert-position">
     <p-selectButton
       [options]="insertPositions"
@@ -10,11 +10,11 @@
   <app-insert [parentFrameId]="canvasItem?.key"
               [insertPosition]="insertPosition"
               (componentAdded)="op.toggle($event)"></app-insert>
-</p-overlayPanel>
+</p-popover>
 
-<p-overlayPanel #quickActions>
+<p-popover #quickActions>
   <div>quick actions</div>
-</p-overlayPanel>
+</p-popover>
 
 <div class="add-item">
   <p-button icon="pi pi-plus" [rounded]="true" (click)="op.toggle($event); $event.stopPropagation()"></p-button>

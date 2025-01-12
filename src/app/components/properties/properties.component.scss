@@ -1,15 +1,19 @@
 :host {
   display: flex;
   flex-grow: 1;
-  padding: 10px;
 }
 
 .properties {
   flex-basis: 0;
   flex-grow: 1;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  align-self: start;
+  align-self: stretch;
+  border-radius: 1.5rem;
+  background-color: var(--bg-secondary);
+  padding: 1rem;
+  justify-content: start;
 }
 
 .selected-properties {
@@ -26,11 +30,6 @@ app-css-prism {
 }
 
 :host ::ng-deep {
-  .p-selectbutton {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
   .p-inputnumber {
     flex-grow: 1;
   }
