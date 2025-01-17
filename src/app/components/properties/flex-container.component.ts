@@ -13,10 +13,9 @@ import {PanelModule} from "primeng/panel";
 import {CanvasService} from "../../services/canvas.service";
 
 @Component({
-  selector: 'app-properties-flex-container',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, AppPropertyFilterPipe, PanelModule],
-  template: `
+    selector: 'app-properties-flex-container',
+    imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, AppPropertyFilterPipe, PanelModule],
+    template: `
     <ng-container [formGroup]="formGroup">
       <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">
         <app-property-item-select-button [options]="flexDirectionOptions"
@@ -50,7 +49,7 @@ import {CanvasService} from "../../services/canvas.service";
       </p-panel>
     </ng-container>
   `,
-  styles: `
+    styles: `
     :host {
       display: contents;
     }

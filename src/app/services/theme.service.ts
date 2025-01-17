@@ -1,6 +1,6 @@
-import { Inject, Injectable, PLATFORM_ID, effect, signal } from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID, effect, signal, inject} from '@angular/core';
 import { Subject } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {ThemeModel} from "../models/theme.model";
 
 @Injectable({
@@ -21,6 +21,7 @@ export class ThemeService {
   config = signal<ThemeModel>(this._config);
   private configUpdate = new Subject<ThemeModel>();
   configUpdate$ = this.configUpdate.asObservable();
+  document = inject(DOCUMENT);
 
   constructor(@Inject(PLATFORM_ID) private platformId: any) {
     effect(() => {
@@ -35,6 +36,15 @@ export class ThemeService {
     });
   }
 
+  toggleDarkMode() {
+    if (this.config().darkMode) {
+      this.document.documentElement.classList.remove('p-dark');
+    } else {
+      this.document.documentElement.classList.add('p-dark');
+    }
+
+    this._config.darkMode = !this.config().darkMode;
+  }
   updateStyle(config: ThemeModel) {
     return config.theme !== this._config.theme || config.darkMode !== this._config.darkMode;
   }

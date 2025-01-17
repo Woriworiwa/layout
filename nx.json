@@ -61,5 +61,6 @@
         "ciTargetName": "e2e-ci"
       }
     }
-  ]
+  ],
+  "useLegacyCache": true
 }

@@ -2,26 +2,24 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {ThemeService} from "../../services/theme.service";
-import {JsonPrismComponent} from "../prisms/json-prism.component";
-import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {FormsModule} from "@angular/forms";
 import {DataService} from "../../services/data.service";
 import {SidebarModule} from "primeng/sidebar";
-import {PreviewComponent} from "../preview/preview.component";
 import {TooltipModule} from "primeng/tooltip";
 import {SplitButtonModule} from "primeng/splitbutton";
 import {MenuItem, MessageService} from "primeng/api";
 import {MessageModule} from "primeng/message";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {CanvasService} from "../../services/canvas.service";
+import {ButtonModule} from "primeng/button";
+import {Popover} from "primeng/popover";
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, ThemeOptionsComponent, JsonPrismComponent, CdkDrag, CdkDropList, ToggleButtonModule, FormsModule, SidebarModule, PreviewComponent, TooltipModule, SplitButtonModule, MessageModule, OverlayPanelModule],
-  templateUrl: `./header.component.html`,
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+  imports: [CommonModule, ButtonModule, ThemeOptionsComponent, ToggleButtonModule, FormsModule, SidebarModule, TooltipModule, SplitButtonModule, MessageModule, OverlayPanelModule, Popover],
+    templateUrl: `./header.component.html`,
+    styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
   @Output()

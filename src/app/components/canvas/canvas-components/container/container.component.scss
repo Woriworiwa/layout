@@ -1,8 +1,9 @@
 :host {
   display: block;
   outline: none;
-  background: white;
-  border: 1px solid #ed9534;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
 }
 
 

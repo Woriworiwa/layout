@@ -8,15 +8,14 @@ import {CanvasService} from "../../services/canvas.service";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-  selector: 'app-json-prism',
-  standalone: true,
-  imports: [CommonModule, SidebarModule],
-  template: `
+    selector: 'app-json-prism',
+    imports: [CommonModule, SidebarModule],
+    template: `
     <code>
       <pre><p>{{ frames | json }}</p></pre>
     </code>
   `,
-  styles: `
+    styles: `
     :host {
       padding: 0 16px;
     }

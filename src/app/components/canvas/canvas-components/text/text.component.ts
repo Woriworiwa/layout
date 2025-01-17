@@ -6,21 +6,18 @@ import {CanvasService} from "../../../../services/canvas.service";
 import {CopyPasteDirective} from "../../../../directives/copy-paste.directive";
 
 @Component({
-  selector: 'app-text',
-  standalone: true,
-  imports: [CommonModule],
-  template: `{{ item?.content }}`,
-  hostDirectives: [CopyPasteDirective],
-  styles: `
+    selector: 'app-text',
+    imports: [CommonModule],
+    template: `{{ item?.content }}`,
+    hostDirectives: [CopyPasteDirective],
+    styles: `
   :host {
-    color-scheme: light;
     font-family: sans-serif;
     font-weight: lighter;
     display: block;
     padding: 5px;
     background: var(--yellow-50);
-    color: black;
-    border: 1px solid #fec300;
+    border: 1px solid var(--border-primary);
     white-space: pre-wrap;
 
     &[contenteditable=true]:focus {

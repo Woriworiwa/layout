@@ -1,0 +1,15 @@
+<div class="tabs">
+  @for (tab of tabs; track tab) {
+      <p-button [label]="tab.title"
+                [pTooltip]="tab.title"
+                [icon]="tab.icon"
+                iconPos="top"
+                [text]="tab.tab !== selectedTab ? 'secondary' : undefined"
+                (onClick)="setSelectedSampleAppsSidebarNav(tab)" size="small"></p-button>
+    }
+</div>
+
+<div class="content">
+  <app-insert *ngIf="selectedTab === LeftMenuTabs.insert"></app-insert>
+  <app-structure-tree *ngIf="selectedTab === LeftMenuTabs.elements"></app-structure-tree>
+</div>

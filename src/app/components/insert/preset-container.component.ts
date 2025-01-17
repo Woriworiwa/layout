@@ -9,16 +9,14 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {CanvasItemType} from '../../models/enums';
 import {CanvasItem} from "../../models/canvas-item.model";
 import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
-import {PresetTextComponent} from "./preset-text.component";
 import {PresetsService} from "../../services/presets.service";
 
 @Component({
-  selector: 'app-preset-container',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ButtonModule, OverlayPanelModule, CssStyleSerializerPipe, PresetTextComponent],
-  providers: [CssStyleSerializerPipe],
-  template: `
+    selector: 'app-preset-container',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, ButtonModule, OverlayPanelModule],
+    providers: [CssStyleSerializerPipe],
+    template: `
     @switch (preset?.itemType) {
       @case (FrameType.FLEX) {
         @for (childFrame of preset?.children; track childFrame) {

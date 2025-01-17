@@ -23,24 +23,21 @@ import {CopyPasteService} from "../../services/copy-paste.service";
 import {CopyPasteDirective} from "../../directives/copy-paste.directive";
 import {PresetsService} from "../../services/presets.service";
 import {CanvasService} from "../../services/canvas.service";
-import {CssPrismComponent} from "../prisms/css-prism.component";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'
 import {PanZoomDirective} from "../../directives/pan-zoom.directive";
 import {Subject, takeUntil} from "rxjs";
-import {UndoRedoService} from "../../services/undo-redo.service";
 
 @Component({
-  selector: 'app-canvas',
-  standalone: true,
-  imports: [CommonModule, ContainerComponent, CdkDropList, CdkDrag, CdkDropListGroup, InsertComponent, CssStyleSerializerPipe, CanvasToolbarComponent, CssPrismComponent, SortablejsModule],
-  providers: [CopyPasteService, PresetsService, DragDropService, PanZoomService],
-  hostDirectives: [CopyPasteDirective, PanZoomDirective],
-  host: {
-    '[class.surface-100]': 'true',
-  },
-  templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss']
+    selector: 'app-canvas',
+    imports: [CommonModule, ContainerComponent, CanvasToolbarComponent, SortablejsModule],
+    providers: [CopyPasteService, PresetsService, DragDropService, PanZoomService],
+    hostDirectives: [CopyPasteDirective, PanZoomDirective],
+    host: {
+        '[class.surface-100]': 'true',
+    },
+    templateUrl: './canvas.component.html',
+    styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements AfterViewInit, OnDestroy {
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;

@@ -7,13 +7,12 @@ import {CanvasService} from "../../../services/canvas.service";
 
 
 @Component({
-  selector: 'app-context-menu',
-  standalone: true,
-  imports: [CommonModule, ContextMenuModule],
-  template: `
+    selector: 'app-context-menu',
+    imports: [CommonModule, ContextMenuModule],
+    template: `
     <!--set triggerEvent to empty string. we manually handle showing the context menu from the canvas item-->
     <p-contextMenu [target]="target" [model]="items" triggerEvent="''" appendTo="body"></p-contextMenu>`,
-  styles: ``
+    styles: ``
 })
 export class ContextMenuComponent implements OnInit{
   @Input() target: any;

@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {DropdownComponent} from "./property-items/dropdown.component";
-import {SelectButtonComponent} from "./property-items/select-button.component";
 import {SliderComponent} from "./property-items/slider.component";
 import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "../../pipes/filter.pipe";
@@ -12,10 +11,9 @@ import {CanvasService} from "../../services/canvas.service";
 import {AlignSelf} from "../../models/css.model";
 
 @Component({
-  selector: 'app-properties-flex-item',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, AppPropertyFilterPipe, PanelModule],
-  template: `
+    selector: 'app-properties-flex-item',
+    imports: [CommonModule, ReactiveFormsModule, SliderComponent, DropdownComponent, AppPropertyFilterPipe, PanelModule],
+    template: `
     <ng-container [formGroup]="formGroup">
       <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">
         <app-property-item-slider label="flex-grow"
@@ -42,7 +40,7 @@ import {AlignSelf} from "../../models/css.model";
       </p-panel>
     </ng-container>
   `,
-  styles: `
+    styles: `
     :host {
       display: contents;
     }

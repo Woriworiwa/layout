@@ -20,7 +20,7 @@ export const flexPresets = [
           "display": "flex"
         },
         "boxSizing": {
-          "padding": "6px"
+          "padding": "18px"
         }
       },
     }
@@ -38,7 +38,7 @@ export const flexPresets = [
           "gap": 10
         },
         "boxSizing": {
-          "padding": "6px"
+          "padding": "18px"
         }
       },
       "children": [
@@ -48,7 +48,12 @@ export const flexPresets = [
         },
         {
           "content": "_____    2    ______",
-          "itemType": "TEXT"
+          "itemType": "TEXT",
+          "css": {
+            "boxSizing": {
+              "padding": "14px"
+            }
+          }
         },
         {
           "content": "__________    3    __________",
@@ -71,7 +76,7 @@ export const flexPresets = [
           "gap": 10
         },
         "boxSizing": {
-          "padding": "6px"
+          "padding": "14px"
         }
       },
       "children": [
@@ -101,10 +106,10 @@ export const flexPresets = [
         },
         "flexContainer": {
           "flexDirection": "column",
-          "gap": 2
+          "gap": "8",
         },
         "boxSizing": {
-          "padding": "6px"
+          "padding": "10px"
         }
       },
       "key": "MfcOBkWs",
@@ -116,7 +121,7 @@ export const flexPresets = [
               "display": "flex"
             },
             "boxSizing": {
-              "padding": "2px"
+              "padding": "6px"
             }
           },
           "key": "qqFDrdxw"
@@ -130,7 +135,7 @@ export const flexPresets = [
             "flexContainer": {
               "flexDirection": "row",
               "flexWrap": "wrap",
-              "gap": 2
+              "gap": 8
             },
             "boxSizing": {
               "padding": "5px",
@@ -206,7 +211,7 @@ export const flexPresets = [
               "gap": 2
             },
             "boxSizing": {
-              "padding": "2px",
+              "padding": "6px",
             }
           },
           "key": "buMSVyjs",

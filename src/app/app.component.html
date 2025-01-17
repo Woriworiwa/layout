@@ -1,6 +1,6 @@
 @defer {
   <app-header (selectedContentChanged)="selectedContentId = $event"></app-header>
-  <app-left-menu></app-left-menu>
+  <app-side-bar></app-side-bar>
   <app-settings></app-settings>
 
   <div class="center">
@@ -35,7 +35,7 @@
 
   <p-toast position="bottom-center"></p-toast>
 
-} @placeholder (minimum 2s) {
+} @placeholder (minimum 0.2s) {
   <div class="loader-wrapper">
     <div class="branding">
       <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/512/external-layout-user-interface-flatart-icons-flat-flatarticons-1.png" alt="loading...">
