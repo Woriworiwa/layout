@@ -1,34 +1,28 @@
 @defer {
-  <app-header (selectedContentChanged)="selectedContentId = $event"></app-header>
+  <app-header></app-header>
   <app-side-bar></app-side-bar>
   <app-settings></app-settings>
 
   <div class="center">
     <div class="center-canvas">
-      <app-canvas *ngIf="selectedContentId === 1"></app-canvas>
-
-      @defer (on viewport) {
-        <app-preview *ngIf="selectedContentId === 2"></app-preview>
-      } @placeholder {
-        <div>loading...</div>
-      }
-
-      @defer (on viewport) {
-        <app-css-prism [canvasItems]="canvasService.items" *ngIf="selectedContentId === 3"></app-css-prism>
-      } @placeholder {
-        <div>loading...</div>
-      }
-
-      @defer (on viewport) {
-        <app-html-prism *ngIf="selectedContentId === 4"></app-html-prism>
-      } @placeholder {
-        <div>loading...</div>
-      }
-
-      @defer (on viewport) {
-        <app-json-prism *ngIf="selectedContentId === 5"></app-json-prism>
-      } @placeholder {
-        <div>loading...</div>
+      @switch (appStateService.layoutState().mainAreaContent) {
+        @case (MainAreaContent.CANVAS) {
+          <app-canvas></app-canvas>
+        }
+        @case (MainAreaContent.PREVIEW) {
+          @defer (on viewport) {
+            <app-preview></app-preview>
+          } @placeholder {
+            <div>loading...</div>
+          }
+        }
+        @case (MainAreaContent.CODE) {
+          @defer (on viewport) {
+            <ng-container *ngTemplateOutlet="codeLayout"></ng-container>
+          } @placeholder {
+            <div>loading...</div>
+          }
+        }
       }
     </div>
   </div>
@@ -38,10 +32,26 @@
 } @placeholder (minimum 0.2s) {
   <div class="loader-wrapper">
     <div class="branding">
-      <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/512/external-layout-user-interface-flatart-icons-flat-flatarticons-1.png" alt="loading...">
+      <img
+        src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/512/external-layout-user-interface-flatart-icons-flat-flatarticons-1.png"
+        alt="loading...">
     </div>
     <div class="branding-name"><span class="loader">unboxing boxOut</span></div>
   </div>
 }
 
 <router-outlet></router-outlet>
+
+<ng-template #codeLayout>
+  @switch (appStateService.layoutState().sideBarSecondary) {
+    @case (SideBarSecondary.HTML) {
+      <app-html-prism></app-html-prism>
+    }
+    @case (SideBarSecondary.JSON) {
+      <app-json-prism></app-json-prism>
+    }
+    @case (SideBarSecondary.CSS) {
+      <app-css-prism [canvasItems]="canvasService.items"></app-css-prism>
+    }
+  }
+</ng-template>

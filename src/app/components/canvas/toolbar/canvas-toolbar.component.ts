@@ -27,8 +27,4 @@ export class CanvasToolbarComponent {
               protected themeService: ThemeService,
               protected appStateService: AppStateService) {
   }
-
-  toggleDarkMode() {
-    this.appStateService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
-  }
 }
