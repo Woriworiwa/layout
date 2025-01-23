@@ -24,7 +24,12 @@ import {PresetsService} from "../../services/presets.service";
         }
       }
     }
-  `
+  `,
+    styles: [`
+    :host {
+      zoom: 70%;
+    }
+  `]
 })
 export class PresetContainerComponent {
   protected readonly FrameType = CanvasItemType;
