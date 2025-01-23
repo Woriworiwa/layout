@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {PropertiesComponent} from "./components/properties/properties.component";
-import {NgIf} from "@angular/common";
+import {NgIf, NgTemplateOutlet} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {CanvasStore} from "./store/canvas.store";
 import {CanvasComponent} from "./components/canvas/canvas.component";
@@ -25,10 +25,12 @@ import {ContextMenuService} from "./services/context-menu.service";
 import {DragDropService} from "./services/drag-drop.service";
 import {UndoRedoDirective} from "./directives/undo-redo.directive";
 import {SideBarComponent} from "./components/side-bar/side-bar.component";
+import {AppStateService} from "./services/app-state.service";
+import {MainAreaContent, SideBarSecondary} from "./models/enums";
 
 @Component({
     selector: 'app-root',
-  imports: [RouterOutlet, PropertiesComponent, ButtonModule, CanvasComponent, HeaderComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, NgIf, SelectButtonModule, FormsModule, ToastModule, SideBarComponent],
+  imports: [RouterOutlet, PropertiesComponent, ButtonModule, CanvasComponent, HeaderComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, NgIf, SelectButtonModule, FormsModule, ToastModule, SideBarComponent, NgTemplateOutlet],
     providers: [CanvasStore, CanvasService, DataService, MessageService, PresetsService, SelectionService, ContextMenuService, DragDropService, UndoRedoService],
     hostDirectives: [UndoRedoDirective],
     templateUrl: './app.component.html',
@@ -36,8 +38,10 @@ import {SideBarComponent} from "./components/side-bar/side-bar.component";
 })
 export class AppComponent {
   selectedContentId = 1;
+  protected readonly MainAreaContent = MainAreaContent;
 
   constructor(protected canvasService: CanvasService,
+              protected appStateService: AppStateService,
               private selectionService: SelectionService,
               private mockService: DataService) {
     this.fetchData();
@@ -48,4 +52,6 @@ export class AppComponent {
   fetchData() {
     this.canvasService.setItems(this.mockService.getInitialData());
   }
+
+  protected readonly SideBarSecondary = SideBarSecondary;
 }

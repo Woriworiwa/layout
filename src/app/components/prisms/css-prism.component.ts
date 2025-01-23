@@ -19,13 +19,14 @@ import {SerializationService} from "../../services/serialization.service";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasService} from "../../services/canvas.service";
 import {SelectionService} from "../../services/selection.service";
+import {Highlight} from "ngx-highlightjs";
 
 @Component({
     selector: 'app-css-prism',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule],
+  imports: [CommonModule, Highlight],
     template: `
-    <pre><code class="language-scss" [innerHTML]="css"></code></pre>
+      <pre><code language="css" [highlight]="css"></code></pre>
   `,
     styles: `
     pre[class*="language-"] {

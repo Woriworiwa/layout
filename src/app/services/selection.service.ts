@@ -4,7 +4,6 @@ import {CanvasItem} from "../models/canvas-item.model";
 import {CanvasSelectionItemComponent} from "../components/canvas/selection/canvas-selection-item.component";
 import {CanvasHoverItemComponent} from "../components/canvas/selection/canvas-hover-item.component";
 import {ContextMenuService} from "./context-menu.service";
-import {PanZoomService} from "./pan-zoom.service";
 import {DragDropService} from "./drag-drop.service";
 import {BehaviorSubject, combineLatestWith, distinctUntilChanged, map, Observable, Subject, takeUntil} from "rxjs";
 
@@ -48,6 +47,12 @@ export class SelectionService implements OnDestroy {
   get selectedItem$() {
     return this.selectedItemId$.pipe(
       map((selectedItemId) => this.canvasStore.getItemById(undefined, selectedItemId))
+    )
+  }
+
+  get hoverItem$() {
+    return this.hoverCanvasItemIdSubject.pipe(
+      map((hoverItemId) => this.canvasStore.getItemById(undefined, hoverItemId))
     )
   }
 

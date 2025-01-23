@@ -6,23 +6,12 @@
 <div class="content-switcher">
   @for (tab of tabs; track tab.id) {
     <p-button [label]="tab.label"
-              [text]="tab.id !== selectedTabId ? 'secondary' : undefined"
+              [text]="(tab.id !== (appStateService.layoutState().mainAreaContent)) ? 'secondary' : undefined"
               (onClick)="setSelectedTab(tab.id)" size="small"></p-button>
   }
 </div>
 
 <div class="action-buttons-container">
-  <p-button class="action-button"
-            (onClick)="op.toggle($event)"
-            [text]="true"
-            pTooltip="Customize theme"
-            tooltipPosition="bottom"
-            icon="pi pi-palette">
-    <p-popover #op>
-      <app-theme-options></app-theme-options>
-    </p-popover>
-  </p-button>
-
   <p-button class="action-button"
             [text]="true"
             [link]="true"

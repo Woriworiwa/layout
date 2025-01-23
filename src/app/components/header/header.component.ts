@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ThemeOptionsComponent} from "../settings/theme-options.component";
 import {ThemeService} from "../../services/theme.service";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {FormsModule} from "@angular/forms";
@@ -13,21 +12,19 @@ import {MessageModule} from "primeng/message";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {CanvasService} from "../../services/canvas.service";
 import {ButtonModule} from "primeng/button";
-import {Popover} from "primeng/popover";
+import {AppStateService} from "../../services/app-state.service";
+import {MainAreaContent} from "../../models/enums";
 
 @Component({
     selector: 'app-header',
-  imports: [CommonModule, ButtonModule, ThemeOptionsComponent, ToggleButtonModule, FormsModule, SidebarModule, TooltipModule, SplitButtonModule, MessageModule, OverlayPanelModule, Popover],
+  imports: [CommonModule, ButtonModule, ToggleButtonModule, FormsModule, SidebarModule, TooltipModule, SplitButtonModule, MessageModule, OverlayPanelModule],
     templateUrl: `./header.component.html`,
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Output()
-  selectedContentChanged = new EventEmitter<number>();
-
   protected readonly window = window;
 
-  selectedTabId = 1;
+  selectedTabId = MainAreaContent.CANVAS;
 
   items: MenuItem[] = [
     {
@@ -39,15 +36,13 @@ export class HeaderComponent {
     }
   ];
 
-  tabs: { label: string, id: number}[] = [
-    { label: 'Canvas', id: 1 },
-    { label: 'Preview', id: 2 },
-    { label: 'CSS', id: 3 },
-    { label: 'HTML', id: 4 },
-    { label: 'JSON', id: 5 }
+  tabs: { label: string, id: MainAreaContent}[] = [
+    { label: 'Canvas', id: MainAreaContent.CANVAS },
+    { label: 'Preview', id: MainAreaContent.PREVIEW }
   ];
 
   constructor(private themeService: ThemeService,
+              protected appStateService: AppStateService,
               private dataService: DataService,
               private canvasService: CanvasService,
               private messageService: MessageService) {
@@ -68,8 +63,8 @@ export class HeaderComponent {
     this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Local storage cleared.' });
   }
 
-  setSelectedTab(id: number) {
-    this.selectedContentChanged.emit(id);
-    this.selectedTabId = id;
+  setSelectedTab(mainAreaContet: MainAreaContent) {
+    this.appStateService.setAppLayout({mainAreaContent: mainAreaContet})
+    this.selectedTabId = mainAreaContet;
   }
 }

@@ -12,10 +12,6 @@
         </p-inputGroup>
     </div>
 
-    <p-panel header="CSS" [toggleable]="true" [collapsed]="true" toggler="header">
-      <app-css-prism [canvasItems]="frame ? [frame] : this.canvasService.items"></app-css-prism>
-    </p-panel>
-
     <app-properties-box-sizing [css]="frame.css"
                                [title]="'Box sizing'"
                                [searchText]="searchText"></app-properties-box-sizing>

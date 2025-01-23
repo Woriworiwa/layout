@@ -3,16 +3,35 @@
   flex-direction: row;
   gap: 12px;
 
-  .tabs, .content {
+  .primary,
+  .secondary {
     display: flex;
     flex-direction: column;
+    padding: 1rem;
     border-radius: 1.5rem;
     background-color: var(--bg-secondary);
-    gap: 1rem;
-    padding: 1rem;
   }
 
-  .content {
+  .primary {
+    justify-content: space-between;
+
+    .top-buttons {
+      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bottom-buttons {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .secondary {
     flex-grow: 1;
+  }
+
+  app-inspector {
+    overflow: auto;
   }
 }
