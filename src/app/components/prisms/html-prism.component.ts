@@ -13,13 +13,14 @@ import FileSaver from 'file-saver';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SerializationService} from "../../services/serialization.service";
 import {CanvasService} from "../../services/canvas.service";
+import {Highlight} from "ngx-highlightjs";
 
 @Component({
     selector: 'app-html-prism',
-    imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, Highlight],
     template: `
     <p-button label="Download" (click)="downloadHtml()"></p-button>
-    <pre><code source class="language-html">{{ code }}</code></pre>
+    <pre><code language="html" [highlight]="code"></code></pre>
   `,
     styles: `
     :host {

@@ -6,13 +6,15 @@ import {SerializationService} from "../../services/serialization.service";
 import {JSONSerializer} from "../../data/serializers/JSON.serializer";
 import {CanvasService} from "../../services/canvas.service";
 import {Subject, takeUntil} from "rxjs";
+import {Highlight} from "ngx-highlightjs";
 
 @Component({
     selector: 'app-json-prism',
-    imports: [CommonModule, SidebarModule],
+  imports: [CommonModule, SidebarModule, Highlight],
     template: `
     <code>
-      <pre><p>{{ frames | json }}</p></pre>
+      <pre><code language="json" [highlight]="frames | json"></code></pre>
+<!--      <pre><p>{{ frames | json }}</p></pre>-->
     </code>
   `,
     styles: `

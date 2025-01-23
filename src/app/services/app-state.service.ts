@@ -3,6 +3,7 @@ import {computed, effect, inject, Injectable, signal} from '@angular/core';
 import {AppState} from "../store/app.state";
 import {MainAreaContent, SideBarPrimary, SideBarSecondary} from "../models/enums";
 import {AppLayoutState} from "../store/appLayout.state";
+import {HighlightLoader} from "ngx-highlightjs";
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,10 @@ export class AppStateService {
     sideBarSecondary: SideBarSecondary.CSS
   });
 
-  theme = computed(() => (this.appState()?.darkTheme ? 'dark' : 'light'));
+  theme = computed(() => (this.appState()?.darkTheme ? 'stackoverflow-dark' : 'stackoverflow-light'));
 
   transitionComplete = signal<boolean>(false);
+  private hljsLoader: HighlightLoader = inject(HighlightLoader);
 
   constructor() {
     this.appState.set({...this.loadAppState()});
@@ -78,8 +80,10 @@ export class AppStateService {
   private toggleDarkMode(state: AppState): void {
     if (state.darkTheme) {
       this.document.documentElement.classList.remove('p-dark');
+      this.hljsLoader.setTheme('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-light.min.css');
     } else {
       this.document.documentElement.classList.add('p-dark');
+      this.hljsLoader.setTheme('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-dark.min.css');
     }
   }
 
