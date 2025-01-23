@@ -30,4 +30,8 @@
   .secondary {
     flex-grow: 1;
   }
+
+  app-inspector {
+    overflow: auto;
+  }
 }

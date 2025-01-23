@@ -7,15 +7,15 @@ import {StructureTreeComponent} from "../structure-tree/structure-tree.component
 import {Button} from "primeng/button";
 import {AppStateService} from "../../services/app-state.service";
 import {SideBarSecondary, SideBarPrimary, MainAreaContent} from "../../models/enums";
-import {CssPrismComponent} from "../prisms/css-prism.component";
 import {CanvasService} from "../../services/canvas.service";
 import {SelectionService} from "../../services/selection.service";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasItem} from "../../models/canvas-item.model";
+import {InspectorComponent} from "../inspector/inspector.component";
 
 @Component({
   selector: 'app-side-bar',
-  imports: [CommonModule, FormsModule, Tooltip, InsertComponent, StructureTreeComponent, Button, CssPrismComponent],
+  imports: [CommonModule, FormsModule, Tooltip, InsertComponent, StructureTreeComponent, Button, InspectorComponent],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
 })
@@ -43,7 +43,7 @@ export class SideBarComponent implements OnDestroy {
   constructor(protected appStateService: AppStateService,
               protected selectionService: SelectionService,
               protected canvasService: CanvasService) {
-    this.selectionService.selectedItem$
+    this.selectionService.hoverItem$
       .pipe(takeUntil(this.destroy$))
       .subscribe(frame => {
         this.frame = frame;

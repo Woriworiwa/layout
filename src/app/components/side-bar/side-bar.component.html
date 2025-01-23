@@ -43,7 +43,7 @@
       <app-structure-tree></app-structure-tree>
     }
     @case (sideBarPrimary.inspect) {
-      <app-css-prism [canvasItems]="frame ? [frame] : this.canvasService.items"></app-css-prism>
+      <app-inspector></app-inspector>
     }
     @case (sideBarPrimary.code) {
       @for (tab of codeTabs; track tab) {

@@ -28,6 +28,10 @@
     grid-area: right;
   }
 
+  app-side-bar {
+    min-height: min-content;
+  }
+
   .center {
     overflow: auto;
     //background-color: var(--surface-100);
