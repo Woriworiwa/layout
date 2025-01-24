@@ -10,17 +10,14 @@ import {
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {ContainerComponent} from "./canvas-components/container/container.component";
 import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
-import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
-import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {ContextMenuService} from "../../services/context-menu.service";
-import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 import {SelectionService} from "../../services/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
 import {PanZoomService} from "../../services/pan-zoom.service";
 import {DragDropService} from "../../services/drag-drop.service";
 import {CopyPasteService} from "../../services/copy-paste.service";
-import {CopyPasteDirective} from "../../directives/copy-paste.directive";
+import {KeyboardCommandsDirective} from "../../directives/keyboard-commands.directive";
 import {PresetsService} from "../../services/presets.service";
 import {CanvasService} from "../../services/canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
@@ -32,7 +29,7 @@ import {Subject, takeUntil} from "rxjs";
     selector: 'app-canvas',
     imports: [CommonModule, ContainerComponent, CanvasToolbarComponent, SortablejsModule],
     providers: [CopyPasteService, PresetsService, DragDropService, PanZoomService],
-    hostDirectives: [CopyPasteDirective, PanZoomDirective],
+    hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
     host: {
         '[class.surface-100]': 'true',
     },

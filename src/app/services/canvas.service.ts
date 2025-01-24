@@ -97,9 +97,11 @@ export class CanvasService implements OnDestroy {
       items.splice(index, 1);
     }
 
-    this.setItems(this.canvasStore.items);
+    // TODO: find a better way to update the items
+    this.setItems(cloneDeep(this.canvasStore.items));
 
     this.selectionService.setSelectedItemKey(undefined);
+    this.selectionService.setHoverItemKey(undefined);
   }
 
   addPreset(presetId: string, targetItemId: string, insertPosition: InsertPosition) {

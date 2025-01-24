@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import {CanvasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../../services/selection.service";
 import {CanvasService} from "../../../../services/canvas.service";
-import {CopyPasteDirective} from "../../../../directives/copy-paste.directive";
+import {KeyboardCommandsDirective} from "../../../../directives/keyboard-commands.directive";
 
 @Component({
     selector: 'app-text',
     imports: [CommonModule],
     template: `{{ item?.content }}`,
-    hostDirectives: [CopyPasteDirective],
+    hostDirectives: [KeyboardCommandsDirective],
     styles: `
   :host {
     font-family: sans-serif;
