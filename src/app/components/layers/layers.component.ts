@@ -16,13 +16,13 @@ import {SelectionService} from "../../services/selection.service";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
-    selector: 'app-structure-tree',
+    selector: 'app-layers',
     imports: [CommonModule, TreeModule, FormsModule, ToggleButtonModule, ContextMenuModule, OverlayPanelModule, ButtonModule, InputTextModule, ToastModule],
     providers: [TreeDragDropService],
-    templateUrl: './structure-tree.component.html',
-    styleUrls: ['./structure-tree.component.scss']
+    templateUrl: './layers.component.html',
+    styleUrls: ['./layers.component.scss']
 })
-export class StructureTreeComponent implements OnInit, OnDestroy {
+export class LayersComponent implements OnInit, OnDestroy {
   @ViewChild(OverlayPanel) renameDialog!: OverlayPanel;
 
   treeNodes!: TreeNode<CanvasItem>[];
