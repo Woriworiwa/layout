@@ -153,11 +153,12 @@ export class CanvasService implements OnDestroy {
   updateTextContent(key: string, content: string) {
     const frame = this.canvasStore.getItemById(this.items, key);
 
-    if (frame?.itemType === CanvasItemType.TEXT) {
-      frame.content = content;
+    if (frame?.itemType !== CanvasItemType.TEXT || frame.content === content) {
+      return;
     }
 
-    this.canvasStore.setItems([...this.items]);
+    frame.content = content;
+    this.canvasStore.setItems(cloneDeep(this.items));
 
     this.undoRedoService.takeSnapshot();
   }

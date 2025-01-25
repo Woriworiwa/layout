@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, Renderer2} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnChanges, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CanvasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../../services/selection.service";
@@ -8,7 +8,7 @@ import {KeyboardCommandsDirective} from "../../../../directives/keyboard-command
 @Component({
     selector: 'app-text',
     imports: [CommonModule],
-    template: `{{ item?.content }}`,
+    template: ``,
     hostDirectives: [KeyboardCommandsDirective],
     styles: `
   :host {
@@ -30,16 +30,16 @@ import {KeyboardCommandsDirective} from "../../../../directives/keyboard-command
   `
 })
 export class TextComponent extends CanvasBaseComponent implements OnChanges{
-  @Input() selectedFrameKey!: string | undefined;
-
   constructor(canvasService: CanvasService,
-              elementRef: ElementRef,
+              private elementRef: ElementRef,
               renderer: Renderer2,
               selectionService: SelectionService) {
     super(elementRef, renderer, canvasService, selectionService);
   }
 
   override ngOnChanges() {
+    this.elementRef.nativeElement.innerText = this.item?.content;
+
     super.ngOnChanges();
   }
 }

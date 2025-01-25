@@ -16,21 +16,25 @@
             </app-container>
         }
         @case (FrameType.TEXT) {
-          <app-text appEditableContent
-                    [item]="childItem"
-                    [nxtSortablejs]="childItem.children"
-                    [id]="childItem.key!"
-                    (clicked)="onChildFrameClick($event)"
-                    (mouseOver)="onChildMouseOver($event)"
-                    (mouseOut)="onChildMouseOut($event)"
-                    (contextMenu)="onChildContextMenu($event)"
-                    (contentChanged)="onChildTextContentChanged($event)">
-          </app-text>
+          <ng-container *ngTemplateOutlet="text; context: { $implicit: childItem }"></ng-container>
         }
       }
     }
   }
   @case (FrameType.TEXT) {
-    <app-text></app-text>
+    <ng-container *ngTemplateOutlet="text; context: { $implicit: item }"></ng-container>
   }
 }
+
+<ng-template #text let-item>
+  <app-text appEditableContent
+            [item]="item"
+            [nxtSortablejs]="item.children"
+            [id]="item.key!"
+            (clicked)="onChildFrameClick($event)"
+            (mouseOver)="onChildMouseOver($event)"
+            (mouseOut)="onChildMouseOut($event)"
+            (contextMenu)="onChildContextMenu($event)"
+            (contentChanged)="onChildTextContentChanged($event)">
+  </app-text>
+</ng-template>
