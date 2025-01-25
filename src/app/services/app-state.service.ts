@@ -2,7 +2,7 @@ import {DOCUMENT} from '@angular/common';
 import {computed, effect, inject, Injectable, signal} from '@angular/core';
 import {AppState} from "../store/app.state";
 import {MainAreaContent, SideBarPrimary, SideBarSecondary} from "../models/enums";
-import {AppLayoutState} from "../store/appLayout.state";
+import {AppLayoutState} from "../store/app-layout.state";
 import {HighlightLoader} from "ngx-highlightjs";
 
 @Injectable({

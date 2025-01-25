@@ -10,29 +10,27 @@ import {
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {ContainerComponent} from "./canvas-components/container/container.component";
 import {CanvasItem, CanvasItemMouseEvent} from "../../models/canvas-item.model";
-import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
-import {InsertComponent} from "../insert/insert.component";
 import {CANVAS_WRAPPER_ID} from "../../models/constants";
 import {ContextMenuService} from "../../services/context-menu.service";
-import {CssStyleSerializerPipe} from "../../pipes/css-style-serializer.pipe";
 import {SelectionService} from "../../services/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
 import {PanZoomService} from "../../services/pan-zoom.service";
 import {DragDropService} from "../../services/drag-drop.service";
 import {CopyPasteService} from "../../services/copy-paste.service";
-import {CopyPasteDirective} from "../../directives/copy-paste.directive";
+import {KeyboardCommandsDirective} from "../../directives/keyboard-commands.directive";
 import {PresetsService} from "../../services/presets.service";
 import {CanvasService} from "../../services/canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'
 import {PanZoomDirective} from "../../directives/pan-zoom.directive";
 import {Subject, takeUntil} from "rxjs";
+import {CanvasMetaLayerService} from "../../services/canvas-meta-layer.service";
 
 @Component({
     selector: 'app-canvas',
     imports: [CommonModule, ContainerComponent, CanvasToolbarComponent, SortablejsModule],
-    providers: [CopyPasteService, PresetsService, DragDropService, PanZoomService],
-    hostDirectives: [CopyPasteDirective, PanZoomDirective],
+    providers: [CopyPasteService, PresetsService, PanZoomService, CanvasMetaLayerService],
+    hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
     host: {
         '[class.surface-100]': 'true',
     },
@@ -52,11 +50,15 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   @ViewChild("selectionOverlay", {read: ViewContainerRef})
   selectionOverlay!: ViewContainerRef;
 
+  @ViewChild('metaOverlay', {read: ViewContainerRef})
+  metaOverlay!: ViewContainerRef;
+
   constructor(private canvasService: CanvasService,
               protected selectionService: SelectionService,
               private contextMenuService: ContextMenuService,
               protected panZoomService: PanZoomService,
               protected dragDropService: DragDropService,
+              private canvasLabelLayerService: CanvasMetaLayerService,
               @Inject(DOCUMENT) document: Document) {
 
     this.initDragDrop();
@@ -95,6 +97,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.selectionService.initialize(this.selectionOverlay, this.wrapper);
+    this.canvasLabelLayerService.initialize(this.metaOverlay, this.wrapper);
     this.panZoomService.initialize(this.wrapper);
   }
 
@@ -132,6 +135,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.canvasDragOptions = this.dragDropService.createGroup({
       swapThreshold: 0.8,
       ghostClass: 'drag-background-lvl-1',
+      group:'canvas',
       disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning
     });
     this.childDragOptions = this.dragDropService.createGroup({

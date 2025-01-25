@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, distinctUntilChanged, map, Observable, Subject} from "rxjs";
-import {Options} from 'sortablejs'
+import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {Options} from 'sortablejs';
 
 @Injectable()
 export class DragDropService {
@@ -20,10 +20,11 @@ export class DragDropService {
     draggingEnded: boolean
   }> = this.currentStateSubject.asObservable();
 
-  private dropSubject = new Subject();
+  private dropSubject: Subject<{item: string, from: string, to: string, oldIndex: number, newIndex: number}> = new Subject();
   drop$ = this.dropSubject.asObservable();
 
   startDragging() {
+    console.log('start dragging')
     this.currentStateSubject.next({
       ...this.currentStateSubject.getValue(),
       isDragging: true
@@ -31,6 +32,7 @@ export class DragDropService {
   }
 
   endDragging() {
+    console.log('end dragging')
     this.currentStateSubject.next({
       ...this.currentStateSubject.getValue(),
       isDragging: false
@@ -40,9 +42,17 @@ export class DragDropService {
   createGroup(options: Options = {}) {
     return {
       swapThreshold: 0.5,
-      ghostClass: 'blue-background-class',
+      ghostClass: 'drag-background-lvl-1',
       fallbackOnBody: true,
-      onUpdate: (event) => this.dropSubject.next(undefined), // this.canvasService.setItems([...this.canvasService.items]), // .moveItemChild(event.from.id || event.to.id, event.to.id, event.oldIndex!, event.newIndex!),
+      onChange: (event) => {
+        console.log('change')
+      },
+      onUpdate: (event) => {
+        console.log('--update')
+        // this.canvasService.setItems([...this.canvasService.items]), // .moveItemChild(event.from.id || event.to.id, event.to.id, event.oldIndex!, event.newIndex!),
+        const {item, from, to, oldIndex, newIndex} = event;
+        this.dropSubject.next({item: item.id, from: from.id, to: to.id, newIndex: newIndex!, oldIndex: oldIndex!});
+      },
       onStart: (event) => this.startDragging(),
       onEnd: (event) => this.endDragging(),
       ...options

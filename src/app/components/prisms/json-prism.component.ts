@@ -9,15 +9,15 @@ import {Subject, takeUntil} from "rxjs";
 import {Highlight} from "ngx-highlightjs";
 
 @Component({
-    selector: 'app-json-prism',
+  selector: 'app-json-prism',
   imports: [CommonModule, SidebarModule, Highlight],
-    template: `
+  template: `
     <code>
       <pre><code language="json" [highlight]="frames | json"></code></pre>
-<!--      <pre><p>{{ frames | json }}</p></pre>-->
+      <!--      <pre><p>{{ frames | json }}</p></pre>-->
     </code>
   `,
-    styles: `
+  styles: `
     :host {
       padding: 0 16px;
     }
@@ -25,6 +25,7 @@ import {Highlight} from "ngx-highlightjs";
 })
 export class JsonPrismComponent implements OnChanges, OnInit, OnDestroy {
   frames: CanvasItem[] | undefined = undefined;
+
   private destroy$ = new Subject<boolean>();
 
   constructor(protected canvasService: CanvasService,
@@ -46,6 +47,6 @@ export class JsonPrismComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.frames = this.canvasService.items;
+    this.frames = (this.serializerService.getSerializer('JSON') as JSONSerializer).sanitizeFrames(this.canvasService.items);
   }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule} from "@angular/forms";
 import {Tooltip} from "primeng/tooltip";
 import {InsertComponent} from "../insert/insert.component";
-import {StructureTreeComponent} from "../structure-tree/structure-tree.component";
+import {LayersComponent} from "../layers/layers.component";
 import {Button} from "primeng/button";
 import {AppStateService} from "../../services/app-state.service";
 import {SideBarSecondary, SideBarPrimary, MainAreaContent} from "../../models/enums";
@@ -15,7 +15,7 @@ import {InspectorComponent} from "../inspector/inspector.component";
 
 @Component({
   selector: 'app-side-bar',
-  imports: [CommonModule, FormsModule, Tooltip, InsertComponent, StructureTreeComponent, Button, InspectorComponent],
+  imports: [CommonModule, FormsModule, Tooltip, InsertComponent, LayersComponent, Button, InspectorComponent],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
 })

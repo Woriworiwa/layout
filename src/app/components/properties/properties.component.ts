@@ -24,6 +24,7 @@ import {InputGroupModule} from "primeng/inputgroup";
 import {ButtonModule} from "primeng/button";
 import {SelectionService} from "../../services/selection.service";
 import {CanvasService} from "../../services/canvas.service";
+import {MetaDataComponent} from "./meta-data.component";
 
 export interface Property {
   showSpecificPropertyName?: string;
@@ -32,7 +33,7 @@ export interface Property {
 
 @Component({
     selector: 'app-settings',
-    imports: [CommonModule, ReactiveFormsModule, PropertiesFlexContainerComponent, SelectButtonModule, CssPrismComponent, BoxSizingComponent, DisplayComponent, PropertiesFlexItemComponent, AccordionModule, PanelModule, MenuModule, DropdownModule, FormsModule, ListboxModule, FloatLabelModule, InputTextModule, IconFieldModule, InputIconModule, InputGroupModule, ButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, PropertiesFlexContainerComponent, SelectButtonModule, BoxSizingComponent, DisplayComponent, PropertiesFlexItemComponent, AccordionModule, PanelModule, MenuModule, DropdownModule, FormsModule, ListboxModule, FloatLabelModule, InputTextModule, IconFieldModule, InputIconModule, InputGroupModule, ButtonModule, MetaDataComponent],
     providers: [AppPropertyFilterPipe],
     templateUrl: './properties.component.html',
     styleUrls: ['./properties.component.scss']

@@ -30,7 +30,7 @@ import {MainAreaContent, SideBarSecondary} from "./models/enums";
 
 @Component({
     selector: 'app-root',
-  imports: [RouterOutlet, PropertiesComponent, ButtonModule, CanvasComponent, HeaderComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, NgIf, SelectButtonModule, FormsModule, ToastModule, SideBarComponent, NgTemplateOutlet],
+  imports: [RouterOutlet, PropertiesComponent, ButtonModule, CanvasComponent, HeaderComponent, SplitterModule, TabViewModule, JsonPrismComponent, CssPrismComponent, HtmlPrismComponent, PreviewComponent, SelectButtonModule, FormsModule, ToastModule, SideBarComponent, NgTemplateOutlet],
     providers: [CanvasStore, CanvasService, DataService, MessageService, PresetsService, SelectionService, ContextMenuService, DragDropService, UndoRedoService],
     hostDirectives: [UndoRedoDirective],
     templateUrl: './app.component.html',
