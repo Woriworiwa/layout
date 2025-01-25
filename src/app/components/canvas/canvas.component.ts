@@ -24,11 +24,12 @@ import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'
 import {PanZoomDirective} from "../../directives/pan-zoom.directive";
 import {Subject, takeUntil} from "rxjs";
+import {CanvasMetaLayerService} from "../../services/canvas-meta-layer.service";
 
 @Component({
     selector: 'app-canvas',
     imports: [CommonModule, ContainerComponent, CanvasToolbarComponent, SortablejsModule],
-    providers: [CopyPasteService, PresetsService, DragDropService, PanZoomService],
+    providers: [CopyPasteService, PresetsService, PanZoomService, CanvasMetaLayerService],
     hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
     host: {
         '[class.surface-100]': 'true',
@@ -49,11 +50,15 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   @ViewChild("selectionOverlay", {read: ViewContainerRef})
   selectionOverlay!: ViewContainerRef;
 
+  @ViewChild('metaOverlay', {read: ViewContainerRef})
+  metaOverlay!: ViewContainerRef;
+
   constructor(private canvasService: CanvasService,
               protected selectionService: SelectionService,
               private contextMenuService: ContextMenuService,
               protected panZoomService: PanZoomService,
               protected dragDropService: DragDropService,
+              private canvasLabelLayerService: CanvasMetaLayerService,
               @Inject(DOCUMENT) document: Document) {
 
     this.initDragDrop();
@@ -92,6 +97,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.selectionService.initialize(this.selectionOverlay, this.wrapper);
+    this.canvasLabelLayerService.initialize(this.metaOverlay, this.wrapper);
     this.panZoomService.initialize(this.wrapper);
   }
 
@@ -129,6 +135,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.canvasDragOptions = this.dragDropService.createGroup({
       swapThreshold: 0.8,
       ghostClass: 'drag-background-lvl-1',
+      group:'canvas',
       disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning
     });
     this.childDragOptions = this.dragDropService.createGroup({

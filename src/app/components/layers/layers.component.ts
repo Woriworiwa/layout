@@ -64,7 +64,7 @@ export class LayersComponent implements OnInit, OnDestroy {
   }
 
   renameNode(frameKey: string, name: string) {
-    this.canvasService.renameItem(frameKey, name);
+    this.canvasService.renameItem(name, frameKey);
     this.renameDialog.hide();
   }
 

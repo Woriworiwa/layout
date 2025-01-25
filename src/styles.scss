@@ -9,7 +9,7 @@ html {
 
 html,body {
   height:100vh;
-  margin:0px;
+  margin:0;
 }
 
 :root {
@@ -33,3 +33,13 @@ html,body {
   --text-primary: var(--p-surface-0)
 }
 
+/* drag and drop */
+.drag-background-lvl-1 {
+  background-color: var(--p-surface-400) !important;
+  padding: 40px;
+}
+
+.drag-background-lvl-2 {
+  background-color: var(--p-surface-400) !important;
+  padding: 40px;
+}

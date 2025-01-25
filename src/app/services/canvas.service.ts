@@ -11,7 +11,6 @@ import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CanvasItemType, InsertPosition} from "../models/enums";
 import {SelectionService} from "./selection.service";
 import {DragDropService} from "./drag-drop.service";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Injectable()
 export class CanvasService implements OnDestroy {
@@ -50,6 +49,7 @@ export class CanvasService implements OnDestroy {
 
   get items$() {
     return this.canvasStore.state.pipe(
+      distinctUntilChanged(),
       map(state => state.canvasItems)
     )
   }
@@ -162,15 +162,15 @@ export class CanvasService implements OnDestroy {
     this.undoRedoService.takeSnapshot();
   }
 
-  renameItem(id: string, name: string) {
-    const selectedItem = this.canvasStore.getItemById(this.items, id);
+  renameItem(name: string, id?: string) {
+    const selectedItem = id ? this.canvasStore.getItemById(this.items, id) : this.selectionService.selectedItem;
     if (!selectedItem) {
       return;
     }
 
     selectedItem.label = name;
 
-    this.canvasStore.setItems([...this.items]);
+    this.canvasStore.setItems(cloneDeep(this.items));
     this.undoRedoService.takeSnapshot();
   }
 
