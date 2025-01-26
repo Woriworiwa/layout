@@ -1,6 +1,8 @@
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {Serializer} from "./serializer";
-import {Css, POSTFIX_UNIT, POSTFIXED_PROPERTIES} from "../../core/models/css.model";
+
+import {Css} from "../../core/models/css/css";
+import {POSTFIX_UNIT, POSTFIXED_PROPERTIES} from "../../core/constants";
 
 export class CssStyleSerializer extends Serializer {
   constructor() {

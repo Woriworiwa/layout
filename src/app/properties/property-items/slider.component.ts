@@ -5,7 +5,6 @@ import {PropertyPanelRowComponent} from "./property-panel-row.component";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputNumber, InputNumberModule} from "primeng/inputnumber";
 import {SliderChangeEvent, SliderModule} from "primeng/slider";
-import {POSTFIX_UNIT, Unit} from "../../core/models/css.model";
 import {InputGroupModule} from "primeng/inputgroup";
 import {ButtonModule} from "primeng/button";
 import {FloatLabelModule} from "primeng/floatlabel";
@@ -14,6 +13,8 @@ import {InputTextModule} from "primeng/inputtext";
 import {IconFieldModule} from "primeng/iconfield";
 import {InputIconModule} from "primeng/inputicon";
 import {SpeedDialModule} from "primeng/speeddial";
+import {Unit} from "../../core/models/css/unit.enum";
+import {POSTFIX_UNIT} from "../../core/constants";
 
 @Component({
     selector: 'app-property-item-slider',

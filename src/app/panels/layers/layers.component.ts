@@ -5,7 +5,7 @@ import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {FormsModule} from "@angular/forms";
 import {ToggleButtonModule} from "primeng/togglebutton";
-import {CanvasItemType} from "../../core/models/enums";
+import {CanvasItemType} from "../../core/enums";
 import {ContextMenuModule} from "primeng/contextmenu";
 import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
 import {ButtonModule} from "primeng/button";

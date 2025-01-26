@@ -1,4 +1,4 @@
-import {MainAreaContent, SideBarPrimary, SideBarSecondary} from "../models/enums";
+import {MainAreaContent, SideBarPrimary, SideBarSecondary} from "../enums";
 
 export interface AppLayoutState {
   mainAreaContent?: MainAreaContent

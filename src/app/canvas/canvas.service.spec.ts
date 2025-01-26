@@ -6,10 +6,11 @@ import {SelectionService} from './selection/selection.service';
 import {PresetsService} from '../panels/insert/presets.service';
 import {DragDropService} from './drag-drop.service';
 import {CanvasItem} from '../core/models/canvas-item.model';
-import {CanvasItemType, InsertPosition} from '../core/models/enums';
-import {Css} from '../core/models/css.model';
+import {CanvasItemType, InsertPosition} from '../core/enums';
 import {ContextMenuService} from "./context-menu/context-menu.service";
 import spyOn = jest.spyOn;
+
+import {Css} from "../core/models/css/css";
 
 describe('CanvasService', () => {
   let service: CanvasService;

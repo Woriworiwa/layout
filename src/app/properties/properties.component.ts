@@ -5,7 +5,7 @@ import {CanvasItem} from "../core/models/canvas-item.model";
 import {PropertiesFlexContainerComponent} from "./flex-container.component";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {Subject, takeUntil} from "rxjs";
-import { CanvasItemType } from '../core/models/enums';
+import { CanvasItemType } from '../core/enums';
 import {BoxSizingComponent} from "./box-sizing.component";
 import {DisplayComponent} from "./display.component";
 import {PropertiesFlexItemComponent} from "./flex-item.component";

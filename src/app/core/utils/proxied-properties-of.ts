@@ -10,8 +10,3 @@ export function proxiedPropertiesOf<TObj>() {
     [P in keyof TObj]?: P;
   };
 }
-
-// converts a type to an enum
-export type Enumify<T extends string | number | symbol> = {
-  [K in T]: K;
-};

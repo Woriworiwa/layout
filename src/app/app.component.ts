@@ -5,7 +5,7 @@ import {NgTemplateOutlet} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {CanvasStore} from "./core/store/canvas.store";
 import {CanvasComponent} from "./canvas/canvas.component";
-import {DataService} from "./core/data.service";
+import {DataService} from "./core/services/data.service";
 import {HeaderComponent} from "./panels/header/header.component";
 import {SplitterModule} from "primeng/splitter";
 import {TabViewModule} from "primeng/tabview";
@@ -25,8 +25,8 @@ import {ContextMenuService} from "./canvas/context-menu/context-menu.service";
 import {DragDropService} from "./canvas/drag-drop.service";
 import {UndoRedoDirective} from "./core/undo-redo/undo-redo.directive";
 import {SideBarComponent} from "./panels/side-bar/side-bar.component";
-import {AppStateService} from "./core/app-state.service";
-import {MainAreaContent, SideBarSecondary} from "./core/models/enums";
+import {AppStateService} from "./core/services/app-state.service";
+import {MainAreaContent, SideBarSecondary} from "./core/enums";
 
 @Component({
     selector: 'app-root',

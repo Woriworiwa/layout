@@ -1,11 +1,13 @@
 import {Injectable} from "@angular/core";
 import {CanvasItem} from "../../core/models/canvas-item.model";
-import {CanvasItemType} from "../../core/models/enums";
-import {BoxSizing} from "../../core/models/css.model";
+import {CanvasItemType} from "../../core/enums";
 import {flexPresets, textPresets} from "../../../assets/data/presets";
 import {Preset} from "../../core/models/preset.model";
 import {PresetContainerComponent} from "./preset-container.component";
 import {PresetTextComponent} from "./preset-text.component";
+
+
+import {BoxSizing} from "../../core/models/css/box-sizing";
 
 @Injectable()
 export class PresetsService {

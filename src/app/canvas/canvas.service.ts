@@ -5,12 +5,13 @@ import {CanvasItem} from "../core/models/canvas-item.model";
 import {CanvasStore} from "../core/store/canvas.store";
 import {distinctUntilChanged, map, Subject, takeUntil} from "rxjs";
 import cloneDeep from "lodash.clonedeep";
-import {CANVAS_WRAPPER_ID} from "../core/models/constants";
-import {Css} from "../core/models/css.model";
+import {CANVAS_WRAPPER_ID} from "../core/constants";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {CanvasItemType, InsertPosition} from "../core/models/enums";
+import {CanvasItemType, InsertPosition} from "../core/enums";
 import {SelectionService} from "./selection/selection.service";
 import {DragDropService} from "./drag-drop.service";
+
+import {Css} from "../core/models/css/css";
 
 @Injectable()
 export class CanvasService implements OnDestroy {

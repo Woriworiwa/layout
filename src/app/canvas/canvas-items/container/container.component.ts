@@ -6,10 +6,9 @@ import {
   Output, Renderer2
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CanvasItemMouseEvent} from "../../../core/models/canvas-item.model";
 import {EditableContentDirective} from "../text/editable-content.directive";
 import {TextComponent} from "../text/text.component";
-import {CanvasItemType} from '../../../core/models/enums';
+import {CanvasItemType} from '../../../core/enums';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {CanvasBaseComponent} from "../canvas-base-component.component";
@@ -19,6 +18,7 @@ import {CanvasService} from "../../canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from "sortablejs";
 import {DragDropService} from "../../drag-drop.service";
+import {CanvasItemMouseEvent} from "../../canvas-item-mouse-event";
 
 @Component({
     selector: 'app-container',

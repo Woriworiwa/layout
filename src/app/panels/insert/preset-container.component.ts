@@ -6,7 +6,7 @@ import {
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
-import {CanvasItemType} from '../../core/models/enums';
+import {CanvasItemType} from '../../core/enums';
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CssStyleSerializerPipe} from "./css-style-serializer.pipe";
 import {PresetsService} from "./presets.service";

@@ -1,7 +1,7 @@
 import {Inject, Injectable, PLATFORM_ID, effect, signal, inject} from '@angular/core';
 import { Subject } from 'rxjs';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
-import {ThemeModel} from "./theme.model";
+import {ThemeModel} from "../models/theme.model";
 
 @Injectable({
   providedIn: 'root'

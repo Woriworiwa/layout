@@ -7,7 +7,7 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {SharedModule} from "primeng/api";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {SelectButtonModule} from "primeng/selectbutton";
-import {InsertPosition} from "../../core/models/enums";
+import {InsertPosition} from "../../core/enums";
 import {FormsModule} from "@angular/forms";
 import {Popover} from "primeng/popover";
 

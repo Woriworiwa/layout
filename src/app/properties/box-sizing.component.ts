@@ -12,7 +12,8 @@ import {AppPropertyFilterPipe} from "./filter.pipe";
 import {MenuModule} from "primeng/menu";
 import {PanelModule} from "primeng/panel";
 import {CanvasService} from "../canvas/canvas.service";
-import {Unit} from "../core/models/css.model";
+
+import {Unit} from "../core/models/css/unit.enum";
 
 @Component({
     selector: 'app-properties-box-sizing',

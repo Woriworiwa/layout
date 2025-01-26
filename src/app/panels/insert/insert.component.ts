@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CANVAS_WRAPPER_ID} from "../../core/models/constants";
+import {CANVAS_WRAPPER_ID} from "../../core/constants";
 import {PresetsService} from "./presets.service";
 import {CanvasService} from "../../canvas/canvas.service";
-import {InsertPosition} from "../../core/models/enums";
+import {InsertPosition} from "../../core/enums";
 
 @Component({
     selector: 'app-insert',

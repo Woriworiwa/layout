@@ -1,6 +1,6 @@
 import {Serializer} from "./serializer";
 import {CanvasItem} from "../../core/models/canvas-item.model";
-import {CanvasItemType} from "../../core/models/enums";
+import {CanvasItemType} from "../../core/enums";
 import {CssClassSerializer} from "./css-class.serializer";
 
 export class HtmlSerializer extends Serializer {

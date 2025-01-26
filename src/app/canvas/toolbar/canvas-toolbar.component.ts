@@ -4,8 +4,8 @@ import {UndoRedoService} from "../../core/undo-redo/undo-redo.service";
 import {ButtonModule} from "primeng/button";
 import {PanZoomService} from "../pan-zoom.service";
 import {TooltipModule} from "primeng/tooltip";
-import {ThemeService} from "../../core/models/theme.service";
-import {AppStateService} from "../../core/app-state.service";
+import {ThemeService} from "../../core/services/theme.service";
+import {AppStateService} from "../../core/services/app-state.service";
 
 @Component({
     selector: 'app-canvas-toolbar',

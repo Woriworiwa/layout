@@ -1,5 +1,5 @@
-import {CanvasItemType} from "./enums";
-import {Css} from "./css.model";
+import {CanvasItemType} from "../enums";
+import {Css} from "./css/css";
 
 export interface CanvasItem {
   itemType: CanvasItemType;
@@ -10,8 +10,6 @@ export interface CanvasItem {
   css?: Css;
   editable?: boolean;
 }
-
-export type CanvasItemMouseEvent = {canvasItem: CanvasItem, mouseEvent: MouseEvent};
 
 
 

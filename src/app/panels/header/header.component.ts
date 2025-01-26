@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ThemeService} from "../../core/models/theme.service";
+import {ThemeService} from "../../core/services/theme.service";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {FormsModule} from "@angular/forms";
-import {DataService} from "../../core/data.service";
+import {DataService} from "../../core/services/data.service";
 import {SidebarModule} from "primeng/sidebar";
 import {TooltipModule} from "primeng/tooltip";
 import {SplitButtonModule} from "primeng/splitbutton";
@@ -12,8 +12,8 @@ import {MessageModule} from "primeng/message";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {CanvasService} from "../../canvas/canvas.service";
 import {ButtonModule} from "primeng/button";
-import {AppStateService} from "../../core/app-state.service";
-import {MainAreaContent} from "../../core/models/enums";
+import {AppStateService} from "../../core/services/app-state.service";
+import {MainAreaContent} from "../../core/enums";
 
 @Component({
     selector: 'app-header',

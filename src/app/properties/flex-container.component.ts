@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {Property} from "csstype";
-import {AlignContent, AlignItems, FlexDirection, FlexWrap, JustifyContent} from "../core/models/css.model";
 import {DropdownComponent} from "./property-items/dropdown.component";
 import {SelectButtonComponent} from "./property-items/select-button.component";
 import {SliderComponent} from "./property-items/slider.component";
@@ -11,6 +10,8 @@ import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "./filter.pipe";
 import {PanelModule} from "primeng/panel";
 import {CanvasService} from "../canvas/canvas.service";
+
+import {AlignContent, AlignItems, FlexDirection, FlexWrap, JustifyContent} from "../core/models/css/properties.enum";
 
 @Component({
     selector: 'app-properties-flex-container',

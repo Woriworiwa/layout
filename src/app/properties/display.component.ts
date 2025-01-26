@@ -1,6 +1,5 @@
 import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Display} from "../core/models/css.model";
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
 import {takeUntil} from "rxjs";
@@ -12,6 +11,9 @@ import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "./filter.pipe";
 import {PanelModule} from "primeng/panel";
 import {CanvasService} from "../canvas/canvas.service";
+
+
+import {Display} from "../core/models/css/properties.enum";
 
 @Component({
     selector: 'app-properties-display',

@@ -1,6 +1,8 @@
 import {Serializer} from "./serializer";
 import {CanvasItem} from "../../core/models/canvas-item.model";
-import {Css} from "../../core/models/css.model";
+
+
+import {Css} from "../../core/models/css/css";
 
 export class JSONSerializer extends Serializer {
   constructor() {

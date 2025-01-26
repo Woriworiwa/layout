@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {ContainerComponent} from "./canvas-items/container/container.component";
-import {CanvasItem, CanvasItemMouseEvent} from "../core/models/canvas-item.model";
-import {CANVAS_WRAPPER_ID} from "../core/models/constants";
+import {CanvasItem} from "../core/models/canvas-item.model";
+import {CANVAS_WRAPPER_ID} from "../core/constants";
 import {ContextMenuService} from "./context-menu/context-menu.service";
 import {SelectionService} from "./selection/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
@@ -26,6 +26,7 @@ import {Subject, takeUntil} from "rxjs";
 import {MetaLayerService} from "./meta-layer/meta-layer.service";
 import {SelectionLayerComponent} from "./selection/selection-layer.component";
 import {MetaLayerComponent} from "./meta-layer/meta-layer.component";
+import {CanvasItemMouseEvent} from "./canvas-item-mouse-event";
 
 @Component({
     selector: 'app-canvas',

@@ -8,7 +8,9 @@ import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {AppPropertyFilterPipe} from "./filter.pipe";
 import {PanelModule} from "primeng/panel";
 import {CanvasService} from "../canvas/canvas.service";
-import {AlignSelf} from "../core/models/css.model";
+
+
+import {AlignSelf} from "../core/models/css/properties.enum";
 
 @Component({
     selector: 'app-properties-flex-item',

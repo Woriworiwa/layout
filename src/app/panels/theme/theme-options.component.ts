@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {ThemeService} from "../../core/models/theme.service";
+import {ThemeService} from "../../core/services/theme.service";
 import {SidebarModule} from "primeng/sidebar";
 import {InputSwitchChangeEvent, InputSwitchModule} from "primeng/inputswitch";
 import {ButtonModule} from "primeng/button";
