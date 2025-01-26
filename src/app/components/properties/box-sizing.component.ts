@@ -96,9 +96,9 @@ export class BoxSizingComponent extends BasePropertyGroupComponent implements On
         this.canvasService.updateCss({
           ...this.css,
           boxSizing: {
-            height: !!value.height ? `${value.height}${value.heightUnit}` : value.height,
-            padding: !!value.padding ? `${value.padding}${value.paddingUnit}` : value.padding,
-            width: !!value.width ? `${value.width}${value.widthUnit}` : value.width
+            height: value.height != null ? `${value.height}${value.heightUnit}` : value.height,
+            padding: value.padding != null ? `${value.padding}${value.paddingUnit}` : value.padding,
+            width: value.width != null ? `${value.width}${value.widthUnit}` : value.width
           }
         });
       });

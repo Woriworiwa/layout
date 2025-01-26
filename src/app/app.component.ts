@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {PropertiesComponent} from "./components/properties/properties.component";
-import {NgIf, NgTemplateOutlet} from "@angular/common";
+import {NgTemplateOutlet} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {CanvasStore} from "./store/canvas.store";
 import {CanvasComponent} from "./components/canvas/canvas.component";

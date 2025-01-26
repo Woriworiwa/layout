@@ -24,7 +24,7 @@ export class CanvasStore extends Store<CanvasState> {
   setItems(frames: CanvasItem[]) {
     this.setState({
       ...this.getState(),
-      canvasItems: [...this.assignKeys(frames, undefined, false)]
+      canvasItems: [...this.assignKeys(frames, false)]
     });
   }
 
@@ -40,7 +40,7 @@ export class CanvasStore extends Store<CanvasState> {
         return frame;
       }
 
-      const childFrame = this.getChildFrameById(frame.children, key);
+      const childFrame = this.getChildItemById(frame.children, key);
       if (childFrame) {
         return childFrame;
       }
@@ -49,7 +49,91 @@ export class CanvasStore extends Store<CanvasState> {
     return undefined;
   }
 
-  getChildFrameById(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
+  insertItem(referenceItemId: string, item: CanvasItem, insertPosition: InsertPosition) {
+    this.assignKeys([item], true);
+
+    switch (insertPosition) {
+      case InsertPosition.INSIDE:
+        this.insertInside(referenceItemId, item);
+        break;
+      case InsertPosition.AFTER:
+        this.insertAfter(referenceItemId, item);
+        break;
+      case InsertPosition.BEFORE:
+        this.insertBefore(referenceItemId, item);
+        break;
+    }
+
+    this.setItems(cloneDeep(this.getState().canvasItems));
+  }
+
+  getParentItemKey(childKey: string, children: CanvasItem[], parentKey: string | undefined): string | undefined {
+    for (const child of children) {
+      if (child.key === childKey) {
+        return parentKey;
+      }
+
+      if (child.children) {
+        const parent = this.getParentItemKey(childKey, child.children, child.key);
+        if (parent) {
+          return parent;
+        }
+      }
+    }
+    return undefined;
+  }
+
+  private insertInside(referenceItemId: string, item: CanvasItem) {
+    const targetContainer = this.getItemById(this.items, referenceItemId);
+    if (targetContainer) {
+      targetContainer.children = targetContainer.children || [];
+      targetContainer.children.push(item);
+    }
+  }
+
+  private insertAfter(referenceItemId: string, item: CanvasItem) {
+    const parentFrameKey = this.getParentItemKey(referenceItemId, this.items, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
+
+    if (parentFrameKey === CANVAS_WRAPPER_ID) {
+      this.insertAtRoot(referenceItemId, item, InsertPosition.AFTER);
+    } else {
+      this.insertInParent(parentFrameKey, referenceItemId, item, false);
+    }
+  }
+
+  private insertBefore(referenceItemId: string, item: CanvasItem) {
+    const parentFrameKey = this.getParentItemKey(referenceItemId, this.items, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
+
+    if (parentFrameKey === CANVAS_WRAPPER_ID) {
+      this.insertAtRoot(referenceItemId, item, InsertPosition.BEFORE);
+    } else {
+      this.insertInParent(parentFrameKey, referenceItemId, item, true);
+    }
+  }
+
+  private insertAtRoot(referenceItemId: string, item: CanvasItem, insertPosition: InsertPosition) {
+    const frames = this.items || [];
+    const referenceIndex = frames.findIndex(frame => frame.key === referenceItemId);
+    let insertIndex = 0;
+    if (referenceIndex === -1) {
+      insertIndex = insertPosition === InsertPosition.BEFORE ? 0 : frames.length;
+    } else {
+      insertIndex = insertPosition === InsertPosition.BEFORE ? referenceIndex : referenceIndex + 1;
+    }
+
+    frames.splice(insertIndex, 0, item);
+  }
+
+  private insertInParent(parentFrameKey: string, referenceItemId: string, item: CanvasItem, before: boolean) {
+    const parentItem = this.getItemById(undefined, parentFrameKey);
+    if (parentItem) {
+      parentItem.children = parentItem.children || [];
+      const referenceIndex = parentItem.children.findIndex(frame => frame.key === referenceItemId);
+      parentItem.children.splice(before ? referenceIndex : referenceIndex + 1, 0, item);
+    }
+  }
+
+  private getChildItemById(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
     if (!frames || !frames.length || key == null) {
       return undefined;
     }
@@ -59,7 +143,7 @@ export class CanvasStore extends Store<CanvasState> {
         return frame;
       }
 
-      const childFrame = this.getChildFrameById(frame.children, key);
+      const childFrame = this.getChildItemById(frame.children, key);
       if (childFrame) {
         return childFrame;
       }
@@ -68,68 +152,7 @@ export class CanvasStore extends Store<CanvasState> {
     return undefined;
   }
 
-  insertItem(insertAfterItemId: string, item: CanvasItem, insertPosition: InsertPosition) {
-    this.assignKeys([item], undefined, true);
-
-    if (insertPosition === InsertPosition.INSIDE) {
-      const targetContainer = this.getItemById(this.items, insertAfterItemId);
-      if (targetContainer && !targetContainer.children) {
-        targetContainer.children = [];
-      }
-
-      targetContainer?.children?.push(item);
-    } else {
-
-      const parentFrameKey = this.getParentItemKey(insertAfterItemId, this.items, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
-
-      if (parentFrameKey === CANVAS_WRAPPER_ID) {
-        const frames = this.items || [];
-        if (!insertAfterItemId || insertAfterItemId === CANVAS_WRAPPER_ID) {
-          frames.push(item);
-        } else {
-          const insertAfterFrameIndex = this.items.findIndex(frame => frame.key === insertAfterItemId);
-          frames.splice(insertAfterFrameIndex + 1, 0, item);
-        }
-      } else {
-        const parentItem = this.getItemById(undefined, parentFrameKey);
-        if (!parentItem) {
-          return;
-        }
-
-        if (!parentItem?.children) {
-          parentItem.children = [];
-        }
-
-        parentItem?.children?.splice(parentItem.children.findIndex(frame => frame.key === insertAfterItemId) + 1, 0, item);
-      }
-    }
-
-    this.setItems(cloneDeep(this.getState().canvasItems));
-  }
-
-  getParentItemKey(childKey: string, frames: CanvasItem[], parentKey: string | undefined): string | undefined {
-    for (const item of frames) {
-      if (item.key === childKey) {
-        return parentKey;
-      }
-
-      if (item.children) {
-        for (const child of item.children) {
-          if (child.key === childKey) {
-            return item.key;
-          } else if (child.children) {
-            const parent = this.getParentItemKey(childKey, child.children, child.key);
-            if (parent) {
-              return parent;
-            }
-          }
-        }
-      }
-    }
-    return undefined;
-  }
-
-  private assignKeys(items: CanvasItem[] | undefined, parentKey: string | undefined, overwriteExistingKeys: boolean) {
+  private assignKeys(items: CanvasItem[] | undefined, overwriteExistingKeys: boolean) {
     if (!items) {
       return [];
     }
@@ -140,7 +163,7 @@ export class CanvasStore extends Store<CanvasState> {
       }
 
       if (frame.children && frame.children.length > 0) {
-        this.assignKeys(frame.children, frame.key, overwriteExistingKeys);
+        this.assignKeys(frame.children, overwriteExistingKeys);
       }
     });
 

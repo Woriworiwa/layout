@@ -27,7 +27,7 @@ export class CanvasSelectionItemComponent implements OnChanges{
 
   insertPosition: InsertPosition = InsertPosition.AFTER;
 
-  insertPositions: any[] = [
+  insertPositions: { name: string, value: InsertPosition }[] = [
     { name: 'Before', value: InsertPosition.BEFORE },
     { name: 'Inside', value: InsertPosition.INSIDE },
     { name: 'After', value: InsertPosition.AFTER }

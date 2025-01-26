@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, OnChanges, Renderer2} from '@angular/core';
+import {Component, ElementRef, OnChanges, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CanvasBaseComponent} from "../canvas-base-component.component";
 import {SelectionService} from "../../../../services/selection.service";
