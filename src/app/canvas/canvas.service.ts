@@ -23,19 +23,8 @@ export class CanvasService implements OnDestroy {
               private selectionService: SelectionService,
               private presetsService: PresetsService,
               private dragDropService: DragDropService) {
-    this.undoRedoService.undoRedoExecuted$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((currentState: CanvasItem[]) => {
-        this.canvasStore.setItems(currentState);
-        this.selectionService.setSelectedItemKey(this.selectionService.selectedItem?.key);
-      })
-
-    this.dragDropService.drop$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.undoRedoService.takeSnapshot();
-        this.setItems([...this.canvasStore.items]);
-      });
+    this.subscribeToUndoRedo();
+    this.subscribeToDragDrop();
   }
 
   ngOnDestroy(): void {
@@ -79,7 +68,6 @@ export class CanvasService implements OnDestroy {
       items = this.canvasStore.items;
     } else {
       const parentItem = this.canvasStore.getItemById(this.canvasStore.items, parentItemKey);
-
       if (!parentItem) {
         return;
       }
@@ -88,7 +76,6 @@ export class CanvasService implements OnDestroy {
     }
 
     const index = items.findIndex(item => item.key === itemId);
-
     if (index < 0) {
       return;
     }
@@ -106,27 +93,22 @@ export class CanvasService implements OnDestroy {
 
   addPreset(presetId: string, targetItemId: string, insertPosition: InsertPosition) {
     const preset = this.presetsService.getPreset(presetId);
-
     if (!preset) {
       return;
     }
 
     const newItem = cloneDeep(preset.presetDefinition);
-
     this.presetsService.assignDefaultPaddings(newItem);
-
     this.insertItem(targetItemId, newItem, insertPosition);
   }
 
   updateCss(css: Css) {
     const selectedFrame = this.selectionService.selectedItem;
-
     if (!selectedFrame) {
       return;
     }
 
     selectedFrame.css = css;
-
     this.undoRedoService.takeSnapshot();
     this.cssChangedSubject.next(undefined);
   }
@@ -189,5 +171,23 @@ export class CanvasService implements OnDestroy {
     const duplicatedItem = cloneDeep(copyItem);
 
     this.insertItem(pasteItemId, duplicatedItem, InsertPosition.AFTER);
+  }
+
+  private subscribeToUndoRedo() {
+    this.undoRedoService.undoRedoExecuted$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((currentState: CanvasItem[]) => {
+        this.canvasStore.setItems(currentState);
+        this.selectionService.setSelectedItemKey(this.selectionService.selectedItem?.key);
+      })
+  }
+
+  private subscribeToDragDrop() {
+    this.dragDropService.drop$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.undoRedoService.takeSnapshot();
+        this.setItems([...this.canvasStore.items]);
+      });
   }
 }
