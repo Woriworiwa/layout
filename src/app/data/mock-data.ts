@@ -3,6 +3,188 @@ export const mockData =
   [
     {
       "itemType": "FLEX",
+      "children": [
+        {
+          "itemType": "FLEX",
+          "css": {
+            "display": {
+              "display": "flex"
+            },
+            "flexContainer": {
+              "flexDirection": "row",
+              "gap": "10",
+              "alignItems": "start"
+            },
+            "boxSizing": {
+              "padding": "16px"
+            },
+            "flexItem": {
+              "flexGrow": 1
+            }
+          },
+          "children": [
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "ESuuDliq",
+              "children": []
+            },
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "dzxuqevI",
+              "children": []
+            },
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "ksevjAPp",
+              "children": []
+            }
+          ],
+          "key": "BBIjjLzE",
+          "label": "start"
+        },
+        {
+          "itemType": "FLEX",
+          "css": {
+            "display": {
+              "display": "flex"
+            },
+            "boxSizing": {
+              "padding": "16px"
+            },
+            "flexContainer": {
+              "gap": "10",
+              "alignItems": "end"
+            },
+            "flexItem": {
+              "flexGrow": 1
+            }
+          },
+          "children": [
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "rGmFAhRF",
+              "children": []
+            },
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "IcagYFpa",
+              "children": []
+            },
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "qYFZYfrS",
+              "children": []
+            }
+          ],
+          "key": "lEzGcqPT",
+          "label": "end"
+        },
+        {
+          "itemType": "FLEX",
+          "css": {
+            "display": {
+              "display": "flex"
+            },
+            "boxSizing": {
+              "padding": "16px"
+            },
+            "flexContainer": {
+              "gap": "10",
+              "alignItems": "center"
+            },
+            "flexItem": {
+              "flexGrow": 1
+            }
+          },
+          "children": [
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "CCWOelav",
+              "children": []
+            },
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "SryVyFDI",
+              "children": []
+            },
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "HhTfZlZY",
+              "children": []
+            }
+          ],
+          "key": "bzpbIdMu",
+          "label": "center"
+        },
+        {
+          "itemType": "FLEX",
+          "css": {
+            "display": {
+              "display": "flex"
+            },
+            "boxSizing": {
+              "padding": "16px"
+            },
+            "flexContainer": {
+              "flexDirection": "row",
+              "gap": "10",
+              "alignItems": "stretch"
+            },
+            "flexItem": {
+              "flexGrow": 1
+            }
+          },
+          "children": [
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "OagwFyMN",
+              "children": []
+            },
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "BbgqBDlR",
+              "children": []
+            },
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "GZofagza",
+              "children": []
+            }
+          ],
+          "key": "XaqNFPGm",
+          "label": "stretch"
+        }
+      ],
+      "key": "yvhWiQlU",
+      "css": {
+        "display": {
+          "display": "flex"
+        },
+        "boxSizing": {
+          "height": "100px",
+          "padding": "16px"
+        },
+        "flexContainer": {
+          "gap": 10,
+          "justifyContent": "center"
+        }
+      },
+      "label": "align-items"
+    },
+    {
+      "itemType": "FLEX",
       "css": {
         "boxSizing": {
           "padding": "16px"
@@ -13,16 +195,7 @@ export const mockData =
         "flexContainer": {
           "flexDirection": "row",
           "flexWrap": "nowrap",
-          "gap": "10",
-          "justifyContent": null,
-          "alignItems": null,
-          "alignContent": null
-        },
-        "flexItem": {
-          "flexGrow": null,
-          "flexShrink": null,
-          "flexBasis": null,
-          "alignSelf": null
+          "gap": "10"
         }
       },
       "children": [
@@ -36,43 +209,38 @@ export const mockData =
               "flexDirection": "row",
               "flexWrap": "wrap",
               "gap": "10",
-              "alignContent": "center"
+              "justifyContent": "start"
             },
             "boxSizing": {
-              "padding": "16px",
-              "height": null,
-              "width": null
+              "padding": "16px"
             },
             "flexItem": {
-              "flexGrow": 1,
-              "flexShrink": null,
-              "flexBasis": null,
-              "alignSelf": null
+              "flexGrow": 1
             }
           },
-          "key": "SQjdYCnV",
+          "key": "XyrApUjb",
           "children": [
             {
+              "content": "",
               "itemType": "TEXT",
-              "content": "justify-content: start",
-              "key": "HqUCjCHX",
+              "key": "PtRCHPhW",
+              "children": [],
+              "label": "s"
+            },
+            {
+              "content": "",
+              "itemType": "TEXT",
+              "key": "CIgDZyZe",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "PkWCXqEx",
-              "children": [],
-              "label": "____________________ 1 ____________________asdf"
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "LJSHWxRt",
+              "key": "IkNSonWS",
               "children": []
             }
           ],
-          "label": "middle"
+          "label": "start"
         },
         {
           "itemType": "FLEX",
@@ -84,41 +252,33 @@ export const mockData =
               "flexDirection": "row",
               "flexWrap": "wrap",
               "gap": "10",
-              "justifyContent": "end",
-              "alignItems": null,
-              "alignContent": null
+              "justifyContent": "end"
             },
             "boxSizing": {
-              "padding": "16px",
-              "height": null,
-              "width": null
+              "padding": "16px"
             },
             "flexItem": {
-              "flexGrow": 1,
-              "flexShrink": null,
-              "flexBasis": null,
-              "alignSelf": null
+              "flexGrow": 1
             }
           },
-          "key": "fBMVCkjF",
+          "key": "laEnOpFi",
           "children": [
             {
+              "content": "",
               "itemType": "TEXT",
-              "content": "justify-content: end",
-              "key": "yhDnPTgQ",
+              "key": "xKqiriUl",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "WixfLyja",
-              "children": [],
-              "label": "____________________ 1 ____________________asdf"
+              "key": "HAuYRVaD",
+              "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "vfwFJxJS",
+              "key": "tyVVoPvz",
               "children": []
             }
           ],
@@ -134,477 +294,68 @@ export const mockData =
               "padding": "16px"
             },
             "flexContainer": {
-              "flexDirection": null,
-              "flexWrap": null,
               "gap": "10",
-              "justifyContent": "center",
-              "alignItems": null,
-              "alignContent": null
+              "justifyContent": "center"
             },
             "flexItem": {
-              "flexGrow": 1,
-              "flexShrink": null,
-              "flexBasis": null,
-              "alignSelf": null
+              "flexGrow": 1
             }
           },
           "children": [
             {
-              "content": "justify-content: center",
+              "content": "",
               "itemType": "TEXT",
-              "key": "bHTgsRlG",
+              "key": "qxMmjmhb",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "UGKJPXot",
+              "key": "QUGzhPXe",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "IcxmZHsx",
+              "key": "JkskrJFC",
               "children": []
             }
           ],
-          "key": "KZCjoGQg"
+          "key": "wlxtvKcC",
+          "label": "center"
         }
       ],
-      "key": "TU5cxsc7",
-      "label": "align-content"
-    },
-    {
-      "itemType": "FLEX",
-      "children": [
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": null,
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": "start",
-              "alignContent": null
-            },
-            "boxSizing": {
-              "padding": "16px",
-              "height": "100px",
-              "width": null
-            }
-          },
-          "children": [
-            {
-              "content": "align-items: start",
-              "itemType": "TEXT",
-              "key": "BWrsCYXE",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "PfFTyeET",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "SKpxgBBJ",
-              "children": []
-            }
-          ],
-          "key": "xlvfDhLl"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "boxSizing": {
-              "padding": "16px"
-            },
-            "flexContainer": {
-              "flexDirection": null,
-              "flexWrap": null,
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": "end",
-              "alignContent": null
-            }
-          },
-          "children": [
-            {
-              "content": "align-items: end",
-              "itemType": "TEXT",
-              "key": "mCckeDTo",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "TLwnAJTv",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "ndgkJVZW",
-              "children": []
-            }
-          ],
-          "key": "cyUUeumu"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "boxSizing": {
-              "padding": "16px"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": null,
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": "stretch",
-              "alignContent": null
-            }
-          },
-          "children": [
-            {
-              "content": "align-items: stretch",
-              "itemType": "TEXT",
-              "key": "ekjOmzUC",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "rrUAagFa",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "tCewMqjf",
-              "children": []
-            }
-          ],
-          "key": "WqfWCpXd"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "boxSizing": {
-              "padding": "16px"
-            },
-            "flexContainer": {
-              "flexDirection": null,
-              "flexWrap": null,
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": "center",
-              "alignContent": null
-            }
-          },
-          "children": [
-            {
-              "content": "align-items: center\n",
-              "itemType": "TEXT",
-              "key": "IQiQseSB",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "gkJUHvle",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "oktFWAYR",
-              "children": []
-            }
-          ],
-          "key": "jQeSgEqj"
-        }
-      ],
-      "key": "dqJIuKDD",
-      "css": {
-        "display": {
-          "display": "flex"
-        },
-        "boxSizing": {
-          "padding": "16px"
-        },
-        "flexContainer": {
-          "gap": 10,
-          "justifyContent": "center"
-        }
-      },
+      "key": "CVmTFecb",
       "label": "justify-content"
     },
     {
       "itemType": "FLEX",
-      "children": [
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": null,
-              "alignContent": "start"
-            },
-            "boxSizing": {
-              "padding": "16px",
-              "height": "167px",
-              "width": "247px"
-            }
-          },
-          "children": [
-            {
-              "content": "align-content: start",
-              "itemType": "TEXT",
-              "key": "qhfYzOeY",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "hpECNdqY",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "kPadpfGd",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "wVvbnIGa",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "jEwsWOYp",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "iPrUVBPZ",
-              "children": []
-            }
-          ],
-          "key": "hsCWLsql"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": null,
-              "alignContent": "end"
-            },
-            "boxSizing": {
-              "padding": "16px",
-              "height": "167px",
-              "width": "247px"
-            }
-          },
-          "children": [
-            {
-              "content": "align-content: end",
-              "itemType": "TEXT",
-              "key": "sBtUenky",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "YWBUfgfq",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "EklpGJBm",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "atfHKemL",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "GCvOAXlw",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "rPDOJOKt",
-              "children": []
-            }
-          ],
-          "key": "GXuYwptv"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": null,
-              "alignContent": "center"
-            },
-            "boxSizing": {
-              "padding": "16px",
-              "height": "167px",
-              "width": "247px"
-            }
-          },
-          "children": [
-            {
-              "content": "align-content: center",
-              "itemType": "TEXT",
-              "key": "ayWPJHHu",
-              "children": []
-            },
-            {
-              "content": "   ",
-              "itemType": "TEXT",
-              "key": "giphriWG",
-              "children": []
-            },
-            {
-              "content": "      ",
-              "itemType": "TEXT",
-              "key": "KqvKliKx",
-              "children": []
-            },
-            {
-              "content": "      ",
-              "itemType": "TEXT",
-              "key": "hwtKrgow",
-              "children": []
-            },
-            {
-              "content": "              ",
-              "itemType": "TEXT",
-              "key": "ItyKnyon",
-              "children": []
-            }
-          ],
-          "key": "oERFUVof"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": null,
-              "alignContent": "stretch"
-            },
-            "boxSizing": {
-              "padding": "16px",
-              "height": "167px",
-              "width": "247px"
-            }
-          },
-          "children": [
-            {
-              "content": "align-content: stretch",
-              "itemType": "TEXT",
-              "key": "zsoAhJku",
-              "children": []
-            },
-            {
-              "content": "   ",
-              "itemType": "TEXT",
-              "key": "TsdedDuv",
-              "children": []
-            },
-            {
-              "content": "      ",
-              "itemType": "TEXT",
-              "key": "BZoFUZye",
-              "children": []
-            },
-            {
-              "content": "      ",
-              "itemType": "TEXT",
-              "key": "kMPafMcr",
-              "children": []
-            },
-            {
-              "content": "              ",
-              "itemType": "TEXT",
-              "key": "UZkyAkrY",
-              "children": []
-            }
-          ],
-          "key": "EtDapdmV"
-        }
-      ],
-      "key": "ylyrtZPv",
       "css": {
         "display": {
           "display": "flex"
         },
+        "flexContainer": {
+          "flexDirection": "column",
+          "gap": "8"
+        },
         "boxSizing": {
           "padding": "16px"
-        },
-        "flexContainer": {
-          "gap": 10,
-          "justifyContent": "center"
         }
       },
-      "label": "justify-content"
-    },
-    {
-      "itemType": "FLEX",
+      "key": "gOtYYfmh",
       "children": [
+        {
+          "itemType": "FLEX",
+          "css": {
+            "display": {
+              "display": "flex"
+            },
+            "boxSizing": {
+              "padding": "16px"
+            }
+          },
+          "key": "OiURoKQF"
+        },
         {
           "itemType": "FLEX",
           "css": {
@@ -613,62 +364,93 @@ export const mockData =
             },
             "flexContainer": {
               "flexDirection": "row",
-              "flexWrap": null,
-              "gap": "10",
-              "justifyContent": null,
-              "alignItems": "start",
-              "alignContent": null
+              "flexWrap": "wrap",
+              "gap": 8
             },
             "boxSizing": {
               "padding": "16px",
-              "height": "100px",
-              "width": null
+              "height": "100px"
             }
           },
+          "key": "jBhLWQWi",
           "children": [
             {
-              "content": "align-self: end",
-              "itemType": "TEXT",
-              "key": "yHosKyVP",
-              "children": [],
+              "itemType": "FLEX",
               "css": {
+                "display": {
+                  "display": "flex"
+                },
+                "flexContainer": {
+                  "gap": 2
+                },
+                "boxSizing": {
+                  "padding": "16px"
+                },
                 "flexItem": {
-                  "flexGrow": null,
-                  "flexShrink": null,
-                  "flexBasis": null,
-                  "alignSelf": "end"
+                  "flexGrow": 1
                 }
-              }
+              },
+              "key": "PCykvXYf"
             },
             {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "jcDDgZru",
-              "children": []
+              "itemType": "FLEX",
+              "css": {
+                "display": {
+                  "display": "flex"
+                },
+                "flexContainer": {
+                  "flexWrap": "nowrap",
+                  "gap": "2"
+                },
+                "boxSizing": {
+                  "padding": "16px"
+                },
+                "flexItem": {
+                  "flexGrow": 2
+                }
+              },
+              "key": "akqDRera"
             },
             {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "GtpsMuhI",
-              "children": []
+              "itemType": "FLEX",
+              "css": {
+                "display": {
+                  "display": "flex"
+                },
+                "flexContainer": {
+                  "gap": 2
+                },
+                "boxSizing": {
+                  "padding": "16px"
+                },
+                "flexItem": {
+                  "flexGrow": 1
+                }
+              },
+              "key": "aVkRMYjG"
             }
-          ],
-          "key": "VVIqxPoh"
-        }
-      ],
-      "key": "mfaEtlGG",
-      "css": {
-        "display": {
-          "display": "flex"
+          ]
         },
-        "boxSizing": {
-          "padding": "16px"
-        },
-        "flexContainer": {
-          "gap": 10,
-          "justifyContent": "center"
+        {
+          "itemType": "FLEX",
+          "css": {
+            "display": {
+              "display": "flex"
+            },
+            "flexContainer": {
+              "gap": 2
+            },
+            "boxSizing": {
+              "padding": "16px"
+            }
+          },
+          "key": "CLyWlBqK"
         }
-      },
-      "label": "justify-content"
+      ]
+    },
+    {
+      "itemType": "TEXT",
+      "content": "I am a text element. Double click to edit me...",
+      "key": "qLGeDiDw"
     }
   ]
