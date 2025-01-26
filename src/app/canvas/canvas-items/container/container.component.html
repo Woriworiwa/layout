@@ -1,0 +1,40 @@
+@switch (item?.itemType) {
+  @case (FrameType.FLEX) {
+    @for (childItem of item?.children; track childItem.key) {
+      @switch (childItem.itemType) {
+        @case (FrameType.FLEX) {
+          <app-container [item]="childItem"
+                         [nxtSortablejs]="childItem.children"
+                         [config]="dragOptions"
+                         (clicked)="onChildFrameClick($event)"
+                         (mouseOver)="onChildMouseOver($event)"
+                         (mouseOut)="onChildMouseOut($event)"
+                         (contextMenu)="onChildContextMenu($event)"
+                         [selectedFrameKey]="selectedFrameKey"
+                         [id]="childItem.key!"
+                         (childTextContentChanged)="onChildTextContentChanged($event)">
+            </app-container>
+        }
+        @case (FrameType.TEXT) {
+          <ng-container *ngTemplateOutlet="text; context: { $implicit: childItem }"></ng-container>
+        }
+      }
+    }
+  }
+  @case (FrameType.TEXT) {
+    <ng-container *ngTemplateOutlet="text; context: { $implicit: item }"></ng-container>
+  }
+}
+
+<ng-template #text let-item>
+  <app-text appEditableContent
+            [item]="item"
+            [nxtSortablejs]="item.children"
+            [id]="item.key!"
+            (clicked)="onChildFrameClick($event)"
+            (mouseOver)="onChildMouseOver($event)"
+            (mouseOut)="onChildMouseOut($event)"
+            (contextMenu)="onChildContextMenu($event)"
+            (contentChanged)="onChildTextContentChanged($event)">
+  </app-text>
+</ng-template>
