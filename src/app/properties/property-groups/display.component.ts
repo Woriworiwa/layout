@@ -5,15 +5,15 @@ import {Property} from "csstype";
 import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {SliderModule} from "primeng/slider";
-import {DropdownComponent} from "./property-items/dropdown.component";
+import {DropdownComponent} from "../custom-controls/dropdown.component";
 import {AccordionModule} from "primeng/accordion";
-import {BasePropertyGroupComponent} from "./base-property-group.component";
-import {AppPropertyFilterPipe} from "./filter.pipe";
+import {PropertyGroupComponent} from "./property-group.component";
+import {AppPropertyFilterPipe} from "../filter.pipe";
 import {PanelModule} from "primeng/panel";
-import {CanvasService} from "../canvas/canvas.service";
+import {CanvasService} from "../../canvas/canvas.service";
 
 
-import {Display} from "../core/models/css/properties.enum";
+import {Display} from "../../core/models/css/properties.enum";
 
 @Component({
     selector: 'app-properties-display',
@@ -32,7 +32,7 @@ import {Display} from "../core/models/css/properties.enum";
     }
   `
 })
-export class DisplayComponent extends BasePropertyGroupComponent implements OnChanges {
+export class DisplayComponent extends PropertyGroupComponent implements OnChanges {
   displayOptions = [
     Display.block,
     Display.flex,

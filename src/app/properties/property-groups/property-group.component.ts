@@ -2,12 +2,12 @@ import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren} from '@
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
-import {SliderComponent} from "./property-items/slider.component";
-import {AppPropertyFilterPipe} from "./filter.pipe";
-import {CanvasService} from "../canvas/canvas.service";
+import {SliderComponent} from "../custom-controls/slider.component";
+import {AppPropertyFilterPipe} from "../filter.pipe";
+import {CanvasService} from "../../canvas/canvas.service";
 
-import {Css} from "../core/models/css/css";
-import {Unit} from "../core/models/css/unit.enum";
+import {Css} from "../../core/models/css/css";
+import {Unit} from "../../core/models/css/unit.enum";
 
 @Component({
     selector: 'app-base-app-properties',
@@ -15,7 +15,7 @@ import {Unit} from "../core/models/css/unit.enum";
     template: `
   `
 })
-export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy {
+export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
   @Input() css: Css | undefined;
   @Input() searchText = '';
   @Input() title = '';

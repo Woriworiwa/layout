@@ -11,7 +11,7 @@ import {TextComponent} from "../text/text.component";
 import {CanvasItemType} from '../../../core/enums';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
-import {CanvasBaseComponent} from "../canvas-base-component.component";
+import {CanvasItemComponent} from "../canvas-item.component";
 import {SelectionService} from "../../selection/selection.service";
 import {PanZoomService} from "../../pan-zoom.service";
 import {CanvasService} from "../../canvas.service";
@@ -31,7 +31,7 @@ import {CanvasItemMouseEvent} from "../../canvas-item-mouse-event";
     },
     styleUrls: ['./container.component.scss']
 })
-export class ContainerComponent extends CanvasBaseComponent {
+export class ContainerComponent extends CanvasItemComponent {
   protected readonly FrameType = CanvasItemType;
   @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;

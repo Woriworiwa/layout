@@ -24,6 +24,6 @@ import { CommonModule } from '@angular/common';
     }
   `
 })
-export class PropertyPanelRowComponent {
+export class PropertyGroupRowComponent {
   @Input() label = '';
 }

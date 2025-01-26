@@ -23,7 +23,7 @@ import {CanvasItemMouseEvent} from "../canvas-item-mouse-event";
     imports: [CommonModule],
     template: ``
 })
-export class CanvasBaseComponent implements OnDestroy, OnChanges {
+export class CanvasItemComponent implements OnDestroy, OnChanges {
   @Input() item: CanvasItem | undefined;
   @Output() clicked = new EventEmitter<CanvasItemMouseEvent>();
   @Output() mouseOver = new EventEmitter<CanvasItemMouseEvent>();

@@ -5,15 +5,15 @@ import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angul
 import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {SliderModule} from "primeng/slider";
-import {SliderComponent} from "./property-items/slider.component";
+import {SliderComponent} from "../custom-controls/slider.component";
 import {AccordionModule} from "primeng/accordion";
-import {BasePropertyGroupComponent} from "./base-property-group.component";
-import {AppPropertyFilterPipe} from "./filter.pipe";
+import {PropertyGroupComponent} from "./property-group.component";
+import {AppPropertyFilterPipe} from "../filter.pipe";
 import {MenuModule} from "primeng/menu";
 import {PanelModule} from "primeng/panel";
-import {CanvasService} from "../canvas/canvas.service";
+import {CanvasService} from "../../canvas/canvas.service";
 
-import {Unit} from "../core/models/css/unit.enum";
+import {Unit} from "../../core/models/css/unit.enum";
 
 @Component({
     selector: 'app-properties-box-sizing',
@@ -50,7 +50,7 @@ import {Unit} from "../core/models/css/unit.enum";
     }
   `
 })
-export class BoxSizingComponent extends BasePropertyGroupComponent implements OnChanges{
+export class BoxSizingComponent extends PropertyGroupComponent implements OnChanges{
 
   items: { label?: string; icon?: string; separator?: boolean }[] = [];
 

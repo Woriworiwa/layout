@@ -1,13 +1,13 @@
 import {Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {DropdownModule} from "primeng/dropdown";
-import {PropertyPanelRowComponent} from "./property-panel-row.component";
+import {PropertyGroupRowComponent} from "../property-groups/property-group-row.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {SelectButtonModule} from "primeng/selectbutton";
 
 @Component({
     selector: 'app-property-item-select-button',
-    imports: [CommonModule, DropdownModule, PropertyPanelRowComponent, ReactiveFormsModule, SelectButtonModule],
+    imports: [CommonModule, DropdownModule, PropertyGroupRowComponent, ReactiveFormsModule, SelectButtonModule],
     template: `
     <app-property-panel-row [label]="label">
       <p-selectButton [options]="options"

@@ -1,7 +1,7 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DropdownModule} from "primeng/dropdown";
-import {PropertyPanelRowComponent} from "./property-panel-row.component";
+import {PropertyGroupRowComponent} from "../property-groups/property-group-row.component";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputNumber, InputNumberModule} from "primeng/inputnumber";
 import {SliderChangeEvent, SliderModule} from "primeng/slider";
@@ -18,7 +18,7 @@ import {POSTFIX_UNIT} from "../../core/constants";
 
 @Component({
     selector: 'app-property-item-slider',
-    imports: [CommonModule, DropdownModule, PropertyPanelRowComponent, ReactiveFormsModule, InputNumberModule, SliderModule, InputGroupModule, ButtonModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule, SpeedDialModule],
+    imports: [CommonModule, DropdownModule, PropertyGroupRowComponent, ReactiveFormsModule, InputNumberModule, SliderModule, InputGroupModule, ButtonModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule, SpeedDialModule],
     template: `
     <app-property-panel-row [label]="label">
       <div>

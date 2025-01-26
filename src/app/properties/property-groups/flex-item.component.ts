@@ -2,15 +2,15 @@ import {Component, OnChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {DropdownComponent} from "./property-items/dropdown.component";
-import {SliderComponent} from "./property-items/slider.component";
-import {BasePropertyGroupComponent} from "./base-property-group.component";
-import {AppPropertyFilterPipe} from "./filter.pipe";
+import {DropdownComponent} from "../custom-controls/dropdown.component";
+import {SliderComponent} from "../custom-controls/slider.component";
+import {PropertyGroupComponent} from "./property-group.component";
+import {AppPropertyFilterPipe} from "../filter.pipe";
 import {PanelModule} from "primeng/panel";
-import {CanvasService} from "../canvas/canvas.service";
+import {CanvasService} from "../../canvas/canvas.service";
 
 
-import {AlignSelf} from "../core/models/css/properties.enum";
+import {AlignSelf} from "../../core/models/css/properties.enum";
 
 @Component({
     selector: 'app-properties-flex-item',
@@ -48,7 +48,7 @@ import {AlignSelf} from "../core/models/css/properties.enum";
     }
   `
 })
-export class PropertiesFlexItemComponent extends BasePropertyGroupComponent implements OnChanges {
+export class PropertiesFlexItemComponent extends PropertyGroupComponent implements OnChanges {
   /*justify content*/
   alignSelfOptions = [
     AlignSelf.start,

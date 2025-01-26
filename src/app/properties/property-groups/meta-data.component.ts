@@ -2,14 +2,14 @@ import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Panel} from "primeng/panel";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {CanvasService} from "../canvas/canvas.service";
+import {CanvasService} from "../../canvas/canvas.service";
 import {Subject, Subscription, takeUntil} from "rxjs";
-import {PropertyPanelRowComponent} from "./property-items/property-panel-row.component";
+import {PropertyGroupRowComponent} from "./property-group-row.component";
 import {InputText} from "primeng/inputtext";
 
 @Component({
   selector: 'app-properties-meta-data',
-  imports: [CommonModule, Panel, ReactiveFormsModule, PropertyPanelRowComponent, InputText],
+  imports: [CommonModule, Panel, ReactiveFormsModule, PropertyGroupRowComponent, InputText],
   template: `
     <p-panel header="Meta data" [toggleable]="true" [collapsed]="false" toggler="header">
       <ng-container [formGroup]="formGroup">

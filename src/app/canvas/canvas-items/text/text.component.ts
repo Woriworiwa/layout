@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnChanges, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CanvasBaseComponent} from "../canvas-base-component.component";
+import {CanvasItemComponent} from "../canvas-item.component";
 import {SelectionService} from "../../selection/selection.service";
 import {CanvasService} from "../../canvas.service";
 import {KeyboardCommandsDirective} from "../../keyboard-commands.directive";
@@ -29,7 +29,7 @@ import {KeyboardCommandsDirective} from "../../keyboard-commands.directive";
   }
   `
 })
-export class TextComponent extends CanvasBaseComponent implements OnChanges{
+export class TextComponent extends CanvasItemComponent implements OnChanges{
   constructor(canvasService: CanvasService,
               private elementRef: ElementRef,
               renderer: Renderer2,
