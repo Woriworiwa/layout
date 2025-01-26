@@ -4,8 +4,7 @@ import {
   ElementRef,
   HostListener,
   Inject, OnDestroy,
-  ViewChild,
-  ViewContainerRef
+  ViewChild
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {ContainerComponent} from "./canvas-items/container/container.component";
@@ -24,12 +23,14 @@ import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'
 import {PanZoomDirective} from "./pan-zoom.directive";
 import {Subject, takeUntil} from "rxjs";
-import {CanvasMetaLayerService} from "./meta-layer/canvas-meta-layer.service";
+import {MetaLayerService} from "./meta-layer/meta-layer.service";
+import {SelectionLayerComponent} from "./selection/selection-layer.component";
+import {MetaLayerComponent} from "./meta-layer/meta-layer.component";
 
 @Component({
     selector: 'app-canvas',
-    imports: [CommonModule, ContainerComponent, CanvasToolbarComponent, SortablejsModule],
-    providers: [CopyPasteService, PresetsService, PanZoomService, CanvasMetaLayerService],
+  imports: [CommonModule, ContainerComponent, CanvasToolbarComponent, SortablejsModule, SelectionLayerComponent, MetaLayerComponent],
+    providers: [CopyPasteService, PresetsService, PanZoomService, MetaLayerService],
     hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
     host: {
         '[class.surface-100]': 'true',
@@ -45,20 +46,13 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   private destroy$ = new Subject<boolean>();
 
   @ViewChild("wrapper")
-  wrapper!: ElementRef;
-
-  @ViewChild("selectionOverlay", {read: ViewContainerRef})
-  selectionOverlay!: ViewContainerRef;
-
-  @ViewChild('metaOverlay', {read: ViewContainerRef})
-  metaOverlay!: ViewContainerRef;
+  wrapperElementRef!: ElementRef;
 
   constructor(private canvasService: CanvasService,
               protected selectionService: SelectionService,
               private contextMenuService: ContextMenuService,
               protected panZoomService: PanZoomService,
               protected dragDropService: DragDropService,
-              private canvasLabelLayerService: CanvasMetaLayerService,
               @Inject(DOCUMENT) document: Document) {
 
     this.initDragDrop();
@@ -96,9 +90,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.selectionService.initialize(this.selectionOverlay, this.wrapper);
-    this.canvasLabelLayerService.initialize(this.metaOverlay, this.wrapper);
-    this.panZoomService.initialize(this.wrapper);
+    this.panZoomService.initialize(this.wrapperElementRef);
   }
 
   onFrameClicked(event: CanvasItemMouseEvent) {

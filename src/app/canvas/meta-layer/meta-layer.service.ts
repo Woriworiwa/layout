@@ -5,7 +5,7 @@ import {MetaLabelComponent} from "./meta-label.component";
 import {delay} from "rxjs";
 
 @Injectable()
-export class CanvasMetaLayerService {
+export class MetaLayerService {
   overlay!: ViewContainerRef;
   canvas!: ElementRef;
 

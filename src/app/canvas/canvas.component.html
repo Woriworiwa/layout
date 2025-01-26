@@ -15,16 +15,8 @@
                    (childTextContentChanged)="onChildTextContentChanged($event)"></app-container>
   }
 
-  <div class="selection-overlay">
-    <div class="selection-overly-inner">
-      <ng-template #selectionOverlay></ng-template>
-    </div>
-  </div>
-  <div class="selection-overlay">
-    <div class="selection-overly-inner">
-      <ng-template #metaOverlay></ng-template>
-    </div>
-  </div>
+  <app-selection-layer [canvasElement]="wrapperElementRef"></app-selection-layer>
+  <app-meta-layer [canvasElement]="wrapperElementRef"></app-meta-layer>
 </div>
 
 <app-canvas-toolbar></app-canvas-toolbar>
