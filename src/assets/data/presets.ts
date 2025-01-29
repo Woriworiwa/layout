@@ -345,47 +345,6 @@ export const flexPresets = [
           ],
           "key": "fAvIaNoP",
           "label": "center"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "boxSizing": {
-              "padding": "16px"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "gap": "10",
-              "alignItems": "stretch"
-            },
-            "flexItem": {
-              "flexGrow": 1
-            }
-          },
-          "children": [
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "hEMscmJT",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "TIJAqZJo",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "DiVTzkZJ",
-              "children": []
-            }
-          ],
-          "key": "jghMgoAk",
-          "label": "stretch"
         }
       ],
       "key": "jLZXSKxG",
@@ -685,48 +644,6 @@ export const flexPresets = [
           ],
           "key": "nNulxVar",
           "label": "center"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "gap": "10",
-              "alignContent": "stretch"
-            },
-            "boxSizing": {
-              "padding": "16px"
-            },
-            "flexItem": {
-              "flexGrow": 1
-            }
-          },
-          "children": [
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "kuWWgMxf",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "CAijRSaB",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "fFCfIafM",
-              "children": []
-            }
-          ],
-          "key": "hZfUtoFm",
-          "label": "stretch"
         }
       ],
       "key": "dWLdQiZf",

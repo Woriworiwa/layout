@@ -1,0 +1,38 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  gap: 12px;
+
+  .primary,
+  .secondary {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    background-color: var(--bg-secondary);
+  }
+
+  .primary {
+    justify-content: space-between;
+
+    .top-buttons {
+      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bottom-buttons {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .secondary {
+    flex-grow: 1;
+  }
+
+  app-inspector {
+    overflow: auto;
+  }
+}

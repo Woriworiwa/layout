@@ -1,67 +1,36 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HtmlSerializer} from "../serialization/serializers/html.serializer";
+import {HtmlSerializer} from "../core/serialization/serializers/html.serializer";
 import {UnsafeHtmlPipe} from "./unsafe-html.pipe";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {CanvasItem} from "../core/models/canvas-item.model";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
-import {CanvasService} from "../canvas/canvas.service";
+import {CanvasService} from "../shared/canvas/canvas.service";
+import {AppSkeletonComponent} from "../app.skeleton.component";
+import {SideBarComponent} from "../designer/side-bar/side-bar.component";
+import {Button} from "primeng/button";
+import {Tooltip} from "primeng/tooltip";
+import {AppStateService} from "../core/services/app-state.service";
+import {CssPrismComponent} from "../core/serialization/prisms/css-prism.component";
+import {HtmlPrismComponent} from "../core/serialization/prisms/html-prism.component";
+import {JsonPrismComponent} from "../core/serialization/prisms/json-prism.component";
+
+type SideBarPrimary = 'browser' | 'code';
+type SideBarSecondaryCode = 'CSS' | 'HTML' | 'JSON';
 
 @Component({
     selector: 'app-preview',
-    imports: [CommonModule, UnsafeHtmlPipe, DropdownModule, FormsModule],
-    template: `
-    <div class="screen-size-selector">
-      <div>
-        <label>Screen width: </label>
-        <p-dropdown [options]="mediaQueries"
-                    [(ngModel)]="selectedMediaQuery"
-                    optionLabel="name"
-                    [showClear]="false"></p-dropdown>
-      </div>
-    </div>
-
-    <div class="iframe-container">
-      <iframe [srcdoc]="code | unsafeHtml"
-              [ngStyle]="{ 'width': selectedMediaQuery?.width, 'flex-grow': 1}"></iframe>
-    </div>
-  `,
-    styles: `
-    :host {
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .iframe-container {
-      overflow: auto;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      iframe {
-        border: none;
-        height: 100%;
-      }
-    }
-
-    .screen-size-selector {
-      display: flex;
-      padding: 4px;
-      justify-content: center;
-
-      > div > label {
-        margin-right: 10px;
-      }
-    }
-  `
+  imports: [CommonModule, UnsafeHtmlPipe, DropdownModule, FormsModule, AppSkeletonComponent, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent],
+    templateUrl: './preview.component.html',
+    styleUrl: './preview.component.scss'
 })
 export class PreviewComponent {
   code: any;
   serializer: HtmlSerializer = new HtmlSerializer();
+  selectedSideBarPrimary: SideBarPrimary | undefined;
+  selectedResolution: { name: string, width: string } | undefined;
+
   mediaQueries: { name: string, width: string }[] = [{
     name: 'auto',
     width: '100%',
@@ -83,13 +52,31 @@ export class PreviewComponent {
   }
   ];
 
-  protected selectedMediaQuery: { name: string, width: string } | undefined = this.mediaQueries[this.mediaQueries.findIndex((mq: { name: string, width: string }) => mq.name === 'Tablets, Ipads (1024px)')];
+  tabs: {title: string, tab: SideBarPrimary, icon: string}[] = [
+    { title: 'Screen', tab: 'browser', icon: 'pi pi-minus' },
+    { title: 'Code', tab: 'code', icon: 'pi pi-code' }
+  ];
 
-  constructor(private canvasService: CanvasService) {
+  codeTabs: {title: string, tab: SideBarSecondaryCode, icon: string}[] = [
+    { title: 'CSS', tab: 'CSS', icon: 'pi pi-plus' },
+    { title: 'HTML', tab: 'HTML', icon: 'pi pi-comment' },
+    { title: 'JSON', tab: 'JSON', icon: 'pi pi-code' },
+  ];
+
+  protected selectedMediaQuery: { name: string, width: string } | undefined = this.mediaQueries[this.mediaQueries.findIndex((mq: { name: string, width: string }) => mq.name === 'Tablets, Ipads (1024px)')];
+  selectedSidebarSecondary?: 'CSS' | 'HTML' | 'JSON' = 'CSS';
+
+  constructor(protected canvasService: CanvasService,
+              protected appStateService: AppStateService) {
+
     this.canvasService.items$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
         this.code = this.serializer.serialize(items).join('\n');
       });
+  }
+
+  onSideBarPrimaryChange($event: any) {
+    this.selectedSideBarPrimary = $event.tab as unknown as SideBarPrimary;
   }
 }

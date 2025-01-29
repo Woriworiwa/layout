@@ -1,0 +1,68 @@
+<app-skeleton>
+  <ng-container center-content>
+    @switch (selectedSideBarPrimary) {
+      @case ('browser') {
+        <div class="iframe-container">
+          <iframe [srcdoc]="code | unsafeHtml"
+                  [ngStyle]="{ 'width': selectedMediaQuery?.width, 'flex-grow': 1}"></iframe>
+        </div>
+      }
+      @case ('code') {
+        @switch (selectedSidebarSecondary) {
+          @case ('HTML') {
+            <app-html-prism></app-html-prism>
+          }
+          @case ('CSS') {
+            <app-css-prism [canvasItems]="canvasService.items" ></app-css-prism>
+          }
+          @case ('JSON') {
+            <app-json-prism></app-json-prism>
+          }
+        }
+      }
+    }
+    <div class="screen-size-selector">
+      <div>
+        <label>Screen width: </label>
+        <p-dropdown [options]="mediaQueries"
+                    [(ngModel)]="selectedMediaQuery"
+                    optionLabel="name"
+                    [showClear]="false"></p-dropdown>
+      </div>
+    </div>
+
+
+  </ng-container>
+  <ng-container left-content>
+    <app-side-bar [tabs]="tabs"
+                  (onChange)="onSideBarPrimaryChange($event)">
+      <ng-container secondary-content>
+        @switch (selectedSideBarPrimary) {
+          @case ('browser') {
+            @for (tab of mediaQueries; track tab) {
+              <p-button [label]="tab.name"
+                        [pTooltip]="tab.name"
+                        size="large"
+                        [fluid]="true"
+                        [variant]="'outlined'"
+                        [text]="tab !== selectedMediaQuery ? 'secondary' : undefined"
+                        (onClick)="selectedMediaQuery = tab" size="small"></p-button>
+            }
+          }
+          @case ('code') {
+            @for (tab of codeTabs; track tab) {
+              <p-button [label]="tab.title"
+                        [pTooltip]="tab.title"
+                        size="large"
+                        [fluid]="true"
+                        [variant]="'outlined'"
+                        [text]="tab.tab !== selectedSidebarSecondary ? 'secondary' : undefined"
+                        (onClick)="selectedSidebarSecondary = tab.tab" size="small"></p-button>
+            }
+          }
+        }
+
+      </ng-container>
+    </app-side-bar>
+  </ng-container>
+</app-skeleton>

@@ -13,7 +13,8 @@ export enum InsertPosition {
 export enum MainAreaContent {
   CANVAS = 'CANVAS',
   PREVIEW = 'PREVIEW',
-  CODE = 'CODE'
+  CODE = 'CODE',
+  TUTORIAL = 'TUTORIAL'
 }
 
 export enum SideBarPrimary {
@@ -26,5 +27,6 @@ export enum SideBarPrimary {
 export enum SideBarSecondary {
   JSON = 'json',
   HTML = 'html',
-  CSS = 'css'
+  CSS = 'css',
+  Browser = "Browser"
 }
