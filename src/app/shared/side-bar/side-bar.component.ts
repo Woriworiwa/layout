@@ -5,8 +5,8 @@ import {Tooltip} from "primeng/tooltip";
 import {Button} from "primeng/button";
 import {AppStateService} from "../../core/services/app-state.service";
 import {SideBarPrimary} from "../../core/enums";
-import {CanvasService} from "../../shared/canvas/canvas.service";
-import {SelectionService} from "../../shared/canvas/selection/selection.service";
+import {CanvasService} from "../canvas/canvas.service";
+import {SelectionService} from "../canvas/selection/selection.service";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 

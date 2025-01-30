@@ -1,7 +1,7 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DropdownModule} from "primeng/dropdown";
-import {PropertyGroupRowComponent} from "../property-groups/property-group-row.component";
+import {PropertyGroupRowComponent} from "./property-group-row.component";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputNumber, InputNumberModule} from "primeng/inputnumber";
 import {SliderChangeEvent, SliderModule} from "primeng/slider";
@@ -15,6 +15,7 @@ import {InputIconModule} from "primeng/inputicon";
 import {SpeedDialModule} from "primeng/speeddial";
 import {Unit} from "../../../core/models/css/unit.enum";
 import {POSTFIX_UNIT} from "../../../core/constants";
+import {PropertyItemComponent} from "./property-item.component";
 
 @Component({
     selector: 'app-property-item-slider',
@@ -78,9 +79,7 @@ import {POSTFIX_UNIT} from "../../../core/constants";
   }
   `
 })
-export class SliderComponent {
-  @Input() label = '';
-  @Input() control: FormControl<any> = new FormControl<any>('');
+export class SliderComponent extends PropertyItemComponent {
   @Input() unit: FormControl | undefined = undefined;
   @Input() max = 100;
   @Input() controlValue: unknown = null;

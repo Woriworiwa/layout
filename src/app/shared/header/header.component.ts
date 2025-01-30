@@ -41,8 +41,8 @@ export class HeaderComponent {
   tabs: {
     routerLink: string;
     label: string, id: MainAreaContent}[] = [
-    { label: 'Canvas', id: MainAreaContent.CANVAS, routerLink: '/designer' },
-    { label: 'Preview', id: MainAreaContent.PREVIEW, routerLink: '/preview' },
+    { label: 'Designer', id: MainAreaContent.CANVAS, routerLink: '/designer' },
+    { label: 'Code', id: MainAreaContent.PREVIEW, routerLink: '/preview' },
     { label: 'Tutorial', id: MainAreaContent.TUTORIAL, routerLink: '/tutorial' },
   ];
 

@@ -8,66 +8,74 @@ import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {CanvasService} from "../shared/canvas/canvas.service";
 import {AppSkeletonComponent} from "../app.skeleton.component";
-import {SideBarComponent} from "../designer/side-bar/side-bar.component";
+import {SideBarComponent} from "../shared/side-bar/side-bar.component";
 import {Button} from "primeng/button";
 import {Tooltip} from "primeng/tooltip";
-import {AppStateService} from "../core/services/app-state.service";
 import {CssPrismComponent} from "../core/serialization/prisms/css-prism.component";
 import {HtmlPrismComponent} from "../core/serialization/prisms/html-prism.component";
 import {JsonPrismComponent} from "../core/serialization/prisms/json-prism.component";
 
-type SideBarPrimary = 'browser' | 'code';
-type SideBarSecondaryCode = 'CSS' | 'HTML' | 'JSON';
+enum MediaQuery {
+  AUTO = '100%',
+  DESKTOPS_1920 = '1920px',
+  DESKTOPS_1280 = '1280px',
+  TABLETS_IPADS_1024 = '1024px',
+  MOBILES_IPADS_767 = '767px',
+  SMALL_MOBILES_480 = '480px'
+}
+
+enum SideBarPrimary {
+  BROWSER = 'browser',
+  CODE = 'code'
+}
+
+enum SideBarSecondaryCode {
+  CSS = 'CSS',
+  HTML = 'HTML',
+  JSON = 'JSON'
+}
+
+interface Tab<T> {
+  title: string;
+  tab: T;
+  icon: string;
+}
 
 @Component({
-    selector: 'app-preview',
+  selector: 'app-preview',
   imports: [CommonModule, UnsafeHtmlPipe, DropdownModule, FormsModule, AppSkeletonComponent, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent],
-    templateUrl: './preview.component.html',
-    styleUrl: './preview.component.scss'
+  templateUrl: './preview.component.html',
+  styleUrl: './preview.component.scss'
 })
 export class PreviewComponent {
   code: any;
   serializer: HtmlSerializer = new HtmlSerializer();
-  selectedSideBarPrimary: SideBarPrimary | undefined;
-  selectedResolution: { name: string, width: string } | undefined;
 
-  mediaQueries: { name: string, width: string }[] = [{
-    name: 'auto',
-    width: '100%',
-  }, {
-    name: 'Desktops (1920)',
-    width: '1920px'
-  }, {
-    name: 'Desktops (1280)',
-    width: '1280px',
-  }, {
-    name: 'Tablets, Ipads (1024px)',
-    width: '1024px',
-  }, {
-    name: 'Mobiles, Ipads (767px)',
-    width: '767px',
-  }, {
-    name: 'Small mobiles (480px)',
-    width: '480px',
-  }
+  selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.BROWSER;
+  selectedSidebarSecondary: SideBarSecondaryCode = SideBarSecondaryCode.CSS;
+  selectedMediaQuery: MediaQuery = MediaQuery.AUTO;
+
+  mediaQueries: { name: string, width: MediaQuery }[] = [
+    {name: 'auto', width: MediaQuery.AUTO},
+    {name: 'Desktops (1920)', width: MediaQuery.DESKTOPS_1920},
+    {name: 'Desktops (1280)', width: MediaQuery.DESKTOPS_1280},
+    {name: 'Tablets, Ipads (1024px)', width: MediaQuery.TABLETS_IPADS_1024},
+    {name: 'Mobiles, Ipads (767px)', width: MediaQuery.MOBILES_IPADS_767},
+    {name: 'Small mobiles (480px)', width: MediaQuery.SMALL_MOBILES_480}
   ];
 
-  tabs: {title: string, tab: SideBarPrimary, icon: string}[] = [
-    { title: 'Screen', tab: 'browser', icon: 'pi pi-minus' },
-    { title: 'Code', tab: 'code', icon: 'pi pi-code' }
+  tabs: Tab<SideBarPrimary>[] = [
+    {title: 'Code', tab: SideBarPrimary.CODE, icon: 'pi pi-code'},
+    {title: 'Screen', tab: SideBarPrimary.BROWSER, icon: 'pi pi-minus'}
   ];
 
-  codeTabs: {title: string, tab: SideBarSecondaryCode, icon: string}[] = [
-    { title: 'CSS', tab: 'CSS', icon: 'pi pi-plus' },
-    { title: 'HTML', tab: 'HTML', icon: 'pi pi-comment' },
-    { title: 'JSON', tab: 'JSON', icon: 'pi pi-code' },
+  codeTabs: Tab<SideBarSecondaryCode>[] = [
+    {title: 'CSS', tab: SideBarSecondaryCode.CSS, icon: 'pi pi-plus'},
+    {title: 'HTML', tab: SideBarSecondaryCode.HTML, icon: 'pi pi-comment'},
+    {title: 'JSON', tab: SideBarSecondaryCode.JSON, icon: 'pi pi-code'}
   ];
 
-  protected selectedMediaQuery: { name: string, width: string } | undefined = this.mediaQueries[this.mediaQueries.findIndex((mq: { name: string, width: string }) => mq.name === 'Tablets, Ipads (1024px)')];
-  selectedSidebarSecondary?: 'CSS' | 'HTML' | 'JSON' = 'CSS';
-
-  constructor(protected canvasService: CanvasService,
-              protected appStateService: AppStateService) {
+  constructor(protected canvasService: CanvasService) {
 
     this.canvasService.items$
       .pipe(takeUntilDestroyed())

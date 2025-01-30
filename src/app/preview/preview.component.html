@@ -1,10 +1,11 @@
 <app-skeleton>
+  <!-- center content -->
   <ng-container center-content>
     @switch (selectedSideBarPrimary) {
       @case ('browser') {
         <div class="iframe-container">
           <iframe [srcdoc]="code | unsafeHtml"
-                  [ngStyle]="{ 'width': selectedMediaQuery?.width, 'flex-grow': 1}"></iframe>
+                  [ngStyle]="{ 'width': selectedMediaQuery, 'flex-grow': 1}"></iframe>
         </div>
       }
       @case ('code') {
@@ -13,7 +14,7 @@
             <app-html-prism></app-html-prism>
           }
           @case ('CSS') {
-            <app-css-prism [canvasItems]="canvasService.items" ></app-css-prism>
+            <app-css-prism [canvasItems]="canvasService.items"></app-css-prism>
           }
           @case ('JSON') {
             <app-json-prism></app-json-prism>
@@ -21,18 +22,9 @@
         }
       }
     }
-    <div class="screen-size-selector">
-      <div>
-        <label>Screen width: </label>
-        <p-dropdown [options]="mediaQueries"
-                    [(ngModel)]="selectedMediaQuery"
-                    optionLabel="name"
-                    [showClear]="false"></p-dropdown>
-      </div>
-    </div>
-
-
   </ng-container>
+
+  <!-- Left content -->
   <ng-container left-content>
     <app-side-bar [tabs]="tabs"
                   (onChange)="onSideBarPrimaryChange($event)">
@@ -45,8 +37,8 @@
                         size="large"
                         [fluid]="true"
                         [variant]="'outlined'"
-                        [text]="tab !== selectedMediaQuery ? 'secondary' : undefined"
-                        (onClick)="selectedMediaQuery = tab" size="small"></p-button>
+                        [text]="tab.width !== selectedMediaQuery ? 'secondary' : undefined"
+                        (onClick)="selectedMediaQuery = tab.width" size="small"></p-button>
             }
           }
           @case ('code') {

@@ -5,35 +5,38 @@ import {Property} from "csstype";
 import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {SliderModule} from "primeng/slider";
-import {DropdownComponent} from "../custom-controls/dropdown.component";
+import {DropdownComponent} from "../property-item/dropdown.component";
 import {AccordionModule} from "primeng/accordion";
 import {PropertyGroupComponent} from "./property-group.component";
-import {AppPropertyFilterPipe} from "../filter.pipe";
 import {PanelModule} from "primeng/panel";
-import {CanvasService} from "../../../shared/canvas/canvas.service";
+import {CanvasService} from "../../canvas/canvas.service";
 
 
-import {Display} from "../../../core/models/css/properties.enum";
+import {Display, Height} from "../../../core/models/css/properties.enum";
+import {FilterDirective} from "../filter.directive";
 
 @Component({
-    selector: 'app-properties-display',
-    imports: [CommonModule, InputNumberModule, ReactiveFormsModule, SliderModule, DropdownComponent, AccordionModule, AppPropertyFilterPipe, PanelModule],
-    template: `
+  selector: 'app-properties-display',
+  imports: [CommonModule, InputNumberModule, ReactiveFormsModule, SliderModule, DropdownComponent, AccordionModule, PanelModule, FilterDirective],
+  template: `
     <p-panel header="Display" [toggleable]="true" [collapsed]="false" toggler="header">
-      <app-property-item-dropdown [options]="displayOptions"
-                                  [control]="getFormControl('display')"
-                                  *ngIf="mustBeVisible || ('display' | appPropertyFilter: searchText)"
-                                  label="display"></app-property-item-dropdown>
+      <app-property-item-dropdown
+        *filter="Display; cssProperties: filterCssProperties; searchText: searchText; label: 'display'"
+        [options]="displayOptions"
+        [control]="getFormControl('display')"
+        label="display"></app-property-item-dropdown>
     </p-panel>
   `,
-    styles: `
+  styles: `
     :host {
       display: contents;
     }
   `
 })
 export class DisplayComponent extends PropertyGroupComponent implements OnChanges {
-  displayOptions = [
+  protected readonly Height = Height;
+  protected readonly Display = Display;
+  protected readonly displayOptions = [
     Display.block,
     Display.flex,
     Display.contents,
@@ -43,10 +46,9 @@ export class DisplayComponent extends PropertyGroupComponent implements OnChange
     Display.none
   ];
 
-  constructor(public fb: FormBuilder,
-              protected canvasService: CanvasService,
-              private propertyFilter: AppPropertyFilterPipe) {
-    super(fb, canvasService, propertyFilter);
+  constructor(fb: FormBuilder,
+              canvasService: CanvasService) {
+    super(fb, canvasService);
   }
 
   override ngOnChanges() {
@@ -63,14 +65,14 @@ export class DisplayComponent extends PropertyGroupComponent implements OnChange
       this.formGroupValueChangedSubscription.unsubscribe();
     }
 
-    const formGroup = this.baseFb.group({
+    const formGroup = this.formBuilder.group({
       display: new FormControl<Property.Display | null | undefined>(null)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        this.baseCanvasService.updateCss({
+        this.canvasService.updateCss({
           ...this.css,
           display: value
         });

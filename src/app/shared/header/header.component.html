@@ -4,17 +4,6 @@
 </div>
 
 <div class="content-switcher">
-  @for (tab of tabs; track tab.id) {
-<!--    <p-button [label]="tab.label"-->
-<!--              [text]="(tab.id !== (appStateService.layoutState().mainAreaContent)) ? 'secondary' : undefined"-->
-<!--              (onClick)="setSelectedTab(tab.id)" size="small">-->
-<!--    </p-button>-->
-<!--    <a [routerLink]="tab.routerLink"-->
-<!--       class="p-button p-button-secondary"-->
-<!--       routerLinkActive="p-button-success" >-->
-<!--      {{ tab.label }}-->
-<!--    </a>-->
-  }
   <p-menubar [model]="tabs">
     @for (tab of tabs; track tab.id) {
       <ng-template  #item let-item>
