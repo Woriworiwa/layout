@@ -19,4 +19,7 @@
   <app-meta-layer [canvasElement]="wrapperElementRef"></app-meta-layer>
 </div>
 
-<app-canvas-toolbar></app-canvas-toolbar>
+@if(settings.showToolbar) {
+  <app-canvas-toolbar></app-canvas-toolbar>
+}
+

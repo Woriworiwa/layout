@@ -9,6 +9,7 @@ import Aura from '@primeng/themes/material'
 // import Aura from '@primeng/themes/nora';
 import {definePreset} from "@primeng/themes";
 import {provideHighlightOptions} from "ngx-highlightjs";
+import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 
 const theme = definePreset(Aura, {
   components: {
@@ -63,6 +64,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     importProvidersFrom(BrowserAnimationsModule),
+    provideHttpClient(withInterceptorsFromDi()),
     provideHighlightOptions({
       fullLibraryLoader: () => import('highlight.js')
     }),

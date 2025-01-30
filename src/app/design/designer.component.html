@@ -5,7 +5,7 @@
 
   <ng-container left-content>
     <app-side-bar [tabs]="tabs"
-                  (onChange)="onSideBarPrimaryChange($event)">
+                  (selectedItemChange)="onSideBarPrimaryChange($event)">
       <ng-container secondary-content>
         @switch (selectedSideBarPrimary) {
           @case (SideBarPrimary.insert) {

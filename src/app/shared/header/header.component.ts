@@ -41,9 +41,10 @@ export class HeaderComponent {
   tabs: {
     routerLink: string;
     label: string, id: MainAreaContent}[] = [
-    { label: 'Designer', id: MainAreaContent.CANVAS, routerLink: '/designer' },
-    { label: 'Code', id: MainAreaContent.PREVIEW, routerLink: '/preview' },
-    { label: 'Tutorial', id: MainAreaContent.TUTORIAL, routerLink: '/tutorial' },
+    { label: 'design', id: MainAreaContent.CANVAS, routerLink: '/designer' },
+    { label: 'code', id: MainAreaContent.PREVIEW, routerLink: '/preview' },
+    { label: 'learn', id: MainAreaContent.TUTORIAL, routerLink: '/tutorial' },
+    { label: 'play', id: MainAreaContent.PLAY, routerLink: '/play' },
   ];
 
   constructor(private themeService: ThemeService,

@@ -28,37 +28,37 @@ import {FilterDirective} from "../filter.directive";
       <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">
 
         <app-property-item-select-button
-          *filter="FlexDirection; cssProperties: filterCssProperties; searchText: searchText; label: 'direction'"
+          *appFilter="FlexDirection; cssProperties: filterCssProperties; searchText: searchText; label: 'direction'"
           [options]="flexDirectionOptions"
           [control]="getFormControl('flexDirection')"
           label="direction"></app-property-item-select-button>
 
         <app-property-item-slider
-          *filter="Gap; cssProperties: filterCssProperties; searchText: searchText; label: 'gap'"
+          *appFilter="Gap; cssProperties: filterCssProperties; searchText: searchText; label: 'gap'"
           label="gap"
           [control]="getFormControl('gap')"></app-property-item-slider>
 
         <app-property-item-select-button
-          *filter="FlexWrap; cssProperties: filterCssProperties; searchText: searchText; label: 'wrap'"
+          *appFilter="FlexWrap; cssProperties: filterCssProperties; searchText: searchText; label: 'wrap'"
           [options]="flexWrapOptions"
           [control]="getFormControl('flexWrap')"
           label="wrap"></app-property-item-select-button>
 
         <app-property-item-dropdown
-          *filter="JustifyContent; cssProperties: filterCssProperties; searchText: searchText; label: 'justify content'"
+          *appFilter="JustifyContent; cssProperties: filterCssProperties; searchText: searchText; label: 'justify content'"
           [options]="justifyContentOptions"
           [control]="getFormControl('justifyContent')"
           [selectControlsLayout]="selectControlsLayout"
           [label]="'justify-content'"></app-property-item-dropdown>
 
         <app-property-item-dropdown
-          *filter="AlignItems; cssProperties: filterCssProperties; searchText: searchText; label: 'align items'"
+          *appFilter="AlignItems; cssProperties: filterCssProperties; searchText: searchText; label: 'align items'"
           [options]="alignItemsOptions"
           [control]="getFormControl('alignItems')"
           label="align-items"></app-property-item-dropdown>
 
         <app-property-item-dropdown
-          *filter="AlignContent; cssProperties: filterCssProperties; searchText: searchText; label: 'align content'"
+          *appFilter="AlignContent; cssProperties: filterCssProperties; searchText: searchText; label: 'align content'"
           [options]="alignContentOptions"
           [control]="getFormControl('alignContent')"
           label="align-content"></app-property-item-dropdown>

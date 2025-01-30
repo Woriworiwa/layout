@@ -10,7 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {UndoRedoService} from "./core/undo-redo/undo-redo.service";
-import {PresetsService} from "./designer/insert/presets.service";
+import {PresetsService} from "./design/insert/presets.service";
 import {SelectionService} from "./shared/canvas/selection/selection.service";
 import {CanvasService} from "./shared/canvas/canvas.service";
 import {ContextMenuService} from "./shared/canvas/context-menu/context-menu.service";

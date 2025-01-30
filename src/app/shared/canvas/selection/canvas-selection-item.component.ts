@@ -2,7 +2,7 @@ import {Component, ElementRef, Input, OnChanges, Renderer2, ViewChild} from "@an
 import {CommonModule} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
-import {InsertComponent} from "../../../designer/insert/insert.component";
+import {InsertComponent} from "../../../design/insert/insert.component";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {SharedModule} from "primeng/api";
 import {CanvasItem} from "../../../core/models/canvas-item.model";

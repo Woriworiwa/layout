@@ -20,27 +20,27 @@ import {FilterDirective} from "../filter.directive";
       <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">
         <app-property-item-slider
           label="flex-grow"
-          *filter="FlexGrow; cssProperties: filterCssProperties; searchText: searchText; label: 'flex grow'"
+          *appFilter="FlexGrow; cssProperties: filterCssProperties; searchText: searchText; label: 'flex grow'"
           [control]="getFormControl('flexGrow')"
           [suffix]="undefined"
           [max]="5"></app-property-item-slider>
 
         <app-property-item-slider
           label="flex-shrink"
-          *filter="FlexShrink; cssProperties: filterCssProperties; searchText: searchText; label: 'flex shrink'"
+          *appFilter="FlexShrink; cssProperties: filterCssProperties; searchText: searchText; label: 'flex shrink'"
           [control]="getFormControl('flexShrink')"
           [suffix]="undefined"
           [max]="5"></app-property-item-slider>
 
         <app-property-item-slider
           label="flex-basis"
-          *filter="FlexBasis; cssProperties: filterCssProperties; searchText: searchText; label: 'flex basis'"
+          *appFilter="FlexBasis; cssProperties: filterCssProperties; searchText: searchText; label: 'flex basis'"
           [control]="getFormControl('flexBasis')"
           [suffix]="undefined"
           [max]="5"></app-property-item-slider>
 
         <app-property-item-dropdown
-          *filter="AlignSelf; cssProperties: filterCssProperties; searchText: searchText; label: 'align self'"
+          *appFilter="AlignSelf; cssProperties: filterCssProperties; searchText: searchText; label: 'align self'"
           [options]="alignSelfOptions"
           [control]="getFormControl('alignSelf')"
           label="align-self"></app-property-item-dropdown>

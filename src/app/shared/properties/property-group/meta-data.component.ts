@@ -15,7 +15,7 @@ import {FilterDirective} from "../filter.directive";
   template: `
     <p-panel header="Meta data" [toggleable]="true" [collapsed]="false" toggler="header">
       <ng-container [formGroup]="formGroup"
-                    *filter="undefined; cssProperties: filterCssProperties; searchText: searchText; label: 'label'">
+                    *appFilter="undefined; cssProperties: filterCssProperties; searchText: searchText; label: 'label'">
         <app-property-panel-row label="Label">
           <div>
             <input type="text" id="label" pInputText formControlName="label">

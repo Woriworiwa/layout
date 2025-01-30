@@ -1,0 +1,36 @@
+<app-skeleton>
+  <ng-container center-content>
+    <app-properties-flex-container [css]="sourceItem?.css"
+                                   [filterCssProperties]="[JustifyContent]"
+                                   [selectControlsLayout]="'selectButton'"
+                                   [title]="'Flex container'"></app-properties-flex-container>
+    <app-canvas [settings]="canvasSettings"></app-canvas>
+  </ng-container>
+
+  <ng-container left-content>
+    <app-side-bar [tabs]="tabs"
+                  (selectedItemChange)="onSideBarPrimaryChange($event)">
+      <ng-container secondary-content>
+        @switch (selectedSideBarPrimary) {
+          @case (SideBarPrimary.FLEX) {
+            @for (tab of secondaryTabs; track tab) {
+              <p-button [label]="tab.title"
+                        [pTooltip]="tab.title"
+                        size="large"
+                        [fluid]="true"
+                        [variant]="'outlined'"
+                        [text]="tab.tab !== selectedSidebarSecondary ? 'secondary' : undefined"
+                        (onClick)="selectedSidebarSecondary = tab.tab" size="small"></p-button>
+            }
+          }
+        }
+
+      </ng-container>
+    </app-side-bar>
+  </ng-container>
+
+  <ng-container right-content>
+    <app-css-prism [canvasItems]="[this.sourceItem!]"></app-css-prism>
+  </ng-container>
+
+</app-skeleton>

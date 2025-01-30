@@ -1,0 +1,128 @@
+[
+  {
+    "itemType": "FLEX",
+    "children": [
+      {
+        "itemType": "FLEX",
+        "css": {
+          "boxSizing": {
+            "padding": "16px"
+          }
+        },
+        "children": [],
+        "key": "BBIjjLzE",
+        "label": ""
+      },
+      {
+        "itemType": "FLEX",
+        "css": {
+          "boxSizing": {
+            "padding": "16px"
+          }
+        },
+        "children": [],
+        "key": "lEzGcqPT",
+        "label": ""
+      },
+      {
+        "itemType": "FLEX",
+        "css": {
+          "boxSizing": {
+            "padding": "16px"
+          }
+        },
+        "children": [],
+        "key": "bzpbIdMu",
+        "label": ""
+      },
+      {
+        "itemType": "FLEX",
+        "css": {
+          "boxSizing": {
+            "padding": "16px"
+          }
+        },
+        "children": [],
+        "key": "XaqNFPGm",
+        "label": ""
+      }
+    ],
+    "key": "yvhWiQlU",
+    "css": {
+      "display": {
+        "display": "flex"
+      },
+      "boxSizing": {
+        "padding": "16px"
+      },
+      "flexContainer": {
+        "gap": "10"
+      }
+    },
+    "label": "rows"
+  },
+  {
+    "itemType": "FLEX",
+    "children": [
+      {
+        "itemType": "FLEX",
+        "css": {
+          "boxSizing": {
+            "padding": "16px"
+          }
+        },
+        "children": [],
+        "key": "XVTrvKiz",
+        "label": ""
+      },
+      {
+        "itemType": "FLEX",
+        "css": {
+          "boxSizing": {
+            "padding": "16px"
+          }
+        },
+        "children": [],
+        "key": "pWZwgdTn",
+        "label": ""
+      },
+      {
+        "itemType": "FLEX",
+        "css": {
+          "boxSizing": {
+            "padding": "16px"
+          }
+        },
+        "children": [],
+        "key": "cNxyeEhF",
+        "label": ""
+      },
+      {
+        "itemType": "FLEX",
+        "css": {
+          "boxSizing": {
+            "padding": "16px"
+          }
+        },
+        "children": [],
+        "key": "JogWWbOc",
+        "label": ""
+      }
+    ],
+    "key": "ohixVwSF",
+    "css": {
+      "display": {
+        "display": "flex"
+      },
+      "boxSizing": {
+        "height": "300px",
+        "padding": "16px"
+      },
+      "flexContainer": {
+        "flexDirection": "column",
+        "gap": "10"
+      }
+    },
+    "label": "columns"
+  }
+]

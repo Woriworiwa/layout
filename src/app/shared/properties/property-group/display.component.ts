@@ -21,7 +21,7 @@ import {FilterDirective} from "../filter.directive";
   template: `
     <p-panel header="Display" [toggleable]="true" [collapsed]="false" toggler="header">
       <app-property-item-dropdown
-        *filter="Display; cssProperties: filterCssProperties; searchText: searchText; label: 'display'"
+        *appFilter="Display; cssProperties: filterCssProperties; searchText: searchText; label: 'display'"
         [options]="displayOptions"
         [control]="getFormControl('display')"
         label="display"></app-property-item-dropdown>

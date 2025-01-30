@@ -7,7 +7,7 @@ import {CanvasItem} from "../core/models/canvas-item.model";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule} from "@angular/forms";
 import {CanvasService} from "../shared/canvas/canvas.service";
-import {AppSkeletonComponent} from "../app.skeleton.component";
+import {AppSkeletonComponent} from "../core/app.skeleton.component";
 import {SideBarComponent} from "../shared/side-bar/side-bar.component";
 import {Button} from "primeng/button";
 import {Tooltip} from "primeng/tooltip";

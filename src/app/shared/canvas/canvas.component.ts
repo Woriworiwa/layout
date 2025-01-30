@@ -3,7 +3,7 @@ import {
   Component,
   ElementRef,
   HostListener,
-  Inject, OnDestroy,
+  Inject, Input, OnDestroy,
   ViewChild
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
@@ -17,7 +17,7 @@ import {PanZoomService} from "./pan-zoom.service";
 import {DragDropService} from "./drag-drop.service";
 import {CopyPasteService} from "./copy-paste.service";
 import {KeyboardCommandsDirective} from "./keyboard-commands.directive";
-import {PresetsService} from "../../designer/insert/presets.service";
+import {PresetsService} from "../../design/insert/presets.service";
 import {CanvasService} from "./canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'
@@ -27,19 +27,22 @@ import {MetaLayerService} from "./meta-layer/meta-layer.service";
 import {SelectionLayerComponent} from "./selection/selection-layer.component";
 import {MetaLayerComponent} from "./meta-layer/meta-layer.component";
 import {CanvasItemMouseEvent} from "./canvas-item-mouse-event";
+import {CanvasSettings} from "./canvas.settings";
 
 @Component({
-    selector: 'app-canvas',
+  selector: 'app-canvas',
   imports: [CommonModule, ContainerComponent, CanvasToolbarComponent, SortablejsModule, SelectionLayerComponent, MetaLayerComponent],
-    providers: [CopyPasteService, PresetsService, PanZoomService, MetaLayerService],
-    hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
-    host: {
-        '[class.surface-100]': 'true',
-    },
-    templateUrl: './canvas.component.html',
-    styleUrls: ['./canvas.component.scss']
+  providers: [CopyPasteService, PresetsService, PanZoomService, MetaLayerService],
+  hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
+  host: {
+    '[class.surface-100]': 'true',
+  },
+  templateUrl: './canvas.component.html',
+  styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements AfterViewInit, OnDestroy {
+  @Input() settings: CanvasSettings = new CanvasSettings();
+
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
   frames: CanvasItem[] = [];
   canvasDragOptions: Options | undefined;
@@ -128,7 +131,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.canvasDragOptions = this.dragDropService.createGroup({
       swapThreshold: 0.8,
       ghostClass: 'drag-background-lvl-1',
-      group:'canvas',
+      group: 'canvas',
       disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning
     });
     this.childDragOptions = this.dragDropService.createGroup({

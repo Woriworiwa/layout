@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {AppSkeletonComponent} from "../app.skeleton.component";
+import {AppSkeletonComponent} from "../core/app.skeleton.component";
 import {CanvasComponent} from "../shared/canvas/canvas.component";
 import {PropertiesComponent} from "../shared/properties/properties.component";
 import {SideBarComponent} from "../shared/side-bar/side-bar.component";

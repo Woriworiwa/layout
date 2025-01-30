@@ -23,7 +23,7 @@ export class SideBarComponent implements OnDestroy, OnChanges {
   selectedPrimary: SideBarPrimary | undefined;
 
   @Output()
-  onChange: EventEmitter<any> = new EventEmitter<any>();
+  selectedItemChange: EventEmitter<any> = new EventEmitter<any>();
 
   private destroy$ = new Subject();
   frame: CanvasItem | undefined;
@@ -42,7 +42,7 @@ export class SideBarComponent implements OnDestroy, OnChanges {
     if (changes['tabs'] && !this.selectedPrimary) {
       const tab = this.tabs[0];
       this.selectedPrimary = tab.tab;
-      this.onChange.emit(tab);
+      this.selectedItemChange.emit(tab);
     }
   }
 
@@ -61,7 +61,7 @@ export class SideBarComponent implements OnDestroy, OnChanges {
 
   onClick(tab: any): void {
     this.selectedPrimary = tab.tab;
-    this.onChange.emit(tab);
+    this.selectedItemChange.emit(tab);
   }
 }
 

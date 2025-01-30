@@ -24,20 +24,20 @@ import {FilterDirective} from "../filter.directive";
       <ng-container [formGroup]="formGroup">
         <app-property-item-slider
           label="padding"
-          *filter="Padding; cssProperties: filterCssProperties; searchText: searchText; label: 'padding'"
+          *appFilter="Padding; cssProperties: filterCssProperties; searchText: searchText; label: 'padding'"
           [control]="getFormControl('padding')"
           [unit]="getFormControl('paddingUnit')"></app-property-item-slider>
 
         <app-property-item-slider
           label="height"
-          *filter="Height; cssProperties: filterCssProperties; searchText: searchText; label: 'height'"
+          *appFilter="Height; cssProperties: filterCssProperties; searchText: searchText; label: 'height'"
           [max]="1000"
           [control]="getFormControl('height')"
           [unit]="getFormControl('heightUnit')"></app-property-item-slider>
 
         <app-property-item-slider
           label="width"
-          *filter="Width; cssProperties: filterCssProperties; searchText: searchText; label: 'width'"
+          *appFilter="Width; cssProperties: filterCssProperties; searchText: searchText; label: 'width'"
           [max]="1000"
           [control]="getFormControl('width')"
           [unit]="getFormControl('widthUnit')"></app-property-item-slider>
