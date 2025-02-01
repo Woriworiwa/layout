@@ -1,0 +1,25 @@
+<div #wrapper
+     class="pan-zoom-wrapper"
+     [nxtSortablejs]="frames"
+     [config]="canvasDragOptions"
+     [id]="CANVAS_WRAPPER_ID">
+  @for (frame of frames; track frame.key) {
+    <app-container [item]="frame"
+                   [nxtSortablejs]="frame.children"
+                   [config]="childDragOptions"
+                   [id]="frame.key!"
+                   (clicked)="onFrameClicked($event)"
+                   (mouseOver)="onMouseOver($event)"
+                   (mouseOut)="onMouseOut()"
+                   (contextMenu)="onContextMenu($event)"
+                   (childTextContentChanged)="onChildTextContentChanged($event)"></app-container>
+  }
+
+  <app-selection-layer [canvasElement]="wrapperElementRef"></app-selection-layer>
+  <app-meta-layer [canvasElement]="wrapperElementRef"></app-meta-layer>
+</div>
+
+@if(settings.showToolbar) {
+  <app-canvas-toolbar></app-canvas-toolbar>
+}
+

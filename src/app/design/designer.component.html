@@ -1,0 +1,27 @@
+<app-skeleton>
+  <ng-container center-content>
+    <app-canvas></app-canvas>
+  </ng-container>
+
+  <ng-container left-content>
+    <app-side-bar [tabs]="tabs"
+                  (selectedItemChange)="onSideBarPrimaryChange($event)">
+      <ng-container secondary-content>
+        @switch (selectedSideBarPrimary) {
+          @case (SideBarPrimary.insert) {
+            <app-insert></app-insert>
+          }
+          @case (SideBarPrimary.elements) {
+            <app-layers></app-layers>
+          }
+          @case (SideBarPrimary.inspect) {
+            <app-inspector></app-inspector>
+          }
+        }
+      </ng-container>
+    </app-side-bar>
+  </ng-container>
+  <ng-container right-content>
+    <app-settings></app-settings>
+  </ng-container>
+</app-skeleton>

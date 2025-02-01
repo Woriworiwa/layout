@@ -1,0 +1,34 @@
+<div class="title">
+  <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/24/external-layout-user-interface-flatart-icons-flat-flatarticons-1.png">
+  <div>boXout</div>
+</div>
+
+<div class="content-switcher">
+  <p-menubar [model]="tabs">
+    @for (tab of tabs; track tab.id) {
+      <ng-template  #item let-item>
+          <a [routerLink]="item.routerLink" class="p-menubar-item-link" routerLinkActive="p-button">
+            <span class="ml-2">{{ item.label }}</span>
+          </a>
+      </ng-template>
+    }
+  </p-menubar>
+</div>
+
+<div class="action-buttons-container">
+  <p-button class="action-button"
+            [text]="true"
+            [link]="true"
+            (onClick)="window.open('https://github.com/Woriworiwa/layout', '_blank');"
+            pTooltip="View code on Github"
+            tooltipPosition="bottom"
+            icon="pi pi-github">
+  </p-button>
+
+  <p-splitButton label="Save"
+                 (onClick)="save()"
+                 appendTo="body"
+                 [model]="items"
+                 [menuStyle]="{'min-width': '200px'}"></p-splitButton>
+</div>
+
