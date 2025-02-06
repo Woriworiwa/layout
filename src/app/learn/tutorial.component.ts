@@ -14,7 +14,7 @@ import {SideBarComponent} from "../shared/side-bar/side-bar.component";
 import {Tooltip} from "primeng/tooltip";
 import {Tab} from "../shared/side-bar/side-bar-tab.model";
 import {CanvasSettings} from "../shared/canvas/canvas.settings";
-import {CssPrismComponent} from "../core/serialization/prisms/css-prism.component";
+import {CssPrismComponent} from "../code/prisms/css-prism.component";
 
 enum SideBarPrimary {
   FLEX = 'flex'
