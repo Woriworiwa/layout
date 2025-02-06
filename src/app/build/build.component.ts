@@ -42,16 +42,16 @@ interface Tab<T> {
 }
 
 @Component({
-  selector: 'app-code',
+  selector: 'app-build',
   imports: [CommonModule, UnsafeHtmlPipe, DropdownModule, FormsModule, AppSkeletonComponent, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent],
-  templateUrl: './code.component.html',
-  styleUrl: './code.component.scss'
+  templateUrl: './build.component.html',
+  styleUrl: './build.component.scss'
 })
-export class CodeComponent {
+export class BuildComponent {
   code: any;
   serializer: HtmlSerializer = new HtmlSerializer();
 
-  selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.BROWSER;
+  selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.CODE;
   selectedSidebarSecondary: SideBarSecondaryCode = SideBarSecondaryCode.CSS;
   selectedMediaQuery: MediaQuery = MediaQuery.AUTO;
 
