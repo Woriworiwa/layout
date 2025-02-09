@@ -42,7 +42,7 @@ export class SideBarComponent implements OnDestroy, OnChanges {
     if (changes['tabs'] && !this.selectedPrimary) {
       const tab = this.tabs[0];
       this.selectedPrimary = tab.tab;
-      this.selectedItemChange.emit(tab);
+      // this.selectedItemChange.emit(tab);
     }
   }
 
@@ -53,10 +53,6 @@ export class SideBarComponent implements OnDestroy, OnChanges {
 
   toggleDarkMode() {
     this.appStateService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
-  }
-
-  setSelectedCodeTab(tab: any) {
-    this.appStateService.setAppLayout({sideBarSecondary: tab.tab});
   }
 
   onClick(tab: any): void {

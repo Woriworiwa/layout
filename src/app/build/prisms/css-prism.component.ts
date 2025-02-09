@@ -14,11 +14,11 @@ import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
-import {CanvasItem} from "../../models/canvas-item.model";
-import {SerializationService} from "../serialization.service";
+import {CanvasItem} from "../../core/models/canvas-item.model";
+import {SerializationService} from "../../core/serialization/serialization.service";
 import {Subject, takeUntil} from "rxjs";
-import {CanvasService} from "../../../shared/canvas/canvas.service";
-import {SelectionService} from "../../../shared/canvas/selection/selection.service";
+import {CanvasService} from "../../shared/canvas/canvas.service";
+import {SelectionService} from "../../shared/canvas/selection/selection.service";
 import {Highlight} from "ngx-highlightjs";
 
 @Component({

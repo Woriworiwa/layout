@@ -1,0 +1,26 @@
+/* tutorial.component.css */
+.container {
+  background-color: var(--bg-secondary);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.container p {
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.container ul {
+  margin-left: 20px;
+}
+
+.container ul li {
+  margin-bottom: 5px;
+}
+
+.container code {
+  background-color: var(--bg-primary);
+  padding: 2px 4px;
+  border-radius: 4px;
+}

@@ -11,9 +11,9 @@ import {AppSkeletonComponent} from "../core/app.skeleton.component";
 import {SideBarComponent} from "../shared/side-bar/side-bar.component";
 import {Button} from "primeng/button";
 import {Tooltip} from "primeng/tooltip";
-import {CssPrismComponent} from "../core/serialization/prisms/css-prism.component";
-import {HtmlPrismComponent} from "../core/serialization/prisms/html-prism.component";
-import {JsonPrismComponent} from "../core/serialization/prisms/json-prism.component";
+import {CssPrismComponent} from "./prisms/css-prism.component";
+import {HtmlPrismComponent} from "./prisms/html-prism.component";
+import {JsonPrismComponent} from "./prisms/json-prism.component";
 
 enum MediaQuery {
   AUTO = '100%',
@@ -42,16 +42,16 @@ interface Tab<T> {
 }
 
 @Component({
-  selector: 'app-preview',
+  selector: 'app-build',
   imports: [CommonModule, UnsafeHtmlPipe, DropdownModule, FormsModule, AppSkeletonComponent, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent],
-  templateUrl: './preview.component.html',
-  styleUrl: './preview.component.scss'
+  templateUrl: './build.component.html',
+  styleUrl: './build.component.scss'
 })
-export class PreviewComponent {
+export class BuildComponent {
   code: any;
   serializer: HtmlSerializer = new HtmlSerializer();
 
-  selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.BROWSER;
+  selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.CODE;
   selectedSidebarSecondary: SideBarSecondaryCode = SideBarSecondaryCode.CSS;
   selectedMediaQuery: MediaQuery = MediaQuery.AUTO;
 
