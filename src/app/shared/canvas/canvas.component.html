@@ -15,7 +15,7 @@
                    (childTextContentChanged)="onChildTextContentChanged($event)"></app-container>
   }
 
-  <app-selection-layer [canvasElement]="wrapperElementRef"></app-selection-layer>
+  <app-selection-layer [canvasElement]="wrapperElementRef" [allowAdd]="settings.allowAdd"></app-selection-layer>
   <app-meta-layer [canvasElement]="wrapperElementRef"></app-meta-layer>
 </div>
 

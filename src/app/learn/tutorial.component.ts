@@ -34,7 +34,11 @@ export class TutorialComponent implements OnInit{
   sourceItem: CanvasItem | undefined;
   selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.FLEX;
   selectedSidebarSecondary: SideBarSecondaryCode = SideBarSecondaryCode.ALIGNMENT;
-  canvasSettings: CanvasSettings = new CanvasSettings({showToolbar: false});
+  canvasSettings: CanvasSettings = new CanvasSettings({
+    showToolbar: false,
+    allowAdd: false,
+    allowDragDrop: false,
+  });
 
   tabs: Tab<SideBarPrimary>[] = [
     {title: 'Flex', tab: SideBarPrimary.FLEX, icon: 'pi pi-code'}
