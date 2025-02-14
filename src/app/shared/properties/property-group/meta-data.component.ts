@@ -24,7 +24,11 @@ import {FilterDirective} from "../filter.directive";
       </ng-container>
     </p-panel>
   `,
-  styles: ``,
+  styles: `
+    input {
+      width: 100%;
+    }
+  `,
 })
 export class MetaDataComponent extends PropertyGroupComponent implements OnChanges, OnDestroy {
   @Input() label: string | undefined;

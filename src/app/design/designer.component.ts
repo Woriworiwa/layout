@@ -17,7 +17,7 @@ import {AppStateService} from "../core/services/app-state.service";
   styleUrl: './designer.component.scss',
 })
 export class DesignerComponent {
-  selectedSideBarPrimary: SideBarPrimary | undefined;
+  selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.insert;
 
   tabs: {title: string, tab: SideBarPrimary, icon: string}[] = [
     { title: 'Insert', tab: SideBarPrimary.insert, icon: 'pi pi-plus' },

@@ -17,7 +17,7 @@ TLDR; The fluffy introduction above was written by AI. Here are the important w'
 - What's next: To continue refining the tool and exploring new features and technologies
 
 ## Technologies Used
-- Angular 18
+- Angular 19
 - Rxjs for state management
 - PrimeNG for UI components
 - Cypress for E2E testing

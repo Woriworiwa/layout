@@ -7,12 +7,12 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-markup';
-import {CanvasItem} from "../../models/canvas-item.model";
+import {CanvasItem} from "../../core/models/canvas-item.model";
 import {ButtonModule} from "primeng/button";
 import FileSaver from 'file-saver';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {SerializationService} from "../serialization.service";
-import {CanvasService} from "../../../shared/canvas/canvas.service";
+import {SerializationService} from "../../core/serialization/serialization.service";
+import {CanvasService} from "../../shared/canvas/canvas.service";
 import {Highlight} from "ngx-highlightjs";
 
 @Component({

@@ -1,9 +1,7 @@
 <app-skeleton>
   <ng-container center-content>
-    <app-properties-flex-container [css]="sourceItem?.css"
-                                   [filterCssProperties]="[JustifyContent]"
-                                   [selectControlsLayout]="'selectButton'"
-                                   [title]="'Flex container'"></app-properties-flex-container>
+    <app-alignment [sourceItem]="sourceItem"></app-alignment>
+
     <app-canvas [settings]="canvasSettings"></app-canvas>
   </ng-container>
 
@@ -30,7 +28,7 @@
   </ng-container>
 
   <ng-container right-content>
-    <app-css-prism [canvasItems]="[this.sourceItem!]"></app-css-prism>
+    <app-css-prism [canvasItems]="this.sourceItem ? [this.sourceItem] : []"></app-css-prism>
   </ng-container>
 
 </app-skeleton>

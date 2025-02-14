@@ -25,45 +25,54 @@ import {FilterDirective} from "../filter.directive";
   imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, PanelModule, FilterDirective],
   template: `
     <ng-container [formGroup]="formGroup">
-      <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">
-
-        <app-property-item-select-button
-          *appFilter="FlexDirection; cssProperties: filterCssProperties; searchText: searchText; label: 'direction'"
-          [options]="flexDirectionOptions"
-          [control]="getFormControl('flexDirection')"
-          label="direction"></app-property-item-select-button>
-
-        <app-property-item-slider
-          *appFilter="Gap; cssProperties: filterCssProperties; searchText: searchText; label: 'gap'"
-          label="gap"
-          [control]="getFormControl('gap')"></app-property-item-slider>
-
-        <app-property-item-select-button
-          *appFilter="FlexWrap; cssProperties: filterCssProperties; searchText: searchText; label: 'wrap'"
-          [options]="flexWrapOptions"
-          [control]="getFormControl('flexWrap')"
-          label="wrap"></app-property-item-select-button>
-
-        <app-property-item-dropdown
-          *appFilter="JustifyContent; cssProperties: filterCssProperties; searchText: searchText; label: 'justify content'"
-          [options]="justifyContentOptions"
-          [control]="getFormControl('justifyContent')"
-          [selectControlsLayout]="selectControlsLayout"
-          [label]="'justify-content'"></app-property-item-dropdown>
-
-        <app-property-item-dropdown
-          *appFilter="AlignItems; cssProperties: filterCssProperties; searchText: searchText; label: 'align items'"
-          [options]="alignItemsOptions"
-          [control]="getFormControl('alignItems')"
-          label="align-items"></app-property-item-dropdown>
-
-        <app-property-item-dropdown
-          *appFilter="AlignContent; cssProperties: filterCssProperties; searchText: searchText; label: 'align content'"
-          [options]="alignContentOptions"
-          [control]="getFormControl('alignContent')"
-          label="align-content"></app-property-item-dropdown>
-      </p-panel>
+      @if (title) {
+        <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">
+          <ng-container *ngTemplateOutlet="content"></ng-container>
+        </p-panel>
+      } @else{
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+      }
     </ng-container>
+
+    <ng-template #content>
+      <app-property-item-select-button
+        *appFilter="FlexDirection; cssProperties: filterCssProperties; searchText: searchText; label: 'direction'"
+        [options]="flexDirectionOptions"
+        [control]="getFormControl('flexDirection')"
+        label="direction"></app-property-item-select-button>
+
+      <app-property-item-slider
+        *appFilter="Gap; cssProperties: filterCssProperties; searchText: searchText; label: 'gap'"
+        label="gap"
+        [control]="getFormControl('gap')"></app-property-item-slider>
+
+      <app-property-item-select-button
+        *appFilter="FlexWrap; cssProperties: filterCssProperties; searchText: searchText; label: 'wrap'"
+        [options]="flexWrapOptions"
+        [control]="getFormControl('flexWrap')"
+        label="wrap"></app-property-item-select-button>
+
+      <app-property-item-dropdown
+        *appFilter="JustifyContent; cssProperties: filterCssProperties; searchText: searchText; label: 'justify content'"
+        [options]="justifyContentOptions"
+        [control]="getFormControl('justifyContent')"
+        [selectControlsLayout]="selectControlsLayout"
+        [label]="'justify-content'"></app-property-item-dropdown>
+
+      <app-property-item-dropdown
+        *appFilter="AlignItems; cssProperties: filterCssProperties; searchText: searchText; label: 'align items'"
+        [options]="alignItemsOptions"
+        [control]="getFormControl('alignItems')"
+        [selectControlsLayout]="selectControlsLayout"
+        label="align-items"></app-property-item-dropdown>
+
+      <app-property-item-dropdown
+        *appFilter="AlignContent; cssProperties: filterCssProperties; searchText: searchText; label: 'align content'"
+        [options]="alignContentOptions"
+        [control]="getFormControl('alignContent')"
+        [selectControlsLayout]="selectControlsLayout"
+        label="align-content"></app-property-item-dropdown>
+    </ng-template>
   `,
   styles: `
     :host {
