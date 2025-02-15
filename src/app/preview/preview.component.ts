@@ -42,12 +42,12 @@ interface Tab<T> {
 }
 
 @Component({
-  selector: 'app-build',
+  selector: 'app-preview',
   imports: [CommonModule, UnsafeHtmlPipe, DropdownModule, FormsModule, AppSkeletonComponent, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent],
-  templateUrl: './build.component.html',
-  styleUrl: './build.component.scss'
+  templateUrl: './preview.component.html',
+  styleUrl: './preview.component.scss'
 })
-export class BuildComponent {
+export class PreviewComponent {
   code: any;
   serializer: HtmlSerializer = new HtmlSerializer();
 

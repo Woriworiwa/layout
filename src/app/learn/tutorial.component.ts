@@ -12,7 +12,7 @@ import {SideBarComponent} from "../shared/side-bar/side-bar.component";
 import {Tooltip} from "primeng/tooltip";
 import {Tab} from "../shared/side-bar/side-bar-tab.model";
 import {CanvasSettings} from "../shared/canvas/canvas.settings";
-import {CssPrismComponent} from "../build/prisms/css-prism.component";
+import {CssPrismComponent} from "../preview/prisms/css-prism.component";
 import {AlignmentComponent} from "./subjects/alignment.component";
 
 enum SideBarPrimary {

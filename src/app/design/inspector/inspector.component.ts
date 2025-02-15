@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CssPrismComponent} from "../../build/prisms/css-prism.component";
+import {CssPrismComponent} from "../../preview/prisms/css-prism.component";
 import {SelectionService} from "../../shared/canvas/selection/selection.service";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CanvasService} from "../../shared/canvas/canvas.service";

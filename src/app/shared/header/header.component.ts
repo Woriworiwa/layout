@@ -42,7 +42,7 @@ export class HeaderComponent {
     routerLink: string;
     label: string, id: MainAreaContent}[] = [
     { label: 'design', id: MainAreaContent.CANVAS, routerLink: '/design' },
-    { label: 'build', id: MainAreaContent.PREVIEW, routerLink: '/build' },
+    { label: 'preview', id: MainAreaContent.PREVIEW, routerLink: '/preview' },
     { label: 'learn', id: MainAreaContent.TUTORIAL, routerLink: '/learn' },
     { label: 'play', id: MainAreaContent.PLAY, routerLink: '/play' },
   ];
