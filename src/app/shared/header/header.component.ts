@@ -47,6 +47,10 @@ export class HeaderComponent {
     { label: 'play', id: MainAreaContent.PLAY, routerLink: '/play' },
   ];
 
+  scopedTokens = {
+    borderColor: 'transparent'
+  }
+
   constructor(private themeService: ThemeService,
               protected appStateService: AppStateService,
               private dataService: DataService,

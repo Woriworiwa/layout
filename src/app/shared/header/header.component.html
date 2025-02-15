@@ -4,7 +4,7 @@
 </div>
 
 <div class="content-switcher">
-  <p-menubar [model]="tabs">
+  <p-menubar [model]="tabs" [dt]="scopedTokens">
     @for (tab of tabs; track tab.id) {
       <ng-template  #item let-item>
           <a [routerLink]="item.routerLink" class="p-menubar-item-link" routerLinkActive="p-button">
