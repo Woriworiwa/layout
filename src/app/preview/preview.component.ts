@@ -66,7 +66,7 @@ export class PreviewComponent {
 
   tabs: Tab<SideBarPrimary>[] = [
     {title: 'Code', tab: SideBarPrimary.CODE, icon: 'pi pi-code'},
-    {title: 'Screen', tab: SideBarPrimary.BROWSER, icon: 'pi pi-minus'}
+    {title: 'Screen', tab: SideBarPrimary.BROWSER, icon: 'pi pi-desktop'},
   ];
 
   codeTabs: Tab<SideBarSecondaryCode>[] = [

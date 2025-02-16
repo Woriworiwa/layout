@@ -22,10 +22,10 @@ import {PropertyItemComponent} from "./property-item.component";
     </app-property-panel-row>
   `,
     styles: `
-  :host {
-    display: contents;
-  }
-  `
+      :host {
+        display: contents;
+      }
+    `
 })
 export class DropdownComponent extends PropertyItemComponent {
   @Input()

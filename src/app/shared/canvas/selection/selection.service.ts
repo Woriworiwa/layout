@@ -178,6 +178,7 @@ export class SelectionService implements OnDestroy {
     component.top = element.offsetTop;
     component.left = element.offsetLeft;
     component.canvasItem = canvasItem;
+    component.showAddButton = this.allowAdd;
     component.ngOnChanges();
   }
 

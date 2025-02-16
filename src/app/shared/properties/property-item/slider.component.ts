@@ -62,7 +62,7 @@ import {PropertyItemComponent} from "./property-item.component";
       position: relative;
     }
 
-    ::ng-deep .p-dropdown-trigger {
+    ::ng-deep .p-select-dropdown {
       display: none;
     }
 

@@ -41,7 +41,7 @@ import {CanvasSettings} from "./canvas.settings";
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements AfterViewInit, OnDestroy {
-  @Input() settings: CanvasSettings = new CanvasSettings();
+  @Input() settings: CanvasSettings = new CanvasSettings({allowAdd: true});
 
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
   frames: CanvasItem[] = [];

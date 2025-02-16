@@ -4,10 +4,11 @@ import {TutorialSubjectComponent} from "./tutorial-subject.component";
 import {AlignItems, FlexDirection, JustifyContent} from "../../core/models/css/properties.enum";
 import {PropertiesFlexContainerComponent} from "../../shared/properties/property-group/flex-container.component";
 import {CanvasItem} from "../../core/models/canvas-item.model";
+import {Card} from "primeng/card";
 
 @Component({
   selector: 'app-alignment',
-  imports: [CommonModule, PropertiesFlexContainerComponent],
+  imports: [CommonModule, PropertiesFlexContainerComponent, Card],
   templateUrl: './alignment.component.html',
   styleUrl: './alignment.component.scss',
 })
