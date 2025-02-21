@@ -4,7 +4,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {PropertyGroupRowComponent} from "./property-group-row.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SelectButtonModule} from "primeng/selectbutton";
-import {PropertyItemComponent} from "./property-item.component";
+import {FormItemComponent} from "./form-item.component";
 
 @Component({
   selector: 'app-property-item-select-button',
@@ -23,7 +23,7 @@ import {PropertyItemComponent} from "./property-item.component";
     }
   `
 })
-export class SelectButtonComponent extends PropertyItemComponent{
+export class SelectButtonComponent extends FormItemComponent{
   @Input()
   options: { label: string, value: any }[] = [];
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {CanvasComponent} from "../shared/canvas/canvas.component";
 import {CanvasService} from "../shared/canvas/canvas.service";
 import {SelectionService} from "../shared/canvas/selection/selection.service";
@@ -14,6 +14,7 @@ import {Tab} from "../shared/side-bar/side-bar-tab.model";
 import {CanvasSettings} from "../shared/canvas/canvas.settings";
 import {CssPrismComponent} from "../preview/prisms/css-prism.component";
 import {AlignmentComponent} from "./subjects/alignment.component";
+import {PROPERTIES_CONFIG} from "../shared/properties/properties.config";
 
 enum SideBarPrimary {
   FLEX = 'flex'
@@ -26,11 +27,20 @@ enum SideBarSecondaryCode {
 @Component({
   selector: 'app-tutorial',
   imports: [CommonModule, CanvasComponent, AppSkeletonComponent, Button, SideBarComponent, Tooltip, CssPrismComponent, AlignmentComponent],
-  providers: [CanvasService, CanvasStore, SelectionService, TutorialService],
+  providers: [
+    CanvasService,
+    CanvasStore,
+    SelectionService,
+    TutorialService,
+    {
+      provide: PROPERTIES_CONFIG,
+      useValue: {labelPosition: 'none', selectControlsLayout: 'selectButton'}
+    }
+  ],
   templateUrl: './tutorial.component.html',
   styleUrl: './tutorial.component.scss',
 })
-export class TutorialComponent implements OnInit{
+export class TutorialComponent implements OnInit {
   sourceItem: CanvasItem | undefined;
   selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.FLEX;
   selectedSidebarSecondary: SideBarSecondaryCode = SideBarSecondaryCode.ALIGNMENT;

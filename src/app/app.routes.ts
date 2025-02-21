@@ -1,13 +1,10 @@
 import { Routes } from '@angular/router';
-import {PreviewComponent} from "./preview/preview.component";
-import {TutorialComponent} from "./learn/tutorial.component";
 import {DesignerComponent} from "./design/designer.component";
-import {PlayComponent} from "./play/play.component";
 
 export const routes: Routes = [
   {path: 'design', component: DesignerComponent},
-  {path: 'preview', component: PreviewComponent},
-  {path: 'learn', component: TutorialComponent},
-  {path: 'play', component: PlayComponent},
+  {path: 'preview', loadComponent: () => import('./preview/preview.component').then(c => c.PreviewComponent)},
+  {path: 'learn', loadComponent: () => import('./learn/tutorial.component').then(c => c.TutorialComponent)},
+  {path: 'play', loadComponent: () => import('./play/play.component').then(c => c.PlayComponent)},
   {path: '', redirectTo: 'design', pathMatch: 'full'}
 ];

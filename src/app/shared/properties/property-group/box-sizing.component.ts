@@ -5,7 +5,7 @@ import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angul
 import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {SliderModule} from "primeng/slider";
-import {SliderComponent} from "../property-item/slider.component";
+import {SliderComponent} from "../form-items/slider.component";
 import {AccordionModule} from "primeng/accordion";
 import {PropertyGroupComponent} from "./property-group.component";
 import {MenuModule} from "primeng/menu";

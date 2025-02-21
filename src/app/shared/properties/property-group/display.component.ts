@@ -5,7 +5,7 @@ import {Property} from "csstype";
 import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {SliderModule} from "primeng/slider";
-import {DropdownComponent} from "../property-item/dropdown.component";
+import {DropdownComponent} from "../form-items/dropdown.component";
 import {AccordionModule} from "primeng/accordion";
 import {PropertyGroupComponent} from "./property-group.component";
 import {PanelModule} from "primeng/panel";

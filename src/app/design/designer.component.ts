@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AppSkeletonComponent} from "../core/app.skeleton.component";
 import {CanvasComponent} from "../shared/canvas/canvas.component";
-import {PropertiesComponent} from "../shared/properties/properties.component";
+import {PropertiesComponent} from "./properties/properties.component";
 import {SideBarComponent} from "../shared/side-bar/side-bar.component";
 import {SideBarPrimary} from "../core/enums";
 import {InsertComponent} from "./insert/insert.component";

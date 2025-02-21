@@ -4,7 +4,7 @@ import {Panel} from "primeng/panel";
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {CanvasService} from "../../canvas/canvas.service";
 import {takeUntil} from "rxjs";
-import {PropertyGroupRowComponent} from "../property-item/property-group-row.component";
+import {PropertyGroupRowComponent} from "../form-items/property-group-row.component";
 import {InputText} from "primeng/inputtext";
 import {PropertyGroupComponent} from "./property-group.component";
 import {FilterDirective} from "../filter.directive";

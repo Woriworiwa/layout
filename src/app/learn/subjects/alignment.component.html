@@ -1,35 +1,22 @@
-<div class="container">
-  <p-card header="Alignment">
-  <p>
-    With <code>flex-direction: row</code>, the primary axis runs horizontally, from left to right. When we flip to <code>flex-direction: column</code>, the primary axis runs vertically, from top to bottom.
-  </p>
-  <p>
-    In Flexbox, everything is based on the primary axis. The algorithm doesn't care about vertical/horizontal, or even rows/columns. All of the rules are structured around this primary axis, and the cross axis that runs perpendicularly.
-  </p>
-  <p>
-    This is pretty cool. When we learn the rules of Flexbox, we can switch seamlessly from horizontal layouts to vertical ones. All of the rules adapt automatically. This feature is unique to the Flexbox layout mode.
-  </p>
-  <p>
-    The children will be positioned by default according to the following 2 rules:
-  </p>
-  <ul>
-    <li>Primary axis: Children will be bunched up at the start of the container.</li>
-    <li>Cross axis: Children will stretch out to fill the entire container.</li>
-  </ul>
-  <p>
-    When it comes to the primary axis, we don't generally think in terms of aligning a single child. Instead, it's all about the distribution of the group.
-  </p>
-  <p>
-    We can change how children are distributed along the primary axis using the <code>justify-content</code> property.
-  </p>
-  <p>
-    For the cross axis, things are a bit different. We use the <code>align-items</code> property.
-  </p>
+<p-card header="Alignment">
+  <p>In Flexbox, <strong>alignment</strong> and <strong>justification</strong> control how items are positioned
+    within a flex container.</p>
 
-  <a href="https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/" target="_blank">Explanation by www.joshwcomeau.com</a>
-  </p-card>
-</div>
+  <app-properties-flex-container [css]="sourceItem?.css"
+                                 [filterCssProperties]="[FlexDirection]">
+  </app-properties-flex-container>
 
-<app-properties-flex-container [css]="sourceItem?.css"
-                               [filterCssProperties]="[JustifyContent, FlexDirection, AlignItems]"
-                               [selectControlsLayout]="'selectButton'"></app-properties-flex-container>
+  <h2>Justification (Main Axis)</h2>
+  <p>Controlled by <code>justify-content</code>. Aligns items along the <strong>main axis</strong> (horizontal by
+    default).</p>
+  <app-properties-flex-container [css]="sourceItem?.css"
+                                 [filterCssProperties]="[JustifyContent]">
+  </app-properties-flex-container>
+
+  <h2>Alignment (Cross Axis)</h2>
+  <p>Controlled by <code>align-items</code> (single row) or <code>align-content</code> (multiple rows). Aligns
+    items along the <strong>cross axis</strong> (vertical by default).</p>
+  <app-properties-flex-container [css]="sourceItem?.css"
+                                 [filterCssProperties]="[AlignItems]">
+  </app-properties-flex-container>
+</p-card>
