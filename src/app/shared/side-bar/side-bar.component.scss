@@ -37,3 +37,9 @@
     overflow: auto;
   }
 }
+
+.secondary {
+  &:empty {
+    display: none;
+  }
+}

@@ -4,8 +4,14 @@
     @switch (selectedSideBarPrimary) {
       @case ('browser') {
         <div class="iframe-container">
+          <div class="resize-handle left" appResizable>
+            <i class="pi pi-ellipsis-v"></i>
+          </div>
+
           <iframe [srcdoc]="code | unsafeHtml"
-                  [ngStyle]="{ 'width': selectedMediaQuery, 'flex-grow': 1}"></iframe>
+                  [ngStyle]="{ 'width': width}"></iframe>
+
+          <div class="resize-handle right" appResizable></div>
         </div>
       }
       @case ('code') {
@@ -28,20 +34,10 @@
   <ng-container left-content>
     <app-side-bar [tabs]="tabs"
                   (selectedItemChange)="onSideBarPrimaryChange($event)">
-      <ng-container secondary-content>
+      <ng-container secondary-content *ngIf="selectedSideBarPrimary === 'code'">
         @switch (selectedSideBarPrimary) {
-          @case ('browser') {
-            @for (tab of mediaQueries; track tab) {
-              <p-button [label]="tab.name"
-                        [pTooltip]="tab.name"
-                        size="large"
-                        [fluid]="true"
-                        [variant]="'outlined'"
-                        [text]="tab.width !== selectedMediaQuery ? 'secondary' : undefined"
-                        (onClick)="selectedMediaQuery = tab.width" size="small"></p-button>
-            }
-          }
-          @case ('code') {
+
+          @case (SideBarPrimary.CODE) {
             @for (tab of codeTabs; track tab) {
               <p-button [label]="tab.title"
                         [pTooltip]="tab.title"

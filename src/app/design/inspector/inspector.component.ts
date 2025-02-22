@@ -8,18 +8,23 @@ import {SelectButton} from "primeng/selectbutton";
 import {FormsModule} from "@angular/forms";
 import {filter} from "rxjs";
 
+/**
+ * The `InspectorComponent` is responsible for displaying the CSS properties of the selected or hovered item.
+ * It has a mode that can be either 'select' or 'hover', which determines when to serialize the CSS properties.
+ */
 @Component({
   selector: 'app-inspector',
   imports: [CommonModule, CssPrismComponent, SelectButton, FormsModule],
   template: `
-    <div class="insert-position">
+    <div class="inspection-mode">
       <p-selectButton
         [options]="modes"
         [(ngModel)]="mode"
         optionLabel="name"
         allowEmpty="false"
-        optionValue="value" />
+        optionValue="value"/>
     </div>
+
     <app-css-prism [canvasItems]="canvasItem ? [canvasItem] : this.canvasService.items"></app-css-prism>`,
   styles: `
     :host {
@@ -41,6 +46,10 @@ export class InspectorComponent {
 
   constructor(protected selectionService: SelectionService,
               protected canvasService: CanvasService) {
+    this.initializeInspection();
+  }
+
+  private initializeInspection = () => {
     this.selectionService.hoverItem$
       .pipe(filter(_ => this.mode === 'hover'))
       .subscribe(item => {
