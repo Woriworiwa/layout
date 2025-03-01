@@ -19,7 +19,7 @@ import {FilterDirective} from "../filter.directive";
   selector: 'app-properties-display',
   imports: [CommonModule, InputNumberModule, ReactiveFormsModule, SliderModule, DropdownComponent, AccordionModule, PanelModule, FilterDirective],
   template: `
-    <p-panel header="Display" [toggleable]="true" [collapsed]="false" toggler="header">
+    <p-panel header="Display" [toggleable]="true" [collapsed]="collapsed" toggler="header">
       <app-property-item-dropdown
         *appFilter="Display; cssProperties: filterCssProperties; searchText: searchText; label: 'display'"
         [options]="displayOptions"

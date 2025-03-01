@@ -20,7 +20,7 @@ import {FilterDirective} from "../filter.directive";
   selector: 'app-properties-box-sizing',
   imports: [CommonModule, InputNumberModule, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule, AccordionModule, MenuModule, PanelModule, FilterDirective],
   template: `
-    <p-panel header="Box sizing" [toggleable]="true" [collapsed]="false" toggler="header">
+    <p-panel header="Box sizing" [toggleable]="true" [collapsed]="collapsed" toggler="header">
       <ng-container [formGroup]="formGroup">
         <app-property-item-slider
           label="padding"

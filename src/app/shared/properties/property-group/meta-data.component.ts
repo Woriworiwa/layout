@@ -13,7 +13,10 @@ import {FilterDirective} from "../filter.directive";
   selector: 'app-properties-meta-data',
   imports: [CommonModule, Panel, ReactiveFormsModule, PropertyGroupRowComponent, InputText, FilterDirective],
   template: `
-    <p-panel header="Meta data" [toggleable]="true" [collapsed]="false" toggler="header">
+    <p-panel header="Meta data"
+             [toggleable]="true"
+             [collapsed]="collapsed"
+             toggler="header">
       <ng-container [formGroup]="formGroup"
                     *appFilter="undefined; cssProperties: filterCssProperties; searchText: searchText; label: 'label'">
         <app-property-panel-row label="Label">
