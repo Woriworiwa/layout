@@ -35,6 +35,9 @@ export class SelectionLayerComponent implements OnChanges {
   @Input()
   canvasElement: ElementRef | undefined;
 
+  @Input()
+  allowAdd = true;
+
   @ViewChild("overlay", {read: ViewContainerRef})
   overlay!: ViewContainerRef;
 
@@ -43,7 +46,7 @@ export class SelectionLayerComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['canvasElement'] && this.canvasElement) {
-      this.selectionService.initialize(this.overlay, this.canvasElement!);
+      this.selectionService.initialize(this.overlay, this.canvasElement!, this.allowAdd);
     }
   }
 }

@@ -28,6 +28,8 @@ export class CssClassSerializer extends Serializer {
       return;
     }
 
+    cssLines.push(this.indent('', level));
+
     /* class name and opening curl */
     cssLines.push(this.indent(`.${canvasItem.key} {`, level));
 

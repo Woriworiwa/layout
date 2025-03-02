@@ -11,6 +11,7 @@ import {BehaviorSubject, combineLatestWith, distinctUntilChanged, map, Observabl
 export class SelectionService implements OnDestroy {
   overlay!: ViewContainerRef;
   canvas!: ElementRef;
+  allowAdd = true;
 
   canvasSelectionItem: ComponentRef<CanvasSelectionItemComponent> | undefined = undefined
   canvasHoverItem: ComponentRef<CanvasHoverItemComponent> | undefined = undefined;
@@ -56,9 +57,10 @@ export class SelectionService implements OnDestroy {
     )
   }
 
-  initialize(overlay: ViewContainerRef, canvas: ElementRef) {
+  initialize(overlay: ViewContainerRef, canvas: ElementRef, allowAdd: boolean) {
     this.overlay = overlay;
     this.canvas = canvas;
+    this.allowAdd = allowAdd;
 
     this.selectedItem$
       .pipe(
@@ -176,6 +178,7 @@ export class SelectionService implements OnDestroy {
     component.top = element.offsetTop;
     component.left = element.offsetLeft;
     component.canvasItem = canvasItem;
+    component.showAddButton = this.allowAdd;
     component.ngOnChanges();
   }
 

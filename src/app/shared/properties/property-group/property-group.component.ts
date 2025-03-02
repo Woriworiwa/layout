@@ -2,16 +2,16 @@ import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren} from '@
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
-import {SliderComponent} from "../property-item/slider.component";
+import {SliderComponent} from "../form-items/slider.component";
 import {CanvasService} from "../../canvas/canvas.service";
 
 import {Css} from "../../../core/models/css/css";
 import {Unit} from "../../../core/models/css/unit.enum";
 
 @Component({
-    selector: 'app-base-app-properties',
-    imports: [CommonModule],
-    template: `
+  selector: 'app-base-app-properties',
+  imports: [CommonModule],
+  template: `
   `
 })
 export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
@@ -19,8 +19,8 @@ export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
   @Input() searchText = '';
   @Input() title = '';
   @Input() mustBeVisible = false;
-  @Input() selectControlsLayout: 'dropdown' | 'selectButton' = 'dropdown';
   @Input() filterCssProperties: any[] = [];
+  @Input() collapsed = false;
 
   @ViewChildren(SliderComponent) panes!: QueryList<SliderComponent>;
 
@@ -29,7 +29,7 @@ export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
   protected destroy$ = new Subject();
 
   protected constructor(protected formBuilder: FormBuilder,
-              protected canvasService: CanvasService) {
+                        protected canvasService: CanvasService) {
     this.formGroup = this.createFormGroup();
   }
 
@@ -42,7 +42,7 @@ export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
     this.destroy$.complete();
   }
 
-  protected abstract createFormGroup():  FormGroup<any>
+  protected abstract createFormGroup(): FormGroup<any>
 
   getFormControl(name: string) {
     return this.formGroup.get(name) as FormControl;

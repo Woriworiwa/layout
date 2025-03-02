@@ -41,7 +41,7 @@ import {CanvasSettings} from "./canvas.settings";
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements AfterViewInit, OnDestroy {
-  @Input() settings: CanvasSettings = new CanvasSettings();
+  @Input() settings: CanvasSettings = new CanvasSettings({allowAdd: true});
 
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
   frames: CanvasItem[] = [];
@@ -132,13 +132,13 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
       swapThreshold: 0.8,
       ghostClass: 'drag-background-lvl-1',
       group: 'canvas',
-      disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning
+      disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning || !this.settings.allowDragDrop
     });
     this.childDragOptions = this.dragDropService.createGroup({
       swapThreshold: 0.9,
       group: 'child',
       ghostClass: 'drag-background-lvl-2',
-      disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning
+      disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning || !this.settings.allowDragDrop
     });
   }
 }

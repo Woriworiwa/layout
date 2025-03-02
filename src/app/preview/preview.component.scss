@@ -1,0 +1,34 @@
+.iframe-container {
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resize-handle {
+  width: 12px;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: ew-resize;
+  display: flex
+;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.resize-handle.left {
+  left: 0;
+}
+
+.resize-handle.right {
+  right: 0;
+}
+
+iframe {
+  min-width: 100px;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+}

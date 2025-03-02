@@ -24,6 +24,7 @@ export class CanvasSelectionItemComponent implements OnChanges{
   @Input() left = 0;
   @Input() canvasItem: CanvasItem | undefined = undefined;
   @Input() visibility: 'visible' | 'hidden' = 'visible';
+  @Input() showAddButton = true;
 
   insertPosition: InsertPosition = InsertPosition.AFTER;
 

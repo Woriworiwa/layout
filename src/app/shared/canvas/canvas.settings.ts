@@ -1,6 +1,7 @@
 export class CanvasSettings {
   showToolbar = true;
-  // Add other settings with default values as needed
+  allowAdd = false;
+  allowDragDrop = false;
 
   constructor(init?: Partial<CanvasSettings>) {
     Object.assign(this, init);

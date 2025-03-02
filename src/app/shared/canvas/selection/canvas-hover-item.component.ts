@@ -18,6 +18,7 @@ export class CanvasHoverItemComponent implements OnChanges{
   @Input() left = 0;
   @Input() canvasItem: CanvasItem | undefined = undefined;
   @Input() visibility: 'visible' | 'hidden' = 'visible';
+  @Input() showAddButton = true;
 
   constructor(private renderer: Renderer2,
               protected elementRef: ElementRef) {

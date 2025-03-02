@@ -15,7 +15,7 @@ import {InputIconModule} from "primeng/inputicon";
 import {SpeedDialModule} from "primeng/speeddial";
 import {Unit} from "../../../core/models/css/unit.enum";
 import {POSTFIX_UNIT} from "../../../core/constants";
-import {PropertyItemComponent} from "./property-item.component";
+import {FormItemComponent} from "./form-item.component";
 
 @Component({
     selector: 'app-property-item-slider',
@@ -62,7 +62,7 @@ import {PropertyItemComponent} from "./property-item.component";
       position: relative;
     }
 
-    ::ng-deep .p-dropdown-trigger {
+    ::ng-deep .p-select-dropdown {
       display: none;
     }
 
@@ -79,7 +79,7 @@ import {PropertyItemComponent} from "./property-item.component";
   }
   `
 })
-export class SliderComponent extends PropertyItemComponent {
+export class SliderComponent extends FormItemComponent {
   @Input() unit: FormControl | undefined = undefined;
   @Input() max = 100;
   @Input() controlValue: unknown = null;

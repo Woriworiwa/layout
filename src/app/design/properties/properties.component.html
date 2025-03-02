@@ -13,14 +13,17 @@
     </div>
 
     <app-properties-meta-data [label]="frame.label"
+                              [collapsed]="true"
                               [searchText]="searchText"></app-properties-meta-data>
 
     <app-properties-box-sizing [css]="frame.css"
                                [title]="'Box sizing'"
+                               [collapsed]="true"
                                [searchText]="searchText"></app-properties-box-sizing>
 
     <app-properties-display [css]="frame.css"
                             [title]="'Display'"
+                            [collapsed]="true"
                             [searchText]="searchText"></app-properties-display>
 
     @switch (frame.itemType) {

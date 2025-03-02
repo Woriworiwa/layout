@@ -1,8 +1,13 @@
 <app-skeleton>
   <ng-container center-content>
-    <app-alignment [sourceItem]="sourceItem"></app-alignment>
+    <div class="content flex">
+      <app-alignment
+        
+        [sourceItem]="sourceItem"></app-alignment>
 
-    <app-canvas [settings]="canvasSettings"></app-canvas>
+      <app-canvas [settings]="canvasSettings"></app-canvas>
+    </div>
+
   </ng-container>
 
   <ng-container left-content>

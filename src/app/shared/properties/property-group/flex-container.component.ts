@@ -3,9 +3,9 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {Property} from "csstype";
-import {DropdownComponent} from "../property-item/dropdown.component";
-import {SelectButtonComponent} from "../property-item/select-button.component";
-import {SliderComponent} from "../property-item/slider.component";
+import {DropdownComponent} from "../form-items/dropdown.component";
+import {SelectButtonComponent} from "../form-items/select-button.component";
+import {SliderComponent} from "../form-items/slider.component";
 import {PropertyGroupComponent} from "./property-group.component";
 import {PanelModule} from "primeng/panel";
 import {CanvasService} from "../../canvas/canvas.service";
@@ -56,21 +56,18 @@ import {FilterDirective} from "../filter.directive";
         *appFilter="JustifyContent; cssProperties: filterCssProperties; searchText: searchText; label: 'justify content'"
         [options]="justifyContentOptions"
         [control]="getFormControl('justifyContent')"
-        [selectControlsLayout]="selectControlsLayout"
         [label]="'justify-content'"></app-property-item-dropdown>
 
       <app-property-item-dropdown
         *appFilter="AlignItems; cssProperties: filterCssProperties; searchText: searchText; label: 'align items'"
         [options]="alignItemsOptions"
         [control]="getFormControl('alignItems')"
-        [selectControlsLayout]="selectControlsLayout"
         label="align-items"></app-property-item-dropdown>
 
       <app-property-item-dropdown
         *appFilter="AlignContent; cssProperties: filterCssProperties; searchText: searchText; label: 'align content'"
         [options]="alignContentOptions"
         [control]="getFormControl('alignContent')"
-        [selectControlsLayout]="selectControlsLayout"
         label="align-content"></app-property-item-dropdown>
     </ng-template>
   `,

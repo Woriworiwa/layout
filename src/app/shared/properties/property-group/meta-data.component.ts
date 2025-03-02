@@ -4,7 +4,7 @@ import {Panel} from "primeng/panel";
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {CanvasService} from "../../canvas/canvas.service";
 import {takeUntil} from "rxjs";
-import {PropertyGroupRowComponent} from "../property-item/property-group-row.component";
+import {PropertyGroupRowComponent} from "../form-items/property-group-row.component";
 import {InputText} from "primeng/inputtext";
 import {PropertyGroupComponent} from "./property-group.component";
 import {FilterDirective} from "../filter.directive";
@@ -13,7 +13,10 @@ import {FilterDirective} from "../filter.directive";
   selector: 'app-properties-meta-data',
   imports: [CommonModule, Panel, ReactiveFormsModule, PropertyGroupRowComponent, InputText, FilterDirective],
   template: `
-    <p-panel header="Meta data" [toggleable]="true" [collapsed]="false" toggler="header">
+    <p-panel header="Meta data"
+             [toggleable]="true"
+             [collapsed]="collapsed"
+             toggler="header">
       <ng-container [formGroup]="formGroup"
                     *appFilter="undefined; cssProperties: filterCssProperties; searchText: searchText; label: 'label'">
         <app-property-panel-row label="Label">

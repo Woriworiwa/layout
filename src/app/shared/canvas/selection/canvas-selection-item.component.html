@@ -1,23 +1,21 @@
-<p-popover #op>
-  <div class="insert-position">
-    <p-selectButton
-      [options]="insertPositions"
-      [(ngModel)]="insertPosition"
-      optionLabel="name"
-      optionValue="value" />
+@if (showAddButton) {
+  <p-popover #op>
+    <div class="inspection-mode">
+      <p-selectButton
+        [options]="insertPositions"
+        [(ngModel)]="insertPosition"
+        optionLabel="name"
+        optionValue="value" />
+    </div>
+
+    <app-insert [parentFrameId]="canvasItem?.key"
+                [insertPosition]="insertPosition"
+                (componentAdded)="op.toggle($event)"></app-insert>
+  </p-popover>
+
+  <div class="add-item">
+    <p-button icon="pi pi-plus" [rounded]="true" (click)="op.toggle($event); $event.stopPropagation()"></p-button>
   </div>
-
-  <app-insert [parentFrameId]="canvasItem?.key"
-              [insertPosition]="insertPosition"
-              (componentAdded)="op.toggle($event)"></app-insert>
-</p-popover>
-
-<p-popover #quickActions>
-  <div>quick actions</div>
-</p-popover>
-
-<div class="add-item">
-  <p-button icon="pi pi-plus" [rounded]="true" (click)="op.toggle($event); $event.stopPropagation()"></p-button>
-</div>
+}
 
 <app-context-menu [target]="elementRef.nativeElement" [frameKey]="canvasItem?.key"></app-context-menu>

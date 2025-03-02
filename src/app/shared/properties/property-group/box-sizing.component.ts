@@ -5,7 +5,7 @@ import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angul
 import {takeUntil} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {SliderModule} from "primeng/slider";
-import {SliderComponent} from "../property-item/slider.component";
+import {SliderComponent} from "../form-items/slider.component";
 import {AccordionModule} from "primeng/accordion";
 import {PropertyGroupComponent} from "./property-group.component";
 import {MenuModule} from "primeng/menu";
@@ -20,7 +20,7 @@ import {FilterDirective} from "../filter.directive";
   selector: 'app-properties-box-sizing',
   imports: [CommonModule, InputNumberModule, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule, AccordionModule, MenuModule, PanelModule, FilterDirective],
   template: `
-    <p-panel header="Box sizing" [toggleable]="true" [collapsed]="false" toggler="header">
+    <p-panel header="Box sizing" [toggleable]="true" [collapsed]="collapsed" toggler="header">
       <ng-container [formGroup]="formGroup">
         <app-property-item-slider
           label="padding"
