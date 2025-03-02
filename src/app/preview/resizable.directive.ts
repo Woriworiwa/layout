@@ -4,9 +4,9 @@ import { Directive, ElementRef, HostListener, Renderer2, OnInit } from '@angular
   selector: '[appResizable]'
 })
 export class ResizableDirective implements OnInit {
-  private isResizing: boolean = false;
-  private initialWidth: number = 0;
-  private initialMouseX: number = 0;
+  private isResizing = false;
+  private initialWidth = 0;
+  private initialMouseX = 0;
   private iframe: HTMLElement | null = null;
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
