@@ -5,7 +5,7 @@ import {ContextMenuService} from "../canvas/context-menu/context-menu.service";
 import {DragDropService} from "../canvas/drag-drop.service";
 import {CanvasService} from "../canvas/canvas.service";
 import {UndoRedoService} from "../../core/undo-redo/undo-redo.service";
-import {PresetsService} from "../../design/insert/presets.service";
+import {PresetsService} from "../../designer/insert/presets.service";
 
 describe('LeftNavigationComponent', () => {
   let component: SideBarComponent;

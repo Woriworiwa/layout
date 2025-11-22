@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from "@angular/core";
 import {UndoRedoService} from "../../core/undo-redo/undo-redo.service";
-import {PresetsService} from "../../design/insert/presets.service";
+import {PresetsService} from "../../designer/insert/presets.service";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CanvasStore} from "../../core/store/canvas.store";
 import {distinctUntilChanged, map, Subject, takeUntil} from "rxjs";

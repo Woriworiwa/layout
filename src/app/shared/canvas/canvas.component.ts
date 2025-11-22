@@ -17,7 +17,7 @@ import {PanZoomService} from "./pan-zoom.service";
 import {DragDropService} from "./drag-drop.service";
 import {CopyPasteService} from "./copy-paste.service";
 import {KeyboardCommandsDirective} from "./keyboard-commands.directive";
-import {PresetsService} from "../../design/insert/presets.service";
+import {PresetsService} from "../../designer/insert/presets.service";
 import {CanvasService} from "./canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'

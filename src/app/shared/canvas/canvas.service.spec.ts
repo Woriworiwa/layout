@@ -3,7 +3,7 @@ import {CanvasService} from './canvas.service';
 import {CanvasStore} from '../../core/store/canvas.store';
 import {UndoRedoService} from '../../core/undo-redo/undo-redo.service';
 import {SelectionService} from './selection/selection.service';
-import {PresetsService} from '../../design/insert/presets.service';
+import {PresetsService} from '../../designer/insert/presets.service';
 import {DragDropService} from './drag-drop.service';
 import {CanvasItem} from '../../core/models/canvas-item.model';
 import {CanvasItemType, InsertPosition} from '../../core/enums';

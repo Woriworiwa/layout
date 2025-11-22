@@ -14,8 +14,7 @@ export enum MainAreaContent {
   CANVAS = 'CANVAS',
   PREVIEW = 'PREVIEW',
   CODE = 'CODE',
-  TUTORIAL = 'TUTORIAL',
-  PLAY = 'PLAY',
+  TUTORIAL = 'TUTORIAL'
 }
 
 export enum SideBarPrimary {

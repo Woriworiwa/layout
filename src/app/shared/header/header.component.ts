@@ -44,7 +44,6 @@ export class HeaderComponent {
     { label: 'design', id: MainAreaContent.CANVAS, routerLink: '/design' },
     { label: 'preview', id: MainAreaContent.PREVIEW, routerLink: '/preview' },
     { label: 'learn', id: MainAreaContent.TUTORIAL, routerLink: '/learn' },
-    { label: 'play', id: MainAreaContent.PLAY, routerLink: '/play' },
   ];
 
   scopedTokens = {
