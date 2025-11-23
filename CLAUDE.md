@@ -139,6 +139,15 @@ Three main routes (src/app/app.routes.ts):
 - Uses `@happy-dom/jest-environment` for faster test execution
 - Nx cache is enabled for build, test, and lint targets
 
+## Git Workflow
+
+**IMPORTANT**: Do not commit changes automatically. Always wait for explicit user instruction before creating commits.
+
+- Make changes and fixes as requested
+- Stage files if needed with `git add`
+- Wait for user to say "commit" or similar instruction before running `git commit`
+- Use `npm run commit` for guided Conventional Commits when instructed to commit
+
 ## Angular Documentation
 
 The `.ai/llms-full.txt` file contains the complete official Angular documentation (14,862 lines). Reference this file for Angular-specific questions about framework features, best practices, and API usage.
