@@ -13,7 +13,11 @@
       "Bash(nx build:*)",
       "Bash(npx nx reset)",
       "Bash(nx lint:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm run prepare:*)",
+      "Bash(npx husky:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": []
