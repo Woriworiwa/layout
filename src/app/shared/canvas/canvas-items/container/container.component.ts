@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, Renderer2, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {EditableContentDirective} from "../text/editable-content.directive";
 import {TextComponent} from "../text/text.component";
@@ -6,7 +6,6 @@ import {CanvasItemType} from '../../../../core/enums';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {CanvasItemComponent} from "../canvas-item.component";
-import {SelectionService} from "../../selection/selection.service";
 import {PanZoomService} from "../../pan-zoom.service";
 import {CanvasService} from "../../canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
@@ -26,7 +25,7 @@ import {CanvasItemMouseEvent} from "../../canvas-item-mouse-event";
     styleUrls: ['./container.component.scss']
 })
 export class ContainerComponent extends CanvasItemComponent {
-  protected canvasService: CanvasService;
+  protected canvasService = inject(CanvasService);
   protected panZoomService = inject(PanZoomService);
   private dragDropService = inject(DragDropService);
 
@@ -37,13 +36,7 @@ export class ContainerComponent extends CanvasItemComponent {
   dragOptions: Options;
 
   constructor() {
-    const canvasService = inject(CanvasService);
-    const elementRef = inject(ElementRef);
-    const renderer = inject(Renderer2);
-    const selectionService = inject(SelectionService);
-
-    super(elementRef, renderer, canvasService, selectionService);
-    this.canvasService = canvasService;
+    super();
 
     this.dragOptions = this.dragDropService.createGroup({group: 'child', ghostClass: 'drag-background-lvl-1'});
   }

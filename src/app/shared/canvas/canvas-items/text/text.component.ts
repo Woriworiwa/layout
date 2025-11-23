@@ -1,8 +1,6 @@
-import { Component, ElementRef, OnChanges, Renderer2, inject } from '@angular/core';
+import { Component, ElementRef, OnChanges, inject } from '@angular/core';
 
 import {CanvasItemComponent} from "../canvas-item.component";
-import {SelectionService} from "../../selection/selection.service";
-import {CanvasService} from "../../canvas.service";
 import {KeyboardCommandsDirective} from "../../keyboard-commands.directive";
 
 @Component({
@@ -30,17 +28,10 @@ import {KeyboardCommandsDirective} from "../../keyboard-commands.directive";
   `
 })
 export class TextComponent extends CanvasItemComponent implements OnChanges{
-  private elementRef: ElementRef;
+  private elementRef = inject(ElementRef);
 
   constructor() {
-    const canvasService = inject(CanvasService);
-    const elementRef = inject(ElementRef);
-    const renderer = inject(Renderer2);
-    const selectionService = inject(SelectionService);
-
-    super(elementRef, renderer, canvasService, selectionService);
-  
-    this.elementRef = elementRef;
+    super();
   }
 
   override ngOnChanges() {

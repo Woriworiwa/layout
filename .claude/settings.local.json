@@ -20,7 +20,8 @@
       "Bash(chmod:*)",
       "Bash(git reset:*)",
       "Bash(npx nx generate:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(npm run commit:*)"
     ],
     "deny": [],
     "ask": []
