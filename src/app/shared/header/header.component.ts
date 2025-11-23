@@ -12,10 +12,11 @@ import {AppStateService} from "../../core/services/app-state.service";
 import {MainAreaContent} from "../../core/enums";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {Menubar} from "primeng/menubar";
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @Component({
     selector: 'app-header',
-  imports: [Button, FormsModule, Tooltip, SplitButton, RouterLink, RouterLinkActive, Menubar],
+  imports: [Button, FormsModule, Tooltip, SplitButton, RouterLink, RouterLinkActive, Menubar, SplitButtonModule],
     templateUrl: `./header.component.html`,
     styleUrls: ['./header.component.scss']
 })

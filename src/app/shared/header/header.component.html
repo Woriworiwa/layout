@@ -8,7 +8,7 @@
     @for (tab of tabs; track tab.id) {
       <ng-template  #item let-item>
           <a [routerLink]="item.routerLink" class="p-menubar-item-link" routerLinkActive="p-button">
-            <span class="ml-2">{{ item.label }}</span>
+            <span>{{ item.label }}</span>
           </a>
       </ng-template>
     }
@@ -25,10 +25,10 @@
             icon="pi pi-github">
   </p-button>
 
-  <p-splitButton label="Save"
+  <p-splitbutton label="Save"
                  (onClick)="save()"
                  appendTo="body"
                  [model]="items"
-                 [menuStyle]="{'min-width': '200px'}"></p-splitButton>
+                 [menuStyle]="{'min-width': '200px'}"></p-splitbutton>
 </div>
 

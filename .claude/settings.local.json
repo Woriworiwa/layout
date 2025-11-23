@@ -21,7 +21,10 @@
       "Bash(git reset:*)",
       "Bash(npx nx generate:*)",
       "Bash(echo:*)",
-      "Bash(npm run commit:*)"
+      "Bash(npm run commit:*)",
+      "WebSearch",
+      "WebFetch(domain:primeng.org)",
+      "WebFetch(domain:medium.com)"
     ],
     "deny": [],
     "ask": []
