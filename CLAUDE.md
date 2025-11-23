@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a low-code CSS layout generator built with Angular 19, designed to simplify creating responsive layouts using Grid and Flexbox. It's an Nx monorepo with a visual canvas-based editor that generates CSS, HTML, and JSON output.
+This is a low-code CSS layout generator built with Angular 20, designed to simplify creating responsive layouts using Grid and Flexbox. It's an Nx monorepo with a visual canvas-based editor that generates CSS, HTML, and JSON output.
 
 ## Common Commands
 
@@ -121,15 +121,17 @@ Three main routes (src/app/app.routes.ts):
 
 ## Technology Stack
 
-- **Angular 19** with standalone components
-- **Nx 20.3** for monorepo tooling
-- **PrimeNG 19** for UI components with Tailwind CSS via tailwindcss-primeui
+- **Angular 20.3.9** with standalone components
+- **Nx 22.1.1** for monorepo tooling
+- **PrimeNG 19.1.6-lts** for UI components with Tailwind CSS via tailwindcss-primeui
 - **RxJS 7.8** for reactive state management
-- **Jest** with happy-dom for unit tests
-- **Cypress 13** for E2E tests
+- **Jest 29** with happy-dom for unit tests
+- **Cypress 15** for E2E tests
 - **SortableJS** (via nxt-sortablejs) for drag-and-drop
 - **PrismJS** for syntax highlighting
 - **Firebase** for hosting
+
+**Note**: Angular 21 is available but not yet supported by Nx 22.1.1. Wait for Nx to release official Angular 21 support before upgrading.
 
 ## Development Notes
 
