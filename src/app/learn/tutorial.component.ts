@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {CanvasComponent} from "../shared/canvas/canvas.component";
 import {CanvasService} from "../shared/canvas/canvas.service";
 import {SelectionService} from "../shared/canvas/selection/selection.service";
@@ -26,7 +26,7 @@ enum SideBarSecondaryCode {
 
 @Component({
   selector: 'app-tutorial',
-  imports: [CommonModule, CanvasComponent, AppSkeletonComponent, Button, SideBarComponent, Tooltip, CssPrismComponent, AlignmentComponent],
+  imports: [CanvasComponent, AppSkeletonComponent, Button, SideBarComponent, Tooltip, CssPrismComponent, AlignmentComponent],
   providers: [
     CanvasService,
     CanvasStore,

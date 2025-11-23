@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeExpandEvent} from "primeng/tree";
 import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
 import {CanvasItem} from "../../core/models/canvas-item.model";
@@ -17,7 +17,7 @@ import {Subject, takeUntil} from "rxjs";
 
 @Component({
     selector: 'app-layers',
-    imports: [CommonModule, TreeModule, FormsModule, ToggleButtonModule, ContextMenuModule, OverlayPanelModule, ButtonModule, InputTextModule, ToastModule],
+    imports: [TreeModule, FormsModule, ToggleButtonModule, ContextMenuModule, OverlayPanelModule, ButtonModule, InputTextModule, ToastModule],
     providers: [TreeDragDropService],
     templateUrl: './layers.component.html',
     styleUrls: ['./layers.component.scss']

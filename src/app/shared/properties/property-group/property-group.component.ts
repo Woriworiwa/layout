@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
 import {SliderComponent} from "../form-items/slider.component";
@@ -10,7 +10,7 @@ import {Unit} from "../../../core/models/css/unit.enum";
 
 @Component({
   selector: 'app-base-app-properties',
-  imports: [CommonModule],
+  imports: [],
   template: `
   `
 })

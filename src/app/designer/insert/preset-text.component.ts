@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {CanvasItem} from "../../core/models/canvas-item.model";
 
 @Component({
     selector: 'app-preset-text',
-    imports: [CommonModule],
+    imports: [],
     template: ``
 })
 export class PresetTextComponent {

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {ThemeService} from "../../core/services/theme.service";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {FormsModule} from "@angular/forms";
@@ -19,7 +19,7 @@ import {Menubar} from "primeng/menubar";
 
 @Component({
     selector: 'app-header',
-  imports: [CommonModule, ButtonModule, ToggleButtonModule, FormsModule, SidebarModule, TooltipModule, SplitButtonModule, MessageModule, OverlayPanelModule, RouterLink, RouterLinkActive, Menubar],
+  imports: [ButtonModule, ToggleButtonModule, FormsModule, SidebarModule, TooltipModule, SplitButtonModule, MessageModule, OverlayPanelModule, RouterLink, RouterLinkActive, Menubar],
     templateUrl: `./header.component.html`,
     styleUrls: ['./header.component.scss']
 })

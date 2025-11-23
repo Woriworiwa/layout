@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnChanges, Renderer2} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {CanvasItemComponent} from "../canvas-item.component";
 import {SelectionService} from "../../selection/selection.service";
 import {CanvasService} from "../../canvas.service";
@@ -7,7 +7,7 @@ import {KeyboardCommandsDirective} from "../../keyboard-commands.directive";
 
 @Component({
     selector: 'app-text',
-    imports: [CommonModule],
+    imports: [],
     template: ``,
     hostDirectives: [KeyboardCommandsDirective],
     styles: `

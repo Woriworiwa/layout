@@ -1,7 +1,19 @@
 {
   "permissions": {
     "allow": [
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(ng version:*)",
+      "Bash(npx ng:*)",
+      "Bash(ng update:*)",
+      "Bash(npx @angular/cli update:*)",
+      "Bash(npx nx migrate:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(npm view:*)",
+      "Bash(nx build:*)",
+      "Bash(npx nx reset)",
+      "Bash(nx lint:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

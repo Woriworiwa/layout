@@ -9,10 +9,12 @@ import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "..
   template: `
     <div
       [ngClass]="{'label-top': propertiesConfig.labelPosition === 'top', 'label-left': propertiesConfig.labelPosition === 'left'}">
-      <div *ngIf="propertiesConfig.labelPosition !== 'none'" class="property-label">{{ label }}</div>
+      @if (propertiesConfig.labelPosition !== 'none') {
+        <div class="property-label">{{ label }}</div>
+      }
       <ng-content></ng-content>
     </div>
-  `,
+    `,
   styles: `
     :host {
       display: block;

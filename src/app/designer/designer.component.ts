@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {AppSkeletonComponent} from "../core/app.skeleton.component";
 import {CanvasComponent} from "../shared/canvas/canvas.component";
 import {PropertiesComponent} from "./properties/properties.component";
@@ -12,7 +12,7 @@ import {AppStateService} from "../core/services/app-state.service";
 
 @Component({
   selector: 'app-designer',
-  imports: [CommonModule, AppSkeletonComponent, CanvasComponent, PropertiesComponent, SideBarComponent, InsertComponent, InspectorComponent, LayersComponent],
+  imports: [AppSkeletonComponent, CanvasComponent, PropertiesComponent, SideBarComponent, InsertComponent, InspectorComponent, LayersComponent],
   templateUrl: './designer.component.html',
   styleUrl: './designer.component.scss',
 })

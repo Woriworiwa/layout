@@ -9,7 +9,7 @@
           </div>
 
           <iframe [srcdoc]="code | unsafeHtml"
-                  [ngStyle]="{ 'width': width}"></iframe>
+          [ngStyle]="{ 'width': width}"></iframe>
 
           <div class="resize-handle right" appResizable></div>
         </div>
@@ -33,24 +33,24 @@
   <!-- Left content -->
   <ng-container left-content>
     <app-side-bar [tabs]="tabs"
-                  (selectedItemChange)="onSideBarPrimaryChange($event)">
-      <ng-container secondary-content *ngIf="selectedSideBarPrimary === 'code'">
-        @switch (selectedSideBarPrimary) {
-
-          @case (SideBarPrimary.CODE) {
-            @for (tab of codeTabs; track tab) {
-              <p-button [label]="tab.title"
-                        [pTooltip]="tab.title"
-                        size="large"
-                        [fluid]="true"
-                        [variant]="'outlined'"
-                        [text]="tab.tab !== selectedSidebarSecondary ? 'secondary' : undefined"
-                        (onClick)="selectedSidebarSecondary = tab.tab" size="small"></p-button>
+      (selectedItemChange)="onSideBarPrimaryChange($event)">
+      @if (selectedSideBarPrimary === 'code') {
+        <ng-container secondary-content>
+          @switch (selectedSideBarPrimary) {
+            @case (SideBarPrimary.CODE) {
+              @for (tab of codeTabs; track tab) {
+                <p-button [label]="tab.title"
+                  [pTooltip]="tab.title"
+                  size="large"
+                  [fluid]="true"
+                  [variant]="'outlined'"
+                  [text]="tab.tab !== selectedSidebarSecondary ? 'secondary' : undefined"
+                (onClick)="selectedSidebarSecondary = tab.tab" size="small"></p-button>
+              }
             }
           }
-        }
-
-      </ng-container>
+        </ng-container>
+      }
     </app-side-bar>
   </ng-container>
 </app-skeleton>

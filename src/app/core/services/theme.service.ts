@@ -1,6 +1,6 @@
-import {Inject, Injectable, PLATFORM_ID, effect, signal, inject} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID, effect, signal, inject, DOCUMENT} from '@angular/core';
 import { Subject } from 'rxjs';
-import {DOCUMENT, isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser} from '@angular/common';
 import {ThemeModel} from "../models/theme.model";
 
 @Injectable({

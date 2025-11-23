@@ -1,41 +1,36 @@
-<ng-container *ngIf="frame">
+@if (frame) {
   <div class="properties">
     <div class="form-group">
       <p-inputGroup>
         <input type="text" pInputText placeholder="Search" [(ngModel)]="searchText" />
         <button type="button"
-                pButton
-                icon="pi pi-times"
-                class="p-button-secondary"
-                [disabled]="searchText === ''"
-                (click)="searchText = ''"></button>
-        </p-inputGroup>
+          pButton
+          icon="pi pi-times"
+          class="p-button-secondary"
+          [disabled]="searchText === ''"
+        (click)="searchText = ''"></button>
+      </p-inputGroup>
     </div>
-
     <app-properties-meta-data [label]="frame.label"
-                              [collapsed]="true"
-                              [searchText]="searchText"></app-properties-meta-data>
-
+      [collapsed]="true"
+    [searchText]="searchText"></app-properties-meta-data>
     <app-properties-box-sizing [css]="frame.css"
-                               [title]="'Box sizing'"
-                               [collapsed]="true"
-                               [searchText]="searchText"></app-properties-box-sizing>
-
+      [title]="'Box sizing'"
+      [collapsed]="true"
+    [searchText]="searchText"></app-properties-box-sizing>
     <app-properties-display [css]="frame.css"
-                            [title]="'Display'"
-                            [collapsed]="true"
-                            [searchText]="searchText"></app-properties-display>
-
+      [title]="'Display'"
+      [collapsed]="true"
+    [searchText]="searchText"></app-properties-display>
     @switch (frame.itemType) {
       @case (FrameType.FLEX) {
         <app-properties-flex-container [css]="frame.css"
-                                       [title]="'Flex container'"
-                                       [searchText]="searchText"></app-properties-flex-container>
+          [title]="'Flex container'"
+        [searchText]="searchText"></app-properties-flex-container>
       }
     }
-
     <app-properties-flex-item [css]="frame.css"
-                              [title]="'Flex item'"
-                              [searchText]="searchText"></app-properties-flex-item>
+      [title]="'Flex item'"
+    [searchText]="searchText"></app-properties-flex-item>
   </div>
-</ng-container>
+}

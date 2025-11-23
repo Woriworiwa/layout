@@ -1,5 +1,5 @@
 import {Component, Input, ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {DropdownModule} from "primeng/dropdown";
 import {PropertyGroupRowComponent} from "./property-group-row.component";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -19,23 +19,25 @@ import {FormItemComponent} from "./form-item.component";
 
 @Component({
     selector: 'app-property-item-slider',
-    imports: [CommonModule, DropdownModule, PropertyGroupRowComponent, ReactiveFormsModule, InputNumberModule, SliderModule, InputGroupModule, ButtonModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule, SpeedDialModule],
+    imports: [DropdownModule, PropertyGroupRowComponent, ReactiveFormsModule, InputNumberModule, SliderModule, InputGroupModule, ButtonModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule, SpeedDialModule],
     template: `
     <app-property-panel-row [label]="label">
       <div>
         <p-inputGroup>
           <p-inputNumber [id]="label" inputId="integeronly" [formControl]="control" (onKeyDown)="onKeyDown($event)"></p-inputNumber>
-          <p-dropdown *ngIf="unit"
-            [options]="items"
-            [formControl]="unit"/>
+          @if (unit) {
+            <p-dropdown
+              [options]="items"
+              [formControl]="unit"/>
+          }
           <button type="button" pButton icon="pi pi-times" (click)="onClearButtonClick()"
-                  [disabled]="control.value === null || control.value === undefined"></button>
-
+          [disabled]="control.value === null || control.value === undefined"></button>
+    
         </p-inputGroup>
         <p-slider [formControl]="control" [max]="max" (onChange)="onSliderChange($event)"></p-slider>
       </div>
     </app-property-panel-row>
-  `,
+    `,
     styles: `
   :host {
     display: contents;

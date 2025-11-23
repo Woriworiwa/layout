@@ -7,7 +7,7 @@ import {
   OnChanges,
   OnDestroy
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import * as Prism from 'prismjs';
 import 'prismjs';
 import 'prismjs/components/prism-css';
@@ -24,7 +24,7 @@ import {Highlight} from "ngx-highlightjs";
 @Component({
     selector: 'app-css-prism',
     changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, Highlight],
+  imports: [Highlight],
     template: `
       <pre><code language="css" [highlight]="css"></code></pre>
   `,

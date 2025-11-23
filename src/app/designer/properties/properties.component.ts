@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {PropertiesFlexContainerComponent} from "../../shared/properties/property-group/flex-container.component";
@@ -32,7 +32,7 @@ export interface Property {
 
 @Component({
   selector: 'app-settings',
-  imports: [CommonModule, ReactiveFormsModule, PropertiesFlexContainerComponent, SelectButtonModule, BoxSizingComponent, DisplayComponent, PropertiesFlexItemComponent, AccordionModule, PanelModule, MenuModule, DropdownModule, FormsModule, ListboxModule, FloatLabelModule, InputTextModule, IconFieldModule, InputIconModule, InputGroupModule, ButtonModule, MetaDataComponent],
+  imports: [ReactiveFormsModule, PropertiesFlexContainerComponent, SelectButtonModule, BoxSizingComponent, DisplayComponent, PropertiesFlexItemComponent, AccordionModule, PanelModule, MenuModule, DropdownModule, FormsModule, ListboxModule, FloatLabelModule, InputTextModule, IconFieldModule, InputIconModule, InputGroupModule, ButtonModule, MetaDataComponent],
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss']
 })

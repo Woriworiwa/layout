@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {FormsModule} from "@angular/forms";
 import {Tooltip} from "primeng/tooltip";
 import {Button} from "primeng/button";
@@ -12,7 +12,7 @@ import {CanvasItem} from "../../core/models/canvas-item.model";
 
 @Component({
   selector: 'app-side-bar',
-  imports: [CommonModule, FormsModule, Tooltip, Button],
+  imports: [FormsModule, Tooltip, Button],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
 })

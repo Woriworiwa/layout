@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, Renderer2, ViewChild} from "@angular/core";
-import {CommonModule} from "@angular/common";
+
 import {ButtonModule} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
 import {InsertComponent} from "../../../designer/insert/insert.component";
@@ -13,7 +13,7 @@ import {Popover} from "primeng/popover";
 
 @Component({
     selector: 'app-canvas-selection-item',
-  imports: [CommonModule, ButtonModule, ContextMenuComponent, InsertComponent, OverlayPanelModule, SharedModule, SelectButtonModule, FormsModule, Popover],
+  imports: [ButtonModule, ContextMenuComponent, InsertComponent, OverlayPanelModule, SharedModule, SelectButtonModule, FormsModule, Popover],
     templateUrl: './canvas-selection-item.component.html',
     styleUrls: ['./canvas-selection-item.component.scss']
 })

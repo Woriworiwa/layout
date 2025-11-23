@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {Panel} from "primeng/panel";
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {CanvasService} from "../../canvas/canvas.service";
@@ -11,7 +11,7 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-meta-data',
-  imports: [CommonModule, Panel, ReactiveFormsModule, PropertyGroupRowComponent, InputText, FilterDirective],
+  imports: [Panel, ReactiveFormsModule, PropertyGroupRowComponent, InputText, FilterDirective],
   template: `
     <p-panel header="Meta data"
              [toggleable]="true"

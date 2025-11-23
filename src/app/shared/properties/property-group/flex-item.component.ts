@@ -1,5 +1,5 @@
 import {Component, OnChanges} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {DropdownComponent} from "../form-items/dropdown.component";
@@ -14,7 +14,7 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-flex-item',
-  imports: [CommonModule, ReactiveFormsModule, SliderComponent, DropdownComponent, PanelModule, FilterDirective],
+  imports: [ReactiveFormsModule, SliderComponent, DropdownComponent, PanelModule, FilterDirective],
   template: `
     <ng-container [formGroup]="formGroup">
       <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">

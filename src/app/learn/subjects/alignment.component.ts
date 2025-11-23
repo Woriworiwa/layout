@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {AlignItems, FlexDirection, JustifyContent} from "../../core/models/css/properties.enum";
 import {PropertiesFlexContainerComponent} from "../../shared/properties/property-group/flex-container.component";
 import {CanvasItem} from "../../core/models/canvas-item.model";
@@ -7,7 +7,7 @@ import {Card} from "primeng/card";
 
 @Component({
   selector: 'app-alignment',
-  imports: [CommonModule, PropertiesFlexContainerComponent, Card],
+  imports: [PropertiesFlexContainerComponent, Card],
   templateUrl: './alignment.component.html',
   styleUrl: './alignment.component.scss',
 })

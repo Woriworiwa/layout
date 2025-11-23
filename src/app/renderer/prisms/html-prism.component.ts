@@ -1,5 +1,5 @@
 import {AfterViewChecked, Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import * as Prism from 'prismjs';
 import 'prismjs';
 import 'prismjs/components/prism-css';
@@ -17,7 +17,7 @@ import {Highlight} from "ngx-highlightjs";
 
 @Component({
     selector: 'app-html-prism',
-  imports: [CommonModule, ButtonModule, Highlight],
+  imports: [ButtonModule, Highlight],
     template: `
     <p-button label="Download" (click)="downloadHtml()"></p-button>
     <pre><code language="html" [highlight]="code"></code></pre>

@@ -8,7 +8,7 @@ import {
   Output,
   Renderer2
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {CanvasItem} from "../../../core/models/canvas-item.model";
 import {Serializer} from "../../../core/serialization/serializers/serializer";
 import {CssStyleSerializer} from "../../../core/serialization/serializers/css-style.serializer";
@@ -20,7 +20,7 @@ import {CanvasItemMouseEvent} from "../canvas-item-mouse-event";
 @Component({
     selector: 'app-canvas-base-component',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule],
+    imports: [],
     template: ``
 })
 export class CanvasItemComponent implements OnDestroy, OnChanges {

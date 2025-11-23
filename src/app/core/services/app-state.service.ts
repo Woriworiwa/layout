@@ -1,5 +1,5 @@
-import {DOCUMENT} from '@angular/common';
-import {computed, effect, inject, Injectable, signal} from '@angular/core';
+
+import {computed, effect, inject, Injectable, signal, DOCUMENT} from '@angular/core';
 import {AppState} from "../store/app.state";
 import {MainAreaContent, SideBarPrimary, SideBarSecondary} from "../enums";
 import {AppLayoutState} from "../store/app-layout.state";

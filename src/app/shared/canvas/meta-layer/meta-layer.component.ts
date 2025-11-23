@@ -1,10 +1,10 @@
 import {Component, ElementRef, Input, SimpleChanges, ViewChild, ViewContainerRef} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {MetaLayerService} from "./meta-layer.service";
 
 @Component({
   selector: 'app-meta-layer',
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="selection-overly-inner">
       <ng-template #overlay></ng-template>

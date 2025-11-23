@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, Renderer2} from "@angular/core";
-import {CommonModule} from "@angular/common";
+
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {SharedModule} from "primeng/api";
@@ -7,7 +7,7 @@ import {CanvasItem} from "../../../core/models/canvas-item.model";
 
 @Component({
     selector: 'app-canvas-hover-item',
-    imports: [CommonModule, ButtonModule, OverlayPanelModule, SharedModule],
+    imports: [ButtonModule, OverlayPanelModule, SharedModule],
     templateUrl: './canvas-hover-item.component.html',
     styleUrls: ['./canvas-hover-item.component.scss']
 })

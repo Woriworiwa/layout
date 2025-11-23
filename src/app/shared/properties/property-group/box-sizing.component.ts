@@ -1,5 +1,5 @@
 import {Component, OnChanges} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {Property} from "csstype";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
@@ -18,7 +18,7 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-box-sizing',
-  imports: [CommonModule, InputNumberModule, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule, AccordionModule, MenuModule, PanelModule, FilterDirective],
+  imports: [InputNumberModule, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule, AccordionModule, MenuModule, PanelModule, FilterDirective],
   template: `
     <p-panel header="Box sizing" [toggleable]="true" [collapsed]="collapsed" toggler="header">
       <ng-container [formGroup]="formGroup">

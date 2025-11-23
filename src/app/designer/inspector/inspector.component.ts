@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {CssPrismComponent} from "../../renderer/prisms/css-prism.component";
 import {SelectionService} from "../../shared/canvas/selection/selection.service";
 import {CanvasItem} from "../../core/models/canvas-item.model";
@@ -14,7 +14,7 @@ import {filter} from "rxjs";
  */
 @Component({
   selector: 'app-inspector',
-  imports: [CommonModule, CssPrismComponent, SelectButton, FormsModule],
+  imports: [CssPrismComponent, SelectButton, FormsModule],
   template: `
     <div class="inspection-mode">
       <p-selectButton

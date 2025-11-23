@@ -7,12 +7,12 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {SelectionService} from "./selection.service";
 
 @Component({
   selector: 'app-selection-layer',
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="selection-overly-inner">
       <ng-template #overlay></ng-template>

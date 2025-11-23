@@ -4,9 +4,10 @@ import {
   ElementRef,
   HostListener,
   Inject, Input, OnDestroy,
-  ViewChild
+  ViewChild,
+  DOCUMENT
 } from '@angular/core';
-import {CommonModule, DOCUMENT} from '@angular/common';
+
 import {ContainerComponent} from "./canvas-items/container/container.component";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CANVAS_WRAPPER_ID} from "../../core/constants";
@@ -31,7 +32,7 @@ import {CanvasSettings} from "./canvas.settings";
 
 @Component({
   selector: 'app-canvas',
-  imports: [CommonModule, ContainerComponent, CanvasToolbarComponent, SortablejsModule, SelectionLayerComponent, MetaLayerComponent],
+  imports: [ContainerComponent, CanvasToolbarComponent, SortablejsModule, SelectionLayerComponent, MetaLayerComponent],
   providers: [CopyPasteService, PresetsService, PanZoomService, MetaLayerService],
   hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
   host: {

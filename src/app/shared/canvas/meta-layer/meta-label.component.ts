@@ -1,9 +1,9 @@
 import {Component, ElementRef, Input, OnChanges, Renderer2} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-meta-label',
-  imports: [CommonModule],
+  imports: [],
   template: `<p>{{label}}</p>`,
   styles: `
     :host {

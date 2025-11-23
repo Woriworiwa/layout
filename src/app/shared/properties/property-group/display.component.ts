@@ -1,5 +1,5 @@
 import {Component, OnChanges} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
 import {takeUntil} from "rxjs";
@@ -17,7 +17,7 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-display',
-  imports: [CommonModule, InputNumberModule, ReactiveFormsModule, SliderModule, DropdownComponent, AccordionModule, PanelModule, FilterDirective],
+  imports: [InputNumberModule, ReactiveFormsModule, SliderModule, DropdownComponent, AccordionModule, PanelModule, FilterDirective],
   template: `
     <p-panel header="Display" [toggleable]="true" [collapsed]="collapsed" toggler="header">
       <app-property-item-dropdown

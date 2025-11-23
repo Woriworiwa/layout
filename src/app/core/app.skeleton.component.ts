@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {HeaderComponent} from "../shared/header/header.component";
 
 @Component({
   selector: 'app-skeleton',
-  imports: [CommonModule, HeaderComponent],
+  imports: [HeaderComponent],
   template: `
     <div class="top">
       <app-header></app-header>
