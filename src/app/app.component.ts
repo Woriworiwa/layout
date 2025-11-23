@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {ButtonModule} from "primeng/button";
 import {CanvasStore} from "./core/store/canvas.store";
@@ -28,13 +28,15 @@ import {MainAreaContent, SideBarSecondary} from "./core/enums";
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  protected canvasService = inject(CanvasService);
+  protected appStateService = inject(AppStateService);
+  private selectionService = inject(SelectionService);
+  private mockService = inject(DataService);
+
   selectedContentId = 1;
   protected readonly MainAreaContent = MainAreaContent;
 
-  constructor(protected canvasService: CanvasService,
-              protected appStateService: AppStateService,
-              private selectionService: SelectionService,
-              private mockService: DataService) {
+  constructor() {
     this.fetchData();
 
     this.selectionService.setSelectedItemKey(this.canvasService.items[0]?.key)

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, OnInit, ViewChild, inject } from '@angular/core';
 
 import {ContextMenu, ContextMenuModule} from "primeng/contextmenu";
 import {MenuItem} from "primeng/api";
@@ -15,15 +15,14 @@ import {CanvasService} from "../canvas.service";
     styles: ``
 })
 export class ContextMenuComponent implements OnInit{
+  private canvasService = inject(CanvasService);
+  private copyPasteService = inject(CopyPasteService);
+
   @Input() target: any;
   @Input() frameKey: string | undefined;
   @ViewChild(ContextMenu) contextMenu!: ContextMenu;
 
   items: MenuItem[] | undefined;
-
-  constructor(private canvasService: CanvasService,
-              private copyPasteService: CopyPasteService) {
-  }
 
   ngOnInit() {
     this.items = [

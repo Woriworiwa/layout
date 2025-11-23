@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, Renderer2} from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, Renderer2, inject } from '@angular/core';
 
 
 @Component({
@@ -24,13 +24,12 @@ import {Component, ElementRef, Input, OnChanges, Renderer2} from '@angular/core'
   `,
 })
 export class MetaLabelComponent implements OnChanges {
+  private renderer = inject(Renderer2);
+  protected elementRef = inject(ElementRef);
+
   @Input() label? = '';
   @Input() top = 0;
   @Input() left = 0;
-
-  constructor(private renderer: Renderer2,
-              protected elementRef: ElementRef) {
-  }
 
   ngOnChanges() {
     this.renderer.setStyle(this.elementRef.nativeElement, 'left', `${this.left}px`);

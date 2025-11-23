@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component, ElementRef,
-  EventEmitter,
-  Input,
-  Output, Renderer2
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, Renderer2, inject } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {EditableContentDirective} from "../text/editable-content.directive";
 import {TextComponent} from "../text/text.component";
@@ -32,19 +26,25 @@ import {CanvasItemMouseEvent} from "../../canvas-item-mouse-event";
     styleUrls: ['./container.component.scss']
 })
 export class ContainerComponent extends CanvasItemComponent {
+  protected canvasService: CanvasService;
+  protected panZoomService = inject(PanZoomService);
+  private dragDropService = inject(DragDropService);
+
   protected readonly FrameType = CanvasItemType;
   @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;
 
   dragOptions: Options;
 
-  constructor(protected canvasService: CanvasService,
-              elementRef: ElementRef,
-              renderer: Renderer2,
-              protected panZoomService: PanZoomService,
-              private dragDropService: DragDropService,
-              selectionService: SelectionService) {
+  constructor() {
+    const canvasService = inject(CanvasService);
+    const elementRef = inject(ElementRef);
+    const renderer = inject(Renderer2);
+    const selectionService = inject(SelectionService);
+
     super(elementRef, renderer, canvasService, selectionService);
+    this.canvasService = canvasService;
+
     this.dragOptions = this.dragDropService.createGroup({group: 'child', ghostClass: 'drag-background-lvl-1'});
   }
 

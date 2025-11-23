@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, SimpleChanges, ViewChild, ViewContainerRef} from '@angular/core';
+import { Component, ElementRef, Input, SimpleChanges, ViewChild, ViewContainerRef, inject } from '@angular/core';
 
 import {MetaLayerService} from "./meta-layer.service";
 
@@ -24,14 +24,13 @@ import {MetaLayerService} from "./meta-layer.service";
   `,
 })
 export class MetaLayerComponent {
+  private metaLayerService = inject(MetaLayerService);
+
   @Input()
   canvasElement: ElementRef | undefined;
 
   @ViewChild("overlay", {read: ViewContainerRef})
   overlay!: ViewContainerRef;
-
-  constructor(private metaLayerService: MetaLayerService) {
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['canvasElement'] && this.canvasElement) {

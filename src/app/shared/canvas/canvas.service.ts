@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy} from "@angular/core";
+import { Injectable, OnDestroy, inject } from "@angular/core";
 import {UndoRedoService} from "../../core/undo-redo/undo-redo.service";
 import {PresetsService} from "../../designer/insert/presets.service";
 import {CanvasItem} from "../../core/models/canvas-item.model";
@@ -15,15 +15,17 @@ import {Css} from "../../core/models/css/css";
 
 @Injectable()
 export class CanvasService implements OnDestroy {
+  private canvasStore = inject(CanvasStore);
+  private undoRedoService = inject(UndoRedoService);
+  private selectionService = inject(SelectionService);
+  private presetsService = inject(PresetsService);
+  private dragDropService = inject(DragDropService);
+
   private destroy$ = new Subject<boolean>();
   private cssChangedSubject = new Subject();
   cssChanged$ = this.cssChangedSubject.asObservable();
 
-  constructor(private canvasStore: CanvasStore,
-              private undoRedoService: UndoRedoService,
-              private selectionService: SelectionService,
-              private presetsService: PresetsService,
-              private dragDropService: DragDropService) {
+  constructor() {
     this.subscribeToUndoRedo();
     this.subscribeToDragDrop();
   }

@@ -1,9 +1,11 @@
-import {afterRenderEffect, ElementRef, Injectable, Renderer2, signal} from "@angular/core";
+import { afterRenderEffect, ElementRef, Injectable, Renderer2, signal, inject } from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
 
 
 @Injectable()
 export class PanZoomService {
+  private renderer = inject(Renderer2);
+
   readonly ZOOM_STEP = 0.03;
   readonly MINIMUM_ZOOM = 0.3;
   readonly MAXIMUM_ZOOM = 10;
@@ -19,7 +21,7 @@ export class PanZoomService {
 
   state$: Observable<{ panModeActive: boolean, isPanning: boolean }> = this.currentStateSubject.asObservable();
 
-  constructor(private renderer: Renderer2) {
+  constructor() {
     afterRenderEffect(() => {
       if (!this.canvas) {
         return;

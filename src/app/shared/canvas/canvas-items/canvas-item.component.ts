@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input, OnChanges, OnDestroy,
-  Output,
-  Renderer2
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, Renderer2, inject } from '@angular/core';
 
 import {CanvasItem} from "../../../core/models/canvas-item.model";
 import {Serializer} from "../../../core/serialization/serializers/serializer";
@@ -24,6 +15,11 @@ import {CanvasItemMouseEvent} from "../canvas-item-mouse-event";
     template: ``
 })
 export class CanvasItemComponent implements OnDestroy, OnChanges {
+  private baseElementRef = inject(ElementRef);
+  private baseRenderer = inject(Renderer2);
+  private baseCanvasService = inject(CanvasService);
+  private baseSelectionService = inject(SelectionService);
+
   @Input() item: CanvasItem | undefined;
   @Output() clicked = new EventEmitter<CanvasItemMouseEvent>();
   @Output() mouseOver = new EventEmitter<CanvasItemMouseEvent>();
@@ -31,12 +27,6 @@ export class CanvasItemComponent implements OnDestroy, OnChanges {
   @Output() contextMenu = new EventEmitter<CanvasItemMouseEvent>();
 
   private destroy$ = new Subject();
-
-  constructor(private baseElementRef: ElementRef,
-              private baseRenderer: Renderer2,
-              private baseCanvasService: CanvasService,
-              private baseSelectionService: SelectionService) {
-  }
 
   @HostListener('click', ['$event'])
   onClick($event: MouseEvent) {

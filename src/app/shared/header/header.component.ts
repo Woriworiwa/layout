@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {ThemeService} from "../../core/services/theme.service";
 import {ToggleButtonModule} from "primeng/togglebutton";
@@ -24,6 +24,12 @@ import {Menubar} from "primeng/menubar";
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  private themeService = inject(ThemeService);
+  protected appStateService = inject(AppStateService);
+  private dataService = inject(DataService);
+  private canvasService = inject(CanvasService);
+  private messageService = inject(MessageService);
+
   protected readonly window = window;
 
   selectedTabId = MainAreaContent.CANVAS;
@@ -48,13 +54,6 @@ export class HeaderComponent {
 
   scopedTokens = {
     borderColor: 'transparent'
-  }
-
-  constructor(private themeService: ThemeService,
-              protected appStateService: AppStateService,
-              private dataService: DataService,
-              private canvasService: CanvasService,
-              private messageService: MessageService) {
   }
 
   showConfig() {

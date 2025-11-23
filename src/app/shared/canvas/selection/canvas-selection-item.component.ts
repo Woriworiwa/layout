@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, Renderer2, ViewChild} from "@angular/core";
+import { Component, ElementRef, Input, OnChanges, Renderer2, ViewChild, inject } from "@angular/core";
 
 import {ButtonModule} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
@@ -18,6 +18,9 @@ import {Popover} from "primeng/popover";
     styleUrls: ['./canvas-selection-item.component.scss']
 })
 export class CanvasSelectionItemComponent implements OnChanges{
+  private renderer = inject(Renderer2);
+  protected elementRef = inject(ElementRef);
+
   @Input() width = 0;
   @Input() height = 0;
   @Input() top = 0;
@@ -35,10 +38,6 @@ export class CanvasSelectionItemComponent implements OnChanges{
   ];
 
   @ViewChild(ContextMenuComponent) contextMenu!: ContextMenuComponent;
-
-  constructor(private renderer: Renderer2,
-              protected elementRef: ElementRef) {
-  }
 
   ngOnChanges() {
       this.renderer.setStyle(this.elementRef.nativeElement, 'visibility', this.visibility);

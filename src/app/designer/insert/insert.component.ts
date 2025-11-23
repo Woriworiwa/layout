@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CANVAS_WRAPPER_ID} from "../../core/constants";
 import {PresetsService} from "./presets.service";
@@ -12,6 +12,9 @@ import {InsertPosition} from "../../core/enums";
     styleUrls: [`insert.component.scss`]
 })
 export class InsertComponent {
+  private canvasService = inject(CanvasService);
+  private presetsService = inject(PresetsService);
+
   @Input()
   parentFrameId: string | undefined;
 
@@ -23,8 +26,7 @@ export class InsertComponent {
 
   components: any[] = [];
 
-  constructor(private canvasService: CanvasService,
-              private presetsService: PresetsService) {
+  constructor() {
     this.components = this.presetsService.getPresetComponents();
   }
 

@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ViewChild,
-  ViewContainerRef
-} from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild, ViewContainerRef, inject } from '@angular/core';
 
 import {SelectionService} from "./selection.service";
 
@@ -32,6 +24,8 @@ import {SelectionService} from "./selection.service";
   `,
 })
 export class SelectionLayerComponent implements OnChanges {
+  private selectionService = inject(SelectionService);
+
   @Input()
   canvasElement: ElementRef | undefined;
 
@@ -40,9 +34,6 @@ export class SelectionLayerComponent implements OnChanges {
 
   @ViewChild("overlay", {read: ViewContainerRef})
   overlay!: ViewContainerRef;
-
-  constructor(private selectionService: SelectionService) {
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['canvasElement'] && this.canvasElement) {

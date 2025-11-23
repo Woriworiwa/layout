@@ -1,4 +1,4 @@
-import {Component, OnChanges} from '@angular/core';
+import { Component, OnChanges, inject } from '@angular/core';
 
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
@@ -46,8 +46,10 @@ export class DisplayComponent extends PropertyGroupComponent implements OnChange
     Display.none
   ];
 
-  constructor(fb: FormBuilder,
-              canvasService: CanvasService) {
+  constructor() {
+    const fb = inject(FormBuilder);
+    const canvasService = inject(CanvasService);
+
     super(fb, canvasService);
   }
 

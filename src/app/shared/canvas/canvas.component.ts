@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  Inject, Input, OnDestroy,
-  ViewChild,
-  DOCUMENT
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild, DOCUMENT, inject } from '@angular/core';
 
 import {ContainerComponent} from "./canvas-items/container/container.component";
 import {CanvasItem} from "../../core/models/canvas-item.model";
@@ -42,6 +34,12 @@ import {CanvasSettings} from "./canvas.settings";
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements AfterViewInit, OnDestroy {
+  private canvasService = inject(CanvasService);
+  protected selectionService = inject(SelectionService);
+  private contextMenuService = inject(ContextMenuService);
+  protected panZoomService = inject(PanZoomService);
+  protected dragDropService = inject(DragDropService);
+
   @Input() settings: CanvasSettings = new CanvasSettings({allowAdd: true});
 
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
@@ -53,12 +51,9 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   @ViewChild("wrapper")
   wrapperElementRef!: ElementRef;
 
-  constructor(private canvasService: CanvasService,
-              protected selectionService: SelectionService,
-              private contextMenuService: ContextMenuService,
-              protected panZoomService: PanZoomService,
-              protected dragDropService: DragDropService,
-              @Inject(DOCUMENT) document: Document) {
+  constructor() {
+    const document = inject<Document>(DOCUMENT);
+
 
     this.initDragDrop();
 

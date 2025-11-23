@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, inject } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SidebarModule} from "primeng/sidebar";
 import {CanvasItem} from "../../core/models/canvas-item.model";
@@ -24,13 +24,12 @@ import {Highlight} from "ngx-highlightjs";
   `
 })
 export class JsonPrismComponent implements OnChanges, OnInit, OnDestroy {
+  protected canvasService = inject(CanvasService);
+  private serializerService = inject(SerializationService);
+
   frames: CanvasItem[] | undefined = undefined;
 
   private destroy$ = new Subject<boolean>();
-
-  constructor(protected canvasService: CanvasService,
-              private serializerService: SerializationService) {
-  }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);

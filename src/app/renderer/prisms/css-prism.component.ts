@@ -1,12 +1,4 @@
-import {
-  AfterViewChecked,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy
-} from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
 
 import * as Prism from 'prismjs';
 import 'prismjs';
@@ -36,17 +28,16 @@ import {Highlight} from "ngx-highlightjs";
   `
 })
 export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy {
+  private canvasService = inject(CanvasService);
+  private selectionService = inject(SelectionService);
+  private cd = inject(ChangeDetectorRef);
+  private serializerService = inject(SerializationService);
+
   @Input()
   canvasItems: CanvasItem[] = [];
 
   protected css = '';
   private destroy$ = new Subject();
-
-  constructor(private canvasService: CanvasService,
-              private selectionService: SelectionService,
-              private cd: ChangeDetectorRef,
-              private serializerService: SerializationService) {
-  }
 
   ngOnChanges() {
     this.serializeToCss()

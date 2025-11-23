@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {UndoRedoService} from "../../../core/undo-redo/undo-redo.service";
 import {ButtonModule} from "primeng/button";
@@ -17,14 +17,13 @@ import {AppStateService} from "../../../core/services/app-state.service";
     styleUrl: './canvas-toolbar.component.scss'
 })
 export class CanvasToolbarComponent {
+  protected undoRedoService = inject(UndoRedoService);
+  protected panZoomService = inject(PanZoomService);
+  protected themeService = inject(ThemeService);
+  protected appStateService = inject(AppStateService);
+
   @HostListener('click', ['$event'])
   onClick($event: MouseEvent) {
     $event.stopPropagation();
-  }
-
-  constructor(protected undoRedoService: UndoRedoService,
-              protected panZoomService: PanZoomService,
-              protected themeService: ThemeService,
-              protected appStateService: AppStateService) {
   }
 }

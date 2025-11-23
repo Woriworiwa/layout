@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {CssPrismComponent} from "../../renderer/prisms/css-prism.component";
 import {SelectionService} from "../../shared/canvas/selection/selection.service";
@@ -35,6 +35,9 @@ import {filter} from "rxjs";
   `,
 })
 export class InspectorComponent {
+  protected selectionService = inject(SelectionService);
+  protected canvasService = inject(CanvasService);
+
   canvasItem: CanvasItem | undefined;
 
   mode: 'select' | 'hover' = 'select'
@@ -44,8 +47,7 @@ export class InspectorComponent {
     { name: 'Hover', value: 'hover' }
   ];
 
-  constructor(protected selectionService: SelectionService,
-              protected canvasService: CanvasService) {
+  constructor() {
     this.initializeInspection();
   }
 

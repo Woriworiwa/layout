@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import {CanvasComponent} from "../shared/canvas/canvas.component";
 import {CanvasService} from "../shared/canvas/canvas.service";
@@ -41,6 +41,9 @@ enum SideBarSecondaryCode {
   styleUrl: './tutorial.component.scss',
 })
 export class TutorialComponent implements OnInit {
+  private tutorialService = inject(TutorialService);
+  protected selectionService = inject(SelectionService);
+
   sourceItem: CanvasItem | undefined;
   selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.FLEX;
   selectedSidebarSecondary: SideBarSecondaryCode = SideBarSecondaryCode.ALIGNMENT;
@@ -57,10 +60,6 @@ export class TutorialComponent implements OnInit {
   secondaryTabs: Tab<SideBarSecondaryCode>[] = [
     {title: 'Alignment', tab: SideBarSecondaryCode.ALIGNMENT, icon: 'pi pi-plus'},
   ];
-
-  constructor(private tutorialService: TutorialService,
-              protected selectionService: SelectionService) {
-  }
 
   ngOnInit() {
     this.tutorialService.init();

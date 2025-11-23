@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, inject } from '@angular/core';
 
 import {FormsModule} from "@angular/forms";
 import {Tooltip} from "primeng/tooltip";
@@ -17,6 +17,10 @@ import {CanvasItem} from "../../core/models/canvas-item.model";
   styleUrl: './side-bar.component.scss',
 })
 export class SideBarComponent implements OnDestroy, OnChanges {
+  protected appStateService = inject(AppStateService);
+  protected selectionService = inject(SelectionService);
+  protected canvasService = inject(CanvasService);
+
   @Input()
   tabs: any;
 
@@ -28,9 +32,7 @@ export class SideBarComponent implements OnDestroy, OnChanges {
   private destroy$ = new Subject();
   frame: CanvasItem | undefined;
 
-  constructor(protected appStateService: AppStateService,
-              protected selectionService: SelectionService,
-              protected canvasService: CanvasService) {
+  constructor() {
     this.selectionService.hoverItem$
       .pipe(takeUntil(this.destroy$))
       .subscribe(frame => {

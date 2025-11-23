@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import {CanvasService} from "../shared/canvas/canvas.service";
 import {SelectionService} from "../shared/canvas/selection/selection.service";
 import { HttpClient } from "@angular/common/http";
@@ -6,11 +6,13 @@ import { CanvasItem } from "../core/models/canvas-item.model";
 
 @Injectable()
 export class TutorialService {
+  private canvasService = inject(CanvasService);
+  private selectionService = inject(SelectionService);
+  private httpClient = inject(HttpClient);
+
   cachedData: Record<string, CanvasItem[]> = {};
 
-  constructor(private canvasService: CanvasService,
-              private selectionService: SelectionService,
-              private httpClient: HttpClient) {
+  constructor() {
     this.init();
   }
 

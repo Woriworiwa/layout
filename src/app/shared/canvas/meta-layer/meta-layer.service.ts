@@ -1,4 +1,4 @@
-import {ElementRef, Injectable, ViewContainerRef} from "@angular/core";
+import { ElementRef, Injectable, ViewContainerRef, inject } from "@angular/core";
 import {CanvasService} from "../canvas.service";
 import {CanvasItem} from "../../../core/models/canvas-item.model";
 import {MetaLabelComponent} from "./meta-label.component";
@@ -6,11 +6,10 @@ import {delay} from "rxjs";
 
 @Injectable()
 export class MetaLayerService {
+  private canvasService = inject(CanvasService);
+
   overlay!: ViewContainerRef;
   canvas!: ElementRef;
-
-  constructor(private canvasService: CanvasService) {
-  }
 
   initialize(overlay: ViewContainerRef, canvas: ElementRef) {
     this.overlay = overlay;

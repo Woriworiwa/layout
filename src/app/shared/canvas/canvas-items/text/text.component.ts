@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnChanges, Renderer2} from '@angular/core';
+import { Component, ElementRef, OnChanges, Renderer2, inject } from '@angular/core';
 
 import {CanvasItemComponent} from "../canvas-item.component";
 import {SelectionService} from "../../selection/selection.service";
@@ -30,11 +30,17 @@ import {KeyboardCommandsDirective} from "../../keyboard-commands.directive";
   `
 })
 export class TextComponent extends CanvasItemComponent implements OnChanges{
-  constructor(canvasService: CanvasService,
-              private elementRef: ElementRef,
-              renderer: Renderer2,
-              selectionService: SelectionService) {
+  private elementRef: ElementRef;
+
+  constructor() {
+    const canvasService = inject(CanvasService);
+    const elementRef = inject(ElementRef);
+    const renderer = inject(Renderer2);
+    const selectionService = inject(SelectionService);
+
     super(elementRef, renderer, canvasService, selectionService);
+  
+    this.elementRef = elementRef;
   }
 
   override ngOnChanges() {

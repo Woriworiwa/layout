@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ThemeService} from "../services/theme.service";
@@ -15,6 +15,8 @@ import {ListboxChangeEvent, ListboxModule} from "primeng/listbox";
     styleUrl: './theme-options.component.scss'
 })
 export class ThemeOptionsComponent {
+  private themeService = inject(ThemeService);
+
   themes = [
     {name: 'aura blue', value: 'aura-blue'},
     {name: 'lara blue', value: 'lara-blue'},
@@ -25,7 +27,7 @@ export class ThemeOptionsComponent {
 
   selectedTheme: { name: string, value: string } | undefined = undefined;
 
-  constructor(private themeService: ThemeService) {
+  constructor() {
     this.selectedTheme = this.themes.find((theme) => theme.value === this.themeService.config().theme);
   }
 

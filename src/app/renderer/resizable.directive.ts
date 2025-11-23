@@ -1,15 +1,16 @@
-import { Directive, ElementRef, HostListener, Renderer2, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2, OnInit, inject } from '@angular/core';
 
 @Directive({
   selector: '[appResizable]'
 })
 export class ResizableDirective implements OnInit {
+  private el = inject(ElementRef);
+  private renderer = inject(Renderer2);
+
   private isResizing = false;
   private initialWidth = 0;
   private initialMouseX = 0;
   private iframe: HTMLElement | null = null;
-
-  constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit() {
     this.iframe = this.el.nativeElement.parentElement?.querySelector('iframe') || null;

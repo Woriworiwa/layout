@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
 
 import {Panel} from "primeng/panel";
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -36,8 +36,10 @@ import {FilterDirective} from "../filter.directive";
 export class MetaDataComponent extends PropertyGroupComponent implements OnChanges, OnDestroy {
   @Input() label: string | undefined;
 
-  constructor(fb: FormBuilder,
-              canvasService: CanvasService) {
+  constructor() {
+    const fb = inject(FormBuilder);
+    const canvasService = inject(CanvasService);
+
     super(fb, canvasService);
   }
 

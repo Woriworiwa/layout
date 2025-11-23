@@ -1,12 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  HostListener,
-  Input, OnDestroy,
-  Output
-} from "@angular/core";
+import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output, inject } from "@angular/core";
 import {CanvasItem} from "../../../../core/models/canvas-item.model";
 import {BehaviorSubject, distinctUntilChanged, Subject, takeUntil} from "rxjs";
 import {SelectionService} from "../../selection/selection.service";
@@ -25,6 +17,10 @@ import {SelectionService} from "../../selection/selection.service";
   }
 })
 export class EditableContentDirective implements OnDestroy {
+  private elementRef = inject(ElementRef);
+  private ref = inject(ElementRef);
+  private selectionService = inject(SelectionService);
+
   @HostBinding('attr.contenteditable')
   editMode = false;
 
@@ -74,9 +70,7 @@ export class EditableContentDirective implements OnDestroy {
 
   protected destroy$ = new Subject();
 
-  constructor(private elementRef: ElementRef,
-              private ref: ElementRef,
-              private selectionService: SelectionService) {
+  constructor() {
     this.selectionService.selectedItem$.pipe(
       takeUntil(this.destroy$),
       distinctUntilChanged((prev, curr) => prev?.key === curr?.key)

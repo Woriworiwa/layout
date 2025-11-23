@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, Renderer2} from "@angular/core";
+import { Component, ElementRef, Input, OnChanges, Renderer2, inject } from "@angular/core";
 
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
@@ -12,6 +12,9 @@ import {CanvasItem} from "../../../core/models/canvas-item.model";
     styleUrls: ['./canvas-hover-item.component.scss']
 })
 export class CanvasHoverItemComponent implements OnChanges{
+  private renderer = inject(Renderer2);
+  protected elementRef = inject(ElementRef);
+
   @Input() width = 0;
   @Input() height = 0;
   @Input() top = 0;
@@ -19,10 +22,6 @@ export class CanvasHoverItemComponent implements OnChanges{
   @Input() canvasItem: CanvasItem | undefined = undefined;
   @Input() visibility: 'visible' | 'hidden' = 'visible';
   @Input() showAddButton = true;
-
-  constructor(private renderer: Renderer2,
-              protected elementRef: ElementRef) {
-  }
 
   ngOnChanges() {
     this.renderer.setStyle(this.elementRef.nativeElement, 'visibility', this.visibility);

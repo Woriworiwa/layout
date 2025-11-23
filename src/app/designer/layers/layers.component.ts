@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 
 import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeExpandEvent} from "primeng/tree";
 import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
@@ -23,6 +23,9 @@ import {Subject, takeUntil} from "rxjs";
     styleUrls: ['./layers.component.scss']
 })
 export class LayersComponent implements OnInit, OnDestroy {
+  private canvasService = inject(CanvasService);
+  private selectionService = inject(SelectionService);
+
   @ViewChild(OverlayPanel) renameDialog!: OverlayPanel;
 
   treeNodes!: TreeNode<CanvasItem>[];
@@ -35,10 +38,6 @@ export class LayersComponent implements OnInit, OnDestroy {
   contextMenuItems: MenuItem[] = [
     {label: 'Rename', icon: 'pi pi-search', command: (event: any) => this.openRenameDialog(event)},
   ]
-
-  constructor(private canvasService: CanvasService,
-              private selectionService: SelectionService) {
-  }
 
   ngOnInit() {
     this.initStoreSubscriptions();

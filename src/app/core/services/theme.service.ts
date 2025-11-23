@@ -1,4 +1,4 @@
-import {Inject, Injectable, PLATFORM_ID, effect, signal, inject, DOCUMENT} from '@angular/core';
+import { Injectable, PLATFORM_ID, effect, signal, inject, DOCUMENT } from '@angular/core';
 import { Subject } from 'rxjs';
 import {isPlatformBrowser} from '@angular/common';
 import {ThemeModel} from "../models/theme.model";
@@ -7,6 +7,8 @@ import {ThemeModel} from "../models/theme.model";
   providedIn: 'root'
 })
 export class ThemeService {
+  private platformId = inject(PLATFORM_ID);
+
 
   _config: ThemeModel = {
     theme: 'mdc-deeppurple',
@@ -23,7 +25,7 @@ export class ThemeService {
   configUpdate$ = this.configUpdate.asObservable();
   document = inject(DOCUMENT);
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {
+  constructor() {
     effect(() => {
       const config = this.config();
       if (isPlatformBrowser(this.platformId)) {

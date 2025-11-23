@@ -1,4 +1,4 @@
-import {ComponentRef, ElementRef, Injectable, OnDestroy, ViewContainerRef} from "@angular/core";
+import { ComponentRef, ElementRef, Injectable, OnDestroy, ViewContainerRef, inject } from "@angular/core";
 import {CanvasStore} from "../../../core/store/canvas.store";
 import {CanvasItem} from "../../../core/models/canvas-item.model";
 import {CanvasSelectionItemComponent} from "./canvas-selection-item.component";
@@ -9,6 +9,10 @@ import {BehaviorSubject, combineLatestWith, distinctUntilChanged, map, Observabl
 
 @Injectable()
 export class SelectionService implements OnDestroy {
+  private canvasStore = inject(CanvasStore);
+  private contextMenuService = inject(ContextMenuService);
+  private dragDropService = inject(DragDropService);
+
   overlay!: ViewContainerRef;
   canvas!: ElementRef;
   allowAdd = true;
@@ -22,9 +26,7 @@ export class SelectionService implements OnDestroy {
 
   protected hoverCanvasItemIdSubject: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
 
-  constructor(private canvasStore: CanvasStore,
-              private contextMenuService: ContextMenuService,
-              private dragDropService: DragDropService) {
+  constructor() {
     this.selectedItemId$ = this.selectedItemId.asObservable();
   }
 

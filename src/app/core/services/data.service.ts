@@ -1,12 +1,12 @@
 import {CanvasItem} from "../models/canvas-item.model";
-import {Injectable} from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import {mockData} from "../../../assets/data/mock-data";
 import {CanvasService} from "../../shared/canvas/canvas.service";
 
 @Injectable()
 export class DataService {
-  constructor(private canvasService: CanvasService) {
-  }
+  private canvasService = inject(CanvasService);
+
 
   getInitialData() {
     const savedData = this.loadDataFromLocalStorage();

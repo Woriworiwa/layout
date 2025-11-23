@@ -1,4 +1,4 @@
-import {Directive, HostBinding, HostListener} from "@angular/core";
+import { Directive, HostBinding, HostListener, inject } from "@angular/core";
 import {PanZoomService} from "./pan-zoom.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
@@ -7,7 +7,9 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
   standalone: true,
 })
 export class PanZoomDirective {
-  constructor(private panZoomService: PanZoomService) {
+  private panZoomService = inject(PanZoomService);
+
+  constructor() {
     this.panZoomService.state$
       .pipe(takeUntilDestroyed())
       .subscribe(state => {

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {AppSkeletonComponent} from "../core/app.skeleton.component";
 import {CanvasComponent} from "../shared/canvas/canvas.component";
@@ -17,6 +17,8 @@ import {AppStateService} from "../core/services/app-state.service";
   styleUrl: './designer.component.scss',
 })
 export class DesignerComponent {
+  protected appStateService = inject(AppStateService);
+
   selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.insert;
 
   tabs: {title: string, tab: SideBarPrimary, icon: string}[] = [
@@ -24,9 +26,6 @@ export class DesignerComponent {
     { title: 'Layers', tab: SideBarPrimary.elements, icon: 'pi pi-comment' },
     { title: 'Inspect', tab: SideBarPrimary.inspect, icon: 'pi pi-code' }
   ];
-
-  constructor(protected appStateService: AppStateService) {
-  }
 
   onSideBarPrimaryChange($event: any) {
     this.selectedSideBarPrimary = $event.tab as unknown as SideBarPrimary;

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import { Component, Input, OnDestroy, inject } from '@angular/core';
 
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CanvasItem} from "../../core/models/canvas-item.model";
@@ -37,6 +37,9 @@ export interface Property {
   styleUrls: ['./properties.component.scss']
 })
 export class PropertiesComponent implements OnDestroy {
+  protected canvasService = inject(CanvasService);
+  protected selectionService = inject(SelectionService);
+
   @Input()
   config: PropertiesConfig = {};
 
@@ -48,8 +51,7 @@ export class PropertiesComponent implements OnDestroy {
   protected readonly FrameType = CanvasItemType;
   private destroy$ = new Subject();
 
-  constructor(protected canvasService: CanvasService,
-              protected selectionService: SelectionService) {
+  constructor() {
     this.selectionService.selectedItem$
       .pipe(takeUntil(this.destroy$))
       .subscribe(frame => {

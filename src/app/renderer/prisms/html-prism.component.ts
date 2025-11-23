@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component} from '@angular/core';
+import { AfterViewChecked, Component, inject } from '@angular/core';
 
 import * as Prism from 'prismjs';
 import 'prismjs';
@@ -42,10 +42,12 @@ import {Highlight} from "ngx-highlightjs";
   `
 })
 export class HtmlPrismComponent implements AfterViewChecked {
+  private canvasService = inject(CanvasService);
+  private serializerService = inject(SerializationService);
+
   code = '';
 
-  constructor(private canvasService: CanvasService,
-              private serializerService: SerializationService) {
+  constructor() {
     this.canvasService.items$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {

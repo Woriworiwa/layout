@@ -1,8 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component, HostBinding,
-  Input
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, inject } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from "primeng/button";
 import {OverlayPanelModule} from "primeng/overlaypanel";
@@ -32,6 +28,9 @@ import {PresetsService} from "./presets.service";
   `]
 })
 export class PresetContainerComponent {
+  private cssStyleSerializerPipe = inject(CssStyleSerializerPipe);
+  protected presetsService = inject(PresetsService);
+
   protected readonly FrameType = CanvasItemType;
 
   @Input()
@@ -40,9 +39,5 @@ export class PresetContainerComponent {
   @HostBinding('style')
   get myStyle() {
     return this.cssStyleSerializerPipe.transform(this.preset)
-  }
-
-  constructor(private cssStyleSerializerPipe: CssStyleSerializerPipe,
-              protected presetsService: PresetsService) {
   }
 }

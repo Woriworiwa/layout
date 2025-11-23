@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HtmlSerializer } from "../core/serialization/serializers/html.serializer";
 import { UnsafeHtmlPipe } from "./unsafe-html.pipe";
@@ -38,6 +38,8 @@ interface Tab<T> {
     styleUrl: './preview.component.scss'
 })
 export class PreviewComponent {
+    protected canvasService = inject(CanvasService);
+
     code: any;
     serializer: HtmlSerializer = new HtmlSerializer();
     selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.BROWSER;
@@ -52,7 +54,7 @@ export class PreviewComponent {
         { title: 'HTML', tab: SideBarSecondaryCode.HTML, icon: 'pi pi-comment' },
         { title: 'JSON', tab: SideBarSecondaryCode.JSON, icon: 'pi pi-code' }
     ];
-    constructor(protected canvasService: CanvasService) {
+    constructor() {
         this.canvasService.items$.pipe(takeUntilDestroyed()).subscribe((items: CanvasItem[]) => {
             this.code = this.serializer.serialize(items).join('\n');
         });

@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy} from "@angular/core";
+import { Injectable, OnDestroy, inject } from "@angular/core";
 import {BehaviorSubject, debounceTime, Observable, Subject, takeUntil} from "rxjs";
 import {CanvasStore} from "../store/canvas.store";
 import cloneDeep from "lodash.clonedeep";
@@ -10,6 +10,8 @@ import {CanvasItem} from "../models/canvas-item.model";
 * */
 @Injectable()
 export class UndoRedoService implements OnDestroy {
+  private canvasStore = inject(CanvasStore);
+
   private undoStack: any[][] = [];
   private redoStack: any[][] = [];
   private undoRedoExecutedSubject: Subject<any[]> = new Subject<any[]>();
@@ -23,7 +25,7 @@ export class UndoRedoService implements OnDestroy {
   status$ = this.statusSubject.asObservable();
   undoRedoExecuted$: Observable<any[]> = this.undoRedoExecutedSubject.asObservable();
 
-  constructor(private canvasStore: CanvasStore) {
+  constructor() {
     this.undoStackSubject.pipe(
       debounceTime(250),
       takeUntil(this.destroy$)
