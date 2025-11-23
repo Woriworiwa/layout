@@ -1,7 +1,7 @@
 @if (frame) {
   <div class="properties">
     <div class="form-group">
-      <p-inputGroup>
+      <p-inputgroup>
         <input type="text" pInputText placeholder="Search" [(ngModel)]="searchText" />
         <button type="button"
           pButton
@@ -9,7 +9,7 @@
           class="p-button-secondary"
           [disabled]="searchText === ''"
         (click)="searchText = ''"></button>
-      </p-inputGroup>
+      </p-inputgroup>
     </div>
     <app-properties-meta-data [label]="frame.label"
       [collapsed]="true"

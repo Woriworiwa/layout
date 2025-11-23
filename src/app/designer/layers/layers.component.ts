@@ -1,23 +1,21 @@
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 
-import {TreeModule, TreeNodeContextMenuSelectEvent, TreeNodeExpandEvent} from "primeng/tree";
+import {Tree, TreeNodeContextMenuSelectEvent, TreeNodeExpandEvent} from "primeng/tree";
 import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {FormsModule} from "@angular/forms";
-import {ToggleButtonModule} from "primeng/togglebutton";
 import {CanvasItemType} from "../../core/enums";
-import {ContextMenuModule} from "primeng/contextmenu";
-import {OverlayPanel, OverlayPanelModule} from "primeng/overlaypanel";
-import {ButtonModule} from "primeng/button";
-import {InputTextModule} from "primeng/inputtext";
-import {ToastModule} from "primeng/toast";
+import {ContextMenu} from "primeng/contextmenu";
+import {Popover} from "primeng/popover";
+import {Button} from "primeng/button";
+import {InputText} from "primeng/inputtext";
 import {CanvasService} from "../../shared/canvas/canvas.service";
 import {SelectionService} from "../../shared/canvas/selection/selection.service";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
     selector: 'app-layers',
-    imports: [TreeModule, FormsModule, ToggleButtonModule, ContextMenuModule, OverlayPanelModule, ButtonModule, InputTextModule, ToastModule],
+    imports: [Tree, FormsModule, ContextMenu, Popover, Button, InputText],
     providers: [TreeDragDropService],
     templateUrl: './layers.component.html',
     styleUrls: ['./layers.component.scss']
@@ -26,7 +24,7 @@ export class LayersComponent implements OnInit, OnDestroy {
   private canvasService = inject(CanvasService);
   private selectionService = inject(SelectionService);
 
-  @ViewChild(OverlayPanel) renameDialog!: OverlayPanel;
+  @ViewChild(Popover) renameDialog!: Popover;
 
   treeNodes!: TreeNode<CanvasItem>[];
   selectedItems: CanvasItem | undefined = undefined;

@@ -3,12 +3,9 @@ import { Component, OnChanges, inject } from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
 import {takeUntil} from "rxjs";
-import {InputNumberModule} from "primeng/inputnumber";
-import {SliderModule} from "primeng/slider";
 import {DropdownComponent} from "../form-items/dropdown.component";
-import {AccordionModule} from "primeng/accordion";
 import {PropertyGroupComponent} from "./property-group.component";
-import {PanelModule} from "primeng/panel";
+import {Panel} from "primeng/panel";
 import {CanvasService} from "../../canvas/canvas.service";
 
 
@@ -17,7 +14,7 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-display',
-  imports: [InputNumberModule, ReactiveFormsModule, SliderModule, DropdownComponent, AccordionModule, PanelModule, FilterDirective],
+  imports: [ReactiveFormsModule, DropdownComponent, Panel, FilterDirective],
   template: `
     <p-panel header="Display" [toggleable]="true" [collapsed]="collapsed" toggler="header">
       <app-property-item-dropdown

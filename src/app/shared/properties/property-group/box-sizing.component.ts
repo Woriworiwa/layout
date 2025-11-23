@@ -3,13 +3,9 @@ import { Component, OnChanges, inject } from '@angular/core';
 import {Property} from "csstype";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {InputNumberModule} from "primeng/inputnumber";
-import {SliderModule} from "primeng/slider";
 import {SliderComponent} from "../form-items/slider.component";
-import {AccordionModule} from "primeng/accordion";
 import {PropertyGroupComponent} from "./property-group.component";
-import {MenuModule} from "primeng/menu";
-import {PanelModule} from "primeng/panel";
+import {Panel} from "primeng/panel";
 import {CanvasService} from "../../canvas/canvas.service";
 
 import {Unit} from "../../../core/models/css/unit.enum";
@@ -18,7 +14,7 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-box-sizing',
-  imports: [InputNumberModule, ReactiveFormsModule, SliderModule, SliderComponent, FormsModule, AccordionModule, MenuModule, PanelModule, FilterDirective],
+  imports: [ReactiveFormsModule, SliderComponent, FormsModule, Panel, FilterDirective],
   template: `
     <p-panel header="Box sizing" [toggleable]="true" [collapsed]="collapsed" toggler="header">
       <ng-container [formGroup]="formGroup">

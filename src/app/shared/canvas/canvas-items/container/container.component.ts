@@ -3,8 +3,6 @@ import {CommonModule} from '@angular/common';
 import {EditableContentDirective} from "../text/editable-content.directive";
 import {TextComponent} from "../text/text.component";
 import {CanvasItemType} from '../../../../core/enums';
-import {ButtonModule} from "primeng/button";
-import {OverlayPanelModule} from "primeng/overlaypanel";
 import {CanvasItemComponent} from "../canvas-item.component";
 import {PanZoomService} from "../../pan-zoom.service";
 import {CanvasService} from "../../canvas.service";
@@ -16,7 +14,7 @@ import {CanvasItemMouseEvent} from "../../canvas-item-mouse-event";
 @Component({
     selector: 'app-container',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, EditableContentDirective, TextComponent, ButtonModule, OverlayPanelModule, SortablejsModule],
+    imports: [CommonModule, EditableContentDirective, TextComponent, SortablejsModule],
     templateUrl: 'container.component.html',
     host: {
         /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/

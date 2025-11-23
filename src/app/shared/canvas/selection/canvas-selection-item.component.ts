@@ -1,19 +1,18 @@
 import { Component, ElementRef, Input, OnChanges, Renderer2, ViewChild, inject } from "@angular/core";
 
-import {ButtonModule} from "primeng/button";
+import {Button} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
 import {InsertComponent} from "../../../designer/insert/insert.component";
-import {OverlayPanelModule} from "primeng/overlaypanel";
+import {Popover} from "primeng/popover";
 import {SharedModule} from "primeng/api";
 import {CanvasItem} from "../../../core/models/canvas-item.model";
-import {SelectButtonModule} from "primeng/selectbutton";
+import {SelectButton} from "primeng/selectbutton";
 import {InsertPosition} from "../../../core/enums";
 import {FormsModule} from "@angular/forms";
-import {Popover} from "primeng/popover";
 
 @Component({
     selector: 'app-canvas-selection-item',
-  imports: [ButtonModule, ContextMenuComponent, InsertComponent, OverlayPanelModule, SharedModule, SelectButtonModule, FormsModule, Popover],
+  imports: [Button, ContextMenuComponent, InsertComponent, Popover, SharedModule, SelectButton, FormsModule],
     templateUrl: './canvas-selection-item.component.html',
     styleUrls: ['./canvas-selection-item.component.scss']
 })

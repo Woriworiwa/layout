@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-import {DropdownModule} from "primeng/dropdown";
+import {Select} from "primeng/select";
 import {PropertyGroupRowComponent} from "./property-group-row.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SelectButton} from "primeng/selectbutton";
@@ -8,14 +8,14 @@ import {FormItemComponent} from "./form-item.component";
 
 @Component({
   selector: 'app-property-item-dropdown',
-  imports: [DropdownModule, PropertyGroupRowComponent, ReactiveFormsModule, SelectButton],
+  imports: [Select, PropertyGroupRowComponent, ReactiveFormsModule, SelectButton],
   template: `
     <app-property-panel-row [label]="label">
       @if (propertiesConfig.selectControlsLayout === 'dropdown') {
-        <p-dropdown ngDefaultControl
+        <p-select ngDefaultControl
                     [options]="options"
                     [formControl]="control"
-                    [showClear]="true"></p-dropdown>
+                    [showClear]="true"></p-select>
       } @else {
         <p-selectbutton [options]="options" [formControl]="control"/>
       }

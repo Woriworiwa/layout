@@ -1,13 +1,13 @@
 <!--  dark mode-->
 <section class="property">
   <span class="property-name">Dark Mode</span>
-  <p-inputSwitch [ngModel]="darkMode" (onChange)="onDarkModeChange($event)"></p-inputSwitch>
+  <p-toggleSwitch [ngModel]="darkMode" (onChange)="onDarkModeChange($event)"></p-toggleSwitch>
 </section>
 
 <!--  ripple effect-->
 <section class="property">
   <span class="property-name">Ripple Effect</span>
-  <p-inputSwitch [ngModel]="ripple" (onChange)="onRippleChange($event)"></p-inputSwitch>
+  <p-toggleSwitch [ngModel]="ripple" (onChange)="onRippleChange($event)"></p-toggleSwitch>
 </section>
 
 <!--  theme-->

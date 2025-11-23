@@ -1,39 +1,33 @@
 import {Component, Input, ViewChild} from '@angular/core';
 
-import {DropdownModule} from "primeng/dropdown";
 import {PropertyGroupRowComponent} from "./property-group-row.component";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {InputNumber, InputNumberModule} from "primeng/inputnumber";
-import {SliderChangeEvent, SliderModule} from "primeng/slider";
-import {InputGroupModule} from "primeng/inputgroup";
-import {ButtonModule} from "primeng/button";
-import {FloatLabelModule} from "primeng/floatlabel";
-import {InputGroupAddonModule} from "primeng/inputgroupaddon";
-import {InputTextModule} from "primeng/inputtext";
-import {IconFieldModule} from "primeng/iconfield";
-import {InputIconModule} from "primeng/inputicon";
-import {SpeedDialModule} from "primeng/speeddial";
+import {InputNumber} from "primeng/inputnumber";
+import {SliderChangeEvent, Slider} from "primeng/slider";
+import {InputGroup} from "primeng/inputgroup";
+import {Select} from "primeng/select";
+import {Button} from "primeng/button";
 import {Unit} from "../../../core/models/css/unit.enum";
 import {POSTFIX_UNIT} from "../../../core/constants";
 import {FormItemComponent} from "./form-item.component";
 
 @Component({
     selector: 'app-property-item-slider',
-    imports: [DropdownModule, PropertyGroupRowComponent, ReactiveFormsModule, InputNumberModule, SliderModule, InputGroupModule, ButtonModule, FloatLabelModule, InputGroupAddonModule, InputTextModule, FormsModule, IconFieldModule, InputIconModule, SpeedDialModule],
+    imports: [PropertyGroupRowComponent, ReactiveFormsModule, InputNumber, Slider, InputGroup, Select, Button, FormsModule],
     template: `
     <app-property-panel-row [label]="label">
       <div>
-        <p-inputGroup>
+        <p-inputgroup>
           <p-inputNumber [id]="label" inputId="integeronly" [formControl]="control" (onKeyDown)="onKeyDown($event)"></p-inputNumber>
           @if (unit) {
-            <p-dropdown
+            <p-select
               [options]="items"
               [formControl]="unit"/>
           }
           <button type="button" pButton icon="pi pi-times" (click)="onClearButtonClick()"
           [disabled]="control.value === null || control.value === undefined"></button>
-    
-        </p-inputGroup>
+
+        </p-inputgroup>
         <p-slider [formControl]="control" [max]="max" (onChange)="onSliderChange($event)"></p-slider>
       </div>
     </app-property-panel-row>
@@ -68,13 +62,13 @@ import {FormItemComponent} from "./form-item.component";
       display: none;
     }
 
-    ::ng-deep p-dropdown {
+    ::ng-deep p-select {
       position: absolute;
       right: 36px;
       top: 1px;
       width: 40px !important;
     }
-    ::ng-deep .p-dropdown {
+    ::ng-deep .p-select {
       border: 0;
       tab-index: -1;
     }

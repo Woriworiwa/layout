@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, inject } from '@angular/core';
 
-import {ContextMenu, ContextMenuModule} from "primeng/contextmenu";
+import {ContextMenu} from "primeng/contextmenu";
 import {MenuItem} from "primeng/api";
 import {CopyPasteService} from "../copy-paste.service";
 import {CanvasService} from "../canvas.service";
@@ -8,7 +8,7 @@ import {CanvasService} from "../canvas.service";
 
 @Component({
     selector: 'app-context-menu',
-    imports: [ContextMenuModule],
+    imports: [ContextMenu],
     template: `
     <!--set triggerEvent to empty string. we manually handle showing the context menu from the canvas item-->
     <p-contextMenu [target]="target" [model]="items" triggerEvent="''" appendTo="body"></p-contextMenu>`,

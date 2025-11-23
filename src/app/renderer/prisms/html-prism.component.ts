@@ -8,7 +8,7 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-markup';
 import {CanvasItem} from "../../core/models/canvas-item.model";
-import {ButtonModule} from "primeng/button";
+import {Button} from "primeng/button";
 import FileSaver from 'file-saver';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SerializationService} from "../../core/serialization/serialization.service";
@@ -17,7 +17,7 @@ import {Highlight} from "ngx-highlightjs";
 
 @Component({
     selector: 'app-html-prism',
-  imports: [ButtonModule, Highlight],
+  imports: [Button, Highlight],
     template: `
     <p-button label="Download" (click)="downloadHtml()"></p-button>
     <pre><code language="html" [highlight]="code"></code></pre>

@@ -1,15 +1,15 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {UndoRedoService} from "../../../core/undo-redo/undo-redo.service";
-import {ButtonModule} from "primeng/button";
+import {Button} from "primeng/button";
 import {PanZoomService} from "../pan-zoom.service";
-import {TooltipModule} from "primeng/tooltip";
+import {Tooltip} from "primeng/tooltip";
 import {ThemeService} from "../../../core/services/theme.service";
 import {AppStateService} from "../../../core/services/app-state.service";
 
 @Component({
     selector: 'app-canvas-toolbar',
-    imports: [CommonModule, ButtonModule, TooltipModule],
+    imports: [CommonModule, Button, Tooltip],
     host: {
         '[class.surface-0]': 'true',
     },

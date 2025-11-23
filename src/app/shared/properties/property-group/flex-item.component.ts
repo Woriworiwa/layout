@@ -5,7 +5,7 @@ import {takeUntil} from "rxjs";
 import {DropdownComponent} from "../form-items/dropdown.component";
 import {SliderComponent} from "../form-items/slider.component";
 import {PropertyGroupComponent} from "./property-group.component";
-import {PanelModule} from "primeng/panel";
+import {Panel} from "primeng/panel";
 import {CanvasService} from "../../canvas/canvas.service";
 
 
@@ -14,7 +14,7 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-flex-item',
-  imports: [ReactiveFormsModule, SliderComponent, DropdownComponent, PanelModule, FilterDirective],
+  imports: [ReactiveFormsModule, SliderComponent, DropdownComponent, Panel, FilterDirective],
   template: `
     <ng-container [formGroup]="formGroup">
       <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">

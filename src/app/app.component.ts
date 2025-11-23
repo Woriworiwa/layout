@@ -1,13 +1,7 @@
 import { Component, inject } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {ButtonModule} from "primeng/button";
 import {CanvasStore} from "./core/store/canvas.store";
 import {DataService} from "./core/services/data.service";
-import {SplitterModule} from "primeng/splitter";
-import {TabViewModule} from "primeng/tabview";
-import {SelectButtonModule} from "primeng/selectbutton";
-import {FormsModule} from "@angular/forms";
-import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {UndoRedoService} from "./core/undo-redo/undo-redo.service";
 import {PresetsService} from "./designer/insert/presets.service";
@@ -21,7 +15,7 @@ import {MainAreaContent, SideBarSecondary} from "./core/enums";
 
 @Component({
     selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, SplitterModule, TabViewModule, SelectButtonModule, FormsModule, ToastModule],
+  imports: [RouterOutlet],
     providers: [CanvasStore, CanvasService, DataService, MessageService, PresetsService, SelectionService, ContextMenuService, DragDropService, UndoRedoService],
     hostDirectives: [UndoRedoDirective],
     templateUrl: './app.component.html',

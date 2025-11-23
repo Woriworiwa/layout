@@ -1,6 +1,5 @@
 import { Component, OnChanges, OnDestroy, OnInit, inject } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SidebarModule} from "primeng/sidebar";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {SerializationService} from "../../core/serialization/serialization.service";
 import {JSONSerializer} from "../../core/serialization/serializers/JSON.serializer";
@@ -10,7 +9,7 @@ import {Highlight} from "ngx-highlightjs";
 
 @Component({
   selector: 'app-json-prism',
-  imports: [CommonModule, SidebarModule, Highlight],
+  imports: [CommonModule, Highlight],
   template: `
     <code>
       <pre><code language="json" [highlight]="frames | json"></code></pre>

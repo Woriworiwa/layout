@@ -4,7 +4,6 @@ import { HtmlSerializer } from "../core/serialization/serializers/html.serialize
 import { UnsafeHtmlPipe } from "./unsafe-html.pipe";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { CanvasItem } from "../core/models/canvas-item.model";
-import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { CanvasService } from "../shared/canvas/canvas.service";
 import { AppSkeletonComponent } from "../core/app.skeleton.component";
@@ -33,7 +32,7 @@ interface Tab<T> {
 @Component({
     selector: 'app-preview',
     standalone: true,
-    imports: [CommonModule, UnsafeHtmlPipe, DropdownModule, FormsModule, AppSkeletonComponent, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent, ResizableDirective],
+    imports: [CommonModule, UnsafeHtmlPipe, FormsModule, AppSkeletonComponent, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent, ResizableDirective],
     templateUrl: './preview.component.html',
     styleUrl: './preview.component.scss'
 })

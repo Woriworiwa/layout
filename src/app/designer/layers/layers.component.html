@@ -16,7 +16,7 @@
 
 <p-contextMenu #contextMenu [model]="contextMenuItems"></p-contextMenu>
 
-<p-overlayPanel #renameItem>
+<p-popover #renameItem>
   <input #nameInput
          pInputText
          autofocus
@@ -28,4 +28,4 @@
     <p-button type="button" label="Cancel" [text]="true" (click)="renameItem.hide()"></p-button>
     <p-button type="submit" label="Rename" (click)="renameNode(selectedItems?.key!, nameInput.value)"></p-button>
   </div>
-</p-overlayPanel>
+</p-popover>

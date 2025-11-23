@@ -7,7 +7,7 @@ import {DropdownComponent} from "../form-items/dropdown.component";
 import {SelectButtonComponent} from "../form-items/select-button.component";
 import {SliderComponent} from "../form-items/slider.component";
 import {PropertyGroupComponent} from "./property-group.component";
-import {PanelModule} from "primeng/panel";
+import {Panel} from "primeng/panel";
 import {CanvasService} from "../../canvas/canvas.service";
 
 import {
@@ -22,7 +22,7 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-flex-container',
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, PanelModule, FilterDirective],
+  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, Panel, FilterDirective],
   template: `
     <ng-container [formGroup]="formGroup">
       @if (title) {

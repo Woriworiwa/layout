@@ -2,15 +2,15 @@ import {Component, inject} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ThemeService} from "../services/theme.service";
-import {SidebarModule} from "primeng/sidebar";
-import {InputSwitchChangeEvent, InputSwitchModule} from "primeng/inputswitch";
-import {ButtonModule} from "primeng/button";
-import {RadioButtonModule} from "primeng/radiobutton";
-import {ListboxChangeEvent, ListboxModule} from "primeng/listbox";
+import {Drawer} from "primeng/drawer";
+import {ToggleSwitchChangeEvent, ToggleSwitch} from "primeng/toggleswitch";
+import {Button} from "primeng/button";
+import {RadioButton} from "primeng/radiobutton";
+import {ListboxChangeEvent, Listbox} from "primeng/listbox";
 
 @Component({
     selector: 'app-theme-options',
-    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, ListboxModule],
+    imports: [CommonModule, FormsModule, Drawer, ToggleSwitch, Button, RadioButton, Listbox],
     templateUrl: './theme-options.component.html',
     styleUrl: './theme-options.component.scss'
 })
@@ -47,11 +47,11 @@ export class ThemeOptionsComponent {
     this.themeService.config.update((config) => ({...config, darkMode: val}));
   }
 
-  onRippleChange(event: InputSwitchChangeEvent) {
+  onRippleChange(event: ToggleSwitchChangeEvent) {
     this.ripple = event.checked;
   }
 
-  onDarkModeChange(event: InputSwitchChangeEvent) {
+  onDarkModeChange(event: ToggleSwitchChangeEvent) {
     this.darkMode = event.checked;
   }
 
