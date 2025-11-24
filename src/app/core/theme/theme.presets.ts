@@ -74,22 +74,7 @@ export const defaultTheme = definePreset(Aura, {
         background: '{surface.700}',
       },
     },
-    panel: {
-      colorScheme: {
-        light: {
-          root: {
-            background: '{surface.0}',
-            color: '{surface.700}',
-          },
-        },
-        dark: {
-          root: {
-            background: '{surface.700}',
-            color: '{surface.0}',
-          },
-        },
-      },
-    },
+
     tree: {
       colorScheme: {
         light: {
