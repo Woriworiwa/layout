@@ -18,7 +18,7 @@ import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "..
   styles: `
     :host {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 2px;
     }
 
     .label-left {
@@ -35,7 +35,6 @@ import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "..
       display: flex;
       align-items: center;
       white-space: nowrap;
-      margin: 0 10px;
     }
   `
 })

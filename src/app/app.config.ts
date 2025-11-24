@@ -7,8 +7,6 @@ import {provideHighlightOptions} from "ngx-highlightjs";
 import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import { defaultTheme } from './core/theme/theme.presets';
 
-
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),

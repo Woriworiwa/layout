@@ -26,7 +26,7 @@ import {FilterDirective} from "../filter.directive";
   template: `
     <ng-container [formGroup]="formGroup">
       @if (title) {
-        <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">
+        <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header" [dt]="panelTheme">
           <ng-container *ngTemplateOutlet="content"></ng-container>
         </p-panel>
       } @else{

@@ -1,0 +1,155 @@
+:host {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.properties-tree-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1rem;
+  border-radius: 1.5rem;
+  background-color: var(--bg-secondary);
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.search-container {
+  flex-shrink: 0;
+
+  ::ng-deep {
+    .p-inputgroup {
+      display: flex;
+
+      .p-inputgroup-addon {
+        background: transparent;
+        border: 1px solid var(--p-inputtext-border-color);
+        border-right: none;
+        padding: 0.5rem 0.75rem;
+      }
+
+      input {
+        flex: 1;
+      }
+
+      .p-button-text {
+        border-left: none;
+      }
+    }
+  }
+}
+
+.tree-wrapper {
+  flex: 1;
+  overflow: auto;
+
+  ::ng-deep {
+    .p-tree {
+      border: none;
+      background: transparent;
+      padding: 0;
+
+      .p-tree-container {
+        .p-tree-node {
+          padding: 0.25rem 0;
+
+          .p-tree-node-content {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+
+            &:hover {
+              background-color: var(--p-content-hover-background);
+            }
+
+            .p-tree-node-toggler {
+              width: 2rem;
+              height: 2rem;
+              color: var(--p-text-color);
+
+              &:hover {
+                background-color: var(--p-content-hover-background);
+              }
+            }
+
+            .p-tree-node-label {
+              flex: 1;
+            }
+          }
+
+          &.p-tree-node-leaf {
+            .p-tree-node-content {
+              padding-left: 2.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.tree-node-wrapper {
+  width: 100%;
+}
+
+.tree-node-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--p-text-color);
+  cursor: pointer;
+}
+
+.tree-node-properties {
+  margin-top: 0.75rem;
+  padding-left: 1rem;
+}
+
+.property-section {
+  width: 100%;
+
+  ::ng-deep {
+    app-properties-flex-container,
+    app-properties-flex-item {
+      display: contents;
+
+      p-panel {
+        display: none; // Hide panel wrapper in tree view
+      }
+
+      app-property-panel-row {
+        margin-bottom: 0.75rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .p-inputnumber {
+      flex-grow: 1;
+    }
+
+    .p-inputwrapper {
+      width: 100%;
+    }
+  }
+}
+
+// Custom styling for property items in tree
+::ng-deep {
+  app-property-panel-row {
+    .label-left {
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) repeat(1, minmax(5px, 5fr));
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .property-label {
+      font-size: 0.875rem;
+      color: var(--p-text-muted-color);
+      white-space: nowrap;
+    }
+  }
+}

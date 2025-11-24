@@ -1,5 +1,5 @@
 import { ColorOption, PresetOption, ThemeModel } from './theme.model';
-import Aura from '@primeng/themes/material';
+import Aura from '@primeng/themes/aura';
 import { definePreset } from '@primeng/themes';
 
 export const presets: PresetOption[] = [
@@ -50,40 +50,61 @@ export const defaultThemeSettings: ThemeModel = {
 
 export const defaultTheme = definePreset(Aura, {
   semantic: {
-    transitionDuration: '0.2s'
+    transitionDuration: '0.2s',
   },
   components: {
+    slider: {
+      handle: {
+        width: '10px',
+        height: '10px',
+        content: {
+          width: '10px',
+          height: '10px',
+        },
+      },
+    },
+    inputtext: {
+      root: {
+        borderColor: 'transparent',
+        paddingY: '2px'
+      },
+    },
+    inputNumber: {
+      button: {
+        background: '{surface.700}',
+      },
+    },
     panel: {
       colorScheme: {
         light: {
           root: {
             background: '{surface.0}',
-            color: '{surface.700}'
-          }
+            color: '{surface.700}',
+          },
         },
         dark: {
           root: {
             background: '{surface.700}',
-            color: '{surface.0}'
-          }
-        }
-      }
+            color: '{surface.0}',
+          },
+        },
+      },
     },
     tree: {
       colorScheme: {
         light: {
           root: {
             background: '{surface.0}',
-            color: '{surface.700}'
-          }
+            color: '{surface.700}',
+          },
         },
         dark: {
           root: {
             background: '{surface.800}',
-            color: '{surface.0}'
-          }
-        }
-      }
-    }
-  }
+            color: '{surface.0}',
+          },
+        },
+      },
+    },
+  },
 });

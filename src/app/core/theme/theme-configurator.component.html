@@ -41,22 +41,6 @@
       </div>
     </div>
 
-    <!-- Preset Selector -->
-    <div class="flex flex-col gap-3">
-      <span class="font-medium text-surface-500 dark:text-surface-400">Presets</span>
-      <div class="flex gap-2">
-        @for (preset of presets; track preset.value) {
-          <button
-            type="button"
-            class="preset-button"
-            [class.active]="themeService.config().preset === preset.value"
-            (click)="onPresetChange(preset.value)">
-            {{ preset.name }}
-          </button>
-        }
-      </div>
-    </div>
-
     <!-- Ripple Toggle -->
     <div class="flex items-center justify-between">
       <span class="font-medium text-surface-500 dark:text-surface-400">Ripple</span>

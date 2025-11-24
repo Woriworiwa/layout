@@ -1,38 +1,61 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
-import {PropertyGroupRowComponent} from "./property-group-row.component";
-import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {InputNumber} from "primeng/inputnumber";
-import {SliderChangeEvent, Slider} from "primeng/slider";
-import {InputGroup} from "primeng/inputgroup";
-import {Select} from "primeng/select";
-import {Button} from "primeng/button";
-import {Unit} from "../../../core/models/css/unit.enum";
-import {POSTFIX_UNIT} from "../../../core/constants";
-import {FormItemComponent} from "./form-item.component";
+import { PropertyGroupRowComponent } from './property-group-row.component';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputNumber } from 'primeng/inputnumber';
+import { SliderChangeEvent, Slider } from 'primeng/slider';
+import { InputGroup } from 'primeng/inputgroup';
+import { Select } from 'primeng/select';
+import { Button, ButtonDirective, ButtonIcon } from 'primeng/button';
+import { Unit } from '../../../core/models/css/unit.enum';
+import { POSTFIX_UNIT } from '../../../core/constants';
+import { FormItemComponent } from './form-item.component';
 
 @Component({
-    selector: 'app-property-item-slider',
-    imports: [PropertyGroupRowComponent, ReactiveFormsModule, InputNumber, Slider, InputGroup, Select, FormsModule],
-    template: `
+  selector: 'app-property-item-slider',
+  imports: [
+    PropertyGroupRowComponent,
+    ReactiveFormsModule,
+    InputNumber,
+    Slider,
+    InputGroup,
+    Select,
+    FormsModule,
+    ButtonDirective,
+    ButtonIcon,
+  ],
+  template: `
     <app-property-panel-row [label]="label">
       <div>
-        <p-inputgroup>
-          <p-inputNumber [id]="label" inputId="integeronly" [formControl]="control" (onKeyDown)="onKeyDown($event)"></p-inputNumber>
+        <p-inputgroup [dt]="inputGroup">
+          <p-inputNumber
+            [id]="label"
+            inputId="integeronly"
+            [formControl]="control"
+            (onKeyDown)="onKeyDown($event)"
+          ></p-inputNumber>
           @if (unit) {
-            <p-select
-              [options]="items"
-              [formControl]="unit"/>
+          <p-select [options]="items" [formControl]="unit" />
           }
-          <button type="button" pButton icon="pi pi-times" (click)="onClearButtonClick()"
-          [disabled]="control.value === null || control.value === undefined"></button>
-
+          <button
+            type="button"
+            pButton
+            [dt]="button"
+            (click)="onClearButtonClick()"
+            [disabled]="control.value === null || control.value === undefined"
+          >
+            <i class="pi pi-times" pButtonIcon></i>
+          </button>
         </p-inputgroup>
-        <p-slider [formControl]="control" [max]="max" (onChange)="onSliderChange($event)"></p-slider>
+        <p-slider
+          [formControl]="control"
+          [max]="max"
+          (onChange)="onSliderChange($event)"
+        ></p-slider>
       </div>
     </app-property-panel-row>
-    `,
-    styles: `
+  `,
+  styles: `
   :host {
     display: contents;
 
@@ -73,7 +96,7 @@ import {FormItemComponent} from "./form-item.component";
       tab-index: -1;
     }
   }
-  `
+  `,
 })
 export class SliderComponent extends FormItemComponent {
   @Input() unit: FormControl | undefined = undefined;
@@ -82,7 +105,7 @@ export class SliderComponent extends FormItemComponent {
   @Input() suffix: string | undefined = POSTFIX_UNIT;
   @Input() visible = true;
 
-  items = [ Unit.px, Unit.vh, Unit["%"]];
+  items = [Unit.px, Unit.vh, Unit['%']];
 
   @ViewChild(InputNumber) inputNumber!: InputNumber;
 
@@ -99,4 +122,36 @@ export class SliderComponent extends FormItemComponent {
       this.control.setValue(this.inputNumber.value);
     }
   }
+
+  inputGroup = {
+    addon: {
+      borderRadius: '0',
+    },
+  };
+
+  button = {
+    root: {
+      paddingX: '0',
+      paddingY: '0',
+    },
+    primary: {
+      background: '{form.field.background}',
+      borderColor: 'transparent',
+      hoverBackground: 'transparent',
+      hoverColor: '{form.field.hoverColor}',
+      hoverBorderColor: 'transparent',
+    },
+    light: {
+      primary: {
+        color: '{surface.400}',
+        hoverBackground: 'transparent',
+      },
+    },
+    dark: {
+      primary: {
+        color: '{surface.400}',
+        hoverBackground: 'transparent',
+      },
+    },
+  };
 }

@@ -8,15 +8,17 @@ import {PropertyGroupRowComponent} from "../form-items/property-group-row.compon
 import {InputText} from "primeng/inputtext";
 import {PropertyGroupComponent} from "./property-group.component";
 import {FilterDirective} from "../filter.directive";
+import { Menu } from 'primeng/menu';
 
 @Component({
   selector: 'app-properties-meta-data',
-  imports: [Panel, ReactiveFormsModule, PropertyGroupRowComponent, InputText, FilterDirective],
+  imports: [Panel, ReactiveFormsModule, PropertyGroupRowComponent, InputText, FilterDirective, Menu],
   template: `
     <p-panel header="Meta data"
              [toggleable]="true"
              [collapsed]="collapsed"
-             toggler="header">
+             toggler="header"
+             [dt]="panelTheme">
       <ng-container [formGroup]="formGroup"
                     *appFilter="undefined; cssProperties: filterCssProperties; searchText: searchText; label: 'label'">
         <app-property-panel-row label="Label">

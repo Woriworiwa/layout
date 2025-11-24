@@ -13,6 +13,7 @@ import {FormItemComponent} from "./form-item.component";
     <app-property-panel-row [label]="label">
       @if (propertiesConfig.selectControlsLayout === 'dropdown') {
         <p-select ngDefaultControl
+                  [dt]="select"
                     [options]="options"
                     [formControl]="control"
                     [showClear]="true"></p-select>
@@ -31,4 +32,10 @@ import {FormItemComponent} from "./form-item.component";
 export class DropdownComponent extends FormItemComponent {
   @Input()
   options: any[] = [];
+
+  select = {
+    root: {
+      borderColor: 'transparent',
+    }
+  }
 }

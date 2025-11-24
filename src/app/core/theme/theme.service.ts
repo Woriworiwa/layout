@@ -43,60 +43,6 @@ export class ThemeService {
     this.config.update(config => ({ ...config, ripple: newRipple }));
   }
 
-  async onPresetChange(preset: string) {
-    this.transitionView(async () => {
-      this.config.update(config => ({ ...config, preset }));
-
-      const presetModule = await this.loadPreset(preset);
-
-      // Apply customizations to the new preset
-      const customizedPreset = definePreset(presetModule.default, {
-        semantic: {
-          transitionDuration: '0.2s'
-        },
-        components: {
-          panel: {
-            colorScheme: {
-              light: {
-                root: {
-                  background: '{surface.0}',
-                  color: '{surface.700}'
-                }
-              },
-              dark: {
-                root: {
-                  background: '{surface.700}',
-                  color: '{surface.0}'
-                }
-              }
-            }
-          },
-          tree: {
-            colorScheme: {
-              light: {
-                root: {
-                  background: '{surface.0}',
-                  color: '{surface.700}'
-                }
-              },
-              dark: {
-                root: {
-                  background: '{surface.800}',
-                  color: '{surface.0}'
-                }
-              }
-            }
-          }
-        }
-      });
-
-      // Update the preset with our customizations
-      updatePreset(customizedPreset);
-      this.onPrimaryChange(this.config().primary);
-      this.onSurfaceChange(this.config().surface)
-    })
-  }
-
   onPrimaryChange(primary: string) {
     this.config.update(config => ({ ...config, primary }));
     const primaryColor = primaryColors.find(c => c.name === primary);

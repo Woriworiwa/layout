@@ -55,6 +55,12 @@ export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
   protected extractUnit(postFixedValue: any) {
     return postFixedValue?.toString().replace(/[0-9]/g, '') || Unit.px
   }
+
+  protected panelTheme = {
+    root:{
+      borderColor: 'transparent'
+    }
+  }
 }
 
 

@@ -16,10 +16,6 @@ import { presets, primaryColors, surfaces } from './theme.presets';
 export class ThemeConfiguratorComponent {
   protected themeService = inject(ThemeService);
 
-  onPresetChange(preset: string) {
-    this.themeService.onPresetChange(preset);
-  }
-
   onPrimaryChange(primary: string) {
     this.themeService.onPrimaryChange(primary);
   }

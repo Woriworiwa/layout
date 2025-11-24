@@ -17,7 +17,7 @@ import {FilterDirective} from "../filter.directive";
   imports: [ReactiveFormsModule, SliderComponent, DropdownComponent, Panel, FilterDirective],
   template: `
     <ng-container [formGroup]="formGroup">
-      <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header">
+      <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header" [dt]="panelTheme">
         <app-property-item-slider
           label="flex-grow"
           *appFilter="FlexGrow; cssProperties: filterCssProperties; searchText: searchText; label: 'flex grow'"

@@ -1,0 +1,69 @@
+@if (frame) {
+  <div class="properties-tree-container">
+    <!-- Search Filter -->
+    <div class="search-container">
+      <p-inputgroup>
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-search"></i>
+        </span>
+        <input
+          type="text"
+          pInputText
+          placeholder="Filter properties..."
+          [(ngModel)]="searchText"
+        />
+        <button
+          type="button"
+          pButton
+          icon="pi pi-times"
+          class="p-button-text"
+          [disabled]="searchText === ''"
+          (click)="clearSearch()"
+        ></button>
+      </p-inputgroup>
+    </div>
+
+    <!-- Properties Tree -->
+    <div class="tree-wrapper">
+      <p-tree
+        [value]="treeNodes"
+        [filter]="true"
+        [filterBy]="'label'"
+        [filterMode]="'lenient'"
+        styleClass="properties-tree"
+      >
+        <ng-template let-node pTemplate="default">
+          <div class="tree-node-wrapper">
+            <div class="tree-node-label">{{ node.label }}</div>
+
+            @if (node.expanded) {
+              <div class="tree-node-properties">
+                @switch (node.type) {
+                  @case ('flex-container') {
+                    <div class="property-section">
+                      <app-properties-flex-container
+                        [css]="frame.css"
+                        [searchText]="searchText"
+                      ></app-properties-flex-container>
+                    </div>
+                  }
+                  @case ('flex-item') {
+                    <div class="property-section">
+                      <app-properties-flex-item
+                        [css]="frame.css"
+                        [searchText]="searchText"
+                      ></app-properties-flex-item>
+                    </div>
+                  }
+                  @case ('category') {
+                    <!-- Placeholder for future property implementations -->
+                  }
+                }
+              </div>
+            }
+          </div>
+        </ng-template>
+      </p-tree>
+    </div>
+  </div>
+}

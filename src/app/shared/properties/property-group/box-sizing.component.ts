@@ -16,7 +16,7 @@ import {FilterDirective} from "../filter.directive";
   selector: 'app-properties-box-sizing',
   imports: [ReactiveFormsModule, SliderComponent, FormsModule, Panel, FilterDirective],
   template: `
-    <p-panel header="Box sizing" [toggleable]="true" [collapsed]="collapsed" toggler="header">
+    <p-panel header="Box sizing" [toggleable]="true" [collapsed]="collapsed" toggler="header" [dt]="panelTheme">
       <ng-container [formGroup]="formGroup">
         <app-property-item-slider
           label="padding"
