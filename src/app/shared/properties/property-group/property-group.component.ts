@@ -59,6 +59,12 @@ export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
   protected panelTheme = {
     root:{
       borderColor: 'transparent'
+    },
+    content: {
+      padding: '0px 0px 0px 12px'
+    },
+    toggleableHeader: {
+      padding: '0',
     }
   }
 }
