@@ -23,7 +23,7 @@ export interface Property {
 
 @Component({
   selector: 'app-settings',
-  imports: [FormsModule, PropertiesFlexContainerComponent, BoxSizingComponent, DisplayComponent, PropertiesFlexItemComponent, InputText, InputGroup, Button, MetaDataComponent],
+  imports: [FormsModule, PropertiesFlexContainerComponent, BoxSizingComponent, DisplayComponent, PropertiesFlexItemComponent, InputText, InputGroup, MetaDataComponent],
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss']
 })

@@ -1,5 +1,5 @@
 <div class="title">
-  <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/24/external-layout-user-interface-flatart-icons-flat-flatarticons-1.png">
+  <img src="assets/logo.svg" alt="boXout logo">
   <div>boXout</div>
 </div>
 
@@ -19,6 +19,15 @@
   <p-button class="action-button"
             [text]="true"
             [link]="true"
+            (onClick)="showConfig()"
+            pTooltip="Customize Theme"
+            tooltipPosition="bottom"
+            icon="pi pi-palette">
+  </p-button>
+
+  <p-button class="action-button github-button"
+            [text]="true"
+            [link]="true"
             (onClick)="window.open('https://github.com/Woriworiwa/layout', '_blank');"
             pTooltip="View code on Github"
             tooltipPosition="bottom"
@@ -31,4 +40,6 @@
                  [model]="items"
                  [menuStyle]="{'min-width': '200px'}"></p-splitbutton>
 </div>
+
+<app-theme-configurator />
 

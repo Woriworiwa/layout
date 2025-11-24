@@ -54,7 +54,7 @@ export class SideBarComponent implements OnDestroy, OnChanges {
   }
 
   toggleDarkMode() {
-    this.appStateService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
+    // this.appStateService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
   }
 
   onClick(tab: any): void {

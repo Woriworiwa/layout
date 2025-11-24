@@ -24,7 +24,10 @@
       "Bash(npm run commit:*)",
       "WebSearch",
       "WebFetch(domain:primeng.org)",
-      "WebFetch(domain:medium.com)"
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(find:*)",
+      "Bash(nx serve)"
     ],
     "deny": [],
     "ask": []

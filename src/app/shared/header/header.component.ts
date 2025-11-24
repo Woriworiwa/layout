@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import {ThemeService} from "../../core/services/theme.service";
+import {ThemeService} from "../../core/theme/theme.service";
 import {FormsModule} from "@angular/forms";
 import {DataService} from "../../core/services/data.service";
 import {Tooltip} from "primeng/tooltip";
@@ -13,10 +13,11 @@ import {MainAreaContent} from "../../core/enums";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {Menubar} from "primeng/menubar";
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { ThemeConfiguratorComponent } from '../../core/theme/theme-configurator.component';
 
 @Component({
     selector: 'app-header',
-  imports: [Button, FormsModule, Tooltip, SplitButton, RouterLink, RouterLinkActive, Menubar, SplitButtonModule],
+  imports: [Button, FormsModule, Tooltip, SplitButton, RouterLink, RouterLinkActive, Menubar, SplitButtonModule, ThemeConfiguratorComponent],
     templateUrl: `./header.component.html`,
     styleUrls: ['./header.component.scss']
 })

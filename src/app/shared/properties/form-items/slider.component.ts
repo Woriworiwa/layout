@@ -13,7 +13,7 @@ import {FormItemComponent} from "./form-item.component";
 
 @Component({
     selector: 'app-property-item-slider',
-    imports: [PropertyGroupRowComponent, ReactiveFormsModule, InputNumber, Slider, InputGroup, Select, Button, FormsModule],
+    imports: [PropertyGroupRowComponent, ReactiveFormsModule, InputNumber, Slider, InputGroup, Select, FormsModule],
     template: `
     <app-property-panel-row [label]="label">
       <div>

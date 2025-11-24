@@ -3,50 +3,11 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {providePrimeNG} from "primeng/config";
-// import Aura from '@primeng/themes/lara';
-// import Aura from '@primeng/themes/aura';
-import Aura from '@primeng/themes/material'
-// import Aura from '@primeng/themes/nora';
-import {definePreset} from "@primeng/themes";
 import {provideHighlightOptions} from "ngx-highlightjs";
 import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
+import { defaultTheme } from './core/theme/theme.presets';
 
-const theme = definePreset(Aura, {
-  components: {
-    panel: {
-      colorScheme: {
-        light: {
-          root: {
-            background: '{surface.0}',
-            color: '{surface.700}'
-          }
-        },
-        dark: {
-          root: {
-            background: '{surface.700}',
-            color: '{surface.0}'
-          }
-        }
-      }
-    },
-    tree: {
-      colorScheme: {
-        light: {
-          root: {
-            background: '{surface.0}',
-            color: '{surface.700}'
-          }
-        },
-        dark: {
-          root: {
-            background: '{surface.800}',
-            color: '{surface.0}'
-          }
-        }
-      }
-    }
-  }
-});
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -58,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     }),
     providePrimeNG({
       theme: {
-        preset: theme,
+        preset: defaultTheme,
         options: {
           darkModeSelector: '.p-dark'
         }

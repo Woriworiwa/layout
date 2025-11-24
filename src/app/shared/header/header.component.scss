@@ -32,6 +32,7 @@
     align-items: stretch;
     justify-content: end;
     display: flex;
+    gap: 10px;
 
     .action-button {
       align-items: center;
@@ -39,6 +40,13 @@
 
       &:last-of-type{
         margin-right: 10px;
+      }
+    }
+
+    .github-button {
+      .github-icon {
+        width: 24px;
+        height: 24px;
       }
     }
   }

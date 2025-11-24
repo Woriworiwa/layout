@@ -1,0 +1,76 @@
+<p-drawer
+  [(visible)]="themeService.themeConfiguratorActive"
+  position="right"
+  [style]="{ width: '20rem' }">
+  <ng-template #header>
+    <span class="font-semibold text-base">Theme Customization</span>
+  </ng-template>
+
+  <div class="flex flex-col gap-6">
+    <!-- Primary Color Selector -->
+    <div class="flex flex-col gap-3">
+      <span class="font-medium text-surface-500 dark:text-surface-400">Primary</span>
+      <div class="flex flex-wrap gap-2">
+        @for (color of primaryColors; track color.name) {
+          <button
+            type="button"
+            class="color-swatch"
+            [class.active]="themeService.config().primary === color.name"
+            [style.backgroundColor]="color.name === 'noir' ? '#000000' : color.palette[500]"
+            [attr.aria-label]="color.name"
+            (click)="onPrimaryChange(color.name)">
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Surface Color Selector -->
+    <div class="flex flex-col gap-3">
+      <span class="font-medium text-surface-500 dark:text-surface-400">Surface</span>
+      <div class="flex flex-wrap gap-2">
+        @for (surface of surfaces; track surface.name) {
+          <button
+            type="button"
+            class="color-swatch surface-swatch"
+            [class.active]="themeService.config().surface === surface.name"
+            [style.backgroundColor]="surface.palette[500]"
+            [attr.aria-label]="surface.name"
+            (click)="onSurfaceChange(surface.name)">
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Preset Selector -->
+    <div class="flex flex-col gap-3">
+      <span class="font-medium text-surface-500 dark:text-surface-400">Presets</span>
+      <div class="flex gap-2">
+        @for (preset of presets; track preset.value) {
+          <button
+            type="button"
+            class="preset-button"
+            [class.active]="themeService.config().preset === preset.value"
+            (click)="onPresetChange(preset.value)">
+            {{ preset.name }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Ripple Toggle -->
+    <div class="flex items-center justify-between">
+      <span class="font-medium text-surface-500 dark:text-surface-400">Ripple</span>
+      <p-toggleswitch
+        [ngModel]="themeService.config().ripple"
+        (onChange)="onRippleToggle()" />
+    </div>
+
+    <!-- Dark Mode -->
+    <div class="flex items-center justify-between">
+      <span class="font-medium text-surface-500 dark:text-surface-400">Dark mode</span>
+      <p-toggleswitch
+        [ngModel]="themeService.config().darkMode"
+        (onChange)="onDarkModeToggle()" />
+    </div>
+  </div>
+</p-drawer>

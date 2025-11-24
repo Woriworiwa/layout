@@ -20,25 +20,22 @@ export class AppStateService {
     sideBarSecondary: SideBarSecondary.CSS
   });
 
-  theme = computed(() => (this.appState()?.darkTheme ? 'stackoverflow-dark' : 'stackoverflow-light'));
 
-  transitionComplete = signal<boolean>(false);
-  private hljsLoader: HighlightLoader = inject(HighlightLoader);
 
   constructor() {
     this.appState.set({...this.loadAppState()});
-    this.handleDarkModeTransition(this.appState());
-
-    effect(() => {
-      const state = this.appState();
-
-      if (!this.initialized || !state) {
-        this.initialized = true;
-        return;
-      }
-      this.saveAppState(state);
-      this.handleDarkModeTransition(state);
-    });
+    // this.handleDarkModeTransition(this.appState());
+    //
+    // effect(() => {
+    //   const state = this.appState();
+    //
+    //   if (!this.initialized || !state) {
+    //     this.initialized = true;
+    //     return;
+    //   }
+    //   this.saveAppState(state);
+    //   this.handleDarkModeTransition(state);
+    // });
   }
 
   setAppLayout(newState: AppLayoutState): void {
@@ -58,40 +55,6 @@ export class AppStateService {
       ...state,
       ...newState
     }));
-  }
-
-  private handleDarkModeTransition(state: AppState): void {
-    if ((document as any).startViewTransition) {
-      this.startViewTransition(state);
-    } else {
-      this.toggleDarkMode(state);
-      this.onTransitionEnd();
-    }
-  }
-
-  private startViewTransition(state: AppState): void {
-    const transition = (document as any).startViewTransition(() => {
-      this.toggleDarkMode(state);
-    });
-
-    transition.ready.then(() => this.onTransitionEnd());
-  }
-
-  private toggleDarkMode(state: AppState): void {
-    if (state.darkTheme) {
-      this.document.documentElement.classList.remove('p-dark');
-      this.hljsLoader.setTheme('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-light.min.css');
-    } else {
-      this.document.documentElement.classList.add('p-dark');
-      this.hljsLoader.setTheme('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-dark.min.css');
-    }
-  }
-
-  private onTransitionEnd() {
-    this.transitionComplete.set(true);
-    setTimeout(() => {
-      this.transitionComplete.set(false);
-    });
   }
 
   private loadAppState(): any {

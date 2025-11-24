@@ -1,7 +1,6 @@
+import { ThemeModel } from '../theme/theme.model';
+
 export interface AppState {
-  theme?: string;
-  ripple?: boolean;
-  scale?: number;
-  darkTheme?: boolean;
   menuActive?: boolean;
+  theme?: ThemeModel;
 }
