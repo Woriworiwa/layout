@@ -1,0 +1,77 @@
+.custom-tree {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--surface-ground);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--border-radius);
+}
+
+.tree-header {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--surface-border);
+  background-color: var(--surface-section);
+
+  button {
+    &.active {
+      background-color: var(--primary-color);
+      color: var(--primary-color-text);
+
+      &:hover {
+        background-color: var(--primary-color);
+      }
+    }
+  }
+}
+
+.tree-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--surface-border);
+  background-color: var(--surface-section);
+
+  :host ::ng-deep {
+    .p-inputtext {
+      font-size: 0.875rem;
+      padding: 0.5rem 0.5rem 0.5rem 2rem;
+    }
+  }
+}
+
+.tree-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem;
+
+  /* Custom scrollbar */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--surface-ground);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--surface-border);
+    border-radius: 4px;
+
+    &:hover {
+      background: var(--text-color-secondary);
+    }
+  }
+}
+
+.tree-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-size: 0.875rem;
+  color: var(--text-color-secondary);
+}

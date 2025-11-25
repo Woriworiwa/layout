@@ -1,0 +1,81 @@
+<div class="custom-tree">
+  <!-- Header with search toggle -->
+  <div class="tree-header">
+    <button
+      type="button"
+      pButton
+      icon="pi pi-search"
+      class="p-button-text p-button-sm"
+      [class.active]="showSearch()"
+      (click)="toggleSearch()"
+      title="Search layers">
+    </button>
+
+    <button
+      type="button"
+      pButton
+      icon="pi pi-angle-double-down"
+      class="p-button-text p-button-sm"
+      (click)="expandAll()"
+      title="Expand all">
+    </button>
+
+    <button
+      type="button"
+      pButton
+      icon="pi pi-angle-double-up"
+      class="p-button-text p-button-sm"
+      (click)="collapseAll()"
+      title="Collapse all">
+    </button>
+  </div>
+
+  <!-- Search Input -->
+  @if (showSearch()) {
+    <div class="tree-search">
+      <span class="p-input-icon-left w-full">
+        <i class="pi pi-search"></i>
+        <input
+          #searchInput
+          type="text"
+          pInputText
+          class="w-full"
+          placeholder="Search layers..."
+          [(ngModel)]="searchTerm"
+          (keydown.escape)="toggleSearch()" />
+      </span>
+      @if (isSearching()) {
+        <button
+          type="button"
+          pButton
+          icon="pi pi-times"
+          class="p-button-text p-button-sm"
+          (click)="clearSearch()"
+          title="Clear search">
+        </button>
+      }
+    </div>
+  }
+
+  <!-- Tree Content -->
+  <div class="tree-content">
+    @if (hasItems()) {
+      @for (item of items(); track item.key) {
+        <app-tree-node
+          [item]="item"
+          [level]="0"
+          [selectedKey]="selectedKey()"
+          [expandedKeys]="expandedKeys()"
+          [searchTerm]="searchTerm()"
+          (itemSelected)="onItemSelected($event)"
+          (itemExpanded)="onItemExpanded($event)"
+          (itemContextMenu)="onItemContextMenu($event)">
+        </app-tree-node>
+      }
+    } @else {
+      <div class="tree-empty">
+        <span class="text-color-secondary">No items</span>
+      </div>
+    }
+  </div>
+</div>
