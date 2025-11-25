@@ -1,61 +1,49 @@
-<div class="title">
-  <img src="../../../assets/logo.svg" alt="boXout logo">
-  <div>boXout</div>
-</div>
+<div class="flex justify-between items-center">
+  <!-- Logo -->
+  <div class="text-lg font-medium flex gap-2.5">
+    <img src="../../../assets/logo.svg" alt="boXout logo">
+    <div>boXout</div>
+  </div>
 
-<div class="content-switcher">
-  <p-menubar [model]="tabs" [dt]="scopedTokens">
-    @for (tab of tabs; track tab.id) {
-      <ng-template  #item let-item>
-          <a [routerLink]="item.routerLink" class="p-menubar-item-link" routerLinkActive="p-button">
-            <span>{{ item.label }}</span>
-          </a>
-      </ng-template>
-    }
-  </p-menubar>
-</div>
-
-<div class="action-buttons-container">
-  <p-button class="action-button"
-            [text]="true"
-            [link]="true"
-            (onClick)="themeConfiguratorPopover.toggle($event);"
-            pTooltip="Customize Theme"
-            tooltipPosition="bottom"
-            icon="pi pi-palette">
-  </p-button>
-  <p-popover #themeConfiguratorPopover>
-    <app-theme-configurator />
-  </p-popover>
-
-  <p-button class="action-button"
-            [text]="true"
-            [link]="true"
-            (onClick)="isPreviewVisible.set(true)"
-            pTooltip="Customize Theme"
-            tooltipPosition="bottom"
-            icon="pi pi-palette">
-  </p-button>
-  <p-dialog [(visible)]="isPreviewVisible">
-    <p-blockui [blocked]="isPreviewVisible()" />
-    <ng-template #headless>
-      <app-preview></app-preview>
-    </ng-template>
-  </p-dialog>
-
-  <p-button class="action-button github-button"
-            [text]="true"
-            [link]="true"
-            (onClick)="window.open('https://github.com/Woriworiwa/layout', '_blank');"
-            pTooltip="View code on Github"
-            tooltipPosition="bottom"
-            icon="pi pi-github">
+  <!-- Preview Button -->
+  <p-button (onClick)="isPreviewVisible.set(true)"
+            icon="pi pi-eye"
+            label="Preview">
   </p-button>
 
-  <p-splitbutton label="Save"
-                 (onClick)="save()"
-                 appendTo="body"
-                 [model]="items"
-                 [menuStyle]="{'min-width': '200px'}"></p-splitbutton>
+  <!-- Action Buttons -->
+  <div class="flex justify-end">
+    <p-button [text]="true"
+              [link]="true"
+              (onClick)="themeConfiguratorPopover.toggle($event);"
+              pTooltip="Customize Theme"
+              tooltipPosition="bottom"
+              icon="pi pi-palette">
+    </p-button>
+
+    <p-button [text]="true"
+              [link]="true"
+              (onClick)="window.open('https://github.com/Woriworiwa/layout', '_blank');"
+              pTooltip="View code on Github"
+              tooltipPosition="bottom"
+              icon="pi pi-github">
+    </p-button>
+
+    <p-splitbutton label="Save"
+                   (onClick)="save()"
+                   appendTo="body"
+                   [model]="items"
+                   [menuStyle]="{'min-width': '200px'}"></p-splitbutton>
+  </div>
 </div>
 
+<!-- Preview Dialog -->
+<p-blockui [blocked]="isPreviewVisible()" />
+<p-dialog [(visible)]="isPreviewVisible" [style]="{ width: '80vw', height: '80vh' }" appendTo="body">
+  <app-preview></app-preview>
+</p-dialog>
+
+<!-- Theme Configurator Popover -->
+<p-popover #themeConfiguratorPopover>
+  <app-theme-configurator />
+</p-popover>

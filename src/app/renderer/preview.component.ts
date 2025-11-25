@@ -6,33 +6,37 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { CanvasItem } from "../core/models/canvas-item.model";
 import { FormsModule } from "@angular/forms";
 import { CanvasService } from "../shared/canvas/canvas.service";
-import { AppSkeletonComponent } from "../core/app.skeleton.component";
-import { SideBarComponent } from "../shared/side-bar/side-bar.component";
-import { Button } from "primeng/button";
-import { Tooltip } from "primeng/tooltip";
 import { CssPrismComponent } from "./prisms/css-prism.component";
 import { HtmlPrismComponent } from "./prisms/html-prism.component";
 import { JsonPrismComponent } from "./prisms/json-prism.component";
 import { ResizableDirective } from "./resizable.directive";
+import { SelectButton } from "primeng/selectbutton";
 
-enum SideBarPrimary {
-    BROWSER = 'browser',
-    CODE = 'code'
-}
-enum SideBarSecondaryCode {
-    CSS = 'CSS',
+enum CodeViewType {
     HTML = 'HTML',
+    CSS = 'CSS',
     JSON = 'JSON'
 }
-interface Tab<T> {
-    title: string;
-    tab: T;
+
+interface CodeTab {
+    label: string;
+    value: CodeViewType;
     icon: string;
 }
+
 @Component({
     selector: 'app-preview',
     standalone: true,
-    imports: [CommonModule, UnsafeHtmlPipe, FormsModule, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent, ResizableDirective],
+    imports: [
+        CommonModule,
+        UnsafeHtmlPipe,
+        FormsModule,
+        CssPrismComponent,
+        HtmlPrismComponent,
+        JsonPrismComponent,
+        ResizableDirective,
+        SelectButton
+    ],
     templateUrl: './preview.component.html',
     styleUrl: './preview.component.scss'
 })
@@ -41,26 +45,20 @@ export class PreviewComponent {
 
     code: any;
     serializer: HtmlSerializer = new HtmlSerializer();
-    selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.BROWSER;
-    selectedSidebarSecondary: SideBarSecondaryCode = SideBarSecondaryCode.CSS;
+    selectedCodeView: CodeViewType = CodeViewType.HTML;
     width = '800px';
-    tabs: Tab<SideBarPrimary>[] = [
-      { title: 'Screen', tab: SideBarPrimary.BROWSER, icon: 'pi pi-desktop' },
-      { title: 'Code', tab: SideBarPrimary.CODE, icon: 'pi pi-code' }
+
+    codeTabs: CodeTab[] = [
+        { label: 'HTML', value: CodeViewType.HTML, icon: 'pi pi-code' },
+        { label: 'CSS', value: CodeViewType.CSS, icon: 'pi pi-palette' },
+        { label: 'JSON', value: CodeViewType.JSON, icon: 'pi pi-file' }
     ];
-    codeTabs: Tab<SideBarSecondaryCode>[] = [
-        { title: 'CSS', tab: SideBarSecondaryCode.CSS, icon: 'pi pi-plus' },
-        { title: 'HTML', tab: SideBarSecondaryCode.HTML, icon: 'pi pi-comment' },
-        { title: 'JSON', tab: SideBarSecondaryCode.JSON, icon: 'pi pi-code' }
-    ];
+
     constructor() {
         this.canvasService.items$.pipe(takeUntilDestroyed()).subscribe((items: CanvasItem[]) => {
             this.code = this.serializer.serialize(items).join('\n');
         });
     }
-    onSideBarPrimaryChange($event: any) {
-        this.selectedSideBarPrimary = $event.tab as unknown as SideBarPrimary;
-    }
 
-  protected readonly SideBarPrimary = SideBarPrimary;
+    protected readonly CodeViewType = CodeViewType;
 }

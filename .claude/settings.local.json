@@ -27,7 +27,8 @@
       "WebFetch(domain:medium.com)",
       "WebFetch(domain:github.com)",
       "Bash(find:*)",
-      "Bash(nx serve)"
+      "Bash(nx serve)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": [],
     "ask": []

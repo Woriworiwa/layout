@@ -1,15 +1,13 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from './theme.service';
-import { Drawer } from 'primeng/drawer';
 import { ToggleSwitch } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { presets, primaryColors, surfaces } from './theme.presets';
-import { Popover } from 'primeng/popover';
 
 @Component({
   selector: 'app-theme-configurator',
-  imports: [CommonModule, Drawer, ToggleSwitch, FormsModule, Popover],
+  imports: [CommonModule, ToggleSwitch, FormsModule],
   templateUrl: './theme-configurator.component.html',
   styleUrls: ['./theme-configurator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
