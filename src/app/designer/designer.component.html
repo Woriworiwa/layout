@@ -1,60 +1,65 @@
-<app-skeleton>
-  <ng-container center-content>
-    <app-canvas></app-canvas>
-  </ng-container>
+<div class="top">
+  <app-header></app-header>
+</div>
 
-  <ng-container left-content>
-    <div class="left-panel">
-      <div class="left-panel-header">
-        <button
-          class="panel-switch-button"
-          [class.active]="leftPanelMode === 'insert'"
-          (click)="leftPanelMode = 'insert'">
-          <i class="pi pi-plus"></i>
-          Insert
-        </button>
-        <button
-          class="panel-switch-button"
-          [class.active]="leftPanelMode === 'layers'"
-          (click)="leftPanelMode = 'layers'">
-          <i class="pi pi-comment"></i>
-          Layers
-        </button>
-      </div>
-      <div class="left-panel-content">
-        @if (leftPanelMode === 'insert') {
-          <app-insert></app-insert>
-        } @else {
-          <app-layers></app-layers>
-        }
-      </div>
+<div class="left">
+  <div class="left-panel">
+    <div class="left-panel-header">
+      <button
+        class="panel-switch-button"
+        [class.active]="leftPanelMode === 'insert'"
+        (click)="leftPanelMode = 'insert'">
+        <i class="pi pi-plus"></i>
+        Insert
+      </button>
+      <button
+        class="panel-switch-button"
+        [class.active]="leftPanelMode === 'layers'"
+        (click)="leftPanelMode = 'layers'">
+        <i class="pi pi-comment"></i>
+        Layers
+      </button>
     </div>
-  </ng-container>
-  <ng-container right-content>
-    <div class="right-panel">
-      <div class="right-panel-header">
-        <button
-          class="panel-switch-button"
-          [class.active]="rightPanelMode === 'properties'"
-          (click)="rightPanelMode = 'properties'">
-          <i class="pi pi-cog"></i>
-          Properties
-        </button>
-        <button
-          class="panel-switch-button"
-          [class.active]="rightPanelMode === 'inspector'"
-          (click)="rightPanelMode = 'inspector'">
-          <i class="pi pi-code"></i>
-          Inspector
-        </button>
-      </div>
-      <div class="right-panel-content">
-        @if (rightPanelMode === 'properties') {
-          <app-settings></app-settings>
-        } @else {
-          <app-inspector></app-inspector>
-        }
-      </div>
+    <div class="left-panel-content">
+      @if (leftPanelMode === 'insert') {
+        <app-insert></app-insert>
+      } @else {
+        <app-layers></app-layers>
+      }
     </div>
-  </ng-container>
-</app-skeleton>
+  </div>
+</div>
+
+<div class="center">
+  <div class="center-canvas">
+    <app-canvas></app-canvas>
+  </div>
+</div>
+
+<div class="right">
+  <div class="right-panel">
+    <div class="right-panel-header">
+      <button
+        class="panel-switch-button"
+        [class.active]="rightPanelMode === 'properties'"
+        (click)="rightPanelMode = 'properties'">
+        <i class="pi pi-cog"></i>
+        Properties
+      </button>
+      <button
+        class="panel-switch-button"
+        [class.active]="rightPanelMode === 'inspector'"
+        (click)="rightPanelMode = 'inspector'">
+        <i class="pi pi-code"></i>
+        Inspector
+      </button>
+    </div>
+    <div class="right-panel-content">
+      @if (rightPanelMode === 'properties') {
+        <app-settings></app-settings>
+      } @else {
+        <app-inspector></app-inspector>
+      }
+    </div>
+  </div>
+</div>

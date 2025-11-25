@@ -23,12 +23,8 @@ import {MainAreaContent, SideBarSecondary} from "./core/enums";
 })
 export class AppComponent {
   protected canvasService = inject(CanvasService);
-  protected appStateService = inject(AppStateService);
   private selectionService = inject(SelectionService);
   private mockService = inject(DataService);
-
-  selectedContentId = 1;
-  protected readonly MainAreaContent = MainAreaContent;
 
   constructor() {
     this.fetchData();
@@ -39,6 +35,4 @@ export class AppComponent {
   fetchData() {
     this.canvasService.setItems(this.mockService.getInitialData());
   }
-
-  protected readonly SideBarSecondary = SideBarSecondary;
 }

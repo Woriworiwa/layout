@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 
-import {AppSkeletonComponent} from "../core/app.skeleton.component";
 import {CanvasComponent} from "../canvas/canvas.component";
 import {PropertiesComponent} from "./properties/properties.component";
 import {SideBarPrimary} from "../core/enums";
@@ -8,10 +7,11 @@ import {InsertComponent} from "./insert/insert.component";
 import {InspectorComponent} from "./inspector/inspector.component";
 import {LayersComponent} from "./layers/layers.component";
 import {AppStateService} from "../core/services/app-state.service";
+import {HeaderComponent} from "./header/header.component";
 
 @Component({
   selector: 'app-designer',
-  imports: [AppSkeletonComponent, CanvasComponent, PropertiesComponent, InsertComponent, InspectorComponent, LayersComponent],
+  imports: [HeaderComponent, CanvasComponent, PropertiesComponent, InsertComponent, InspectorComponent, LayersComponent],
   templateUrl: './designer.component.html',
   styleUrl: './designer.component.scss',
 })
