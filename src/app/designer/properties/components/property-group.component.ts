@@ -28,10 +28,11 @@ export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
   formGroupValueChangedSubscription: Subscription | undefined;
   protected destroy$ = new Subject();
 
-  protected formBuilder = inject(FormBuilder);
-  protected canvasService = inject(CanvasService);
 
-  protected constructor() {
+
+
+  protected constructor(protected formBuilder: FormBuilder,
+                        protected canvasService: CanvasService) {
     this.formGroup = this.createFormGroup();
   }
 
