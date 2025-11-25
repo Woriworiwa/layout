@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren, inject} from '@angular/core';
 
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
@@ -28,8 +28,10 @@ export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
   formGroupValueChangedSubscription: Subscription | undefined;
   protected destroy$ = new Subject();
 
-  protected constructor(protected formBuilder: FormBuilder,
-                        protected canvasService: CanvasService) {
+  protected formBuilder = inject(FormBuilder);
+  protected canvasService = inject(CanvasService);
+
+  protected constructor() {
     this.formGroup = this.createFormGroup();
   }
 

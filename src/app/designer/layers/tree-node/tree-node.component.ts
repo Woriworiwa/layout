@@ -42,7 +42,10 @@ export class TreeNodeComponent {
 
   // Computed
   isSelected = computed(() => this.selectedKey() === this.item().key);
-  hasChildren = computed(() => this.item().children && this.item().children!.length > 0);
+  hasChildren = computed(() => {
+    const children = this.item().children;
+    return children !== undefined && children.length > 0;
+  });
 
   displayLabel = computed(() => {
     const item = this.item();

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild, inject, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 
 import { MenuItem } from "primeng/api";
 import { CanvasItem } from "../../core/models/canvas-item.model";
