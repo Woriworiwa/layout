@@ -1,25 +1,40 @@
-import { Component, inject } from '@angular/core';
+import { Component, model } from '@angular/core';
 
 import {CanvasComponent} from "../canvas/canvas.component";
 import {PropertiesComponent} from "./properties/properties.component";
-import {SideBarPrimary} from "../core/enums";
 import {InsertComponent} from "./insert/insert.component";
 import {InspectorComponent} from "./inspector/inspector.component";
 import {LayersComponent} from "./layers/layers.component";
-import {AppStateService} from "../core/services/app-state.service";
 import {HeaderComponent} from "./header/header.component";
+import {SelectButton} from "primeng/selectbutton";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-designer',
-  imports: [HeaderComponent, CanvasComponent, PropertiesComponent, InsertComponent, InspectorComponent, LayersComponent],
+  imports: [
+    HeaderComponent,
+    CanvasComponent,
+    PropertiesComponent,
+    InsertComponent,
+    InspectorComponent,
+    LayersComponent,
+    SelectButton,
+    FormsModule,
+  ],
   templateUrl: './designer.component.html',
   styleUrl: './designer.component.scss',
 })
 export class DesignerComponent {
-  protected appStateService = inject(AppStateService);
+  leftPanelMode = model<'insert' | 'layers'>('insert');
+  rightPanelMode = model<'properties' | 'inspector'>('properties');
 
-  leftPanelMode: 'insert' | 'layers' = 'insert';
-  rightPanelMode: 'properties' | 'inspector' = 'properties';
+  leftPanelOptions = [
+    { label: 'Insert', value: 'insert', icon: 'pi pi-plus' },
+    { label: 'Layers', value: 'layers', icon: 'pi pi-comment' },
+  ];
 
-  protected readonly SideBarPrimary = SideBarPrimary;
+  rightPanelOptions = [
+    { label: 'Properties', value: 'properties', icon: 'pi pi-cog' },
+    { label: 'Inspector', value: 'inspector', icon: 'pi pi-code' },
+  ];
 }

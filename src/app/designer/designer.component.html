@@ -1,33 +1,6 @@
+<!-- Header -->
 <div class="top">
   <app-header></app-header>
-</div>
-
-<div class="left">
-  <div class="left-panel">
-    <div class="left-panel-header">
-      <button
-        class="panel-switch-button"
-        [class.active]="leftPanelMode === 'insert'"
-        (click)="leftPanelMode = 'insert'">
-        <i class="pi pi-plus"></i>
-        Insert
-      </button>
-      <button
-        class="panel-switch-button"
-        [class.active]="leftPanelMode === 'layers'"
-        (click)="leftPanelMode = 'layers'">
-        <i class="pi pi-comment"></i>
-        Layers
-      </button>
-    </div>
-    <div class="left-panel-content">
-      @if (leftPanelMode === 'insert') {
-        <app-insert></app-insert>
-      } @else {
-        <app-layers></app-layers>
-      }
-    </div>
-  </div>
 </div>
 
 <div class="center">
@@ -36,26 +9,48 @@
   </div>
 </div>
 
-<div class="right">
-  <div class="right-panel">
-    <div class="right-panel-header">
-      <button
-        class="panel-switch-button"
-        [class.active]="rightPanelMode === 'properties'"
-        (click)="rightPanelMode = 'properties'">
-        <i class="pi pi-cog"></i>
-        Properties
-      </button>
-      <button
-        class="panel-switch-button"
-        [class.active]="rightPanelMode === 'inspector'"
-        (click)="rightPanelMode = 'inspector'">
-        <i class="pi pi-code"></i>
-        Inspector
-      </button>
+<div class="left">
+  <div class="flex flex-col h-full w-full">
+    <div class="flex justify-center p-2 border-b" style="border-color: var(--surface-border); background: var(--surface-ground)">
+      <p-selectButton
+        [(ngModel)]="leftPanelMode"
+        [options]="leftPanelOptions"
+        optionLabel="label"
+        optionValue="value"
+        [allowEmpty]="false">
+        <ng-template let-item>
+          <i [class]="item.icon"></i>
+          <span class="ml-2">{{ item.label }}</span>
+        </ng-template>
+      </p-selectButton>
     </div>
-    <div class="right-panel-content">
-      @if (rightPanelMode === 'properties') {
+    <div class="flex-1 overflow-auto">
+      @if (leftPanelMode() === 'insert') {
+        <app-insert></app-insert>
+      } @else {
+        <app-layers></app-layers>
+      }
+    </div>
+  </div>
+</div>
+
+<div class="right">
+  <div class="flex flex-col h-full w-full">
+    <div class="flex justify-center p-2 border-b" style="border-color: var(--surface-border); background: var(--surface-ground)">
+      <p-selectButton
+        [(ngModel)]="rightPanelMode"
+        [options]="rightPanelOptions"
+        optionLabel="label"
+        optionValue="value"
+        [allowEmpty]="false">
+        <ng-template let-item>
+          <i [class]="item.icon"></i>
+          <span class="ml-2">{{ item.label }}</span>
+        </ng-template>
+      </p-selectButton>
+    </div>
+    <div class="flex-1 overflow-auto">
+      @if (rightPanelMode() === 'properties') {
         <app-settings></app-settings>
       } @else {
         <app-inspector></app-inspector>
