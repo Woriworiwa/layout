@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren} from '@
 
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
-import {SliderComponent} from "../form-items/slider.component";
+import {SliderComponent} from "./slider.component";
 import {CanvasService} from "../../canvas/canvas.service";
 
 import {Css} from "../../../core/models/css/css";

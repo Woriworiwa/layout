@@ -2,18 +2,18 @@ import { Component, Input, OnDestroy, inject } from '@angular/core';
 
 import {FormsModule} from "@angular/forms";
 import {CanvasItem} from "../../core/models/canvas-item.model";
-import {PropertiesFlexContainerComponent} from "../../shared/properties/property-group/flex-container.component";
+import {PropertiesFlexContainerComponent} from "./groups/flex-container.component";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasItemType} from '../../core/enums';
-import {BoxSizingComponent} from "../../shared/properties/property-group/box-sizing.component";
-import {DisplayComponent} from "../../shared/properties/property-group/display.component";
-import {PropertiesFlexItemComponent} from "../../shared/properties/property-group/flex-item.component";
+import {BoxSizingComponent} from "./groups/box-sizing.component";
+import {DisplayComponent} from "./groups/display.component";
+import {PropertiesFlexItemComponent} from "./groups/flex-item.component";
 import {InputText} from "primeng/inputtext";
 import {InputGroup} from "primeng/inputgroup";
 import {Button} from "primeng/button";
 import {SelectionService} from "../../shared/canvas/selection/selection.service";
 import {CanvasService} from "../../shared/canvas/canvas.service";
-import {MetaDataComponent} from "../../shared/properties/property-group/meta-data.component";
+import {MetaDataComponent} from "./groups/meta-data.component";
 import {PropertiesConfig} from "../../shared/properties/properties.config";
 
 export interface Property {

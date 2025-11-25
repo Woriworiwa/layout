@@ -46,8 +46,7 @@ export class HeaderComponent {
     routerLink: string;
     label: string, id: MainAreaContent}[] = [
     { label: 'design', id: MainAreaContent.CANVAS, routerLink: '/design' },
-    { label: 'preview', id: MainAreaContent.PREVIEW, routerLink: '/preview' },
-    { label: 'learn', id: MainAreaContent.TUTORIAL, routerLink: '/learn' },
+    { label: 'preview', id: MainAreaContent.PREVIEW, routerLink: '/preview' }
   ];
 
   scopedTokens = {

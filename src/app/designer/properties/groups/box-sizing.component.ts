@@ -3,10 +3,10 @@ import { Component, OnChanges, inject } from '@angular/core';
 import {Property} from "csstype";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {SliderComponent} from "../form-items/slider.component";
-import {PropertyGroupComponent} from "./property-group.component";
-import {Panel} from "primeng/panel";
-import {CanvasService} from "../../canvas/canvas.service";
+import {SliderComponent} from "../../../shared/properties/components/slider.component";
+import {PropertyGroupComponent} from "../../../shared/properties/components/property-group.component";
+import {SettingGroupComponent} from "../../../shared/properties/components/setting-group.component";
+import {CanvasService} from "../../../shared/canvas/canvas.service";
 
 import {Unit} from "../../../core/models/css/unit.enum";
 import {Height, Padding, Width} from "../../../core/models/css/properties.enum";
@@ -14,9 +14,9 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-box-sizing',
-  imports: [ReactiveFormsModule, SliderComponent, FormsModule, Panel, FilterDirective],
+  imports: [ReactiveFormsModule, SliderComponent, FormsModule, SettingGroupComponent, FilterDirective],
   template: `
-    <p-panel header="Box sizing" [toggleable]="true" [collapsed]="collapsed" toggler="header" [dt]="panelTheme">
+    <app-setting-group header="Box sizing" [toggleable]="true" [collapsed]="collapsed">
       <ng-container [formGroup]="formGroup">
         <app-property-item-slider
           label="padding"
@@ -38,7 +38,7 @@ import {FilterDirective} from "../filter.directive";
           [control]="getFormControl('width')"
           [unit]="getFormControl('widthUnit')"></app-property-item-slider>
       </ng-container>
-    </p-panel>
+    </app-setting-group>
   `,
   styles: `
     :host {

@@ -3,12 +3,12 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {Property} from "csstype";
-import {DropdownComponent} from "../form-items/dropdown.component";
-import {SelectButtonComponent} from "../form-items/select-button.component";
-import {SliderComponent} from "../form-items/slider.component";
-import {PropertyGroupComponent} from "./property-group.component";
-import {Panel} from "primeng/panel";
-import {CanvasService} from "../../canvas/canvas.service";
+import {DropdownComponent} from "../../../shared/properties/components/dropdown.component";
+import {SelectButtonComponent} from "../../../shared/properties/components/select-button.component";
+import {SliderComponent} from "../../../shared/properties/components/slider.component";
+import {PropertyGroupComponent} from "../../../shared/properties/components/property-group.component";
+import {SettingGroupComponent} from "../../../shared/properties/components/setting-group.component";
+import {CanvasService} from "../../../shared/canvas/canvas.service";
 
 import {
   AlignContent,
@@ -22,13 +22,13 @@ import {FilterDirective} from "../filter.directive";
 
 @Component({
   selector: 'app-properties-flex-container',
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, Panel, FilterDirective],
+  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, SettingGroupComponent, FilterDirective],
   template: `
     <ng-container [formGroup]="formGroup">
       @if (title) {
-        <p-panel [header]="title" [toggleable]="true" [collapsed]="false" toggler="header" [dt]="panelTheme">
+        <app-setting-group [header]="title" [toggleable]="true" [collapsed]="false">
           <ng-container *ngTemplateOutlet="content"></ng-container>
-        </p-panel>
+        </app-setting-group>
       } @else{
         <ng-container *ngTemplateOutlet="content"></ng-container>
       }

@@ -14,8 +14,8 @@ import { SelectionService } from '../shared/canvas/selection/selection.service';
 import { CanvasService } from '../shared/canvas/canvas.service';
 
 // Import property group components
-import { PropertiesFlexContainerComponent } from '../shared/properties/property-group/flex-container.component';
-import { PropertiesFlexItemComponent } from '../shared/properties/property-group/flex-item.component';
+import { PropertiesFlexContainerComponent } from './properties/groups/flex-container.component';
+import { PropertiesFlexItemComponent } from './properties/groups/flex-item.component';
 
 @Component({
   selector: 'app-properties-tree',
