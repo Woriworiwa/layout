@@ -3,10 +3,10 @@ import { Component, OnChanges, inject } from '@angular/core';
 import {Property} from "csstype";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {SliderComponent} from "../../../shared/properties/components/slider.component";
-import {PropertyGroupComponent} from "../../../shared/properties/components/property-group.component";
-import {SettingGroupComponent} from "../../../shared/properties/components/setting-group.component";
-import {CanvasService} from "../../../shared/canvas/canvas.service";
+import {SliderComponent} from "../components/slider.component";
+import {PropertyGroupComponent} from "../components/property-group.component";
+import {SettingGroupComponent} from "../components/setting-group.component";
+import {CanvasService} from "../../../canvas/canvas.service";
 
 import {Unit} from "../../../core/models/css/unit.enum";
 import {Height, Padding, Width} from "../../../core/models/css/properties.enum";

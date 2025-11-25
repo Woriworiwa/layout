@@ -1,6 +1,6 @@
 import { ElementRef, Injectable, ViewContainerRef, inject } from "@angular/core";
 import {CanvasService} from "../canvas.service";
-import {CanvasItem} from "../../../core/models/canvas-item.model";
+import {CanvasItem} from "../../core/models/canvas-item.model";
 import {MetaLabelComponent} from "./meta-label.component";
 import { combineLatest, delay, merge, skip } from 'rxjs';
 

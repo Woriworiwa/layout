@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 
 import {AppSkeletonComponent} from "../core/app.skeleton.component";
-import {CanvasComponent} from "../shared/canvas/canvas.component";
+import {CanvasComponent} from "../canvas/canvas.component";
 import {PropertiesComponent} from "./properties/properties.component";
-import {SideBarComponent} from "../shared/side-bar/side-bar.component";
+import {SideBarComponent} from "./side-bar/side-bar.component";
 import {SideBarPrimary} from "../core/enums";
 import {InsertComponent} from "./insert/insert.component";
 import {InspectorComponent} from "./inspector/inspector.component";
@@ -20,6 +20,7 @@ export class DesignerComponent {
   protected appStateService = inject(AppStateService);
 
   selectedSideBarPrimary: SideBarPrimary = SideBarPrimary.insert;
+  rightPanelMode: 'properties' | 'inspector' = 'properties';
 
   tabs: {title: string, tab: SideBarPrimary, icon: string}[] = [
     { title: 'Insert', tab: SideBarPrimary.insert, icon: 'pi pi-plus' },

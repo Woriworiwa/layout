@@ -1,12 +1,12 @@
 import { Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
 
-import {SettingGroupComponent} from "../../../shared/properties/components/setting-group.component";
+import {SettingGroupComponent} from "../components/setting-group.component";
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
-import {CanvasService} from "../../../shared/canvas/canvas.service";
+import {CanvasService} from "../../../canvas/canvas.service";
 import {takeUntil} from "rxjs";
-import {PropertyGroupRowComponent} from "../../../shared/properties/components/property-group-row.component";
+import {PropertyGroupRowComponent} from "../components/property-group-row.component";
 import {InputText} from "primeng/inputtext";
-import {PropertyGroupComponent} from "../../../shared/properties/components/property-group.component";
+import {PropertyGroupComponent} from "../components/property-group.component";
 import {FilterDirective} from "../filter.directive";
 
 @Component({

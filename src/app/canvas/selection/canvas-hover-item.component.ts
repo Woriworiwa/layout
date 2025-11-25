@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnChanges, Renderer2, inject } from "@angular/core";
 
 import {SharedModule} from "primeng/api";
-import {CanvasItem} from "../../../core/models/canvas-item.model";
+import {CanvasItem} from "../../core/models/canvas-item.model";
 
 @Component({
     selector: 'app-canvas-hover-item',

@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild, DOCUMENT, inject } from '@angular/core';
 
 import {ContainerComponent} from "./canvas-items/container/container.component";
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {CANVAS_WRAPPER_ID} from "../../core/constants";
+import {CanvasItem} from "../core/models/canvas-item.model";
+import {CANVAS_WRAPPER_ID} from "../core/constants";
 import {ContextMenuService} from "./context-menu/context-menu.service";
 import {SelectionService} from "./selection/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
@@ -10,7 +10,7 @@ import {PanZoomService} from "./pan-zoom.service";
 import {DragDropService} from "./drag-drop.service";
 import {CopyPasteService} from "./copy-paste.service";
 import {KeyboardCommandsDirective} from "./keyboard-commands.directive";
-import {PresetsService} from "../../designer/insert/presets.service";
+import {PresetsService} from "../designer/insert/presets.service";
 import {CanvasService} from "./canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject
 import {CommonModule} from '@angular/common';
 import {EditableContentDirective} from "../text/editable-content.directive";
 import {TextComponent} from "../text/text.component";
-import {CanvasItemType} from '../../../../core/enums';
+import {CanvasItemType} from '../../../core/enums';
 import {CanvasItemComponent} from "../canvas-item.component";
 import {PanZoomService} from "../../pan-zoom.service";
 import {CanvasService} from "../../canvas.service";

@@ -5,7 +5,7 @@ import { UnsafeHtmlPipe } from "./unsafe-html.pipe";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { CanvasItem } from "../core/models/canvas-item.model";
 import { FormsModule } from "@angular/forms";
-import { CanvasService } from "../shared/canvas/canvas.service";
+import { CanvasService } from "../canvas/canvas.service";
 import { CssPrismComponent } from "./prisms/css-prism.component";
 import { HtmlPrismComponent } from "./prisms/html-prism.component";
 import { JsonPrismComponent } from "./prisms/json-prism.component";

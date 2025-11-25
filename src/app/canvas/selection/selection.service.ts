@@ -1,6 +1,6 @@
 import { ComponentRef, ElementRef, Injectable, OnDestroy, ViewContainerRef, inject } from "@angular/core";
-import {CanvasStore} from "../../../core/store/canvas.store";
-import {CanvasItem} from "../../../core/models/canvas-item.model";
+import {CanvasStore} from "../../core/store/canvas.store";
+import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CanvasSelectionItemComponent} from "./canvas-selection-item.component";
 import {CanvasHoverItemComponent} from "./canvas-hover-item.component";
 import {ContextMenuService} from "../context-menu/context-menu.service";

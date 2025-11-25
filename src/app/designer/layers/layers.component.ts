@@ -9,8 +9,8 @@ import {ContextMenu} from "primeng/contextmenu";
 import {Popover} from "primeng/popover";
 import {Button} from "primeng/button";
 import {InputText} from "primeng/inputtext";
-import {CanvasService} from "../../shared/canvas/canvas.service";
-import {SelectionService} from "../../shared/canvas/selection/selection.service";
+import {CanvasService} from "../../canvas/canvas.service";
+import {SelectionService} from "../../canvas/selection/selection.service";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({

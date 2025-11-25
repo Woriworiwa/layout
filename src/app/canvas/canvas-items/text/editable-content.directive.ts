@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output, inject } from "@angular/core";
-import {CanvasItem} from "../../../../core/models/canvas-item.model";
+import {CanvasItem} from "../../../core/models/canvas-item.model";
 import {BehaviorSubject, distinctUntilChanged, Subject, takeUntil} from "rxjs";
 import {SelectionService} from "../../selection/selection.service";
 

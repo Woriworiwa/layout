@@ -3,10 +3,10 @@ import { Component, OnChanges, inject } from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
 import {takeUntil} from "rxjs";
-import {DropdownComponent} from "../../../shared/properties/components/dropdown.component";
-import {PropertyGroupComponent} from "../../../shared/properties/components/property-group.component";
-import {SettingGroupComponent} from "../../../shared/properties/components/setting-group.component";
-import {CanvasService} from "../../../shared/canvas/canvas.service";
+import {DropdownComponent} from "../components/dropdown.component";
+import {PropertyGroupComponent} from "../components/property-group.component";
+import {SettingGroupComponent} from "../components/setting-group.component";
+import {CanvasService} from "../../../canvas/canvas.service";
 
 
 import {Display, Height} from "../../../core/models/css/properties.enum";

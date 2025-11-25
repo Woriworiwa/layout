@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {SerializationService} from "../../core/serialization/serialization.service";
 import {JSONSerializer} from "../../core/serialization/serializers/JSON.serializer";
-import {CanvasService} from "../../shared/canvas/canvas.service";
+import {CanvasService} from "../../canvas/canvas.service";
 import {Subject, takeUntil} from "rxjs";
 import {Highlight} from "ngx-highlightjs";
 

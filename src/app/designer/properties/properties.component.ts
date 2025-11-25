@@ -11,10 +11,10 @@ import {PropertiesFlexItemComponent} from "./groups/flex-item.component";
 import {InputText} from "primeng/inputtext";
 import {InputGroup} from "primeng/inputgroup";
 import {Button} from "primeng/button";
-import {SelectionService} from "../../shared/canvas/selection/selection.service";
-import {CanvasService} from "../../shared/canvas/canvas.service";
+import {SelectionService} from "../../canvas/selection/selection.service";
+import {CanvasService} from "../../canvas/canvas.service";
 import {MetaDataComponent} from "./groups/meta-data.component";
-import {PropertiesConfig} from "../../shared/properties/properties.config";
+import {PropertiesConfig} from "./properties.config";
 
 export interface Property {
   showSpecificPropertyName?: string;

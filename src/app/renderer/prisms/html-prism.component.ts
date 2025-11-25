@@ -12,7 +12,7 @@ import {Button} from "primeng/button";
 import FileSaver from 'file-saver';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SerializationService} from "../../core/serialization/serialization.service";
-import {CanvasService} from "../../shared/canvas/canvas.service";
+import {CanvasService} from "../../canvas/canvas.service";
 import {Highlight} from "ngx-highlightjs";
 
 @Component({

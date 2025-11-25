@@ -9,8 +9,8 @@ import 'prismjs/components/prism-scss';
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {SerializationService} from "../../core/serialization/serialization.service";
 import {Subject, takeUntil} from "rxjs";
-import {CanvasService} from "../../shared/canvas/canvas.service";
-import {SelectionService} from "../../shared/canvas/selection/selection.service";
+import {CanvasService} from "../../canvas/canvas.service";
+import {SelectionService} from "../../canvas/selection/selection.service";
 import {Highlight} from "ngx-highlightjs";
 
 @Component({

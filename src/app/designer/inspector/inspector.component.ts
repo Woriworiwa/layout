@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 
 import {CssPrismComponent} from "../../renderer/prisms/css-prism.component";
-import {SelectionService} from "../../shared/canvas/selection/selection.service";
+import {SelectionService} from "../../canvas/selection/selection.service";
 import {CanvasItem} from "../../core/models/canvas-item.model";
-import {CanvasService} from "../../shared/canvas/canvas.service";
+import {CanvasService} from "../../canvas/canvas.service";
 import {SelectButton} from "primeng/selectbutton";
 import {FormsModule} from "@angular/forms";
 import {filter} from "rxjs";

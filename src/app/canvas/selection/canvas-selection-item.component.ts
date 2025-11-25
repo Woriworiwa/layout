@@ -2,12 +2,12 @@ import { Component, ElementRef, Input, OnChanges, Renderer2, ViewChild, inject }
 
 import {Button} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
-import {InsertComponent} from "../../../designer/insert/insert.component";
+import {InsertComponent} from "../../designer/insert/insert.component";
 import {Popover} from "primeng/popover";
 import {SharedModule} from "primeng/api";
-import {CanvasItem} from "../../../core/models/canvas-item.model";
+import {CanvasItem} from "../../core/models/canvas-item.model";
 import {SelectButton} from "primeng/selectbutton";
-import {InsertPosition} from "../../../core/enums";
+import {InsertPosition} from "../../core/enums";
 import {FormsModule} from "@angular/forms";
 
 @Component({

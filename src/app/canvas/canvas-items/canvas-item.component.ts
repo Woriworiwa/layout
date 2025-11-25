@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, Renderer2, inject } from '@angular/core';
 
-import {CanvasItem} from "../../../core/models/canvas-item.model";
-import {Serializer} from "../../../core/serialization/serializers/serializer";
-import {CssStyleSerializer} from "../../../core/serialization/serializers/css-style.serializer";
+import {CanvasItem} from "../../core/models/canvas-item.model";
+import {Serializer} from "../../core/serialization/serializers/serializer";
+import {CssStyleSerializer} from "../../core/serialization/serializers/css-style.serializer";
 import {SelectionService} from "../selection/selection.service";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasService} from "../canvas.service";

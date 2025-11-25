@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CANVAS_WRAPPER_ID} from "../../core/constants";
 import {PresetsService} from "./presets.service";
-import {CanvasService} from "../../shared/canvas/canvas.service";
+import {CanvasService} from "../../canvas/canvas.service";
 import {InsertPosition} from "../../core/enums";
 
 @Component({
