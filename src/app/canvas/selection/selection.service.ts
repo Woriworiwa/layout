@@ -5,7 +5,17 @@ import {CanvasSelectionItemComponent} from "./canvas-selection-item.component";
 import {CanvasHoverItemComponent} from "./canvas-hover-item.component";
 import {ContextMenuService} from "../context-menu/context-menu.service";
 import {DragDropService} from "../drag-drop.service";
-import {BehaviorSubject, combineLatestWith, distinctUntilChanged, map, Observable, Subject, takeUntil} from "rxjs";
+import {
+  BehaviorSubject,
+  combineLatestWith,
+  distinctUntilChanged,
+  fromEvent,
+  map,
+  merge,
+  Observable,
+  Subject,
+  takeUntil,
+} from 'rxjs';
 
 @Injectable()
 export class SelectionService implements OnDestroy {
@@ -64,7 +74,10 @@ export class SelectionService implements OnDestroy {
     this.canvas = canvas;
     this.allowAdd = allowAdd;
 
-    this.selectedItem$
+    merge(
+      this.selectedItem$,
+      fromEvent(window, 'resize').pipe(map(() => this.selectedItem))
+    )
       .pipe(
         combineLatestWith(this.dragDropService.state$),
         takeUntil(this.destroy$)
