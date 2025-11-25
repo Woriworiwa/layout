@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {HeaderComponent} from "../shared/header/header.component";
+import {HeaderComponent} from "../designer/header/header.component";
 
 @Component({
   selector: 'app-skeleton',

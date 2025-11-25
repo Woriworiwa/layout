@@ -5,13 +5,14 @@ import { Drawer } from 'primeng/drawer';
 import { ToggleSwitch } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { presets, primaryColors, surfaces } from './theme.presets';
+import { Popover } from 'primeng/popover';
 
 @Component({
   selector: 'app-theme-configurator',
-  imports: [CommonModule, Drawer, ToggleSwitch, FormsModule],
+  imports: [CommonModule, Drawer, ToggleSwitch, FormsModule, Popover],
   templateUrl: './theme-configurator.component.html',
   styleUrls: ['./theme-configurator.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeConfiguratorComponent {
   protected themeService = inject(ThemeService);

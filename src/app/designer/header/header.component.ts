@@ -6,7 +6,7 @@ import {DataService} from "../../core/services/data.service";
 import {Tooltip} from "primeng/tooltip";
 import {SplitButton} from "primeng/splitbutton";
 import {MenuItem, MessageService} from "primeng/api";
-import {CanvasService} from "../canvas/canvas.service";
+import {CanvasService} from "../../shared/canvas/canvas.service";
 import {Button} from "primeng/button";
 import {AppStateService} from "../../core/services/app-state.service";
 import {MainAreaContent} from "../../core/enums";
@@ -14,12 +14,24 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 import {Menubar} from "primeng/menubar";
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ThemeConfiguratorComponent } from '../../core/theme/theme-configurator.component';
+import { Popover } from 'primeng/popover';
 
 @Component({
-    selector: 'app-header',
-  imports: [Button, FormsModule, Tooltip, SplitButton, RouterLink, RouterLinkActive, Menubar, SplitButtonModule, ThemeConfiguratorComponent],
-    templateUrl: `./header.component.html`,
-    styleUrls: ['./header.component.scss']
+  selector: 'app-header',
+  imports: [
+    Button,
+    FormsModule,
+    Tooltip,
+    SplitButton,
+    RouterLink,
+    RouterLinkActive,
+    Menubar,
+    SplitButtonModule,
+    ThemeConfiguratorComponent,
+    Popover,
+  ],
+  templateUrl: `./header.component.html`,
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
   private themeService = inject(ThemeService);
@@ -38,20 +50,22 @@ export class HeaderComponent {
       icon: 'pi pi-trash',
       command: () => {
         this.clearLocalStorage();
-      }
-    }
+      },
+    },
   ];
 
   tabs: {
     routerLink: string;
-    label: string, id: MainAreaContent}[] = [
+    label: string;
+    id: MainAreaContent;
+  }[] = [
     { label: 'design', id: MainAreaContent.CANVAS, routerLink: '/design' },
-    { label: 'preview', id: MainAreaContent.PREVIEW, routerLink: '/preview' }
+    { label: 'preview', id: MainAreaContent.PREVIEW, routerLink: '/preview' },
   ];
 
   scopedTokens = {
-    borderColor: 'transparent'
-  }
+    borderColor: 'transparent',
+  };
 
   showConfig() {
     this.themeService.showConfig();
@@ -59,17 +73,25 @@ export class HeaderComponent {
 
   save() {
     this.dataService.saveDataToLocalStorage();
-    this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Saved to local storage.' });
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
+      detail: 'Saved to local storage.',
+    });
   }
 
   clearLocalStorage() {
     this.dataService.clearLocalStorage();
     this.canvasService.setItems(this.dataService.getInitialData());
-    this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Local storage cleared.' });
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
+      detail: 'Local storage cleared.',
+    });
   }
 
   setSelectedTab(mainAreaContent: MainAreaContent) {
-    this.appStateService.setAppLayout({mainAreaContent: mainAreaContent})
+    this.appStateService.setAppLayout({ mainAreaContent: mainAreaContent });
     this.selectedTabId = mainAreaContent;
   }
 }

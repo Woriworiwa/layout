@@ -1,5 +1,5 @@
 <div class="title">
-  <img src="assets/logo.svg" alt="boXout logo">
+  <img src="../../../assets/logo.svg" alt="boXout logo">
   <div>boXout</div>
 </div>
 
@@ -19,11 +19,14 @@
   <p-button class="action-button"
             [text]="true"
             [link]="true"
-            (onClick)="showConfig()"
+            (onClick)="themeConfiguratorPopover.toggle($event);"
             pTooltip="Customize Theme"
             tooltipPosition="bottom"
             icon="pi pi-palette">
   </p-button>
+  <p-popover #themeConfiguratorPopover>
+    <app-theme-configurator />
+  </p-popover>
 
   <p-button class="action-button github-button"
             [text]="true"
@@ -40,6 +43,4 @@
                  [model]="items"
                  [menuStyle]="{'min-width': '200px'}"></p-splitbutton>
 </div>
-
-<app-theme-configurator />
 
