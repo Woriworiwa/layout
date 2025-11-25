@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, Type } from '@angular/core';
 
 import {ThemeService} from "../../core/theme/theme.service";
 import {FormsModule} from "@angular/forms";
@@ -15,6 +15,9 @@ import {Menubar} from "primeng/menubar";
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ThemeConfiguratorComponent } from '../../core/theme/theme-configurator.component';
 import { Popover } from 'primeng/popover';
+import { Dialog } from 'primeng/dialog';
+import { PreviewComponent } from '../../renderer/preview.component';
+import { BlockUI } from 'primeng/blockui';
 
 @Component({
   selector: 'app-header',
@@ -29,6 +32,9 @@ import { Popover } from 'primeng/popover';
     SplitButtonModule,
     ThemeConfiguratorComponent,
     Popover,
+    Dialog,
+    PreviewComponent,
+    BlockUI
   ],
   templateUrl: `./header.component.html`,
   styleUrls: ['./header.component.scss'],
@@ -40,6 +46,7 @@ export class HeaderComponent {
   private canvasService = inject(CanvasService);
   private messageService = inject(MessageService);
 
+  protected isPreviewVisible = signal<boolean>(false);
   protected readonly window = window;
 
   selectedTabId = MainAreaContent.CANVAS;
@@ -66,10 +73,6 @@ export class HeaderComponent {
   scopedTokens = {
     borderColor: 'transparent',
   };
-
-  showConfig() {
-    this.themeService.showConfig();
-  }
 
   save() {
     this.dataService.saveDataToLocalStorage();

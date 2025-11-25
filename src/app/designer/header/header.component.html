@@ -28,6 +28,21 @@
     <app-theme-configurator />
   </p-popover>
 
+  <p-button class="action-button"
+            [text]="true"
+            [link]="true"
+            (onClick)="isPreviewVisible.set(true)"
+            pTooltip="Customize Theme"
+            tooltipPosition="bottom"
+            icon="pi pi-palette">
+  </p-button>
+  <p-dialog [(visible)]="isPreviewVisible">
+    <p-blockui [blocked]="isPreviewVisible()" />
+    <ng-template #headless>
+      <app-preview></app-preview>
+    </ng-template>
+  </p-dialog>
+
   <p-button class="action-button github-button"
             [text]="true"
             [link]="true"

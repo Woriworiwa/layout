@@ -1,6 +1,4 @@
-<app-skeleton>
-  <!-- center content -->
-  <ng-container center-content>
+
     @switch (selectedSideBarPrimary) {
       @case ('browser') {
         <div class="iframe-container">
@@ -28,29 +26,4 @@
         }
       }
     }
-  </ng-container>
 
-  <!-- Left content -->
-  <ng-container left-content>
-    <app-side-bar [tabs]="tabs"
-      (selectedItemChange)="onSideBarPrimaryChange($event)">
-      @if (selectedSideBarPrimary === 'code') {
-        <ng-container secondary-content>
-          @switch (selectedSideBarPrimary) {
-            @case (SideBarPrimary.CODE) {
-              @for (tab of codeTabs; track tab) {
-                <p-button [label]="tab.title"
-                  [pTooltip]="tab.title"
-                  size="large"
-                  [fluid]="true"
-                  [variant]="'outlined'"
-                  [text]="tab.tab !== selectedSidebarSecondary ? 'secondary' : undefined"
-                (onClick)="selectedSidebarSecondary = tab.tab" size="small"></p-button>
-              }
-            }
-          }
-        </ng-container>
-      }
-    </app-side-bar>
-  </ng-container>
-</app-skeleton>

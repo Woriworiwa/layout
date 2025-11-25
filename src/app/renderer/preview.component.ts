@@ -32,7 +32,7 @@ interface Tab<T> {
 @Component({
     selector: 'app-preview',
     standalone: true,
-    imports: [CommonModule, UnsafeHtmlPipe, FormsModule, AppSkeletonComponent, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent, ResizableDirective],
+    imports: [CommonModule, UnsafeHtmlPipe, FormsModule, SideBarComponent, Button, Tooltip, CssPrismComponent, HtmlPrismComponent, JsonPrismComponent, ResizableDirective],
     templateUrl: './preview.component.html',
     styleUrl: './preview.component.scss'
 })
