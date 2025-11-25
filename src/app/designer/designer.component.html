@@ -4,22 +4,31 @@
   </ng-container>
 
   <ng-container left-content>
-    <app-side-bar [tabs]="tabs"
-                  (selectedItemChange)="onSideBarPrimaryChange($event)">
-      <ng-container secondary-content>
-        @switch (selectedSideBarPrimary) {
-          @case (SideBarPrimary.insert) {
-            <app-insert></app-insert>
-          }
-          @case (SideBarPrimary.elements) {
-            <app-layers></app-layers>
-          }
-          @case (SideBarPrimary.inspect) {
-            <app-inspector></app-inspector>
-          }
+    <div class="left-panel">
+      <div class="left-panel-header">
+        <button
+          class="panel-switch-button"
+          [class.active]="leftPanelMode === 'insert'"
+          (click)="leftPanelMode = 'insert'">
+          <i class="pi pi-plus"></i>
+          Insert
+        </button>
+        <button
+          class="panel-switch-button"
+          [class.active]="leftPanelMode === 'layers'"
+          (click)="leftPanelMode = 'layers'">
+          <i class="pi pi-comment"></i>
+          Layers
+        </button>
+      </div>
+      <div class="left-panel-content">
+        @if (leftPanelMode === 'insert') {
+          <app-insert></app-insert>
+        } @else {
+          <app-layers></app-layers>
         }
-      </ng-container>
-    </app-side-bar>
+      </div>
+    </div>
   </ng-container>
   <ng-container right-content>
     <div class="right-panel">
