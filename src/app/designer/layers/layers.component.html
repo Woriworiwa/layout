@@ -1,18 +1,10 @@
-<p-tree class="w-full md:w-30rem"
-        [value]="treeNodes"
-        ngDefaultControl
-        [contextMenu]="contextMenu"
-        [(selection)]="selectedItems"
-        selectionMode="single"
-        (selectionChange)="onTreeSelectionChanged($event)"
-        [draggableNodes]="true"
-        [droppableNodes]="true"
-        draggableScope="self"
-        droppableScope="self"
-        (onNodeContextMenuSelect)="onNodeContextMenu($event)"
-        (onNodeExpand)="onNodeExpand($event)"
-        (onNodeDrop)="onNodeDrop()">
-</p-tree>
+<app-custom-tree
+  class="w-full h-full"
+  [items]="items"
+  [selectedKey]="selectedItemKey"
+  (itemSelected)="onItemSelected($event)"
+  (itemContextMenu)="onItemContextMenu($event)">
+</app-custom-tree>
 
 <p-contextMenu #contextMenu [model]="contextMenuItems"></p-contextMenu>
 
@@ -20,12 +12,12 @@
   <input #nameInput
          pInputText
          autofocus
-         (keydown.enter)="renameNode(selectedItems?.key!, nameInput.value)"
+         (keydown.enter)="renameNode(selectedItem?.key!, nameInput.value)"
          onfocus="this.select()"
-         [value]="selectedItems?.label || selectedItems?.itemType"/>
+         [value]="selectedItem?.label || selectedItem?.itemType"/>
 
   <div class="rename-button-container">
     <p-button type="button" label="Cancel" [text]="true" (click)="renameItem.hide()"></p-button>
-    <p-button type="submit" label="Rename" (click)="renameNode(selectedItems?.key!, nameInput.value)"></p-button>
+    <p-button type="submit" label="Rename" (click)="renameNode(selectedItem?.key!, nameInput.value)"></p-button>
   </div>
 </p-popover>
