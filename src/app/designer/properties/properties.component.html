@@ -4,9 +4,9 @@
       <p-inputgroup>
         <input type="text" pInputText placeholder="Search" [(ngModel)]="searchText" />
         <button type="button"
-          pButton
-          icon="pi pi-times"
-          class="p-button-secondary"
+                pButton
+                icon="pi pi-times"
+                class="p-button-secondary"
           [disabled]="searchText === ''"
         (click)="searchText = ''"></button>
       </p-inputgroup>

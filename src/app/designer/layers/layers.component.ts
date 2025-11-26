@@ -148,4 +148,11 @@ export class LayersComponent implements OnInit, OnDestroy {
   onNodeExpand($event: TreeNodeExpandEvent) {
     console.log($event.node.key);
   }
+
+  protected themeOverrides = {
+    root: {
+      gap: '0',
+      padding: '0'
+    }
+  }
 }

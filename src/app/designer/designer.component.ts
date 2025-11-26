@@ -25,12 +25,12 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './designer.component.scss',
 })
 export class DesignerComponent {
-  leftPanelMode = model<'insert' | 'layers'>('insert');
+  leftPanelMode = model<'assets' | 'layers'>('layers');
   rightPanelMode = model<'properties' | 'inspector'>('properties');
 
   leftPanelOptions = [
-    { label: 'Insert', value: 'insert', icon: 'pi pi-plus' },
     { label: 'Layers', value: 'layers', icon: 'pi pi-comment' },
+    { label: 'Assets', value: 'assets', icon: 'pi pi-plus' },
   ];
 
   rightPanelOptions = [
