@@ -2,7 +2,6 @@
   display: grid;
   width: 100vw;
   height: 100vh;
-  padding: 10px;
   grid-template-areas:
     "header header header"
     "left main right";
@@ -10,38 +9,21 @@
   grid-template-rows: auto 1fr;
   overflow: clip;
   background-color: var(--bg-primary);
-  gap: 10px;
 
   .top {
     grid-area: header;
   }
 
   .left {
-    overflow: auto;
     grid-area: left;
-    display: flex;
-    max-width: 340px;
   }
 
   .right {
-    overflow: auto;
     grid-area: right;
-    max-width: 340px;
   }
 
   .center {
-    overflow: auto;
     grid-area: main;
-    display: flex;
-    flex-direction: column;
-
-    .center-canvas {
-      overflow: clip;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      border-radius: 1.5rem;
-    }
   }
 }
 

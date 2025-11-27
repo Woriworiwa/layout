@@ -152,7 +152,8 @@ export class LayersComponent implements OnInit, OnDestroy {
   protected themeOverrides = {
     root: {
       gap: '0',
-      padding: '0'
+      padding: '0',
+      background: 'var(--background-primary)',
     }
   }
 }

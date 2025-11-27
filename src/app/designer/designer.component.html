@@ -1,17 +1,19 @@
 <!-- Header -->
-<div class="top">
+<div class="top border-b border-b-surface-200">
   <app-header></app-header>
 </div>
 
-<div class="center">
-  <div class="center-canvas">
+<!-- Main Canvas -->
+<div class="center flex flex-col overflow-clip">
+  <div class="flex flex-col flex-1 overflow-clip">
     <app-canvas></app-canvas>
   </div>
 </div>
 
-<div class="left">
+<!-- Left and Right Panels -->
+<div class="left border-r border-r-surface-200 overflow-auto flex max-[340px]">
   <div class="flex flex-col h-full w-full">
-    <div class="flex justify-center p-2 border-b" style="border-color: var(--surface-border); background: var(--surface-ground)">
+    <div class="flex justify-center p-2 border-b border-b-surface-200">
       <p-selectButton
         [(ngModel)]="leftPanelMode"
         [options]="leftPanelOptions"
@@ -34,9 +36,9 @@
   </div>
 </div>
 
-<div class="right">
+<div class="right border-l border-l-surface-200 overflow-auto max-[340px]">
   <div class="flex flex-col h-full w-full">
-    <div class="flex justify-center p-2 border-b" style="border-color: var(--surface-border); background: var(--surface-ground)">
+    <div class="flex justify-center p-2 border-b border-b-surface-200">
       <p-selectButton
         [(ngModel)]="rightPanelMode"
         [options]="rightPanelOptions"

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {DataService} from "../../core/services/data.service";
 import {Tooltip} from "primeng/tooltip";
@@ -8,6 +8,7 @@ import {CanvasService} from "../../canvas/canvas.service";
 import {Button} from "primeng/button";
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ThemeConfiguratorComponent } from '../../core/theme/theme-configurator.component';
+import { ThemeService } from '../../core/theme/theme.service';
 import { Popover } from 'primeng/popover';
 import { Dialog } from 'primeng/dialog';
 import { PreviewComponent } from '../../renderer/preview.component';
@@ -33,9 +34,15 @@ export class HeaderComponent {
   private dataService = inject(DataService);
   private canvasService = inject(CanvasService);
   private messageService = inject(MessageService);
+  private themeService = inject(ThemeService);
 
   protected isPreviewVisible = signal<boolean>(false);
   protected readonly window = window;
+  protected logoSrc = computed(() =>
+    this.themeService.config().darkMode
+      ? '../../../assets/logo-dark.svg'
+      : '../../../assets/logo.svg'
+  );
 
   items: MenuItem[] = [
     {
