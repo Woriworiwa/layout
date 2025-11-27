@@ -30,7 +30,8 @@
       "Bash(nx serve)",
       "mcp__ide__getDiagnostics",
       "Bash(pkill:*)",
-      "Bash(clear)"
+      "Bash(clear)",
+      "Bash(nx:*)"
     ],
     "deny": [],
     "ask": []
