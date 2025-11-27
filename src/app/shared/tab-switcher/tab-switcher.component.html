@@ -1,0 +1,15 @@
+<div class="flex justify-center p-2 border-b border-b-surface-200">
+  <p-selectButton
+    [(ngModel)]="value"
+    [options]="options()"
+    optionLabel="label"
+    optionValue="value"
+    [allowEmpty]="false">
+    <ng-template let-item>
+      @if (item.icon) {
+        <i [class]="item.icon"></i>
+      }
+      <span [class.ml-2]="item.icon">{{ item.label }}</span>
+    </ng-template>
+  </p-selectButton>
+</div>

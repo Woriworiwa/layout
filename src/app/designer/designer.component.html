@@ -13,19 +13,7 @@
 <!-- Left and Right Panels -->
 <div class="left border-r border-r-surface-200 overflow-auto flex max-[340px]">
   <div class="flex flex-col h-full w-full">
-    <div class="flex justify-center p-2 border-b border-b-surface-200">
-      <p-selectButton
-        [(ngModel)]="leftPanelMode"
-        [options]="leftPanelOptions"
-        optionLabel="label"
-        optionValue="value"
-        [allowEmpty]="false">
-        <ng-template let-item>
-          <i [class]="item.icon"></i>
-          <span class="ml-2">{{ item.label }}</span>
-        </ng-template>
-      </p-selectButton>
-    </div>
+    <app-tab-switcher [options]="leftPanelOptions" [(value)]="leftPanelMode" />
     <div class="flex-1 overflow-auto">
       @if (leftPanelMode() === 'assets') {
         <app-insert></app-insert>
@@ -38,19 +26,7 @@
 
 <div class="right border-l border-l-surface-200 overflow-auto max-[340px]">
   <div class="flex flex-col h-full w-full">
-    <div class="flex justify-center p-2 border-b border-b-surface-200">
-      <p-selectButton
-        [(ngModel)]="rightPanelMode"
-        [options]="rightPanelOptions"
-        optionLabel="label"
-        optionValue="value"
-        [allowEmpty]="false">
-        <ng-template let-item>
-          <i [class]="item.icon"></i>
-          <span class="ml-2">{{ item.label }}</span>
-        </ng-template>
-      </p-selectButton>
-    </div>
+    <app-tab-switcher [options]="rightPanelOptions" [(value)]="rightPanelMode" />
     <div class="flex-1 overflow-auto">
       @if (rightPanelMode() === 'properties') {
         <app-settings></app-settings>

@@ -6,8 +6,7 @@ import {InsertComponent} from "./insert/insert.component";
 import {InspectorComponent} from "./inspector/inspector.component";
 import {LayersComponent} from "./layers/layers.component";
 import {HeaderComponent} from "./header/header.component";
-import {SelectButton} from "primeng/selectbutton";
-import { FormsModule } from '@angular/forms';
+import { TabSwitcherComponent, TabOption } from '../shared/tab-switcher/tab-switcher.component';
 
 @Component({
   selector: 'app-designer',
@@ -18,8 +17,7 @@ import { FormsModule } from '@angular/forms';
     InsertComponent,
     InspectorComponent,
     LayersComponent,
-    SelectButton,
-    FormsModule,
+    TabSwitcherComponent,
   ],
   templateUrl: './designer.component.html',
   styleUrl: './designer.component.scss',
@@ -28,12 +26,12 @@ export class DesignerComponent {
   leftPanelMode = model<'assets' | 'layers'>('layers');
   rightPanelMode = model<'properties' | 'inspector'>('properties');
 
-  leftPanelOptions = [
+  leftPanelOptions: TabOption[] = [
     { label: 'Layers', value: 'layers', icon: 'pi pi-comment' },
     { label: 'Assets', value: 'assets', icon: 'pi pi-plus' },
   ];
 
-  rightPanelOptions = [
+  rightPanelOptions: TabOption[] = [
     { label: 'Properties', value: 'properties', icon: 'pi pi-cog' },
     { label: 'Inspector', value: 'inspector', icon: 'pi pi-code' },
   ];
