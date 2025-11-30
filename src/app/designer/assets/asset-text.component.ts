@@ -7,6 +7,6 @@ import {CanvasItem} from "../../core/models/canvas-item.model";
     imports: [],
     template: ``
 })
-export class PresetTextComponent {
+export class AssetTextComponent {
   @Input() preset: CanvasItem | undefined;
 }

@@ -10,7 +10,7 @@ import {PanZoomService} from "./pan-zoom.service";
 import {DragDropService} from "./drag-drop.service";
 import {CopyPasteService} from "./copy-paste.service";
 import {KeyboardCommandsDirective} from "./keyboard-commands.directive";
-import {PresetsService} from "../designer/insert/presets.service";
+import {AssetService} from "../designer/assets/asset.service";
 import {CanvasService} from "./canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'
@@ -25,7 +25,7 @@ import {CanvasSettings} from "./canvas.settings";
 @Component({
   selector: 'app-canvas',
   imports: [ContainerComponent, CanvasToolbarComponent, SortablejsModule, SelectionLayerComponent, MetaLayerComponent],
-  providers: [CopyPasteService, PresetsService, PanZoomService, MetaLayerService],
+  providers: [CopyPasteService, AssetService, PanZoomService, MetaLayerService],
   hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
   host: {
     '[class.surface-100]': 'true',

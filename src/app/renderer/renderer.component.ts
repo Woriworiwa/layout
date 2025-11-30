@@ -37,10 +37,10 @@ interface CodeTab {
         ResizableDirective,
         SelectButton
     ],
-    templateUrl: './preview.component.html',
-    styleUrl: './preview.component.scss'
+    templateUrl: './renderer.component.html',
+    styleUrl: './renderer.component.scss'
 })
-export class PreviewComponent {
+export class RendererComponent {
     protected canvasService = inject(CanvasService);
 
     code: any;

@@ -2,7 +2,7 @@ import { Component, model } from '@angular/core';
 
 import {CanvasComponent} from "../canvas/canvas.component";
 import {PropertiesComponent} from "./properties/properties.component";
-import {InsertComponent} from "./insert/insert.component";
+import {AssetsComponent} from "./assets/assets.component";
 import {InspectorComponent} from "./inspector/inspector.component";
 import {LayersComponent} from "./layers/layers.component";
 import {HeaderComponent} from "./header/header.component";
@@ -14,7 +14,7 @@ import { TabSwitcherComponent, TabOption } from '../shared/tab-switcher/tab-swit
     HeaderComponent,
     CanvasComponent,
     PropertiesComponent,
-    InsertComponent,
+    AssetsComponent,
     InspectorComponent,
     LayersComponent,
     TabSwitcherComponent,

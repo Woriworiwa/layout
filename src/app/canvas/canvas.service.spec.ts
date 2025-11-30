@@ -3,7 +3,7 @@ import {CanvasService} from './canvas.service';
 import {CanvasStore} from '../core/store/canvas.store';
 import {UndoRedoService} from '../core/undo-redo/undo-redo.service';
 import {SelectionService} from './selection/selection.service';
-import {PresetsService} from '../designer/insert/presets.service';
+import {AssetService} from '../designer/assets/asset.service';
 import {DragDropService} from './drag-drop.service';
 import {CanvasItem} from '../core/models/canvas-item.model';
 import {CanvasItemType, InsertPosition} from '../core/enums';
@@ -17,7 +17,7 @@ describe('CanvasService', () => {
   let canvasStore: CanvasStore;
   let undoRedoService: jest.Mocked<UndoRedoService>;
   let selectionService: jest.Mocked<SelectionService>;
-  let presetsService: jest.Mocked<PresetsService>;
+  let presetsService: jest.Mocked<AssetService>;
   let dragDropService: jest.Mocked<DragDropService>;
 
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('CanvasService', () => {
         CanvasStore,
         UndoRedoService,
         SelectionService,
-        PresetsService,
+        AssetService,
         DragDropService,
         ContextMenuService
       ],
@@ -37,7 +37,7 @@ describe('CanvasService', () => {
     canvasStore = TestBed.inject(CanvasStore);
     undoRedoService = TestBed.inject(UndoRedoService) as jest.Mocked<UndoRedoService>;
     selectionService = TestBed.inject(SelectionService) as jest.Mocked<SelectionService>;
-    presetsService = TestBed.inject(PresetsService) as jest.Mocked<PresetsService>;
+    presetsService = TestBed.inject(AssetService) as jest.Mocked<AssetService>;
     dragDropService = TestBed.inject(DragDropService) as jest.Mocked<DragDropService>;
 
     spyOn(undoRedoService, 'takeSnapshot');

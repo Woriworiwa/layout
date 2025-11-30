@@ -11,7 +11,7 @@ import { ThemeConfiguratorComponent } from '../../core/theme/theme-configurator.
 import { ThemeService } from '../../core/theme/theme.service';
 import { Popover } from 'primeng/popover';
 import { Dialog } from 'primeng/dialog';
-import { PreviewComponent } from '../../renderer/preview.component';
+import { RendererComponent } from '../../renderer/renderer.component';
 import { BlockUIModule } from 'primeng/blockui';
 
 @Component({
@@ -25,7 +25,7 @@ import { BlockUIModule } from 'primeng/blockui';
     ThemeConfiguratorComponent,
     Popover,
     Dialog,
-    PreviewComponent,
+    RendererComponent,
     BlockUIModule
   ],
   templateUrl: `./header.component.html`

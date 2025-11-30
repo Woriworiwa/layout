@@ -4,38 +4,34 @@ import {CanvasItemType} from "../../core/enums";
 import {flexPresets, textPresets} from "../../../assets/data/presets";
 import {Preset} from "../../core/models/preset.model";
 import {AssetContainerComponent} from "./asset-container.component";
-import {PresetTextComponent} from "./preset-text.component";
+import {AssetTextComponent} from "./asset-text.component";
 
 
 import {BoxSizing} from "../../core/models/css/box-sizing";
 
 @Injectable()
-export class PresetsService {
+export class AssetService {
   defaultPadding = '16px';
 
-  getPresetComponents() {
+  getAssetComponents() {
     return [...textPresets, ...flexPresets].map(preset => {
       return {
         preset: preset,
-        component: this.getPresetComponent(preset.presetDefinition.itemType as CanvasItemType),
+        component: this.getAssetComponent(preset.presetDefinition.itemType as CanvasItemType),
         inputs: { preset: preset.presetDefinition }
       }
     });
   }
 
-  getPresetComponent(type: CanvasItemType) {
+  getAssetComponent(type: CanvasItemType) {
     switch (type) {
       case CanvasItemType.FLEX:
         return AssetContainerComponent;
       case CanvasItemType.TEXT:
-        return PresetTextComponent;
+        return AssetTextComponent;
       default:
         return AssetContainerComponent;
     }
-  }
-
-  getPresets() {
-    return [...flexPresets as Preset[], ...textPresets as Preset[]]
   }
 
   getPreset(presetId: string) {
@@ -57,5 +53,9 @@ export class PresetsService {
     newItem.children?.forEach(frame => {
       this.assignDefaultPaddings(frame);
     });
+  }
+
+  private getPresets() {
+    return [...flexPresets as Preset[], ...textPresets as Preset[]]
   }
 }

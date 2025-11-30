@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnChanges, Renderer2, ViewChild, inject }
 
 import {Button} from "primeng/button";
 import {ContextMenuComponent} from "../context-menu/context-menu.component";
-import {InsertComponent} from "../../designer/insert/insert.component";
+import {AssetsComponent} from "../../designer/assets/assets.component";
 import {Popover} from "primeng/popover";
 import {SharedModule} from "primeng/api";
 import {CanvasItem} from "../../core/models/canvas-item.model";
@@ -12,7 +12,7 @@ import {FormsModule} from "@angular/forms";
 
 @Component({
     selector: 'app-canvas-selection-item',
-  imports: [Button, ContextMenuComponent, InsertComponent, Popover, SharedModule, SelectButton, FormsModule],
+  imports: [Button, ContextMenuComponent, AssetsComponent, Popover, SharedModule, SelectButton, FormsModule],
     templateUrl: './canvas-selection-item.component.html',
     styleUrls: ['./canvas-selection-item.component.scss']
 })

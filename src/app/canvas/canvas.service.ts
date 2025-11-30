@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, inject } from "@angular/core";
 import {UndoRedoService} from "../core/undo-redo/undo-redo.service";
-import {PresetsService} from "../designer/insert/presets.service";
+import {AssetService} from "../designer/assets/asset.service";
 import {CanvasItem} from "../core/models/canvas-item.model";
 import {CanvasStore} from "../core/store/canvas.store";
 import {distinctUntilChanged, map, Subject, takeUntil} from "rxjs";
@@ -18,7 +18,7 @@ export class CanvasService implements OnDestroy {
   private canvasStore = inject(CanvasStore);
   private undoRedoService = inject(UndoRedoService);
   private selectionService = inject(SelectionService);
-  private presetsService = inject(PresetsService);
+  private presetsService = inject(AssetService);
   private dragDropService = inject(DragDropService);
 
   private destroy$ = new Subject<boolean>();

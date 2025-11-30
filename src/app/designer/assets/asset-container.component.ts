@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {CanvasItemType} from '../../core/enums';
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CssStyleSerializerPipe} from "../../core/serialization/css-style-serializer.pipe";
-import {PresetsService} from "./presets.service";
+import {AssetService} from "./asset.service";
 
 @Component({
     selector: 'app-preset-container',
@@ -11,23 +11,24 @@ import {PresetsService} from "./presets.service";
     imports: [CommonModule],
     providers: [CssStyleSerializerPipe],
     template: `
-    @switch (preset?.itemType) {
-      @case (FrameType.FLEX) {
-        @for (childFrame of preset?.children; track childFrame) {
-          <ng-container *ngComponentOutlet="presetsService.getPresetComponent(childFrame.itemType); inputs: {preset: childFrame}" />
+      @switch (preset?.itemType) {
+        @case (FrameType.FLEX) {
+          @for (childFrame of preset?.children; track childFrame) {
+            <ng-container
+              *ngComponentOutlet="presetsService.getAssetComponent(childFrame.itemType); inputs: {preset: childFrame}" />
+          }
         }
       }
-    }
-  `,
+    `,
     styles: [`
     :host {
       zoom: 70%;
     }
   `]
 })
-export class PresetContainerComponent {
+export class AssetContainerComponent {
   private cssStyleSerializerPipe = inject(CssStyleSerializerPipe);
-  protected presetsService = inject(PresetsService);
+  protected presetsService = inject(AssetService);
 
   protected readonly FrameType = CanvasItemType;
 
