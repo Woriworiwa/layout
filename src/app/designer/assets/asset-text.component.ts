@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { CanvasItem } from "../../core/models/canvas-item.model";
+import {Component, Input} from '@angular/core';
+
+import {CanvasItem} from "../../core/models/canvas-item.model";
 
 @Component({
-  selector: 'app-asset-text',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
-  template: ``
+    selector: 'app-preset-text',
+    imports: [],
+    template: ``
 })
 export class AssetTextComponent {
-  preset = input<CanvasItem | undefined>(undefined);
+  @Input() preset: CanvasItem | undefined;
 }
