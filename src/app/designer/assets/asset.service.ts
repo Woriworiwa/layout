@@ -3,7 +3,7 @@ import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CanvasItemType} from "../../core/enums";
 import {flexPresets, textPresets} from "../../../assets/data/presets";
 import {Preset} from "../../core/models/preset.model";
-import {PresetContainerComponent} from "./preset-container.component";
+import {AssetContainerComponent} from "./asset-container.component";
 import {PresetTextComponent} from "./preset-text.component";
 
 
@@ -26,11 +26,11 @@ export class PresetsService {
   getPresetComponent(type: CanvasItemType) {
     switch (type) {
       case CanvasItemType.FLEX:
-        return PresetContainerComponent;
+        return AssetContainerComponent;
       case CanvasItemType.TEXT:
         return PresetTextComponent;
       default:
-        return PresetContainerComponent;
+        return AssetContainerComponent;
     }
   }
 
