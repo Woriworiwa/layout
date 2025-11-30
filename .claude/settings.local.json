@@ -31,7 +31,9 @@
       "mcp__ide__getDiagnostics",
       "Bash(pkill:*)",
       "Bash(clear)",
-      "Bash(nx:*)"
+      "Bash(nx:*)",
+      "WebFetch(domain:angular.dev)",
+      "Bash(npx nx build:*)"
     ],
     "deny": [],
     "ask": []
