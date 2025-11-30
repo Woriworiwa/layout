@@ -1,29 +1,25 @@
-import {Injectable} from "@angular/core";
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {CanvasItemType} from "../../core/enums";
-import {flexPresets, textPresets} from "../../../assets/data/presets";
-import {Preset} from "../../core/models/preset.model";
-import {AssetContainerComponent} from "./asset-container.component";
-import {AssetTextComponent} from "./asset-text.component";
-
-
-import {BoxSizing} from "../../core/models/css/box-sizing";
+import { Injectable, Type } from "@angular/core";
+import { CanvasItem } from "../../core/models/canvas-item.model";
+import { CanvasItemType } from "../../core/enums";
+import { flexPresets, textPresets } from "../../../assets/data/presets";
+import { Preset } from "../../core/models/preset.model";
+import { AssetContainerComponent } from "./asset-container.component";
+import { AssetTextComponent } from "./asset-text.component";
+import { BoxSizing } from "../../core/models/css/box-sizing";
 
 @Injectable()
 export class AssetService {
-  defaultPadding = '16px';
+  private readonly defaultPadding = '16px';
 
   getAssetComponents() {
-    return [...textPresets, ...flexPresets].map(preset => {
-      return {
-        preset: preset,
-        component: this.getAssetComponent(preset.presetDefinition.itemType as CanvasItemType),
-        inputs: { preset: preset.presetDefinition }
-      }
-    });
+    return [...textPresets, ...flexPresets].map(preset => ({
+      preset: preset,
+      component: this.getAssetComponent(preset.presetDefinition.itemType as CanvasItemType),
+      inputs: { preset: preset.presetDefinition }
+    }));
   }
 
-  getAssetComponent(type: CanvasItemType) {
+  getAssetComponent(type: CanvasItemType): Type<AssetContainerComponent | AssetTextComponent> {
     switch (type) {
       case CanvasItemType.FLEX:
         return AssetContainerComponent;
@@ -34,20 +30,20 @@ export class AssetService {
     }
   }
 
-  getPreset(presetId: string) {
+  getPreset(presetId: string): Preset | undefined {
     return this.getPresets().find(preset => preset.presetId === presetId);
   }
 
-  assignDefaultPaddings(newItem: CanvasItem) {
+  assignDefaultPaddings(newItem: CanvasItem): void {
     if (newItem.itemType === CanvasItemType.FLEX) {
       const boxSizing: BoxSizing = {
         ...newItem.css?.boxSizing,
         padding: this.defaultPadding
-      }
+      };
       newItem.css = {
         ...newItem.css,
         boxSizing
-      }
+      };
     }
 
     newItem.children?.forEach(frame => {
@@ -55,7 +51,7 @@ export class AssetService {
     });
   }
 
-  private getPresets() {
-    return [...flexPresets as Preset[], ...textPresets as Preset[]]
+  private getPresets(): Preset[] {
+    return [...flexPresets as Preset[], ...textPresets as Preset[]];
   }
 }
