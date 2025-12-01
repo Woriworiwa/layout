@@ -1,36 +1,56 @@
 @if (frame) {
-  <div class="properties">
-    <div class="form-group">
-      <p-inputgroup>
-        <input type="text" pInputText placeholder="Search" [(ngModel)]="searchText" />
-        <button type="button"
-                pButton
-                icon="pi pi-times"
-                class="p-button-secondary"
-          [disabled]="searchText === ''"
-        (click)="searchText = ''"></button>
-      </p-inputgroup>
-    </div>
-    <app-properties-meta-data [label]="frame.label"
+  <div class="flex grow flex-col gap-2.5 self-stretch rounded-3xl bg-[var(--bg-primary)] p-4 justify-start">
+    <p-inputgroup>
+      <input
+        #searchInput
+        type="text"
+        pInputText
+        [placeholder]="searchPlaceholder"
+        [(ngModel)]="searchText" />
+      <button
+        type="button"
+        pButton
+        icon="pi pi-times"
+        class="p-button-secondary"
+        [disabled]="searchText === ''"
+        (click)="searchText = ''">
+      </button>
+    </p-inputgroup>
+
+    <app-properties-meta-data
+      [label]="frame.label"
       [collapsed]="false"
-    [searchText]="searchText"></app-properties-meta-data>
-    <app-properties-box-sizing [css]="frame.css"
+      [searchText]="searchText">
+    </app-properties-meta-data>
+
+    <app-properties-box-sizing
+      [css]="frame.css"
       [title]="'Box sizing'"
       [collapsed]="false"
-    [searchText]="searchText"></app-properties-box-sizing>
-    <app-properties-display [css]="frame.css"
+      [searchText]="searchText">
+    </app-properties-box-sizing>
+
+    <app-properties-display
+      [css]="frame.css"
       [title]="'Display'"
       [collapsed]="false"
-    [searchText]="searchText"></app-properties-display>
+      [searchText]="searchText">
+    </app-properties-display>
+
     @switch (frame.itemType) {
       @case (FrameType.FLEX) {
-        <app-properties-flex-container [css]="frame.css"
+        <app-properties-flex-container
+          [css]="frame.css"
           [title]="'Flex container'"
-        [searchText]="searchText"></app-properties-flex-container>
+          [searchText]="searchText">
+        </app-properties-flex-container>
       }
     }
-    <app-properties-flex-item [css]="frame.css"
+
+    <app-properties-flex-item
+      [css]="frame.css"
       [title]="'Flex item'"
-    [searchText]="searchText"></app-properties-flex-item>
+      [searchText]="searchText">
+    </app-properties-flex-item>
   </div>
 }

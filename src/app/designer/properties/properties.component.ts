@@ -1,57 +1,76 @@
-import { Component, Input, OnDestroy, inject } from '@angular/core';
-
-import {FormsModule} from "@angular/forms";
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {PropertiesFlexContainerComponent} from "./groups/flex-container.component";
-import {Subject, takeUntil} from "rxjs";
-import {CanvasItemType} from '../../core/enums';
-import {BoxSizingComponent} from "./groups/box-sizing.component";
-import {DisplayComponent} from "./groups/display.component";
-import {PropertiesFlexItemComponent} from "./groups/flex-item.component";
-import {InputText} from "primeng/inputtext";
-import {InputGroup} from "primeng/inputgroup";
-import {Button} from "primeng/button";
-import {SelectionService} from "../../canvas/selection/selection.service";
-import {CanvasService} from "../../canvas/canvas.service";
-import {MetaDataComponent} from "./groups/meta-data.component";
-import {PropertiesConfig} from "./properties.config";
-
-export interface Property {
-  showSpecificPropertyName?: string;
-  showAll: boolean;
-}
+import { Component, ElementRef, HostListener, inject, input, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
+import { ButtonDirective } from 'primeng/button';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputText } from 'primeng/inputtext';
+import { SelectionService } from '../../canvas/selection/selection.service';
+import { CanvasItemType } from '../../core/enums';
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import { BoxSizingComponent } from './groups/box-sizing.component';
+import { DisplayComponent } from './groups/display.component';
+import { MetaDataComponent } from './groups/meta-data.component';
+import { PropertiesFlexContainerComponent } from './groups/flex-container.component';
+import { PropertiesFlexItemComponent } from './groups/flex-item.component';
+import { PropertiesConfig } from './properties.config';
 
 @Component({
   selector: 'app-settings',
-  imports: [FormsModule, PropertiesFlexContainerComponent, BoxSizingComponent, DisplayComponent, PropertiesFlexItemComponent, InputText, InputGroup, MetaDataComponent],
+  imports: [
+    FormsModule,
+    ButtonDirective,
+    InputGroup,
+    InputText,
+    BoxSizingComponent,
+    DisplayComponent,
+    MetaDataComponent,
+    PropertiesFlexContainerComponent,
+    PropertiesFlexItemComponent,
+  ],
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss']
 })
-export class PropertiesComponent implements OnDestroy {
-  protected canvasService = inject(CanvasService);
-  protected selectionService = inject(SelectionService);
+export class PropertiesComponent {
+  private readonly selectionService = inject(SelectionService);
 
-  @Input()
-  config: PropertiesConfig = {};
+  config = input<PropertiesConfig>({});
 
-  css: string[] = [];
-  frame: CanvasItem | undefined;
-  searchText = '';
-  items: { label?: string; icon?: string; separator?: boolean }[] = [];
-
+  protected readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
   protected readonly FrameType = CanvasItemType;
-  private destroy$ = new Subject();
+  protected readonly searchPlaceholder = this.detectPlatform();
+
+  protected frame: CanvasItem | undefined;
+  protected searchText = '';
 
   constructor() {
     this.selectionService.selectedItem$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed())
       .subscribe(frame => {
         this.frame = frame;
       });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.complete();
+  @HostListener('window:keydown', ['$event'])
+  protected handleKeyboardShortcut(event: KeyboardEvent): void {
+    const isSearchShortcut = (event.ctrlKey || event.metaKey) && event.key === 'k';
+
+    if (isSearchShortcut) {
+      event.preventDefault();
+      this.focusSearchInput();
+    }
+  }
+
+  private detectPlatform(): string {
+    const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
+    return isMac ? 'Search (⌘K)' : 'Search (Ctrl+K)';
+  }
+
+  private focusSearchInput(): void {
+    const input = this.searchInput();
+
+    if (input) {
+      input.nativeElement.focus();
+      input.nativeElement.select();
+    }
   }
 }

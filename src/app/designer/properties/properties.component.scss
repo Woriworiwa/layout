@@ -1,45 +1,19 @@
 :host {
-  display: flex;
-  flex-grow: 1;
+  @apply flex grow;
 }
 
-.properties {
-  flex-basis: 0;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-self: stretch;
-  border-radius: 1.5rem;
-  background-color: var(--bg-secondary);
-  padding: 1rem;
-  justify-content: start;
-}
-
-.selected-properties {
-  flex-basis: 0;
-  flex-grow: 1;
-}
-
-app-css-prism {
-  display: block;
-  height: 200px;
-  overflow: auto;
-  margin-bottom: 20px;
-  background-color: #f4f2f3;
-}
-
+// PrimeNG component overrides
 :host ::ng-deep {
   .p-inputnumber {
-    flex-grow: 1;
+    @apply grow;
   }
 
   .p-inputwrapper {
-    width: 100%;
+    @apply w-full;
   }
-}
 
-// hide the panel if it has no content
-::ng-deep p-panel:has(.p-panel-content:empty) {
-  display: none;
+  // Hide empty panels
+  p-panel:has(.p-panel-content:empty) {
+    @apply hidden;
+  }
 }
