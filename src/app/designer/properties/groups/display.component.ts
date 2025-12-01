@@ -47,7 +47,7 @@ export class DisplayComponent extends PropertyGroupComponent implements OnChange
     const fb = inject(FormBuilder);
     const canvasService = inject(CanvasService);
 
-    super(fb, canvasService);
+    super();
   }
 
   override ngOnChanges() {

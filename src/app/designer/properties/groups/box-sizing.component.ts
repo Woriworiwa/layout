@@ -61,7 +61,7 @@ export class BoxSizingComponent extends PropertyGroupComponent implements OnChan
     const fb = inject(FormBuilder);
     const canvasService = inject(CanvasService);
 
-    super(fb, canvasService);
+    super();
   }
 
   override ngOnChanges() {

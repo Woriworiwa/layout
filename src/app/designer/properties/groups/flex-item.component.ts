@@ -73,7 +73,7 @@ export class PropertiesFlexItemComponent extends PropertyGroupComponent implemen
     const fb = inject(FormBuilder);
     const canvasService = inject(CanvasService);
 
-    super(fb, canvasService);
+    super();
   }
 
   override ngOnChanges() {

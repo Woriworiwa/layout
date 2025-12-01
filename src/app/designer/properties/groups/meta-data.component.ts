@@ -39,7 +39,7 @@ export class MetaDataComponent extends PropertyGroupComponent implements OnChang
     const fb = inject(FormBuilder);
     const canvasService = inject(CanvasService);
 
-    super(fb, canvasService);
+    super();
   }
 
   override ngOnChanges() {
