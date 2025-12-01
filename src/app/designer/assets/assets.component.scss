@@ -5,46 +5,11 @@
   z-index: 2;
 }
 
-.wrapper {
-  margin: 0 25px 25px 0;
-  display: flex;
-}
-
-.items-list {
-  border-radius: 4px;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex-grow: 1;
-}
-
-.item-wrapper {
-  overflow: hidden;
-
-  .item {
-    padding: 8px;
-    background-color: var(--bg-tertiary);
-    border-radius: 4px;
-    cursor: pointer;
-
-    &:hover {
-      transform: scale(1.03);
-      transition: all .25s ease;
-    }
-
-    .item-name {
-      margin-bottom: 6px;
-    }
-  }
-}
-
 :host ::ng-deep {
   app-preset-container {
     border: 1px solid var(--border-primary);
     background: var(--bg-secondary);
     border-radius: 3px;
-
   }
 
   app-preset-text {

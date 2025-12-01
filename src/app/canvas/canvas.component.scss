@@ -6,7 +6,7 @@
   position: relative;
   flex-direction: column;
   align-items: center;
-  background-image: radial-gradient(circle, var(--bg-primary) 0.8px, var(--bg-tertiary) 0.8px);
+  background-image: radial-gradient(circle, var(--p-surface-200) 0.8px, var(--bg-secondary) 0.8px);
   background-size: 24px 24px;
 
   &.pan-mode-active {
