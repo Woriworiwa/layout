@@ -10,30 +10,30 @@ import {CanvasService} from "../../../canvas/canvas.service";
 
 import {Unit} from "../../../core/models/css/unit.enum";
 import {Height, Padding, Width} from "../../../core/models/css/properties.enum";
-import {FilterDirective} from "../filter.directive";
+import {PropertiesFilterDirective} from "../properties-filter.directive";
 
 @Component({
   selector: 'app-properties-box-sizing',
-  imports: [ReactiveFormsModule, SliderComponent, FormsModule, SettingGroupComponent, FilterDirective],
+  imports: [ReactiveFormsModule, SliderComponent, FormsModule, SettingGroupComponent, PropertiesFilterDirective],
   template: `
     <app-setting-group header="Box sizing" [toggleable]="true" [collapsed]="collapsed">
       <ng-container [formGroup]="formGroup">
         <app-property-item-slider
           label="padding"
-          *appFilter="Padding; cssProperties: filterCssProperties; searchText: searchText; label: 'padding'"
+          *appPropertiesFilter="Padding; label: 'padding'"
           [control]="getFormControl('padding')"
           [unit]="getFormControl('paddingUnit')"></app-property-item-slider>
 
         <app-property-item-slider
           label="height"
-          *appFilter="Height; cssProperties: filterCssProperties; searchText: searchText; label: 'height'"
+          *appPropertiesFilter="Height; label: 'height'"
           [max]="1000"
           [control]="getFormControl('height')"
           [unit]="getFormControl('heightUnit')"></app-property-item-slider>
 
         <app-property-item-slider
           label="width"
-          *appFilter="Width; cssProperties: filterCssProperties; searchText: searchText; label: 'width'"
+          *appPropertiesFilter="Width; label: 'width'"
           [max]="1000"
           [control]="getFormControl('width')"
           [unit]="getFormControl('widthUnit')"></app-property-item-slider>

@@ -10,37 +10,37 @@ import {CanvasService} from "../../../canvas/canvas.service";
 
 
 import {AlignSelf, FlexBasis, FlexGrow, FlexShrink, Height} from "../../../core/models/css/properties.enum";
-import {FilterDirective} from "../filter.directive";
+import {PropertiesFilterDirective} from "../properties-filter.directive";
 
 @Component({
   selector: 'app-properties-flex-item',
-  imports: [ReactiveFormsModule, SliderComponent, DropdownComponent, SettingGroupComponent, FilterDirective],
+  imports: [ReactiveFormsModule, SliderComponent, DropdownComponent, SettingGroupComponent, PropertiesFilterDirective],
   template: `
     <ng-container [formGroup]="formGroup">
       <app-setting-group [header]="title" [toggleable]="true" [collapsed]="false">
         <app-property-item-slider
           label="flex-grow"
-          *appFilter="FlexGrow; cssProperties: filterCssProperties; searchText: searchText; label: 'flex grow'"
+          *appPropertiesFilter="FlexGrow; label: 'flex grow'"
           [control]="getFormControl('flexGrow')"
           [suffix]="undefined"
           [max]="5"></app-property-item-slider>
 
         <app-property-item-slider
           label="flex-shrink"
-          *appFilter="FlexShrink; cssProperties: filterCssProperties; searchText: searchText; label: 'flex shrink'"
+          *appPropertiesFilter="FlexShrink; label: 'flex shrink'"
           [control]="getFormControl('flexShrink')"
           [suffix]="undefined"
           [max]="5"></app-property-item-slider>
 
         <app-property-item-slider
           label="flex-basis"
-          *appFilter="FlexBasis; cssProperties: filterCssProperties; searchText: searchText; label: 'flex basis'"
+          *appPropertiesFilter="FlexBasis; label: 'flex basis'"
           [control]="getFormControl('flexBasis')"
           [suffix]="undefined"
           [max]="5"></app-property-item-slider>
 
         <app-property-item-dropdown
-          *appFilter="AlignSelf; cssProperties: filterCssProperties; searchText: searchText; label: 'align self'"
+          *appPropertiesFilter="AlignSelf; label: 'align self'"
           [options]="alignSelfOptions"
           [control]="getFormControl('alignSelf')"
           label="align-self"></app-property-item-dropdown>

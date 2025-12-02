@@ -18,11 +18,11 @@ import {
   Gap,
   JustifyContent
 } from "../../../core/models/css/properties.enum";
-import {FilterDirective} from "../filter.directive";
+import {PropertiesFilterDirective} from "../properties-filter.directive";
 
 @Component({
   selector: 'app-properties-flex-container',
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, SettingGroupComponent, FilterDirective],
+  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, SettingGroupComponent, PropertiesFilterDirective],
   template: `
     <ng-container [formGroup]="formGroup">
       @if (title) {
@@ -36,36 +36,36 @@ import {FilterDirective} from "../filter.directive";
 
     <ng-template #content>
       <app-property-item-select-button
-        *appFilter="FlexDirection; cssProperties: filterCssProperties; searchText: searchText; label: 'direction'"
+        *appPropertiesFilter="FlexDirection; label: 'direction'"
         [options]="flexDirectionOptions"
         [control]="getFormControl('flexDirection')"
         label="direction"></app-property-item-select-button>
 
       <app-property-item-slider
-        *appFilter="Gap; cssProperties: filterCssProperties; searchText: searchText; label: 'gap'"
+        *appPropertiesFilter="Gap; label: 'gap'"
         label="gap"
         [control]="getFormControl('gap')"></app-property-item-slider>
 
       <app-property-item-select-button
-        *appFilter="FlexWrap; cssProperties: filterCssProperties; searchText: searchText; label: 'wrap'"
+        *appPropertiesFilter="FlexWrap; label: 'wrap'"
         [options]="flexWrapOptions"
         [control]="getFormControl('flexWrap')"
         label="wrap"></app-property-item-select-button>
 
       <app-property-item-dropdown
-        *appFilter="JustifyContent; cssProperties: filterCssProperties; searchText: searchText; label: 'justify content'"
+        *appPropertiesFilter="JustifyContent; label: 'justify content'"
         [options]="justifyContentOptions"
         [control]="getFormControl('justifyContent')"
         [label]="'justify-content'"></app-property-item-dropdown>
 
       <app-property-item-dropdown
-        *appFilter="AlignItems; cssProperties: filterCssProperties; searchText: searchText; label: 'align items'"
+        *appPropertiesFilter="AlignItems; label: 'align items'"
         [options]="alignItemsOptions"
         [control]="getFormControl('alignItems')"
         label="align-items"></app-property-item-dropdown>
 
       <app-property-item-dropdown
-        *appFilter="AlignContent; cssProperties: filterCssProperties; searchText: searchText; label: 'align content'"
+        *appPropertiesFilter="AlignContent; label: 'align content'"
         [options]="alignContentOptions"
         [control]="getFormControl('alignContent')"
         label="align-content"></app-property-item-dropdown>

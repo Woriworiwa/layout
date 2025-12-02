@@ -1,5 +1,13 @@
-import { Component, ElementRef, HostListener, inject, input, viewChild } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ButtonDirective } from 'primeng/button';
 import { InputGroup } from 'primeng/inputgroup';
@@ -13,6 +21,8 @@ import { MetaDataComponent } from './groups/meta-data.component';
 import { PropertiesFlexContainerComponent } from './groups/flex-container.component';
 import { PropertiesFlexItemComponent } from './groups/flex-item.component';
 import { PropertiesConfig } from './properties.config';
+import { PropertiesService } from './properties.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -27,6 +37,7 @@ import { PropertiesConfig } from './properties.config';
     PropertiesFlexContainerComponent,
     PropertiesFlexItemComponent,
   ],
+  providers: [PropertiesService],
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss']
 })
@@ -40,13 +51,21 @@ export class PropertiesComponent {
   protected readonly searchPlaceholder = this.detectPlatform();
 
   protected frame: CanvasItem | undefined;
-  protected searchText = '';
+
+  protected searchText = signal('');
+  private readonly propertiesService = inject(PropertiesService);
 
   constructor() {
     this.selectionService.selectedItem$
       .pipe(takeUntilDestroyed())
       .subscribe(frame => {
         this.frame = frame;
+      });
+
+    toObservable(this.searchText)
+      .pipe(debounceTime(200), takeUntilDestroyed())
+      .subscribe(text => {
+        this.propertiesService.searchText.set(text);
       });
   }
 

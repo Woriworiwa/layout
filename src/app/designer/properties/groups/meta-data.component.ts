@@ -7,17 +7,17 @@ import {takeUntil} from "rxjs";
 import {PropertyGroupRowComponent} from "../components/property-group-row.component";
 import {InputText} from "primeng/inputtext";
 import {PropertyGroupComponent} from "../components/property-group.component";
-import {FilterDirective} from "../filter.directive";
+import {PropertiesFilterDirective} from "../properties-filter.directive";
 
 @Component({
   selector: 'app-properties-meta-data',
-  imports: [SettingGroupComponent, ReactiveFormsModule, PropertyGroupRowComponent, InputText, FilterDirective],
+  imports: [SettingGroupComponent, ReactiveFormsModule, PropertyGroupRowComponent, InputText, PropertiesFilterDirective],
   template: `
     <app-setting-group header="Meta data"
              [toggleable]="true"
              [collapsed]="collapsed">
       <ng-container [formGroup]="formGroup"
-                    *appFilter="undefined; cssProperties: filterCssProperties; searchText: searchText; label: 'label'">
+                    *appPropertiesFilter="undefined; label: 'label'">
         <app-property-panel-row label="Label">
           <div>
             <input type="text" id="label" pInputText formControlName="label">

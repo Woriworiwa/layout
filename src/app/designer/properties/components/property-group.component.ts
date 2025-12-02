@@ -19,7 +19,6 @@ export abstract class PropertyGroupComponent implements OnChanges, OnDestroy {
   @Input() searchText = '';
   @Input() title = '';
   @Input() mustBeVisible = false;
-  @Input() filterCssProperties: any[] = [];
   @Input() collapsed = false;
 
   @ViewChildren(SliderComponent) panes!: QueryList<SliderComponent>;

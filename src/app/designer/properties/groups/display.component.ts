@@ -10,15 +10,15 @@ import {CanvasService} from "../../../canvas/canvas.service";
 
 
 import {Display, Height} from "../../../core/models/css/properties.enum";
-import {FilterDirective} from "../filter.directive";
+import {PropertiesFilterDirective} from "../properties-filter.directive";
 
 @Component({
   selector: 'app-properties-display',
-  imports: [ReactiveFormsModule, DropdownComponent, SettingGroupComponent, FilterDirective],
+  imports: [ReactiveFormsModule, DropdownComponent, SettingGroupComponent, PropertiesFilterDirective],
   template: `
     <app-setting-group header="Display" [toggleable]="true" [collapsed]="collapsed">
       <app-property-item-dropdown
-        *appFilter="Display; cssProperties: filterCssProperties; searchText: searchText; label: 'display'"
+        *appPropertiesFilter="Display; label: 'display'"
         [options]="displayOptions"
         [control]="getFormControl('display')"
         label="display"></app-property-item-dropdown>

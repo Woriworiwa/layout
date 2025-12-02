@@ -12,45 +12,40 @@
         pButton
         icon="pi pi-times"
         class="p-button-secondary"
-        [disabled]="searchText === ''"
-        (click)="searchText = ''">
+        [disabled]="searchText() === ''"
+        (click)="searchText.set('')">
       </button>
     </p-inputgroup>
 
     <app-properties-meta-data
       [label]="frame.label"
-      [collapsed]="false"
-      [searchText]="searchText">
+      [collapsed]="false">
     </app-properties-meta-data>
 
     <app-properties-box-sizing
       [css]="frame.css"
       [title]="'Box sizing'"
-      [collapsed]="false"
-      [searchText]="searchText">
+      [collapsed]="false">
     </app-properties-box-sizing>
 
     <app-properties-display
       [css]="frame.css"
       [title]="'Display'"
-      [collapsed]="false"
-      [searchText]="searchText">
+      [collapsed]="false">
     </app-properties-display>
 
     @switch (frame.itemType) {
       @case (FrameType.FLEX) {
         <app-properties-flex-container
           [css]="frame.css"
-          [title]="'Flex container'"
-          [searchText]="searchText">
+          [title]="'Flex container'">
         </app-properties-flex-container>
       }
     }
 
     <app-properties-flex-item
       [css]="frame.css"
-      [title]="'Flex item'"
-      [searchText]="searchText">
+      [title]="'Flex item'">
     </app-properties-flex-item>
   </div>
 }
