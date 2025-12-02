@@ -1,0 +1,119 @@
+@reference "tailwindcss";
+
+.insert-buttons {
+  @apply absolute flex flex-col gap-1 pointer-events-auto;
+  // Position on the left side, outside the selection
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 6px;
+  z-index: 10;
+
+  .insert-action-btn {
+    @apply flex items-center justify-center w-5 h-5 rounded;
+    @apply border-none cursor-pointer transition-all duration-150;
+    @apply shadow-sm hover:shadow-md;
+    background-color: var(--p-primary-500);
+    color: var(--p-primary-contrast);
+    font-size: 10px;
+
+    &:hover {
+      background-color: var(--p-primary-600);
+    }
+
+    &:focus {
+      @apply outline-none;
+      box-shadow: 0 0 0 2px var(--p-focus-ring-color);
+    }
+
+    &:active {
+      @apply scale-90;
+    }
+
+    i {
+      @apply text-[10px];
+    }
+  }
+}
+
+.assets-menu {
+  @apply flex flex-col p-1 min-w-[140px];
+
+  .asset-menu-item {
+    @apply flex items-center gap-2 px-2.5 py-1.5 rounded cursor-pointer;
+    @apply bg-transparent border-none text-left w-full transition-all duration-100;
+    color: var(--p-text-color);
+    font-size: 13px;
+
+    &:hover {
+      background-color: var(--p-content-hover-background);
+    }
+
+    &:focus {
+      @apply outline-none;
+      background-color: var(--p-content-hover-background);
+    }
+
+    &:active {
+      @apply scale-[0.98];
+    }
+
+    i {
+      @apply text-xs;
+      color: var(--p-text-muted-color);
+    }
+
+    span {
+      @apply whitespace-nowrap;
+    }
+
+    // Primary item (Empty Flex)
+    &.primary {
+      background-color: var(--p-primary-50);
+
+      i {
+        color: var(--p-primary-500);
+      }
+
+      span {
+        color: var(--p-primary-700);
+        font-weight: 500;
+      }
+
+      &:hover {
+        background-color: var(--p-primary-100);
+      }
+    }
+
+    // Secondary item (All Assets)
+    &.secondary {
+      i {
+        color: var(--p-text-muted-color);
+      }
+
+      span {
+        color: var(--p-text-muted-color);
+        font-size: 12px;
+      }
+    }
+  }
+
+  .menu-divider {
+    @apply my-0.5;
+    height: 1px;
+    background-color: var(--p-content-border-color);
+  }
+}
+
+// Tooltip customization
+:host ::ng-deep .p-tooltip {
+  .p-tooltip-text {
+    @apply text-xs py-1 px-2;
+    background-color: var(--p-tooltip-background);
+    color: var(--p-tooltip-color);
+  }
+
+  .p-tooltip-arrow {
+    border-left-color: var(--p-tooltip-background);
+  }
+}

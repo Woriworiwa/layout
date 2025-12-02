@@ -54,9 +54,11 @@ export class CanvasService implements OnDestroy {
     }
   }
 
-  insertItem(insertAfterFrameId: string, newFrame: CanvasItem, insertPosition: InsertPosition) {
+  insertItem(insertAfterFrameId: string, newFrame: CanvasItem, insertPosition: InsertPosition, autoSelect = true) {
     this.canvasStore.insertItem(insertAfterFrameId, newFrame, insertPosition);
-    this.selectionService.setSelectedItemKey(newFrame.key);
+    if (autoSelect) {
+      this.selectionService.setSelectedItemKey(newFrame.key);
+    }
     this.undoRedoService.takeSnapshot();
   }
 
@@ -94,7 +96,7 @@ export class CanvasService implements OnDestroy {
     this.selectionService.setHoverItemKey(undefined);
   }
 
-  addPreset(presetId: string, targetItemId: string, insertPosition: InsertPosition) {
+  addPreset(presetId: string, targetItemId: string, insertPosition: InsertPosition, autoSelect = true) {
     const preset = this.presetsService.getPreset(presetId);
     if (!preset) {
       return;
@@ -102,7 +104,7 @@ export class CanvasService implements OnDestroy {
 
     const newItem = cloneDeep(preset.presetDefinition);
     this.presetsService.assignDefaultPaddings(newItem);
-    this.insertItem(targetItemId, newItem, insertPosition);
+    this.insertItem(targetItemId, newItem, insertPosition, autoSelect);
   }
 
   updateCss(css: Css) {

@@ -1,0 +1,5 @@
+@if (showAddButton) {
+  <app-insert-buttons [canvasItem]="canvasItem"></app-insert-buttons>
+}
+
+<app-context-menu [target]="elementRef.nativeElement" [frameKey]="canvasItem?.key"></app-context-menu>

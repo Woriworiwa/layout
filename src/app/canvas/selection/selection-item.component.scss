@@ -7,29 +7,8 @@ $highlight-right: inset $highlight-shadow-width-negative 0 0 0 $shadow-color;
 $highlight-bottom: inset 0 $highlight-shadow-width-negative 0 0 $shadow-color;
 $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
 
-
 :host {
   display: block;
-  box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;
   position: absolute;
-
-  .add-item {
-    display: inline-block;
-    pointer-events: auto;
-    position: absolute;
-    bottom: -28px;
-    left: 4px;
-    z-index: 2;
-  }
-}
-
-:host ::ng-deep .p-button.p-button-icon-only.p-button-rounded {
-  font-size: 8px;
-  width: 2rem;
-  height: 2rem;
-}
-
-.inspection-mode {
-  padding: 8px;
-  margin-bottom: 6px;
+  box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;
 }

@@ -5,6 +5,23 @@
   z-index: 2;
 }
 
+.position-selector {
+  padding: 12px;
+  background-color: var(--p-content-background);
+  border: 1px solid var(--p-content-border-color);
+  border-radius: 6px;
+  margin-bottom: 8px;
+
+  .position-selector-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--p-text-muted-color);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
 :host ::ng-deep {
   app-preset-container {
     border: 1px solid var(--border-primary);
@@ -16,5 +33,17 @@
     display: block;
     padding: 2px;
     border: 1px solid var(--border-primary);
+  }
+
+  // Compact select button styling
+  .compact-select-button {
+    .p-button {
+      padding: 6px 10px;
+      font-size: 13px;
+
+      i {
+        font-size: 12px;
+      }
+    }
   }
 }

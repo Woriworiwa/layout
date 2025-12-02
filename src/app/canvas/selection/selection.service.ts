@@ -1,7 +1,7 @@
 import { ComponentRef, ElementRef, Injectable, OnDestroy, ViewContainerRef, inject } from "@angular/core";
 import {CanvasStore} from "../../core/store/canvas.store";
 import {CanvasItem} from "../../core/models/canvas-item.model";
-import {CanvasSelectionItemComponent} from "./canvas-selection-item.component";
+import {SelectionItemComponent} from "./selection-item.component";
 import {CanvasHoverItemComponent} from "./canvas-hover-item.component";
 import {ContextMenuService} from "../context-menu/context-menu.service";
 import {DragDropService} from "../drag-drop.service";
@@ -27,7 +27,7 @@ export class SelectionService implements OnDestroy {
   canvas!: ElementRef;
   allowAdd = true;
 
-  canvasSelectionItem: ComponentRef<CanvasSelectionItemComponent> | undefined = undefined
+  canvasSelectionItem: ComponentRef<SelectionItemComponent> | undefined = undefined
   canvasHoverItem: ComponentRef<CanvasHoverItemComponent> | undefined = undefined;
 
   private selectedItemId: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
@@ -142,7 +142,7 @@ export class SelectionService implements OnDestroy {
       if (this.canvasSelectionItem) {
         this.removeItem(this.canvasSelectionItem);
       }
-      this.canvasSelectionItem = this.overlay.createComponent(CanvasSelectionItemComponent)
+      this.canvasSelectionItem = this.overlay.createComponent(SelectionItemComponent)
       this.addItem(this.canvasSelectionItem.instance, canvasItem, element);
     } else if (itemType === 'hover') {
       if (this.canvasHoverItem) {
@@ -187,7 +187,7 @@ export class SelectionService implements OnDestroy {
     return this.canvas?.nativeElement.querySelector(`#${hoverFrame?.key}`);
   }
 
-  private addItem(component: CanvasSelectionItemComponent | CanvasHoverItemComponent, canvasItem: CanvasItem, element: HTMLElement) {
+  private addItem(component: SelectionItemComponent | CanvasHoverItemComponent, canvasItem: CanvasItem, element: HTMLElement) {
     component.width = element.offsetWidth;
     component.height = element.offsetHeight;
     component.top = element.offsetTop;
@@ -197,7 +197,7 @@ export class SelectionService implements OnDestroy {
     component.ngOnChanges();
   }
 
-  private removeItem(item: ComponentRef<CanvasSelectionItemComponent | CanvasHoverItemComponent>) {
+  private removeItem(item: ComponentRef<SelectionItemComponent | CanvasHoverItemComponent>) {
     const index = this.overlay.indexOf(item?.hostView)
     if (index != -1) {
       this.overlay.remove(index)
