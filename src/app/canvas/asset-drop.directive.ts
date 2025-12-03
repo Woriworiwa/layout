@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2, inject, OnInit, Optional, Host } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2, inject, Optional, Host, input } from '@angular/core';
 import { AssetDragDropService } from '../designer/assets/asset-drag-drop.service';
 import { CanvasItem } from '../core/models/canvas-item.model';
 import { InsertPosition, CanvasItemType } from '../core/enums';
@@ -8,7 +8,7 @@ import { CanvasItemComponent } from './canvas-items/canvas-item.component';
   selector: '[appAssetDrop]',
   standalone: true
 })
-export class AssetDropDirective implements OnInit {
+export class AssetDropDirective {
   private elementRef = inject(ElementRef);
   private renderer = inject(Renderer2);
   private assetDragDropService = inject(AssetDragDropService);
@@ -16,20 +16,13 @@ export class AssetDropDirective implements OnInit {
   // Optionally inject the host component to get the item
   @Optional() @Host() private hostComponent?: CanvasItemComponent;
 
-  @Input() appAssetDrop?: CanvasItem;
+  appAssetDrop = input<CanvasItem>();
 
   private dropPosition: InsertPosition | null = null;
 
-  ngOnInit(): void {
-    // If no input provided, try to get item from host component
-    if (!this.appAssetDrop && this.hostComponent) {
-      this.appAssetDrop = this.hostComponent.item;
-    }
-  }
-
   private getItem(): CanvasItem | undefined {
     // Use explicit input first, fall back to host component's item
-    return this.appAssetDrop || this.hostComponent?.item;
+    return this.appAssetDrop() || this.hostComponent?.item;
   }
 
   @HostListener('dragover', ['$event'])
