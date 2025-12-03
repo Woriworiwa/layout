@@ -1,16 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HtmlSerializer } from "../core/serialization/serializers/html.serializer";
 import { UnsafeHtmlPipe } from "./unsafe-html.pipe";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { CanvasItem } from "../core/models/canvas-item.model";
+import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { FormsModule } from "@angular/forms";
 import { CanvasService } from "../canvas/canvas.service";
 import { CssPrismComponent } from "./prisms/css-prism.component";
 import { HtmlPrismComponent } from "./prisms/html-prism.component";
 import { JsonPrismComponent } from "./prisms/json-prism.component";
-import { ResizableDirective } from "./resizable.directive";
-import { SelectButton } from "primeng/selectbutton";
+import { Button } from "primeng/button";
+import { Tooltip } from "primeng/tooltip";
 
 enum CodeViewType {
     HTML = 'HTML',
@@ -34,19 +33,24 @@ interface CodeTab {
         CssPrismComponent,
         HtmlPrismComponent,
         JsonPrismComponent,
-        ResizableDirective,
-        SelectButton
+        Button,
+        Tooltip
     ],
     templateUrl: './renderer.component.html',
     styleUrl: './renderer.component.scss'
 })
 export class RendererComponent {
-    protected canvasService = inject(CanvasService);
+    private canvasService = inject(CanvasService);
+    private serializer = new HtmlSerializer();
 
-    code: any;
-    serializer: HtmlSerializer = new HtmlSerializer();
-    selectedCodeView: CodeViewType = CodeViewType.HTML;
-    width = '800px';
+    // Signals for reactive state management
+    items = toSignal(this.canvasService.items$, { initialValue: [] });
+    selectedCodeView = signal<CodeViewType>(CodeViewType.HTML);
+    isFullscreen = signal(false);
+    previewScale = signal(100);
+
+    // Computed HTML code
+    code = computed(() => this.serializer.serialize(this.items()).join('\n'));
 
     codeTabs: CodeTab[] = [
         { label: 'HTML', value: CodeViewType.HTML, icon: 'pi pi-code' },
@@ -54,11 +58,30 @@ export class RendererComponent {
         { label: 'JSON', value: CodeViewType.JSON, icon: 'pi pi-file' }
     ];
 
-    constructor() {
-        this.canvasService.items$.pipe(takeUntilDestroyed()).subscribe((items: CanvasItem[]) => {
-            this.code = this.serializer.serialize(items).join('\n');
-        });
+    protected readonly CodeViewType = CodeViewType;
+
+    selectTab(tab: CodeViewType) {
+        this.selectedCodeView.set(tab);
     }
 
-    protected readonly CodeViewType = CodeViewType;
+    toggleFullscreen() {
+        this.isFullscreen.update(v => !v);
+    }
+
+    zoomIn() {
+        this.previewScale.update(scale => Math.min(scale + 10, 200));
+    }
+
+    zoomOut() {
+        this.previewScale.update(scale => Math.max(scale - 10, 50));
+    }
+
+    resetZoom() {
+        this.previewScale.set(100);
+    }
+
+    refresh() {
+        // Force refresh by triggering change detection
+        this.selectedCodeView.update(v => v);
+    }
 }
