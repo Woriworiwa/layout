@@ -10,12 +10,19 @@ import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from "sortablejs";
 import {DragDropService} from "../../drag-drop.service";
 import {CanvasItemMouseEvent} from "../../canvas-item-mouse-event";
+import {AssetDropDirective} from "../../asset-drop.directive";
 
 @Component({
     selector: 'app-container',
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CommonModule, EditableContentDirective, TextComponent, SortablejsModule],
     templateUrl: 'container.component.html',
+    hostDirectives: [
+      {
+        directive: AssetDropDirective,
+        inputs: ['appAssetDrop']
+      }
+    ],
     host: {
         /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
         '[attr.tabindex]': '-1',

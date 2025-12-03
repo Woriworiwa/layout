@@ -1,38 +1,39 @@
 :host {
-  display: flex;
-  justify-content: start;
-  position: relative;
-  z-index: 2;
+  display: block;
+  width: 100%;
 }
 
-.position-selector {
-  padding: 12px;
-  background-color: var(--p-content-background);
-  border: 1px solid var(--p-content-border-color);
-  border-radius: 6px;
-  margin-bottom: 8px;
+.asset-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
 
-  .position-selector-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--p-text-muted-color);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  &:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.05);
   }
 }
 
 :host ::ng-deep {
   app-preset-container {
-    border: 1px solid var(--border-primary);
-    background: var(--bg-secondary);
-    border-radius: 3px;
+    border: 2px solid var(--p-surface-400);
   }
 
   app-preset-text {
-    display: block;
-    padding: 2px;
-    border: 1px solid var(--border-primary);
+    border: 2px solid var(--p-surface-400);
+    padding: 4px;
+  }
+
+  .asset-preview {
+    > app-preset-container:first-child,
+    > app-preset-text:first-child {
+      width: 100%;
+      display: block;
+    }
   }
 
   // Compact select button styling

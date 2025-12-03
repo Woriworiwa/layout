@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild, DOCUMENT, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild, DOCUMENT, inject, Renderer2 } from '@angular/core';
 
 import {ContainerComponent} from "./canvas-items/container/container.component";
 import {CanvasItem} from "../core/models/canvas-item.model";
@@ -21,6 +21,8 @@ import {SelectionLayerComponent} from "./selection/selection-layer.component";
 import {MetaLayerComponent} from "./meta-layer/meta-layer.component";
 import {CanvasItemMouseEvent} from "./canvas-item-mouse-event";
 import {CanvasSettings} from "./canvas.settings";
+import {AssetDragDropService} from "../designer/assets/asset-drag-drop.service";
+import {InsertPosition} from "../core/enums";
 
 @Component({
   selector: 'app-canvas',
@@ -39,6 +41,8 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   private contextMenuService = inject(ContextMenuService);
   protected panZoomService = inject(PanZoomService);
   protected dragDropService = inject(DragDropService);
+  private assetDragDropService = inject(AssetDragDropService);
+  private renderer = inject(Renderer2);
 
   @Input() settings: CanvasSettings = new CanvasSettings({allowAdd: true});
 
@@ -87,6 +91,36 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   clearSelection() {
     this.selectionService.setSelectedItemKey(undefined);
     this.contextMenuService.hide();
+  }
+
+  @HostListener('dragover', ['$event'])
+  onCanvasDragOver($event: DragEvent) {
+    const presetData = $event.dataTransfer?.types.includes('application/x-asset-preset');
+    if (!presetData) {
+      return;
+    }
+
+    // Only handle if dropping on empty canvas (not on a child element)
+    if ($event.target === this.wrapperElementRef?.nativeElement) {
+      $event.preventDefault();
+      this.assetDragDropService.setDropTarget(CANVAS_WRAPPER_ID, InsertPosition.AFTER);
+      this.renderer.addClass(this.wrapperElementRef.nativeElement, 'drop-inside');
+    }
+  }
+
+  @HostListener('dragleave', ['$event'])
+  onCanvasDragLeave($event: DragEvent) {
+    if ($event.target === this.wrapperElementRef?.nativeElement) {
+      this.renderer.removeClass(this.wrapperElementRef.nativeElement, 'drop-inside');
+    }
+  }
+
+  @HostListener('drop', ['$event'])
+  onCanvasDrop($event: DragEvent) {
+    if ($event.target === this.wrapperElementRef?.nativeElement) {
+      $event.preventDefault();
+      this.renderer.removeClass(this.wrapperElementRef.nativeElement, 'drop-inside');
+    }
   }
 
   ngAfterViewInit() {

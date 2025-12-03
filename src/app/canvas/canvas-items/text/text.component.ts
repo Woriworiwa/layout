@@ -2,12 +2,19 @@ import { Component, ElementRef, OnChanges, inject } from '@angular/core';
 
 import {CanvasItemComponent} from "../canvas-item.component";
 import {KeyboardCommandsDirective} from "../../keyboard-commands.directive";
+import {AssetDropDirective} from "../../asset-drop.directive";
 
 @Component({
     selector: 'app-text',
     imports: [],
     template: ``,
-    hostDirectives: [KeyboardCommandsDirective],
+    hostDirectives: [
+      KeyboardCommandsDirective,
+      {
+        directive: AssetDropDirective,
+        inputs: ['appAssetDrop']
+      }
+    ],
     styles: `
   :host {
     font-family: sans-serif;

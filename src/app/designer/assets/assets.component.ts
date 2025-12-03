@@ -9,6 +9,7 @@ import { InsertPosition } from "../../core/enums";
 import { CanvasItem } from "../../core/models/canvas-item.model";
 import { Preset } from '../../core/models/preset.model';
 import { SelectionService } from "../../canvas/selection/selection.service";
+import { AssetDragDropService } from "./asset-drag-drop.service";
 
 interface AssetComponentItem {
   preset: Preset;
@@ -27,6 +28,7 @@ export class AssetsComponent {
   private readonly canvasService = inject(CanvasService);
   private readonly presetsService = inject(AssetService);
   private readonly selectionService = inject(SelectionService);
+  private readonly assetDragDropService = inject(AssetDragDropService);
 
   parentFrameId = input<string | undefined>(undefined);
   insertPosition = input<InsertPosition>(InsertPosition.AFTER);
@@ -69,5 +71,42 @@ export class AssetsComponent {
       position
     );
     this.componentAdded.emit(true);
+  }
+
+  protected onDragStart(event: DragEvent, presetId: string): void {
+    if (!event.dataTransfer) {
+      return;
+    }
+
+    // Set drag data
+    event.dataTransfer.effectAllowed = 'copy';
+    event.dataTransfer.setData('application/x-asset-preset', presetId);
+
+    // Start tracking drag state
+    this.assetDragDropService.startDragging(presetId);
+
+    // Add visual feedback
+    const target = event.currentTarget as HTMLElement;
+    target.style.opacity = '0.5';
+  }
+
+  protected onDragEnd(event: DragEvent): void {
+    // Reset visual feedback
+    const target = event.currentTarget as HTMLElement;
+    target.style.opacity = '1';
+
+    // Handle drop if we have valid drop data
+    const dropData = this.assetDragDropService.getDropData();
+    if (dropData) {
+      this.canvasService.addPreset(
+        dropData.presetId,
+        dropData.targetId,
+        dropData.position
+      );
+      this.componentAdded.emit(true);
+    }
+
+    // End tracking drag state
+    this.assetDragDropService.endDragging();
   }
 }
