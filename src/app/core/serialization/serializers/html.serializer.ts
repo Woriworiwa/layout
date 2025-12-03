@@ -6,18 +6,25 @@ import {CssClassSerializer} from "./css-class.serializer";
 export class HtmlSerializer extends Serializer {
   private readonly frameStyles = `.frame {
       display: block;
-      padding: 15px;
-      background-color: #9161a7;
-      border: 1px solid #ed9534;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
     }`;
 
   private readonly textStyles = `.text {
       display: block;
-      padding: 5px;
-      background-color: #ed9534;
-      border-radius: 6px;
-      border: 2px solid black;
-      box-shadow: inset 3px 3px 7px 5px #f2ad62;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 8px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
     }`;
 
   private cssClassSerializer: CssClassSerializer = new CssClassSerializer();
