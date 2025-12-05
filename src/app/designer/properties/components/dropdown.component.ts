@@ -27,6 +27,11 @@ import {FormItemComponent} from "./form-item.component";
       display: contents;
       white-space: nowrap;
     }
+
+    :host ::ng-deep .p-selectbutton {
+      flex-wrap: wrap !important;
+      gap: 4px !important;
+    }
   `
 })
 export class DropdownComponent extends FormItemComponent {

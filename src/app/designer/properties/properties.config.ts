@@ -16,7 +16,7 @@ export interface PropertiesConfig {
 
 export const DEFAULT_PROPERTIES_CONFIG: PropertiesConfig = {
   labelPosition: 'left',
-  selectControlsLayout: 'dropdown'
+  selectControlsLayout: 'selectButton',
 }
 
 

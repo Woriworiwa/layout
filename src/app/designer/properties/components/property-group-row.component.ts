@@ -23,7 +23,8 @@ import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "..
 
     .label-left {
       display: grid;
-      grid-template-columns: minmax(0, 4fr) repeat(1, minmax(5px, 5fr));
+      grid-template-columns: minmax(0, 2fr) repeat(1, minmax(5px, 5fr));
+      align-items: start;
     }
 
     .label-top {
@@ -35,6 +36,7 @@ import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "..
       display: flex;
       align-items: center;
       white-space: nowrap;
+      padding-top: 4px;
     }
   `
 })
