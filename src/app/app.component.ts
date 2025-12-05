@@ -8,7 +8,7 @@ import {AssetService} from "./designer/assets/asset.service";
 import {SelectionService} from "./canvas/selection/selection.service";
 import {CanvasService} from "./canvas/canvas.service";
 import {ContextMenuService} from "./canvas/context-menu/context-menu.service";
-import {DragDropService} from "./canvas/drag-drop.service";
+import {DragDropService} from "./canvas/drag-drop/drag-drop.service";
 import {UndoRedoDirective} from "./core/undo-redo/undo-redo.directive";
 import {AppStateService} from "./core/services/app-state.service";
 import {MainAreaContent, SideBarSecondary} from "./core/enums";

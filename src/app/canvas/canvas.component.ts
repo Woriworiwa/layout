@@ -6,22 +6,22 @@ import {CANVAS_WRAPPER_ID} from "../core/constants";
 import {ContextMenuService} from "./context-menu/context-menu.service";
 import {SelectionService} from "./selection/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
-import {PanZoomService} from "./pan-zoom.service";
-import {DragDropService} from "./drag-drop.service";
+import {PanZoomService} from "./pan-zoom/pan-zoom.service";
+import {DragDropService} from "./drag-drop/drag-drop.service";
 import {CopyPasteService} from "./copy-paste.service";
 import {KeyboardCommandsDirective} from "./keyboard-commands.directive";
 import {AssetService} from "../designer/assets/asset.service";
 import {CanvasService} from "./canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from 'sortablejs'
-import {PanZoomDirective} from "./pan-zoom.directive";
+import {PanZoomDirective} from "./pan-zoom/pan-zoom.directive";
 import {Subject, takeUntil} from "rxjs";
 import {MetaLayerService} from "./meta-layer/meta-layer.service";
 import {SelectionLayerComponent} from "./selection/selection-layer.component";
 import {MetaLayerComponent} from "./meta-layer/meta-layer.component";
 import {CanvasItemMouseEvent} from "./canvas-item-mouse-event";
 import {CanvasSettings} from "./canvas.settings";
-import {AssetDragDropService} from "../designer/assets/asset-drag-drop.service";
+import {AssetDragDropService} from "./drag-drop/asset-drag-drop.service";
 import {InsertPosition} from "../core/enums";
 
 @Component({

@@ -9,7 +9,7 @@ import {CANVAS_WRAPPER_ID} from "../core/constants";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CanvasItemType, InsertPosition} from "../core/enums";
 import {SelectionService} from "./selection/selection.service";
-import {DragDropService} from "./drag-drop.service";
+import {DragDropService} from "./drag-drop/drag-drop.service";
 
 import {Css} from "../core/models/css/css";
 

@@ -2,7 +2,7 @@ import { Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {UndoRedoService} from "../../core/undo-redo/undo-redo.service";
 import {Button} from "primeng/button";
-import {PanZoomService} from "../pan-zoom.service";
+import {PanZoomService} from "../pan-zoom/pan-zoom.service";
 import {Tooltip} from "primeng/tooltip";
 import {ThemeService} from "../../core/theme/theme.service";
 import {AppStateService} from "../../core/services/app-state.service";

@@ -1,8 +1,8 @@
 import { Directive, ElementRef, HostListener, Renderer2, inject, Optional, Host, input } from '@angular/core';
-import { AssetDragDropService } from '../designer/assets/asset-drag-drop.service';
-import { CanvasItem } from '../core/models/canvas-item.model';
-import { InsertPosition, CanvasItemType } from '../core/enums';
-import { CanvasItemComponent } from './canvas-items/canvas-item.component';
+import { AssetDragDropService } from './asset-drag-drop.service';
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import { InsertPosition, CanvasItemType } from '../../core/enums';
+import { CanvasItemComponent } from '../canvas-items/canvas-item.component';
 
 @Directive({
   selector: '[appAssetDrop]',

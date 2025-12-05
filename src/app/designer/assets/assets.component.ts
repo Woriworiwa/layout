@@ -9,7 +9,7 @@ import { InsertPosition } from "../../core/enums";
 import { CanvasItem } from "../../core/models/canvas-item.model";
 import { Preset } from '../../core/models/preset.model';
 import { SelectionService } from "../../canvas/selection/selection.service";
-import { AssetDragDropService } from "./asset-drag-drop.service";
+import { AssetDragDropService } from "../../canvas/drag-drop/asset-drag-drop.service";
 
 interface AssetComponentItem {
   preset: Preset;
@@ -53,24 +53,6 @@ export class AssetsComponent {
 
   constructor() {
     this.components = this.presetsService.getAssetComponents() as AssetComponentItem[];
-  }
-
-  protected addItem(presetId: string): void {
-    const hasSelectedItem = this.selectionService.selectedItem !== undefined;
-    const targetId = hasSelectedItem
-      ? this.selectionService.selectedItem?.key || CANVAS_WRAPPER_ID
-      : CANVAS_WRAPPER_ID;
-
-    const position = hasSelectedItem
-      ? this.selectedInsertPosition()
-      : InsertPosition.AFTER; // Insert at end if no selection
-
-    this.canvasService.addPreset(
-      presetId,
-      targetId,
-      position
-    );
-    this.componentAdded.emit(true);
   }
 
   protected onDragStart(event: DragEvent, presetId: string): void {

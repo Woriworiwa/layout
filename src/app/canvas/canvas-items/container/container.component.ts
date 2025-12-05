@@ -4,13 +4,13 @@ import {EditableContentDirective} from "../text/editable-content.directive";
 import {TextComponent} from "../text/text.component";
 import {CanvasItemType} from '../../../core/enums';
 import {CanvasItemComponent} from "../canvas-item.component";
-import {PanZoomService} from "../../pan-zoom.service";
+import {PanZoomService} from "../../pan-zoom/pan-zoom.service";
 import {CanvasService} from "../../canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from "sortablejs";
-import {DragDropService} from "../../drag-drop.service";
+import {DragDropService} from "../../drag-drop/drag-drop.service";
 import {CanvasItemMouseEvent} from "../../canvas-item-mouse-event";
-import {AssetDropDirective} from "../../asset-drop.directive";
+import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 
 @Component({
     selector: 'app-container',
