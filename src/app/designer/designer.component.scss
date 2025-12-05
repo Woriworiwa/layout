@@ -2,6 +2,8 @@
   display: grid;
   width: 100vw;
   height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
   grid-template-areas:
     "header header header"
     "left main right";
