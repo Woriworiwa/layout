@@ -19,6 +19,11 @@ export class AppStateService {
     sideBarPrimary: SideBarPrimary.insert,
     sideBarSecondary: SideBarSecondary.CSS
   });
+  inspectorVisible = signal<boolean>(false);
+
+  toggleInspector(): void {
+    this.inspectorVisible.set(!this.inspectorVisible());
+  }
 
 
 

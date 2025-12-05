@@ -6,9 +6,10 @@
   margin: 0 auto;
   grid-template-areas:
     "header header header"
-    "left main right";
+    "left main right"
+    "left bottom right";
   grid-template-columns: minmax(300px, 1fr) 3fr minmax(340px, 1.2fr);
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   overflow: clip;
   background-color: var(--bg-primary);
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
@@ -27,6 +28,10 @@
 
   .center {
     grid-area: main;
+  }
+
+  .bottom {
+    grid-area: bottom;
   }
 }
 

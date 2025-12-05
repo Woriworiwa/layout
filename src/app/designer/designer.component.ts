@@ -1,4 +1,4 @@
-import { Component, model } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {CanvasComponent} from "../canvas/canvas.component";
 import {PropertiesComponent} from "./properties/properties.component";
@@ -7,6 +7,7 @@ import {InspectorComponent} from "./inspector/inspector.component";
 import {LayersComponent} from "./layers/layers.component";
 import {HeaderComponent} from "./header/header.component";
 import { TabSwitcherComponent, TabOption } from '../shared/tab-switcher/tab-switcher.component';
+import { AppStateService } from '../core/services/app-state.service';
 
 @Component({
   selector: 'app-designer',
@@ -23,16 +24,10 @@ import { TabSwitcherComponent, TabOption } from '../shared/tab-switcher/tab-swit
   styleUrl: './designer.component.scss',
 })
 export class DesignerComponent {
-  leftPanelMode = model<'assets' | 'layers'>('assets');
-  rightPanelMode = model<'properties' | 'inspector'>('properties');
+  protected appStateService = inject(AppStateService);
 
   leftPanelOptions: TabOption[] = [
     { label: 'Assets', value: 'assets', icon: 'pi pi-plus' },
     { label: 'Layers', value: 'layers', icon: 'pi pi-comment' },
-  ];
-
-  rightPanelOptions: TabOption[] = [
-    { label: 'Properties', value: 'properties', icon: 'pi pi-cog' },
-    { label: 'Inspector', value: 'inspector', icon: 'pi pi-code' },
   ];
 }
