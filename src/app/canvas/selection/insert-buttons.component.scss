@@ -16,14 +16,17 @@
     background-color: var(--p-primary-500);
     color: var(--p-primary-contrast);
     font-size: 10px;
+    opacity: 0.3;
 
     &:hover {
       background-color: var(--p-primary-600);
+      opacity: 1;
     }
 
     &:focus {
       @apply outline-none;
       box-shadow: 0 0 0 2px var(--p-focus-ring-color);
+      opacity: 1;
     }
 
     &:active {
