@@ -23,12 +23,12 @@ import { TabSwitcherComponent, TabOption } from '../shared/tab-switcher/tab-swit
   styleUrl: './designer.component.scss',
 })
 export class DesignerComponent {
-  leftPanelMode = model<'assets' | 'layers'>('layers');
+  leftPanelMode = model<'assets' | 'layers'>('assets');
   rightPanelMode = model<'properties' | 'inspector'>('properties');
 
   leftPanelOptions: TabOption[] = [
-    { label: 'Layers', value: 'layers', icon: 'pi pi-comment' },
     { label: 'Assets', value: 'assets', icon: 'pi pi-plus' },
+    { label: 'Layers', value: 'layers', icon: 'pi pi-comment' },
   ];
 
   rightPanelOptions: TabOption[] = [

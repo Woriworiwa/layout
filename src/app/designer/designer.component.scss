@@ -11,6 +11,7 @@
   grid-template-rows: auto 1fr;
   overflow: clip;
   background-color: var(--bg-primary);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
 
   .top {
     grid-area: header;
