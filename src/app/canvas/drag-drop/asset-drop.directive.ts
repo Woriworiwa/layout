@@ -1,8 +1,9 @@
-import { Directive, ElementRef, HostListener, Renderer2, inject, Optional, Host, input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2, inject, Optional, Host, input, DestroyRef } from '@angular/core';
 import { AssetDragDropService } from './asset-drag-drop.service';
 import { CanvasItem } from '../../core/models/canvas-item.model';
 import { InsertPosition, CanvasItemType } from '../../core/enums';
 import { CanvasItemComponent } from '../canvas-items/canvas-item.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[appAssetDrop]',
@@ -12,13 +13,23 @@ export class AssetDropDirective {
   private elementRef = inject(ElementRef);
   private renderer = inject(Renderer2);
   private assetDragDropService = inject(AssetDragDropService);
+  private destroyRef = inject(DestroyRef);
 
   // Optionally inject the host component to get the item
   @Optional() @Host() private hostComponent?: CanvasItemComponent;
 
   appAssetDrop = input<CanvasItem>();
 
-  private dropPosition: InsertPosition | null = null;
+  constructor() {
+    // Subscribe to drag state changes to clear indicators when dragging ends
+    this.assetDragDropService.dragState$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(state => {
+        if (!state.isDragging) {
+          this.clearDropIndicator();
+        }
+      });
+  }
 
   private getItem(): CanvasItem | undefined {
     // Use explicit input first, fall back to host component's item
@@ -40,7 +51,6 @@ export class AssetDropDirective {
     const rect = this.elementRef.nativeElement.getBoundingClientRect();
     const position = this.calculateDropPosition(event, rect, item);
 
-    this.dropPosition = position;
     this.assetDragDropService.setDropTarget(item.key, position);
 
     // Show visual feedback
@@ -50,13 +60,7 @@ export class AssetDropDirective {
   @HostListener('dragleave', ['$event'])
   onDragLeave(event: DragEvent): void {
     event.stopPropagation();
-
-    // Only clear if we're actually leaving this element (not entering a child)
-    const relatedTarget = event.relatedTarget as HTMLElement;
-    if (!this.elementRef.nativeElement.contains(relatedTarget)) {
-      this.dropPosition = null;
-      this.clearDropIndicator();
-    }
+    this.clearDropIndicator();
   }
 
   @HostListener('drop', ['$event'])
@@ -64,7 +68,6 @@ export class AssetDropDirective {
     event.preventDefault();
     event.stopPropagation();
 
-    this.dropPosition = null;
     this.clearDropIndicator();
   }
 

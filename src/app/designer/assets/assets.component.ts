@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Type, input, output, inject, comput
 import { CommonModule } from '@angular/common';
 import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
-import { CANVAS_WRAPPER_ID } from "../../core/constants";
 import { AssetService } from "./asset.service";
 import { CanvasService } from "../../canvas/canvas.service";
 import { InsertPosition } from "../../core/enums";
@@ -70,6 +69,10 @@ export class AssetsComponent {
     // Add visual feedback
     const target = event.currentTarget as HTMLElement;
     target.style.opacity = '0.5';
+
+    // Position drag image below cursor to avoid obscuring drop location
+    // setDragImage(element, offsetX, offsetY) where offset is from cursor position
+    event.dataTransfer.setDragImage(target, 0, -10);
   }
 
   protected onDragEnd(event: DragEvent): void {
