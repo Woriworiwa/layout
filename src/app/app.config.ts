@@ -13,7 +13,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserAnimationsModule),
     provideHttpClient(withInterceptorsFromDi()),
     provideHighlightOptions({
-      fullLibraryLoader: () => import('highlight.js')
+      fullLibraryLoader: () => import('highlight.js'),
+      themePath: 'assets/styles/highlightjs.default.css'
     }),
     providePrimeNG({
       theme: {

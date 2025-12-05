@@ -1,11 +1,5 @@
-import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
 
-import * as Prism from 'prismjs';
-import 'prismjs';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-scss';
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {SerializationService} from "../../core/serialization/serialization.service";
 import {Subject, takeUntil} from "rxjs";
@@ -18,7 +12,7 @@ import {Highlight} from "ngx-highlightjs";
     changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Highlight],
     template: `
-      <pre><code language="css" [highlight]="css"></code></pre>
+      <pre><code [highlight]="css" language="css"></code></pre>
   `,
     styles: `
     pre[class*="language-"] {
@@ -27,7 +21,7 @@ import {Highlight} from "ngx-highlightjs";
     }
   `
 })
-export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy {
+export class CssPrismComponent implements OnChanges, OnDestroy {
   private canvasService = inject(CanvasService);
   private selectionService = inject(SelectionService);
   private cd = inject(ChangeDetectorRef);
@@ -51,14 +45,10 @@ export class CssPrismComponent implements OnChanges, AfterViewChecked, OnDestroy
 
     this.selectionService.selectedItem$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(_ => {
+      .subscribe(() => {
         this.serializeToCss();
         this.cd.markForCheck();
       });
-  }
-
-  ngAfterViewChecked() {
-    Prism.highlightAll();
   }
 
   ngOnDestroy() {

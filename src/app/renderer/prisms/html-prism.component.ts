@@ -1,12 +1,5 @@
-import { AfterViewChecked, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import * as Prism from 'prismjs';
-import 'prismjs';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-scss';
-import 'prismjs/components/prism-markup';
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {Button} from "primeng/button";
 import FileSaver from 'file-saver';
@@ -20,7 +13,7 @@ import {Highlight} from "ngx-highlightjs";
   imports: [Button, Highlight],
     template: `
     <p-button label="Download" (click)="downloadHtml()"></p-button>
-    <pre><code language="html" [highlight]="code"></code></pre>
+    <pre><code [highlight]="code" language="html"></code></pre>
   `,
     styles: `
     :host {
@@ -41,7 +34,7 @@ import {Highlight} from "ngx-highlightjs";
     }
   `
 })
-export class HtmlPrismComponent implements AfterViewChecked {
+export class HtmlPrismComponent {
   private canvasService = inject(CanvasService);
   private serializerService = inject(SerializationService);
 
@@ -53,10 +46,6 @@ export class HtmlPrismComponent implements AfterViewChecked {
       .subscribe((items: CanvasItem[]) => {
         this.code = this.serializerService.getSerializer("HTML").serialize(items).join('\n');
       });
-  }
-
-  ngAfterViewChecked() {
-    Prism.highlightAll();
   }
 
   downloadHtml() {
