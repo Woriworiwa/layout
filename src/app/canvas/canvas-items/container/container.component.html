@@ -4,6 +4,7 @@
       @switch (childItem.itemType) {
         @case (FrameType.FLEX) {
           <app-container [item]="childItem"
+                         [appAssetDrop]="childItem"
                          [nxtSortablejs]="childItem.children"
                          [config]="dragOptions"
                          (clicked)="onChildFrameClick($event)"
@@ -29,6 +30,7 @@
 <ng-template #text let-item>
   <app-text appEditableContent
             [item]="item"
+            [appAssetDrop]="item"
             [nxtSortablejs]="item.children"
             [id]="item.key!"
             (clicked)="onChildFrameClick($event)"

@@ -4,18 +4,25 @@ import {EditableContentDirective} from "../text/editable-content.directive";
 import {TextComponent} from "../text/text.component";
 import {CanvasItemType} from '../../../core/enums';
 import {CanvasItemComponent} from "../canvas-item.component";
-import {PanZoomService} from "../../pan-zoom.service";
+import {PanZoomService} from "../../pan-zoom/pan-zoom.service";
 import {CanvasService} from "../../canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from "sortablejs";
-import {DragDropService} from "../../drag-drop.service";
+import {DragDropService} from "../../drag-drop/drag-drop.service";
 import {CanvasItemMouseEvent} from "../../canvas-item-mouse-event";
+import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 
 @Component({
     selector: 'app-container',
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CommonModule, EditableContentDirective, TextComponent, SortablejsModule],
     templateUrl: 'container.component.html',
+    hostDirectives: [
+      {
+        directive: AssetDropDirective,
+        inputs: ['appAssetDrop']
+      }
+    ],
     host: {
         /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
         '[attr.tabindex]': '-1',

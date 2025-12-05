@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, Type, input, output, inject, comput
 import { CommonModule } from '@angular/common';
 import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
-import { CANVAS_WRAPPER_ID } from "../../core/constants";
 import { AssetService } from "./asset.service";
 import { CanvasService } from "../../canvas/canvas.service";
 import { InsertPosition } from "../../core/enums";
 import { CanvasItem } from "../../core/models/canvas-item.model";
 import { Preset } from '../../core/models/preset.model';
 import { SelectionService } from "../../canvas/selection/selection.service";
+import { AssetDragDropService } from "../../canvas/drag-drop/asset-drag-drop.service";
 
 interface AssetComponentItem {
   preset: Preset;
@@ -27,6 +27,7 @@ export class AssetsComponent {
   private readonly canvasService = inject(CanvasService);
   private readonly presetsService = inject(AssetService);
   private readonly selectionService = inject(SelectionService);
+  private readonly assetDragDropService = inject(AssetDragDropService);
 
   parentFrameId = input<string | undefined>(undefined);
   insertPosition = input<InsertPosition>(InsertPosition.AFTER);
@@ -53,21 +54,44 @@ export class AssetsComponent {
     this.components = this.presetsService.getAssetComponents() as AssetComponentItem[];
   }
 
-  protected addItem(presetId: string): void {
-    const hasSelectedItem = this.selectionService.selectedItem !== undefined;
-    const targetId = hasSelectedItem
-      ? this.selectionService.selectedItem?.key || CANVAS_WRAPPER_ID
-      : CANVAS_WRAPPER_ID;
+  protected onDragStart(event: DragEvent, presetId: string): void {
+    if (!event.dataTransfer) {
+      return;
+    }
 
-    const position = hasSelectedItem
-      ? this.selectedInsertPosition()
-      : InsertPosition.AFTER; // Insert at end if no selection
+    // Set drag data
+    event.dataTransfer.effectAllowed = 'copy';
+    event.dataTransfer.setData('application/x-asset-preset', presetId);
 
-    this.canvasService.addPreset(
-      presetId,
-      targetId,
-      position
-    );
-    this.componentAdded.emit(true);
+    // Start tracking drag state
+    this.assetDragDropService.startDragging(presetId);
+
+    // Add visual feedback
+    const target = event.currentTarget as HTMLElement;
+    target.style.opacity = '0.5';
+
+    // Position drag image below cursor to avoid obscuring drop location
+    // setDragImage(element, offsetX, offsetY) where offset is from cursor position
+    event.dataTransfer.setDragImage(target, 0, -10);
+  }
+
+  protected onDragEnd(event: DragEvent): void {
+    // Reset visual feedback
+    const target = event.currentTarget as HTMLElement;
+    target.style.opacity = '1';
+
+    // Handle drop if we have valid drop data
+    const dropData = this.assetDragDropService.getDropData();
+    if (dropData) {
+      this.canvasService.addPreset(
+        dropData.presetId,
+        dropData.targetId,
+        dropData.position
+      );
+      this.componentAdded.emit(true);
+    }
+
+    // End tracking drag state
+    this.assetDragDropService.endDragging();
   }
 }

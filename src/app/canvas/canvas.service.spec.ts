@@ -4,7 +4,7 @@ import {CanvasStore} from '../core/store/canvas.store';
 import {UndoRedoService} from '../core/undo-redo/undo-redo.service';
 import {SelectionService} from './selection/selection.service';
 import {AssetService} from '../designer/assets/asset.service';
-import {DragDropService} from './drag-drop.service';
+import {DragDropService} from './drag-drop/drag-drop.service';
 import {CanvasItem} from '../core/models/canvas-item.model';
 import {CanvasItemType, InsertPosition} from '../core/enums';
 import {ContextMenuService} from "./context-menu/context-menu.service";

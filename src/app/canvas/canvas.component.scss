@@ -35,3 +35,50 @@
     width: 260px;
   }
 }
+
+/* Canvas drag and drop styles */
+::ng-deep .drag-background {
+  background-color: var(--p-surface-400) !important;
+  padding: 40px;
+}
+
+/* Asset drop indicators */
+::ng-deep .drop-before {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: var(--p-primary-color);
+    border-radius: 2px;
+    z-index: 1000;
+    box-shadow: 0 0 8px var(--p-primary-color);
+  }
+}
+
+::ng-deep .drop-after {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: var(--p-primary-color);
+    border-radius: 2px;
+    z-index: 1000;
+    box-shadow: 0 0 8px var(--p-primary-color);
+  }
+}
+
+::ng-deep .drop-inside {
+  outline: 2px dashed var(--p-primary-color);
+  outline-offset: -2px;
+  background-color: rgba(var(--p-primary-color-rgb), 0.05);
+}

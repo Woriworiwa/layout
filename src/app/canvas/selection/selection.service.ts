@@ -4,7 +4,7 @@ import {CanvasItem} from "../../core/models/canvas-item.model";
 import {SelectionItemComponent} from "./selection-item.component";
 import {CanvasHoverItemComponent} from "./canvas-hover-item.component";
 import {ContextMenuService} from "../context-menu/context-menu.service";
-import {DragDropService} from "../drag-drop.service";
+import {DragDropService} from "../drag-drop/drag-drop.service";
 import {
   BehaviorSubject,
   combineLatestWith,
