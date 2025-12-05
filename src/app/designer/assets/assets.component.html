@@ -1,18 +1,13 @@
-<div class="flex flex-col gap-3 p-3 overflow-auto">
-   <div class="flex flex-col gap-3">
-    @for (item of components; track item.preset.presetId) {
-<!--      <div class="asset-card bg-[var(&#45;&#45;p-content-background)] rounded-2xl cursor-pointer overflow-hidden transition-opacity"-->
-<!--           >-->
-        <div class="asset-item p-3 cursor-move rounded-md"
-             draggable="true"
-             (dragstart)="onDragStart($event, item.preset.presetId)"
-             (dragend)="onDragEnd($event)">
-          <div class="text-sm font-semibold text-[var(--p-text-color)] mb-2 tracking-tight">{{ item.preset.presetName }}</div>
-          <div class="asset-preview bg-[var(--p-surface-50)] rounded-lg p-3 min-h-[100px] flex items-center justify-center w-full">
-            <ng-container *ngComponentOutlet="item.component; inputs: item.inputs" />
-          </div>
-        </div>
-<!--      </div>-->
-    }
-  </div>
+<div class="grid grid-cols-2 gap-3 p-3 overflow-auto">
+  @for (item of components; track item.preset.presetId) {
+    <div class="asset-item p-3 cursor-move rounded-md"
+         draggable="true"
+         (dragstart)="onDragStart($event, item.preset.presetId)"
+         (dragend)="onDragEnd($event)">
+      <div class="text-sm font-semibold text-[var(--p-text-color)] mb-2 tracking-tight">{{ item.preset.presetName }}</div>
+      <div class="asset-preview bg-[var(--p-surface-50)] rounded-lg p-2 min-h-[50px] flex items-center justify-center w-full">
+        <ng-container *ngComponentOutlet="item.component; inputs: item.inputs" />
+      </div>
+    </div>
+  }
 </div>
