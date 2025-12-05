@@ -160,14 +160,14 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   private initDragDrop() {
     this.canvasDragOptions = this.dragDropService.createGroup({
       swapThreshold: 0.8,
-      ghostClass: 'drag-background-lvl-1',
+      ghostClass: 'drag-background',
       group: 'canvas',
       disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning || !this.settings.allowDragDrop
     });
     this.childDragOptions = this.dragDropService.createGroup({
       swapThreshold: 0.9,
       group: 'child',
-      ghostClass: 'drag-background-lvl-2',
+      ghostClass: 'drag-background',
       disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning || !this.settings.allowDragDrop
     });
   }
