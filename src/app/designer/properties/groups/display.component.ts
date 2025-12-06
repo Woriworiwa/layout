@@ -22,7 +22,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
     PropertyRowComponent,
   ],
   template: `
-    <app-property-group header="Display" [toggleable]="true" [collapsed]="collapsed()">
+    <app-property-group header="Display" [toggleable]="true">
       <app-property-row label="display">
         <app-property-item-dropdown
           [options]="displayOptions"

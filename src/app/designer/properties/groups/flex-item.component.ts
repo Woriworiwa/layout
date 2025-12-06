@@ -24,7 +24,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-      <app-property-group [header]="title()" [toggleable]="true" [collapsed]="false">
+      <app-property-group [header]="title()" [toggleable]="true" >
         <app-property-row label="flex-grow">
           <app-property-item-slider
             [control]="getFormControl('flexGrow')"

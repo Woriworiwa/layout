@@ -35,7 +35,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
   template: `
     <ng-container [formGroup]="formGroup">
       @if (title()) {
-        <app-property-group [header]="title()" [toggleable]="true" [collapsed]="false">
+        <app-property-group [header]="title()" [toggleable]="true">
           <ng-container *ngTemplateOutlet="content"></ng-container>
         </app-property-group>
       } @else {

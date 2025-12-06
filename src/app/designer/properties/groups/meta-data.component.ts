@@ -14,8 +14,7 @@ import {PropertiesFilterDirective} from "../properties-filter.directive";
   imports: [PropertyGroupComponent, ReactiveFormsModule, PropertyRowComponent, InputText, PropertiesFilterDirective],
   template: `
     <app-property-group header="Meta data"
-             [toggleable]="true"
-             [collapsed]="collapsed()">
+             [toggleable]="true">
       <ng-container [formGroup]="formGroup">
         <app-property-row label="Label">
           <div>

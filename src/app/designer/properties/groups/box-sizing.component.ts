@@ -23,7 +23,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
     PropertyRowComponent,
   ],
   template: `
-    <app-property-group header="Box sizing" [toggleable]="true" [collapsed]="collapsed()">
+    <app-property-group header="Box sizing" [toggleable]="true">
       <ng-container [formGroup]="formGroup">
         <app-property-row label="padding">
           <app-property-item-slider

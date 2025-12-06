@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="border-b border-surface px-4">
       <div
-        class="flex items-center gap-2 px-1 py-1 pl-0 cursor-pointer select-none transition-colors hover:bg-surface-hover"
+        class="flex items-center gap-2 px-1 py-3 pl-0 cursor-pointer transition-colors hover:bg-surface-hover"
         (click)="toggleCollapsed()">
         <div class="m-0 text-sm flex-1">{{ header() }}</div>
         <button
@@ -27,18 +27,11 @@ import { CommonModule } from '@angular/common';
         </button>
       </div>
 
-      <div id="gaga"
-           class="flex flex-col gap-2"
-           [class.max-h-0]="isCollapsed()"
-           [class.opacity-0]="isCollapsed()"
-           [class.p-0]="isCollapsed()"
-           [class.max-h-[2000px]]="!isCollapsed()"
-           [class.opacity-100]="!isCollapsed()"
-           [class.pr-3]="!isCollapsed()"
-           [class.pb-3]="!isCollapsed()"
-           [class.pl-3]="!isCollapsed()">
-        <ng-content />
-      </div>
+      @if (!isCollapsed()) {
+        <div class="flex flex-col gap-2 pb-4">
+          <ng-content />
+        </div>
+      }
     </div>
   `
 })
