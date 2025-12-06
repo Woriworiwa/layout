@@ -1,16 +1,15 @@
 import {Component, Input} from '@angular/core';
 
-import {PropertyGroupRowComponent} from "./property-group-row.component";
+import {PropertyRowComponent} from "./property-row.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SelectButton} from "primeng/selectbutton";
 import {Select} from "primeng/select";
-import {FormItemComponent} from "./form-item.component";
+import {BaseFormItemComponent} from "./base-form-item.component";
 
 @Component({
   selector: 'app-property-item-select-button',
-  imports: [PropertyGroupRowComponent, ReactiveFormsModule, SelectButton, Select],
+  imports: [ReactiveFormsModule, SelectButton, Select],
   template: `
-    <app-property-panel-row [label]="label">
       @if (propertiesConfig.selectControlsLayout === 'dropdown') {
         <p-select ngDefaultControl
                   [dt]="select"
@@ -24,7 +23,6 @@ import {FormItemComponent} from "./form-item.component";
                         optionLabel="label"
                         optionValue="value"></p-selectButton>
       }
-    </app-property-panel-row>
   `,
   styles: `
     :host {
@@ -37,12 +35,12 @@ import {FormItemComponent} from "./form-item.component";
     }
   `
 })
-export class SelectButtonComponent extends FormItemComponent{
+export class SelectButtonComponent extends BaseFormItemComponent{
   @Input()
   options: { label: string, value: any }[] = [];
 
   @Input()
-  showClear: boolean = true;
+  showClear = true;
 
   select = {
     root: {

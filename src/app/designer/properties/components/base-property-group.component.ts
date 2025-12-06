@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren, inject}
 
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
-import {SliderComponent} from "../components/slider.component";
+import {SliderComponent} from "./slider.component";
 import {CanvasService} from "../../../canvas/canvas.service";
 
 import {Css} from "../../../core/models/css/css";
@@ -14,7 +14,7 @@ import {Unit} from "../../../core/models/css/unit.enum";
   template: `
   `
 })
-export abstract class PropertyGroupBaseComponent implements OnChanges, OnDestroy {
+export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy {
   @Input() css: Css | undefined;
   @Input() searchText = '';
   @Input() title = '';
@@ -29,9 +29,7 @@ export abstract class PropertyGroupBaseComponent implements OnChanges, OnDestroy
   protected formBuilder = inject(FormBuilder);
   protected canvasService = inject(CanvasService);
 
-
-
-  protected constructor() {
+  constructor() {
     this.formGroup = this.createFormGroup();
   }
 

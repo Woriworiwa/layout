@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 
-import { PropertyGroupRowComponent } from './property-group-row.component';
+import { PropertyRowComponent } from './property-row.component';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputNumber } from 'primeng/inputnumber';
 import { SliderChangeEvent, Slider } from 'primeng/slider';
@@ -9,12 +9,12 @@ import { Select } from 'primeng/select';
 import { Button, ButtonDirective, ButtonIcon } from 'primeng/button';
 import { Unit } from '../../../core/models/css/unit.enum';
 import { POSTFIX_UNIT } from '../../../core/constants';
-import { FormItemComponent } from './form-item.component';
+import { BaseFormItemComponent } from './base-form-item.component';
 
 @Component({
   selector: 'app-property-item-slider',
   imports: [
-    PropertyGroupRowComponent,
+    PropertyRowComponent,
     ReactiveFormsModule,
     InputNumber,
     Slider,
@@ -25,7 +25,7 @@ import { FormItemComponent } from './form-item.component';
     ButtonIcon,
   ],
   template: `
-    <app-property-panel-row [label]="label">
+
       <div>
         <p-inputgroup [dt]="inputGroup">
           <p-inputNumber
@@ -53,7 +53,7 @@ import { FormItemComponent } from './form-item.component';
           (onChange)="onSliderChange($event)"
         ></p-slider>
       </div>
-    </app-property-panel-row>
+
   `,
   styles: `
   :host {
@@ -98,7 +98,7 @@ import { FormItemComponent } from './form-item.component';
   }
   `,
 })
-export class SliderComponent extends FormItemComponent {
+export class SliderComponent extends BaseFormItemComponent {
   @Input() unit: FormControl | undefined = undefined;
   @Input() max = 100;
   @Input() controlValue: unknown = null;

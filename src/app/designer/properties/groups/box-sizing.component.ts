@@ -4,65 +4,68 @@ import {Property} from "csstype";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {SliderComponent} from "../components/slider.component";
+import {BasePropertyGroupComponent} from "../components/base-property-group.component";
 import {PropertyGroupComponent} from "../components/property-group.component";
-import {SettingGroupComponent} from "../components/setting-group.component";
 import {CanvasService} from "../../../canvas/canvas.service";
 
 import {Unit} from "../../../core/models/css/unit.enum";
 import {Height, Padding, Width} from "../../../core/models/css/properties.enum";
 import {PropertiesFilterDirective} from "../properties-filter.directive";
+import { PropertyRowComponent } from '../components/property-row.component';
 
 @Component({
   selector: 'app-properties-box-sizing',
-  imports: [ReactiveFormsModule, SliderComponent, FormsModule, SettingGroupComponent, PropertiesFilterDirective],
+  imports: [
+    ReactiveFormsModule,
+    SliderComponent,
+    FormsModule,
+    PropertyGroupComponent,
+    PropertiesFilterDirective,
+    PropertyRowComponent,
+  ],
   template: `
-    <app-setting-group header="Box sizing" [toggleable]="true" [collapsed]="collapsed">
+    <app-property-group header="Box sizing" [toggleable]="true" [collapsed]="collapsed">
       <ng-container [formGroup]="formGroup">
-        <app-property-item-slider
-          label="padding"
-          *appPropertiesFilter="Padding; label: 'padding'"
-          [control]="getFormControl('padding')"
-          [unit]="getFormControl('paddingUnit')"></app-property-item-slider>
+        <app-property-row label="padding"
+                          *appPropertiesFilter="Padding; label: 'padding'">
+          <app-property-item-slider
+            [control]="getFormControl('padding')"
+            [unit]="getFormControl('paddingUnit')"></app-property-item-slider>
+        </app-property-row>
 
-        <app-property-item-slider
-          label="height"
-          *appPropertiesFilter="Height; label: 'height'"
-          [max]="1000"
-          [control]="getFormControl('height')"
-          [unit]="getFormControl('heightUnit')"></app-property-item-slider>
+        <app-property-row label="height"
+                          *appPropertiesFilter="Height; label: 'height'">
+          <app-property-item-slider
+            [max]="1000"
+            [control]="getFormControl('height')"
+            [unit]="getFormControl('heightUnit')"></app-property-item-slider>
+        </app-property-row>
 
-        <app-property-item-slider
-          label="width"
-          *appPropertiesFilter="Width; label: 'width'"
-          [max]="1000"
-          [control]="getFormControl('width')"
-          [unit]="getFormControl('widthUnit')"></app-property-item-slider>
+        <app-property-row label="width"
+                          *appPropertiesFilter="Width; label: 'width'">
+          <app-property-item-slider
+            [max]="1000"
+            [control]="getFormControl('width')"
+            [unit]="getFormControl('widthUnit')"></app-property-item-slider>
+        </app-property-row>
       </ng-container>
-    </app-setting-group>
+    </app-property-group>
   `,
   styles: `
     :host {
       display: contents;
-
-      app-property-panel-row {
-        margin-left: 20px;
-      }
     }
-  `
+  `,
 })
-export class BoxSizingComponent extends PropertyGroupComponent implements OnChanges {
+export class BoxSizingComponent
+  extends BasePropertyGroupComponent
+  implements OnChanges
+{
   protected readonly Padding = Padding;
   protected readonly Height = Height;
   protected readonly Width = Width;
 
   items: { label?: string; icon?: string; separator?: boolean }[] = [];
-
-  constructor() {
-    const fb = inject(FormBuilder);
-    const canvasService = inject(CanvasService);
-
-    super();
-  }
 
   override ngOnChanges() {
     super.ngOnChanges();
@@ -71,15 +74,17 @@ export class BoxSizingComponent extends PropertyGroupComponent implements OnChan
       return;
     }
 
-    this.formGroup?.patchValue({
-      padding: this.extractValue(this.css.boxSizing.padding),
-      paddingUnit: this.extractUnit(this.css.boxSizing.padding),
-      height: this.extractValue(this.css.boxSizing.height),
-      heightUnit: this.extractUnit(this.css.boxSizing.height),
-      width: this.extractValue(this.css.boxSizing.width),
-      widthUnit: this.extractUnit(this.css.boxSizing.width)
-    }, {emitEvent: false});
-
+    this.formGroup?.patchValue(
+      {
+        padding: this.extractValue(this.css.boxSizing.padding),
+        paddingUnit: this.extractUnit(this.css.boxSizing.padding),
+        height: this.extractValue(this.css.boxSizing.height),
+        heightUnit: this.extractUnit(this.css.boxSizing.height),
+        width: this.extractValue(this.css.boxSizing.width),
+        widthUnit: this.extractUnit(this.css.boxSizing.width),
+      },
+      { emitEvent: false }
+    );
   }
 
   protected override createFormGroup() {
@@ -88,26 +93,39 @@ export class BoxSizingComponent extends PropertyGroupComponent implements OnChan
     }
 
     const formGroup = this.formBuilder.group({
-      padding: new FormControl<Property.Padding | null | undefined>(null, {updateOn: 'blur'}),
+      padding: new FormControl<Property.Padding | null | undefined>(null, {
+        updateOn: 'blur',
+      }),
       paddingUnit: new FormControl<Unit>(Unit.px),
-      height: new FormControl<Property.Height | null | undefined>(null, {updateOn: 'blur'}),
+      height: new FormControl<Property.Height | null | undefined>(null, {
+        updateOn: 'blur',
+      }),
       heightUnit: new FormControl<Unit>(Unit.px),
-      width: new FormControl<Property.Height | null | undefined>(null, {updateOn: 'blur'}),
-      widthUnit: new FormControl<Unit>(Unit.px)
+      width: new FormControl<Property.Height | null | undefined>(null, {
+        updateOn: 'blur',
+      }),
+      widthUnit: new FormControl<Unit>(Unit.px),
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
-      .pipe(
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
         this.canvasService.updateCss({
           ...this.css,
           boxSizing: {
-            height: value.height != null ? `${value.height}${value.heightUnit}` : value.height,
-            padding: value.padding != null ? `${value.padding}${value.paddingUnit}` : value.padding,
-            width: value.width != null ? `${value.width}${value.widthUnit}` : value.width
-          }
+            height:
+              value.height != null
+                ? `${value.height}${value.heightUnit}`
+                : value.height,
+            padding:
+              value.padding != null
+                ? `${value.padding}${value.paddingUnit}`
+                : value.padding,
+            width:
+              value.width != null
+                ? `${value.width}${value.widthUnit}`
+                : value.width,
+          },
         });
       });
 

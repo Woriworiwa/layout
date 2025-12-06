@@ -6,8 +6,8 @@ import {Property} from "csstype";
 import {DropdownComponent} from "../components/dropdown.component";
 import {SelectButtonComponent} from "../components/select-button.component";
 import {SliderComponent} from "../components/slider.component";
+import {BasePropertyGroupComponent} from "../components/base-property-group.component";
 import {PropertyGroupComponent} from "../components/property-group.component";
-import {SettingGroupComponent} from "../components/setting-group.component";
 import {CanvasService} from "../../../canvas/canvas.service";
 
 import {
@@ -19,65 +19,89 @@ import {
   JustifyContent
 } from "../../../core/models/css/properties.enum";
 import {PropertiesFilterDirective} from "../properties-filter.directive";
+import { PropertyRowComponent } from '../components/property-row.component';
 
 @Component({
   selector: 'app-properties-flex-container',
-  imports: [CommonModule, ReactiveFormsModule, SelectButtonComponent, SliderComponent, DropdownComponent, SettingGroupComponent, PropertiesFilterDirective],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    SelectButtonComponent,
+    SliderComponent,
+    DropdownComponent,
+    PropertyGroupComponent,
+    PropertiesFilterDirective,
+    PropertyRowComponent,
+  ],
   template: `
     <ng-container [formGroup]="formGroup">
       @if (title) {
-        <app-setting-group [header]="title" [toggleable]="true" [collapsed]="false">
+        <app-property-group [header]="title" [toggleable]="true" [collapsed]="false">
           <ng-container *ngTemplateOutlet="content"></ng-container>
-        </app-setting-group>
-      } @else{
+        </app-property-group>
+      } @else {
         <ng-container *ngTemplateOutlet="content"></ng-container>
       }
     </ng-container>
 
     <ng-template #content>
-      <app-property-item-select-button
-        *appPropertiesFilter="FlexDirection; label: 'direction'"
-        [options]="flexDirectionOptions"
-        [control]="getFormControl('flexDirection')"
-        label="direction"></app-property-item-select-button>
+      <app-property-row label="direction"
+                        *appPropertiesFilter="FlexDirection; label: 'direction'">
+        <app-property-item-select-button
+          [options]="flexDirectionOptions"
+          [control]="getFormControl('flexDirection')"
+        ></app-property-item-select-button>
+      </app-property-row>
 
-      <app-property-item-slider
-        *appPropertiesFilter="Gap; label: 'gap'"
-        label="gap"
-        [control]="getFormControl('gap')"></app-property-item-slider>
+      <app-property-row label="gap"
+                        *appPropertiesFilter="Gap; label: 'gap'">
+        <app-property-item-slider
+          [control]="getFormControl('gap')"></app-property-item-slider>
+      </app-property-row>
 
-      <app-property-item-select-button
-        *appPropertiesFilter="FlexWrap; label: 'wrap'"
-        [options]="flexWrapOptions"
-        [control]="getFormControl('flexWrap')"
-        label="wrap"></app-property-item-select-button>
+      <app-property-row label="wrap"
+                        *appPropertiesFilter="FlexWrap; label: 'wrap'">
+        <app-property-item-select-button
+          [options]="flexWrapOptions"
+          [control]="getFormControl('flexWrap')"
+        ></app-property-item-select-button>
+      </app-property-row>
 
-      <app-property-item-dropdown
-        *appPropertiesFilter="JustifyContent; label: 'justify content'"
-        [options]="justifyContentOptions"
-        [control]="getFormControl('justifyContent')"
-        [label]="'justify-content'"></app-property-item-dropdown>
+      <app-property-row [label]="'justify-content'"
+                        *appPropertiesFilter="JustifyContent; label: 'justify content'">
+        <app-property-item-dropdown
+          [options]="justifyContentOptions"
+          [control]="getFormControl('justifyContent')"
+        ></app-property-item-dropdown>
+      </app-property-row>
 
-      <app-property-item-dropdown
-        *appPropertiesFilter="AlignItems; label: 'align items'"
-        [options]="alignItemsOptions"
-        [control]="getFormControl('alignItems')"
-        label="align-items"></app-property-item-dropdown>
+      <app-property-row label="align-items"
+                        *appPropertiesFilter="AlignItems; label: 'align items'">
+        <app-property-item-dropdown
+          [options]="alignItemsOptions"
+          [control]="getFormControl('alignItems')" >
+        </app-property-item-dropdown>
+      </app-property-row>
 
-      <app-property-item-dropdown
-        *appPropertiesFilter="AlignContent; label: 'align content'"
-        [options]="alignContentOptions"
-        [control]="getFormControl('alignContent')"
-        label="align-content"></app-property-item-dropdown>
+      <app-property-row label="align-content"
+                        *appPropertiesFilter="AlignContent; label: 'align content'">
+        <app-property-item-dropdown
+          [options]="alignContentOptions"
+          [control]="getFormControl('alignContent')"
+        ></app-property-item-dropdown>
+      </app-property-row>
     </ng-template>
   `,
   styles: `
     :host {
       display: contents;
     }
-  `
+  `,
 })
-export class PropertiesFlexContainerComponent extends PropertyGroupComponent implements OnChanges {
+export class PropertiesFlexContainerComponent
+  extends BasePropertyGroupComponent
+  implements OnChanges
+{
   protected readonly FlexDirection = FlexDirection;
   protected readonly JustifyContent = JustifyContent;
   protected readonly AlignItems = AlignItems;
@@ -87,25 +111,25 @@ export class PropertiesFlexContainerComponent extends PropertyGroupComponent imp
 
   /*direction*/
   flexDirectionOptions = [
-    {label: 'Row', value: FlexDirection.row},
-    {label: 'Column', value: FlexDirection.column}
-  ]
+    { label: 'Row', value: FlexDirection.row },
+    { label: 'Column', value: FlexDirection.column },
+  ];
 
   /*wrap*/
   flexWrapOptions = [
-    {label: 'Yes', value: FlexWrap.wrap},
-    {label: 'No', value: FlexWrap.nowrap}
-  ]
+    { label: 'Yes', value: FlexWrap.wrap },
+    { label: 'No', value: FlexWrap.nowrap },
+  ];
 
   /*justify content*/
   justifyContentOptions = [
     JustifyContent.center,
     JustifyContent.start,
     JustifyContent.end,
-    JustifyContent["space-around"],
-    JustifyContent["space-between"],
-    JustifyContent["space-evenly"]
-  ]
+    JustifyContent['space-around'],
+    JustifyContent['space-between'],
+    JustifyContent['space-evenly'],
+  ];
 
   /*align items*/
   alignItemsOptions = [
@@ -113,8 +137,8 @@ export class PropertiesFlexContainerComponent extends PropertyGroupComponent imp
     AlignItems.end,
     AlignItems.center,
     AlignItems.stretch,
-    AlignItems.baseline
-  ]
+    AlignItems.baseline,
+  ];
 
   /*align content*/
   alignContentOptions = [
@@ -122,28 +146,23 @@ export class PropertiesFlexContainerComponent extends PropertyGroupComponent imp
     AlignContent.end,
     AlignContent.center,
     AlignContent.stretch,
-    AlignContent["space-between"],
-    AlignContent["space-around"],
-    AlignContent["space-evenly"],
-    AlignContent.baseline
+    AlignContent['space-between'],
+    AlignContent['space-around'],
+    AlignContent['space-evenly'],
+    AlignContent.baseline,
   ];
-
-
-  constructor() {
-    const fb = inject(FormBuilder);
-    const canvasService = inject(CanvasService);
-
-    super();
-  }
 
   override ngOnChanges() {
     super.ngOnChanges();
 
     if (this.css?.flexContainer) {
-      this.formGroup?.patchValue({
-        ...this.css.flexContainer,
-        gap: this.css.flexContainer.gap?.toString()
-      }, {emitEvent: false});
+      this.formGroup?.patchValue(
+        {
+          ...this.css.flexContainer,
+          gap: this.css.flexContainer.gap?.toString(),
+        },
+        { emitEvent: false }
+      );
     }
   }
 
@@ -153,22 +172,30 @@ export class PropertiesFlexContainerComponent extends PropertyGroupComponent imp
     }
 
     const formGroup = this.formBuilder.group({
-      flexDirection: new FormControl<Property.FlexDirection | null | undefined>(undefined),
-      flexWrap: new FormControl<Property.FlexWrap | null | undefined>(undefined),
-      gap: new FormControl<Property.Gap | null | undefined>(null, {updateOn: 'blur'}),
-      justifyContent: new FormControl<Property.JustifyContent | null | undefined>(null),
+      flexDirection: new FormControl<Property.FlexDirection | null | undefined>(
+        undefined
+      ),
+      flexWrap: new FormControl<Property.FlexWrap | null | undefined>(
+        undefined
+      ),
+      gap: new FormControl<Property.Gap | null | undefined>(null, {
+        updateOn: 'blur',
+      }),
+      justifyContent: new FormControl<
+        Property.JustifyContent | null | undefined
+      >(null),
       alignItems: new FormControl<Property.AlignItems | null | undefined>(null),
-      alignContent: new FormControl<Property.AlignContent | null | undefined>(null)
+      alignContent: new FormControl<Property.AlignContent | null | undefined>(
+        null
+      ),
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
-      .pipe(
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
         this.canvasService.updateCss({
           ...this.css,
-          flexContainer: value
+          flexContainer: value,
         });
       });
 

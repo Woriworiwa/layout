@@ -2,20 +2,19 @@ import { Component, ContentChild, inject, Input } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "../properties.config";
 import { SliderComponent } from './slider.component';
+import { SelectButtonComponent } from './select-button.component';
 
 @Component({
   selector: 'app-property-row',
   imports: [CommonModule],
   standalone: true,
   template: `
-    <div
-      [ngClass]="{'label-top': propertiesConfig.labelPosition === 'top', 'label-left': propertiesConfig.labelPosition === 'left'}">
+    <div [ngClass]="{'label-top': propertiesConfig.labelPosition === 'top',
+                     'label-left': propertiesConfig.labelPosition === 'left'}">
       @if (propertiesConfig.labelPosition !== 'none') {
-        <div class="property-label text-xs mb-2">{{ label }}</div>
+        <div class="flex whitespace-nowrap text-xs" [class]="contentTypeClass">{{ label }}</div>
       }
-      <div [class]="contentTypeClass">
-        <ng-content></ng-content>
-      </div>
+      <ng-content></ng-content>
     </div>
     `,
   styles: `
@@ -27,26 +26,19 @@ import { SliderComponent } from './slider.component';
     .label-left {
       display: grid;
       grid-template-columns: minmax(0, 2fr) repeat(1, minmax(5px, 5fr));
-      align-items: start;
     }
 
     .label-top {
       display: flex;
       flex-direction: column;
     }
-
-    .property-label {
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-      padding-top: 4px;
-    }
   `
 })
-export class PropertyGroupRowComponent {
+export class PropertyRowComponent {
   @Input() label = '';
 
-  @ContentChild(SliderComponent) someComponent?: SliderComponent;
+  @ContentChild(SliderComponent) sliderComponent?: SliderComponent;
+  @ContentChild(SelectButtonComponent) selectButtonComponent?: SelectButtonComponent;
 
   propertiesConfig: PropertiesConfig;
   contentTypeClass = '';
@@ -56,7 +48,7 @@ export class PropertyGroupRowComponent {
   }
 
   ngAfterContentInit() {
-    if (this.someComponent) {
+    if (this.sliderComponent || this.selectButtonComponent) {
       this.contentTypeClass = 'self-center';
     }
   }

@@ -36,7 +36,7 @@ import { CommonModule } from '@angular/common';
   `,
   styles: ``
 })
-export class SettingGroupComponent {
+export class PropertyGroupComponent {
   header = input<string>('');
   toggleable = input<boolean>(true);
   collapsed = input<boolean>(false);

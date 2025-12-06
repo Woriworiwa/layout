@@ -4,33 +4,44 @@ import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
 import {takeUntil} from "rxjs";
 import {DropdownComponent} from "../components/dropdown.component";
+import {BasePropertyGroupComponent} from "../components/base-property-group.component";
 import {PropertyGroupComponent} from "../components/property-group.component";
-import {SettingGroupComponent} from "../components/setting-group.component";
 import {CanvasService} from "../../../canvas/canvas.service";
 
 
 import {Display, Height} from "../../../core/models/css/properties.enum";
 import {PropertiesFilterDirective} from "../properties-filter.directive";
+import { PropertyRowComponent } from '../components/property-row.component';
 
 @Component({
   selector: 'app-properties-display',
-  imports: [ReactiveFormsModule, DropdownComponent, SettingGroupComponent, PropertiesFilterDirective],
+  imports: [
+    ReactiveFormsModule,
+    DropdownComponent,
+    PropertyGroupComponent,
+    PropertiesFilterDirective,
+    PropertyRowComponent,
+  ],
   template: `
-    <app-setting-group header="Display" [toggleable]="true" [collapsed]="collapsed">
-      <app-property-item-dropdown
-        *appPropertiesFilter="Display; label: 'display'"
-        [options]="displayOptions"
-        [control]="getFormControl('display')"
-        label="display"></app-property-item-dropdown>
-    </app-setting-group>
+    <app-property-group header="Display" [toggleable]="true" [collapsed]="collapsed">
+      <app-property-row label="display"
+                        *appPropertiesFilter="Display; label: 'display'">
+        <app-property-item-dropdown
+          [options]="displayOptions"
+          [control]="getFormControl('display')"></app-property-item-dropdown>
+      </app-property-row>
+    </app-property-group>
   `,
   styles: `
     :host {
       display: contents;
     }
-  `
+  `,
 })
-export class DisplayComponent extends PropertyGroupComponent implements OnChanges {
+export class DisplayComponent
+  extends BasePropertyGroupComponent
+  implements OnChanges
+{
   protected readonly Height = Height;
   protected readonly Display = Display;
   protected readonly displayOptions = [
@@ -40,24 +51,16 @@ export class DisplayComponent extends PropertyGroupComponent implements OnChange
     Display.flow,
     Display.grid,
     Display.inline,
-    Display.none
+    Display.none,
   ];
-
-  constructor() {
-    const fb = inject(FormBuilder);
-    const canvasService = inject(CanvasService);
-
-    super();
-  }
 
   override ngOnChanges() {
     super.ngOnChanges();
 
     if (this.css?.display) {
-      this.formGroup?.patchValue(this.css.display, {emitEvent: false});
+      this.formGroup?.patchValue(this.css.display, { emitEvent: false });
     }
   }
-
 
   override createFormGroup() {
     if (this.formGroupValueChangedSubscription) {
@@ -65,7 +68,7 @@ export class DisplayComponent extends PropertyGroupComponent implements OnChange
     }
 
     const formGroup = this.formBuilder.group({
-      display: new FormControl<Property.Display | null | undefined>(null)
+      display: new FormControl<Property.Display | null | undefined>(null),
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
@@ -73,7 +76,7 @@ export class DisplayComponent extends PropertyGroupComponent implements OnChange
       .subscribe((value: any) => {
         this.canvasService.updateCss({
           ...this.css,
-          display: value
+          display: value,
         });
       });
 

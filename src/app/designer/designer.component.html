@@ -13,9 +13,9 @@
 <!-- Left Panel -->
 <div class="left border-r border-r-surface-200 overflow-auto flex max-[340px]">
   <div class="flex flex-col h-full w-full">
-    <app-tab-switcher [options]="leftPanelOptions" [(value)]="appStateService.layoutState().sideBarPrimary" />
+    <app-tab-switcher [options]="leftPanelOptions" [(value)]="leftPanelMode" />
     <div class="flex-1 overflow-auto">
-      @if (appStateService.layoutState().sideBarPrimary === 'assets') {
+      @if (leftPanelMode() === 'assets') {
         <app-insert></app-insert>
       } @else {
         <app-layers></app-layers>

@@ -1,16 +1,15 @@
 import {Component, Input} from '@angular/core';
 
 import {Select} from "primeng/select";
-import {PropertyGroupRowComponent} from "./property-group-row.component";
+import {PropertyRowComponent} from "./property-row.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SelectButton} from "primeng/selectbutton";
-import {FormItemComponent} from "./form-item.component";
+import {BaseFormItemComponent} from "./base-form-item.component";
 
 @Component({
   selector: 'app-property-item-dropdown',
-  imports: [Select, PropertyGroupRowComponent, ReactiveFormsModule, SelectButton],
+  imports: [Select, PropertyRowComponent, ReactiveFormsModule, SelectButton],
   template: `
-    <app-property-panel-row [label]="label">
       @if (propertiesConfig.selectControlsLayout === 'dropdown') {
         <p-select ngDefaultControl
                   [dt]="select"
@@ -20,7 +19,6 @@ import {FormItemComponent} from "./form-item.component";
       } @else {
         <p-selectbutton [options]="options" [formControl]="control"/>
       }
-    </app-property-panel-row>
   `,
   styles: `
     :host {
@@ -31,10 +29,14 @@ import {FormItemComponent} from "./form-item.component";
     :host ::ng-deep .p-selectbutton {
       flex-wrap: wrap !important;
       gap: 4px !important;
+      --p-togglebutton-content-padding: 0.25rem;
     }
+
+
+
   `
 })
-export class DropdownComponent extends FormItemComponent {
+export class DropdownComponent extends BaseFormItemComponent {
   @Input()
   options: any[] = [];
 

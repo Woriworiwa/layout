@@ -9,7 +9,7 @@ import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "..
   template: `<p>works!</p>`,
   styles: ``,
 })
-export class FormItemComponent {
+export class BaseFormItemComponent {
   @Input() label = '';
   @Input() control: FormControl<any> = new FormControl<any>('');
 
