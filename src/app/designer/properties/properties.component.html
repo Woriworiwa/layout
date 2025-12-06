@@ -1,51 +1,55 @@
 @if (frame) {
   <div class="flex grow flex-col gap-2.5 self-stretch rounded-3xl bg-[var(--bg-primary)] py-4 justify-start">
-    <p-inputgroup>
-      <input
-        #searchInput
-        type="text"
-        pInputText
-        [placeholder]="searchPlaceholder"
-        [(ngModel)]="searchText" />
-      <button
-        type="button"
-        pButton
-        icon="pi pi-times"
-        class="p-button-secondary"
-        [disabled]="searchText() === ''"
-        (click)="searchText.set('')">
-      </button>
-    </p-inputgroup>
+    <div class="sticky top-0 bg-[var(--bg-primary)] px-4 pb-2 z-10">
+      <p-inputgroup>
+        <input
+          #searchInput
+          type="text"
+          pInputText
+          [placeholder]="searchPlaceholder"
+          [(ngModel)]="searchText" />
+        <button
+          type="button"
+          pButton
+          icon="pi pi-times"
+          class="p-button-secondary"
+          [disabled]="searchText() === ''"
+          (click)="searchText.set('')">
+        </button>
+      </p-inputgroup>
+    </div>
 
-    <app-properties-meta-data
-      [label]="frame.label"
-      [collapsed]="false">
-    </app-properties-meta-data>
+    <div class="px-4">
+      <app-properties-meta-data
+        [label]="frame.label"
+        [collapsed]="false">
+      </app-properties-meta-data>
 
-    <app-properties-box-sizing
-      [css]="frame.css"
-      [title]="'Box sizing'"
-      [collapsed]="false">
-    </app-properties-box-sizing>
+      <app-properties-box-sizing
+        [css]="frame.css"
+        [title]="'Box sizing'"
+        [collapsed]="false">
+      </app-properties-box-sizing>
 
-    <app-properties-display
-      [css]="frame.css"
-      [title]="'Display'"
-      [collapsed]="false">
-    </app-properties-display>
+      <app-properties-display
+        [css]="frame.css"
+        [title]="'Display'"
+        [collapsed]="false">
+      </app-properties-display>
 
-    @switch (frame.itemType) {
-      @case (FrameType.FLEX) {
-        <app-properties-flex-container
-          [css]="frame.css"
-          [title]="'Flex container'">
-        </app-properties-flex-container>
+      @switch (frame.itemType) {
+        @case (FrameType.FLEX) {
+          <app-properties-flex-container
+            [css]="frame.css"
+            [title]="'Flex container'">
+          </app-properties-flex-container>
+        }
       }
-    }
 
-    <app-properties-flex-item
-      [css]="frame.css"
-      [title]="'Flex item'">
-    </app-properties-flex-item>
+      <app-properties-flex-item
+        [css]="frame.css"
+        [title]="'Flex item'">
+      </app-properties-flex-item>
+    </div>
   </div>
 }
