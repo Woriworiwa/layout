@@ -35,8 +35,8 @@ import { PropertyRowComponent } from '../components/property-row.component';
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-      @if (title) {
-        <app-property-group [header]="title" [toggleable]="true" [collapsed]="false">
+      @if (title()) {
+        <app-property-group [header]="title()" [toggleable]="true" [collapsed]="false">
           <ng-container *ngTemplateOutlet="content"></ng-container>
         </app-property-group>
       } @else {
@@ -155,11 +155,12 @@ export class PropertiesFlexContainerComponent
   override ngOnChanges() {
     super.ngOnChanges();
 
-    if (this.css?.flexContainer) {
+    const cssValue = this.css();
+    if (cssValue?.flexContainer) {
       this.formGroup?.patchValue(
         {
-          ...this.css.flexContainer,
-          gap: this.css.flexContainer.gap?.toString(),
+          ...cssValue.flexContainer,
+          gap: cssValue.flexContainer.gap?.toString(),
         },
         { emitEvent: false }
       );
@@ -194,7 +195,7 @@ export class PropertiesFlexContainerComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
         this.canvasService.updateCss({
-          ...this.css,
+          ...this.css(),
           flexContainer: value,
         });
       });

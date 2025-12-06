@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 
-import {PropertyRowComponent} from "./property-row.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SelectButton} from "primeng/selectbutton";
 import {Select} from "primeng/select";
@@ -13,12 +12,12 @@ import {BaseFormItemComponent} from "./base-form-item.component";
       @if (propertiesConfig.selectControlsLayout === 'dropdown') {
         <p-select ngDefaultControl
                   [dt]="select"
-                  [options]="options"
-                  [formControl]="control"
-                  [showClear]="showClear"></p-select>
+                  [options]="options()"
+                  [formControl]="control()"
+                  [showClear]="showClear()"></p-select>
       } @else {
-        <p-selectButton [options]="options"
-                        [formControl]="control"
+        <p-selectButton [options]="options()"
+                        [formControl]="control()"
                         fluid
                         optionLabel="label"
                         optionValue="value"></p-selectButton>
@@ -36,11 +35,8 @@ import {BaseFormItemComponent} from "./base-form-item.component";
   `
 })
 export class SelectButtonComponent extends BaseFormItemComponent{
-  @Input()
-  options: { label: string, value: any }[] = [];
-
-  @Input()
-  showClear = true;
+  options = input<{ label: string, value: any }[]>([]);
+  showClear = input<boolean>(true);
 
   select = {
     root: {

@@ -24,7 +24,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
     PropertyRowComponent,
   ],
   template: `
-    <app-property-group header="Box sizing" [toggleable]="true" [collapsed]="collapsed">
+    <app-property-group header="Box sizing" [toggleable]="true" [collapsed]="collapsed()">
       <ng-container [formGroup]="formGroup">
         <app-property-row label="padding"
                           *appPropertiesFilter="Padding; label: 'padding'">
@@ -70,18 +70,19 @@ export class BoxSizingComponent
   override ngOnChanges() {
     super.ngOnChanges();
 
-    if (!this.css?.boxSizing) {
+    const cssValue = this.css();
+    if (!cssValue?.boxSizing) {
       return;
     }
 
     this.formGroup?.patchValue(
       {
-        padding: this.extractValue(this.css.boxSizing.padding),
-        paddingUnit: this.extractUnit(this.css.boxSizing.padding),
-        height: this.extractValue(this.css.boxSizing.height),
-        heightUnit: this.extractUnit(this.css.boxSizing.height),
-        width: this.extractValue(this.css.boxSizing.width),
-        widthUnit: this.extractUnit(this.css.boxSizing.width),
+        padding: this.extractValue(cssValue.boxSizing.padding),
+        paddingUnit: this.extractUnit(cssValue.boxSizing.padding),
+        height: this.extractValue(cssValue.boxSizing.height),
+        heightUnit: this.extractUnit(cssValue.boxSizing.height),
+        width: this.extractValue(cssValue.boxSizing.width),
+        widthUnit: this.extractUnit(cssValue.boxSizing.width),
       },
       { emitEvent: false }
     );
@@ -111,7 +112,7 @@ export class BoxSizingComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
         this.canvasService.updateCss({
-          ...this.css,
+          ...this.css(),
           boxSizing: {
             height:
               value.height != null

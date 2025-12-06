@@ -23,7 +23,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
     PropertyRowComponent,
   ],
   template: `
-    <app-property-group header="Display" [toggleable]="true" [collapsed]="collapsed">
+    <app-property-group header="Display" [toggleable]="true" [collapsed]="collapsed()">
       <app-property-row label="display"
                         *appPropertiesFilter="Display; label: 'display'">
         <app-property-item-dropdown
@@ -57,8 +57,9 @@ export class DisplayComponent
   override ngOnChanges() {
     super.ngOnChanges();
 
-    if (this.css?.display) {
-      this.formGroup?.patchValue(this.css.display, { emitEvent: false });
+    const cssValue = this.css();
+    if (cssValue?.display) {
+      this.formGroup?.patchValue(cssValue.display, { emitEvent: false });
     }
   }
 
@@ -75,7 +76,7 @@ export class DisplayComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
         this.canvasService.updateCss({
-          ...this.css,
+          ...this.css(),
           display: value,
         });
       });

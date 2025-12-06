@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, QueryList, ViewChildren, inject} from '@angular/core';
+import {Component, input, OnChanges, OnDestroy, QueryList, ViewChildren, inject} from '@angular/core';
 
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
@@ -15,11 +15,11 @@ import {Unit} from "../../../core/models/css/unit.enum";
   `
 })
 export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy {
-  @Input() css: Css | undefined;
-  @Input() searchText = '';
-  @Input() title = '';
-  @Input() mustBeVisible = false;
-  @Input() collapsed = false;
+  css = input<Css | undefined>(undefined);
+  searchText = input<string>('');
+  title = input<string>('');
+  mustBeVisible = input<boolean>(false);
+  collapsed = input<boolean>(false);
 
   @ViewChildren(SliderComponent) panes!: QueryList<SliderComponent>;
 

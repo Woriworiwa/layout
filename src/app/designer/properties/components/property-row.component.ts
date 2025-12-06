@@ -1,4 +1,4 @@
-import { Component, ContentChild, inject, Input } from '@angular/core';
+import { Component, ContentChild, inject, input } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "../properties.config";
 import { SliderComponent } from './slider.component';
@@ -12,7 +12,7 @@ import { SelectButtonComponent } from './select-button.component';
     <div [ngClass]="{'label-top': propertiesConfig.labelPosition === 'top',
                      'label-left': propertiesConfig.labelPosition === 'left'}">
       @if (propertiesConfig.labelPosition !== 'none') {
-        <div class="flex whitespace-nowrap text-xs" [class]="contentTypeClass">{{ label }}</div>
+        <div class="flex whitespace-nowrap text-xs" [class]="contentTypeClass">{{ label() }}</div>
       }
       <ng-content></ng-content>
     </div>
@@ -35,7 +35,7 @@ import { SelectButtonComponent } from './select-button.component';
   `
 })
 export class PropertyRowComponent {
-  @Input() label = '';
+  label = input<string>('');
 
   @ContentChild(SliderComponent) sliderComponent?: SliderComponent;
   @ContentChild(SelectButtonComponent) selectButtonComponent?: SelectButtonComponent;

@@ -1,4 +1,4 @@
-import { Directive, Input, OnChanges, TemplateRef, ViewContainerRef, inject, effect } from '@angular/core';
+import { Directive, input, TemplateRef, ViewContainerRef, inject, effect } from '@angular/core';
 import { PropertiesService } from './properties.service';
 
 @Directive({
@@ -9,14 +9,14 @@ export class PropertiesFilterDirective {
   private viewContainerRef = inject(ViewContainerRef);
   private propertiesService = inject(PropertiesService);
 
-  @Input({required: true}) appPropertiesFilter!: any;
-  @Input() appPropertiesFilterLabel = '';
+  appPropertiesFilter = input.required<any>();
+  appPropertiesFilterLabel = input<string>('');
 
   constructor() {
     effect(() => {
       this.viewContainerRef.clear();
 
-      const includesSearchText = !this.propertiesService.searchText() || this.appPropertiesFilterLabel.toLocaleLowerCase().includes(this.propertiesService.searchText().toLocaleLowerCase());
+      const includesSearchText = !this.propertiesService.searchText() || this.appPropertiesFilterLabel().toLocaleLowerCase().includes(this.propertiesService.searchText().toLocaleLowerCase());
 
       if (includesSearchText) {
         this.viewContainerRef.createEmbeddedView(this.templateRef);

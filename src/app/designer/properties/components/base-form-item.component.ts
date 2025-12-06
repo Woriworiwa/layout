@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 
 import {FormControl} from "@angular/forms";
 import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "../properties.config";
@@ -10,8 +10,8 @@ import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "..
   styles: ``,
 })
 export class BaseFormItemComponent {
-  @Input() label = '';
-  @Input() control: FormControl<any> = new FormControl<any>('');
+  label = input<string>('');
+  control = input<FormControl<any>>(new FormControl<any>(''));
 
   protected propertiesConfig: PropertiesConfig;
 

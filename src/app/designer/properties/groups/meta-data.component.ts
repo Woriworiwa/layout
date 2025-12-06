@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
+import { Component, input, OnChanges, OnDestroy, inject, effect } from '@angular/core';
 
 import {PropertyGroupComponent} from "../components/property-group.component";
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -15,7 +15,7 @@ import {PropertiesFilterDirective} from "../properties-filter.directive";
   template: `
     <app-property-group header="Meta data"
              [toggleable]="true"
-             [collapsed]="collapsed">
+             [collapsed]="collapsed()">
       <ng-container [formGroup]="formGroup"
                     *appPropertiesFilter="undefined; label: 'label'">
         <app-property-row label="Label">
@@ -33,12 +33,17 @@ import {PropertiesFilterDirective} from "../properties-filter.directive";
   `,
 })
 export class MetaDataComponent extends BasePropertyGroupComponent implements OnChanges, OnDestroy {
-  @Input() label: string | undefined;
+  label = input<string | undefined>(undefined);
+
+  constructor() {
+    super();
+    effect(() => {
+      this.formGroup?.patchValue({label: this.label()}, {emitEvent: false});
+    });
+  }
 
   override ngOnChanges() {
     super.ngOnChanges();
-
-    this.formGroup?.patchValue({label: this.label}, {emitEvent: false});
   }
 
   override createFormGroup() {

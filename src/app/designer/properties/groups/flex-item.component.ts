@@ -25,7 +25,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-      <app-property-group [header]="title" [toggleable]="true" [collapsed]="false">
+      <app-property-group [header]="title()" [toggleable]="true" [collapsed]="false">
         <app-property-row label="flex-grow"
                                 *appPropertiesFilter="FlexGrow; label: 'flex grow'">
           <app-property-item-slider
@@ -87,8 +87,9 @@ export class PropertiesFlexItemComponent
   override ngOnChanges() {
     super.ngOnChanges();
 
-    if (this.css?.flexItem) {
-      this.formGroup?.patchValue(this.css.flexItem, { emitEvent: false });
+    const cssValue = this.css();
+    if (cssValue?.flexItem) {
+      this.formGroup?.patchValue(cssValue.flexItem, { emitEvent: false });
     }
   }
 
@@ -116,7 +117,7 @@ export class PropertiesFlexItemComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
         this.canvasService.updateCss({
-          ...this.css,
+          ...this.css(),
           flexItem: value,
         });
       });
