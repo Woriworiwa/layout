@@ -1,4 +1,9 @@
-import { Component, input, signal, effect } from '@angular/core';
+import {
+  Component,
+  input,
+  signal,
+  effect
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,25 +21,26 @@ import { CommonModule } from '@angular/common';
           [class.rotate-0]="isCollapsed()"
           [class.rotate-90]="!isCollapsed()">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
           </svg>
         </button>
       </div>
-      <div
-        class="transition-all duration-300 ease-in-out flex flex-col gap-2"
-        [class.max-h-0]="isCollapsed()"
-        [class.opacity-0]="isCollapsed()"
-        [class.p-0]="isCollapsed()"
-        [class.max-h-[2000px]]="!isCollapsed()"
-        [class.opacity-100]="!isCollapsed()"
-        [class.pr-3]="!isCollapsed()"
-        [class.pb-3]="!isCollapsed()"
-        [class.pl-3]="!isCollapsed()">
+
+      <div id="gaga"
+           class="flex flex-col gap-2"
+           [class.max-h-0]="isCollapsed()"
+           [class.opacity-0]="isCollapsed()"
+           [class.p-0]="isCollapsed()"
+           [class.max-h-[2000px]]="!isCollapsed()"
+           [class.opacity-100]="!isCollapsed()"
+           [class.pr-3]="!isCollapsed()"
+           [class.pb-3]="!isCollapsed()"
+           [class.pl-3]="!isCollapsed()">
         <ng-content />
       </div>
     </div>
-  `,
-  styles: ``
+  `
 })
 export class PropertyGroupComponent {
   header = input<string>('');

@@ -30,7 +30,6 @@ import { PropertyRowComponent } from '../components/property-row.component';
     SliderComponent,
     DropdownComponent,
     PropertyGroupComponent,
-    PropertiesFilterDirective,
     PropertyRowComponent,
   ],
   template: `
@@ -45,46 +44,40 @@ import { PropertyRowComponent } from '../components/property-row.component';
     </ng-container>
 
     <ng-template #content>
-      <app-property-row label="direction"
-                        *appPropertiesFilter="FlexDirection; label: 'direction'">
+      <app-property-row label="direction">
         <app-property-item-select-button
           [options]="flexDirectionOptions"
           [control]="getFormControl('flexDirection')"
         ></app-property-item-select-button>
       </app-property-row>
 
-      <app-property-row label="gap"
-                        *appPropertiesFilter="Gap; label: 'gap'">
+      <app-property-row label="gap">
         <app-property-item-slider
           [control]="getFormControl('gap')"></app-property-item-slider>
       </app-property-row>
 
-      <app-property-row label="wrap"
-                        *appPropertiesFilter="FlexWrap; label: 'wrap'">
+      <app-property-row label="wrap">
         <app-property-item-select-button
           [options]="flexWrapOptions"
           [control]="getFormControl('flexWrap')"
         ></app-property-item-select-button>
       </app-property-row>
 
-      <app-property-row [label]="'justify-content'"
-                        *appPropertiesFilter="JustifyContent; label: 'justify content'">
+      <app-property-row label="justify-content">
         <app-property-item-dropdown
           [options]="justifyContentOptions"
           [control]="getFormControl('justifyContent')"
         ></app-property-item-dropdown>
       </app-property-row>
 
-      <app-property-row label="align-items"
-                        *appPropertiesFilter="AlignItems; label: 'align items'">
+      <app-property-row label="align-items">
         <app-property-item-dropdown
           [options]="alignItemsOptions"
           [control]="getFormControl('alignItems')" >
         </app-property-item-dropdown>
       </app-property-row>
 
-      <app-property-row label="align-content"
-                        *appPropertiesFilter="AlignContent; label: 'align content'">
+      <app-property-row label="align-content">
         <app-property-item-dropdown
           [options]="alignContentOptions"
           [control]="getFormControl('alignContent')"

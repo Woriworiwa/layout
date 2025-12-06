@@ -3,24 +3,29 @@ import {CommonModule} from '@angular/common';
 import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "../properties.config";
 import { SliderComponent } from './slider.component';
 import { SelectButtonComponent } from './select-button.component';
+import { PropertiesFilterDirective } from '../properties-filter.directive';
 
 @Component({
   selector: 'app-property-row',
-  imports: [CommonModule],
+  imports: [CommonModule, PropertiesFilterDirective],
   standalone: true,
   template: `
-    <div [ngClass]="{'label-top': propertiesConfig.labelPosition === 'top',
-                     'label-left': propertiesConfig.labelPosition === 'left'}">
+    <div *appPropertiesFilter
+         class="mb-1"
+         [ngClass]="{
+          'label-top': propertiesConfig.labelPosition === 'top',
+          'label-left': propertiesConfig.labelPosition === 'left'}">
       @if (propertiesConfig.labelPosition !== 'none') {
-        <div class="flex whitespace-nowrap text-xs" [class]="contentTypeClass">{{ label() }}</div>
+        <div class="flex whitespace-nowrap text-xs" [class]="contentTypeClass">
+          {{ label() }}
+        </div>
       }
       <ng-content></ng-content>
     </div>
-    `,
+  `,
   styles: `
-    :host {
-      display: block;
-      margin-bottom: 2px;
+    :host:empty {
+      display: none;
     }
 
     .label-left {
@@ -32,19 +37,22 @@ import { SelectButtonComponent } from './select-button.component';
       display: flex;
       flex-direction: column;
     }
-  `
+  `,
 })
 export class PropertyRowComponent {
   label = input<string>('');
 
   @ContentChild(SliderComponent) sliderComponent?: SliderComponent;
-  @ContentChild(SelectButtonComponent) selectButtonComponent?: SelectButtonComponent;
+  @ContentChild(SelectButtonComponent)
+  selectButtonComponent?: SelectButtonComponent;
 
   propertiesConfig: PropertiesConfig;
   contentTypeClass = '';
 
   constructor() {
-    this.propertiesConfig = inject(PROPERTIES_CONFIG, { optional: true }) ?? DEFAULT_PROPERTIES_CONFIG;
+    this.propertiesConfig =
+      inject(PROPERTIES_CONFIG, { optional: true }) ??
+      DEFAULT_PROPERTIES_CONFIG;
   }
 
   ngAfterContentInit() {

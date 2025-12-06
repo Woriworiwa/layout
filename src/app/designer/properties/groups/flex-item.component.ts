@@ -20,38 +20,33 @@ import { PropertyRowComponent } from '../components/property-row.component';
     SliderComponent,
     DropdownComponent,
     PropertyGroupComponent,
-    PropertiesFilterDirective,
     PropertyRowComponent,
   ],
   template: `
     <ng-container [formGroup]="formGroup">
       <app-property-group [header]="title()" [toggleable]="true" [collapsed]="false">
-        <app-property-row label="flex-grow"
-                                *appPropertiesFilter="FlexGrow; label: 'flex grow'">
+        <app-property-row label="flex-grow">
           <app-property-item-slider
             [control]="getFormControl('flexGrow')"
             [suffix]="undefined"
             [max]="5"></app-property-item-slider>
         </app-property-row>
 
-        <app-property-row label="flex-shrink"
-                                *appPropertiesFilter="FlexShrink; label: 'flex shrink'">
+        <app-property-row label="flex-shrink">
           <app-property-item-slider
             [control]="getFormControl('flexShrink')"
             [suffix]="undefined"
             [max]="5"></app-property-item-slider>
         </app-property-row>
 
-        <app-property-row label="flex-basis"
-                                *appPropertiesFilter="FlexBasis; label: 'flex basis'">
+        <app-property-row label="flex-basis">
           <app-property-item-slider
             [control]="getFormControl('flexBasis')"
             [suffix]="undefined"
             [max]="5"></app-property-item-slider>
         </app-property-row>
 
-        <app-property-row label="align-self"
-                                *appPropertiesFilter="AlignSelf; label: 'align self'">
+        <app-property-row label="align-self">
           <app-property-item-dropdown
             [options]="alignSelfOptions"
             [control]="getFormControl('alignSelf')"></app-property-item-dropdown>

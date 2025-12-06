@@ -19,13 +19,11 @@ import { PropertyRowComponent } from '../components/property-row.component';
     ReactiveFormsModule,
     DropdownComponent,
     PropertyGroupComponent,
-    PropertiesFilterDirective,
     PropertyRowComponent,
   ],
   template: `
     <app-property-group header="Display" [toggleable]="true" [collapsed]="collapsed()">
-      <app-property-row label="display"
-                        *appPropertiesFilter="Display; label: 'display'">
+      <app-property-row label="display">
         <app-property-item-dropdown
           [options]="displayOptions"
           [control]="getFormControl('display')"></app-property-item-dropdown>

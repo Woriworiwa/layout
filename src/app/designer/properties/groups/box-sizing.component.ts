@@ -20,29 +20,25 @@ import { PropertyRowComponent } from '../components/property-row.component';
     SliderComponent,
     FormsModule,
     PropertyGroupComponent,
-    PropertiesFilterDirective,
     PropertyRowComponent,
   ],
   template: `
     <app-property-group header="Box sizing" [toggleable]="true" [collapsed]="collapsed()">
       <ng-container [formGroup]="formGroup">
-        <app-property-row label="padding"
-                          *appPropertiesFilter="Padding; label: 'padding'">
+        <app-property-row label="padding">
           <app-property-item-slider
             [control]="getFormControl('padding')"
             [unit]="getFormControl('paddingUnit')"></app-property-item-slider>
         </app-property-row>
 
-        <app-property-row label="height"
-                          *appPropertiesFilter="Height; label: 'height'">
+        <app-property-row label="height">
           <app-property-item-slider
             [max]="1000"
             [control]="getFormControl('height')"
             [unit]="getFormControl('heightUnit')"></app-property-item-slider>
         </app-property-row>
 
-        <app-property-row label="width"
-                          *appPropertiesFilter="Width; label: 'width'">
+        <app-property-row label="width">
           <app-property-item-slider
             [max]="1000"
             [control]="getFormControl('width')"

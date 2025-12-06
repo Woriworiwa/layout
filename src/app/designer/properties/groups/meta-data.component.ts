@@ -16,8 +16,7 @@ import {PropertiesFilterDirective} from "../properties-filter.directive";
     <app-property-group header="Meta data"
              [toggleable]="true"
              [collapsed]="collapsed()">
-      <ng-container [formGroup]="formGroup"
-                    *appPropertiesFilter="undefined; label: 'label'">
+      <ng-container [formGroup]="formGroup">
         <app-property-row label="Label">
           <div>
             <input type="text" id="label" pInputText formControlName="label">
