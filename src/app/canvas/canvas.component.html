@@ -1,13 +1,9 @@
 <div #wrapper
      class="pan-zoom-wrapper"
-     [nxtSortablejs]="frames"
-     [config]="canvasDragOptions"
      [id]="CANVAS_WRAPPER_ID">
   @for (frame of frames; track frame.key) {
     <app-container [item]="frame"
                    [appAssetDrop]="frame"
-                   [nxtSortablejs]="frame.children"
-                   [config]="childDragOptions"
                    [id]="frame.key!"
                    (clicked)="onFrameClicked($event)"
                    (mouseOver)="onMouseOver($event)"

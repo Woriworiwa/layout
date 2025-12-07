@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { InsertPosition } from '../../core/enums';
 
 export interface AssetDragState {
@@ -21,6 +21,7 @@ export class AssetDragDropService {
   });
 
   dragState$ = this.dragStateSubject.asObservable();
+  isDragging$ = this.dragState$.pipe(map(state => state.isDragging));
 
   get currentState(): AssetDragState {
     return this.dragStateSubject.value;

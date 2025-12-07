@@ -4,7 +4,7 @@ import {CanvasItem} from "../../core/models/canvas-item.model";
 import {SelectionItemComponent} from "./selection-item.component";
 import {CanvasHoverItemComponent} from "./canvas-hover-item.component";
 import {ContextMenuService} from "../context-menu/context-menu.service";
-import {DragDropService} from "../drag-drop/drag-drop.service";
+import {AssetDragDropService} from "../drag-drop/asset-drag-drop.service";
 import {
   BehaviorSubject,
   combineLatestWith,
@@ -21,7 +21,7 @@ import {
 export class SelectionService implements OnDestroy {
   private canvasStore = inject(CanvasStore);
   private contextMenuService = inject(ContextMenuService);
-  private dragDropService = inject(DragDropService);
+  private assetDragDropService = inject(AssetDragDropService);
 
   overlay!: ViewContainerRef;
   canvas!: ElementRef;
@@ -79,11 +79,11 @@ export class SelectionService implements OnDestroy {
       fromEvent(window, 'resize').pipe(map(() => this.selectedItem))
     )
       .pipe(
-        combineLatestWith(this.dragDropService.state$),
+        combineLatestWith(this.assetDragDropService.isDragging$),
         takeUntil(this.destroy$)
       )
-      .subscribe(([selectedFrame, dragDropState]) => {
-          if ((!selectedFrame || dragDropState.isDragging) && this.canvasSelectionItem) {
+      .subscribe(([selectedFrame, isDragging]) => {
+          if ((!selectedFrame || isDragging) && this.canvasSelectionItem) {
             this.removeItem(this.canvasSelectionItem);
             this.canvasSelectionItem = undefined;
           } else {
@@ -99,13 +99,13 @@ export class SelectionService implements OnDestroy {
       takeUntil(this.destroy$),
       map(hoverItemKey => this.canvasStore.getItemById(undefined, hoverItemKey))
     )
-      .pipe(combineLatestWith(this.dragDropService.state$))
-      .subscribe(([hoverFrame, dragDropState]) => {
+      .pipe(combineLatestWith(this.assetDragDropService.isDragging$))
+      .subscribe(([hoverFrame, isDragging]) => {
           if (!hoverFrame && this.canvasHoverItem) {
             this.removeItem(this.canvasHoverItem);
             this.canvasHoverItem = undefined;
           } else {
-            if (dragDropState.isDragging || !hoverFrame || !hoverFrame.key) {
+            if (isDragging || !hoverFrame || !hoverFrame.key) {
               if (this.canvasHoverItem) {
                 this.removeItem(this.canvasHoverItem);
                 this.canvasHoverItem = undefined;

@@ -7,13 +7,10 @@ import {ContextMenuService} from "./context-menu/context-menu.service";
 import {SelectionService} from "./selection/selection.service";
 import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
 import {PanZoomService} from "./pan-zoom/pan-zoom.service";
-import {DragDropService} from "./drag-drop/drag-drop.service";
 import {CopyPasteService} from "./copy-paste/copy-paste.service";
 import {KeyboardCommandsDirective} from "./keyboard/keyboard-commands.directive";
 import {AssetService} from "../designer/assets/asset.service";
 import {CanvasService} from "./canvas.service";
-import {SortablejsModule} from "nxt-sortablejs";
-import {Options} from 'sortablejs'
 import {PanZoomDirective} from "./pan-zoom/pan-zoom.directive";
 import {Subject, takeUntil} from "rxjs";
 import {MetaLayerService} from "./meta-layer/meta-layer.service";
@@ -23,11 +20,12 @@ import {CanvasItemMouseEvent} from "./canvas-items/canvas-item-mouse-event";
 import {CanvasSettings} from "./canvas.settings";
 import {AssetDragDropService} from "./drag-drop/asset-drag-drop.service";
 import {InsertPosition} from "../core/enums";
+import {DragDropService} from "./drag-drop/drag-drop.service";
 
 @Component({
   selector: 'app-canvas',
-  imports: [ContainerComponent, CanvasToolbarComponent, SortablejsModule, SelectionLayerComponent, MetaLayerComponent],
-  providers: [CopyPasteService, AssetService, PanZoomService, MetaLayerService],
+  imports: [ContainerComponent, CanvasToolbarComponent, SelectionLayerComponent, MetaLayerComponent],
+  providers: [CopyPasteService, AssetService, PanZoomService, MetaLayerService, DragDropService],
   hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
   host: {
     '[class.surface-100]': 'true',
@@ -40,27 +38,21 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   protected selectionService = inject(SelectionService);
   private contextMenuService = inject(ContextMenuService);
   protected panZoomService = inject(PanZoomService);
-  protected dragDropService = inject(DragDropService);
   private assetDragDropService = inject(AssetDragDropService);
   private renderer = inject(Renderer2);
+  private document = inject<Document>(DOCUMENT);
+  private dragDropService = inject(DragDropService);
 
   @Input() settings: CanvasSettings = new CanvasSettings({allowAdd: true});
 
   protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
   frames: CanvasItem[] = [];
-  canvasDragOptions: Options | undefined;
-  childDragOptions: Options | undefined;
   private destroy$ = new Subject<boolean>();
 
   @ViewChild("wrapper")
   wrapperElementRef!: ElementRef;
 
   constructor() {
-    const document = inject<Document>(DOCUMENT);
-
-
-    this.initDragDrop();
-
     this.canvasService.items$
       .pipe(takeUntil(this.destroy$))
       .subscribe(rootFrames => {
@@ -70,20 +62,15 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
         * Items should be focused in order to listen to keyboard events*/
         /*TODO: Find another way other than setTimeout*/
         setTimeout(() => {
-          document.getElementById(`${this.selectionService.selectedItem?.key}`)?.focus()
+          this.document.getElementById(`${this.selectionService.selectedItem?.key}`)?.focus()
         }, 0);
-      });
-
-    this.panZoomService.state$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(_ => {
-        this.initDragDrop();
       });
   }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
+    this.dragDropService.destroy();
   }
 
   /*click*/
@@ -123,6 +110,16 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  @HostListener('mousedown', ['$event'])
+  onMouseDown(event: MouseEvent) {
+    this.dragDropService.onMouseDown(event);
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onMouseUp() {
+    this.dragDropService.onMouseUp();
+  }
+
   ngAfterViewInit() {
     this.panZoomService.initialize(this.wrapperElementRef);
   }
@@ -155,20 +152,5 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
   onChildTextContentChanged(content: { key: string, content: string }) {
     this.canvasService.updateTextContent(content.key, content.content);
-  }
-
-  private initDragDrop() {
-    this.canvasDragOptions = this.dragDropService.createGroup({
-      swapThreshold: 0.8,
-      ghostClass: 'drag-background',
-      group: 'canvas',
-      disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning || !this.settings.allowDragDrop
-    });
-    this.childDragOptions = this.dragDropService.createGroup({
-      swapThreshold: 0.9,
-      group: 'child',
-      ghostClass: 'drag-background',
-      disabled: this.panZoomService.isPanModeActive || this.panZoomService.isPanning || !this.settings.allowDragDrop
-    });
   }
 }

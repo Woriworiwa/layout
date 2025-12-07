@@ -6,16 +6,13 @@ import {CanvasItemType} from '../../../core/enums';
 import {CanvasItemComponent} from "../canvas-item.component";
 import {PanZoomService} from "../../pan-zoom/pan-zoom.service";
 import {CanvasService} from "../../canvas.service";
-import {SortablejsModule} from "nxt-sortablejs";
-import {Options} from "sortablejs";
-import {DragDropService} from "../../drag-drop/drag-drop.service";
 import {CanvasItemMouseEvent} from "../canvas-item-mouse-event";
 import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 
 @Component({
     selector: 'app-container',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, EditableContentDirective, TextComponent, SortablejsModule],
+    imports: [CommonModule, EditableContentDirective, TextComponent],
     templateUrl: 'container.component.html',
     hostDirectives: [
       {
@@ -32,22 +29,12 @@ import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 export class ContainerComponent extends CanvasItemComponent {
   protected canvasService = inject(CanvasService);
   protected panZoomService = inject(PanZoomService);
-  private dragDropService = inject(DragDropService);
 
   protected readonly FrameType = CanvasItemType;
   @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
   @Input() selectedFrameKey!: string | undefined;
 
-  dragOptions: Options;
-
-  constructor() {
-    super();
-
-    this.dragOptions = this.dragDropService.createGroup({group: 'child', ghostClass: 'drag-background-lvl-1'});
-  }
-
   protected onChildFrameClick(event: CanvasItemMouseEvent) {
-    this.dragOptions = {};
     this.clicked.emit(event);
   }
 

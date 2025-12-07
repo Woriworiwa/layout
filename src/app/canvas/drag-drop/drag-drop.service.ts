@@ -1,59 +1,63 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {Options} from 'sortablejs';
+import { Injectable, inject } from "@angular/core";
+import { CANVAS_WRAPPER_ID } from "../../core/constants";
+import { UiGuidanceService } from "../../core/services/ui-guidance.service";
 
+/**
+ * Service to detect when users attempt to drag canvas elements
+ * and guide them to use the layers panel instead
+ */
 @Injectable()
 export class DragDropService {
-  private currentStateSubject: BehaviorSubject<any> = new BehaviorSubject<{
-    draggingStarted: boolean,
-    isDragging: boolean,
-    draggingEnded: boolean
-  }>({
-    isDragging: false,
-    draggingStarted: false,
-    draggingEnded: false
-  });
+  private uiGuidanceService = inject(UiGuidanceService);
+  private dragAttemptTimeout: any;
 
-  state$: Observable<{
-    draggingStarted: boolean,
-    isDragging: boolean,
-    draggingEnded: boolean
-  }> = this.currentStateSubject.asObservable();
+  /**
+   * Handles mousedown event on canvas elements
+   * Detects if user is attempting to drag a canvas element
+   */
+  onMouseDown(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
 
-  private dropSubject: Subject<{item: string, from: string, to: string, oldIndex: number, newIndex: number}> = new Subject();
-  drop$ = this.dropSubject.asObservable();
+    // Don't trigger if clicking on buttons, inputs, or other interactive elements
+    if (target.closest('button') || target.closest('input') || target.closest('.p-tree')) {
+      return;
+    }
 
-  startDragging() {
-    console.log('start dragging')
-    this.currentStateSubject.next({
-      ...this.currentStateSubject.getValue(),
-      isDragging: true
-    });
+    const closestElement = target.closest('[id]');
+    const isCanvasElement = closestElement?.id &&
+                            closestElement.id !== CANVAS_WRAPPER_ID &&
+                            !target.closest('.asset-item');
+
+    if (isCanvasElement && event.button === 0) { // left mouse button
+      // Clear any existing timeout
+      if (this.dragAttemptTimeout) {
+        clearTimeout(this.dragAttemptTimeout);
+      }
+
+      // Set a timeout to detect if user is attempting to drag
+      this.dragAttemptTimeout = setTimeout(() => {
+        // Trigger guidance to show and highlight layers panel
+        this.uiGuidanceService.highlightLayersPanel();
+      }, 150); // Short delay to distinguish from clicks
+    }
   }
 
-  endDragging() {
-    console.log('end dragging')
-    this.currentStateSubject.next({
-      ...this.currentStateSubject.getValue(),
-      isDragging: false
-    });
+  /**
+   * Handles mouseup event
+   * Clears the drag detection timeout if mouse is released quickly
+   */
+  onMouseUp(): void {
+    if (this.dragAttemptTimeout) {
+      clearTimeout(this.dragAttemptTimeout);
+    }
   }
 
-  createGroup(options: Options = {}) {
-    return {
-      swapThreshold: 0.5,
-      ghostClass: 'drag-background-lvl-1',
-      fallbackOnBody: true,
-      onUpdate: (event) => {
-        console.log('--update')
-        // this.canvasService.setItems([...this.canvasService.items]), // .moveItemChild(event.from.id || event.to.id, event.to.id, event.oldIndex!, event.newIndex!),
-        const {item, from, to, oldIndex, newIndex} = event;
-        this.dropSubject.next({item: item.id, from: from.id, to: to.id, newIndex: newIndex!, oldIndex: oldIndex!});
-      },
-      onStart: (_) => this.startDragging(),
-      onEnd: (_) => this.endDragging(),
-      ...options
-    } as Options;
-
+  /**
+   * Cleanup method to clear any pending timeouts
+   */
+  destroy(): void {
+    if (this.dragAttemptTimeout) {
+      clearTimeout(this.dragAttemptTimeout);
+    }
   }
 }

@@ -9,7 +9,6 @@ import {CANVAS_WRAPPER_ID} from "../core/constants";
 import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CanvasItemType, InsertPosition} from "../core/enums";
 import {SelectionService} from "./selection/selection.service";
-import {DragDropService} from "./drag-drop/drag-drop.service";
 
 import {Css} from "../core/models/css/css";
 
@@ -19,7 +18,6 @@ export class CanvasService implements OnDestroy {
   private undoRedoService = inject(UndoRedoService);
   private selectionService = inject(SelectionService);
   private presetsService = inject(AssetService);
-  private dragDropService = inject(DragDropService);
 
   private destroy$ = new Subject<boolean>();
   private cssChangedSubject = new Subject();
@@ -27,7 +25,6 @@ export class CanvasService implements OnDestroy {
 
   constructor() {
     this.subscribeToUndoRedo();
-    this.subscribeToDragDrop();
   }
 
   ngOnDestroy(): void {
@@ -185,14 +182,5 @@ export class CanvasService implements OnDestroy {
         this.canvasStore.setItems(currentState);
         this.selectionService.setSelectedItemKey(this.selectionService.selectedItem?.key);
       })
-  }
-
-  private subscribeToDragDrop() {
-    this.dragDropService.drop$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.undoRedoService.takeSnapshot();
-        this.setItems([...this.canvasStore.items]);
-      });
   }
 }
