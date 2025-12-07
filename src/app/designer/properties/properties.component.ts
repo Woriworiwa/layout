@@ -22,7 +22,6 @@ import { PropertiesFlexContainerComponent } from './groups/flex-container.compon
 import { PropertiesFlexItemComponent } from './groups/flex-item.component';
 import { PropertiesConfig } from './properties.config';
 import { PropertiesService } from './properties.service';
-import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -63,7 +62,7 @@ export class PropertiesComponent {
       });
 
     toObservable(this.searchText)
-      .pipe(debounceTime(200), takeUntilDestroyed())
+      .pipe(takeUntilDestroyed())
       .subscribe(text => {
         this.propertiesService.searchText.set(text);
       });

@@ -1,17 +1,15 @@
-import { Component, input, OnChanges, OnDestroy, inject, effect } from '@angular/core';
+import { Component, input, OnChanges, OnDestroy, effect } from '@angular/core';
 
 import {PropertyGroupComponent} from "../components/property-group.component";
-import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
-import {CanvasService} from "../../../canvas/canvas.service";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {PropertyRowComponent} from "../components/property-row.component";
 import {InputText} from "primeng/inputtext";
 import {BasePropertyGroupComponent} from "../components/base-property-group.component";
-import {PropertiesFilterDirective} from "../properties-filter.directive";
 
 @Component({
   selector: 'app-properties-meta-data',
-  imports: [PropertyGroupComponent, ReactiveFormsModule, PropertyRowComponent, InputText, PropertiesFilterDirective],
+  imports: [PropertyGroupComponent, ReactiveFormsModule, PropertyRowComponent, InputText],
   template: `
     <app-property-group header="Meta data"
              [toggleable]="true">

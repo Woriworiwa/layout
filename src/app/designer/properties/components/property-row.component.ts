@@ -1,4 +1,4 @@
-import { Component, ContentChild, inject, input } from '@angular/core';
+import { Component, ContentChild, inject, input, signal } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "../properties.config";
 import { SliderComponent } from './slider.component';
@@ -24,7 +24,11 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
     </div>
   `,
   styles: `
-    :host:empty {
+    :host {
+      display: block;
+    }
+
+    :host.hidden {
       display: none;
     }
 
@@ -49,6 +53,9 @@ export class PropertyRowComponent {
   propertiesConfig: PropertiesConfig;
   contentTypeClass = '';
 
+  // Track visibility state for filtering
+  isVisible = signal(true);
+
   constructor() {
     this.propertiesConfig =
       inject(PROPERTIES_CONFIG, { optional: true }) ??
@@ -58,6 +65,8 @@ export class PropertyRowComponent {
   ngAfterContentInit() {
     if (this.sliderComponent || this.selectButtonComponent) {
       this.contentTypeClass = 'self-center';
+    } else {
+      this.contentTypeClass = 'mt-1';
     }
   }
 }

@@ -1,6 +1,6 @@
-import { Component, OnChanges, inject } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {Property} from "csstype";
 import {DropdownComponent} from "../components/dropdown.component";
@@ -8,8 +8,6 @@ import {SelectButtonComponent} from "../components/select-button.component";
 import {SliderComponent} from "../components/slider.component";
 import {BasePropertyGroupComponent} from "../components/base-property-group.component";
 import {PropertyGroupComponent} from "../components/property-group.component";
-import {CanvasService} from "../../../canvas/canvas.service";
-
 import {
   AlignContent,
   AlignItems,
@@ -18,7 +16,6 @@ import {
   Gap,
   JustifyContent
 } from "../../../core/models/css/properties.enum";
-import {PropertiesFilterDirective} from "../properties-filter.directive";
 import { PropertyRowComponent } from '../components/property-row.component';
 
 @Component({
@@ -34,56 +31,48 @@ import { PropertyRowComponent } from '../components/property-row.component';
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-      @if (title()) {
         <app-property-group [header]="title()" [toggleable]="true">
-          <ng-container *ngTemplateOutlet="content"></ng-container>
+          <app-property-row label="direction">
+            <app-property-item-select-button
+              [options]="flexDirectionOptions"
+              [control]="getFormControl('flexDirection')"
+            ></app-property-item-select-button>
+          </app-property-row>
+
+          <app-property-row label="gap">
+            <app-property-item-slider
+              [control]="getFormControl('gap')"></app-property-item-slider>
+          </app-property-row>
+
+          <app-property-row label="wrap">
+            <app-property-item-select-button
+              [options]="flexWrapOptions"
+              [control]="getFormControl('flexWrap')"
+            ></app-property-item-select-button>
+          </app-property-row>
+
+          <app-property-row label="justify-content">
+            <app-property-item-dropdown
+              [options]="justifyContentOptions"
+              [control]="getFormControl('justifyContent')"
+            ></app-property-item-dropdown>
+          </app-property-row>
+
+          <app-property-row label="align-items">
+            <app-property-item-dropdown
+              [options]="alignItemsOptions"
+              [control]="getFormControl('alignItems')" >
+            </app-property-item-dropdown>
+          </app-property-row>
+
+          <app-property-row label="align-content">
+            <app-property-item-dropdown
+              [options]="alignContentOptions"
+              [control]="getFormControl('alignContent')"
+            ></app-property-item-dropdown>
+          </app-property-row>
         </app-property-group>
-      } @else {
-        <ng-container *ngTemplateOutlet="content"></ng-container>
-      }
     </ng-container>
-
-    <ng-template #content>
-      <app-property-row label="direction">
-        <app-property-item-select-button
-          [options]="flexDirectionOptions"
-          [control]="getFormControl('flexDirection')"
-        ></app-property-item-select-button>
-      </app-property-row>
-
-      <app-property-row label="gap">
-        <app-property-item-slider
-          [control]="getFormControl('gap')"></app-property-item-slider>
-      </app-property-row>
-
-      <app-property-row label="wrap">
-        <app-property-item-select-button
-          [options]="flexWrapOptions"
-          [control]="getFormControl('flexWrap')"
-        ></app-property-item-select-button>
-      </app-property-row>
-
-      <app-property-row label="justify-content">
-        <app-property-item-dropdown
-          [options]="justifyContentOptions"
-          [control]="getFormControl('justifyContent')"
-        ></app-property-item-dropdown>
-      </app-property-row>
-
-      <app-property-row label="align-items">
-        <app-property-item-dropdown
-          [options]="alignItemsOptions"
-          [control]="getFormControl('alignItems')" >
-        </app-property-item-dropdown>
-      </app-property-row>
-
-      <app-property-row label="align-content">
-        <app-property-item-dropdown
-          [options]="alignContentOptions"
-          [control]="getFormControl('alignContent')"
-        ></app-property-item-dropdown>
-      </app-property-row>
-    </ng-template>
   `,
   styles: `
     :host {
@@ -91,16 +80,8 @@ import { PropertyRowComponent } from '../components/property-row.component';
     }
   `,
 })
-export class PropertiesFlexContainerComponent
-  extends BasePropertyGroupComponent
-  implements OnChanges
+export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent implements OnChanges
 {
-  protected readonly FlexDirection = FlexDirection;
-  protected readonly JustifyContent = JustifyContent;
-  protected readonly AlignItems = AlignItems;
-  protected readonly FlexWrap = FlexWrap;
-  protected readonly Gap = Gap;
-  protected readonly AlignContent = AlignContent;
 
   /*direction*/
   flexDirectionOptions = [
