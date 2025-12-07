@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
-import {CanvasService} from "./canvas.service";
-import {SelectionService} from "./selection/selection.service";
+import {CanvasService} from "../canvas.service";
+import {SelectionService} from "../selection/selection.service";
 
 @Injectable()
 export class CopyPasteService {

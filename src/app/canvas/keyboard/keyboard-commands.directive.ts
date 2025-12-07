@@ -1,7 +1,7 @@
 import { Directive, HostListener, inject } from "@angular/core";
-import {CopyPasteService} from "./copy-paste.service";
-import {CanvasService} from "./canvas.service";
-import {SelectionService} from "./selection/selection.service";
+import {CopyPasteService} from "../copy-paste/copy-paste.service";
+import {CanvasService} from "../canvas.service";
+import {SelectionService} from "../selection/selection.service";
 
 @Directive({
   selector: '[appKeyboardCommands]',

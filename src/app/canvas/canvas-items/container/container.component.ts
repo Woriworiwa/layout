@@ -9,7 +9,7 @@ import {CanvasService} from "../../canvas.service";
 import {SortablejsModule} from "nxt-sortablejs";
 import {Options} from "sortablejs";
 import {DragDropService} from "../../drag-drop/drag-drop.service";
-import {CanvasItemMouseEvent} from "../../canvas-item-mouse-event";
+import {CanvasItemMouseEvent} from "../canvas-item-mouse-event";
 import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild, inject } from '@angular/core';
 
 import {ContextMenu} from "primeng/contextmenu";
 import {MenuItem} from "primeng/api";
-import {CopyPasteService} from "../copy-paste.service";
+import {CopyPasteService} from "../copy-paste/copy-paste.service";
 import {CanvasService} from "../canvas.service";
 
 

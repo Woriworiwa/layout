@@ -6,7 +6,7 @@ import {CssStyleSerializer} from "../../core/serialization/serializers/css-style
 import {SelectionService} from "../selection/selection.service";
 import {Subject, takeUntil} from "rxjs";
 import {CanvasService} from "../canvas.service";
-import {CanvasItemMouseEvent} from "../canvas-item-mouse-event";
+import {CanvasItemMouseEvent} from "./canvas-item-mouse-event";
 
 @Component({
     selector: 'app-canvas-base-component',

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnChanges, inject } from '@angular/core';
 
 import {CanvasItemComponent} from "../canvas-item.component";
-import {KeyboardCommandsDirective} from "../../keyboard-commands.directive";
+import {KeyboardCommandsDirective} from "../../keyboard/keyboard-commands.directive";
 import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 
 @Component({
