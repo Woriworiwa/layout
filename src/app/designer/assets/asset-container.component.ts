@@ -22,7 +22,7 @@ import {AssetService} from "./asset.service";
     `,
     styles: [`
     :host {
-      zoom: 70%;
+      zoom: 50%;
     }
   `]
 })
