@@ -5,7 +5,7 @@
          (dragstart)="onDragStart($event, item.preset.presetId)"
          (dragend)="onDragEnd($event)">
       <div class="text-sm font-semibold text-[var(--p-text-color)] mb-2 tracking-tight">{{ item.preset.presetName }}</div>
-      <div class="asset-preview bg-[var(--p-surface-50)] rounded-lg p-2 min-h-[50px] flex items-center justify-center w-full">
+      <div class="asset-preview bg-[var(--bg-secondary)] rounded-lg p-2 min-h-[50px] flex items-center justify-center w-full">
         <ng-container *ngComponentOutlet="item.component; inputs: item.inputs" />
       </div>
     </div>
