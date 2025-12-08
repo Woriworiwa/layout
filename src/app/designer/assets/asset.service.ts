@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CanvasItemType} from "../../core/enums";
-import {flexPresets, textPresets} from "../../../assets/data/presets";
+import {allPresets} from '../../../data/presets';
 import {Preset} from "../../core/models/preset.model";
 import {AssetContainerComponent} from "./asset-container.component";
 import {AssetTextComponent} from "./asset-text.component";
@@ -12,9 +12,10 @@ import {BoxSizing} from "../../core/models/css/box-sizing";
 @Injectable()
 export class AssetService {
   defaultPadding = '16px';
+  allPresets: Preset[] = [...allPresets] as Preset[];
 
   getAssetComponents() {
-    return [...textPresets, ...flexPresets].map(preset => {
+    return this.allPresets.map(preset => {
       return {
         preset: preset,
         component: this.getAssetComponent(preset.presetDefinition.itemType as CanvasItemType),
@@ -35,7 +36,7 @@ export class AssetService {
   }
 
   getPreset(presetId: string) {
-    return this.getPresets().find(preset => preset.presetId === presetId);
+    return this.allPresets.find(preset => preset.presetId === presetId);
   }
 
   assignDefaultPaddings(newItem: CanvasItem) {
@@ -53,9 +54,5 @@ export class AssetService {
     newItem.children?.forEach(frame => {
       this.assignDefaultPaddings(frame);
     });
-  }
-
-  private getPresets() {
-    return [...flexPresets as Preset[], ...textPresets as Preset[]]
   }
 }

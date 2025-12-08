@@ -1,7 +1,8 @@
-export const mockData =
-
-  [
-    {
+export const alignmentPresets = [
+  {
+    "presetId": 'align-items',
+    "presetName": 'Align items',
+    "presetDefinition": {
       "itemType": "FLEX",
       "children": [
         {
@@ -26,23 +27,23 @@ export const mockData =
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "ESuuDliq",
+              "key": "ZFUurKho",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "dzxuqevI",
+              "key": "lPnOHtQs",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "ksevjAPp",
+              "key": "mZtqGjIo",
               "children": []
             }
           ],
-          "key": "BBIjjLzE",
+          "key": "gMqwjNyj",
           "label": "start"
         },
         {
@@ -66,23 +67,23 @@ export const mockData =
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "rGmFAhRF",
+              "key": "lFgNvpQM",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "IcagYFpa",
+              "key": "CYgGTYzI",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "qYFZYfrS",
+              "key": "UhAwUJfM",
               "children": []
             }
           ],
-          "key": "lEzGcqPT",
+          "key": "EThscolN",
           "label": "end"
         },
         {
@@ -106,68 +107,27 @@ export const mockData =
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "CCWOelav",
+              "key": "UqsKxkWS",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "SryVyFDI",
+              "key": "YdCtHUiA",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "HhTfZlZY",
+              "key": "wOkRlsCa",
               "children": []
             }
           ],
-          "key": "bzpbIdMu",
+          "key": "fAvIaNoP",
           "label": "center"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "boxSizing": {
-              "padding": "16px"
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "gap": "10",
-              "alignItems": "stretch"
-            },
-            "flexItem": {
-              "flexGrow": 1
-            }
-          },
-          "children": [
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "OagwFyMN",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "BbgqBDlR",
-              "children": []
-            },
-            {
-              "content": "",
-              "itemType": "TEXT",
-              "key": "GZofagza",
-              "children": []
-            }
-          ],
-          "key": "XaqNFPGm",
-          "label": "stretch"
         }
       ],
-      "key": "yvhWiQlU",
+      "key": "jLZXSKxG",
       "css": {
         "display": {
           "display": "flex"
@@ -182,8 +142,12 @@ export const mockData =
         }
       },
       "label": "align-items"
-    },
-    {
+    }
+  },
+  {
+    "presetId": "justify-content",
+    "presetName": "Justify content",
+    "presetDefinition": {
       "itemType": "FLEX",
       "css": {
         "boxSizing": {
@@ -218,25 +182,25 @@ export const mockData =
               "flexGrow": 1
             }
           },
-          "key": "XyrApUjb",
+          "key": "RpitIDkg",
           "children": [
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "PtRCHPhW",
+              "key": "uuYgbBcP",
               "children": [],
               "label": "s"
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "CIgDZyZe",
+              "key": "qShloWjl",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "IkNSonWS",
+              "key": "DhoAAixA",
               "children": []
             }
           ],
@@ -261,24 +225,24 @@ export const mockData =
               "flexGrow": 1
             }
           },
-          "key": "laEnOpFi",
+          "key": "bbjgFMgH",
           "children": [
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "xKqiriUl",
+              "key": "QlaCRNod",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "HAuYRVaD",
+              "key": "tWtJSRTK",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "tyVVoPvz",
+              "key": "ksFIzJLC",
               "children": []
             }
           ],
@@ -305,44 +269,47 @@ export const mockData =
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "qxMmjmhb",
+              "key": "myzorIDv",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "QUGzhPXe",
+              "key": "HkPqKape",
               "children": []
             },
             {
               "content": "",
               "itemType": "TEXT",
-              "key": "JkskrJFC",
+              "key": "ymRedXtF",
               "children": []
             }
           ],
-          "key": "wlxtvKcC",
+          "key": "AVaSIjvF",
           "label": "center"
         }
       ],
-      "key": "CVmTFecb",
+      "key": "iVfyzObW",
       "label": "justify-content"
-    },
-    {
+    }
+  },
+  {
+    "presetId": "centered-content",
+    "presetName": "Centered content",
+    "presetDefinition": {
       "itemType": "FLEX",
       "css": {
         "display": {
           "display": "flex"
         },
         "flexContainer": {
-          "flexDirection": "column",
-          "gap": "8"
+          "justifyContent": "center",
+          "alignItems": "center"
         },
         "boxSizing": {
-          "padding": "16px"
+          "padding": "6px"
         }
       },
-      "key": "gOtYYfmh",
       "children": [
         {
           "itemType": "FLEX",
@@ -350,107 +317,33 @@ export const mockData =
             "display": {
               "display": "flex"
             },
-            "boxSizing": {
-              "padding": "16px"
-            }
-          },
-          "key": "OiURoKQF"
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
             "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "gap": 8
+              "flexDirection": "column",
+              "gap": "16",
+              "alignItems": "center"
             },
             "boxSizing": {
-              "padding": "16px",
-              "height": "100px"
+              "padding": "24px"
             }
           },
-          "key": "jBhLWQWi",
           "children": [
             {
-              "itemType": "FLEX",
+              "content": "Welcome",
+              "itemType": "TEXT",
               "css": {
-                "display": {
-                  "display": "flex"
-                },
-                "flexContainer": {
-                  "gap": 2
-                },
-                "boxSizing": {
-                  "padding": "16px"
-                },
-                "flexItem": {
-                  "flexGrow": 1
+                "typography": {
+                  "fontSize": "24px",
+                  "fontWeight": "bold"
                 }
-              },
-              "key": "PCykvXYf"
+              }
             },
             {
-              "itemType": "FLEX",
-              "css": {
-                "display": {
-                  "display": "flex"
-                },
-                "flexContainer": {
-                  "flexWrap": "nowrap",
-                  "gap": "2"
-                },
-                "boxSizing": {
-                  "padding": "16px"
-                },
-                "flexItem": {
-                  "flexGrow": 2
-                }
-              },
-              "key": "akqDRera"
-            },
-            {
-              "itemType": "FLEX",
-              "css": {
-                "display": {
-                  "display": "flex"
-                },
-                "flexContainer": {
-                  "gap": 2
-                },
-                "boxSizing": {
-                  "padding": "16px"
-                },
-                "flexItem": {
-                  "flexGrow": 1
-                }
-              },
-              "key": "aVkRMYjG"
+              "content": "Perfectly centered content",
+              "itemType": "TEXT"
             }
           ]
-        },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "flexContainer": {
-              "gap": 2
-            },
-            "boxSizing": {
-              "padding": "16px"
-            }
-          },
-          "key": "CLyWlBqK"
         }
       ]
-    },
-    {
-      "itemType": "TEXT",
-      "content": "I am a text element. Double click to edit me...",
-      "key": "qLGeDiDw"
     }
-  ]
+  }
+];

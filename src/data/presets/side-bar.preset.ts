@@ -1,0 +1,86 @@
+export const sideBarPreset = {
+  "presetId": "sidebar-layout",
+  "presetName": "Sidebar layout",
+  "presetDefinition":   {
+    "itemType": "FLEX",
+    "css": {
+      "display": {
+        "display": "flex"
+      },
+      "flexContainer": {
+        "gap": "16"
+      },
+      "boxSizing": {
+        "padding": "16px"
+      }
+    },
+    "children": [
+      {
+        "itemType": "FLEX",
+        "css": {
+          "display": {
+            "display": "flex"
+          },
+          "flexContainer": {
+            "flexDirection": "column",
+            "gap": "8"
+          },
+          "boxSizing": {
+            "padding": "16px"
+          },
+          "flexItem": {
+            "flexGrow": 1
+          }
+        },
+        "children": [
+          {
+            "content": "Menu Item 1",
+            "itemType": "TEXT",
+            "key": "RCCkhojB"
+          },
+          {
+            "content": "Menu Item 2",
+            "itemType": "TEXT",
+            "key": "SWDyLSrL"
+          }
+        ],
+        "label": "Sidebar",
+        "key": "hUqwWlBL"
+      },
+      {
+        "itemType": "FLEX",
+        "css": {
+          "display": {
+            "display": "flex"
+          },
+          "flexItem": {
+            "flexGrow": 4
+          },
+          "boxSizing": {
+            "height": "178px",
+            "padding": "16px"
+          },
+          "flexContainer": {
+            "flexDirection": "column"
+          }
+        },
+        "children": [
+          {
+            "content": "Main content area",
+            "itemType": "TEXT",
+            "key": "sDByCduE",
+            "css": {
+              "flexItem": {
+                "flexGrow": 1
+              }
+            }
+          }
+        ],
+        "label": "Content",
+        "key": "HyjMXQkI"
+      }
+    ],
+    "key": "YAKaghwj"
+  }
+
+}
