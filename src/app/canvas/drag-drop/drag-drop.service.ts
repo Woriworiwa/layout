@@ -1,6 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { CANVAS_WRAPPER_ID } from "../../core/constants";
 import { UiGuidanceService } from "../../core/services/ui-guidance.service";
+import { PanZoomService } from '../pan-zoom/pan-zoom.service';
 
 /**
  * Service to detect when users attempt to drag canvas elements
@@ -10,6 +11,7 @@ import { UiGuidanceService } from "../../core/services/ui-guidance.service";
 export class DragDropService {
   private uiGuidanceService = inject(UiGuidanceService);
   private dragAttemptTimeout: any;
+  private panZoomService = inject(PanZoomService);
 
   /**
    * Handles mousedown event on canvas elements
@@ -17,6 +19,7 @@ export class DragDropService {
    */
   onMouseDown(event: MouseEvent): void {
     const target = event.target as HTMLElement;
+
 
     // Don't trigger if clicking on buttons, inputs, or other interactive elements
     if (target.closest('button') || target.closest('input') || target.closest('.p-tree')) {
@@ -36,6 +39,9 @@ export class DragDropService {
 
       // Set a timeout to detect if user is attempting to drag
       this.dragAttemptTimeout = setTimeout(() => {
+        if (this.panZoomService.isPanning) {
+          return; // Don't show guidance if panning
+        }
         // Trigger guidance to show and highlight layers panel
         this.uiGuidanceService.highlightLayersPanel();
       }, 150); // Short delay to distinguish from clicks
