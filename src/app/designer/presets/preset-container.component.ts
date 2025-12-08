@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {CanvasItemType} from '../../core/enums';
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CssStyleSerializerPipe} from "../../core/serialization/css-style-serializer.pipe";
-import {AssetService} from "./asset.service";
+import {PresetService} from "./preset.service";
 
 @Component({
     selector: 'app-preset-container',
@@ -26,9 +26,9 @@ import {AssetService} from "./asset.service";
     }
   `]
 })
-export class AssetContainerComponent {
+export class PresetContainerComponent {
   private cssStyleSerializerPipe = inject(CssStyleSerializerPipe);
-  protected presetsService = inject(AssetService);
+  protected presetsService = inject(PresetService);
 
   protected readonly FrameType = CanvasItemType;
 

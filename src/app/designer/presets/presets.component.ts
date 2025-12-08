@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Type, input, output, inject, comput
 import { CommonModule } from '@angular/common';
 import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
-import { AssetService } from "./asset.service";
+import { PresetService } from "./preset.service";
 import { CanvasService } from "../../canvas/canvas.service";
 import { InsertPosition } from "../../core/enums";
 import { CanvasItem } from "../../core/models/canvas-item.model";
@@ -23,9 +23,9 @@ interface AssetComponentItem {
   templateUrl: 'assets.component.html',
   styleUrls: ['assets.component.scss']
 })
-export class AssetsComponent {
+export class PresetsComponent {
   private readonly canvasService = inject(CanvasService);
-  private readonly presetsService = inject(AssetService);
+  private readonly presetsService = inject(PresetService);
   private readonly selectionService = inject(SelectionService);
   private readonly assetDragDropService = inject(AssetDragDropService);
 

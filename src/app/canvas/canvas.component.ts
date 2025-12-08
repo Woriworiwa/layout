@@ -9,7 +9,7 @@ import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
 import {PanZoomService} from "./pan-zoom/pan-zoom.service";
 import {CopyPasteService} from "./copy-paste/copy-paste.service";
 import {KeyboardCommandsDirective} from "./keyboard/keyboard-commands.directive";
-import {AssetService} from "../designer/assets/asset.service";
+import {PresetService} from "../designer/presets/preset.service";
 import {CanvasService} from "./canvas.service";
 import {PanZoomDirective} from "./pan-zoom/pan-zoom.directive";
 import {Subject, takeUntil} from "rxjs";
@@ -25,7 +25,7 @@ import {DragDropService} from "./drag-drop/drag-drop.service";
 @Component({
   selector: 'app-canvas',
   imports: [ContainerComponent, CanvasToolbarComponent, SelectionLayerComponent, MetaLayerComponent],
-  providers: [CopyPasteService, AssetService, PanZoomService, MetaLayerService, DragDropService],
+  providers: [CopyPasteService, PresetService, PanZoomService, MetaLayerService, DragDropService],
   hostDirectives: [KeyboardCommandsDirective, PanZoomDirective],
   host: {
     '[class.surface-100]': 'true',

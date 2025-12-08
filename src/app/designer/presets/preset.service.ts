@@ -3,14 +3,14 @@ import {CanvasItem} from "../../core/models/canvas-item.model";
 import {CanvasItemType} from "../../core/enums";
 import {allPresets} from '../../../data/presets';
 import {Preset} from "../../core/models/preset.model";
-import {AssetContainerComponent} from "./asset-container.component";
-import {AssetTextComponent} from "./asset-text.component";
+import {PresetContainerComponent} from "./preset-container.component";
+import {PresetTextComponent} from "./preset-text.component";
 
 
 import {BoxSizing} from "../../core/models/css/box-sizing";
 
 @Injectable()
-export class AssetService {
+export class PresetService {
   defaultPadding = '16px';
   allPresets: Preset[] = [...allPresets] as Preset[];
 
@@ -27,11 +27,11 @@ export class AssetService {
   getAssetComponent(type: CanvasItemType) {
     switch (type) {
       case CanvasItemType.FLEX:
-        return AssetContainerComponent;
+        return PresetContainerComponent;
       case CanvasItemType.TEXT:
-        return AssetTextComponent;
+        return PresetTextComponent;
       default:
-        return AssetContainerComponent;
+        return PresetContainerComponent;
     }
   }
 

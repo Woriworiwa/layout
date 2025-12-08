@@ -3,7 +3,7 @@ import { Subject, takeUntil } from 'rxjs';
 
 import {CanvasComponent} from "../canvas/canvas.component";
 import {PropertiesComponent} from "./properties/properties.component";
-import {AssetsComponent} from "./assets/assets.component";
+import {PresetsComponent} from "./presets/presets.component";
 import {InspectorComponent} from "./inspector/inspector.component";
 import {LayersComponent} from "./layers/layers.component";
 import {HeaderComponent} from "./header/header.component";
@@ -18,7 +18,7 @@ import { UiGuidanceService } from '../core/services/ui-guidance.service';
     HeaderComponent,
     CanvasComponent,
     PropertiesComponent,
-    AssetsComponent,
+    PresetsComponent,
     InspectorComponent,
     LayersComponent,
     TabSwitcherComponent,

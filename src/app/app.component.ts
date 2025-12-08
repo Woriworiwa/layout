@@ -4,7 +4,7 @@ import {CanvasStore} from "./core/store/canvas.store";
 import {DataService} from "./core/services/data.service";
 import {MessageService} from "primeng/api";
 import {UndoRedoService} from "./core/undo-redo/undo-redo.service";
-import {AssetService} from "./designer/assets/asset.service";
+import {PresetService} from "./designer/presets/preset.service";
 import {SelectionService} from "./canvas/selection/selection.service";
 import {CanvasService} from "./canvas/canvas.service";
 import {ContextMenuService} from "./canvas/context-menu/context-menu.service";
@@ -13,7 +13,7 @@ import {UndoRedoDirective} from "./core/undo-redo/undo-redo.directive";
 @Component({
     selector: 'app-root',
   imports: [RouterOutlet],
-    providers: [CanvasStore, CanvasService, DataService, MessageService, AssetService, SelectionService, ContextMenuService, UndoRedoService],
+    providers: [CanvasStore, CanvasService, DataService, MessageService, PresetService, SelectionService, ContextMenuService, UndoRedoService],
     hostDirectives: [UndoRedoDirective],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
