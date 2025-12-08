@@ -20,8 +20,8 @@ interface AssetComponentItem {
   selector: 'app-insert',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, SelectButton, FormsModule],
-  templateUrl: 'assets.component.html',
-  styleUrls: ['assets.component.scss']
+  templateUrl: 'presets.component.html',
+  styleUrls: ['presets.component.scss']
 })
 export class PresetsComponent {
   private readonly canvasService = inject(CanvasService);
