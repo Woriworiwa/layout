@@ -79,11 +79,10 @@ export class SelectionService implements OnDestroy {
       fromEvent(window, 'resize').pipe(map(() => this.selectedItem))
     )
       .pipe(
-        combineLatestWith(this.assetDragDropService.isDragging$),
         takeUntil(this.destroy$)
       )
-      .subscribe(([selectedFrame, isDragging]) => {
-          if ((!selectedFrame || isDragging) && this.canvasSelectionItem) {
+      .subscribe((selectedFrame) => {
+          if ((!selectedFrame ) && this.canvasSelectionItem) {
             this.removeItem(this.canvasSelectionItem);
             this.canvasSelectionItem = undefined;
           } else {
