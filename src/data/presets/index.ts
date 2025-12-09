@@ -5,6 +5,7 @@ import { holyGrailPreset } from './holy-grail.preset';
 import { cardPreset } from './card.preset';
 import { alignmentPresets } from './align-justify-centered.presets';
 import { basicFlexPresets } from './flex-rows-columns.presets';
+import { textPresets } from './text.preset';
 export { textPresets } from './text.preset';
 export { flexGrowShrinkPreset } from './flex-grow-shrink.preset';
 
@@ -13,6 +14,7 @@ export { flexGrowShrinkPreset } from './flex-grow-shrink.preset';
  * Maintains backward compatibility with existing imports
  */
 export const allPresets = [
+  ...textPresets,
   ...basicFlexPresets,
   ...alignmentPresets,
   cardPreset,
