@@ -1,67 +1,54 @@
-import { Component, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  inject,
+  signal,
+} from '@angular/core';
 
-import {CssPrismComponent} from "../../renderer/prisms/css-prism.component";
-import {SelectionService} from "../../canvas/selection/selection.service";
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {CanvasService} from "../../canvas/canvas.service";
-import {SelectButton} from "primeng/selectbutton";
-import {FormsModule} from "@angular/forms";
-import {filter} from "rxjs";
+import { CssPrismComponent } from '../../renderer/prisms/css-prism.component';
+import { HtmlPrismComponent } from '../../renderer/prisms/html-prism.component';
+import { JsonPrismComponent } from '../../renderer/prisms/json-prism.component';
+import { SelectionService } from '../../canvas/selection/selection.service';
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import { CanvasService } from '../../canvas/canvas.service';
+import { FormsModule } from '@angular/forms';
+import { merge } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-/**
- * The `InspectorComponent` is responsible for displaying the CSS properties of the selected or hovered item.
- * It has a mode that can be either 'select' or 'hover', which determines when to serialize the CSS properties.
- */
 @Component({
   selector: 'app-inspector',
-  imports: [CssPrismComponent, SelectButton, FormsModule],
-  template: `
-    <div class="inspection-mode">
-      <p-selectButton
-        [options]="modes"
-        [(ngModel)]="mode"
-        optionLabel="name"
-        allowEmpty="false"
-        optionValue="value"/>
-    </div>
-
-    <app-css-prism [canvasItems]="canvasItem ? [canvasItem] : this.canvasService.items"></app-css-prism>`,
-  styles: `
-    :host {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  `,
+  imports: [
+    CssPrismComponent,
+    HtmlPrismComponent,
+    JsonPrismComponent,
+    FormsModule,
+  ],
+  templateUrl: './inspector.component.html',
+  styleUrls: ['./inspector.component.scss'],
+  host: {
+    class: 'flex flex-col h-full overflow-hidden',
+  },
 })
 export class InspectorComponent {
   protected selectionService = inject(SelectionService);
   protected canvasService = inject(CanvasService);
 
-  canvasItem: CanvasItem | undefined;
-
-  mode: 'select' | 'hover' = 'select'
-
-  modes: any[] = [
-    { name: 'Select', value: 'select' },
-    { name: 'Hover', value: 'hover' }
-  ];
+  canvasItem = signal<CanvasItem[]>([]);
 
   constructor() {
     this.initializeInspection();
   }
 
   private initializeInspection = () => {
-    this.selectionService.hoverItem$
-      .pipe(filter(_ => this.mode === 'hover'))
-      .subscribe(item => {
-        this.canvasItem = item;
+    merge(this.selectionService.selectedItem$, this.canvasService.cssChanged$)
+      .pipe(takeUntilDestroyed())
+      .subscribe((_) => {
+        this.canvasItem.set(
+          this.selectionService.selectedItem
+            ? [this.selectionService.selectedItem]
+            : []
+        );
       });
-
-    this.selectionService.selectedItem$
-      .pipe(filter(_ => this.mode === 'select'))
-      .subscribe(item => {
-        this.canvasItem = item;
-      });
-  }
+  };
 }

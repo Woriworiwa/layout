@@ -1,50 +1,38 @@
-import { Component, OnChanges, OnDestroy, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, inject } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {SerializationService} from "../../core/serialization/serialization.service";
 import {JSONSerializer} from "../../core/serialization/serializers/JSON.serializer";
-import {CanvasService} from "../../canvas/canvas.service";
-import {Subject, takeUntil} from "rxjs";
 import {Highlight} from "ngx-highlightjs";
 
 @Component({
   selector: 'app-json-prism',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, Highlight],
   template: `
-    <code>
-      <pre><code language="json" [highlight]="frames | json"></code></pre>
-      <!--      <pre><p>{{ frames | json }}</p></pre>-->
-    </code>
+    <pre><code language="json" [highlight]="frames | json"></code></pre>
   `,
   styles: `
-    :host {
-      padding: 0 16px;
+    pre[class*="language-"] {
+      padding: 1em;
+      margin: 0;
     }
   `
 })
-export class JsonPrismComponent implements OnChanges, OnInit, OnDestroy {
-  protected canvasService = inject(CanvasService);
+export class JsonPrismComponent implements OnChanges {
   private serializerService = inject(SerializationService);
+
+  @Input()
+  canvasItems: CanvasItem[] = [];
 
   frames: CanvasItem[] | undefined = undefined;
 
-  private destroy$ = new Subject<boolean>();
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
-  }
-
   ngOnChanges() {
-    this.canvasService.items$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(items => {
-        //TODO: I don't know if this is a good design
-        this.frames = (this.serializerService.getSerializer('JSON') as JSONSerializer).sanitizeFrames(items);
-      });
+    this.serializeToJson();
   }
 
-  ngOnInit() {
-    this.frames = (this.serializerService.getSerializer('JSON') as JSONSerializer).sanitizeFrames(this.canvasService.items);
+  private serializeToJson() {
+    const items = Array.isArray(this.canvasItems) ? this.canvasItems : [this.canvasItems];
+    this.frames = (this.serializerService.getSerializer('JSON') as JSONSerializer).sanitizeFrames(items);
   }
 }

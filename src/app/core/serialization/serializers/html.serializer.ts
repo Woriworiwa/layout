@@ -26,35 +26,44 @@ export class HtmlSerializer extends Serializer {
     super();
   }
 
-  serialize(items: CanvasItem[]): string[] {
+  serialize(items: CanvasItem[], includeStyles = false): string[] {
     const htmlLines: string[] = [];
 
-    /* html */
-    htmlLines.push(`<html>`);
+    if (!includeStyles) {
+      htmlLines.push(this.serializeChildren(items).join('\n'));
+    } else {
+      /* html */
+      htmlLines.push(`<html>`);
 
-    /* head */
-    htmlLines.push(this.indent(`<head>`));
+      /* head */
+      htmlLines.push(this.indent(`<head>`));
 
-    /* frame and text styles*/
-    htmlLines.push(this.indent('<style>', 2));
-    htmlLines.push(this.indent(this.frameStyles, 2));
-    htmlLines.push(this.indent(this.textStyles, 2));
-    htmlLines.push(this.indent(`</style>`, 2));
+      /* frame and text styles*/
+      htmlLines.push(this.indent('<style>', 2));
+      htmlLines.push(this.indent(this.frameStyles, 2));
+      htmlLines.push(this.indent(this.textStyles, 2));
+      htmlLines.push(this.indent(`</style>`, 2));
 
-    /* item classes */
-    htmlLines.push(this.indent('<style>', 2));
-    htmlLines.push(this.cssClassSerializer.serialize(items).map(item => this.indent(item, 2)).join('\n'));
-    htmlLines.push(this.indent(`</style>`, 2))
+      /* item classes */
+      htmlLines.push(this.indent('<style>', 2));
+      htmlLines.push(
+        this.cssClassSerializer
+          .serialize(items)
+          .map((item) => this.indent(item, 2))
+          .join('\n')
+      );
+      htmlLines.push(this.indent(`</style>`, 2));
 
-    htmlLines.push(this.indent(`</head>`));
+      htmlLines.push(this.indent(`</head>`));
 
-    /* body */
-    htmlLines.push(this.indent('<body>'));
-    htmlLines.push(this.serializeChildren(items, 2).join('\n'));
-    htmlLines.push(this.indent('</body>'));
+      /* body */
+      htmlLines.push(this.indent('<body>'));
+      htmlLines.push(this.serializeChildren(items, 2).join('\n'));
+      htmlLines.push(this.indent('</body>'));
 
-    /* close html */
-    htmlLines.push(`</html>`);
+      /* close html */
+      htmlLines.push(`</html>`);
+    }
 
     return htmlLines;
   }
@@ -68,7 +77,7 @@ export class HtmlSerializer extends Serializer {
       htmlLines.push(this.indent(`<div class="${cssClasses}">`, level * 2));
 
       if (canvasItem.itemType === CanvasItemType.TEXT && canvasItem.content) {
-        htmlLines.push(canvasItem.content)
+        htmlLines.push(this.indent(canvasItem.content, level * 2 + 1));
       }
 
       /* children */

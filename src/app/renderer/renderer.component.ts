@@ -56,7 +56,7 @@ export class RendererComponent {
 
     constructor() {
         this.canvasService.items$.pipe(takeUntilDestroyed()).subscribe((items: CanvasItem[]) => {
-            this.code = this.serializer.serialize(items).join('\n');
+            this.code = this.serializer.serialize(items, true).join('\n');
         });
     }
 

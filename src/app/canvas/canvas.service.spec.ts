@@ -11,6 +11,8 @@ import {ContextMenuService} from "./context-menu/context-menu.service";
 import spyOn = jest.spyOn;
 
 import {Css} from "../core/models/css/css";
+import { PanZoomService } from './pan-zoom/pan-zoom.service';
+import { Renderer2 } from '@angular/core';
 
 describe('CanvasService', () => {
   let service: CanvasService;
@@ -27,6 +29,8 @@ describe('CanvasService', () => {
         CanvasStore,
         UndoRedoService,
         SelectionService,
+        PanZoomService,
+        Renderer2,
         PresetService,
         DragDropService,
         ContextMenuService

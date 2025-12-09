@@ -28,7 +28,12 @@ export class ThemeConfiguratorComponent {
   }
 
   onDarkModeToggle() {
-    this.themeService.toggleDarkMode();
+    this.themeService.config.update((config) => {
+      return {
+        ...config,
+        darkMode: !config.darkMode,
+      };
+    });
   }
 
   protected readonly presets = presets;

@@ -1,4 +1,4 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { Injectable, signal, inject, effect } from '@angular/core';
 import { ThemeModel } from './theme.model';
 import { updatePreset, updatePrimaryPalette, updateSurfacePalette, definePreset } from '@primeng/themes';
 import { DOCUMENT } from '@angular/common';
@@ -16,25 +16,18 @@ export class ThemeService {
   private hljsLoader: HighlightLoader = inject(HighlightLoader);
   private transitionComplete = signal<boolean>(false);
 
-  showConfig() {
-    this.themeConfiguratorActive.set(true);
-  }
-
-  hideConfig() {
-    this.themeConfiguratorActive.set(false);
-  }
-
-  toggleDarkMode() {
-    this.transitionView(() => {
-      const newDarkMode = !this.config().darkMode;
-      if (newDarkMode) {
-        this.document.documentElement.classList.add('p-dark');
-        this.hljsLoader.setTheme('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-light.min.css');
-      } else {
-        this.document.documentElement.classList.remove('p-dark');
-        this.hljsLoader.setTheme('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-dark.min.css');
-      }
-      this.config.update(config => ({ ...config, darkMode: newDarkMode }));
+  constructor() {
+    effect(() => {
+      const darkMode = this.config().darkMode;
+      this.transitionView(() => {
+        if (darkMode) {
+          this.document.documentElement.classList.add('p-dark');
+          this.hljsLoader.setTheme('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-dark.min.css');
+        } else {
+          this.document.documentElement.classList.remove('p-dark');
+          this.hljsLoader.setTheme('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-light.min.css');
+        }
+        });
     })
   }
 

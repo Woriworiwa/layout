@@ -1,21 +1,22 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, inject } from '@angular/core';
 
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {Button} from "primeng/button";
 import FileSaver from 'file-saver';
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SerializationService} from "../../core/serialization/serialization.service";
-import {CanvasService} from "../../canvas/canvas.service";
 import {Highlight} from "ngx-highlightjs";
 
 @Component({
-    selector: 'app-html-prism',
+  selector: 'app-html-prism',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button, Highlight],
-    template: `
-    <p-button label="Download" (click)="downloadHtml()"></p-button>
+  template: `
+    @if (showDownload) {
+      <p-button label="Download" (click)="downloadHtml()"></p-button>
+    }
     <pre><code [highlight]="code" language="html"></code></pre>
   `,
-    styles: `
+  styles: `
     :host {
       display: block;
       position: relative;
@@ -32,24 +33,35 @@ import {Highlight} from "ngx-highlightjs";
         border-radius: 0;
       }
     }
+
+    pre[class*="language-"] {
+      padding: 1em;
+      margin: 0;
+    }
   `
 })
-export class HtmlPrismComponent {
-  private canvasService = inject(CanvasService);
+export class HtmlPrismComponent implements OnChanges {
   private serializerService = inject(SerializationService);
+
+  @Input()
+  canvasItems: CanvasItem | CanvasItem[] = [];
+
+  @Input()
+  showDownload = true;
 
   code = '';
 
-  constructor() {
-    this.canvasService.items$
-      .pipe(takeUntilDestroyed())
-      .subscribe((items: CanvasItem[]) => {
-        this.code = this.serializerService.getSerializer("HTML").serialize(items).join('\n');
-      });
+  ngOnChanges() {
+    this.serializeToHtml();
+  }
+
+  private serializeToHtml() {
+    const items = Array.isArray(this.canvasItems) ? this.canvasItems : [this.canvasItems];
+    this.code = this.serializerService.getSerializer("HTML").serialize(items).join('\n');
   }
 
   downloadHtml() {
     const blob = new Blob([this.code], {type: "text/plain;charset=utf-8"});
-    FileSaver.saveAs(blob, "hello world.html");
+    FileSaver.saveAs(blob, "layout.html");
   }
 }

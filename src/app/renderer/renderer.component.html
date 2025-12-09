@@ -27,13 +27,13 @@
     <div class="flex-1 overflow-y-auto p-4">
       @switch (selectedCodeView) {
         @case ('HTML') {
-          <app-html-prism></app-html-prism>
+          <app-html-prism [canvasItems]="canvasService.items"></app-html-prism>
         }
         @case ('CSS') {
           <app-css-prism [canvasItems]="canvasService.items"></app-css-prism>
         }
         @case ('JSON') {
-          <app-json-prism></app-json-prism>
+          <app-json-prism [canvasItems]="canvasService.items"></app-json-prism>
         }
       }
     </div>
