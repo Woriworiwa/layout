@@ -57,7 +57,7 @@ export class HtmlViewerComponent implements OnChanges {
 
   private serializeToHtml() {
     const items = Array.isArray(this.canvasItems) ? this.canvasItems : [this.canvasItems];
-    this.code = this.serializerService.getSerializer("HTML").serialize(items).join('\n');
+    this.code = this.serializerService.getSerializer("HTML").serialize(items, true).join('\n');
   }
 
   downloadHtml() {

@@ -13,15 +13,8 @@ export class ResizableDirective implements OnInit {
   private iframe: HTMLElement | null = null;
 
   ngOnInit() {
+    // Find the iframe in the parent element
     this.iframe = this.el.nativeElement.parentElement?.querySelector('iframe') || null;
-
-    if (this.el.nativeElement.classList.contains('left')) {
-      this.renderer.setStyle(this.el.nativeElement, 'left', '0');
-      this.renderer.setStyle(this.el.nativeElement, 'cursor', 'ew-resize');
-    } else {
-      this.renderer.setStyle(this.el.nativeElement, 'right', '0');
-      this.renderer.setStyle(this.el.nativeElement, 'cursor', 'ew-resize');
-    }
   }
 
   @HostListener('mousedown', ['$event'])

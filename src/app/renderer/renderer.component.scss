@@ -3,3 +3,65 @@
   height: 100%;
   width: 100%;
 }
+
+.preview-container {
+  position: relative;
+  margin: 0 auto;
+}
+
+.preview-wrapper {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.resize-handle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.resize-handle {
+  width: 40px;
+  height: 100px;
+  background: var(--p-surface-0);
+  border: 2px solid var(--p-surface-300);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  user-select: none;
+
+  &:hover {
+    background: var(--p-primary-color);
+    color: var(--p-primary-contrast-color);
+    border-color: var(--p-primary-color);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  i {
+    font-size: 16px;
+    opacity: 0.6;
+  }
+
+  &:hover i {
+    opacity: 1;
+  }
+}
+
+// Custom input styling
+input[type="number"] {
+  &:focus {
+    outline: none;
+    border-color: var(--p-primary-color);
+  }
+}
