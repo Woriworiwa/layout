@@ -6,9 +6,9 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { CanvasItem } from "../core/models/canvas-item.model";
 import { FormsModule } from "@angular/forms";
 import { CanvasService } from "../canvas/canvas.service";
-import { CssPrismComponent } from "./prisms/css-prism.component";
-import { HtmlPrismComponent } from "./prisms/html-prism.component";
-import { JsonPrismComponent } from "./prisms/json-prism.component";
+import { CssViewerComponent } from "../shared/code-viewer/css-viewer.component";
+import { HtmlViewerComponent } from "../shared/code-viewer/html-viewer.component";
+import { JsonViewerComponent } from "../shared/code-viewer/json-viewer.component";
 import { ResizableDirective } from "./resizable.directive";
 import { SelectButton } from "primeng/selectbutton";
 
@@ -31,9 +31,9 @@ interface CodeTab {
         CommonModule,
         UnsafeHtmlPipe,
         FormsModule,
-        CssPrismComponent,
-        HtmlPrismComponent,
-        JsonPrismComponent,
+        CssViewerComponent,
+        HtmlViewerComponent,
+        JsonViewerComponent,
         ResizableDirective,
         SelectButton
     ],

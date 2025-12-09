@@ -19,7 +19,7 @@ import {Highlight} from "ngx-highlightjs";
     }
   `
 })
-export class JsonPrismComponent implements OnChanges {
+export class JsonViewerComponent implements OnChanges {
   private serializerService = inject(SerializationService);
 
   @Input()

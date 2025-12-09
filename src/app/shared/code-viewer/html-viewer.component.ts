@@ -40,7 +40,7 @@ import {Highlight} from "ngx-highlightjs";
     }
   `
 })
-export class HtmlPrismComponent implements OnChanges {
+export class HtmlViewerComponent implements OnChanges {
   private serializerService = inject(SerializationService);
 
   @Input()

@@ -6,9 +6,9 @@ import {
   signal,
 } from '@angular/core';
 
-import { CssPrismComponent } from '../../renderer/prisms/css-prism.component';
-import { HtmlPrismComponent } from '../../renderer/prisms/html-prism.component';
-import { JsonPrismComponent } from '../../renderer/prisms/json-prism.component';
+import { CssViewerComponent } from '../../shared/code-viewer/css-viewer.component';
+import { HtmlViewerComponent } from '../../shared/code-viewer/html-viewer.component';
+import { JsonViewerComponent } from '../../shared/code-viewer/json-viewer.component';
 import { SelectionService } from '../../canvas/selection/selection.service';
 import { CanvasItem } from '../../core/models/canvas-item.model';
 import { CanvasService } from '../../canvas/canvas.service';
@@ -19,9 +19,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-inspector',
   imports: [
-    CssPrismComponent,
-    HtmlPrismComponent,
-    JsonPrismComponent,
+    CssViewerComponent,
+    HtmlViewerComponent,
+    JsonViewerComponent,
     FormsModule,
   ],
   templateUrl: './inspector.component.html',

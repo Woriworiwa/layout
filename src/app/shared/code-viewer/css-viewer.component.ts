@@ -25,7 +25,7 @@ import {Highlight} from "ngx-highlightjs";
     }
   `
 })
-export class CssPrismComponent implements OnChanges {
+export class CssViewerComponent implements OnChanges {
   private serializerService = inject(SerializationService);
 
   canvasItems = input<CanvasItem[]>([]);
