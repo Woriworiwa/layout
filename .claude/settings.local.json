@@ -33,7 +33,8 @@
       "Bash(clear)",
       "Bash(nx:*)",
       "WebFetch(domain:angular.dev)",
-      "Bash(npx nx build:*)"
+      "Bash(npx nx build:*)",
+      "Bash(lsof:*)"
     ],
     "deny": [],
     "ask": []

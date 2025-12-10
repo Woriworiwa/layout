@@ -23,35 +23,34 @@ import { BaseFormItemComponent } from './base-form-item.component';
     ButtonIcon,
   ],
   template: `
-
-      <div>
-        <p-inputgroup [dt]="inputGroup">
-          <p-inputNumber
-            [id]="label()"
-            inputId="integeronly"
-            [formControl]="control()"
-            (onKeyDown)="onKeyDown($event)"
-          ></p-inputNumber>
-          @if (unit(); as unitControl) {
-          <p-select [options]="items" [formControl]="unitControl" />
-          }
-          <button
-            type="button"
-            pButton
-            [dt]="button"
-            (click)="onClearButtonClick()"
-            [disabled]="control().value === null || control().value === undefined"
-          >
-            <i class="pi pi-times" pButtonIcon></i>
-          </button>
-        </p-inputgroup>
-        <p-slider
+    <div>
+      <p-inputgroup [dt]="inputGroup">
+        <p-inputNumber
+          [id]="label()"
+          inputId="integeronly"
           [formControl]="control()"
-          [max]="max()"
-          (onChange)="onSliderChange($event)"
-        ></p-slider>
-      </div>
-
+          (onKeyDown)="onKeyDown($event)"
+        ></p-inputNumber>
+        @if (unit(); as unitControl) {
+        <p-select [options]="items" [formControl]="unitControl" />
+        }
+        <button
+          type="button"
+          pButton
+          [dt]="button"
+          (click)="onClearButtonClick()"
+          [disabled]="control().value === null || control().value === undefined"
+        >
+          <i class="pi pi-times" pButtonIcon></i>
+        </button>
+      </p-inputgroup>
+      <p-slider
+        [formControl]="control()"
+        [max]="max()"
+        (onChange)="onSliderChange($event)"
+        [dt]="slider"
+      ></p-slider>
+    </div>
   `,
   styles: `
   :host {
@@ -83,11 +82,15 @@ import { BaseFormItemComponent } from './base-form-item.component';
       display: none;
     }
 
-    ::ng-deep p-select {
-      position: absolute;
-      right: 36px;
-      top: 1px;
-      width: 40px !important;
+    //::ng-deep p-select {
+    //  position: absolute;
+    //  right: 36px;
+    //  top: 1px;
+    //  width: 40px !important;
+    //}
+
+    ::ng-deep .p-select-label {
+      padding: 0;
     }
     ::ng-deep .p-select {
       border: 0;
@@ -150,6 +153,14 @@ export class SliderComponent extends BaseFormItemComponent {
         color: '{surface.400}',
         hoverBackground: 'transparent',
       },
+    },
+  };
+
+  slider = {
+    handle: {
+      content: {
+        background: '{surface.400}',
+      }
     },
   };
 }
