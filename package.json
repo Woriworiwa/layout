@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "nx serve",
+    "prebuild": "node scripts/set-env.js",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test",

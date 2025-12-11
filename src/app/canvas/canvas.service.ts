@@ -159,6 +159,20 @@ export class CanvasService implements OnDestroy {
     this.undoRedoService.takeSnapshot();
   }
 
+  removeAiWrapper(itemId: string): void {
+    const item = this.canvasStore.getItemById(this.items, itemId);
+    if (!item) {
+      return;
+    }
+
+    // Delete the aiMetadata property to convert to regular FLEX container
+    delete item.aiMetadata;
+
+    // Update store
+    this.canvasStore.setItems(cloneDeep(this.items));
+    this.undoRedoService.takeSnapshot();
+  }
+
   pasteItem(copyItemId: string | undefined, pasteItemId: string | undefined) {
     if (!copyItemId || !pasteItemId) {
       return;

@@ -1,30 +1,52 @@
-@switch (item?.itemType) {
-  @case (FrameType.FLEX) {
+@if (item?.aiMetadata) {
+  <!-- AI Wrapper -->
+  <app-ai-wrapper [item]="item">
     @for (childItem of item?.children; track childItem.key) {
-      @switch (childItem.itemType) {
-        @case (FrameType.FLEX) {
-          <app-container [item]="childItem"
-                         [appAssetDrop]="childItem"
-                         (clicked)="onChildFrameClick($event)"
-                         (mouseOver)="onChildMouseOver($event)"
-                         (mouseOut)="onChildMouseOut($event)"
-                         (contextMenu)="onChildContextMenu($event)"
-                         [selectedFrameKey]="selectedFrameKey"
-                         [id]="childItem.key!"
-                         (childTextContentChanged)="onChildTextContentChanged($event)">
-            </app-container>
-        }
-        @case (FrameType.TEXT) {
-          <ng-container *ngTemplateOutlet="text; context: { $implicit: childItem }"></ng-container>
-        }
-      }
+      <!-- Render each child inside AI Wrapper -->
+      <ng-container *ngTemplateOutlet="contentRenderer; context: { $implicit: item?.children }"></ng-container>
     }
-  }
-  @case (FrameType.TEXT) {
-    <ng-container *ngTemplateOutlet="text; context: { $implicit: item }"></ng-container>
+  </app-ai-wrapper>
+} @else {
+  <!-- Regular Container -->
+  @switch (item?.itemType) {
+    @case (FrameType.FLEX) {
+      <!-- Render children -->
+      <ng-container *ngTemplateOutlet="contentRenderer; context: { $implicit: item?.children }"></ng-container>
+    }
+    @case (FrameType.TEXT) {
+      <!-- render text-->
+      <ng-container *ngTemplateOutlet="text; context: { $implicit: item }"></ng-container>
+    }
   }
 }
 
+<!-- content renderer -->
+<ng-template #contentRenderer let-item>
+  @switch (item.itemType) {
+    @case (FrameType.FLEX) {
+      <ng-template *ngTemplateOutlet="container; context: { $implicit: item }"></ng-template>
+    }
+    @case (FrameType.TEXT) {
+      <ng-container *ngTemplateOutlet="text; context: { $implicit: item }"></ng-container>
+    }
+  }
+</ng-template>
+
+<!-- Container Template -->
+<ng-template #container let-item>
+  <app-container [item]="item"
+                 [appAssetDrop]="item"
+                 [id]="item.key!"
+                 (clicked)="onChildFrameClick($event)"
+                 (mouseOver)="onChildMouseOver($event)"
+                 (mouseOut)="onChildMouseOut($event)"
+                 (contextMenu)="onChildContextMenu($event)"
+                 [selectedFrameKey]="selectedFrameKey"
+                 (childTextContentChanged)="onChildTextContentChanged($event)">
+  </app-container>
+</ng-template>
+
+<!-- Text Template -->
 <ng-template #text let-item>
   <app-text appEditableContent
             [item]="item"

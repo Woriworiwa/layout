@@ -1,6 +1,12 @@
 import {CanvasItemType} from "../enums";
 import {Css} from "./css/css";
 
+export interface AiMetadata {
+  prompt: string;
+  isGenerating?: boolean;
+  lastError?: string;
+}
+
 export interface CanvasItem {
   itemType: CanvasItemType;
   key?: string;
@@ -9,6 +15,7 @@ export interface CanvasItem {
   children?: CanvasItem[];
   css?: Css;
   editable?: boolean;
+  aiMetadata?: AiMetadata;
 }
 
 

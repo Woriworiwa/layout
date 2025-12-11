@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject
 import {CommonModule} from '@angular/common';
 import {EditableContentDirective} from "../text/editable-content.directive";
 import {TextComponent} from "../text/text.component";
+import {AiWrapperComponent} from "../ai-wrapper/ai-wrapper.component";
 import {CanvasItemType} from '../../../core/enums';
 import {CanvasItemComponent} from "../canvas-item.component";
 import {PanZoomService} from "../../pan-zoom/pan-zoom.service";
@@ -12,7 +13,7 @@ import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 @Component({
     selector: 'app-container',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, EditableContentDirective, TextComponent],
+    imports: [CommonModule, EditableContentDirective, TextComponent, AiWrapperComponent],
     templateUrl: 'container.component.html',
     hostDirectives: [
       {

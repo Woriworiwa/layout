@@ -1,0 +1,78 @@
+<div class="ai-wrapper">
+  <!-- AI Controls Header -->
+  <div class="ai-controls" [class.collapsed]="isCollapsed()">
+    <div class="ai-controls-header flex justify-between items-center p-2 bg-purple-100/50 border-b border-purple-300 cursor-pointer"
+         (click)="toggleCollapse()">
+      <span class="text-xs font-semibold text-purple-900 uppercase tracking-wide">
+        ✨ AI Layout Generator
+      </span>
+      <button
+        type="button"
+        pButton
+        [icon]="isCollapsed() ? 'pi pi-chevron-down' : 'pi pi-chevron-up'"
+        severity="secondary"
+        text
+        size="small"
+        (click)="toggleCollapse(); $event.stopPropagation()">
+      </button>
+    </div>
+
+    @if (!isCollapsed()) {
+      <div class="ai-controls-body p-3 space-y-2">
+        <div>
+          <label class="text-xs font-medium text-gray-700 block mb-1">
+            Describe your layout:
+          </label>
+          <textarea
+            pInputTextarea
+            [value]="prompt()"
+            (input)="onPromptChange($any($event.target).value)"
+            placeholder="e.g., 'Create a pricing card with title, price, and features list'"
+            [disabled]="isGenerating()"
+            rows="3"
+            class="w-full text-sm">
+          </textarea>
+        </div>
+
+        @if (errorMessage()) {
+          <div class="text-xs text-red-600 bg-red-50 border border-red-200 rounded px-2 py-1">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <div class="flex gap-2">
+          <button
+            pButton
+            [label]="isGenerating() ? 'Generating...' : 'Generate Layout'"
+            (click)="onGenerate()"
+            [disabled]="isGenerating()"
+            [loading]="isGenerating()"
+            size="small"
+            class="flex-1">
+          </button>
+
+          <button
+            pButton
+            label="Remove AI"
+            (click)="removeAiWrapper()"
+            [disabled]="isGenerating()"
+            severity="secondary"
+            size="small"
+            icon="pi pi-times">
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Generated Content (Projected from parent) -->
+  <div class="ai-content">
+    @if (item()?.children && item()?.children?.length) {
+      <ng-content></ng-content>
+    } @else if (!isGenerating()) {
+      <div class="ai-placeholder p-6 text-center text-sm text-purple-600 italic">
+        Enter a description above and click "Generate Layout" to create your layout with AI.
+      </div>
+    }
+  </div>
+</div>
