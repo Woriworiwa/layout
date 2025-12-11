@@ -5,6 +5,7 @@ import {allPresets} from '../../../data/presets';
 import {Preset} from "../../core/models/preset.model";
 import {PresetContainerComponent} from "./preset-container.component";
 import {PresetTextComponent} from "./preset-text.component";
+import {PresetAiComponent} from "./preset-ai.component";
 
 
 import {BoxSizing} from "../../core/models/css/box-sizing";
@@ -16,9 +17,14 @@ export class PresetService {
 
   getAssetComponents() {
     return this.allPresets.map(preset => {
+      // Use PresetAiComponent for AI presets
+      const component = preset.presetDefinition.aiMetadata
+        ? PresetAiComponent
+        : this.getAssetComponent(preset.presetDefinition.itemType as CanvasItemType);
+
       return {
         preset: preset,
-        component: this.getAssetComponent(preset.presetDefinition.itemType as CanvasItemType),
+        component: component,
         inputs: { preset: preset.presetDefinition }
       }
     });

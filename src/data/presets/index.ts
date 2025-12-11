@@ -1,4 +1,5 @@
 // Export individual preset categories
+import { aiPreset } from './ai.preset';
 import { navbarPreset } from './navbar.preset';
 import { sideBarPreset } from './side-bar.preset';
 import { holyGrailPreset } from './holy-grail.preset';
@@ -14,6 +15,7 @@ export { flexGrowShrinkPreset } from './flex-grow-shrink.preset';
  * Maintains backward compatibility with existing imports
  */
 export const allPresets = [
+  aiPreset,
   ...textPresets,
   ...basicFlexPresets,
   ...alignmentPresets,
