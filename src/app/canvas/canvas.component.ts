@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild, DOCUMENT, inject } from '@angular/core';
-
 import {ContainerComponent} from "./canvas-items/container/container.component";
 import {CanvasItem} from "../core/models/canvas-item.model";
 import {CANVAS_WRAPPER_ID} from "../core/constants";
@@ -23,45 +22,68 @@ import {CanvasDropZoneDirective} from "./drag-drop/canvas-drop-zone.directive";
 
 @Component({
   selector: 'app-canvas',
-  imports: [ContainerComponent, CanvasToolbarComponent, SelectionLayerComponent, MetaLayerComponent],
-  providers: [CopyPasteService, PresetService, PanZoomService, MetaLayerService, DragDropService],
-  hostDirectives: [KeyboardCommandsDirective, PanZoomDirective, CanvasDropZoneDirective],
+  imports: [
+    ContainerComponent,
+    CanvasToolbarComponent,
+    SelectionLayerComponent,
+    MetaLayerComponent,
+  ],
+  providers: [
+    CopyPasteService,
+    PresetService,
+    PanZoomService,
+    MetaLayerService,
+    DragDropService,
+  ],
+  hostDirectives: [
+    KeyboardCommandsDirective,
+    PanZoomDirective,
+    CanvasDropZoneDirective,
+  ],
   host: {
     '[class.surface-100]': 'true',
   },
   templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss']
+  styleUrls: ['./canvas.component.scss'],
 })
 export class CanvasComponent implements AfterViewInit, OnDestroy {
+  @Input()
+  settings: CanvasSettings = new CanvasSettings({ allowAdd: true });
+
   private canvasService = inject(CanvasService);
-  protected selectionService = inject(SelectionService);
+  private selectionService = inject(SelectionService);
   private contextMenuService = inject(ContextMenuService);
-  protected panZoomService = inject(PanZoomService);
+  private panZoomService = inject(PanZoomService);
   private document = inject<Document>(DOCUMENT);
   private dragDropService = inject(DragDropService);
 
-  @Input() settings: CanvasSettings = new CanvasSettings({allowAdd: true});
+  readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
+  rootItems: CanvasItem[] = [];
 
-  protected readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
-  frames: CanvasItem[] = [];
   private destroy$ = new Subject<boolean>();
 
-  @ViewChild("wrapper")
+  @ViewChild('wrapper')
   wrapperElementRef!: ElementRef;
 
   constructor() {
     this.canvasService.items$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(rootFrames => {
-        this.frames = rootFrames;
+      .subscribe((items) => {
+        this.rootItems = items;
         /* focus the selected frame, most of the times the focus will be set by the mouse when the user clicks on an item,
-        * but when programatically add new items, we need to focus them.
-        * Items should be focused in order to listen to keyboard events*/
+         * but when programatically add new items, we need to focus them.
+         * Items should be focused in order to listen to keyboard events*/
         /*TODO: Find another way other than setTimeout*/
         setTimeout(() => {
-          this.document.getElementById(`${this.selectionService.selectedItem?.key}`)?.focus()
+          this.document
+            .getElementById(`${this.selectionService.selectedItem?.key}`)
+            ?.focus();
         }, 0);
       });
+  }
+
+  ngAfterViewInit() {
+    this.panZoomService.initialize(this.wrapperElementRef);
   }
 
   ngOnDestroy(): void {
@@ -77,11 +99,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.contextMenuService.hide();
   }
 
-  ngAfterViewInit() {
-    this.panZoomService.initialize(this.wrapperElementRef);
-  }
-
-  onFrameClicked(event: CanvasItemMouseEvent) {
+  selectElement(event: CanvasItemMouseEvent) {
     if (this.panZoomService.isPanModeActive) {
       return;
     }
@@ -90,7 +108,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.contextMenuService.hide();
   }
 
-  onMouseOver(event: CanvasItemMouseEvent) {
+  hoverElement(event: CanvasItemMouseEvent) {
     if (this.panZoomService.isPanning || this.panZoomService.isPanModeActive) {
       return;
     }
@@ -98,7 +116,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.selectionService.setHoverItemKey(event.canvasItem.key);
   }
 
-  onMouseOut() {
+  clearHover() {
     this.selectionService.setHoverItemKey(undefined);
   }
 
@@ -107,7 +125,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.selectionService.showContextMenu(event.mouseEvent);
   }
 
-  onChildTextContentChanged(content: { key: string, content: string }) {
+  onChildTextContentChanged(content: { key: string; content: string }) {
     this.canvasService.updateTextContent(content.key, content.content);
   }
 }

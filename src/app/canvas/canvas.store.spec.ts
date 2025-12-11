@@ -1,8 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 import {CanvasStore} from './canvas.store';
-import {CanvasItem} from '../models/canvas-item.model';
-import {CanvasItemType, InsertPosition} from "../enums";
-import {CANVAS_WRAPPER_ID} from "../constants";
+import {CanvasItem} from '../core/models/canvas-item.model';
+import {CanvasItemType, InsertPosition} from "../core/enums";
+import {CANVAS_WRAPPER_ID} from "../core/constants";
 
 describe('CanvasStore', () => {
   let store: CanvasStore;

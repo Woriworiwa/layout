@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {CanvasStore} from "./core/store/canvas.store";
+import {CanvasStore} from "./canvas/canvas.store";
 import {DataService} from "./core/services/data.service";
 import {MessageService} from "primeng/api";
 import {UndoRedoService} from "./core/undo-redo/undo-redo.service";

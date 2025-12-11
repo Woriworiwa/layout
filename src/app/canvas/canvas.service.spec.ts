@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {CanvasService} from './canvas.service';
-import {CanvasStore} from '../core/store/canvas.store';
+import {CanvasStore} from './canvas.store';
 import {UndoRedoService} from '../core/undo-redo/undo-redo.service';
 import {SelectionService} from './selection/selection.service';
 import {PresetService} from '../designer/presets/preset.service';

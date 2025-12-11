@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, inject } from "@angular/core";
 import {BehaviorSubject, debounceTime, Observable, Subject, takeUntil} from "rxjs";
-import {CanvasStore} from "../store/canvas.store";
+import {CanvasStore} from "../../canvas/canvas.store";
 import cloneDeep from "lodash.clonedeep";
 import {CanvasItem} from "../models/canvas-item.model";
 

@@ -1,21 +1,24 @@
 <div #wrapper
      class="pan-zoom-wrapper"
      [id]="CANVAS_WRAPPER_ID">
-  @for (frame of frames; track frame.key) {
+  <!-- Render each root frame -->
+  @for (frame of rootItems; track frame.key) {
     <app-container [item]="frame"
                    [appAssetDrop]="frame"
                    [id]="frame.key!"
-                   (clicked)="onFrameClicked($event)"
-                   (mouseOver)="onMouseOver($event)"
-                   (mouseOut)="onMouseOut()"
+                   (clicked)="selectElement($event)"
+                   (mouseOver)="hoverElement($event)"
+                   (mouseOut)="clearHover()"
                    (contextMenu)="onContextMenu($event)"
                    (childTextContentChanged)="onChildTextContentChanged($event)"></app-container>
   }
 
+  <!-- selection and meta layers -->
   <app-selection-layer [canvasElement]="wrapperElementRef" [allowAdd]="settings.allowAdd"></app-selection-layer>
   <app-meta-layer [canvasElement]="wrapperElementRef"></app-meta-layer>
 </div>
 
+<!-- toolbar -->
 @if(settings.showToolbar) {
   <app-canvas-toolbar></app-canvas-toolbar>
 }
