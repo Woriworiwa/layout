@@ -49,7 +49,9 @@ export class CanvasDropZoneDirective implements AfterViewInit {
 
   @HostListener('dragleave', ['$event'])
   onDragLeave($event: DragEvent) {
-    this.renderer.removeClass(this.wrapperElement, 'drop-inside');
+    if ($event.target === this.wrapperElement) {
+      this.renderer.removeClass(this.wrapperElement, 'drop-inside');
+    }
   }
 
   @HostListener('drop', ['$event'])
