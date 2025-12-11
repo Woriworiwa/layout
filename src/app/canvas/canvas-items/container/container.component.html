@@ -1,17 +1,19 @@
 @if (item?.aiMetadata) {
   <!-- AI Wrapper -->
   <app-ai-wrapper [item]="item">
-    @for (childItem of item?.children; track childItem.key) {
+<!--    @for (childItem of item?.children; track childItem.key) {-->
       <!-- Render each child inside AI Wrapper -->
       <ng-container *ngTemplateOutlet="contentRenderer; context: { $implicit: item?.children }"></ng-container>
-    }
+<!--    }-->
   </app-ai-wrapper>
 } @else {
   <!-- Regular Container -->
   @switch (item?.itemType) {
     @case (FrameType.FLEX) {
+<!--      @for (childItem of item?.children; track childItem.key) {-->
       <!-- Render children -->
-      <ng-container *ngTemplateOutlet="contentRenderer; context: { $implicit: item?.children }"></ng-container>
+        <ng-container *ngTemplateOutlet="contentRenderer; context: { $implicit: item?.children }"></ng-container>
+<!--      }-->
     }
     @case (FrameType.TEXT) {
       <!-- render text-->
@@ -21,13 +23,15 @@
 }
 
 <!-- content renderer -->
-<ng-template #contentRenderer let-item>
-  @switch (item.itemType) {
-    @case (FrameType.FLEX) {
-      <ng-template *ngTemplateOutlet="container; context: { $implicit: item }"></ng-template>
-    }
-    @case (FrameType.TEXT) {
-      <ng-container *ngTemplateOutlet="text; context: { $implicit: item }"></ng-container>
+<ng-template #contentRenderer let-items>
+  @for (item of items; track item.key) {
+    @switch (item.itemType) {
+      @case (FrameType.FLEX) {
+        <ng-template *ngTemplateOutlet="container; context: { $implicit: item }"></ng-template>
+      }
+      @case (FrameType.TEXT) {
+        <ng-container *ngTemplateOutlet="text; context: { $implicit: item }"></ng-container>
+      }
     }
   }
 </ng-template>
