@@ -30,7 +30,7 @@ describe('CanvasService', () => {
     });
 
     it('SHOULD push to undo stack', () => {
-      const spy = jest.spyOn(undoRedoService, 'takeSnapshot');
+      const spy = vi.spyOn(undoRedoService, 'takeSnapshot');
 
       service.addItem(newItem, 'INSIDE', 'parent-key');
 
@@ -111,11 +111,13 @@ it('SHOULD emit current items', async () => {
 - Angular services
 
 ```typescript
+import { vi } from 'vitest';
+
 describe('DataService', () => {
-  let httpMock: jest.Mocked<HttpClient>;
+  let httpMock: any;
 
   beforeEach(() => {
-    httpMock = { get: jest.fn(), post: jest.fn() } as any;
+    httpMock = { get: vi.fn(), post: vi.fn() };
     TestBed.configureTestingModule({
       providers: [
         DataService,

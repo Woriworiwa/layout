@@ -8,7 +8,7 @@ import {DragDropService} from './drag-drop/drag-drop.service';
 import {CanvasItem} from '../core/models/canvas-item.model';
 import {CanvasItemType, InsertPosition} from '../core/enums';
 import {ContextMenuService} from "./context-menu/context-menu.service";
-import spyOn = jest.spyOn;
+import { vi } from 'vitest';
 
 import {Css} from "../core/models/css/css";
 import { PanZoomService } from './pan-zoom/pan-zoom.service';
@@ -17,10 +17,10 @@ import { Renderer2 } from '@angular/core';
 describe('CanvasService', () => {
   let service: CanvasService;
   let canvasStore: CanvasStore;
-  let undoRedoService: jest.Mocked<UndoRedoService>;
-  let selectionService: jest.Mocked<SelectionService>;
-  let presetsService: jest.Mocked<PresetService>;
-  let dragDropService: jest.Mocked<DragDropService>;
+  let undoRedoService: UndoRedoService;
+  let selectionService: SelectionService;
+  let presetsService: PresetService;
+  let dragDropService: DragDropService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -39,14 +39,14 @@ describe('CanvasService', () => {
 
     service = TestBed.inject(CanvasService);
     canvasStore = TestBed.inject(CanvasStore);
-    undoRedoService = TestBed.inject(UndoRedoService) as jest.Mocked<UndoRedoService>;
-    selectionService = TestBed.inject(SelectionService) as jest.Mocked<SelectionService>;
-    presetsService = TestBed.inject(PresetService) as jest.Mocked<PresetService>;
-    dragDropService = TestBed.inject(DragDropService) as jest.Mocked<DragDropService>;
+    undoRedoService = TestBed.inject(UndoRedoService);
+    selectionService = TestBed.inject(SelectionService);
+    presetsService = TestBed.inject(PresetService);
+    dragDropService = TestBed.inject(DragDropService);
 
-    spyOn(undoRedoService, 'takeSnapshot');
-    spyOn(selectionService, 'setSelectedItemKey');
-    spyOn(selectionService, 'setHoverItemKey');
+    vi.spyOn(undoRedoService, 'takeSnapshot');
+    vi.spyOn(selectionService, 'setSelectedItemKey');
+    vi.spyOn(selectionService, 'setHoverItemKey');
   });
 
   it('should be created', () => {

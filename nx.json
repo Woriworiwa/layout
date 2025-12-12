@@ -43,7 +43,7 @@
       "e2eTestRunner": "cypress",
       "linter": "eslint",
       "style": "scss",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "vitest"
     },
     "@schematics/angular:component": {
       "type": "component"

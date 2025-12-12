@@ -17,8 +17,10 @@ nx build --watch --configuration development  # Watch mode
 
 ### Testing
 ```bash
-nx test              # Run all Jest unit tests
+nx test              # Run all Vitest unit tests
 nx test --watch      # Run tests in watch mode
+nx test --ui         # Open Vitest UI
+nx test --coverage   # Generate coverage report
 nx e2e               # Run Cypress E2E tests
 nx open-cypress      # Open Cypress UI
 ```

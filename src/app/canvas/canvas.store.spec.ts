@@ -3,6 +3,7 @@ import {CanvasStore} from './canvas.store';
 import {CanvasItem} from '../core/models/canvas-item.model';
 import {CanvasItemType, InsertPosition} from "../core/enums";
 import {CANVAS_WRAPPER_ID} from "../core/constants";
+import { vi } from 'vitest';
 
 describe('CanvasStore', () => {
   let store: CanvasStore;
@@ -201,7 +202,7 @@ describe('CanvasStore', () => {
 
     it('should insert item at the root level if no parent is specified', () => {
       // Mock the generateUniqueId method to return predictable values
-      jest.spyOn(store as any, 'generateUniqueId').mockReturnValue('mockedId');
+      vi.spyOn(store as any, 'generateUniqueId').mockReturnValue('mockedId');
 
       const frames: CanvasItem[] = [{ key: '1', children: [], itemType: CanvasItemType.FLEX }];
       store.setItems(frames);

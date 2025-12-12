@@ -1,11 +1,11 @@
 # Core Testing Guidelines
 
 ## Tech Stack
-- **Testing Framework**: Jest 29 with `@happy-dom/jest-environment`
+- **Testing Framework**: Vitest 3 with happy-dom
 - **Angular**: Angular 20 standalone components (no NgModules)
 - **Testing Library**: Angular Testing Library
 - **State Management**: Custom `Store<T>` pattern (src/app/core/store/store.ts)
-- **Commands**: `nx test`, `nx test --watch`, `nx test --testFile=path/to/file.spec.ts`
+- **Commands**: `nx test`, `nx test --watch`, `nx test --ui`, `nx test --coverage`
 
 ## Test Strategy
 - Focus on **user behavior**, not implementation
@@ -43,11 +43,12 @@
 ```typescript
 import { render, screen } from '@testing-library/angular';
 import { userEvent } from '@testing-library/user-event';
+import { vi } from 'vitest';
 
 describe('ComponentName', () => {
   describe('WHEN user clicks submit', () => {
     it('SHOULD emit save event', async () => {
-      const mockSave = jest.fn();
+      const mockSave = vi.fn();
       await render(Component, {
         componentProperties: { onSave: mockSave }
       });

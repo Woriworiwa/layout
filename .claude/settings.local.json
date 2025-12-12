@@ -40,7 +40,10 @@
       "Bash(gh issue create:*)",
       "Bash(git push:*)",
       "Bash(gh pr create:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(wc -l:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx vitest:*)"
     ],
     "deny": [],
     "ask": []
