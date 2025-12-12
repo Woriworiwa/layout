@@ -1,11 +1,11 @@
 <div #wrapper
      class="pan-zoom-wrapper"
      [id]="CANVAS_WRAPPER_ID">
-  <!-- Render each root frame -->
-  @for (frame of rootItems; track frame.key) {
-    <app-container [item]="frame"
-                   [appAssetDrop]="frame"
-                   [id]="frame.key!"
+  <!-- Render each root item -->
+  @for (item of rootItems; track item.key) {
+    <app-container [item]="item"
+                   [appAssetDrop]="item"
+                   [id]="item.key!"
                    (clicked)="selectElement($event)"
                    (mouseOver)="hoverElement($event)"
                    (mouseOut)="clearHover()"
