@@ -56,7 +56,7 @@ describe('CanvasService', () => {
 
       const items = await firstValueFrom(service.items$);
       expect(items[0].children).toHaveLength(1);
-      expect(items[0].children[0].key).toBe(newItem.key);
+      expect(items[0].children?.[0].key).toBe(newItem.key);
       expect(selectionService.selectedItem?.key).toBe(newItem.key);
     });
 
