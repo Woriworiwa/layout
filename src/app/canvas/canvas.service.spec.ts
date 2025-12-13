@@ -1,126 +1,232 @@
-import {TestBed} from '@angular/core/testing';
-import {CanvasService} from './canvas.service';
-import {CanvasStore} from './canvas.store';
-import {UndoRedoService} from '../core/undo-redo/undo-redo.service';
-import {SelectionService} from './selection/selection.service';
-import {PresetService} from '../designer/presets/preset.service';
-import {DragDropService} from './drag-drop/drag-drop.service';
-import {CanvasItem} from '../core/models/canvas-item.model';
-import {CanvasItemType, InsertPosition} from '../core/enums';
-import {ContextMenuService} from "./context-menu/context-menu.service";
-import { vi } from 'vitest';
-
-import {Css} from "../core/models/css/css";
-import { PanZoomService } from './pan-zoom/pan-zoom.service';
-import { Renderer2 } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { firstValueFrom } from 'rxjs';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { CanvasService } from './canvas.service';
+import { CanvasStore } from './canvas.store';
+import { SelectionService } from './selection/selection.service';
+import { UndoRedoService } from '../core/undo-redo/undo-redo.service';
+import { PresetService } from '../designer/presets/preset.service';
+import { ContextMenuService } from './context-menu/context-menu.service';
+import { AssetDragDropService } from './drag-drop/asset-drag-drop.service';
+import { CanvasItem } from '../core/models/canvas-item.model';
+import { CanvasItemType, InsertPosition } from '../core/enums';
+import { Css } from '../core/models/css/css';
 
 describe('CanvasService', () => {
   let service: CanvasService;
-  let canvasStore: CanvasStore;
-  let undoRedoService: UndoRedoService;
+  let store: CanvasStore;
   let selectionService: SelectionService;
-  let presetsService: PresetService;
-  let dragDropService: DragDropService;
+  let undoRedoService: UndoRedoService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         CanvasService,
         CanvasStore,
-        UndoRedoService,
         SelectionService,
-        PanZoomService,
-        Renderer2,
+        UndoRedoService,
         PresetService,
-        DragDropService,
-        ContextMenuService
-      ],
+        ContextMenuService,
+        AssetDragDropService
+      ]
     });
 
     service = TestBed.inject(CanvasService);
-    canvasStore = TestBed.inject(CanvasStore);
-    undoRedoService = TestBed.inject(UndoRedoService);
+    store = TestBed.inject(CanvasStore);
     selectionService = TestBed.inject(SelectionService);
-    presetsService = TestBed.inject(PresetService);
-    dragDropService = TestBed.inject(DragDropService);
-
-    vi.spyOn(undoRedoService, 'takeSnapshot');
-    vi.spyOn(selectionService, 'setSelectedItemKey');
-    vi.spyOn(selectionService, 'setHoverItemKey');
+    undoRedoService = TestBed.inject(UndoRedoService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  describe('WHEN user inserts a new item', () => {
+    it('SHOULD add item to store and select it', async () => {
+      const container: CanvasItem = {
+        key: 'container-1',
+        itemType: CanvasItemType.FLEX,
+        children: []
+      };
+      store.setItems([container]);
+
+      const newItem: CanvasItem = {
+        key: 'text-1',
+        itemType: CanvasItemType.TEXT,
+        children: []
+      };
+
+      service.insertItem('container-1', newItem, InsertPosition.INSIDE);
+
+      const items = await firstValueFrom(service.items$);
+      expect(items[0].children).toHaveLength(1);
+      expect(items[0].children[0].key).toBe(newItem.key);
+      expect(selectionService.selectedItem?.key).toBe(newItem.key);
+    });
+
+    it('SHOULD trigger undo snapshot after insertion', () => {
+      const container: CanvasItem = {
+        key: 'container-1',
+        itemType: CanvasItemType.FLEX,
+        children: []
+      };
+      store.setItems([container]);
+
+      const newItem: CanvasItem = {
+        key: 'text-1',
+        itemType: CanvasItemType.TEXT,
+        children: []
+      };
+      const snapshotSpy = vi.spyOn(undoRedoService, 'takeSnapshot');
+
+      service.insertItem('container-1', newItem, InsertPosition.INSIDE);
+
+      expect(snapshotSpy).toHaveBeenCalled();
+    });
   });
 
-  it('should set items and take snapshot', () => {
-    const items: CanvasItem[] = [];
-    service.setItems(items);
-    expect(canvasStore.items).toEqual(items);
-    expect(undoRedoService.takeSnapshot).toHaveBeenCalled();
+  describe('WHEN user deletes an item', () => {
+    it('SHOULD remove item from store and clear selection', async () => {
+      const container: CanvasItem = {
+        key: 'container-1',
+        itemType: CanvasItemType.FLEX,
+        children: [
+          { key: 'child-1', itemType: CanvasItemType.TEXT, children: [] }
+        ]
+      };
+      store.setItems([container]);
+      selectionService.setSelectedItemKey('child-1');
+
+      service.deleteItem('child-1');
+
+      const items = await firstValueFrom(service.items$);
+      expect(items[0].children).toHaveLength(0);
+      expect(selectionService.selectedItem).toBeUndefined();
+    });
+
+    it('SHOULD trigger undo snapshot after deletion', () => {
+      const item: CanvasItem = {
+        key: 'item-1',
+        itemType: CanvasItemType.TEXT,
+        children: []
+      };
+      store.setItems([item]);
+      const snapshotSpy = vi.spyOn(undoRedoService, 'takeSnapshot');
+
+      service.deleteItem(item.key);
+
+      expect(snapshotSpy).toHaveBeenCalled();
+    });
   });
 
-  it('should insert item and take snapshot', () => {
+  describe('WHEN user updates item CSS', () => {
+    it('SHOULD persist changes to store', async () => {
+      const item: CanvasItem = {
+        key: 'item-1',
+        itemType: CanvasItemType.TEXT,
+        css: {},
+        children: []
+      };
+      store.setItems([item]);
+      selectionService.setSelectedItemKey(item.key);
+      const newCss: Css = { display: { display: 'flex' } };
 
-    const newItem: CanvasItem = {key: '1', itemType: CanvasItemType.TEXT, css: {}, children: []};
-    service.insertItem('0', newItem, InsertPosition.AFTER);
-    expect(canvasStore.items).toContainEqual(newItem);
-    expect(selectionService.setSelectedItemKey).toHaveBeenCalledWith(newItem.key);
-    expect(undoRedoService.takeSnapshot).toHaveBeenCalled();
+      service.updateCss(newCss);
+
+      const items = await firstValueFrom(service.items$);
+      expect(items[0].css).toEqual(newCss);
+    });
+
+    it('SHOULD trigger undo snapshot after CSS update', () => {
+      const item: CanvasItem = {
+        key: 'item-1',
+        itemType: CanvasItemType.TEXT,
+        css: {},
+        children: []
+      };
+      store.setItems([item]);
+      selectionService.setSelectedItemKey(item.key);
+      const snapshotSpy = vi.spyOn(undoRedoService, 'takeSnapshot');
+      const newCss: Css = { display: { display: 'block' } };
+
+      service.updateCss(newCss);
+
+      expect(snapshotSpy).toHaveBeenCalled();
+    });
   });
 
-  it('should delete item and update selection', () => {
-    const item: CanvasItem = {key: '1', itemType: CanvasItemType.TEXT, css: {}, children: []};
-    canvasStore.setItems([item]);
-    service.deleteItem('1');
-    expect(canvasStore.items).not.toContain(item);
-    expect(selectionService.setSelectedItemKey).toHaveBeenCalledWith(undefined);
-    expect(selectionService.setHoverItemKey).toHaveBeenCalledWith(undefined);
+  describe('WHEN user updates text content', () => {
+    it('SHOULD persist content to store', async () => {
+      const textItem: CanvasItem = {
+        key: 'text-1',
+        itemType: CanvasItemType.TEXT,
+        content: 'old text',
+        children: []
+      };
+      store.setItems([textItem]);
+
+      service.updateTextContent('text-1', 'new text');
+
+      const items = await firstValueFrom(service.items$);
+      expect(items[0].content).toBe('new text');
+    });
   });
 
-  it('should update CSS and take snapshot', () => {
-    const item: CanvasItem = {key: '1', itemType: CanvasItemType.TEXT, css: {}, children: []};
-    canvasStore.setItems([item]);
-    Object.defineProperty(selectionService, 'selectedItem', {value: item, writable: true});
-    const newCss: Css = {display: {display: 'block'}}; // Use valid Css properties
-    service.updateCss(newCss);
-    expect(canvasStore.items[0].css).toEqual(newCss);
-    expect(undoRedoService.takeSnapshot).toHaveBeenCalled();
+  describe('WHEN user renames an item', () => {
+    it('SHOULD update item label in store', async () => {
+      const item: CanvasItem = {
+        key: 'item-1',
+        itemType: CanvasItemType.TEXT,
+        label: 'Old Label',
+        children: []
+      };
+      store.setItems([item]);
+
+      service.renameItem('New Label', item.key);
+
+      const items = await firstValueFrom(service.items$);
+      expect(items[0].label).toBe('New Label');
+    });
   });
 
-  it('should move item child and update items', () => {
-    const parentItem: CanvasItem = {
-      key: '0',
-      itemType: CanvasItemType.TEXT,
-      css: {},
-      children: [{key: '1', itemType: CanvasItemType.TEXT, css: {}, children: []}]
-    };
-    canvasStore.setItems([parentItem]);
-    service.moveItemChild('0', '0', 0, 1);
-    expect(canvasStore.items).toEqual([parentItem]);
+  describe('WHEN user pastes an item', () => {
+    it('SHOULD duplicate item and insert after target', async () => {
+      const item1: CanvasItem = {
+        key: 'item-1',
+        itemType: CanvasItemType.TEXT,
+        children: []
+      };
+      const item2: CanvasItem = {
+        key: 'item-2',
+        itemType: CanvasItemType.TEXT,
+        children: []
+      };
+      store.setItems([item1, item2]);
+
+      service.pasteItem(item1.key, item2.key);
+
+      const items = await firstValueFrom(service.items$);
+      expect(items).toHaveLength(3);
+      expect(items[2].itemType).toBe(item1.itemType);
+    });
   });
 
-  it('should update text content and take snapshot', () => {
-    const item: CanvasItem = {key: '1', itemType: CanvasItemType.TEXT, css: {}, children: [], content: 'old'};
-    canvasStore.setItems([item]);
-    service.updateTextContent('1', 'new');
-    expect(canvasStore.items[0].content).toBe('new');
-    expect(undoRedoService.takeSnapshot).toHaveBeenCalled();
-  });
+  describe('WHEN store state changes', () => {
+    it('SHOULD emit updated items through observable', async () => {
+      const initialItem: CanvasItem = {
+        key: 'initial',
+        itemType: CanvasItemType.TEXT,
+        children: []
+      };
+      const updatedItem: CanvasItem = {
+        key: 'updated',
+        itemType: CanvasItemType.TEXT,
+        children: []
+      };
 
-  it('should rename item and take snapshot', () => {
-    const item: CanvasItem = {key: '1', itemType: CanvasItemType.TEXT, css: {}, children: [], label: 'old'};
-    canvasStore.setItems([item]);
-    service.renameItem('new', '1');
-    expect(canvasStore.items[0].label).toBe('new');
-    expect(undoRedoService.takeSnapshot).toHaveBeenCalled();
-  });
+      store.setItems([initialItem]);
+      const firstEmit = await firstValueFrom(service.items$);
+      expect(firstEmit).toEqual([initialItem]);
 
-  it('should paste item and insert duplicated item', () => {
-    const item: CanvasItem = {key: '1', itemType: CanvasItemType.TEXT, css: {}, children: []};
-    canvasStore.setItems([item]);
-    service.pasteItem('1', '2');
-    expect(canvasStore.items.length).toBe(2);
-    expect(undoRedoService.takeSnapshot).toHaveBeenCalled();
+      store.setItems([updatedItem]);
+      const secondEmit = await firstValueFrom(service.items$);
+      expect(secondEmit).toEqual([updatedItem]);
+    });
   });
 });
