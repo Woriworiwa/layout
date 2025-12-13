@@ -4,6 +4,7 @@ import {
   inject,
   ChangeDetectionStrategy,
   input,
+  OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -26,11 +27,11 @@ import cloneDeep from 'lodash.clonedeep';
   templateUrl: './ai-wrapper.component.html',
   styleUrls: ['./ai-wrapper.component.scss'],
 })
-export class AiWrapperComponent {
+export class AiWrapperComponent implements OnInit {
   private aiService = inject(AiGenerationService);
   private canvasService = inject(CanvasService);
 
-  item = input<CanvasItem | undefined>(undefined);
+  item = input.required<CanvasItem>();
   protected prompt = signal<string>('');
   protected isGenerating = signal<boolean>(false);
   protected errorMessage = signal<string | null>(null);

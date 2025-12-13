@@ -1,39 +1,45 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  output,
+  input,
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {EditableContentDirective} from "../text/editable-content.directive";
 import {TextComponent} from "../text/text.component";
 import {AiWrapperComponent} from "../ai-wrapper/ai-wrapper.component";
 import {CanvasItemType} from '../../../core/enums';
-import {CanvasItemComponent} from "../canvas-item.component";
-import {PanZoomService} from "../../pan-zoom/pan-zoom.service";
-import {CanvasService} from "../../canvas.service";
+import {CanvasItemBaseComponent} from "../canvas-item-base.component";
 import {CanvasItemMouseEvent} from "../canvas-item-mouse-event";
 import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 
 @Component({
-    selector: 'app-container',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, EditableContentDirective, TextComponent, AiWrapperComponent],
-    templateUrl: 'container.component.html',
-    hostDirectives: [
-      {
-        directive: AssetDropDirective,
-        inputs: ['appAssetDrop']
-      }
-    ],
-    host: {
-        /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
-        '[attr.tabindex]': '-1',
+  selector: 'app-container',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    EditableContentDirective,
+    TextComponent,
+    AiWrapperComponent,
+  ],
+  templateUrl: 'container.component.html',
+  hostDirectives: [
+    {
+      directive: AssetDropDirective,
+      inputs: ['appAssetDrop'],
     },
-    styleUrls: ['./container.component.scss']
+  ],
+  host: {
+    /*without tab index, the keydown listeners will not fire because the element is not focusable. Adding tabindex makes it focusable*/
+    '[attr.tabindex]': '-1',
+  },
+  styleUrls: ['./container.component.scss'],
 })
-export class ContainerComponent extends CanvasItemComponent {
-  protected canvasService = inject(CanvasService);
-  protected panZoomService = inject(PanZoomService);
+export class ContainerComponent extends CanvasItemBaseComponent {
+  selectedFrameKey = input<string | undefined>(undefined);
+  childTextContentChanged = output<{ key: string; content: string }>();
 
   protected readonly FrameType = CanvasItemType;
-  @Output() childTextContentChanged = new EventEmitter<{ key: string, content: string }>();
-  @Input() selectedFrameKey!: string | undefined;
 
   protected onChildFrameClick(event: CanvasItemMouseEvent) {
     this.clicked.emit(event);
@@ -51,7 +57,13 @@ export class ContainerComponent extends CanvasItemComponent {
     this.contextMenu.emit(event);
   }
 
-  protected onChildTextContentChanged({key, content}: { key: string, content: string }) {
-    this.childTextContentChanged.emit({key, content});
+  protected onChildTextContentChanged({
+    key,
+    content,
+  }: {
+    key: string;
+    content: string;
+  }) {
+    this.childTextContentChanged.emit({ key, content });
   }
 }

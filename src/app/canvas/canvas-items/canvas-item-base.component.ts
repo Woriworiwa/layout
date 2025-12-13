@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, Renderer2, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  OnChanges,
+  OnDestroy,
+  Renderer2,
+  inject,
+  input,
+  output,
+} from '@angular/core';
 
 import {CanvasItem} from "../../core/models/canvas-item.model";
 import {Serializer} from "../../core/serialization/serializers/serializer";
@@ -9,34 +20,29 @@ import {CanvasService} from "../canvas.service";
 import {CanvasItemMouseEvent} from "./canvas-item-mouse-event";
 
 @Component({
-    selector: 'app-canvas-base-component',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [],
-    template: ``
+  selector: 'app-canvas-base-component',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [],
+  template: ``,
 })
-export class CanvasItemComponent implements OnDestroy, OnChanges {
+export class CanvasItemBaseComponent implements OnDestroy, OnChanges {
+  item = input.required<CanvasItem>();
+  clicked = output<CanvasItemMouseEvent>();
+  mouseOver = output<CanvasItemMouseEvent>();
+  mouseOut = output<CanvasItemMouseEvent>();
+  contextMenu = output<CanvasItemMouseEvent>();
+
   private baseElementRef = inject(ElementRef);
   private baseRenderer = inject(Renderer2);
   private baseCanvasService = inject(CanvasService);
   private baseSelectionService = inject(SelectionService);
-
-  @Input() item: CanvasItem | undefined;
-  @Output() clicked = new EventEmitter<CanvasItemMouseEvent>();
-  @Output() mouseOver = new EventEmitter<CanvasItemMouseEvent>();
-  @Output() mouseOut = new EventEmitter<CanvasItemMouseEvent>();
-  @Output() contextMenu = new EventEmitter<CanvasItemMouseEvent>();
-
   private destroy$ = new Subject();
 
   @HostListener('click', ['$event'])
   onClick($event: MouseEvent) {
     $event.stopPropagation();
 
-    if (!this.item) {
-      return;
-    }
-
-    this.clicked.emit({canvasItem: this.item, mouseEvent: $event});
+    this.clicked.emit({ canvasItem: this.item(), mouseEvent: $event });
   }
 
   @HostListener('mouseover', ['$event'])
@@ -44,22 +50,14 @@ export class CanvasItemComponent implements OnDestroy, OnChanges {
     $event.stopPropagation();
     $event.stopImmediatePropagation();
 
-    if (!this.item) {
-      return;
-    }
-
-    this.mouseOver.emit({canvasItem: this.item, mouseEvent: $event});
+    this.mouseOver.emit({ canvasItem: this.item(), mouseEvent: $event });
   }
 
   @HostListener('mouseout', ['$event'])
   onMouseLeave($event: MouseEvent) {
     $event.stopPropagation();
 
-    if (!this.item) {
-      return;
-    }
-
-    this.mouseOut.emit({canvasItem: this.item, mouseEvent: $event});
+    this.mouseOut.emit({ canvasItem: this.item(), mouseEvent: $event });
   }
 
   @HostListener('contextmenu', ['$event'])
@@ -67,11 +65,7 @@ export class CanvasItemComponent implements OnDestroy, OnChanges {
     $event.stopPropagation();
     $event.preventDefault();
 
-    if (!this.item) {
-      return;
-    }
-
-    this.contextMenu.emit({canvasItem: this.item, mouseEvent: $event});
+    this.contextMenu.emit({ canvasItem: this.item(), mouseEvent: $event });
   }
 
   ngOnChanges() {
@@ -80,7 +74,7 @@ export class CanvasItemComponent implements OnDestroy, OnChanges {
     this.baseCanvasService.cssChanged$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        if (this.baseSelectionService.selectedItem?.key === this.item?.key) {
+        if (this.baseSelectionService.selectedItem?.key === this.item().key) {
           this.updateCssAndSelection();
         }
       });
@@ -96,21 +90,21 @@ export class CanvasItemComponent implements OnDestroy, OnChanges {
     const serializedStyles: string[] = [];
 
     // Serialize the styles
-    if (this.item) {
-      serializedStyles.push(...serializer.serialize([this.item]));
+    if (this.item()) {
+      serializedStyles.push(...serializer.serialize([this.item()]));
       if (serializedStyles.length) {
-        this.baseRenderer.setProperty(this.baseElementRef.nativeElement, 'style', serializedStyles.join(';'));
+        this.baseRenderer.setProperty(
+          this.baseElementRef.nativeElement,
+          'style',
+          serializedStyles.join(';')
+        );
       }
     }
 
     // Re-render the selection item to update any changes to the size of the item
-    if (this.item?.key === this.baseSelectionService.selectedItem?.key) {
+    if (this.item()?.key === this.baseSelectionService.selectedItem?.key) {
       setTimeout(() => {
-        if (!this.item) {
-          return;
-        }
-
-        this.baseSelectionService.renderItem('selection', this.item);
+        this.baseSelectionService.renderItem('selection', this.item());
       }, 0);
     }
   }

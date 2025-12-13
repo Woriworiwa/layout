@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostListener, Renderer2, inject, Optional, Host,
 import { AssetDragDropService } from './asset-drag-drop.service';
 import { CanvasItem } from '../../core/models/canvas-item.model';
 import { InsertPosition, CanvasItemType } from '../../core/enums';
-import { CanvasItemComponent } from '../canvas-items/canvas-item.component';
+import { CanvasItemBaseComponent } from '../canvas-items/canvas-item-base.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
@@ -16,7 +16,7 @@ export class AssetDropDirective {
   private destroyRef = inject(DestroyRef);
 
   // Optionally inject the host component to get the item
-  @Optional() @Host() private hostComponent?: CanvasItemComponent;
+  @Optional() @Host() private hostComponent?: CanvasItemBaseComponent;
 
   appAssetDrop = input<CanvasItem>();
 
@@ -33,7 +33,7 @@ export class AssetDropDirective {
 
   private getItem(): CanvasItem | undefined {
     // Use explicit input first, fall back to host component's item
-    return this.appAssetDrop() || this.hostComponent?.item;
+    return this.appAssetDrop() || this.hostComponent?.item();
   }
 
   @HostListener('dragover', ['$event'])

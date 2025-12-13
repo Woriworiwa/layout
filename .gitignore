@@ -43,7 +43,6 @@ Thumbs.db
 
 # Environment files with secrets
 /src/environments/environment.ts
-/src/environments/environment.prod.ts
 
 .nx/cache
 .angular

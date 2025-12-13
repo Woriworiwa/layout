@@ -1,23 +1,17 @@
-@if (item?.aiMetadata) {
+@if (item().aiMetadata) {
   <!-- AI Wrapper -->
-  <app-ai-wrapper [item]="item">
-<!--    @for (childItem of item?.children; track childItem.key) {-->
-      <!-- Render each child inside AI Wrapper -->
-      <ng-container *ngTemplateOutlet="contentRenderer; context: { $implicit: item?.children }"></ng-container>
-<!--    }-->
+  <app-ai-wrapper [item]="item()">
+    <ng-container *ngTemplateOutlet="contentRenderer; context: { $implicit: item().children }"></ng-container>
   </app-ai-wrapper>
 } @else {
   <!-- Regular Container -->
-  @switch (item?.itemType) {
+  @switch (item().itemType) {
     @case (FrameType.FLEX) {
-<!--      @for (childItem of item?.children; track childItem.key) {-->
-      <!-- Render children -->
-        <ng-container *ngTemplateOutlet="contentRenderer; context: { $implicit: item?.children }"></ng-container>
-<!--      }-->
+      <ng-container *ngTemplateOutlet="contentRenderer; context: { $implicit: item().children }"></ng-container>
     }
     @case (FrameType.TEXT) {
       <!-- render text-->
-      <ng-container *ngTemplateOutlet="text; context: { $implicit: item }"></ng-container>
+      <ng-container *ngTemplateOutlet="text; context: { $implicit: item() }"></ng-container>
     }
   }
 }
@@ -45,7 +39,7 @@
                  (mouseOver)="onChildMouseOver($event)"
                  (mouseOut)="onChildMouseOut($event)"
                  (contextMenu)="onChildContextMenu($event)"
-                 [selectedFrameKey]="selectedFrameKey"
+                 [selectedFrameKey]="selectedFrameKey()"
                  (childTextContentChanged)="onChildTextContentChanged($event)">
   </app-container>
 </ng-template>

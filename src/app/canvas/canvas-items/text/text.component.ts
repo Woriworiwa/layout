@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnChanges, inject } from '@angular/core';
 
-import {CanvasItemComponent} from "../canvas-item.component";
+import {CanvasItemBaseComponent} from "../canvas-item-base.component";
 import {KeyboardCommandsDirective} from "../../keyboard/keyboard-commands.directive";
 import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 
@@ -34,15 +34,11 @@ import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
   }
   `
 })
-export class TextComponent extends CanvasItemComponent implements OnChanges{
+export class TextComponent extends CanvasItemBaseComponent implements OnChanges{
   private elementRef = inject(ElementRef);
 
-  constructor() {
-    super();
-  }
-
   override ngOnChanges() {
-    this.elementRef.nativeElement.innerText = this.item?.content;
+    this.elementRef.nativeElement.innerText = this.item().content;
 
     super.ngOnChanges();
   }
