@@ -21,8 +21,8 @@ nx test              # Run all Vitest unit tests
 nx test --watch      # Run tests in watch mode
 nx test --ui         # Open Vitest UI
 nx test --coverage   # Generate coverage report
-nx e2e               # Run Cypress E2E tests
-nx open-cypress      # Open Cypress UI
+nx e2e               # Run Playwright E2E tests
+npx playwright test --ui  # Open Playwright UI
 ```
 
 ### Linting
@@ -150,7 +150,7 @@ Three main routes (src/app/app.routes.ts):
 - **PrimeNG 19.1.6-lts** for UI components with Tailwind CSS via tailwindcss-primeui
 - **RxJS 7.8** for reactive state management
 - **Vitest 3** with happy-dom for unit tests
-- **Cypress 15** for E2E tests
+- **Playwright** for E2E tests
 - **SortableJS** (via nxt-sortablejs) for drag-and-drop
 - **PrismJS** for syntax highlighting
 - **Firebase** for hosting
