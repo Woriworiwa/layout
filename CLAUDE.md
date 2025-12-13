@@ -40,11 +40,23 @@ nx test --testFile=path/to/file.spec.ts
 
 ### State Management
 
-The application uses a custom RxJS-based state management pattern centered around `Store<T>` (src/app/core/store/store.ts):
+The application uses a custom RxJS-based state management pattern with **pure store functions and service orchestration**:
 
-- **CanvasStore** (src/app/core/store/canvas.store.ts): Core state container managing the hierarchical tree of `CanvasItem` objects
-- **Store base class**: Provides `BehaviorSubject`-based state with `getState()` and `setState()` methods
-- State flows unidirectionally through services to components
+**Store Pattern (Pure Functions):**
+- **Store base class** (src/app/core/store/store.ts): Provides `BehaviorSubject`-based state with `getState()` and `setState()` methods
+- **CanvasStore** (src/app/canvas/canvas.store.ts): Pure data layer managing the hierarchical tree of `CanvasItem` objects
+  - All operations return new `CanvasItem[]` arrays without side effects
+  - Methods like `insertItem()`, `deleteItem()`, `updateItemCss()` are pure functions
+  - Only `setItems()` mutates state
+
+**Service Pattern (Orchestration):**
+- **CanvasService** controls when state persists by calling `store.setItems()`
+- Services coordinate multiple concerns (undo/redo, selection, validation)
+- State flows: Component → Service → Store → Component
+
+**Critical Pattern**: Store methods are pure functions. Services control all persistence and side effects.
+
+> See `knowledge-base/architecture/store-service-pattern.md` for detailed patterns and examples.
 
 ### Core Data Model
 
@@ -63,11 +75,13 @@ The application uses a custom RxJS-based state management pattern centered aroun
 
 ### Service Layer Architecture
 
-**CanvasService** (src/app/shared/canvas/canvas.service.ts): Primary orchestration layer
-- Manages CRUD operations on canvas items
-- Coordinates between CanvasStore, UndoRedoService, SelectionService, and DragDropService
+**CanvasService** (src/app/canvas/canvas.service.ts): Primary orchestration layer
+- Calls store methods to get transformed data
+- **Controls persistence** by calling `store.setItems()` after store operations
+- Coordinates between CanvasStore, UndoRedoService, SelectionService
 - Provides `items$` observable for reactive updates
-- Always call `setItems()` with `pushToUndoStack: true` (default) for user actions
+- Triggers undo snapshots after all user actions
+- **Always use CanvasService for user actions** (never call CanvasStore directly)
 
 **UndoRedoService** (src/app/core/undo-redo/undo-redo.service.ts):
 - Maintains undo/redo stacks with deep clones
@@ -82,26 +96,30 @@ The application uses a custom RxJS-based state management pattern centered aroun
 
 ```
 src/app/
-├── core/                   # Shared business logic and state
-│   ├── models/            # Data models (CanvasItem, Css, etc.)
-│   ├── store/             # State management (Store, CanvasStore)
-│   ├── services/          # Core services (DataService, AppStateService)
-│   ├── serialization/     # Export functionality
-│   ├── undo-redo/         # Undo/redo implementation
-│   └── utils/             # Utilities
-├── designer/              # Main editor interface (/design route)
-│   ├── insert/           # Preset insertion logic
-│   ├── inspector/        # Element inspector panel
-│   ├── layers/           # Layer tree view
-│   └── properties/       # Properties panel
-├── shared/               # Reusable components
-│   ├── canvas/           # Canvas rendering and interaction
-│   ├── header/           # App header
-│   ├── properties/       # Property controls
-│   └── side-bar/         # Sidebar components
-├── renderer/             # Preview mode (/preview route)
-│   └── prisms/           # Syntax highlighting components
-└── learn/                # Tutorial mode (/learn route)
+├── canvas/                # Canvas state and service
+│   ├── canvas.store.ts   # Pure data operations
+│   ├── canvas.service.ts # Orchestration layer
+│   └── selection/        # Selection state management
+├── core/                  # Shared business logic
+│   ├── models/           # Data models (CanvasItem, Css, etc.)
+│   ├── store/            # Store base class
+│   ├── services/         # Core services (DataService, AppStateService)
+│   ├── serialization/    # Export functionality
+│   ├── undo-redo/        # Undo/redo implementation
+│   └── utils/            # Utilities
+├── designer/             # Main editor interface (/design route)
+│   ├── insert/          # Preset insertion logic
+│   ├── inspector/       # Element inspector panel
+│   ├── layers/          # Layer tree view
+│   └── properties/      # Properties panel
+├── shared/              # Reusable components
+│   ├── canvas/          # Canvas rendering components
+│   ├── header/          # App header
+│   ├── properties/      # Property controls
+│   └── side-bar/        # Sidebar components
+├── renderer/            # Preview mode (/preview route)
+│   └── prisms/          # Syntax highlighting components
+└── learn/               # Tutorial mode (/learn route)
 ```
 
 ### Routing
@@ -113,13 +131,17 @@ Three main routes (src/app/app.routes.ts):
 
 ### Key Patterns
 
-1. **Hierarchical Operations**: Most CanvasStore operations recursively traverse the tree structure. Use `getItemById()` to locate items, `getParentItemKey()` to find parents.
+1. **Pure Store Functions**: CanvasStore methods return new `CanvasItem[]` arrays. Services call `store.setItems()` to persist changes. Never call `setItems()` inside store methods.
 
-2. **Immutability**: When updating canvas items, always use `cloneDeep()` and call `setItems()` to trigger reactivity.
+2. **Service Orchestration**: Always use `CanvasService` for user actions. It controls persistence, triggers undo snapshots, and coordinates with SelectionService.
 
-3. **Service Injection**: Core services (CanvasStore, CanvasService, etc.) are injected at AppComponent level, making them available app-wide.
+3. **Hierarchical Operations**: Store operations recursively traverse the tree structure. Use `getItemById()` to locate items, `getParentItemKey()` to find parents.
 
-4. **Insert Positions**: When inserting items, use the `InsertPosition` enum: `INSIDE`, `BEFORE`, `AFTER`.
+4. **Immutability**: When updating canvas items, always use `cloneDeep()` before mutations to ensure pure functions and proper change detection.
+
+5. **Service Injection**: Core services (CanvasStore, CanvasService, etc.) are injected at AppComponent level, making them available app-wide.
+
+6. **Insert Positions**: When inserting items, use the `InsertPosition` enum: `INSIDE`, `BEFORE`, `AFTER`.
 
 ## Technology Stack
 
@@ -127,7 +149,7 @@ Three main routes (src/app/app.routes.ts):
 - **Nx 22.1.1** for monorepo tooling
 - **PrimeNG 19.1.6-lts** for UI components with Tailwind CSS via tailwindcss-primeui
 - **RxJS 7.8** for reactive state management
-- **Jest 29** with happy-dom for unit tests
+- **Vitest 3** with happy-dom for unit tests
 - **Cypress 15** for E2E tests
 - **SortableJS** (via nxt-sortablejs) for drag-and-drop
 - **PrismJS** for syntax highlighting
@@ -140,7 +162,7 @@ Three main routes (src/app/app.routes.ts):
 - Dev server runs on port 4300 (not default 4200)
 - SCSS is the default style format for components
 - The build has relaxed bundle budgets (2MB max for initial and component styles)
-- Uses `@happy-dom/jest-environment` for faster test execution
+- Uses `@happy-dom/jest-environment` (via Vitest) for faster test execution
 - Nx cache is enabled for build, test, and lint targets
 
 ## Git Workflow
@@ -152,6 +174,21 @@ Three main routes (src/app/app.routes.ts):
 - Wait for user to say "commit" or similar instruction before running `git commit`
 - Use `npm run commit` for guided Conventional Commits when instructed to commit
 
-## Angular Documentation
+## Knowledge Base
 
-The `.ai/llms-full.txt` file contains the complete official Angular documentation (14,862 lines). Reference this file for Angular-specific questions about framework features, best practices, and API usage.
+Detailed documentation is organized in the `knowledge-base/` directory:
+
+### Architecture Patterns
+- **`architecture/store-service-pattern.md`** - Store vs Service responsibilities, pure functions, anti-patterns, and real-world examples
+
+### Testing Guidelines
+- **`testing/testing-core.md`** - Core testing strategy (Vitest, BDD, what to test/mock)
+- **`testing/testing-stores.md`** - Testing Store<T> pattern with real stores
+- **`testing/testing-services.md`** - Testing services that use stores
+- **`testing/testing-components.md`** - Component testing guidelines
+
+### Best Practices
+- **`best-practices.md`** - Comprehensive guide covering TypeScript conventions, Angular patterns, state management, accessibility, and performance
+
+### Angular Documentation
+The `.claude/llms-full.txt` file contains the complete official Angular documentation (14,862 lines). Reference this file for Angular-specific questions about framework features, best practices, and API usage.

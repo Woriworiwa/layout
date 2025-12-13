@@ -52,7 +52,8 @@ export class CanvasService implements OnDestroy {
   }
 
   insertItem(insertAfterFrameId: string, newFrame: CanvasItem, insertPosition: InsertPosition, autoSelect = true) {
-    this.canvasStore.insertItem(insertAfterFrameId, newFrame, insertPosition);
+    const updatedItems = this.canvasStore.insertItem(insertAfterFrameId, newFrame, insertPosition);
+    this.canvasStore.setItems(updatedItems);
     if (autoSelect) {
       this.selectionService.setSelectedItemKey(newFrame.key);
     }
@@ -64,30 +65,8 @@ export class CanvasService implements OnDestroy {
       return;
     }
 
-    const parentItemKey = this.canvasStore.getParentItemKey(itemId, this.canvasStore.items, CANVAS_WRAPPER_ID);
-    let items: CanvasItem[] = []
-    if (parentItemKey === CANVAS_WRAPPER_ID) {
-      items = this.canvasStore.items;
-    } else {
-      const parentItem = this.canvasStore.getItemById(this.canvasStore.items, parentItemKey);
-      if (!parentItem) {
-        return;
-      }
-
-      items = parentItem.children || [];
-    }
-
-    const index = items.findIndex(item => item.key === itemId);
-    if (index < 0) {
-      return;
-    }
-
-    if (index > -1) {
-      items.splice(index, 1);
-    }
-
-    // TODO: find a better way to update the items
-    this.setItems(cloneDeep(this.canvasStore.items));
+    const updatedItems = this.canvasStore.deleteItem(itemId);
+    this.setItems(updatedItems);
 
     this.selectionService.setSelectedItemKey(undefined);
     this.selectionService.setHoverItemKey(undefined);
@@ -110,8 +89,8 @@ export class CanvasService implements OnDestroy {
       return;
     }
 
-    selectedFrame.css = css;
-    this.undoRedoService.takeSnapshot();
+    const updatedItems = this.canvasStore.updateItemCss(selectedFrame.key!, css);
+    this.setItems(updatedItems);
     this.cssChangedSubject.next(undefined);
   }
 
@@ -141,10 +120,8 @@ export class CanvasService implements OnDestroy {
       return;
     }
 
-    frame.content = content;
-    this.canvasStore.setItems(cloneDeep(this.items));
-
-    this.undoRedoService.takeSnapshot();
+    const updatedItems = this.canvasStore.updateItemContent(key, content);
+    this.setItems(updatedItems);
   }
 
   renameItem(name: string, id?: string) {
@@ -153,10 +130,8 @@ export class CanvasService implements OnDestroy {
       return;
     }
 
-    selectedItem.label = name;
-
-    this.canvasStore.setItems(cloneDeep(this.items));
-    this.undoRedoService.takeSnapshot();
+    const updatedItems = this.canvasStore.updateItemLabel(selectedItem.key!, name);
+    this.setItems(updatedItems);
   }
 
   removeAiWrapper(itemId: string): void {
@@ -165,12 +140,8 @@ export class CanvasService implements OnDestroy {
       return;
     }
 
-    // Delete the aiMetadata property to convert to regular FLEX container
-    delete item.aiMetadata;
-
-    // Update store
-    this.canvasStore.setItems(cloneDeep(this.items));
-    this.undoRedoService.takeSnapshot();
+    const updatedItems = this.canvasStore.removeItemAiMetadata(itemId);
+    this.setItems(updatedItems);
   }
 
   pasteItem(copyItemId: string | undefined, pasteItemId: string | undefined) {

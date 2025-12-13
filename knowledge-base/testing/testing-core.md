@@ -62,12 +62,6 @@ describe('ComponentName', () => {
 });
 ```
 
-## Anti-Patterns
-❌ `expect(component).toBeTruthy()` - tests framework
-❌ `expect(component.loading).toBe(true)` - tests internal state
-❌ `component.dialogVisible = true` - tests third-party library
-✅ `expect(screen.getByText(/are you sure/i)).toBeInTheDocument()` - tests user experience
-
 ## Reusable Fakes
 Create in `src/testing/fakes/`:
 ```typescript

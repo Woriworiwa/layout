@@ -179,7 +179,8 @@ describe('CanvasStore', () => {
       const frames: CanvasItem[] = [{ key: '1', children: [], itemType: CanvasItemType.FLEX }];
       store.setItems(frames);
       const newItem: CanvasItem = { key: '1.1', children: [], itemType: CanvasItemType.FLEX };
-      store.insertItem('1', newItem, InsertPosition.INSIDE);
+      const result = store.insertItem('1', newItem, InsertPosition.INSIDE);
+      store.setItems(result);
       expect(store.items[0].children).toEqual([newItem]);
     });
 
@@ -187,7 +188,8 @@ describe('CanvasStore', () => {
       const frames: CanvasItem[] = [{ key: '1', children: [], itemType: CanvasItemType.FLEX }];
       store.setItems(frames);
       const newItem: CanvasItem = { key: '2', children: [], itemType: CanvasItemType.FLEX };
-      store.insertItem('1', newItem, InsertPosition.AFTER);
+      const result = store.insertItem('1', newItem, InsertPosition.AFTER);
+      store.setItems(result);
       expect(store.items[1]).toEqual(newItem);
     });
 
@@ -195,7 +197,8 @@ describe('CanvasStore', () => {
       const frames: CanvasItem[] = [{ key: '1', children: [], itemType: CanvasItemType.FLEX }];
       store.setItems(frames);
       const newItem: CanvasItem = { key: '0', children: [], itemType: CanvasItemType.FLEX };
-      store.insertItem('1', newItem, InsertPosition.BEFORE);
+      const result = store.insertItem('1', newItem, InsertPosition.BEFORE);
+      store.setItems(result);
       expect(store.items[0]).toEqual(newItem);
       expect(store.items[1].key).toBe('1');
     });
@@ -207,7 +210,8 @@ describe('CanvasStore', () => {
       const frames: CanvasItem[] = [{ key: '1', children: [], itemType: CanvasItemType.FLEX }];
       store.setItems(frames);
       const newItem: CanvasItem = { key: 'mockedId', children: [], itemType: CanvasItemType.FLEX };
-      store.insertItem(CANVAS_WRAPPER_ID, newItem, InsertPosition.AFTER);
+      const result = store.insertItem(CANVAS_WRAPPER_ID, newItem, InsertPosition.AFTER);
+      store.setItems(result);
       expect(store.items[1]).toEqual(newItem);
     });
 
@@ -217,7 +221,8 @@ describe('CanvasStore', () => {
       ];
       store.setItems(frames);
       const newItem: CanvasItem = { key: '1.2', children: [], itemType: CanvasItemType.FLEX };
-      store.insertItem('1.1', newItem, InsertPosition.AFTER);
+      const result = store.insertItem('1.1', newItem, InsertPosition.AFTER);
+      store.setItems(result);
       expect(store.items[0].children![1]).toEqual(newItem);
     });
 
@@ -227,7 +232,8 @@ describe('CanvasStore', () => {
       ];
       store.setItems(frames);
       const newItem: CanvasItem = { key: '1.1', children: [], itemType: CanvasItemType.FLEX };
-      store.insertItem('1.2', newItem, InsertPosition.BEFORE);
+      const result = store.insertItem('1.2', newItem, InsertPosition.BEFORE);
+      store.setItems(result);
       expect(store.items[0].children![0]).toEqual(newItem);
       expect(store.items[0].children![1].key).toBe('1.2');
     });
@@ -238,7 +244,8 @@ describe('CanvasStore', () => {
       ];
       store.setItems(frames);
       const newItem: CanvasItem = { key: '1.1.1', children: [], itemType: CanvasItemType.FLEX };
-      store.insertItem('1.1', newItem, InsertPosition.INSIDE);
+      const result = store.insertItem('1.1', newItem, InsertPosition.INSIDE);
+      store.setItems(result);
       expect(store.items[0].children![0].children).toEqual([newItem]);
     });
   });

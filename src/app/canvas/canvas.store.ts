@@ -4,6 +4,7 @@ import {CanvasItem} from "../core/models/canvas-item.model";
 import cloneDeep from 'lodash.clonedeep';
 import {CANVAS_WRAPPER_ID} from "../core/constants";
 import {InsertPosition} from "../core/enums";
+import {Css} from "../core/models/css/css";
 
 export class CanvasState {
   canvasItems: CanvasItem[] = [];
@@ -49,22 +50,81 @@ export class CanvasStore extends Store<CanvasState> {
     return undefined;
   }
 
-  insertItem(referenceItemId: string, item: CanvasItem, insertPosition: InsertPosition) {
+  insertItem(referenceItemId: string, item: CanvasItem, insertPosition: InsertPosition): CanvasItem[] {
+    const items = cloneDeep(this.items);
     this.assignKeys([item], true);
 
     switch (insertPosition) {
       case InsertPosition.INSIDE:
-        this.insertInside(referenceItemId, item);
+        this.insertInsideInArray(items, referenceItemId, item);
         break;
       case InsertPosition.AFTER:
-        this.insertAfter(referenceItemId, item);
+        this.insertAfterInArray(items, referenceItemId, item);
         break;
       case InsertPosition.BEFORE:
-        this.insertBefore(referenceItemId, item);
+        this.insertBeforeInArray(items, referenceItemId, item);
         break;
     }
 
-    this.setItems(cloneDeep(this.getState().canvasItems));
+    return items;
+  }
+
+  deleteItem(itemKey: string): CanvasItem[] {
+    const items = cloneDeep(this.items);
+    const parentItemKey = this.getParentItemKey(itemKey, items, CANVAS_WRAPPER_ID);
+
+    let itemsToDeleteFrom: CanvasItem[] = [];
+    if (parentItemKey === CANVAS_WRAPPER_ID) {
+      itemsToDeleteFrom = items;
+    } else {
+      const parentItem = this.getItemById(items, parentItemKey);
+      if (parentItem) {
+        itemsToDeleteFrom = parentItem.children || [];
+      }
+    }
+
+    const index = itemsToDeleteFrom.findIndex(item => item.key === itemKey);
+    if (index > -1) {
+      itemsToDeleteFrom.splice(index, 1);
+    }
+
+    return items;
+  }
+
+  updateItemCss(itemKey: string, css: Css): CanvasItem[] {
+    const items = cloneDeep(this.items);
+    const item = this.getItemById(items, itemKey);
+    if (item) {
+      item.css = css;
+    }
+    return items;
+  }
+
+  updateItemContent(itemKey: string, content: string): CanvasItem[] {
+    const items = cloneDeep(this.items);
+    const item = this.getItemById(items, itemKey);
+    if (item) {
+      item.content = content;
+    }
+    return items;
+  }
+
+  updateItemLabel(itemKey: string, label: string): CanvasItem[] {
+    const items = cloneDeep(this.items);
+    const item = this.getItemById(items, itemKey);
+    if (item) {
+      item.label = label;
+    }
+    return items;
+  }
+
+  removeItemAiMetadata(itemKey: string): CanvasItem[] {
+    const items = cloneDeep(this.items);
+    const item = this.getItemById(items, itemKey);
+    if (item) {
+      delete item.aiMetadata;
+    }
+    return items;
   }
 
   getParentItemKey(childKey: string, children: CanvasItem[], parentKey: string | undefined): string | undefined {
@@ -83,49 +143,48 @@ export class CanvasStore extends Store<CanvasState> {
     return undefined;
   }
 
-  private insertInside(referenceItemId: string, item: CanvasItem) {
-    const targetContainer = this.getItemById(this.items, referenceItemId);
+  private insertInsideInArray(items: CanvasItem[], referenceItemId: string, item: CanvasItem) {
+    const targetContainer = this.getItemById(items, referenceItemId);
     if (targetContainer) {
       targetContainer.children = targetContainer.children || [];
       targetContainer.children.push(item);
     }
   }
 
-  private insertAfter(referenceItemId: string, item: CanvasItem) {
-    const parentFrameKey = this.getParentItemKey(referenceItemId, this.items, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
+  private insertAfterInArray(items: CanvasItem[], referenceItemId: string, item: CanvasItem) {
+    const parentFrameKey = this.getParentItemKey(referenceItemId, items, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
 
     if (parentFrameKey === CANVAS_WRAPPER_ID) {
-      this.insertAtRoot(referenceItemId, item, InsertPosition.AFTER);
+      this.insertAtRootInArray(items, referenceItemId, item, InsertPosition.AFTER);
     } else {
-      this.insertInParent(parentFrameKey, referenceItemId, item, false);
+      this.insertInParentInArray(items, parentFrameKey, referenceItemId, item, false);
     }
   }
 
-  private insertBefore(referenceItemId: string, item: CanvasItem) {
-    const parentFrameKey = this.getParentItemKey(referenceItemId, this.items, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
+  private insertBeforeInArray(items: CanvasItem[], referenceItemId: string, item: CanvasItem) {
+    const parentFrameKey = this.getParentItemKey(referenceItemId, items, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
 
     if (parentFrameKey === CANVAS_WRAPPER_ID) {
-      this.insertAtRoot(referenceItemId, item, InsertPosition.BEFORE);
+      this.insertAtRootInArray(items, referenceItemId, item, InsertPosition.BEFORE);
     } else {
-      this.insertInParent(parentFrameKey, referenceItemId, item, true);
+      this.insertInParentInArray(items, parentFrameKey, referenceItemId, item, true);
     }
   }
 
-  private insertAtRoot(referenceItemId: string, item: CanvasItem, insertPosition: InsertPosition) {
-    const frames = this.items || [];
-    const referenceIndex = frames.findIndex(frame => frame.key === referenceItemId);
+  private insertAtRootInArray(items: CanvasItem[], referenceItemId: string, item: CanvasItem, insertPosition: InsertPosition) {
+    const referenceIndex = items.findIndex(frame => frame.key === referenceItemId);
     let insertIndex;
     if (referenceIndex === -1) {
-      insertIndex = insertPosition === InsertPosition.BEFORE ? 0 : frames.length;
+      insertIndex = insertPosition === InsertPosition.BEFORE ? 0 : items.length;
     } else {
       insertIndex = insertPosition === InsertPosition.BEFORE ? referenceIndex : referenceIndex + 1;
     }
 
-    frames.splice(insertIndex, 0, item);
+    items.splice(insertIndex, 0, item);
   }
 
-  private insertInParent(parentFrameKey: string, referenceItemId: string, item: CanvasItem, before: boolean) {
-    const parentItem = this.getItemById(undefined, parentFrameKey);
+  private insertInParentInArray(items: CanvasItem[], parentFrameKey: string, referenceItemId: string, item: CanvasItem, before: boolean) {
+    const parentItem = this.getItemById(items, parentFrameKey);
     if (parentItem) {
       parentItem.children = parentItem.children || [];
       const referenceIndex = parentItem.children.findIndex(frame => frame.key === referenceItemId);

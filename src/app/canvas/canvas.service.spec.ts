@@ -80,10 +80,11 @@ describe('CanvasService', () => {
 
   it('should update CSS and take snapshot', () => {
     const item: CanvasItem = {key: '1', itemType: CanvasItemType.TEXT, css: {}, children: []};
+    canvasStore.setItems([item]);
     Object.defineProperty(selectionService, 'selectedItem', {value: item, writable: true});
     const newCss: Css = {display: {display: 'block'}}; // Use valid Css properties
     service.updateCss(newCss);
-    expect(item.css).toEqual(newCss);
+    expect(canvasStore.items[0].css).toEqual(newCss);
     expect(undoRedoService.takeSnapshot).toHaveBeenCalled();
   });
 
@@ -103,7 +104,7 @@ describe('CanvasService', () => {
     const item: CanvasItem = {key: '1', itemType: CanvasItemType.TEXT, css: {}, children: [], content: 'old'};
     canvasStore.setItems([item]);
     service.updateTextContent('1', 'new');
-    expect(item.content).toBe('new');
+    expect(canvasStore.items[0].content).toBe('new');
     expect(undoRedoService.takeSnapshot).toHaveBeenCalled();
   });
 
@@ -111,7 +112,7 @@ describe('CanvasService', () => {
     const item: CanvasItem = {key: '1', itemType: CanvasItemType.TEXT, css: {}, children: [], label: 'old'};
     canvasStore.setItems([item]);
     service.renameItem('new', '1');
-    expect(item.label).toBe('new');
+    expect(canvasStore.items[0].label).toBe('new');
     expect(undoRedoService.takeSnapshot).toHaveBeenCalled();
   });
 

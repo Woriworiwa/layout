@@ -246,29 +246,29 @@ item.css.display = 'flex'; // Mutates readonly state!
 
 **Separation of concerns**:
 
-- **CanvasStore**: Pure state container
-  - `getItemById()`, `insertItem()`, `getParentItemKey()`
-  - Low-level tree operations
-  - No business logic
+- **CanvasStore**: Pure state container (data layer)
+  - Tree traversal and queries
+  - State management utilities
+  - No side effects
 
-- **CanvasService**: Orchestration layer
-  - Coordinates between Store, UndoRedoService, SelectionService
-  - Business logic and validation
-  - Higher-level operations (duplicate, delete, move)
+- **CanvasService**: Orchestration layer (business logic)
+  - Coordinates Store, UndoRedoService, SelectionService
+  - Controls when state persists
+  - Manages undo/redo snapshots
   - **Always use CanvasService for user actions**
 
-**Example**:
-
+**Quick reference**:
 ```typescript
-// ✅ GOOD: Use CanvasService for user actions
-this.canvasService.setItems(newItems, {pushToUndoStack: true});
-this.canvasService.duplicateItem(itemKey);
-this.canvasService.deleteItem(itemKey);
+// ✅ Use CanvasService for user actions
+this.canvasService.setItems(newItems);
+this.canvasService.insertItem(key, item, InsertPosition.AFTER);
 
-// ❌ BAD: Direct CanvasStore manipulation (skips undo/redo)
+// ❌ Don't bypass service layer (skips undo/selection)
 this.canvasStore.setItems(newItems);
-this.canvasStore.insertItem(key, item, InsertPosition.AFTER);
 ```
+
+**For detailed patterns, anti-patterns, and examples**, see:
+- `knowledge-base/architecture/store-service-pattern.md`
 
 ### Undo/Redo Integration
 
