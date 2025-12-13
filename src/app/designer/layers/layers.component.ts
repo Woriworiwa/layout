@@ -68,7 +68,7 @@ export class LayersComponent implements OnInit, OnDestroy {
     }
   }
 
-  onTreeSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null) {
+  onTreeSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null | undefined) {
     if (treeNode != null && !Array.isArray(treeNode)) {
       this.selectionService.setSelectedItemKey(treeNode.key);
     }
