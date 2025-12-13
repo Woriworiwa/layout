@@ -1,6 +1,7 @@
 <div #wrapper
      class="pan-zoom-wrapper"
-     [id]="CANVAS_WRAPPER_ID">
+     [id]="CANVAS_WRAPPER_ID"
+     data-testid="canvas">
   <!-- Render each root item -->
   @for (item of rootItems; track item.key) {
     <app-container [item]="item"
