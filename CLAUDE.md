@@ -17,12 +17,17 @@ nx build --watch --configuration development  # Watch mode
 
 ### Testing
 ```bash
+# Unit Tests (Vitest)
 nx test              # Run all Vitest unit tests
 nx test --watch      # Run tests in watch mode
 nx test --ui         # Open Vitest UI
 nx test --coverage   # Generate coverage report
-nx e2e               # Run Playwright E2E tests
-npx playwright test --ui  # Open Playwright UI
+
+# E2E Tests (Playwright)
+nx e2e               # Run Playwright E2E tests (headless)
+nx e2e-ui            # Open Playwright UI mode
+nx e2e-headed        # Run tests in headed mode (visible browser)
+nx e2e-debug         # Run tests in debug mode with inspector
 ```
 
 ### Linting
