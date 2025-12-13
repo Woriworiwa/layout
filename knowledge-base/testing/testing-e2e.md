@@ -5,7 +5,7 @@
 - **Test Runner**: Playwright Test Runner
 - **Browser**: Chromium (Desktop Chrome)
 - **Pattern**: Page Object Model (POM)
-- **Commands**: `nx e2e`, `npx playwright test --ui`, `npx playwright test --headed`
+- **Commands**: `npm run e2e`, `npm run e2e:ui`, `npm run e2e:headed`
 
 ## Test Strategy
 - Focus on **critical user journeys** end-to-end
@@ -64,13 +64,32 @@ e2e/
   },
 
   webServer: {
-    command: 'npx nx run layout:serve',
-    url: 'http://localhost:4300',
-    reuseExistingServer: true,
+    // Dev: Start dev server with hot reload
+    // CI: Serve pre-built static files
+    command: process.env['CI']
+      ? 'npx serve dist/layout/browser -l 4200'
+      : 'npx nx run layout:serve',
+    url: process.env['CI'] ? 'http://localhost:4200' : 'http://localhost:4300',
+    reuseExistingServer: !process.env['CI'],
     timeout: 120000,
   }
 }
 ```
+
+### CI Pipeline
+E2E tests run automatically in the CI pipeline on:
+- **Pull requests** - Tests run before preview deployment
+- **Merges to master** - Tests run before production deployment
+
+**CI Workflow:**
+1. Build app (`npm run build`)
+2. Run unit tests (`npm test`)
+3. Run linter (`npm run lint`)
+4. Install Playwright browsers (`npx playwright install --with-deps`)
+5. Run E2E tests (`npm run e2e` with `CI=true`)
+6. Deploy to Firebase
+
+The CI environment uses `serve` package to host the built app statically, avoiding Nx dependencies.
 
 ### Browser Projects
 Currently configured for **Chromium only**. Add Firefox/Safari when needed:

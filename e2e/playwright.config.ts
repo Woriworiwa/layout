@@ -31,7 +31,7 @@ export default defineConfig({
 
   webServer: {
     command: process.env['CI']
-      ? 'npx nx run layout:serve-static'
+      ? 'npx serve dist/layout/browser -l 4200'
       : 'npx nx run layout:serve',
     url: process.env['CI'] ? 'http://localhost:4200' : 'http://localhost:4300',
     reuseExistingServer: !process.env['CI'],

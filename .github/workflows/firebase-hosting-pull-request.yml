@@ -19,7 +19,7 @@ jobs:
       - run: npm test
       - run: npm run lint
       - run: npx playwright install --with-deps
-      - run: nx e2e
+      - run: npm run e2e
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
