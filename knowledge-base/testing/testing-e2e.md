@@ -65,9 +65,9 @@ e2e/
 
   webServer: {
     // Dev: Start dev server with hot reload
-    // CI: Serve pre-built static files
+    // CI: Serve pre-built static files in SPA mode
     command: process.env['CI']
-      ? 'npx serve dist/browser -p 4200'
+      ? 'npx serve dist/browser -p 4200 -s'
       : 'npx nx run layout:serve',
     url: process.env['CI'] ? 'http://localhost:4200' : 'http://localhost:4300',
     reuseExistingServer: !process.env['CI'],
