@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
 import { workspaceRoot } from '@nx/devkit';
 
-const baseURL = process.env['BASE_URL'] || 'http://localhost:4300';
+const baseURL = process.env['BASE_URL'] || (process.env['CI'] ? 'http://localhost:4200' : 'http://localhost:4300');
 
 /**
  * See https://playwright.dev/docs/test-configuration.
