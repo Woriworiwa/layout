@@ -2,17 +2,22 @@ import { Locator, Page } from '@playwright/test';
 
 export class PresetsComponent {
   readonly page: Page;
-  readonly presets: Locator;
+  readonly presetsPanel: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.presets = page.locator('[data-testid="presets-component"]');
+    this.presetsPanel = page.locator('[data-testid="presets-component"]');
   }
 
   /**
    * Wait for canvas to be ready
    */
   async waitForReady(): Promise<void> {
-    await this.presets.waitFor({ state: 'visible' });
+    await this.presetsPanel.waitFor({ state: 'visible' });
+  }
+
+  async dragPreset(presetName: string) {
+    return this.presetsPanel
+      .locator(`[data-testid="preset-${presetName}"]`);
   }
 }

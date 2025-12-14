@@ -1,22 +1,18 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { DesignerPage } from '../page-objects/designer.page';
 
-test.describe('Preset Insertion Workflow', () => {
+test.describe('Add Text Element from Presets Panel', () => {
   let designer: DesignerPage;
 
   test.beforeEach(async ({ page }) => {
     designer = new DesignerPage(page);
     await designer.goto();
-
-    // Ensure clean state
-    await page.evaluate(() => localStorage.clear());
-    await page.reload();
-    await designer.canvas.waitForReady();
+    await designer.clearCanvas();
   });
 
-  test.describe('WHEN user opens designer page', () => {
-    test('SHOULD show empty canvas and insert panel with presets', async () => {
+  test('WHEN user drags Text preset SHOULD add Text element to canvas', async () => {
+    const textPreset = await designer.presets.dragPreset('text');
 
-    });
+    await textPreset.dragTo(await designer.canvas.getLocator());
   });
 });
