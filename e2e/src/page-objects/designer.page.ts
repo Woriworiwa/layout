@@ -33,7 +33,7 @@ export class DesignerPage {
    * Navigate to the designer page
    */
   async goto(): Promise<void> {
-    await this.page.goto(this.url);
+    await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
     await this.canvas.waitForReady();
   }
 }
