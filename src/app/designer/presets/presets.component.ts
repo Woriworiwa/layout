@@ -17,11 +17,14 @@ interface AssetComponentItem {
 }
 
 @Component({
-  selector: 'app-insert',
+  selector: 'app-presets',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, SelectButton, FormsModule],
   templateUrl: 'presets.component.html',
-  styleUrls: ['presets.component.scss']
+  styleUrls: ['presets.component.scss'],
+  host: {
+    'data-testid': 'presets-component'
+  }
 })
 export class PresetsComponent {
   private readonly canvasService = inject(CanvasService);

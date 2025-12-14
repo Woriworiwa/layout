@@ -16,7 +16,7 @@
     <app-tab-switcher [options]="leftPanelOptions" [(value)]="leftPanelMode" />
     <div class="flex-1 overflow-auto">
       @if (leftPanelMode() === 'assets') {
-        <app-insert></app-insert>
+        <app-presets></app-presets>
       } @else {
         <app-layers></app-layers>
       }

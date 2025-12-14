@@ -95,9 +95,9 @@
 
 <!-- Full Assets Popover -->
 <p-popover #fullAssetsPopover>
-  <app-insert
+  <app-presets
     [parentFrameId]="canvasItem()?.key"
     [insertPosition]="currentInsertPosition"
     (componentAdded)="fullAssetsPopover.hide()">
-  </app-insert>
+  </app-presets>
 </p-popover>

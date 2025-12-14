@@ -42,6 +42,7 @@ import {CanvasDropZoneDirective} from "./drag-drop/canvas-drop-zone.directive";
   ],
   host: {
     '[class.surface-100]': 'true',
+    'data-testid': 'canvas-component'
   },
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss'],

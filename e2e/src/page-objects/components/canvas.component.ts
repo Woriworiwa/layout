@@ -10,7 +10,7 @@ export class CanvasComponent {
 
   constructor(page: Page) {
     this.page = page;
-    this.canvas = page.locator('[data-testid="canvas"]');
+    this.canvas = page.locator('[data-testid="canvas-component"]');
   }
 
   /**
