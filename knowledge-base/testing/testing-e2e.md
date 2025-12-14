@@ -67,7 +67,7 @@ e2e/
     // Dev: Start dev server with hot reload
     // CI: Serve pre-built static files
     command: process.env['CI']
-      ? 'npx serve dist/layout/browser -l 4200'
+      ? 'npx serve dist/browser -p 4200'
       : 'npx nx run layout:serve',
     url: process.env['CI'] ? 'http://localhost:4200' : 'http://localhost:4300',
     reuseExistingServer: !process.env['CI'],
