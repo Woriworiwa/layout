@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "../properties.config";
 import { SliderComponent } from './slider.component';
 import { SelectButtonComponent } from './select-button.component';
+import { ButtonGroupComponent } from './button-group.component';
 import { PropertiesFilterDirective } from '../properties-filter.directive';
 
 @Component({
@@ -16,7 +17,7 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
           'label-top': propertiesConfig.labelPosition === 'top',
           'label-left': propertiesConfig.labelPosition === 'left'}">
       @if (propertiesConfig.labelPosition !== 'none') {
-        <div class="flex whitespace-nowrap text-xs" [class]="contentTypeClass">
+        <div class="flex whitespace-nowrap text-xs font-mono" [class]="contentTypeClass">
           {{ label() }}
         </div>
       }
@@ -49,6 +50,8 @@ export class PropertyRowComponent {
   @ContentChild(SliderComponent) sliderComponent?: SliderComponent;
   @ContentChild(SelectButtonComponent)
   selectButtonComponent?: SelectButtonComponent;
+  @ContentChild(ButtonGroupComponent)
+  buttonGroupComponent?: ButtonGroupComponent;
 
   propertiesConfig: PropertiesConfig;
   contentTypeClass = '';
@@ -63,7 +66,7 @@ export class PropertyRowComponent {
   }
 
   ngAfterContentInit() {
-    if (this.sliderComponent || this.selectButtonComponent) {
+    if (this.sliderComponent || this.selectButtonComponent || this.buttonGroupComponent) {
       this.contentTypeClass = 'self-center';
     } else {
       this.contentTypeClass = 'mt-1';

@@ -12,6 +12,7 @@ import {CanvasService} from "../../../canvas/canvas.service";
 import {AlignSelf, FlexBasis, FlexGrow, FlexShrink, Height} from "../../../core/models/css/properties.enum";
 import {PropertiesFilterDirective} from "../properties-filter.directive";
 import { PropertyRowComponent } from '../components/property-row.component';
+import { ButtonGroupComponent } from '../components/button-group.component';
 
 @Component({
   selector: 'app-properties-flex-item',
@@ -21,35 +22,40 @@ import { PropertyRowComponent } from '../components/property-row.component';
     DropdownComponent,
     PropertyGroupComponent,
     PropertyRowComponent,
+    ButtonGroupComponent,
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-      <app-property-group [header]="title()" [toggleable]="true" >
+      <app-property-group [header]="title()" [toggleable]="true">
         <app-property-row label="flex-grow">
           <app-property-item-slider
             [control]="getFormControl('flexGrow')"
             [suffix]="undefined"
-            [max]="5"></app-property-item-slider>
+            [max]="5"
+          ></app-property-item-slider>
         </app-property-row>
 
         <app-property-row label="flex-shrink">
           <app-property-item-slider
             [control]="getFormControl('flexShrink')"
             [suffix]="undefined"
-            [max]="5"></app-property-item-slider>
+            [max]="5"
+          ></app-property-item-slider>
         </app-property-row>
 
         <app-property-row label="flex-basis">
           <app-property-item-slider
             [control]="getFormControl('flexBasis')"
             [suffix]="undefined"
-            [max]="5"></app-property-item-slider>
+            [max]="5"
+          ></app-property-item-slider>
         </app-property-row>
 
         <app-property-row label="align-self">
-          <app-property-item-dropdown
+          <app-button-group
             [options]="alignSelfOptions"
-            [control]="getFormControl('alignSelf')"></app-property-item-dropdown>
+            [control]="getFormControl('alignSelf')"
+          ></app-button-group>
         </app-property-row>
       </app-property-group>
     </ng-container>

@@ -12,6 +12,7 @@ import {CanvasService} from "../../../canvas/canvas.service";
 import {Display, Height} from "../../../core/models/css/properties.enum";
 import {PropertiesFilterDirective} from "../properties-filter.directive";
 import { PropertyRowComponent } from '../components/property-row.component';
+import { ButtonGroupComponent } from '../components/button-group.component';
 
 @Component({
   selector: 'app-properties-display',
@@ -20,13 +21,15 @@ import { PropertyRowComponent } from '../components/property-row.component';
     DropdownComponent,
     PropertyGroupComponent,
     PropertyRowComponent,
+    ButtonGroupComponent,
   ],
   template: `
     <app-property-group header="Display" [toggleable]="true">
       <app-property-row label="display">
-        <app-property-item-dropdown
+        <app-button-group
           [options]="displayOptions"
-          [control]="getFormControl('display')"></app-property-item-dropdown>
+          [control]="getFormControl('display')"
+        ></app-button-group>
       </app-property-row>
     </app-property-group>
   `,

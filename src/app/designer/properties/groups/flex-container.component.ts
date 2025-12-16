@@ -4,7 +4,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {Property} from "csstype";
 import {DropdownComponent} from "../components/dropdown.component";
-import {SelectButtonComponent} from "../components/select-button.component";
+import {ButtonGroupComponent} from "../components/button-group.component";
 import {SliderComponent} from "../components/slider.component";
 import {BasePropertyGroupComponent} from "../components/base-property-group.component";
 import {PropertyGroupComponent} from "../components/property-group.component";
@@ -23,7 +23,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SelectButtonComponent,
+    ButtonGroupComponent,
     SliderComponent,
     DropdownComponent,
     PropertyGroupComponent,
@@ -33,10 +33,10 @@ import { PropertyRowComponent } from '../components/property-row.component';
     <ng-container [formGroup]="formGroup">
         <app-property-group [header]="title()" [toggleable]="true">
           <app-property-row label="direction">
-            <app-property-item-select-button
+            <app-button-group
               [options]="flexDirectionOptions"
               [control]="getFormControl('flexDirection')"
-            ></app-property-item-select-button>
+            ></app-button-group>
           </app-property-row>
 
           <app-property-row label="gap">
@@ -45,31 +45,31 @@ import { PropertyRowComponent } from '../components/property-row.component';
           </app-property-row>
 
           <app-property-row label="wrap">
-            <app-property-item-select-button
+            <app-button-group
               [options]="flexWrapOptions"
               [control]="getFormControl('flexWrap')"
-            ></app-property-item-select-button>
+            ></app-button-group>
           </app-property-row>
 
           <app-property-row label="justify-content">
-            <app-property-item-dropdown
+            <app-button-group
               [options]="justifyContentOptions"
               [control]="getFormControl('justifyContent')"
-            ></app-property-item-dropdown>
+            ></app-button-group>
           </app-property-row>
 
           <app-property-row label="align-items">
-            <app-property-item-dropdown
+            <app-button-group
               [options]="alignItemsOptions"
-              [control]="getFormControl('alignItems')" >
-            </app-property-item-dropdown>
+              [control]="getFormControl('alignItems')"
+            ></app-button-group>
           </app-property-row>
 
           <app-property-row label="align-content">
-            <app-property-item-dropdown
+            <app-button-group
               [options]="alignContentOptions"
               [control]="getFormControl('alignContent')"
-            ></app-property-item-dropdown>
+            ></app-button-group>
           </app-property-row>
         </app-property-group>
     </ng-container>
