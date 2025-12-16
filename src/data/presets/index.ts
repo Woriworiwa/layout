@@ -7,6 +7,7 @@ import { cardPreset } from './card.preset';
 import { alignmentPresets } from './align-justify-centered.presets';
 import { basicFlexPresets } from './flex-rows-columns.presets';
 import { textPresets } from './text.preset';
+import { justifyContentGuidePreset } from './guides/justify-content-guide.preset';
 export { textPresets } from './text.preset';
 export { flexGrowShrinkPreset } from './flex-grow-shrink.preset';
 
@@ -15,12 +16,13 @@ export { flexGrowShrinkPreset } from './flex-grow-shrink.preset';
  * Maintains backward compatibility with existing imports
  */
 export const allPresets = [
-  aiPreset,
   ...textPresets,
   ...basicFlexPresets,
   ...alignmentPresets,
+  aiPreset,
+  justifyContentGuidePreset,
   cardPreset,
   holyGrailPreset,
   navbarPreset,
-  sideBarPreset
+  sideBarPreset,
 ];

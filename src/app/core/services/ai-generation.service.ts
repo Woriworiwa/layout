@@ -86,6 +86,7 @@ Rules:
 4. Use semantic labels for items
 5. Keep layouts simple and focused
 6. Use only the CSS properties listed above
+7. Do not specify width or height for items unless necessary. The canvas width is dynamic but assume 600px wide.
 
 Example:
 [{
