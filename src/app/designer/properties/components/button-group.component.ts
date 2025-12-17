@@ -84,8 +84,8 @@ export class ButtonGroupComponent extends BaseFormItemComponent {
           'focus:ring-primary-500',
         ]
       : [
-          'border-gray-300',
-          'bg-transparent',
+          'border-transparent',
+          'bg-surface-200',
           'text-gray-500',
           'dark:border-gray-600',
           'dark:text-gray-500',
