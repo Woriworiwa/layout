@@ -37,19 +37,28 @@
         [collapsed]="false">
       </app-properties-display>
 
-      @switch (frame.itemType) {
-        @case (FrameType.FLEX) {
-          <app-properties-flex-container
-            [css]="frame.css"
-            [title]="'Flex container'">
-          </app-properties-flex-container>
-        }
+
+      @if (frame.css?.display?.display === Display.flex) {
+        <app-properties-flex-container
+          [css]="frame.css"
+          [title]="'Flex container'">
+        </app-properties-flex-container>
+      } @else if (frame.css?.display?.display === Display.grid) {
+        <app-properties-grid-container
+          [css]="frame.css"
+          [title]="'Grid container'">
+        </app-properties-grid-container>
       }
 
       <app-properties-flex-item
         [css]="frame.css"
         [title]="'Flex item'">
       </app-properties-flex-item>
+
+      <app-properties-grid-item
+        [css]="frame.css"
+        [title]="'Grid item'">
+      </app-properties-grid-item>
     </div>
   } @else {
     <div class="flex flex-col items-center justify-center h-full px-6 text-center">

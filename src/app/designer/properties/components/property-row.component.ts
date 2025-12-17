@@ -4,6 +4,7 @@ import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "..
 import { SliderComponent } from './slider.component';
 import { SelectButtonComponent } from './select-button.component';
 import { ButtonGroupComponent } from './button-group.component';
+import { TextFieldComponent } from './text-field.component';
 import { PropertiesFilterDirective } from '../properties-filter.directive';
 
 @Component({
@@ -52,6 +53,8 @@ export class PropertyRowComponent {
   selectButtonComponent?: SelectButtonComponent;
   @ContentChild(ButtonGroupComponent)
   buttonGroupComponent?: ButtonGroupComponent;
+  @ContentChild(TextFieldComponent)
+  textFieldComponent?: TextFieldComponent;
 
   propertiesConfig: PropertiesConfig;
   contentTypeClass = '';
@@ -66,7 +69,8 @@ export class PropertyRowComponent {
   }
 
   ngAfterContentInit() {
-    if (this.sliderComponent || this.selectButtonComponent || this.buttonGroupComponent) {
+    if (this.sliderComponent || this.selectButtonComponent || this.buttonGroupComponent ||
+         this.textFieldComponent) {
       this.contentTypeClass = 'self-center';
     } else {
       this.contentTypeClass = 'mt-1';

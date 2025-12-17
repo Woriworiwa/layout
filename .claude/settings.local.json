@@ -47,7 +47,8 @@
       "Bash(tree:*)",
       "Bash(npx nx show:*)",
       "WebFetch(domain:nx.dev)",
-      "Bash(npx playwright install:*)"
+      "Bash(npx playwright install:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

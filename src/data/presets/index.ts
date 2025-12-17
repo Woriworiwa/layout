@@ -6,18 +6,20 @@ import { holyGrailPreset } from './holy-grail.preset';
 import { cardPreset } from './card.preset';
 import { alignmentPresets } from './align-justify-centered.presets';
 import { basicFlexPresets } from './flex-rows-columns.presets';
+import { basicGridPresets } from './grid-basic.presets';
 import { textPresets } from './text.preset';
 import { justifyContentGuidePreset } from './guides/justify-content-guide.preset';
 export { textPresets } from './text.preset';
 export { flexGrowShrinkPreset } from './flex-grow-shrink.preset';
 
 /**
- * Combined flex presets from all categories
+ * Combined presets from all categories
  * Maintains backward compatibility with existing imports
  */
 export const allPresets = [
   ...textPresets,
   ...basicFlexPresets,
+  ...basicGridPresets,
   ...alignmentPresets,
   aiPreset,
   justifyContentGuidePreset,

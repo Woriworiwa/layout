@@ -17,3 +17,15 @@ export const Width = proxiedPropertiesOf<Enumify<Property.Width>>();
 export const FlexGrow = proxiedPropertiesOf<Enumify<Property.FlexGrow>>();
 export const FlexShrink = proxiedPropertiesOf<Enumify<Property.FlexShrink>>();
 export const FlexBasis = proxiedPropertiesOf<Enumify<Property.FlexBasis>>();
+
+// Grid properties
+export const GridTemplateColumns = proxiedPropertiesOf<Enumify<Property.GridTemplateColumns>>();
+export const GridTemplateRows = proxiedPropertiesOf<Enumify<Property.GridTemplateRows>>();
+export const GridAutoFlow = proxiedPropertiesOf<Enumify<Property.GridAutoFlow>>();
+export const GridAutoColumns = proxiedPropertiesOf<Enumify<Property.GridAutoColumns>>();
+export const GridAutoRows = proxiedPropertiesOf<Enumify<Property.GridAutoRows>>();
+export const GridColumn = proxiedPropertiesOf<Enumify<Property.GridColumn>>();
+export const GridRow = proxiedPropertiesOf<Enumify<Property.GridRow>>();
+export const JustifySelf = proxiedPropertiesOf<Enumify<Property.JustifySelf>>();
+export const JustifyItems = proxiedPropertiesOf<Enumify<Property.JustifyItems>>();
+export const PlaceItems = proxiedPropertiesOf<Enumify<Property.PlaceItems>>();

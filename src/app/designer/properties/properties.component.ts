@@ -20,8 +20,11 @@ import { DisplayComponent } from './groups/display.component';
 import { MetaDataComponent } from './groups/meta-data.component';
 import { PropertiesFlexContainerComponent } from './groups/flex-container.component';
 import { PropertiesFlexItemComponent } from './groups/flex-item.component';
+import { PropertiesGridContainerComponent } from './groups/grid-container.component';
+import { PropertiesGridItemComponent } from './groups/grid-item.component';
 import { PropertiesConfig } from './properties.config';
 import { PropertiesService } from './properties.service';
+import { Display } from '../../core/models/css/properties.enum';
 
 @Component({
   selector: 'app-settings',
@@ -35,10 +38,12 @@ import { PropertiesService } from './properties.service';
     MetaDataComponent,
     PropertiesFlexContainerComponent,
     PropertiesFlexItemComponent,
+    PropertiesGridContainerComponent,
+    PropertiesGridItemComponent,
   ],
   providers: [PropertiesService],
   templateUrl: './properties.component.html',
-  styleUrls: ['./properties.component.scss']
+  styleUrls: ['./properties.component.scss'],
 })
 export class PropertiesComponent {
   private readonly selectionService = inject(SelectionService);
@@ -91,4 +96,6 @@ export class PropertiesComponent {
       input.nativeElement.select();
     }
   }
+
+  protected readonly Display = Display;
 }

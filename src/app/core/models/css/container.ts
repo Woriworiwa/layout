@@ -5,6 +5,8 @@ export interface Container extends Pick<CSS.Properties,
   'justifyContent' |
   'alignItems' |
   'alignContent' |
-  'gap'
+  'gap' |
+  'justifyItems' |
+  'placeItems'
 > {
 }
