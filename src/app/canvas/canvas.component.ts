@@ -11,7 +11,7 @@ import {KeyboardCommandsDirective} from "./keyboard/keyboard-commands.directive"
 import {PresetService} from "../designer/presets/preset.service";
 import {CanvasService} from "./canvas.service";
 import {PanZoomDirective} from "./pan-zoom/pan-zoom.directive";
-import {Subject, takeUntil} from "rxjs";
+import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import {MetaLayerService} from "./meta-layer/meta-layer.service";
 import {SelectionLayerComponent} from "./selection/selection-layer.component";
 import {MetaLayerComponent} from "./meta-layer/meta-layer.component";
@@ -71,6 +71,12 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((items) => {
         this.rootItems = items;
+      });
+
+    this.canvasService.canvasItemsChanged$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((_) => {
+        this.rootItems = this.canvasService.items;
         /* focus the selected frame, most of the times the focus will be set by the mouse when the user clicks on an item,
          * but when programatically add new items, we need to focus them.
          * Items should be focused in order to listen to keyboard events*/

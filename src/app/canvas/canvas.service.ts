@@ -20,6 +20,10 @@ export class CanvasService implements OnDestroy {
   private presetsService = inject(PresetService);
 
   private destroy$ = new Subject<boolean>();
+
+  private canvasItemsChangedSubject = new Subject();
+  canvasItemsChanged$ = this.canvasItemsChangedSubject.asObservable();
+
   private cssChangedSubject = new Subject();
   cssChanged$ = this.cssChangedSubject.asObservable();
 
@@ -45,7 +49,6 @@ export class CanvasService implements OnDestroy {
 
   setItems(items: CanvasItem[], pushToUndoStack = true) {
     this.canvasStore.setItems(items)
-
     if (pushToUndoStack) {
       this.undoRedoService.takeSnapshot();
     }
@@ -53,11 +56,11 @@ export class CanvasService implements OnDestroy {
 
   insertItem(insertAfterFrameId: string, newFrame: CanvasItem, insertPosition: InsertPosition, autoSelect = true) {
     const updatedItems = this.canvasStore.insertItem(insertAfterFrameId, newFrame, insertPosition);
-    this.canvasStore.setItems(updatedItems);
+    this.setItems(updatedItems, true);
+    this.canvasItemsChangedSubject.next(undefined)
     if (autoSelect) {
       this.selectionService.setSelectedItemKey(newFrame.key);
     }
-    this.undoRedoService.takeSnapshot();
   }
 
   deleteItem(itemId: string | undefined) {
@@ -67,7 +70,7 @@ export class CanvasService implements OnDestroy {
 
     const updatedItems = this.canvasStore.deleteItem(itemId);
     this.setItems(updatedItems);
-
+    this.canvasItemsChangedSubject.next(undefined);
     this.selectionService.setSelectedItemKey(undefined);
     this.selectionService.setHoverItemKey(undefined);
   }
