@@ -1,16 +1,11 @@
-import { Component, OnChanges, inject } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 
-import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {DropdownComponent} from "../components/dropdown.component";
-import {SliderComponent} from "../components/slider.component";
+import {NumberField} from "../components/number-field";
 import {BasePropertyGroupComponent} from "../components/base-property-group.component";
 import {PropertyGroupComponent} from "../components/property-group.component";
-import {CanvasService} from "../../../canvas/canvas.service";
-
-
 import {AlignSelf, FlexBasis, FlexGrow, FlexShrink, Height} from "../../../core/models/css/properties.enum";
-import {PropertiesFilterDirective} from "../properties-filter.directive";
 import { PropertyRowComponent } from '../components/property-row.component';
 import { ButtonGroupComponent } from '../components/button-group.component';
 
@@ -18,8 +13,7 @@ import { ButtonGroupComponent } from '../components/button-group.component';
   selector: 'app-properties-flex-item',
   imports: [
     ReactiveFormsModule,
-    SliderComponent,
-    DropdownComponent,
+    NumberField,
     PropertyGroupComponent,
     PropertyRowComponent,
     ButtonGroupComponent,
@@ -28,27 +22,27 @@ import { ButtonGroupComponent } from '../components/button-group.component';
     <ng-container [formGroup]="formGroup">
       <app-property-group [header]="title()" [toggleable]="true">
         <app-property-row label="flex-grow">
-          <app-property-item-slider
+          <app-number-field
             [control]="getFormControl('flexGrow')"
             [suffix]="undefined"
             [max]="5"
-          ></app-property-item-slider>
+          ></app-number-field>
         </app-property-row>
 
         <app-property-row label="flex-shrink">
-          <app-property-item-slider
+          <app-number-field
             [control]="getFormControl('flexShrink')"
             [suffix]="undefined"
             [max]="5"
-          ></app-property-item-slider>
+          ></app-number-field>
         </app-property-row>
 
         <app-property-row label="flex-basis">
-          <app-property-item-slider
+          <app-number-field
             [control]="getFormControl('flexBasis')"
             [suffix]="undefined"
             [max]="5"
-          ></app-property-item-slider>
+          ></app-number-field>
         </app-property-row>
 
         <app-property-row label="align-self">

@@ -1,8 +1,7 @@
 import { Component, ContentChild, inject, input, signal } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "../properties.config";
-import { SliderComponent } from './slider.component';
-import { SelectButtonComponent } from './select-button.component';
+import { NumberField } from './number-field';
 import { ButtonGroupComponent } from './button-group.component';
 import { TextFieldComponent } from './text-field.component';
 import { PropertiesFilterDirective } from '../properties-filter.directive';
@@ -48,9 +47,7 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
 export class PropertyRowComponent {
   label = input<string>('');
 
-  @ContentChild(SliderComponent) sliderComponent?: SliderComponent;
-  @ContentChild(SelectButtonComponent)
-  selectButtonComponent?: SelectButtonComponent;
+  @ContentChild(NumberField) sliderComponent?: NumberField;
   @ContentChild(ButtonGroupComponent)
   buttonGroupComponent?: ButtonGroupComponent;
   @ContentChild(TextFieldComponent)
@@ -69,7 +66,7 @@ export class PropertyRowComponent {
   }
 
   ngAfterContentInit() {
-    if (this.sliderComponent || this.selectButtonComponent || this.buttonGroupComponent ||
+    if (this.sliderComponent || this.buttonGroupComponent ||
          this.textFieldComponent) {
       this.contentTypeClass = 'self-center';
     } else {

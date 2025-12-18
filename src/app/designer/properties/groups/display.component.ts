@@ -3,14 +3,9 @@ import { Component, OnChanges, inject } from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
 import {takeUntil} from "rxjs";
-import {DropdownComponent} from "../components/dropdown.component";
 import {BasePropertyGroupComponent} from "../components/base-property-group.component";
 import {PropertyGroupComponent} from "../components/property-group.component";
-import {CanvasService} from "../../../canvas/canvas.service";
-
-
 import {Display, Height} from "../../../core/models/css/properties.enum";
-import {PropertiesFilterDirective} from "../properties-filter.directive";
 import { PropertyRowComponent } from '../components/property-row.component';
 import { ButtonGroupComponent } from '../components/button-group.component';
 
@@ -18,7 +13,6 @@ import { ButtonGroupComponent } from '../components/button-group.component';
   selector: 'app-properties-display',
   imports: [
     ReactiveFormsModule,
-    DropdownComponent,
     PropertyGroupComponent,
     PropertyRowComponent,
     ButtonGroupComponent,

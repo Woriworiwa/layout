@@ -1,23 +1,20 @@
-import { Component, OnChanges, inject } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 
 import {Property} from "csstype";
-import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {SliderComponent} from "../components/slider.component";
+import {NumberField} from "../components/number-field";
 import {BasePropertyGroupComponent} from "../components/base-property-group.component";
 import {PropertyGroupComponent} from "../components/property-group.component";
-import {CanvasService} from "../../../canvas/canvas.service";
-
 import {Unit} from "../../../core/models/css/unit.enum";
 import {Height, Padding, Width} from "../../../core/models/css/properties.enum";
-import {PropertiesFilterDirective} from "../properties-filter.directive";
 import { PropertyRowComponent } from '../components/property-row.component';
 
 @Component({
   selector: 'app-properties-box-sizing',
   imports: [
     ReactiveFormsModule,
-    SliderComponent,
+    NumberField,
     FormsModule,
     PropertyGroupComponent,
     PropertyRowComponent,
@@ -26,23 +23,23 @@ import { PropertyRowComponent } from '../components/property-row.component';
     <app-property-group header="Box sizing" [toggleable]="true">
       <ng-container [formGroup]="formGroup">
         <app-property-row label="padding">
-          <app-property-item-slider
+          <app-number-field
             [control]="getFormControl('padding')"
-            [unit]="getFormControl('paddingUnit')"></app-property-item-slider>
+            [unit]="getFormControl('paddingUnit')"></app-number-field>
         </app-property-row>
 
         <app-property-row label="height">
-          <app-property-item-slider
+          <app-number-field
             [max]="1000"
             [control]="getFormControl('height')"
-            [unit]="getFormControl('heightUnit')"></app-property-item-slider>
+            [unit]="getFormControl('heightUnit')"></app-number-field>
         </app-property-row>
 
         <app-property-row label="width">
-          <app-property-item-slider
+          <app-number-field
             [max]="1000"
             [control]="getFormControl('width')"
-            [unit]="getFormControl('widthUnit')"></app-property-item-slider>
+            [unit]="getFormControl('widthUnit')"></app-number-field>
         </app-property-row>
       </ng-container>
     </app-property-group>

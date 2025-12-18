@@ -11,7 +11,7 @@ import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "..
 })
 export class BaseFormItemComponent {
   label = input<string>('');
-  control = input<FormControl<any>>(new FormControl<any>(''));
+  control = input<FormControl<number | string | null> | undefined>(undefined);
 
   protected propertiesConfig: PropertiesConfig;
 

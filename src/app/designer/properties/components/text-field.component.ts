@@ -22,7 +22,7 @@ import { BaseFormItemComponent } from './base-form-item.component';
       <input
         type="text"
         pInputText
-        [formControl]="control()"
+        [formControl]="control()!"
         [placeholder]="placeholder()"
       />
       @if (presets() && presets().length > 0) {
@@ -40,7 +40,7 @@ import { BaseFormItemComponent } from './base-form-item.component';
         pButton
         [dt]="button"
         (click)="onClearButtonClick()"
-        [disabled]="control().value === null || control().value === undefined"
+        [disabled]="control()?.value === null || control()?.value === undefined"
       >
         <i class="pi pi-times" pButtonIcon></i>
       </button>
@@ -60,14 +60,14 @@ export class TextFieldComponent extends BaseFormItemComponent {
     return this.presets().map(preset => ({
       label: preset.label,
       command: () => {
-        this.control().setValue(preset.value);
-        this.control().markAsDirty();
+        this.control()?.setValue(preset.value);
+        this.control()?.markAsDirty();
       }
     }));
   });
 
   onClearButtonClick() {
-    this.control().setValue(null);
+    this.control()?.setValue(null);
   }
 
   inputGroup = {

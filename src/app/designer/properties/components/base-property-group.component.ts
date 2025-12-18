@@ -2,7 +2,7 @@ import {Component, input, OnChanges, OnDestroy, QueryList, ViewChildren, inject}
 
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
-import {SliderComponent} from "./slider.component";
+import {NumberField} from "./number-field";
 import {CanvasService} from "../../../canvas/canvas.service";
 
 import {Css} from "../../../core/models/css/css";
@@ -21,7 +21,7 @@ export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy
   mustBeVisible = input<boolean>(false);
   collapsed = input<boolean>(false);
 
-  @ViewChildren(SliderComponent) panes!: QueryList<SliderComponent>;
+  @ViewChildren(NumberField) panes!: QueryList<NumberField>;
 
   formGroup: FormGroup;
   formGroupValueChangedSubscription: Subscription | undefined;

@@ -3,9 +3,8 @@ import {CommonModule} from '@angular/common';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {Property} from "csstype";
-import {DropdownComponent} from "../components/dropdown.component";
 import {ButtonGroupComponent} from "../components/button-group.component";
-import {SliderComponent} from "../components/slider.component";
+import {NumberField} from "../components/number-field";
 import {BasePropertyGroupComponent} from "../components/base-property-group.component";
 import {PropertyGroupComponent} from "../components/property-group.component";
 import {
@@ -13,7 +12,6 @@ import {
   AlignItems,
   FlexDirection,
   FlexWrap,
-  Gap,
   JustifyContent
 } from "../../../core/models/css/properties.enum";
 import { PropertyRowComponent } from '../components/property-row.component';
@@ -24,8 +22,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
     CommonModule,
     ReactiveFormsModule,
     ButtonGroupComponent,
-    SliderComponent,
-    DropdownComponent,
+    NumberField,
     PropertyGroupComponent,
     PropertyRowComponent,
   ],
@@ -40,8 +37,8 @@ import { PropertyRowComponent } from '../components/property-row.component';
           </app-property-row>
 
           <app-property-row label="gap">
-            <app-property-item-slider
-              [control]="getFormControl('gap')"></app-property-item-slider>
+            <app-number-field
+              [control]="getFormControl('gap')"></app-number-field>
           </app-property-row>
 
           <app-property-row label="wrap">

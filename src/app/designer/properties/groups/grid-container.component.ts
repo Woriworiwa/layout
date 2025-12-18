@@ -15,7 +15,7 @@ import {
   AlignContent,
   JustifyItems,
 } from '../../../core/models/css/properties.enum';
-import { SliderComponent } from '../components/slider.component';
+import { NumberField } from '../components/number-field';
 
 @Component({
   selector: 'app-properties-grid-container',
@@ -26,7 +26,7 @@ import { SliderComponent } from '../components/slider.component';
     PropertyRowComponent,
     TextFieldComponent,
     ButtonGroupComponent,
-    SliderComponent,
+    NumberField,
   ],
   template: `
     <ng-container [formGroup]="formGroup">
@@ -74,9 +74,9 @@ import { SliderComponent } from '../components/slider.component';
 
         <!-- Alignment (inherited from Container) -->
         <app-property-row label="gap">
-          <app-property-item-slider
+          <app-number-field
             [control]="getFormControl('gap')"
-          ></app-property-item-slider>
+          ></app-number-field>
         </app-property-row>
 
         <app-property-row label="justify-content">

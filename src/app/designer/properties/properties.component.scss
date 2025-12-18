@@ -4,14 +4,6 @@
 
 // PrimeNG component overrides
 :host ::ng-deep {
-  .p-inputnumber {
-    @apply grow;
-  }
-
-  .p-inputwrapper {
-    @apply w-full;
-  }
-
   // Hide empty panels
   p-panel:has(.p-panel-content:empty) {
     @apply hidden;

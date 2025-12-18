@@ -41,15 +41,15 @@ export class ButtonGroupComponent extends BaseFormItemComponent {
   });
 
   isSelected(value: any): boolean {
-    return this.control().value === value;
+    return this.control()?.value === value;
   }
 
   toggleSelection(value: any): void {
-    const currentValue = this.control().value;
+    const currentValue = this.control()?.value;
     // Toggle behavior: if already selected, deselect (set to null)
     const newValue = currentValue === value ? null : value;
-    this.control().setValue(newValue);
-    this.control().markAsDirty();
+    this.control()?.setValue(newValue);
+    this.control()?.markAsDirty();
   }
 
   getButtonClasses(value: any): string {
