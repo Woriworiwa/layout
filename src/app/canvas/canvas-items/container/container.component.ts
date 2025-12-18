@@ -10,7 +10,6 @@ import {TextComponent} from "../text/text.component";
 import {AiWrapperComponent} from "../ai-wrapper/ai-wrapper.component";
 import {CanvasItemType} from '../../../core/enums';
 import {CanvasItemBaseComponent} from "../canvas-item-base.component";
-import {CanvasItemMouseEvent} from "../canvas-item-mouse-event";
 import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 
 @Component({
@@ -37,33 +36,7 @@ import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
 })
 export class ContainerComponent extends CanvasItemBaseComponent {
   selectedFrameKey = input<string | undefined>(undefined);
-  childTextContentChanged = output<{ key: string; content: string }>();
+  itemTextContentChanged = output<{ key: string; content: string }>();
 
   protected readonly FrameType = CanvasItemType;
-
-  protected onChildFrameClick(event: CanvasItemMouseEvent) {
-    this.clicked.emit(event);
-  }
-
-  onChildMouseOver(event: CanvasItemMouseEvent) {
-    this.mouseOver.emit(event);
-  }
-
-  onChildMouseOut(event: CanvasItemMouseEvent) {
-    this.mouseOut.emit(event);
-  }
-
-  onChildContextMenu(event: CanvasItemMouseEvent) {
-    this.contextMenu.emit(event);
-  }
-
-  protected onChildTextContentChanged({
-    key,
-    content,
-  }: {
-    key: string;
-    content: string;
-  }) {
-    this.childTextContentChanged.emit({ key, content });
-  }
 }

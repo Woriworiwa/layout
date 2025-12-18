@@ -6,11 +6,11 @@
     <app-container [item]="item"
                    [appAssetDrop]="item"
                    [id]="item.key!"
-                   (clicked)="selectElement($event)"
-                   (mouseOver)="hoverElement($event)"
-                   (mouseOut)="clearHover()"
-                   (contextMenu)="onContextMenu($event)"
-                   (childTextContentChanged)="onChildTextContentChanged($event)"></app-container>
+                   (itemClick)="selectElement($event)"
+                   (itemMouseOver)="hoverElement($event)"
+                   (itemMouseOut)="clearHover()"
+                   (itemContextMenu)="onContextMenu($event)"
+                   (itemTextContentChanged)="onTextItemContentChanged($event)"></app-container>
   }
 
   <!-- selection and meta layers -->

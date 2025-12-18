@@ -27,10 +27,10 @@ import {CanvasItemMouseEvent} from "./canvas-item-mouse-event";
 })
 export class CanvasItemBaseComponent implements OnDestroy, OnChanges {
   item = input.required<CanvasItem>();
-  clicked = output<CanvasItemMouseEvent>();
-  mouseOver = output<CanvasItemMouseEvent>();
-  mouseOut = output<CanvasItemMouseEvent>();
-  contextMenu = output<CanvasItemMouseEvent>();
+  itemClick = output<CanvasItemMouseEvent>();
+  itemMouseOver = output<CanvasItemMouseEvent>();
+  itemMouseOut = output<CanvasItemMouseEvent>();
+  itemContextMenu = output<CanvasItemMouseEvent>();
 
   private baseElementRef = inject(ElementRef);
   private baseRenderer = inject(Renderer2);
@@ -42,7 +42,7 @@ export class CanvasItemBaseComponent implements OnDestroy, OnChanges {
   onClick($event: MouseEvent) {
     $event.stopPropagation();
 
-    this.clicked.emit({ canvasItem: this.item(), mouseEvent: $event });
+    this.itemClick.emit({ canvasItem: this.item(), mouseEvent: $event });
   }
 
   @HostListener('mouseover', ['$event'])
@@ -50,14 +50,14 @@ export class CanvasItemBaseComponent implements OnDestroy, OnChanges {
     $event.stopPropagation();
     $event.stopImmediatePropagation();
 
-    this.mouseOver.emit({ canvasItem: this.item(), mouseEvent: $event });
+    this.itemMouseOver.emit({ canvasItem: this.item(), mouseEvent: $event });
   }
 
   @HostListener('mouseout', ['$event'])
   onMouseLeave($event: MouseEvent) {
     $event.stopPropagation();
 
-    this.mouseOut.emit({ canvasItem: this.item(), mouseEvent: $event });
+    this.itemMouseOut.emit({ canvasItem: this.item(), mouseEvent: $event });
   }
 
   @HostListener('contextmenu', ['$event'])
@@ -65,7 +65,7 @@ export class CanvasItemBaseComponent implements OnDestroy, OnChanges {
     $event.stopPropagation();
     $event.preventDefault();
 
-    this.contextMenu.emit({ canvasItem: this.item(), mouseEvent: $event });
+    this.itemContextMenu.emit({ canvasItem: this.item(), mouseEvent: $event });
   }
 
   ngOnChanges() {

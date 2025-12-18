@@ -35,12 +35,12 @@
   <app-container [item]="item"
                  [appAssetDrop]="item"
                  [id]="item.key!"
-                 (clicked)="onChildFrameClick($event)"
-                 (mouseOver)="onChildMouseOver($event)"
-                 (mouseOut)="onChildMouseOut($event)"
-                 (contextMenu)="onChildContextMenu($event)"
+                 (itemClick)="itemClick.emit($event)"
+                 (itemMouseOver)="itemMouseOver.emit($event)"
+                 (itemMouseOut)="itemMouseOut.emit($event)"
+                 (itemContextMenu)="itemContextMenu.emit($event)"
                  [selectedFrameKey]="selectedFrameKey()"
-                 (childTextContentChanged)="onChildTextContentChanged($event)">
+                 (itemTextContentChanged)="itemTextContentChanged.emit($event)">
   </app-container>
 </ng-template>
 
@@ -50,10 +50,10 @@
             [item]="item"
             [appAssetDrop]="item"
             [id]="item.key!"
-            (clicked)="onChildFrameClick($event)"
-            (mouseOver)="onChildMouseOver($event)"
-            (mouseOut)="onChildMouseOut($event)"
-            (contextMenu)="onChildContextMenu($event)"
-            (contentChanged)="onChildTextContentChanged($event)">
+            (itemClick)="itemClick.emit($event)"
+            (itemMouseOver)="itemMouseOver.emit($event)"
+            (itemMouseOut)="itemMouseOut.emit($event)"
+            (itemContextMenu)="itemContextMenu.emit($event)"
+            (contentChanged)="itemTextContentChanged.emit($event)">
   </app-text>
 </ng-template>

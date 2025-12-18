@@ -11,7 +11,7 @@ import {KeyboardCommandsDirective} from "./keyboard/keyboard-commands.directive"
 import {PresetService} from "../designer/presets/preset.service";
 import {CanvasService} from "./canvas.service";
 import {PanZoomDirective} from "./pan-zoom/pan-zoom.directive";
-import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import {Subject, takeUntil} from 'rxjs';
 import {MetaLayerService} from "./meta-layer/meta-layer.service";
 import {SelectionLayerComponent} from "./selection/selection-layer.component";
 import {MetaLayerComponent} from "./meta-layer/meta-layer.component";
@@ -132,7 +132,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.selectionService.showContextMenu(event.mouseEvent);
   }
 
-  onChildTextContentChanged(content: { key: string; content: string }) {
+  onTextItemContentChanged(content: { key: string; content: string }) {
     this.canvasService.updateTextContent(content.key, content.content);
   }
 }
