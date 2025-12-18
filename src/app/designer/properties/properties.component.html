@@ -1,5 +1,5 @@
 <div class="flex grow flex-col gap-2.5 self-stretch rounded-3xl bg-[var(--bg-primary)] py-4 justify-start">
-  @if (frame) {
+  @if (frame(); as selectedFrame) {
     <div class="sticky top-0 bg-[var(--bg-primary)] px-4 pb-2 z-10">
       <p-inputgroup>
         <input
@@ -21,42 +21,42 @@
 
     <div>
       <app-properties-meta-data
-        [label]="frame.label"
+        [label]="selectedFrame.label"
         [collapsed]="false">
       </app-properties-meta-data>
 
       <app-properties-box-sizing
-        [css]="frame.css"
+        [css]="selectedFrame.css"
         [title]="'Box sizing'"
         [collapsed]="false">
       </app-properties-box-sizing>
 
       <app-properties-display
-        [css]="frame.css"
+        [css]="selectedFrame.css"
         [title]="'Display'"
         [collapsed]="false">
       </app-properties-display>
 
 
-      @if (frame.css?.display?.display === Display.flex) {
+      @if (selectedFrame.css?.display?.display === Display.flex) {
         <app-properties-flex-container
-          [css]="frame.css"
+          [css]="selectedFrame.css"
           [title]="'Flex container'">
         </app-properties-flex-container>
-      } @else if (frame.css?.display?.display === Display.grid) {
+      } @else if (selectedFrame.css?.display?.display === Display.grid) {
         <app-properties-grid-container
-          [css]="frame.css"
+          [css]="selectedFrame.css"
           [title]="'Grid container'">
         </app-properties-grid-container>
       }
 
       <app-properties-flex-item
-        [css]="frame.css"
+        [css]="selectedFrame.css"
         [title]="'Flex item'">
       </app-properties-flex-item>
 
       <app-properties-grid-item
-        [css]="frame.css"
+        [css]="selectedFrame.css"
         [title]="'Grid item'">
       </app-properties-grid-item>
     </div>

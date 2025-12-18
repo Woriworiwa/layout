@@ -7,12 +7,15 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ButtonDirective } from 'primeng/button';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputText } from 'primeng/inputtext';
+import { merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { SelectionService } from '../../canvas/selection/selection.service';
+import { CanvasService } from '../../canvas/canvas.service';
 import { CanvasItemType } from '../../core/enums';
 import { CanvasItem } from '../../core/models/canvas-item.model';
 import { BoxSizingComponent } from './groups/box-sizing.component';
@@ -47,6 +50,7 @@ import { Display } from '../../core/models/css/properties.enum';
 })
 export class PropertiesComponent {
   private readonly selectionService = inject(SelectionService);
+  private readonly canvasService = inject(CanvasService);
 
   config = input<PropertiesConfig>({});
 
@@ -54,18 +58,19 @@ export class PropertiesComponent {
   protected readonly FrameType = CanvasItemType;
   protected readonly searchPlaceholder = this.detectPlatform();
 
-  protected frame: CanvasItem | undefined;
+  protected readonly frame = toSignal(
+    merge(
+      this.selectionService.selectedItem$,
+      this.canvasService.cssChanged$.pipe(
+        map(() => this.selectionService.selectedItem)
+      )
+    )
+  );
 
   protected searchText = signal('');
   private readonly propertiesService = inject(PropertiesService);
 
   constructor() {
-    this.selectionService.selectedItem$
-      .pipe(takeUntilDestroyed())
-      .subscribe(frame => {
-        this.frame = frame;
-      });
-
     toObservable(this.searchText)
       .pipe(takeUntilDestroyed())
       .subscribe(text => {
