@@ -120,7 +120,7 @@ export const basicGridPresets = [
           "gap": 10
         },
         "gridContainer": {
-          "gridTemplateColumns": "repeat(auto-fit, minmax(200px, 1fr))"
+          "gridTemplateColumns": "repeat(auto-fit, minmax(100px, 1fr))"
         },
         "boxSizing": {
           "padding": "18px"
