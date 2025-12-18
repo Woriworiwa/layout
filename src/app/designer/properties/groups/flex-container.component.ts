@@ -127,15 +127,15 @@ export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent
     super.ngOnChanges();
 
     const cssValue = this.css();
-    if (cssValue?.flexContainer) {
-      this.formGroup?.patchValue(
-        {
-          ...cssValue.flexContainer,
-          gap: cssValue.flexContainer.gap?.toString(),
-        },
-        { emitEvent: false }
-      );
-    }
+    // Merge container and flexContainer properties
+    this.formGroup?.patchValue(
+      {
+        ...cssValue?.container,
+        ...cssValue?.flexContainer,
+        gap: cssValue?.container?.gap?.toString(),
+      },
+      { emitEvent: false }
+    );
   }
 
   override createFormGroup() {
@@ -165,9 +165,18 @@ export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
+        // Split into container and flex-specific properties
+        const { gap, justifyContent, alignItems, alignContent, ...flexSpecific } = value;
+
         this.canvasService.updateCss({
           ...this.css(),
-          flexContainer: value,
+          container: {
+            gap,
+            justifyContent,
+            alignItems,
+            alignContent,
+          },
+          flexContainer: flexSpecific,
         });
       });
 

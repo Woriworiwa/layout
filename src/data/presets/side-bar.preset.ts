@@ -7,7 +7,7 @@ export const sideBarPreset = {
       "display": {
         "display": "flex"
       },
-      "flexContainer": {
+      "container": {
         "gap": "16"
       },
       "boxSizing": {
@@ -21,9 +21,11 @@ export const sideBarPreset = {
           "display": {
             "display": "flex"
           },
-          "flexContainer": {
-            "flexDirection": "column",
+          "container": {
             "gap": "8"
+          },
+          "flexContainer": {
+            "flexDirection": "column"
           },
           "boxSizing": {
             "padding": "16px"

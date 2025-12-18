@@ -8,11 +8,13 @@ export const navbarPreset =
         "display": {
           "display": "flex"
         },
-        "flexContainer": {
-          "flexDirection": "row",
+        "container": {
           "justifyContent": "space-between",
           "alignItems": "center",
           "gap": "16"
+        },
+        "flexContainer": {
+          "flexDirection": "row"
         },
         "boxSizing": {
           "padding": "12px 20px"
@@ -35,7 +37,7 @@ export const navbarPreset =
             "display": {
               "display": "flex"
             },
-            "flexContainer": {
+            "container": {
               "gap": "20"
             }
           },

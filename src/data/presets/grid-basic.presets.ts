@@ -26,10 +26,12 @@ export const basicGridPresets = [
         "display": {
           "display": "grid"
         },
+        "container": {
+          "gap": 10
+        },
         "gridContainer": {
           "gridTemplateColumns": "1fr 1fr",
-          "gridTemplateRows": "1fr 1fr",
-          "gap": 10
+          "gridTemplateRows": "1fr 1fr"
         },
         "boxSizing": {
           "padding": "18px"
@@ -64,9 +66,11 @@ export const basicGridPresets = [
         "display": {
           "display": "grid"
         },
-        "gridContainer": {
-          "gridTemplateColumns": "repeat(3, 1fr)",
+        "container": {
           "gap": 10
+        },
+        "gridContainer": {
+          "gridTemplateColumns": "repeat(3, 1fr)"
         },
         "boxSizing": {
           "padding": "18px"
@@ -112,9 +116,11 @@ export const basicGridPresets = [
         "display": {
           "display": "grid"
         },
-        "gridContainer": {
-          "gridTemplateColumns": "repeat(auto-fit, minmax(200px, 1fr))",
+        "container": {
           "gap": 10
+        },
+        "gridContainer": {
+          "gridTemplateColumns": "repeat(auto-fit, minmax(200px, 1fr))"
         },
         "boxSizing": {
           "padding": "18px"

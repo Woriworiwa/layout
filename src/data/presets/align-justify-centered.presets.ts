@@ -11,10 +11,12 @@ export const alignmentPresets = [
             "display": {
               "display": "flex"
             },
-            "flexContainer": {
-              "flexDirection": "row",
+            "container": {
               "gap": "10",
               "alignItems": "start"
+            },
+            "flexContainer": {
+              "flexDirection": "row"
             },
             "boxSizing": {
               "padding": "16px"
@@ -55,7 +57,7 @@ export const alignmentPresets = [
             "boxSizing": {
               "padding": "16px"
             },
-            "flexContainer": {
+            "container": {
               "gap": "10",
               "alignItems": "end"
             },
@@ -95,7 +97,7 @@ export const alignmentPresets = [
             "boxSizing": {
               "padding": "16px"
             },
-            "flexContainer": {
+            "container": {
               "gap": "10",
               "alignItems": "center"
             },
@@ -136,7 +138,7 @@ export const alignmentPresets = [
           "height": "100px",
           "padding": "16px"
         },
-        "flexContainer": {
+        "container": {
           "gap": 10,
           "justifyContent": "center"
         }
@@ -156,10 +158,12 @@ export const alignmentPresets = [
         "display": {
           "display": "flex"
         },
+        "container": {
+          "gap": "10"
+        },
         "flexContainer": {
           "flexDirection": "row",
-          "flexWrap": "nowrap",
-          "gap": "10"
+          "flexWrap": "nowrap"
         }
       },
       "children": [
@@ -169,11 +173,13 @@ export const alignmentPresets = [
             "display": {
               "display": "flex"
             },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
+            "container": {
               "gap": "10",
               "justifyContent": "start"
+            },
+            "flexContainer": {
+              "flexDirection": "row",
+              "flexWrap": "wrap"
             },
             "boxSizing": {
               "padding": "16px"
@@ -212,11 +218,13 @@ export const alignmentPresets = [
             "display": {
               "display": "flex"
             },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
+            "container": {
               "gap": "10",
               "justifyContent": "end"
+            },
+            "flexContainer": {
+              "flexDirection": "row",
+              "flexWrap": "wrap"
             },
             "boxSizing": {
               "padding": "16px"
@@ -257,7 +265,7 @@ export const alignmentPresets = [
             "boxSizing": {
               "padding": "16px"
             },
-            "flexContainer": {
+            "container": {
               "gap": "10",
               "justifyContent": "center"
             },
@@ -302,7 +310,7 @@ export const alignmentPresets = [
         "display": {
           "display": "flex"
         },
-        "flexContainer": {
+        "container": {
           "justifyContent": "center",
           "alignItems": "center"
         },
@@ -317,10 +325,12 @@ export const alignmentPresets = [
             "display": {
               "display": "flex"
             },
-            "flexContainer": {
-              "flexDirection": "column",
+            "container": {
               "gap": "16",
               "alignItems": "center"
+            },
+            "flexContainer": {
+              "flexDirection": "column"
             },
             "boxSizing": {
               "padding": "24px"

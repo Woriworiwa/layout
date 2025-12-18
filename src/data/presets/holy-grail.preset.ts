@@ -8,9 +8,11 @@ export const holyGrailPreset =
         "display": {
           "display": "flex"
         },
+        "container": {
+          "gap": "8"
+        },
         "flexContainer": {
-          "flexDirection": "column",
-          "gap": "8",
+          "flexDirection": "column"
         },
         "boxSizing": {
           "padding": "10px"
@@ -36,10 +38,12 @@ export const holyGrailPreset =
             "display": {
               "display": "flex"
             },
+            "container": {
+              "gap": 8
+            },
             "flexContainer": {
               "flexDirection": "row",
-              "flexWrap": "wrap",
-              "gap": 8
+              "flexWrap": "wrap"
             },
             "boxSizing": {
               "padding": "5px",
@@ -54,14 +58,14 @@ export const holyGrailPreset =
                 "display": {
                   "display": "flex"
                 },
-                "flexContainer": {
+                "container": {
                   "gap": 2
                 },
                 "boxSizing": {
                   "padding": "2px"
                 },
                 "flexItem": {
-                  "flexGrow": 1,
+                  "flexGrow": 1
                 }
               },
               "key": "MeRucrVe"
@@ -72,9 +76,11 @@ export const holyGrailPreset =
                 "display": {
                   "display": "flex"
                 },
+                "container": {
+                  "gap": "2"
+                },
                 "flexContainer": {
-                  "flexWrap": "nowrap",
-                  "gap": "2",
+                  "flexWrap": "nowrap"
                 },
                 "boxSizing": {
                   "padding": "2px"
@@ -91,7 +97,7 @@ export const holyGrailPreset =
                 "display": {
                   "display": "flex"
                 },
-                "flexContainer": {
+                "container": {
                   "gap": 2
                 },
                 "boxSizing": {
@@ -111,11 +117,11 @@ export const holyGrailPreset =
             "display": {
               "display": "flex"
             },
-            "flexContainer": {
+            "container": {
               "gap": 2
             },
             "boxSizing": {
-              "padding": "6px",
+              "padding": "6px"
             }
           },
           "key": "buMSVyjs",

@@ -8,7 +8,7 @@ export const flexGrowShrinkPreset = [
         "display": {
           "display": "flex"
         },
-        "flexContainer": {
+        "container": {
           "gap": "12"
         },
         "boxSizing": {
@@ -23,7 +23,7 @@ export const flexGrowShrinkPreset = [
             "display": {
               "display": "flex"
             },
-            "flexContainer": {
+            "container": {
               "justifyContent": "center",
               "alignItems": "center"
             },
@@ -54,7 +54,7 @@ export const flexGrowShrinkPreset = [
             "display": {
               "display": "flex"
             },
-            "flexContainer": {
+            "container": {
               "justifyContent": "center",
               "alignItems": "center"
             },
@@ -84,7 +84,7 @@ export const flexGrowShrinkPreset = [
             "display": {
               "display": "flex"
             },
-            "flexContainer": {
+            "container": {
               "justifyContent": "center",
               "alignItems": "center"
             },

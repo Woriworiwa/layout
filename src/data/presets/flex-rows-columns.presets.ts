@@ -23,7 +23,7 @@ export const basicFlexPresets = [
         "display": {
           "display": "flex"
         },
-        "flexContainer": {
+        "container": {
           "gap": 10
         },
         "boxSizing": {
@@ -60,9 +60,11 @@ export const basicFlexPresets = [
         "display": {
           "display": "flex"
         },
-        "flexContainer": {
-          "flexDirection": "column",
+        "container": {
           "gap": 10
+        },
+        "flexContainer": {
+          "flexDirection": "column"
         },
         "boxSizing": {
           "padding": "14px"

@@ -188,15 +188,15 @@ export class PropertiesGridContainerComponent
     super.ngOnChanges();
 
     const cssValue = this.css();
-    if (cssValue?.gridContainer) {
-      this.formGroup?.patchValue(
-        {
-          ...cssValue.gridContainer,
-          gap: cssValue.gridContainer.gap?.toString(),
-        },
-        { emitEvent: false }
-      );
-    }
+    // Merge container and gridContainer properties
+    this.formGroup?.patchValue(
+      {
+        ...cssValue?.container,
+        ...cssValue?.gridContainer,
+        gap: cssValue?.container?.gap?.toString(),
+      },
+      { emitEvent: false }
+    );
   }
 
   override createFormGroup() {
@@ -238,9 +238,19 @@ export class PropertiesGridContainerComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
+        // Split into container and grid-specific properties
+        const { gap, justifyContent, alignContent, justifyItems, alignItems, ...gridSpecific } = value;
+
         this.canvasService.updateCss({
           ...this.css(),
-          gridContainer: value,
+          container: {
+            gap,
+            justifyContent,
+            alignContent,
+            justifyItems,
+            alignItems,
+          },
+          gridContainer: gridSpecific,
         });
       });
 

@@ -8,9 +8,11 @@ export const cardPreset =
         "display": {
           "display": "flex"
         },
-        "flexContainer": {
-          "flexDirection": "column",
+        "container": {
           "gap": "12"
+        },
+        "flexContainer": {
+          "flexDirection": "column"
         },
         "boxSizing": {
           "padding": "20px",
