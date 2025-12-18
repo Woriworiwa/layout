@@ -21,12 +21,12 @@ export class PropertiesService {
     });
   }
 
-  extractNumericValue(postFixedValue: unknown): string {
+  extractNumericValue(postFixedValue: unknown): string | undefined {
     if (postFixedValue == null) {
-      return '';
+      return undefined;
     }
 
-    return String(postFixedValue).replace(/\D/g, '') || '';
+    return String(postFixedValue).replace(/\D/g, '');
   }
 
   extractUnit(postFixedValue: unknown): Unit {
