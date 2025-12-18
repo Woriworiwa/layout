@@ -27,6 +27,7 @@ import { PropertiesGridItemComponent } from './property-groups/grid-item.compone
 import { PropertiesConfig } from './properties.config';
 import { PropertiesService } from './properties.service';
 import { Display } from '../../core/models/css-enums/properties.enum';
+import { CssViewerComponent } from '../../shared/code-viewer/css-viewer.component';
 
 @Component({
   selector: 'app-settings',
@@ -42,10 +43,14 @@ import { Display } from '../../core/models/css-enums/properties.enum';
     PropertiesFlexItemComponent,
     PropertiesGridContainerComponent,
     PropertiesGridItemComponent,
+    CssViewerComponent,
   ],
   providers: [PropertiesService],
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss'],
+  host: {
+    class: 'min-h-0'
+  }
 })
 export class PropertiesComponent {
   private readonly selectionService = inject(SelectionService);

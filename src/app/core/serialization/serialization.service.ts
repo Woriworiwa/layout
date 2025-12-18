@@ -4,19 +4,21 @@ import {HtmlSerializer} from "./serializers/html.serializer";
 import {JSONSerializer} from "./serializers/JSON.serializer";
 import {CssStyleSerializer} from "./serializers/css-style.serializer";
 
+export type SerializerType = 'HTML' | 'JSON' | 'CSS-class' | 'CSS-style';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SerializationService {
-  getSerializer(serializerType: 'HTML' | 'JSON' | 'CSS-class' | 'CSS-style') {
+  getSerializer(serializerType: SerializerType) {
     switch (serializerType) {
-      case "CSS-class":
+      case 'CSS-class':
         return new CssClassSerializer();
-      case "CSS-style":
+      case 'CSS-style':
         return new CssStyleSerializer();
-      case "HTML":
+      case 'HTML':
         return new HtmlSerializer();
-      case "JSON":
+      case 'JSON':
         return new JSONSerializer();
     }
   }

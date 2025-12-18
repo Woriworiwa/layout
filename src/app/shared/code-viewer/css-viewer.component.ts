@@ -8,28 +8,37 @@ import {
 } from '@angular/core';
 
 import {CanvasItem} from "../../core/models/canvas-item.model";
-import {SerializationService} from "../../core/serialization/serialization.service";
+import {SerializationService, SerializerType } from "../../core/serialization/serialization.service";
 import {Highlight} from "ngx-highlightjs";
 
 @Component({
   selector: 'app-css-prism',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Highlight],
-  template: `
-    <pre><code [highlight]="css" language="css"></code></pre>
-  `,
+  template: ` <pre><code [highlight]="css" language="css"></code></pre> `,
   styles: `
-    pre[class*="language-"] {
-      padding: 1em;
-      margin: 0;
+    :host {
+      display: block;
+      height: 100%;
     }
-  `
+
+    pre[class*="language-"] {
+      padding: 0.75rem 1rem;
+      margin: 0;
+      height: 100%;
+      background: transparent !important;
+    }
+
+    code[class*="language-"] {
+      background: transparent;
+    }
+  `,
 })
 export class CssViewerComponent implements OnChanges {
   private serializerService = inject(SerializationService);
 
   canvasItems = input<CanvasItem[]>([]);
-
+  serializerType = input<SerializerType>('CSS-class');
   protected css = '';
 
   ngOnChanges() {
@@ -37,6 +46,9 @@ export class CssViewerComponent implements OnChanges {
   }
 
   private serializeToCss() {
-    this.css = this.serializerService.getSerializer("CSS-class").serialize(this.canvasItems()).join('\n');
+    this.css = (this.serializerService
+      .getSerializer(this.serializerType())
+      .serialize(this.canvasItems())
+      .join(this.serializerType() === 'CSS-class' ? '\n' : ';\n'));
   }
 }
