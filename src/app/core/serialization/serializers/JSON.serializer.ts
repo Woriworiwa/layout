@@ -2,7 +2,7 @@ import {Serializer} from "./serializer";
 import {CanvasItem} from "../../models/canvas-item.model";
 
 
-import {Css} from "../../models/css/css";
+import {Css} from "../../models/css-interfaces/css";
 
 export class JSONSerializer extends Serializer {
   constructor() {

@@ -8,7 +8,7 @@ import {PresetTextComponent} from "./preset-text.component";
 import {PresetAiComponent} from "./preset-ai.component";
 
 
-import {BoxSizing} from "../../core/models/css/box-sizing";
+import {BoxSizing} from "../../core/models/css-interfaces/box-sizing";
 
 @Injectable()
 export class PresetService {

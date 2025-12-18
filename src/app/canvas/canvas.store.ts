@@ -4,7 +4,7 @@ import {CanvasItem} from "../core/models/canvas-item.model";
 import cloneDeep from 'lodash.clonedeep';
 import {CANVAS_WRAPPER_ID} from "../core/constants";
 import {InsertPosition} from "../core/enums";
-import {Css} from "../core/models/css/css";
+import {Css} from "../core/models/css-interfaces/css";
 
 export class CanvasState {
   canvasItems: CanvasItem[] = [];

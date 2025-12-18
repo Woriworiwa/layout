@@ -6,7 +6,7 @@ import {takeUntil} from "rxjs";
 import {NumberField} from "../property-components/number-field";
 import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {PropertyGroupContainerComponent} from "./property-group-container.component";
-import {Unit} from "../../../core/models/css/unit.enum";
+import {Unit} from "../../../core/models/css-enums/unit.enum";
 import { PropertyRowComponent } from '../property-components/property-row.component';
 
 @Component({

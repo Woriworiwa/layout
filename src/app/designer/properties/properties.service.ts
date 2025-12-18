@@ -1,8 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Css } from '../../core/models/css/css';
-import { Unit } from '../../core/models/css/unit.enum';
+import { Css } from '../../core/models/css-interfaces/css';
+import { Unit } from '../../core/models/css-enums/unit.enum';
 import { CanvasService } from '../../canvas/canvas.service';
-import { CONTAINER_PROPERTY_NAMES } from '../../core/models/css/container';
+import { CONTAINER_PROPERTY_NAMES } from '../../core/models/css-interfaces/container';
 
 @Injectable()
 export class PropertiesService {

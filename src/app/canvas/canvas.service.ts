@@ -10,7 +10,7 @@ import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CanvasItemType, InsertPosition} from "../core/enums";
 import {SelectionService} from "./selection/selection.service";
 
-import {Css} from "../core/models/css/css";
+import {Css} from "../core/models/css-interfaces/css";
 
 @Injectable()
 export class CanvasService implements OnDestroy {

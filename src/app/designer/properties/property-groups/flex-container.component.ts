@@ -9,11 +9,16 @@ import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {PropertyGroupContainerComponent} from "./property-group-container.component";
 import {
   AlignContent,
+  AlignContentOptions,
   AlignItems,
+  AlignItemsOptions,
   FlexDirection,
+  FlexDirectionOptions,
   FlexWrap,
-  JustifyContent
-} from "../../../core/models/css/properties.enum";
+  FlexWrapOptions,
+  JustifyContent,
+  JustifyContentOptions,
+} from '../../../core/models/css-enums/properties.enum';
 import { PropertyRowComponent } from '../property-components/property-row.component';
 
 @Component({
@@ -28,47 +33,48 @@ import { PropertyRowComponent } from '../property-components/property-row.compon
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-        <app-property-group [header]="title()" [toggleable]="true">
-          <app-property-row label="direction">
-            <app-button-group
-              [options]="flexDirectionOptions"
-              [control]="getFormControl('flexDirection')"
-            ></app-button-group>
-          </app-property-row>
+      <app-property-group [header]="title()" [toggleable]="true">
+        <app-property-row label="direction">
+          <app-button-group
+            [options]="FlexDirectionOptions"
+            [control]="getFormControl('flexDirection')"
+          ></app-button-group>
+        </app-property-row>
 
-          <app-property-row label="gap">
-            <app-number-field
-              [control]="getFormControl('gap')"></app-number-field>
-          </app-property-row>
+        <app-property-row label="gap">
+          <app-number-field
+            [control]="getFormControl('gap')"
+          ></app-number-field>
+        </app-property-row>
 
-          <app-property-row label="wrap">
-            <app-button-group
-              [options]="flexWrapOptions"
-              [control]="getFormControl('flexWrap')"
-            ></app-button-group>
-          </app-property-row>
+        <app-property-row label="wrap">
+          <app-button-group
+            [options]="FlexWrapOptions"
+            [control]="getFormControl('flexWrap')"
+          ></app-button-group>
+        </app-property-row>
 
-          <app-property-row label="justify-content">
-            <app-button-group
-              [options]="justifyContentOptions"
-              [control]="getFormControl('justifyContent')"
-            ></app-button-group>
-          </app-property-row>
+        <app-property-row label="justify-content">
+          <app-button-group
+            [options]="JustifyContentOptions"
+            [control]="getFormControl('justifyContent')"
+          ></app-button-group>
+        </app-property-row>
 
-          <app-property-row label="align-items">
-            <app-button-group
-              [options]="alignItemsOptions"
-              [control]="getFormControl('alignItems')"
-            ></app-button-group>
-          </app-property-row>
+        <app-property-row label="align-items">
+          <app-button-group
+            [options]="AlignItemsOptions"
+            [control]="getFormControl('alignItems')"
+          ></app-button-group>
+        </app-property-row>
 
-          <app-property-row label="align-content">
-            <app-button-group
-              [options]="alignContentOptions"
-              [control]="getFormControl('alignContent')"
-            ></app-button-group>
-          </app-property-row>
-        </app-property-group>
+        <app-property-row label="align-content">
+          <app-button-group
+            [options]="AlignContentOptions"
+            [control]="getFormControl('alignContent')"
+          ></app-button-group>
+        </app-property-row>
+      </app-property-group>
     </ng-container>
   `,
   styles: `
@@ -77,52 +83,10 @@ import { PropertyRowComponent } from '../property-components/property-row.compon
     }
   `,
 })
-export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent implements OnChanges
+export class PropertiesFlexContainerComponent
+  extends BasePropertyGroupComponent
+  implements OnChanges
 {
-
-  /*direction*/
-  flexDirectionOptions = [
-    { label: 'Row', value: FlexDirection.row },
-    { label: 'Column', value: FlexDirection.column },
-  ];
-
-  /*wrap*/
-  flexWrapOptions = [
-    { label: 'Yes', value: FlexWrap.wrap },
-    { label: 'No', value: FlexWrap.nowrap },
-  ];
-
-  /*justify content*/
-  justifyContentOptions = [
-    JustifyContent.center,
-    JustifyContent.start,
-    JustifyContent.end,
-    JustifyContent['space-around'],
-    JustifyContent['space-between'],
-    JustifyContent['space-evenly'],
-  ];
-
-  /*align items*/
-  alignItemsOptions = [
-    AlignItems.start,
-    AlignItems.end,
-    AlignItems.center,
-    AlignItems.stretch,
-    AlignItems.baseline,
-  ];
-
-  /*align content*/
-  alignContentOptions = [
-    AlignContent.start,
-    AlignContent.end,
-    AlignContent.center,
-    AlignContent.stretch,
-    AlignContent['space-between'],
-    AlignContent['space-around'],
-    AlignContent['space-evenly'],
-    AlignContent.baseline,
-  ];
-
   override ngOnChanges() {
     super.ngOnChanges();
 
@@ -162,9 +126,19 @@ export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        this.propertiesService.updateCssWithSplit(this.css(), value, 'flexContainer');
+        this.propertiesService.updateCssWithSplit(
+          this.css(),
+          value,
+          'flexContainer'
+        );
       });
 
     return formGroup;
   }
+
+  protected readonly JustifyContentOptions = JustifyContentOptions;
+  protected readonly AlignItemsOptions = AlignItemsOptions;
+  protected readonly AlignContentOptions = AlignContentOptions;
+  protected readonly FlexDirectionOptions = FlexDirectionOptions;
+  protected readonly FlexWrapOptions = FlexWrapOptions;
 }

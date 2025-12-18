@@ -5,7 +5,7 @@ import {takeUntil} from "rxjs";
 import {NumberField} from "../property-components/number-field";
 import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {PropertyGroupContainerComponent} from "./property-group-container.component";
-import {AlignSelf, FlexBasis, FlexGrow, FlexShrink, Height} from "../../../core/models/css/properties.enum";
+import { AlignSelfOptions, } from '../../../core/models/css-enums/properties.enum';
 import { PropertyRowComponent } from '../property-components/property-row.component';
 import { ButtonGroupComponent } from '../property-components/button-group.component';
 
@@ -47,7 +47,7 @@ import { ButtonGroupComponent } from '../property-components/button-group.compon
 
         <app-property-row label="align-self">
           <app-button-group
-            [options]="alignSelfOptions"
+            [options]="AlignSelfOptions"
             [control]="getFormControl('alignSelf')"
           ></app-button-group>
         </app-property-row>
@@ -64,21 +64,6 @@ export class PropertiesFlexItemComponent
   extends BasePropertyGroupComponent
   implements OnChanges
 {
-  protected readonly Height = Height;
-  protected readonly FlexGrow = FlexGrow;
-  protected readonly FlexShrink = FlexShrink;
-  protected readonly FlexBasis = FlexBasis;
-  protected readonly AlignSelf = AlignSelf;
-
-  /*justify content*/
-  alignSelfOptions = [
-    AlignSelf.start,
-    AlignSelf.end,
-    AlignSelf.center,
-    AlignSelf.baseline,
-    AlignSelf.stretch,
-  ];
-
   override ngOnChanges() {
     super.ngOnChanges();
 
@@ -116,4 +101,6 @@ export class PropertiesFlexItemComponent
 
     return formGroup;
   }
+
+  protected readonly AlignSelfOptions = AlignSelfOptions;
 }

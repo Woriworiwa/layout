@@ -10,7 +10,7 @@ import { ContextMenuService } from './context-menu/context-menu.service';
 import { AssetDragDropService } from './drag-drop/asset-drag-drop.service';
 import { CanvasItem } from '../core/models/canvas-item.model';
 import { CanvasItemType, InsertPosition } from '../core/enums';
-import { Css } from '../core/models/css/css';
+import { Css } from '../core/models/css-interfaces/css';
 
 describe('CanvasService', () => {
   let service: CanvasService;

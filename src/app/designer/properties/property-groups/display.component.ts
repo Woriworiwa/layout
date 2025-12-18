@@ -4,7 +4,7 @@ import {Property} from "csstype";
 import {takeUntil} from "rxjs";
 import {BasePropertyGroupComponent} from "./base-property-group.component";
 import {PropertyGroupContainerComponent} from "./property-group-container.component";
-import {Display} from "../../../core/models/css/properties.enum";
+import { DisplayOptions } from '../../../core/models/css-enums/properties.enum';
 import { PropertyRowComponent } from '../property-components/property-row.component';
 import { ButtonGroupComponent } from '../property-components/button-group.component';
 
@@ -20,7 +20,7 @@ import { ButtonGroupComponent } from '../property-components/button-group.compon
     <app-property-group header="Display" [toggleable]="true">
       <app-property-row label="display">
         <app-button-group
-          [options]="displayOptions"
+          [options]="DisplayOptions"
           [control]="getFormControl('display')"
         ></app-button-group>
       </app-property-row>
@@ -36,16 +36,6 @@ export class DisplayComponent
   extends BasePropertyGroupComponent
   implements OnChanges
 {
-  protected readonly displayOptions = [
-    Display.block,
-    Display.flex,
-    Display.contents,
-    Display.flow,
-    Display.grid,
-    Display.inline,
-    Display.none,
-  ];
-
   override ngOnChanges() {
     super.ngOnChanges();
 
@@ -72,6 +62,8 @@ export class DisplayComponent
 
     return formGroup;
   }
+
+  protected readonly DisplayOptions = DisplayOptions;
 }
 
 

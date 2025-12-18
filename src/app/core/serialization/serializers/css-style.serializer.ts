@@ -1,7 +1,7 @@
 import {CanvasItem} from "../../models/canvas-item.model";
 import {Serializer} from "./serializer";
 
-import {Css} from "../../models/css/css";
+import {Css} from "../../models/css-interfaces/css";
 import {POSTFIX_UNIT, POSTFIXED_PROPERTIES} from "../../constants";
 
 export class CssStyleSerializer extends Serializer {

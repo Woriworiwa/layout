@@ -9,9 +9,9 @@ import { PropertyRowComponent } from '../property-components/property-row.compon
 import { TextFieldComponent } from '../property-components/text-field.component';
 import { ButtonGroupComponent } from '../property-components/button-group.component';
 import {
-  AlignSelf,
-  JustifySelf,
-} from '../../../core/models/css/properties.enum';
+  AlignSelfOptions,
+  JustifySelfOptions,
+} from '../../../core/models/css-enums/properties.enum';
 
 @Component({
   selector: 'app-properties-grid-item',
@@ -44,14 +44,14 @@ import {
 
         <app-property-row label="justify-self">
           <app-button-group
-            [options]="justifySelfOptions"
+            [options]="JustifySelfOptions"
             [control]="getFormControl('justifySelf')"
           ></app-button-group>
         </app-property-row>
 
         <app-property-row label="align-self">
           <app-button-group
-            [options]="alignSelfOptions"
+            [options]="AlignSelfOptions"
             [control]="getFormControl('alignSelf')"
           ></app-button-group>
         </app-property-row>
@@ -65,8 +65,6 @@ import {
   `,
 })
 export class PropertiesGridItemComponent extends BasePropertyGroupComponent implements OnChanges {
-
-  // Grid Column/Row Presets
   gridColumnPresets = [
     { label: 'span 1', value: 'span 1' },
     { label: 'span 2', value: 'span 2' },
@@ -79,22 +77,6 @@ export class PropertiesGridItemComponent extends BasePropertyGroupComponent impl
     { label: 'span 2', value: 'span 2' },
     { label: 'span 3', value: 'span 3' },
     { label: '1 / -1', value: '1 / -1' },
-  ];
-
-  // Alignment Options
-  justifySelfOptions = [
-    JustifySelf.start,
-    JustifySelf.end,
-    JustifySelf.center,
-    JustifySelf.stretch,
-  ];
-
-  alignSelfOptions = [
-    AlignSelf.start,
-    AlignSelf.end,
-    AlignSelf.center,
-    AlignSelf.stretch,
-    AlignSelf.baseline,
   ];
 
   override ngOnChanges() {
@@ -126,4 +108,7 @@ export class PropertiesGridItemComponent extends BasePropertyGroupComponent impl
 
     return formGroup;
   }
+
+  protected readonly JustifySelfOptions = JustifySelfOptions;
+  protected readonly AlignSelfOptions = AlignSelfOptions;
 }

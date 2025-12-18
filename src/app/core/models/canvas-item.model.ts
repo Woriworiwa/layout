@@ -1,5 +1,5 @@
 import {CanvasItemType} from "../enums";
-import {Css} from "./css/css";
+import {Css} from "./css-interfaces/css";
 
 export interface AiMetadata {
   prompt: string;

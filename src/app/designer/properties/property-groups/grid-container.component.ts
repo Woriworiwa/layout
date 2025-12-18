@@ -9,12 +9,12 @@ import { PropertyRowComponent } from '../property-components/property-row.compon
 import { TextFieldComponent } from '../property-components/text-field.component';
 import { ButtonGroupComponent } from '../property-components/button-group.component';
 import {
-  GridAutoFlow,
-  JustifyContent,
-  AlignItems,
-  AlignContent,
-  JustifyItems,
-} from '../../../core/models/css/properties.enum';
+  GridAutoFlowOptions,
+  JustifyContentOptions,
+  AlignContentOptions,
+  JustifyItemsOptions,
+  AlignItemsOptions,
+} from '../../../core/models/css-enums/properties.enum';
 import { NumberField } from '../property-components/number-field';
 
 @Component({
@@ -51,7 +51,7 @@ import { NumberField } from '../property-components/number-field';
         <!-- Grid Auto -->
         <app-property-row label="grid-auto-flow">
           <app-button-group
-            [options]="gridAutoFlowOptions"
+            [options]="GridAutoFlowOptions"
             [control]="getFormControl('gridAutoFlow')"
           ></app-button-group>
         </app-property-row>
@@ -81,28 +81,28 @@ import { NumberField } from '../property-components/number-field';
 
         <app-property-row label="justify-content">
           <app-button-group
-            [options]="justifyContentOptions"
+            [options]="JustifyContentOptions"
             [control]="getFormControl('justifyContent')"
           ></app-button-group>
         </app-property-row>
 
         <app-property-row label="align-content">
           <app-button-group
-            [options]="alignContentOptions"
+            [options]="AlignContentOptions"
             [control]="getFormControl('alignContent')"
           ></app-button-group>
         </app-property-row>
 
         <app-property-row label="justify-items">
           <app-button-group
-            [options]="justifyItemsOptions"
+            [options]="JustifyItemsOptions"
             [control]="getFormControl('justifyItems')"
           ></app-button-group>
         </app-property-row>
 
         <app-property-row label="align-items">
           <app-button-group
-            [options]="alignItemsOptions"
+            [options]="AlignItemsOptions"
             [control]="getFormControl('alignItems')"
           ></app-button-group>
         </app-property-row>
@@ -140,48 +140,6 @@ export class PropertiesGridContainerComponent
     { label: '1fr', value: '1fr' },
     { label: 'min-content', value: 'min-content' },
     { label: 'max-content', value: 'max-content' },
-  ];
-
-  // Grid Auto Flow
-  gridAutoFlowOptions = [
-    { label: 'row', value: GridAutoFlow.row },
-    { label: 'column', value: GridAutoFlow.column },
-    { label: 'dense', value: GridAutoFlow.dense },
-  ];
-
-  // Alignment Options (inherited from Container)
-  justifyContentOptions = [
-    JustifyContent.start,
-    JustifyContent.end,
-    JustifyContent.center,
-    JustifyContent['space-around'],
-    JustifyContent['space-between'],
-    JustifyContent['space-evenly'],
-  ];
-
-  alignContentOptions = [
-    AlignContent.start,
-    AlignContent.end,
-    AlignContent.center,
-    AlignContent.stretch,
-    AlignContent['space-around'],
-    AlignContent['space-between'],
-    AlignContent['space-evenly'],
-  ];
-
-  justifyItemsOptions = [
-    JustifyItems.start,
-    JustifyItems.end,
-    JustifyItems.center,
-    JustifyItems.stretch,
-  ];
-
-  alignItemsOptions = [
-    AlignItems.start,
-    AlignItems.end,
-    AlignItems.center,
-    AlignItems.stretch,
-    AlignItems.baseline,
   ];
 
   override ngOnChanges() {
@@ -235,9 +193,19 @@ export class PropertiesGridContainerComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        this.propertiesService.updateCssWithSplit(this.css(), value, 'gridContainer');
+        this.propertiesService.updateCssWithSplit(
+          this.css(),
+          value,
+          'gridContainer'
+        );
       });
 
     return formGroup;
   }
+
+  protected readonly GridAutoFlowOptions = GridAutoFlowOptions;
+  protected readonly JustifyContentOptions = JustifyContentOptions;
+  protected readonly AlignContentOptions = AlignContentOptions;
+  protected readonly JustifyItemsOptions = JustifyItemsOptions;
+  protected readonly AlignItemsOptions = AlignItemsOptions;
 }

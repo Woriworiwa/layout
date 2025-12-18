@@ -26,7 +26,7 @@ import { PropertiesGridContainerComponent } from './property-groups/grid-contain
 import { PropertiesGridItemComponent } from './property-groups/grid-item.component';
 import { PropertiesConfig } from './properties.config';
 import { PropertiesService } from './properties.service';
-import { Display } from '../../core/models/css/properties.enum';
+import { Display } from '../../core/models/css-enums/properties.enum';
 
 @Component({
   selector: 'app-settings',
