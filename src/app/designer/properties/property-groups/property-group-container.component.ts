@@ -8,7 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PropertyRowComponent } from './property-row.component';
+import { PropertyRowComponent } from '../property-components/property-row.component';
 import { PropertiesService } from '../properties.service';
 
 @Component({
@@ -42,7 +42,7 @@ import { PropertiesService } from '../properties.service';
     }
   `
 })
-export class PropertyGroupComponent {
+export class PropertyGroupContainerComponent {
   header = input<string>('');
   toggleable = input<boolean>(true);
   collapsed = input<boolean>(false);

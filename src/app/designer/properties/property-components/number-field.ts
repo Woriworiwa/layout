@@ -1,4 +1,4 @@
-import { Component, input, SimpleChanges } from '@angular/core';
+import { Component, input, OnChanges, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -60,7 +60,7 @@ import { ButtonDirective, ButtonIcon } from 'primeng/button';
   }
   `,
 })
-export class NumberField extends BaseFormItemComponent {
+export class NumberField extends BaseFormItemComponent implements OnChanges {
   unit = input<FormControl | undefined>(undefined);
   max = input<number>(100);
   suffix = input<string | undefined>(POSTFIX_UNIT);
@@ -93,7 +93,7 @@ export class NumberField extends BaseFormItemComponent {
       });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     // Initialize display control with current value
     const value = this.control()?.value;
     if (value !== undefined) {

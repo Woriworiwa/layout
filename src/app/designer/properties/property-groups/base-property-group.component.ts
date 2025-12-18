@@ -2,12 +2,25 @@ import {Component, input, OnChanges, OnDestroy, QueryList, ViewChildren, inject}
 
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subject, Subscription} from "rxjs";
-import {NumberField} from "./number-field";
-import {CanvasService} from "../../../canvas/canvas.service";
+import {NumberField} from "../property-components/number-field";
+import {PropertiesService} from "../properties.service";
 
 import {Css} from "../../../core/models/css/css";
-import {Unit} from "../../../core/models/css/unit.enum";
 
+/**
+ * Base component for all property group components.
+ * Implements the Presentational Component pattern - delegates all business logic to PropertiesService.
+ *
+ * Responsibilities:
+ * - Form group lifecycle management
+ * - Template rendering
+ * - Delegating transformations to PropertiesService
+ *
+ * Non-responsibilities (handled by PropertiesService):
+ * - CSS transformations
+ * - Value formatting
+ * - Canvas updates
+ */
 @Component({
   selector: 'app-base-app-properties',
   imports: [],
@@ -27,7 +40,7 @@ export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy
   formGroupValueChangedSubscription: Subscription | undefined;
   protected destroy$ = new Subject();
   protected formBuilder = inject(FormBuilder);
-  protected canvasService = inject(CanvasService);
+  protected propertiesService = inject(PropertiesService);
 
   constructor() {
     this.formGroup = this.createFormGroup();
@@ -48,13 +61,6 @@ export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy
     return this.formGroup.get(name) as FormControl;
   }
 
-  protected extractValue(postFixedValue: any) {
-    return postFixedValue?.toString().replace(/\D/g, '')
-  }
-
-  protected extractUnit(postFixedValue: any) {
-    return postFixedValue?.toString().replace(/[0-9]/g, '') || Unit.px
-  }
 
   protected panelTheme = {
     root:{

@@ -1,19 +1,18 @@
-import { Component, OnChanges, inject } from '@angular/core';
-
-import {FormBuilder, FormControl, ReactiveFormsModule} from "@angular/forms";
+import { Component, OnChanges } from '@angular/core';
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {Property} from "csstype";
 import {takeUntil} from "rxjs";
-import {BasePropertyGroupComponent} from "../components/base-property-group.component";
-import {PropertyGroupComponent} from "../components/property-group.component";
-import {Display, Height} from "../../../core/models/css/properties.enum";
-import { PropertyRowComponent } from '../components/property-row.component';
-import { ButtonGroupComponent } from '../components/button-group.component';
+import {BasePropertyGroupComponent} from "./base-property-group.component";
+import {PropertyGroupContainerComponent} from "./property-group-container.component";
+import {Display} from "../../../core/models/css/properties.enum";
+import { PropertyRowComponent } from '../property-components/property-row.component';
+import { ButtonGroupComponent } from '../property-components/button-group.component';
 
 @Component({
   selector: 'app-properties-display',
   imports: [
     ReactiveFormsModule,
-    PropertyGroupComponent,
+    PropertyGroupContainerComponent,
     PropertyRowComponent,
     ButtonGroupComponent,
   ],
@@ -37,8 +36,6 @@ export class DisplayComponent
   extends BasePropertyGroupComponent
   implements OnChanges
 {
-  protected readonly Height = Height;
-  protected readonly Display = Display;
   protected readonly displayOptions = [
     Display.block,
     Display.flex,
@@ -70,10 +67,7 @@ export class DisplayComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        this.canvasService.updateCss({
-          ...this.css(),
-          display: value,
-        });
+        this.propertiesService.updateCssCategory(this.css(), 'display', value);
       });
 
     return formGroup;

@@ -3,10 +3,10 @@ import {CommonModule} from '@angular/common';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
 import {Property} from "csstype";
-import {ButtonGroupComponent} from "../components/button-group.component";
-import {NumberField} from "../components/number-field";
-import {BasePropertyGroupComponent} from "../components/base-property-group.component";
-import {PropertyGroupComponent} from "../components/property-group.component";
+import {ButtonGroupComponent} from "../property-components/button-group.component";
+import {NumberField} from "../property-components/number-field";
+import {BasePropertyGroupComponent} from "./base-property-group.component";
+import {PropertyGroupContainerComponent} from "./property-group-container.component";
 import {
   AlignContent,
   AlignItems,
@@ -14,7 +14,7 @@ import {
   FlexWrap,
   JustifyContent
 } from "../../../core/models/css/properties.enum";
-import { PropertyRowComponent } from '../components/property-row.component';
+import { PropertyRowComponent } from '../property-components/property-row.component';
 
 @Component({
   selector: 'app-properties-flex-container',
@@ -23,7 +23,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
     ReactiveFormsModule,
     ButtonGroupComponent,
     NumberField,
-    PropertyGroupComponent,
+    PropertyGroupContainerComponent,
     PropertyRowComponent,
   ],
   template: `
@@ -126,16 +126,13 @@ export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent
   override ngOnChanges() {
     super.ngOnChanges();
 
-    const cssValue = this.css();
-    // Merge container and flexContainer properties
-    this.formGroup?.patchValue(
-      {
-        ...cssValue?.container,
-        ...cssValue?.flexContainer,
-        gap: cssValue?.container?.gap?.toString(),
-      },
-      { emitEvent: false }
+    const mergedValues = this.propertiesService.mergeContainerPropsForForm(
+      this.css(),
+      'flexContainer',
+      { gap: (val) => val?.toString() }
     );
+
+    this.formGroup?.patchValue(mergedValues, { emitEvent: false });
   }
 
   override createFormGroup() {
@@ -165,19 +162,7 @@ export class PropertiesFlexContainerComponent extends BasePropertyGroupComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        // Split into container and flex-specific properties
-        const { gap, justifyContent, alignItems, alignContent, ...flexSpecific } = value;
-
-        this.canvasService.updateCss({
-          ...this.css(),
-          container: {
-            gap,
-            justifyContent,
-            alignItems,
-            alignContent,
-          },
-          flexContainer: flexSpecific,
-        });
+        this.propertiesService.updateCssWithSplit(this.css(), value, 'flexContainer');
       });
 
     return formGroup;

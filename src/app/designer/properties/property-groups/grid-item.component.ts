@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import { Property } from 'csstype';
-import { BasePropertyGroupComponent } from '../components/base-property-group.component';
-import { PropertyGroupComponent } from '../components/property-group.component';
-import { PropertyRowComponent } from '../components/property-row.component';
-import { TextFieldComponent } from '../components/text-field.component';
-import { ButtonGroupComponent } from '../components/button-group.component';
+import { BasePropertyGroupComponent } from './base-property-group.component';
+import { PropertyGroupContainerComponent } from './property-group-container.component';
+import { PropertyRowComponent } from '../property-components/property-row.component';
+import { TextFieldComponent } from '../property-components/text-field.component';
+import { ButtonGroupComponent } from '../property-components/button-group.component';
 import {
   AlignSelf,
   JustifySelf,
@@ -18,7 +18,7 @@ import {
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    PropertyGroupComponent,
+    PropertyGroupContainerComponent,
     PropertyRowComponent,
     TextFieldComponent,
     ButtonGroupComponent,
@@ -121,10 +121,7 @@ export class PropertiesGridItemComponent extends BasePropertyGroupComponent impl
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        this.canvasService.updateCss({
-          ...this.css(),
-          gridItem: value,
-        });
+        this.propertiesService.updateCssCategory(this.css(), 'gridItem', value);
       });
 
     return formGroup;

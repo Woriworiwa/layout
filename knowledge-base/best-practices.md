@@ -159,7 +159,7 @@ constructor() {
 - Complex event streams and transformations
 
 **Current pattern**:
-- Signals are used sparingly (property-group.component.ts, pan-zoom.service.ts)
+- Signals are used sparingly (property-group-container.component.ts, pan-zoom.service.ts)
 - Primary state management is RxJS-based (CanvasStore with BehaviorSubject)
 
 ### Input/Output Patterns
@@ -168,7 +168,7 @@ constructor() {
 
 ```typescript
 // ✅ GOOD: Signal inputs
-export class PropertyGroupComponent {
+export class PropertyGroupContainerComponent {
   header = input<string>('');
   collapsed = input<boolean>(false);
 }

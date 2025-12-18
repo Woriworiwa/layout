@@ -3,12 +3,11 @@ import { Component, OnChanges } from '@angular/core';
 import {Property} from "csstype";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {NumberField} from "../components/number-field";
-import {BasePropertyGroupComponent} from "../components/base-property-group.component";
-import {PropertyGroupComponent} from "../components/property-group.component";
+import {NumberField} from "../property-components/number-field";
+import {BasePropertyGroupComponent} from "./base-property-group.component";
+import {PropertyGroupContainerComponent} from "./property-group-container.component";
 import {Unit} from "../../../core/models/css/unit.enum";
-import {Height, Padding, Width} from "../../../core/models/css/properties.enum";
-import { PropertyRowComponent } from '../components/property-row.component';
+import { PropertyRowComponent } from '../property-components/property-row.component';
 
 @Component({
   selector: 'app-properties-box-sizing',
@@ -16,7 +15,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
     ReactiveFormsModule,
     NumberField,
     FormsModule,
-    PropertyGroupComponent,
+    PropertyGroupContainerComponent,
     PropertyRowComponent,
   ],
   template: `
@@ -50,14 +49,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
     }
   `,
 })
-export class BoxSizingComponent
-  extends BasePropertyGroupComponent
-  implements OnChanges
-{
-  protected readonly Padding = Padding;
-  protected readonly Height = Height;
-  protected readonly Width = Width;
-
+export class BoxSizingComponent extends BasePropertyGroupComponent implements OnChanges {
   items: { label?: string; icon?: string; separator?: boolean }[] = [];
 
   override ngOnChanges() {
@@ -70,12 +62,12 @@ export class BoxSizingComponent
 
     this.formGroup?.patchValue(
       {
-        padding: this.extractValue(cssValue.boxSizing.padding),
-        paddingUnit: this.extractUnit(cssValue.boxSizing.padding),
-        height: this.extractValue(cssValue.boxSizing.height),
-        heightUnit: this.extractUnit(cssValue.boxSizing.height),
-        width: this.extractValue(cssValue.boxSizing.width),
-        widthUnit: this.extractUnit(cssValue.boxSizing.width),
+        padding: this.propertiesService.extractNumericValue(cssValue.boxSizing.padding),
+        paddingUnit: this.propertiesService.extractUnit(cssValue.boxSizing.padding),
+        height: this.propertiesService.extractNumericValue(cssValue.boxSizing.height),
+        heightUnit: this.propertiesService.extractUnit(cssValue.boxSizing.height),
+        width: this.propertiesService.extractNumericValue(cssValue.boxSizing.width),
+        widthUnit: this.propertiesService.extractUnit(cssValue.boxSizing.width),
       },
       { emitEvent: false }
     );
@@ -104,22 +96,11 @@ export class BoxSizingComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        this.canvasService.updateCss({
-          ...this.css(),
-          boxSizing: {
-            height:
-              value.height != null
-                ? `${value.height}${value.heightUnit}`
-                : value.height,
-            padding:
-              value.padding != null
-                ? `${value.padding}${value.paddingUnit}`
-                : value.padding,
-            width:
-              value.width != null
-                ? `${value.width}${value.widthUnit}`
-                : value.width,
-          },
+        // Use PropertiesService to update CSS
+        this.propertiesService.updateCssCategory(this.css(), 'boxSizing', {
+          height: this.propertiesService.formatWithUnit(value.height, value.heightUnit),
+          padding: this.propertiesService.formatWithUnit(value.padding, value.paddingUnit),
+          width: this.propertiesService.formatWithUnit(value.width, value.widthUnit),
         });
       });
 

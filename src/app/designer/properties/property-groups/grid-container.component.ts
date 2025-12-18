@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import { Property } from 'csstype';
-import { BasePropertyGroupComponent } from '../components/base-property-group.component';
-import { PropertyGroupComponent } from '../components/property-group.component';
-import { PropertyRowComponent } from '../components/property-row.component';
-import { TextFieldComponent } from '../components/text-field.component';
-import { ButtonGroupComponent } from '../components/button-group.component';
+import { BasePropertyGroupComponent } from './base-property-group.component';
+import { PropertyGroupContainerComponent } from './property-group-container.component';
+import { PropertyRowComponent } from '../property-components/property-row.component';
+import { TextFieldComponent } from '../property-components/text-field.component';
+import { ButtonGroupComponent } from '../property-components/button-group.component';
 import {
   GridAutoFlow,
   JustifyContent,
@@ -15,14 +15,14 @@ import {
   AlignContent,
   JustifyItems,
 } from '../../../core/models/css/properties.enum';
-import { NumberField } from '../components/number-field';
+import { NumberField } from '../property-components/number-field';
 
 @Component({
   selector: 'app-properties-grid-container',
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    PropertyGroupComponent,
+    PropertyGroupContainerComponent,
     PropertyRowComponent,
     TextFieldComponent,
     ButtonGroupComponent,
@@ -187,16 +187,13 @@ export class PropertiesGridContainerComponent
   override ngOnChanges() {
     super.ngOnChanges();
 
-    const cssValue = this.css();
-    // Merge container and gridContainer properties
-    this.formGroup?.patchValue(
-      {
-        ...cssValue?.container,
-        ...cssValue?.gridContainer,
-        gap: cssValue?.container?.gap?.toString(),
-      },
-      { emitEvent: false }
+    const mergedValues = this.propertiesService.mergeContainerPropsForForm(
+      this.css(),
+      'gridContainer',
+      { gap: (val) => val?.toString() }
     );
+
+    this.formGroup?.patchValue(mergedValues, { emitEvent: false });
   }
 
   override createFormGroup() {
@@ -238,20 +235,7 @@ export class PropertiesGridContainerComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        // Split into container and grid-specific properties
-        const { gap, justifyContent, alignContent, justifyItems, alignItems, ...gridSpecific } = value;
-
-        this.canvasService.updateCss({
-          ...this.css(),
-          container: {
-            gap,
-            justifyContent,
-            alignContent,
-            justifyItems,
-            alignItems,
-          },
-          gridContainer: gridSpecific,
-        });
+        this.propertiesService.updateCssWithSplit(this.css(), value, 'gridContainer');
       });
 
     return formGroup;

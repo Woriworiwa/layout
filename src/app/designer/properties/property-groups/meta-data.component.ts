@@ -1,15 +1,15 @@
 import { Component, input, OnChanges, OnDestroy, effect } from '@angular/core';
 
-import {PropertyGroupComponent} from "../components/property-group.component";
+import {PropertyGroupContainerComponent} from "./property-group-container.component";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {PropertyRowComponent} from "../components/property-row.component";
+import {PropertyRowComponent} from "../property-components/property-row.component";
 import {InputText} from "primeng/inputtext";
-import {BasePropertyGroupComponent} from "../components/base-property-group.component";
+import {BasePropertyGroupComponent} from "./base-property-group.component";
 
 @Component({
   selector: 'app-properties-meta-data',
-  imports: [PropertyGroupComponent, ReactiveFormsModule, PropertyRowComponent, InputText],
+  imports: [PropertyGroupContainerComponent, ReactiveFormsModule, PropertyRowComponent, InputText],
   template: `
     <app-property-group header="Meta data"
              [toggleable]="true">
@@ -56,7 +56,7 @@ export class MetaDataComponent extends BasePropertyGroupComponent implements OnC
         takeUntil(this.destroy$)
       )
       .subscribe((value: any) => {
-        this.canvasService.renameItem(value.label);
+        this.propertiesService.renameSelectedItem(value.label);
       });
 
     return formGroup;

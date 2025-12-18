@@ -2,19 +2,19 @@ import { Component, OnChanges } from '@angular/core';
 
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {takeUntil} from "rxjs";
-import {NumberField} from "../components/number-field";
-import {BasePropertyGroupComponent} from "../components/base-property-group.component";
-import {PropertyGroupComponent} from "../components/property-group.component";
+import {NumberField} from "../property-components/number-field";
+import {BasePropertyGroupComponent} from "./base-property-group.component";
+import {PropertyGroupContainerComponent} from "./property-group-container.component";
 import {AlignSelf, FlexBasis, FlexGrow, FlexShrink, Height} from "../../../core/models/css/properties.enum";
-import { PropertyRowComponent } from '../components/property-row.component';
-import { ButtonGroupComponent } from '../components/button-group.component';
+import { PropertyRowComponent } from '../property-components/property-row.component';
+import { ButtonGroupComponent } from '../property-components/button-group.component';
 
 @Component({
   selector: 'app-properties-flex-item',
   imports: [
     ReactiveFormsModule,
     NumberField,
-    PropertyGroupComponent,
+    PropertyGroupContainerComponent,
     PropertyRowComponent,
     ButtonGroupComponent,
   ],
@@ -111,10 +111,7 @@ export class PropertiesFlexItemComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value: any) => {
-        this.canvasService.updateCss({
-          ...this.css(),
-          flexItem: value,
-        });
+        this.propertiesService.updateCssCategory(this.css(), 'flexItem', value);
       });
 
     return formGroup;
