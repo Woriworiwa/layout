@@ -15,7 +15,7 @@
   </button>
 
   <!-- Inside Button - Only show for containers -->
-  @if (canvasItem()?.itemType === 'FLEX' || canvasItem()?.itemType === 'GRID') {
+  @if (canvasItem()?.itemType === 'FLEX') {
     <button
       class="insert-action-btn"
       (click)="onQuickInsert(insertPositionEnum.INSIDE, $event)"

@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { CanvasItem } from '../models/canvas-item.model';
 import { environment } from '../../../environments/environment';
+import { AiSchemaGeneratorService } from './ai-schema-generator.service';
 
 export interface AiGenerationResponse {
   items: CanvasItem[];
@@ -15,6 +16,7 @@ export interface AiGenerationResponse {
 })
 export class AiGenerationService {
   private http = inject(HttpClient);
+  private schemaGenerator = inject(AiSchemaGeneratorService);
   private readonly GEMINI_API_URL =
     'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
@@ -46,37 +48,18 @@ export class AiGenerationService {
   }
 
   private buildSystemPrompt(): string {
+    const schema = this.schemaGenerator.generateCanvasItemSchema();
+
     return `You are a CSS layout generator. Generate valid JSON arrays of CanvasItem objects.
 
-CanvasItem Schema:
-{
-  "itemType": "FLEX" | "TEXT",
-  "label": "string (optional)",
-  "content": "string (required for TEXT items only)",
-  "children": CanvasItem[] (optional, for FLEX containers),
-  "css": {
-    "display": { "display": "flex" },
-    "flexContainer": {
-      "flexDirection": "row" | "column",
-      "flexWrap": "wrap" | "nowrap",
-      "gap": "numeric value only (auto-postfixed with 'px')",
-      "justifyContent": "center" | "start" | "end" | "space-around" | "space-between" | "space-evenly",
-      "alignItems": "start" | "end" | "center" | "stretch" | "baseline",
-      "alignContent": "start" | "end" | "center" | "stretch" | "space-between" | "space-around" | "space-evenly" | "baseline"
-    },
-    "flexItem": {
-      "flexGrow": number,
-      "flexShrink": number,
-      "flexBasis": string,
-      "alignSelf": "start" | "end" | "center" | "baseline" | "stretch"
-    },
-    "boxSizing": {
-      "padding": "string with unit (px, vh, %)",
-      "width": "string with unit (px, vh, %)",
-      "height": "string with unit (px, vh, %)"
-    }
-  }
-}
+${schema}
+
+IMPORTANT NOTES:
+- All CSS properties are optional
+- FLEX items use: display.display="flex", container (shared props), flexContainer (flex-specific props), flexItem
+- GRID items use: display.display="grid", container (shared props), gridContainer (grid-specific props), gridItem
+- TEXT items only need content property
+- gap property: numeric values only (px auto-added)
 
 CRITICAL LIMITATIONS - DO NOT USE:
 - NO font-size, font-weight, color, font-family (no typography)
@@ -84,24 +67,25 @@ CRITICAL LIMITATIONS - DO NOT USE:
 - NO margins
 - NO background-color, background
 - NO position, top, left, right, bottom
-- gap property: numeric values only (px auto-added)
 
 Rules:
 1. Return ONLY valid JSON array, no markdown formatting
 2. FLEX items MUST have css.display.display = "flex"
-3. TEXT items MUST have content property
-4. Use semantic labels for items
-5. Keep layouts simple and focused
-6. Use only the CSS properties listed above
-7. Do not specify width or height for items unless necessary. The canvas width is dynamic but assume 600px wide.
+3. GRID items MUST have css.display.display = "grid"
+4. TEXT items MUST have content property
+5. Use semantic labels for items
+6. Keep layouts simple and focused
+7. Use only the CSS properties listed in the schema
+8. Do not specify width or height unless necessary. Canvas width is dynamic but assume 600px wide.
 
-Example:
+FLEX Example:
 [{
   "itemType": "FLEX",
   "label": "Card",
   "css": {
     "display": { "display": "flex" },
-    "flexContainer": { "flexDirection": "column", "gap": "12" },
+    "container": { "gap": "12" },
+    "flexContainer": { "flexDirection": "column" },
     "boxSizing": { "padding": "20px", "width": "300px" }
   },
   "children": [
@@ -109,6 +93,24 @@ Example:
       "itemType": "TEXT",
       "label": "Title",
       "content": "Card Title"
+    }
+  ]
+}]
+
+GRID Example:
+[{
+  "itemType": "GRID",
+  "label": "Grid Layout",
+  "css": {
+    "display": { "display": "grid" },
+    "container": { "gap": "16" },
+    "gridContainer": { "gridTemplateColumns": "repeat(3, 1fr)" }
+  },
+  "children": [
+    {
+      "itemType": "TEXT",
+      "label": "Item 1",
+      "content": "Grid Item 1"
     }
   ]
 }]`;
