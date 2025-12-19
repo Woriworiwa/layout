@@ -1,12 +1,12 @@
 import { Component, OnChanges } from '@angular/core';
 
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {takeUntil} from "rxjs";
-import {Property} from "csstype";
-import {ButtonGroupComponent} from "../property-components/button-group.component";
-import {NumberField} from "../property-components/number-field";
-import {BasePropertyGroupComponent} from "./base-property-group.component";
-import {PropertyGroupContainerComponent} from "./property-group-container.component";
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { takeUntil } from 'rxjs';
+import { Property } from 'csstype';
+import { ButtonGroupComponent } from '../property-components/button-group.component';
+import { NumberField } from '../property-components/number-field';
+import { BasePropertyGroupComponent } from './base-property-group.component';
+import { PropertyGroupContainerComponent } from './property-group-container.component';
 import {
   AlignContent,
   AlignContentOptions,
@@ -28,8 +28,8 @@ import { PropertyRowComponent } from '../property-components/property-row.compon
     ButtonGroupComponent,
     NumberField,
     PropertyGroupContainerComponent,
-    PropertyRowComponent
-],
+    PropertyRowComponent,
+  ],
   template: `
     <ng-container [formGroup]="formGroup">
       <app-property-group [header]="title()" [toggleable]="true">
@@ -92,7 +92,7 @@ export class PropertiesFlexContainerComponent
     const mergedValues = this.propertiesService.mergeContainerPropsForForm(
       this.css(),
       'flexContainer',
-      { gap: (val) => val?.toString() }
+      { gap: (val) => val?.toString() },
     );
 
     this.formGroup?.patchValue(mergedValues, { emitEvent: false });
@@ -105,10 +105,10 @@ export class PropertiesFlexContainerComponent
 
     const formGroup = this.formBuilder.group({
       flexDirection: new FormControl<Property.FlexDirection | null | undefined>(
-        undefined
+        undefined,
       ),
       flexWrap: new FormControl<Property.FlexWrap | null | undefined>(
-        undefined
+        undefined,
       ),
       gap: new FormControl<Property.Gap | null | undefined>(null, {
         updateOn: 'blur',
@@ -118,7 +118,7 @@ export class PropertiesFlexContainerComponent
       >(null),
       alignItems: new FormControl<Property.AlignItems | null | undefined>(null),
       alignContent: new FormControl<Property.AlignContent | null | undefined>(
-        null
+        null,
       ),
     });
 
@@ -128,7 +128,7 @@ export class PropertiesFlexContainerComponent
         this.propertiesService.updateCssWithSplit(
           this.css(),
           value,
-          'flexContainer'
+          'flexContainer',
         );
       });
 

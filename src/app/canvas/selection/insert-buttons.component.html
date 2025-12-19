@@ -3,11 +3,14 @@
   <button
     class="insert-action-btn"
     (click)="onQuickInsert(insertPositionEnum.BEFORE, $event)"
-    (contextmenu)="onShowAssetsMenu(insertPositionEnum.BEFORE, $event, assetsMenuBefore)"
+    (contextmenu)="
+      onShowAssetsMenu(insertPositionEnum.BEFORE, $event, assetsMenuBefore)
+    "
     pTooltip="Insert Before"
     tooltipPosition="left"
     [showDelay]="500"
-    [attr.aria-label]="'Insert before ' + canvasItem()?.label">
+    [attr.aria-label]="'Insert before ' + canvasItem()?.label"
+  >
     <i class="pi pi-angle-up"></i>
   </button>
 
@@ -16,11 +19,14 @@
     <button
       class="insert-action-btn"
       (click)="onQuickInsert(insertPositionEnum.INSIDE, $event)"
-      (contextmenu)="onShowAssetsMenu(insertPositionEnum.INSIDE, $event, assetsMenuInside)"
+      (contextmenu)="
+        onShowAssetsMenu(insertPositionEnum.INSIDE, $event, assetsMenuInside)
+      "
       pTooltip="Insert Inside"
       tooltipPosition="left"
       [showDelay]="500"
-      [attr.aria-label]="'Insert inside ' + canvasItem()?.label">
+      [attr.aria-label]="'Insert inside ' + canvasItem()?.label"
+    >
       <i class="pi pi-plus"></i>
     </button>
   }
@@ -29,11 +35,14 @@
   <button
     class="insert-action-btn"
     (click)="onQuickInsert(insertPositionEnum.AFTER, $event)"
-    (contextmenu)="onShowAssetsMenu(insertPositionEnum.AFTER, $event, assetsMenuAfter)"
+    (contextmenu)="
+      onShowAssetsMenu(insertPositionEnum.AFTER, $event, assetsMenuAfter)
+    "
     pTooltip="Insert After"
     tooltipPosition="left"
     [showDelay]="500"
-    [attr.aria-label]="'Insert after ' + canvasItem()?.label">
+    [attr.aria-label]="'Insert after ' + canvasItem()?.label"
+  >
     <i class="pi pi-angle-down"></i>
   </button>
 </div>
@@ -41,16 +50,37 @@
 <!-- Assets Menu Popovers -->
 <p-popover #assetsMenuBefore>
   <div class="assets-menu">
-    <button class="asset-menu-item primary" (click)="onInsertAsset('empty-flex', insertPositionEnum.BEFORE); assetsMenuBefore.hide()">
+    <button
+      class="asset-menu-item primary"
+      (click)="
+        onInsertAsset('empty-flex', insertPositionEnum.BEFORE);
+        assetsMenuBefore.hide()
+      "
+    >
       <i class="pi pi-box"></i>
       <span>Empty Flex</span>
     </button>
-    <button class="asset-menu-item" (click)="onInsertAsset('text', insertPositionEnum.BEFORE); assetsMenuBefore.hide()">
+    <button
+      class="asset-menu-item"
+      (click)="
+        onInsertAsset('text', insertPositionEnum.BEFORE);
+        assetsMenuBefore.hide()
+      "
+    >
       <i class="pi pi-align-left"></i>
       <span>Text</span>
     </button>
     <div class="menu-divider"></div>
-    <button class="asset-menu-item secondary" (click)="onShowFullAssets(insertPositionEnum.BEFORE, assetsMenuBefore, fullAssetsPopover)">
+    <button
+      class="asset-menu-item secondary"
+      (click)="
+        onShowFullAssets(
+          insertPositionEnum.BEFORE,
+          assetsMenuBefore,
+          fullAssetsPopover
+        )
+      "
+    >
       <i class="pi pi-th-large"></i>
       <span>All Assets</span>
     </button>
@@ -59,16 +89,37 @@
 
 <p-popover #assetsMenuInside>
   <div class="assets-menu">
-    <button class="asset-menu-item primary" (click)="onInsertAsset('empty-flex', insertPositionEnum.INSIDE); assetsMenuInside.hide()">
+    <button
+      class="asset-menu-item primary"
+      (click)="
+        onInsertAsset('empty-flex', insertPositionEnum.INSIDE);
+        assetsMenuInside.hide()
+      "
+    >
       <i class="pi pi-box"></i>
       <span>Empty Flex</span>
     </button>
-    <button class="asset-menu-item" (click)="onInsertAsset('text', insertPositionEnum.INSIDE); assetsMenuInside.hide()">
+    <button
+      class="asset-menu-item"
+      (click)="
+        onInsertAsset('text', insertPositionEnum.INSIDE);
+        assetsMenuInside.hide()
+      "
+    >
       <i class="pi pi-align-left"></i>
       <span>Text</span>
     </button>
     <div class="menu-divider"></div>
-    <button class="asset-menu-item secondary" (click)="onShowFullAssets(insertPositionEnum.INSIDE, assetsMenuInside, fullAssetsPopover)">
+    <button
+      class="asset-menu-item secondary"
+      (click)="
+        onShowFullAssets(
+          insertPositionEnum.INSIDE,
+          assetsMenuInside,
+          fullAssetsPopover
+        )
+      "
+    >
       <i class="pi pi-th-large"></i>
       <span>All Assets</span>
     </button>
@@ -77,16 +128,36 @@
 
 <p-popover #assetsMenuAfter>
   <div class="assets-menu">
-    <button class="asset-menu-item primary" (click)="onInsertAsset('empty-flex', insertPositionEnum.AFTER); assetsMenuAfter.hide()">
+    <button
+      class="asset-menu-item primary"
+      (click)="
+        onInsertAsset('empty-flex', insertPositionEnum.AFTER);
+        assetsMenuAfter.hide()
+      "
+    >
       <i class="pi pi-box"></i>
       <span>Empty Flex</span>
     </button>
-    <button class="asset-menu-item" (click)="onInsertAsset('text', insertPositionEnum.AFTER); assetsMenuAfter.hide()">
+    <button
+      class="asset-menu-item"
+      (click)="
+        onInsertAsset('text', insertPositionEnum.AFTER); assetsMenuAfter.hide()
+      "
+    >
       <i class="pi pi-align-left"></i>
       <span>Text</span>
     </button>
     <div class="menu-divider"></div>
-    <button class="asset-menu-item secondary" (click)="onShowFullAssets(insertPositionEnum.AFTER, assetsMenuAfter, fullAssetsPopover)">
+    <button
+      class="asset-menu-item secondary"
+      (click)="
+        onShowFullAssets(
+          insertPositionEnum.AFTER,
+          assetsMenuAfter,
+          fullAssetsPopover
+        )
+      "
+    >
       <i class="pi pi-th-large"></i>
       <span>All Assets</span>
     </button>
@@ -98,6 +169,7 @@
   <app-presets
     [parentFrameId]="canvasItem()?.key"
     [insertPosition]="currentInsertPosition"
-    (componentAdded)="fullAssetsPopover.hide()">
+    (componentAdded)="fullAssetsPopover.hide()"
+  >
   </app-presets>
 </p-popover>

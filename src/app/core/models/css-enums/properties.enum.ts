@@ -1,7 +1,7 @@
 /* css enums */
-import {Property} from "csstype";
-import {Enumify} from "../../utils/enumify";
-import {proxiedPropertiesOf} from "../../utils/proxied-properties-of";
+import { Property } from 'csstype';
+import { Enumify } from '../../utils/enumify';
+import { proxiedPropertiesOf } from '../../utils/proxied-properties-of';
 
 export const Display = proxiedPropertiesOf<Enumify<Property.Display>>();
 export const DisplayOptions = [
@@ -14,19 +14,15 @@ export const DisplayOptions = [
   Display.none,
 ];
 
-export const FlexDirection = proxiedPropertiesOf<Enumify<Property.FlexDirection>>();
-export const FlexDirectionOptions = [
-  FlexDirection.row,
-  FlexDirection.column
-]
+export const FlexDirection =
+  proxiedPropertiesOf<Enumify<Property.FlexDirection>>();
+export const FlexDirectionOptions = [FlexDirection.row, FlexDirection.column];
 
 export const FlexWrap = proxiedPropertiesOf<Enumify<Property.FlexWrap>>();
-export const FlexWrapOptions = [
-  FlexWrap.wrap,
-  FlexWrap.nowrap
-]
+export const FlexWrapOptions = [FlexWrap.wrap, FlexWrap.nowrap];
 
-export const JustifyContent = proxiedPropertiesOf<Enumify<Property.JustifyContent>>();
+export const JustifyContent =
+  proxiedPropertiesOf<Enumify<Property.JustifyContent>>();
 export const JustifyContentOptions = [
   JustifyContent.center,
   JustifyContent.start,
@@ -45,7 +41,8 @@ export const AlignItemsOptions = [
   AlignItems.baseline,
 ];
 
-export const AlignContent = proxiedPropertiesOf<Enumify<Property.AlignContent>>();
+export const AlignContent =
+  proxiedPropertiesOf<Enumify<Property.AlignContent>>();
 export const AlignContentOptions = [
   AlignContent.start,
   AlignContent.end,
@@ -57,7 +54,7 @@ export const AlignContentOptions = [
   AlignContent.baseline,
 ];
 
-export const AlignSelf = proxiedPropertiesOf<Enumify<Property.AlignSelf>>()
+export const AlignSelf = proxiedPropertiesOf<Enumify<Property.AlignSelf>>();
 export const AlignSelfOptions = [
   AlignSelf.start,
   AlignSelf.end,
@@ -66,11 +63,12 @@ export const AlignSelfOptions = [
   AlignSelf.stretch,
 ];
 
-export const GridAutoFlow = proxiedPropertiesOf<Enumify<Property.GridAutoFlow>>();
+export const GridAutoFlow =
+  proxiedPropertiesOf<Enumify<Property.GridAutoFlow>>();
 export const GridAutoFlowOptions = [
   GridAutoFlow.row,
   GridAutoFlow.column,
-  GridAutoFlow.dense
+  GridAutoFlow.dense,
 ];
 
 export const JustifySelf = proxiedPropertiesOf<Enumify<Property.JustifySelf>>();
@@ -81,7 +79,8 @@ export const JustifySelfOptions = [
   JustifySelf.stretch,
 ];
 
-export const JustifyItems = proxiedPropertiesOf<Enumify<Property.JustifyItems>>();
+export const JustifyItems =
+  proxiedPropertiesOf<Enumify<Property.JustifyItems>>();
 export const JustifyItemsOptions = [
   JustifyItems.start,
   JustifyItems.end,

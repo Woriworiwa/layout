@@ -1,11 +1,19 @@
-import {Component, input, OnChanges, OnDestroy, QueryList, ViewChildren, inject} from '@angular/core';
+import {
+  Component,
+  input,
+  OnChanges,
+  OnDestroy,
+  QueryList,
+  ViewChildren,
+  inject,
+} from '@angular/core';
 
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {Subject, Subscription} from "rxjs";
-import {NumberField} from "../property-components/number-field";
-import {PropertiesService} from "../properties.service";
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Subject, Subscription } from 'rxjs';
+import { NumberField } from '../property-components/number-field';
+import { PropertiesService } from '../properties.service';
 
-import {Css} from "../../../core/models/css-interfaces/css";
+import { Css } from '../../../core/models/css-interfaces/css';
 
 /**
  * Base component for all property group components.
@@ -24,10 +32,11 @@ import {Css} from "../../../core/models/css-interfaces/css";
 @Component({
   selector: 'app-base-app-properties',
   imports: [],
-  template: `
-  `
+  template: ``,
 })
-export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy {
+export abstract class BasePropertyGroupComponent
+  implements OnChanges, OnDestroy
+{
   css = input<Css | undefined>(undefined);
   searchText = input<string>('');
   title = input<string>('');
@@ -55,24 +64,21 @@ export abstract class BasePropertyGroupComponent implements OnChanges, OnDestroy
     this.destroy$.complete();
   }
 
-  protected abstract createFormGroup(): FormGroup<any>
+  protected abstract createFormGroup(): FormGroup<any>;
 
   getFormControl(name: string) {
     return this.formGroup.get(name) as FormControl;
   }
 
-
   protected panelTheme = {
-    root:{
-      borderColor: 'transparent'
+    root: {
+      borderColor: 'transparent',
     },
     content: {
-      padding: '0px 0px 0px 12px'
+      padding: '0px 0px 0px 12px',
     },
     toggleableHeader: {
       padding: '0',
-    }
-  }
+    },
+  };
 }
-
-

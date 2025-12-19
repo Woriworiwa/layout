@@ -17,9 +17,9 @@ describe('CanvasStore', () => {
           key: 'parent',
           itemType: CanvasItemType.FLEX,
           children: [
-            { key: 'child', itemType: CanvasItemType.TEXT, children: [] }
-          ]
-        }
+            { key: 'child', itemType: CanvasItemType.TEXT, children: [] },
+          ],
+        },
       ];
       store.setItems(items);
 
@@ -34,9 +34,9 @@ describe('CanvasStore', () => {
           key: 'parent',
           itemType: CanvasItemType.FLEX,
           children: [
-            { key: 'child', itemType: CanvasItemType.TEXT, children: [] }
-          ]
-        }
+            { key: 'child', itemType: CanvasItemType.TEXT, children: [] },
+          ],
+        },
       ];
 
       const parentKey = store.getParentItemKey('child', items, undefined);
@@ -46,21 +46,26 @@ describe('CanvasStore', () => {
 
     it('SHOULD return undefined for non-existent items', () => {
       const items: CanvasItem[] = [
-        { key: 'item1', itemType: CanvasItemType.FLEX, children: [] }
+        { key: 'item1', itemType: CanvasItemType.FLEX, children: [] },
       ];
 
       expect(store.getItemById(items, 'missing')).toBeUndefined();
-      expect(store.getParentItemKey('missing', items, undefined)).toBeUndefined();
+      expect(
+        store.getParentItemKey('missing', items, undefined),
+      ).toBeUndefined();
     });
   });
 
   describe('WHEN inserting items', () => {
     it('SHOULD return new array without mutating original', () => {
       const items: CanvasItem[] = [
-        { key: 'item1', itemType: CanvasItemType.FLEX, children: [] }
+        { key: 'item1', itemType: CanvasItemType.FLEX, children: [] },
       ];
       store.setItems(items);
-      const newItem: CanvasItem = { itemType: CanvasItemType.TEXT, children: [] };
+      const newItem: CanvasItem = {
+        itemType: CanvasItemType.TEXT,
+        children: [],
+      };
 
       const result = store.insertItem('item1', newItem, InsertPosition.AFTER);
 
@@ -79,21 +84,23 @@ describe('CanvasStore', () => {
 
     it('SHOULD insert at different positions (INSIDE, BEFORE, AFTER)', () => {
       const parent: CanvasItem[] = [
-        { key: 'parent', itemType: CanvasItemType.FLEX, children: [] }
+        { key: 'parent', itemType: CanvasItemType.FLEX, children: [] },
       ];
       store.setItems(parent);
 
-      const insideResult = store.insertItem('parent',
+      const insideResult = store.insertItem(
+        'parent',
         { itemType: CanvasItemType.TEXT, children: [] },
-        InsertPosition.INSIDE
+        InsertPosition.INSIDE,
       );
       expect(insideResult[0].children).toHaveLength(1);
 
       store.setItems(insideResult);
       const child1Key = store.items[0].children![0].key!;
-      const beforeResult = store.insertItem(child1Key,
+      const beforeResult = store.insertItem(
+        child1Key,
         { itemType: CanvasItemType.TEXT, children: [] },
-        InsertPosition.BEFORE
+        InsertPosition.BEFORE,
       );
       expect(beforeResult[0].children).toHaveLength(2);
       expect(beforeResult[0].children![1].key).toBe(child1Key);
@@ -103,7 +110,7 @@ describe('CanvasStore', () => {
   describe('WHEN updating items', () => {
     it('SHOULD return new array with CSS updated', () => {
       const items: CanvasItem[] = [
-        { key: 'item1', itemType: CanvasItemType.TEXT, css: {}, children: [] }
+        { key: 'item1', itemType: CanvasItemType.TEXT, css: {}, children: [] },
       ];
       store.setItems(items);
       const newCss = { display: { display: 'block' } };
@@ -119,7 +126,13 @@ describe('CanvasStore', () => {
 
     it('SHOULD update content and label', () => {
       const items: CanvasItem[] = [
-        { key: 'text', itemType: CanvasItemType.TEXT, content: 'old', label: 'Old Label', children: [] }
+        {
+          key: 'text',
+          itemType: CanvasItemType.TEXT,
+          content: 'old',
+          label: 'Old Label',
+          children: [],
+        },
       ];
       store.setItems(items);
 
@@ -136,7 +149,7 @@ describe('CanvasStore', () => {
     it('SHOULD return new array with item removed', () => {
       const items: CanvasItem[] = [
         { key: 'item1', itemType: CanvasItemType.FLEX, children: [] },
-        { key: 'item2', itemType: CanvasItemType.FLEX, children: [] }
+        { key: 'item2', itemType: CanvasItemType.FLEX, children: [] },
       ];
       store.setItems(items);
 
@@ -167,13 +180,18 @@ describe('CanvasStore', () => {
                   key: 'level3',
                   itemType: CanvasItemType.FLEX,
                   children: [
-                    { key: 'level4', itemType: CanvasItemType.TEXT, children: [], content: 'deep' }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
+                    {
+                      key: 'level4',
+                      itemType: CanvasItemType.TEXT,
+                      children: [],
+                      content: 'deep',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
       ];
       store.setItems(deepItems);
 
@@ -182,14 +200,23 @@ describe('CanvasStore', () => {
       expect(found?.content).toBe('deep');
 
       // Find parent at depth
-      const parentKey = store.getParentItemKey('level4', store.items, undefined);
+      const parentKey = store.getParentItemKey(
+        'level4',
+        store.items,
+        undefined,
+      );
       expect(parentKey).toBe('level3');
 
       // Update deeply nested item
-      const updatedItems = store.updateItemContent('level4', 'updated deep content');
+      const updatedItems = store.updateItemContent(
+        'level4',
+        'updated deep content',
+      );
       const updatedItem = store.getItemById(updatedItems, 'level4');
       expect(updatedItem?.content).toBe('updated deep content');
-      expect(store.items[0].children![0].children![0].children![0].content).toBe('deep'); // Original unchanged
+      expect(
+        store.items[0].children![0].children![0].children![0].content,
+      ).toBe('deep'); // Original unchanged
     });
 
     it('SHOULD insert and delete at deep nesting levels', () => {
@@ -202,18 +229,19 @@ describe('CanvasStore', () => {
               key: 'branch',
               itemType: CanvasItemType.FLEX,
               children: [
-                { key: 'leaf', itemType: CanvasItemType.TEXT, children: [] }
-              ]
-            }
-          ]
-        }
+                { key: 'leaf', itemType: CanvasItemType.TEXT, children: [] },
+              ],
+            },
+          ],
+        },
       ];
       store.setItems(deepItems);
 
       // Insert at depth
-      const insertResult = store.insertItem('leaf',
+      const insertResult = store.insertItem(
+        'leaf',
         { itemType: CanvasItemType.TEXT, children: [] },
-        InsertPosition.AFTER
+        InsertPosition.AFTER,
       );
       expect(insertResult[0].children![0].children).toHaveLength(2);
 
@@ -233,7 +261,11 @@ describe('CanvasStore', () => {
       });
 
       // Pure functions don't trigger emissions
-      store.insertItem('test', { itemType: CanvasItemType.TEXT, children: [] }, InsertPosition.AFTER);
+      store.insertItem(
+        'test',
+        { itemType: CanvasItemType.TEXT, children: [] },
+        InsertPosition.AFTER,
+      );
       expect(emitCount).toBe(1); // Only initial subscription
 
       // setItems triggers emission

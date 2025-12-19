@@ -19,16 +19,23 @@ import { PropertiesService } from '../properties.service';
       <div class="border-b border-surface px-4">
         <div
           class="flex items-center gap-2 px-1 py-3 pl-0 cursor-pointer transition-colors hover:bg-surface-hover"
-          (click)="toggleCollapsed()">
+          (click)="toggleCollapsed()"
+        >
           <div class="m-0 text-sm flex-1">{{ header() }}</div>
           <button
             type="button"
             class="flex items-center justify-center w-5 h-5 p-0 border-0 bg-transparent text-muted-color cursor-pointer transition-transform duration-200 shrink-0"
             [class.rotate-0]="isCollapsed()"
-            [class.rotate-90]="!isCollapsed()">
+            [class.rotate-90]="!isCollapsed()"
+          >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
+              <path
+                d="M4 2L8 6L4 10"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </button>
         </div>
@@ -40,7 +47,7 @@ import { PropertiesService } from '../properties.service';
         }
       </div>
     }
-  `
+  `,
 })
 export class PropertyGroupContainerComponent {
   header = input<string>('');
@@ -54,7 +61,9 @@ export class PropertyGroupContainerComponent {
   private originalCollapsedState = signal<boolean | null>(null);
 
   // Get all property rows inside this group
-  private propertyRows = contentChildren(PropertyRowComponent, { descendants: true });
+  private propertyRows = contentChildren(PropertyRowComponent, {
+    descendants: true,
+  });
 
   private propertiesService = inject(PropertiesService);
 
@@ -64,7 +73,7 @@ export class PropertyGroupContainerComponent {
     if (rows.length === 0) {
       return true; // If no rows, show the group (for groups with other content)
     }
-    return rows.some(row => row.isVisible());
+    return rows.some((row) => row.isVisible());
   });
 
   constructor() {
@@ -85,7 +94,7 @@ export class PropertyGroupContainerComponent {
         }
 
         // Check if any rows match the filter
-        const hasMatchingRows = rows.some(row => row.isVisible());
+        const hasMatchingRows = rows.some((row) => row.isVisible());
 
         // Expand if there are matching rows
         if (hasMatchingRows) {
@@ -107,7 +116,10 @@ export class PropertyGroupContainerComponent {
       this._collapsed.set(!this._collapsed());
 
       // If user manually toggles while filter is active, update the original state
-      if (this.propertiesService.searchText() && this.originalCollapsedState() !== null) {
+      if (
+        this.propertiesService.searchText() &&
+        this.originalCollapsedState() !== null
+      ) {
         this.originalCollapsedState.set(this._collapsed());
       }
     }

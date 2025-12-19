@@ -1,6 +1,12 @@
-import { afterRenderEffect, ElementRef, Injectable, Renderer2, signal, inject } from "@angular/core";
-import {BehaviorSubject, Observable} from "rxjs";
-
+import {
+  afterRenderEffect,
+  ElementRef,
+  Injectable,
+  Renderer2,
+  signal,
+  inject,
+} from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class PanZoomService {
@@ -14,12 +20,16 @@ export class PanZoomService {
   public scale = signal(1);
   private translateY = signal(0);
   private translateX = signal(0);
-  private currentStateSubject: BehaviorSubject<{panModeActive: boolean, isPanning: boolean}> = new BehaviorSubject<{panModeActive: boolean, isPanning: boolean}>({
+  private currentStateSubject: BehaviorSubject<{
+    panModeActive: boolean;
+    isPanning: boolean;
+  }> = new BehaviorSubject<{ panModeActive: boolean; isPanning: boolean }>({
     panModeActive: false,
-    isPanning: false
+    isPanning: false,
   });
 
-  state$: Observable<{ panModeActive: boolean, isPanning: boolean }> = this.currentStateSubject.asObservable();
+  state$: Observable<{ panModeActive: boolean; isPanning: boolean }> =
+    this.currentStateSubject.asObservable();
 
   constructor() {
     afterRenderEffect(() => {
@@ -27,7 +37,11 @@ export class PanZoomService {
         return;
       }
 
-      this.renderer.setStyle(this.canvas?.nativeElement, 'transform', `scale(${this.scale()})  translateY(${this.translateY()}px) translateX(${this.translateX()}px)`);
+      this.renderer.setStyle(
+        this.canvas?.nativeElement,
+        'transform',
+        `scale(${this.scale()})  translateY(${this.translateY()}px) translateX(${this.translateX()}px)`,
+      );
     });
   }
 
@@ -38,7 +52,7 @@ export class PanZoomService {
   set isPanModeActive(active: boolean) {
     this.currentStateSubject.next({
       ...this.currentStateSubject.getValue(),
-      panModeActive: active
+      panModeActive: active,
     });
   }
 
@@ -49,7 +63,7 @@ export class PanZoomService {
   set isPanning(isPanning: boolean) {
     this.currentStateSubject.next({
       ...this.currentStateSubject.getValue(),
-      isPanning: isPanning
+      isPanning: isPanning,
     });
   }
 
@@ -62,7 +76,7 @@ export class PanZoomService {
       return;
     }
 
-    this.scale.update(value => value - this.ZOOM_STEP);
+    this.scale.update((value) => value - this.ZOOM_STEP);
   }
 
   zoomIn() {
@@ -70,14 +84,14 @@ export class PanZoomService {
       return;
     }
 
-    this.scale.update(value => value + this.ZOOM_STEP);
+    this.scale.update((value) => value + this.ZOOM_STEP);
   }
 
   panHorizontally(delta: number) {
-    this.translateX.update(value => value - delta);
+    this.translateX.update((value) => value - delta);
   }
 
   panVertically(delta: number) {
-    this.translateY.update(value => value - delta);
+    this.translateY.update((value) => value - delta);
   }
 }

@@ -1,4 +1,4 @@
-import type * as CSS from "csstype";
+import type * as CSS from 'csstype';
 
 /**
  * GridContainer property names for grid-specific container controls.
@@ -9,17 +9,20 @@ export const GRID_CONTAINER_PROPERTY_NAMES = [
   'gridTemplateRows',
   'gridAutoFlow',
   'gridAutoColumns',
-  'gridAutoRows'
+  'gridAutoRows',
 ] as const satisfies readonly (keyof CSS.Properties)[];
 
 /**
  * Type representing valid grid container property names.
  */
-export type GridContainerPropertyName = typeof GRID_CONTAINER_PROPERTY_NAMES[number];
+export type GridContainerPropertyName =
+  (typeof GRID_CONTAINER_PROPERTY_NAMES)[number];
 
 /**
  * GridContainer interface for CSS properties specific to grid containers.
  */
 /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
-export interface GridContainer extends Pick<CSS.Properties, GridContainerPropertyName> {
-}
+export interface GridContainer extends Pick<
+  CSS.Properties,
+  GridContainerPropertyName
+> {}

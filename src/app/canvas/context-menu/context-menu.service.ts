@@ -1,6 +1,6 @@
-import {Injectable, OnDestroy} from "@angular/core";
-import {ContextMenu} from "primeng/contextmenu";
-import {Subject, Subscription, takeUntil} from "rxjs";
+import { Injectable, OnDestroy } from '@angular/core';
+import { ContextMenu } from 'primeng/contextmenu';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 
 /* PrimeNg context menu is buggy and does not always close https://github.com/primefaces/primeng/issues/2456 */
 @Injectable()

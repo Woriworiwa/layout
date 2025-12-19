@@ -7,7 +7,7 @@ export interface GuidanceEvent {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UiGuidanceService {
   private guidanceEventSubject = new Subject<GuidanceEvent>();
@@ -21,7 +21,7 @@ export class UiGuidanceService {
   highlightLayersPanel(): void {
     this.guidanceEventSubject.next({
       target: 'layers-panel',
-      action: 'highlight'
+      action: 'highlight',
     });
   }
 }

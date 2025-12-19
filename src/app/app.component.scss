@@ -17,12 +17,12 @@
     z-index: 2;
   }
   .loader:before {
-    content: "{";
+    content: '{';
     display: inline-block;
     animation: pulse 0.4s alternate infinite ease-in-out;
   }
   .loader:after {
-    content: "}";
+    content: '}';
     display: inline-block;
     animation: pulse 0.4s 0.3s alternate infinite ease-in-out;
   }
@@ -34,14 +34,13 @@
     }
   }
 
-  .branding{
+  .branding {
     display: flex;
     flex-direction: column;
 
-
     .branding-name {
       font-size: 28px;
-      align-self:center;
+      align-self: center;
       color: white;
     }
   }

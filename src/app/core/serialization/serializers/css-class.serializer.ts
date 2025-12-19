@@ -1,6 +1,6 @@
-import {CanvasItem} from "../../models/canvas-item.model";
-import {Serializer} from "./serializer";
-import {CssStyleSerializer} from "./css-style.serializer";
+import { CanvasItem } from '../../models/canvas-item.model';
+import { Serializer } from './serializer';
+import { CssStyleSerializer } from './css-style.serializer';
 
 export class CssClassSerializer extends Serializer {
   cssStyleSerializer: Serializer = new CssStyleSerializer();
@@ -16,14 +16,18 @@ export class CssClassSerializer extends Serializer {
   private serializeItems(items: CanvasItem[], level = 0) {
     const cssLines: string[] = [];
 
-    items.forEach(canvasItem => {
+    items.forEach((canvasItem) => {
       this.serializeItem(canvasItem, cssLines, level);
     });
 
     return cssLines;
   }
 
-  private serializeItem(canvasItem: CanvasItem, cssLines: string[], level: number) {
+  private serializeItem(
+    canvasItem: CanvasItem,
+    cssLines: string[],
+    level: number,
+  ) {
     if (!this.isAnyCssPropertySet(canvasItem)) {
       return;
     }
@@ -35,7 +39,7 @@ export class CssClassSerializer extends Serializer {
 
     /* css properties */
     if (canvasItem.css) {
-      this.cssStyleSerializer.serialize([canvasItem]).forEach(cssLine => {
+      this.cssStyleSerializer.serialize([canvasItem]).forEach((cssLine) => {
         cssLines.push(this.indent(cssLine + ';', level + 1));
       });
     }

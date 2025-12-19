@@ -48,7 +48,10 @@
       "Bash(npx nx show:*)",
       "WebFetch(domain:nx.dev)",
       "Bash(npx playwright install:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npm outdated:*)",
+      "Bash(npm run e2e:*)",
+      "Bash(npx prettier:*)"
     ],
     "deny": [],
     "ask": []

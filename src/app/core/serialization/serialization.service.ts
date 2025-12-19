@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {CssClassSerializer} from "./serializers/css-class.serializer";
-import {HtmlSerializer} from "./serializers/html.serializer";
-import {JSONSerializer} from "./serializers/JSON.serializer";
-import {CssStyleSerializer} from "./serializers/css-style.serializer";
+import { Injectable } from '@angular/core';
+import { CssClassSerializer } from './serializers/css-class.serializer';
+import { HtmlSerializer } from './serializers/html.serializer';
+import { JSONSerializer } from './serializers/JSON.serializer';
+import { CssStyleSerializer } from './serializers/css-style.serializer';
 
 export type SerializerType = 'HTML' | 'JSON' | 'CSS-class' | 'CSS-style';
 

@@ -1,131 +1,130 @@
-export const holyGrailPreset =
-  {
-    "presetId": "holy-grail",
-    "presetName": "Holy grail layout",
-    "presetDefinition": {
-      "itemType": "FLEX",
-      "css": {
-        "display": {
-          "display": "flex"
-        },
-        "container": {
-          "gap": "8"
-        },
-        "flexContainer": {
-          "flexDirection": "column"
-        },
-        "boxSizing": {
-          "padding": "10px"
-        }
+export const holyGrailPreset = {
+  presetId: 'holy-grail',
+  presetName: 'Holy grail layout',
+  presetDefinition: {
+    itemType: 'FLEX',
+    css: {
+      display: {
+        display: 'flex',
       },
-      "key": "MfcOBkWs",
-      "children": [
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "boxSizing": {
-              "padding": "6px"
-            }
+      container: {
+        gap: '8',
+      },
+      flexContainer: {
+        flexDirection: 'column',
+      },
+      boxSizing: {
+        padding: '10px',
+      },
+    },
+    key: 'MfcOBkWs',
+    children: [
+      {
+        itemType: 'FLEX',
+        css: {
+          display: {
+            display: 'flex',
           },
-          "key": "qqFDrdxw"
+          boxSizing: {
+            padding: '6px',
+          },
         },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
-            },
-            "container": {
-              "gap": 8
-            },
-            "flexContainer": {
-              "flexDirection": "row",
-              "flexWrap": "wrap"
-            },
-            "boxSizing": {
-              "padding": "5px",
-              "height": "100px"
-            }
+        key: 'qqFDrdxw',
+      },
+      {
+        itemType: 'FLEX',
+        css: {
+          display: {
+            display: 'flex',
           },
-          "key": "aBvkOlIv",
-          "children": [
-            {
-              "itemType": "FLEX",
-              "css": {
-                "display": {
-                  "display": "flex"
-                },
-                "container": {
-                  "gap": 2
-                },
-                "boxSizing": {
-                  "padding": "2px"
-                },
-                "flexItem": {
-                  "flexGrow": 1
-                }
-              },
-              "key": "MeRucrVe"
-            },
-            {
-              "itemType": "FLEX",
-              "css": {
-                "display": {
-                  "display": "flex"
-                },
-                "container": {
-                  "gap": "2"
-                },
-                "flexContainer": {
-                  "flexWrap": "nowrap"
-                },
-                "boxSizing": {
-                  "padding": "2px"
-                },
-                "flexItem": {
-                  "flexGrow": 2
-                }
-              },
-              "key": "gqAngmoD"
-            },
-            {
-              "itemType": "FLEX",
-              "css": {
-                "display": {
-                  "display": "flex"
-                },
-                "container": {
-                  "gap": 2
-                },
-                "boxSizing": {
-                  "padding": "2px"
-                },
-                "flexItem": {
-                  "flexGrow": 1
-                }
-              },
-              "key": "WjBxoHUn"
-            }
-          ]
+          container: {
+            gap: 8,
+          },
+          flexContainer: {
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+          },
+          boxSizing: {
+            padding: '5px',
+            height: '100px',
+          },
         },
-        {
-          "itemType": "FLEX",
-          "css": {
-            "display": {
-              "display": "flex"
+        key: 'aBvkOlIv',
+        children: [
+          {
+            itemType: 'FLEX',
+            css: {
+              display: {
+                display: 'flex',
+              },
+              container: {
+                gap: 2,
+              },
+              boxSizing: {
+                padding: '2px',
+              },
+              flexItem: {
+                flexGrow: 1,
+              },
             },
-            "container": {
-              "gap": 2
-            },
-            "boxSizing": {
-              "padding": "6px"
-            }
+            key: 'MeRucrVe',
           },
-          "key": "buMSVyjs",
-        }
-      ]
-    }
-  };
+          {
+            itemType: 'FLEX',
+            css: {
+              display: {
+                display: 'flex',
+              },
+              container: {
+                gap: '2',
+              },
+              flexContainer: {
+                flexWrap: 'nowrap',
+              },
+              boxSizing: {
+                padding: '2px',
+              },
+              flexItem: {
+                flexGrow: 2,
+              },
+            },
+            key: 'gqAngmoD',
+          },
+          {
+            itemType: 'FLEX',
+            css: {
+              display: {
+                display: 'flex',
+              },
+              container: {
+                gap: 2,
+              },
+              boxSizing: {
+                padding: '2px',
+              },
+              flexItem: {
+                flexGrow: 1,
+              },
+            },
+            key: 'WjBxoHUn',
+          },
+        ],
+      },
+      {
+        itemType: 'FLEX',
+        css: {
+          display: {
+            display: 'flex',
+          },
+          container: {
+            gap: 2,
+          },
+          boxSizing: {
+            padding: '6px',
+          },
+        },
+        key: 'buMSVyjs',
+      },
+    ],
+  },
+};

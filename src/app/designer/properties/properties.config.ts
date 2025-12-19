@@ -7,7 +7,9 @@ import { InjectionToken } from '@angular/core';
  *
  * example: when you show the properties in the tutorial component, you want to show properties as select buttons instead of dropdowns.
  */
-export const PROPERTIES_CONFIG = new InjectionToken<PropertiesConfig>('properties.config description');
+export const PROPERTIES_CONFIG = new InjectionToken<PropertiesConfig>(
+  'properties.config description',
+);
 
 export interface PropertiesConfig {
   labelPosition?: 'top' | 'left' | 'none';
@@ -17,6 +19,4 @@ export interface PropertiesConfig {
 export const DEFAULT_PROPERTIES_CONFIG: PropertiesConfig = {
   labelPosition: 'left',
   selectControlsLayout: 'selectButton',
-}
-
-
+};

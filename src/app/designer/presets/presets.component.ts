@@ -1,14 +1,23 @@
-import { ChangeDetectionStrategy, Component, Type, input, output, inject, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Type,
+  input,
+  output,
+  inject,
+  computed,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
-import { PresetService } from "./preset.service";
-import { CanvasService } from "../../canvas/canvas.service";
-import { InsertPosition } from "../../core/enums";
-import { CanvasItem } from "../../core/models/canvas-item.model";
+import { PresetService } from './preset.service';
+import { CanvasService } from '../../canvas/canvas.service';
+import { InsertPosition } from '../../core/enums';
+import { CanvasItem } from '../../core/models/canvas-item.model';
 import { Preset } from '../../core/models/preset.model';
-import { SelectionService } from "../../canvas/selection/selection.service";
-import { AssetDragDropService } from "../../canvas/drag-drop/asset-drag-drop.service";
+import { SelectionService } from '../../canvas/selection/selection.service';
+import { AssetDragDropService } from '../../canvas/drag-drop/asset-drag-drop.service';
 
 interface AssetComponentItem {
   preset: Preset;
@@ -23,8 +32,8 @@ interface AssetComponentItem {
   templateUrl: 'presets.component.html',
   styleUrls: ['presets.component.scss'],
   host: {
-    'data-testid': 'presets-component'
-  }
+    'data-testid': 'presets-component',
+  },
 })
 export class PresetsComponent {
   private readonly canvasService = inject(CanvasService);
@@ -40,12 +49,14 @@ export class PresetsComponent {
   protected readonly components: readonly AssetComponentItem[];
   protected readonly insertPositionEnum = InsertPosition;
 
-  protected selectedInsertPosition = signal<InsertPosition>(InsertPosition.INSIDE);
+  protected selectedInsertPosition = signal<InsertPosition>(
+    InsertPosition.INSIDE,
+  );
 
   protected insertPositions = [
     { label: 'Before', value: InsertPosition.BEFORE, icon: 'pi pi-angle-up' },
     { label: 'Inside', value: InsertPosition.INSIDE, icon: 'pi pi-plus' },
-    { label: 'After', value: InsertPosition.AFTER, icon: 'pi pi-angle-down' }
+    { label: 'After', value: InsertPosition.AFTER, icon: 'pi pi-angle-down' },
   ];
 
   // Computed: Check if there's a selected item
@@ -54,7 +65,8 @@ export class PresetsComponent {
   });
 
   constructor() {
-    this.components = this.presetsService.getAssetComponents() as AssetComponentItem[];
+    this.components =
+      this.presetsService.getAssetComponents() as AssetComponentItem[];
   }
 
   protected onDragStart(event: DragEvent, presetId: string): void {
@@ -89,7 +101,7 @@ export class PresetsComponent {
       this.canvasService.addPreset(
         dropData.presetId,
         dropData.targetId,
-        dropData.position
+        dropData.position,
       );
       this.componentAdded.emit(true);
     }

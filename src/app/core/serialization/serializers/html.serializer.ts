@@ -1,7 +1,7 @@
-import {Serializer} from "./serializer";
-import {CanvasItem} from "../../models/canvas-item.model";
-import {CanvasItemType} from "../../enums";
-import {CssClassSerializer} from "./css-class.serializer";
+import { Serializer } from './serializer';
+import { CanvasItem } from '../../models/canvas-item.model';
+import { CanvasItemType } from '../../enums';
+import { CssClassSerializer } from './css-class.serializer';
 
 export class HtmlSerializer extends Serializer {
   private readonly frameStyles = `.frame {
@@ -50,7 +50,7 @@ export class HtmlSerializer extends Serializer {
         this.cssClassSerializer
           .serialize(items)
           .map((item) => this.indent(item, 2))
-          .join('\n')
+          .join('\n'),
       );
       htmlLines.push(this.indent(`</style>`, 2));
 
@@ -71,7 +71,7 @@ export class HtmlSerializer extends Serializer {
   private serializeChildren(canvasItems: CanvasItem[], level = 0) {
     const htmlLines: string[] = [];
 
-    canvasItems.forEach(canvasItem => {
+    canvasItems.forEach((canvasItem) => {
       /* class name and opening curl */
       const cssClasses = `${canvasItem.itemType === CanvasItemType.FLEX ? 'frame' : 'text'} ${canvasItem.key}`;
       htmlLines.push(this.indent(`<div class="${cssClasses}">`, level * 2));
@@ -82,7 +82,9 @@ export class HtmlSerializer extends Serializer {
 
       /* children */
       if (canvasItem.children && canvasItem.children.length > 0) {
-        htmlLines.push(...this.serializeChildren(canvasItem.children, level + 1));
+        htmlLines.push(
+          ...this.serializeChildren(canvasItem.children, level + 1),
+        );
       }
 
       /* closing curl */

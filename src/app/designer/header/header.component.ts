@@ -1,11 +1,11 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import {FormsModule} from "@angular/forms";
-import {DataService} from "../../core/services/data.service";
-import {Tooltip} from "primeng/tooltip";
-import {SplitButton} from "primeng/splitbutton";
-import {MenuItem, MessageService} from "primeng/api";
-import {CanvasService} from "../../canvas/canvas.service";
-import {Button} from "primeng/button";
+import { FormsModule } from '@angular/forms';
+import { DataService } from '../../core/services/data.service';
+import { Tooltip } from 'primeng/tooltip';
+import { SplitButton } from 'primeng/splitbutton';
+import { MenuItem, MessageService } from 'primeng/api';
+import { CanvasService } from '../../canvas/canvas.service';
+import { Button } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ThemeConfiguratorComponent } from '../../core/theme/theme-configurator.component';
 import { ThemeService } from '../../core/theme/theme.service';
@@ -26,9 +26,9 @@ import { BlockUIModule } from 'primeng/blockui';
     Popover,
     Dialog,
     RendererComponent,
-    BlockUIModule
+    BlockUIModule,
   ],
-  templateUrl: `./header.component.html`
+  templateUrl: `./header.component.html`,
 })
 export class HeaderComponent {
   private dataService = inject(DataService);
@@ -41,7 +41,7 @@ export class HeaderComponent {
   protected logoSrc = computed(() =>
     this.themeService.config().darkMode
       ? '../../../assets/logo-dark.svg'
-      : '../../../assets/logo.svg'
+      : '../../../assets/logo.svg',
   );
 
   items: MenuItem[] = [

@@ -1,4 +1,4 @@
-import {CanvasItem} from "./canvas-item.model";
+import { CanvasItem } from './canvas-item.model';
 
 export interface Preset {
   presetId: string;

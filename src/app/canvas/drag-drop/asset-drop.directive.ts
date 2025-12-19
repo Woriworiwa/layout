@@ -1,4 +1,14 @@
-import { Directive, ElementRef, HostListener, Renderer2, inject, Optional, Host, input, DestroyRef } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Renderer2,
+  inject,
+  Optional,
+  Host,
+  input,
+  DestroyRef,
+} from '@angular/core';
 import { AssetDragDropService } from './asset-drag-drop.service';
 import { CanvasItem } from '../../core/models/canvas-item.model';
 import { InsertPosition, CanvasItemType } from '../../core/enums';
@@ -7,7 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[appAssetDrop]',
-  standalone: true
+  standalone: true,
 })
 export class AssetDropDirective {
   private elementRef = inject(ElementRef);
@@ -24,7 +34,7 @@ export class AssetDropDirective {
     // Subscribe to drag state changes to clear indicators when dragging ends
     this.assetDragDropService.dragState$
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(state => {
+      .subscribe((state) => {
         if (!state.isDragging) {
           this.clearDropIndicator();
         }
@@ -39,7 +49,9 @@ export class AssetDropDirective {
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent): void {
     const item = this.getItem();
-    const presetData = event.dataTransfer?.types.includes('application/x-asset-preset');
+    const presetData = event.dataTransfer?.types.includes(
+      'application/x-asset-preset',
+    );
     if (!presetData || !item?.key) {
       return;
     }
@@ -71,7 +83,11 @@ export class AssetDropDirective {
     this.clearDropIndicator();
   }
 
-  private calculateDropPosition(event: DragEvent, rect: DOMRect, item: CanvasItem): InsertPosition {
+  private calculateDropPosition(
+    event: DragEvent,
+    rect: DOMRect,
+    item: CanvasItem,
+  ): InsertPosition {
     // For container items (FLEX), prefer INSIDE
     if (item.itemType === CanvasItemType.FLEX) {
       const mouseY = event.clientY - rect.top;

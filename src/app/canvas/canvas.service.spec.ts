@@ -27,8 +27,8 @@ describe('CanvasService', () => {
         UndoRedoService,
         PresetService,
         ContextMenuService,
-        AssetDragDropService
-      ]
+        AssetDragDropService,
+      ],
     });
 
     service = TestBed.inject(CanvasService);
@@ -42,14 +42,14 @@ describe('CanvasService', () => {
       const container: CanvasItem = {
         key: 'container-1',
         itemType: CanvasItemType.FLEX,
-        children: []
+        children: [],
       };
       store.setItems([container]);
 
       const newItem: CanvasItem = {
         key: 'text-1',
         itemType: CanvasItemType.TEXT,
-        children: []
+        children: [],
       };
 
       service.insertItem('container-1', newItem, InsertPosition.INSIDE);
@@ -64,14 +64,14 @@ describe('CanvasService', () => {
       const container: CanvasItem = {
         key: 'container-1',
         itemType: CanvasItemType.FLEX,
-        children: []
+        children: [],
       };
       store.setItems([container]);
 
       const newItem: CanvasItem = {
         key: 'text-1',
         itemType: CanvasItemType.TEXT,
-        children: []
+        children: [],
       };
       const snapshotSpy = vi.spyOn(undoRedoService, 'takeSnapshot');
 
@@ -87,8 +87,8 @@ describe('CanvasService', () => {
         key: 'container-1',
         itemType: CanvasItemType.FLEX,
         children: [
-          { key: 'child-1', itemType: CanvasItemType.TEXT, children: [] }
-        ]
+          { key: 'child-1', itemType: CanvasItemType.TEXT, children: [] },
+        ],
       };
       store.setItems([container]);
       selectionService.setSelectedItemKey('child-1');
@@ -104,7 +104,7 @@ describe('CanvasService', () => {
       const item: CanvasItem = {
         key: 'item-1',
         itemType: CanvasItemType.TEXT,
-        children: []
+        children: [],
       };
       store.setItems([item]);
       const snapshotSpy = vi.spyOn(undoRedoService, 'takeSnapshot');
@@ -121,7 +121,7 @@ describe('CanvasService', () => {
         key: 'item-1',
         itemType: CanvasItemType.TEXT,
         css: {},
-        children: []
+        children: [],
       };
       store.setItems([item]);
       selectionService.setSelectedItemKey(item.key);
@@ -138,7 +138,7 @@ describe('CanvasService', () => {
         key: 'item-1',
         itemType: CanvasItemType.TEXT,
         css: {},
-        children: []
+        children: [],
       };
       store.setItems([item]);
       selectionService.setSelectedItemKey(item.key);
@@ -157,7 +157,7 @@ describe('CanvasService', () => {
         key: 'text-1',
         itemType: CanvasItemType.TEXT,
         content: 'old text',
-        children: []
+        children: [],
       };
       store.setItems([textItem]);
 
@@ -174,7 +174,7 @@ describe('CanvasService', () => {
         key: 'item-1',
         itemType: CanvasItemType.TEXT,
         label: 'Old Label',
-        children: []
+        children: [],
       };
       store.setItems([item]);
 
@@ -190,12 +190,12 @@ describe('CanvasService', () => {
       const item1: CanvasItem = {
         key: 'item-1',
         itemType: CanvasItemType.TEXT,
-        children: []
+        children: [],
       };
       const item2: CanvasItem = {
         key: 'item-2',
         itemType: CanvasItemType.TEXT,
-        children: []
+        children: [],
       };
       store.setItems([item1, item2]);
 
@@ -212,12 +212,12 @@ describe('CanvasService', () => {
       const initialItem: CanvasItem = {
         key: 'initial',
         itemType: CanvasItemType.TEXT,
-        children: []
+        children: [],
       };
       const updatedItem: CanvasItem = {
         key: 'updated',
         itemType: CanvasItemType.TEXT,
-        children: []
+        children: [],
       };
 
       store.setItems([initialItem]);

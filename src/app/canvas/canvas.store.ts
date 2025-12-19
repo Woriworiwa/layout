@@ -1,17 +1,17 @@
-import {Injectable} from "@angular/core";
-import {Store} from "../core/store/store";
-import {CanvasItem} from "../core/models/canvas-item.model";
+import { Injectable } from '@angular/core';
+import { Store } from '../core/store/store';
+import { CanvasItem } from '../core/models/canvas-item.model';
 import cloneDeep from 'lodash.clonedeep';
-import {CANVAS_WRAPPER_ID} from "../core/constants";
-import {InsertPosition} from "../core/enums";
-import {Css} from "../core/models/css-interfaces/css";
+import { CANVAS_WRAPPER_ID } from '../core/constants';
+import { InsertPosition } from '../core/enums';
+import { Css } from '../core/models/css-interfaces/css';
 
 export class CanvasState {
   canvasItems: CanvasItem[] = [];
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CanvasStore extends Store<CanvasState> {
   constructor() {
@@ -25,11 +25,14 @@ export class CanvasStore extends Store<CanvasState> {
   setItems(frames: CanvasItem[]) {
     this.setState({
       ...this.getState(),
-      canvasItems: [...this.assignKeys(frames, false)]
+      canvasItems: [...this.assignKeys(frames, false)],
     });
   }
 
-  getItemById(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
+  getItemById(
+    frames: CanvasItem[] | undefined,
+    key: string | undefined,
+  ): CanvasItem | undefined {
     frames = frames || this.items;
 
     if (!frames || !frames.length || key == null) {
@@ -50,7 +53,11 @@ export class CanvasStore extends Store<CanvasState> {
     return undefined;
   }
 
-  insertItem(referenceItemId: string, item: CanvasItem, insertPosition: InsertPosition): CanvasItem[] {
+  insertItem(
+    referenceItemId: string,
+    item: CanvasItem,
+    insertPosition: InsertPosition,
+  ): CanvasItem[] {
     const items = cloneDeep(this.items);
     this.assignKeys([item], true);
 
@@ -71,7 +78,11 @@ export class CanvasStore extends Store<CanvasState> {
 
   deleteItem(itemKey: string): CanvasItem[] {
     const items = cloneDeep(this.items);
-    const parentItemKey = this.getParentItemKey(itemKey, items, CANVAS_WRAPPER_ID);
+    const parentItemKey = this.getParentItemKey(
+      itemKey,
+      items,
+      CANVAS_WRAPPER_ID,
+    );
 
     let itemsToDeleteFrom: CanvasItem[] = [];
     if (parentItemKey === CANVAS_WRAPPER_ID) {
@@ -83,7 +94,7 @@ export class CanvasStore extends Store<CanvasState> {
       }
     }
 
-    const index = itemsToDeleteFrom.findIndex(item => item.key === itemKey);
+    const index = itemsToDeleteFrom.findIndex((item) => item.key === itemKey);
     if (index > -1) {
       itemsToDeleteFrom.splice(index, 1);
     }
@@ -127,14 +138,22 @@ export class CanvasStore extends Store<CanvasState> {
     return items;
   }
 
-  getParentItemKey(childKey: string, children: CanvasItem[], parentKey: string | undefined): string | undefined {
+  getParentItemKey(
+    childKey: string,
+    children: CanvasItem[],
+    parentKey: string | undefined,
+  ): string | undefined {
     for (const child of children) {
       if (child.key === childKey) {
         return parentKey;
       }
 
       if (child.children) {
-        const parent = this.getParentItemKey(childKey, child.children, child.key);
+        const parent = this.getParentItemKey(
+          childKey,
+          child.children,
+          child.key,
+        );
         if (parent) {
           return parent;
         }
@@ -143,7 +162,11 @@ export class CanvasStore extends Store<CanvasState> {
     return undefined;
   }
 
-  private insertInsideInArray(items: CanvasItem[], referenceItemId: string, item: CanvasItem) {
+  private insertInsideInArray(
+    items: CanvasItem[],
+    referenceItemId: string,
+    item: CanvasItem,
+  ) {
     const targetContainer = this.getItemById(items, referenceItemId);
     if (targetContainer) {
       targetContainer.children = targetContainer.children || [];
@@ -151,48 +174,107 @@ export class CanvasStore extends Store<CanvasState> {
     }
   }
 
-  private insertAfterInArray(items: CanvasItem[], referenceItemId: string, item: CanvasItem) {
-    const parentFrameKey = this.getParentItemKey(referenceItemId, items, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
+  private insertAfterInArray(
+    items: CanvasItem[],
+    referenceItemId: string,
+    item: CanvasItem,
+  ) {
+    const parentFrameKey =
+      this.getParentItemKey(referenceItemId, items, CANVAS_WRAPPER_ID) ||
+      CANVAS_WRAPPER_ID;
 
     if (parentFrameKey === CANVAS_WRAPPER_ID) {
-      this.insertAtRootInArray(items, referenceItemId, item, InsertPosition.AFTER);
+      this.insertAtRootInArray(
+        items,
+        referenceItemId,
+        item,
+        InsertPosition.AFTER,
+      );
     } else {
-      this.insertInParentInArray(items, parentFrameKey, referenceItemId, item, false);
+      this.insertInParentInArray(
+        items,
+        parentFrameKey,
+        referenceItemId,
+        item,
+        false,
+      );
     }
   }
 
-  private insertBeforeInArray(items: CanvasItem[], referenceItemId: string, item: CanvasItem) {
-    const parentFrameKey = this.getParentItemKey(referenceItemId, items, CANVAS_WRAPPER_ID) || CANVAS_WRAPPER_ID;
+  private insertBeforeInArray(
+    items: CanvasItem[],
+    referenceItemId: string,
+    item: CanvasItem,
+  ) {
+    const parentFrameKey =
+      this.getParentItemKey(referenceItemId, items, CANVAS_WRAPPER_ID) ||
+      CANVAS_WRAPPER_ID;
 
     if (parentFrameKey === CANVAS_WRAPPER_ID) {
-      this.insertAtRootInArray(items, referenceItemId, item, InsertPosition.BEFORE);
+      this.insertAtRootInArray(
+        items,
+        referenceItemId,
+        item,
+        InsertPosition.BEFORE,
+      );
     } else {
-      this.insertInParentInArray(items, parentFrameKey, referenceItemId, item, true);
+      this.insertInParentInArray(
+        items,
+        parentFrameKey,
+        referenceItemId,
+        item,
+        true,
+      );
     }
   }
 
-  private insertAtRootInArray(items: CanvasItem[], referenceItemId: string, item: CanvasItem, insertPosition: InsertPosition) {
-    const referenceIndex = items.findIndex(frame => frame.key === referenceItemId);
+  private insertAtRootInArray(
+    items: CanvasItem[],
+    referenceItemId: string,
+    item: CanvasItem,
+    insertPosition: InsertPosition,
+  ) {
+    const referenceIndex = items.findIndex(
+      (frame) => frame.key === referenceItemId,
+    );
     let insertIndex;
     if (referenceIndex === -1) {
       insertIndex = insertPosition === InsertPosition.BEFORE ? 0 : items.length;
     } else {
-      insertIndex = insertPosition === InsertPosition.BEFORE ? referenceIndex : referenceIndex + 1;
+      insertIndex =
+        insertPosition === InsertPosition.BEFORE
+          ? referenceIndex
+          : referenceIndex + 1;
     }
 
     items.splice(insertIndex, 0, item);
   }
 
-  private insertInParentInArray(items: CanvasItem[], parentFrameKey: string, referenceItemId: string, item: CanvasItem, before: boolean) {
+  private insertInParentInArray(
+    items: CanvasItem[],
+    parentFrameKey: string,
+    referenceItemId: string,
+    item: CanvasItem,
+    before: boolean,
+  ) {
     const parentItem = this.getItemById(items, parentFrameKey);
     if (parentItem) {
       parentItem.children = parentItem.children || [];
-      const referenceIndex = parentItem.children.findIndex(frame => frame.key === referenceItemId);
-      parentItem.children.splice(before ? referenceIndex : referenceIndex + 1, 0, item);
+      const referenceIndex = parentItem.children.findIndex(
+        (frame) => frame.key === referenceItemId,
+      );
+      parentItem.children.splice(
+        before ? referenceIndex : referenceIndex + 1,
+        0,
+        item,
+      );
     }
   }
 
-  private getChildItemById(frames: CanvasItem[] | undefined, key: string | undefined): CanvasItem | undefined {
+  private getChildItemById(
+    frames: CanvasItem[] | undefined,
+    key: string | undefined,
+  ): CanvasItem | undefined {
     if (!frames || !frames.length || key == null) {
       return undefined;
     }
@@ -211,12 +293,15 @@ export class CanvasStore extends Store<CanvasState> {
     return undefined;
   }
 
-  private assignKeys(items: CanvasItem[] | undefined, overwriteExistingKeys: boolean) {
+  private assignKeys(
+    items: CanvasItem[] | undefined,
+    overwriteExistingKeys: boolean,
+  ) {
     if (!items) {
       return [];
     }
 
-    items.forEach(frame => {
+    items.forEach((frame) => {
       if (overwriteExistingKeys || (!overwriteExistingKeys && !frame.key)) {
         frame.key = this.generateUniqueId();
       }

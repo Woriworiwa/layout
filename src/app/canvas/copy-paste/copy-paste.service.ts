@@ -1,6 +1,6 @@
-import { Injectable, inject } from "@angular/core";
-import {CanvasService} from "../canvas.service";
-import {SelectionService} from "../selection/selection.service";
+import { Injectable, inject } from '@angular/core';
+import { CanvasService } from '../canvas.service';
+import { SelectionService } from '../selection/selection.service';
 
 @Injectable()
 export class CopyPasteService {
@@ -14,6 +14,9 @@ export class CopyPasteService {
   }
 
   paste() {
-    this.canvasService.pasteItem(this.copyItemKey, this.selectionService.selectedItem?.key);
+    this.canvasService.pasteItem(
+      this.copyItemKey,
+      this.selectionService.selectedItem?.key,
+    );
   }
 }

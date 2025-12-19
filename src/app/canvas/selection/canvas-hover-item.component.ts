@@ -1,15 +1,22 @@
-import { Component, ElementRef, Input, OnChanges, Renderer2, inject } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  Renderer2,
+  inject,
+} from '@angular/core';
 
-import {SharedModule} from "primeng/api";
-import {CanvasItem} from "../../core/models/canvas-item.model";
+import { SharedModule } from 'primeng/api';
+import { CanvasItem } from '../../core/models/canvas-item.model';
 
 @Component({
-    selector: 'app-canvas-hover-item',
-    imports: [SharedModule],
-    templateUrl: './canvas-hover-item.component.html',
-    styleUrls: ['./canvas-hover-item.component.scss']
+  selector: 'app-canvas-hover-item',
+  imports: [SharedModule],
+  templateUrl: './canvas-hover-item.component.html',
+  styleUrls: ['./canvas-hover-item.component.scss'],
 })
-export class CanvasHoverItemComponent implements OnChanges{
+export class CanvasHoverItemComponent implements OnChanges {
   private renderer = inject(Renderer2);
   protected elementRef = inject(ElementRef);
 
@@ -22,10 +29,30 @@ export class CanvasHoverItemComponent implements OnChanges{
   @Input() showAddButton = true;
 
   ngOnChanges() {
-    this.renderer.setStyle(this.elementRef.nativeElement, 'visibility', this.visibility);
-    this.renderer.setStyle(this.elementRef.nativeElement, 'width', `${this.width}px`);
-    this.renderer.setStyle(this.elementRef.nativeElement, 'height', `${this.height}px`);
-    this.renderer.setStyle(this.elementRef.nativeElement, 'left', `${this.left}px`);
-    this.renderer.setStyle(this.elementRef.nativeElement, 'top', `${this.top}px`);
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      'visibility',
+      this.visibility,
+    );
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      'width',
+      `${this.width}px`,
+    );
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      'height',
+      `${this.height}px`,
+    );
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      'left',
+      `${this.left}px`,
+    );
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      'top',
+      `${this.top}px`,
+    );
   }
 }

@@ -1,13 +1,19 @@
-import { Injectable, OnDestroy, inject } from "@angular/core";
-import {BehaviorSubject, debounceTime, Observable, Subject, takeUntil} from "rxjs";
-import {CanvasStore} from "../../canvas/canvas.store";
-import cloneDeep from "lodash.clonedeep";
-import {CanvasItem} from "../models/canvas-item.model";
+import { Injectable, OnDestroy, inject } from '@angular/core';
+import {
+  BehaviorSubject,
+  debounceTime,
+  Observable,
+  Subject,
+  takeUntil,
+} from 'rxjs';
+import { CanvasStore } from '../../canvas/canvas.store';
+import cloneDeep from 'lodash.clonedeep';
+import { CanvasItem } from '../models/canvas-item.model';
 
 /*
-*  A simple undo/redo service that can be used to store and retrieve the current state of the store
-*  this is far from suitable for production use, but it's a good starting point for a simple implementation
-* */
+ *  A simple undo/redo service that can be used to store and retrieve the current state of the store
+ *  this is far from suitable for production use, but it's a good starting point for a simple implementation
+ * */
 @Injectable()
 export class UndoRedoService implements OnDestroy {
   private canvasStore = inject(CanvasStore);
@@ -17,22 +23,22 @@ export class UndoRedoService implements OnDestroy {
   private undoRedoExecutedSubject: Subject<any[]> = new Subject<any[]>();
   private statusSubject: BehaviorSubject<any> = new BehaviorSubject({
     undoStackEmpty: true,
-    redoStackEmpty: true
+    redoStackEmpty: true,
   });
   private undoStackSubject: Subject<CanvasItem[]> = new Subject<CanvasItem[]>();
   private destroy$ = new Subject<boolean>();
 
   status$ = this.statusSubject.asObservable();
-  undoRedoExecuted$: Observable<any[]> = this.undoRedoExecutedSubject.asObservable();
+  undoRedoExecuted$: Observable<any[]> =
+    this.undoRedoExecutedSubject.asObservable();
 
   constructor() {
-    this.undoStackSubject.pipe(
-      debounceTime(250),
-      takeUntil(this.destroy$)
-    ).subscribe((data) => {
-      this.undoStack.push(data);
-      this.updateState();
-    });
+    this.undoStackSubject
+      .pipe(debounceTime(250), takeUntil(this.destroy$))
+      .subscribe((data) => {
+        this.undoStack.push(data);
+        this.updateState();
+      });
   }
 
   ngOnDestroy(): void {
@@ -55,7 +61,9 @@ export class UndoRedoService implements OnDestroy {
     }
 
     this.redoStack.push(cloneDeep(item));
-    this.undoRedoExecutedSubject.next(cloneDeep(this.undoStack[this.undoStack.length - 1]))
+    this.undoRedoExecutedSubject.next(
+      cloneDeep(this.undoStack[this.undoStack.length - 1]),
+    );
     this.updateState();
   }
 
@@ -77,7 +85,7 @@ export class UndoRedoService implements OnDestroy {
   private updateState() {
     this.statusSubject.next({
       undoStackEmpty: this.undoStack.length <= 1,
-      redoStackEmpty: this.redoStack.length === 0
+      redoStackEmpty: this.redoStack.length === 0,
     });
   }
 }

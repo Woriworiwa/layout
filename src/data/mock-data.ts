@@ -1,3 +1,1 @@
-export const mockData =
-
-  []
+export const mockData = [];

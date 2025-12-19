@@ -1,5 +1,5 @@
-import { Directive, HostListener, inject } from "@angular/core";
-import {UndoRedoService} from "./undo-redo.service";
+import { Directive, HostListener, inject } from '@angular/core';
+import { UndoRedoService } from './undo-redo.service';
 
 @Directive({
   selector: '[appUndoRedo]',
@@ -7,7 +7,6 @@ import {UndoRedoService} from "./undo-redo.service";
 })
 export class UndoRedoDirective {
   private undoRedoService = inject(UndoRedoService);
-
 
   /* undo */
   @HostListener('document:keydown.control.z', ['$event'])

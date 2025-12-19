@@ -4,13 +4,13 @@ import {
   output,
   input,
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {EditableContentDirective} from "../text/editable-content.directive";
-import {TextComponent} from "../text/text.component";
-import {AiWrapperComponent} from "../ai-wrapper/ai-wrapper.component";
-import {CanvasItemType} from '../../../core/enums';
-import {CanvasItemBaseComponent} from "../canvas-item-base.component";
-import {AssetDropDirective} from "../../drag-drop/asset-drop.directive";
+import { CommonModule } from '@angular/common';
+import { EditableContentDirective } from '../text/editable-content.directive';
+import { TextComponent } from '../text/text.component';
+import { AiWrapperComponent } from '../ai-wrapper/ai-wrapper.component';
+import { CanvasItemType } from '../../../core/enums';
+import { CanvasItemBaseComponent } from '../canvas-item-base.component';
+import { AssetDropDirective } from '../../drag-drop/asset-drop.directive';
 
 @Component({
   selector: 'app-container',

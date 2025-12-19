@@ -1,8 +1,7 @@
-import {Serializer} from "./serializer";
-import {CanvasItem} from "../../models/canvas-item.model";
+import { Serializer } from './serializer';
+import { CanvasItem } from '../../models/canvas-item.model';
 
-
-import {Css} from "../../models/css-interfaces/css";
+import { Css } from '../../models/css-interfaces/css';
 
 export class JSONSerializer extends Serializer {
   constructor() {
@@ -18,22 +17,20 @@ export class JSONSerializer extends Serializer {
       return;
     }
 
-    frames.forEach(frame => {
+    frames.forEach((frame) => {
       this.sanitizeObject(frame);
 
       this.sanitizeObject(frame.css);
 
-
       if (frame.css) {
         for (const key of Object.keys(frame.css)) {
-          if (frame.css[key as keyof Css] != null ) {
+          if (frame.css[key as keyof Css] != null) {
             const x = frame.css[key as keyof Css];
             if (x) {
               for (const _k of Object.keys(x)) {
                 this.sanitizeObject(frame.css[key as keyof Css]);
               }
             }
-
           }
         }
       }
@@ -48,7 +45,10 @@ export class JSONSerializer extends Serializer {
 
   private sanitizeObject<T>(object: T) {
     for (const prop in object) {
-      if (object[prop as keyof T] === null || object[prop as keyof T] === undefined) {
+      if (
+        object[prop as keyof T] === null ||
+        object[prop as keyof T] === undefined
+      ) {
         delete object[prop as keyof T];
       }
     }

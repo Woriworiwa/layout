@@ -6,8 +6,6 @@
   justify-content: end;
 }
 
-
-
 /*reduce padding on tree nodes*/
 :host ::ng-deep {
   .p-tree {
@@ -20,4 +18,3 @@
     padding: 2px;
   }
 }
-

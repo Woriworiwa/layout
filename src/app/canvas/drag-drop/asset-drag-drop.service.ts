@@ -10,18 +10,18 @@ export interface AssetDragState {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AssetDragDropService {
   private dragStateSubject = new BehaviorSubject<AssetDragState>({
     isDragging: false,
     presetId: null,
     dropTargetId: null,
-    dropPosition: null
+    dropPosition: null,
   });
 
   dragState$ = this.dragStateSubject.asObservable();
-  isDragging$ = this.dragState$.pipe(map(state => state.isDragging));
+  isDragging$ = this.dragState$.pipe(map((state) => state.isDragging));
 
   get currentState(): AssetDragState {
     return this.dragStateSubject.value;
@@ -31,7 +31,7 @@ export class AssetDragDropService {
     this.dragStateSubject.next({
       ...this.currentState,
       isDragging: true,
-      presetId
+      presetId,
     });
   }
 
@@ -40,19 +40,26 @@ export class AssetDragDropService {
       isDragging: false,
       presetId: null,
       dropTargetId: null,
-      dropPosition: null
+      dropPosition: null,
     });
   }
 
-  setDropTarget(targetId: string | null, position: InsertPosition | null): void {
+  setDropTarget(
+    targetId: string | null,
+    position: InsertPosition | null,
+  ): void {
     this.dragStateSubject.next({
       ...this.currentState,
       dropTargetId: targetId,
-      dropPosition: position
+      dropPosition: position,
     });
   }
 
-  getDropData(): { presetId: string; targetId: string; position: InsertPosition } | null {
+  getDropData(): {
+    presetId: string;
+    targetId: string;
+    position: InsertPosition;
+  } | null {
     const state = this.currentState;
     if (!state.presetId || !state.dropTargetId || state.dropPosition === null) {
       return null;
@@ -60,7 +67,7 @@ export class AssetDragDropService {
     return {
       presetId: state.presetId,
       targetId: state.dropTargetId,
-      position: state.dropPosition
+      position: state.dropPosition,
     };
   }
 }

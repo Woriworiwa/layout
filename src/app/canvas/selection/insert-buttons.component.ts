@@ -1,18 +1,18 @@
-import { Component, input, output, inject } from "@angular/core";
-import { Popover } from "primeng/popover";
-import { Tooltip } from "primeng/tooltip";
-import { SharedModule } from "primeng/api";
-import { PresetsComponent } from "../../designer/presets/presets.component";
-import { CanvasItem } from "../../core/models/canvas-item.model";
-import { InsertPosition } from "../../core/enums";
-import { CanvasService } from "../canvas.service";
-import { CANVAS_WRAPPER_ID } from "../../core/constants";
+import { Component, input, output, inject } from '@angular/core';
+import { Popover } from 'primeng/popover';
+import { Tooltip } from 'primeng/tooltip';
+import { SharedModule } from 'primeng/api';
+import { PresetsComponent } from '../../designer/presets/presets.component';
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import { InsertPosition } from '../../core/enums';
+import { CanvasService } from '../canvas.service';
+import { CANVAS_WRAPPER_ID } from '../../core/constants';
 
 @Component({
   selector: 'app-insert-buttons',
   imports: [Popover, Tooltip, SharedModule, PresetsComponent],
   templateUrl: './insert-buttons.component.html',
-  styleUrls: ['./insert-buttons.component.scss']
+  styleUrls: ['./insert-buttons.component.scss'],
 })
 export class InsertButtonsComponent {
   private canvasService = inject(CanvasService);
@@ -28,7 +28,11 @@ export class InsertButtonsComponent {
     this.onInsertAsset('empty-flex', position);
   }
 
-  protected onShowAssetsMenu(position: InsertPosition, event: Event, popover: Popover): void {
+  protected onShowAssetsMenu(
+    position: InsertPosition,
+    event: Event,
+    popover: Popover,
+  ): void {
     event.stopPropagation();
     event.preventDefault();
     this.currentInsertPosition = position;
@@ -41,7 +45,11 @@ export class InsertButtonsComponent {
     this.canvasService.addPreset(presetId, targetId, position, false);
   }
 
-  protected onShowFullAssets(position: InsertPosition, currentPopover: Popover, fullAssetsPopover: Popover): void {
+  protected onShowFullAssets(
+    position: InsertPosition,
+    currentPopover: Popover,
+    fullAssetsPopover: Popover,
+  ): void {
     this.currentInsertPosition = position;
     currentPopover.hide();
     fullAssetsPopover.show(undefined);

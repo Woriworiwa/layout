@@ -1,4 +1,4 @@
-import type * as CSS from "csstype";
+import type * as CSS from 'csstype';
 
 /**
  * Container property names that are shared between flex and grid layouts.
@@ -14,14 +14,14 @@ export const CONTAINER_PROPERTY_NAMES = [
   'alignItems',
   'alignContent',
   'justifyItems',
-  'placeItems'
+  'placeItems',
 ] as const satisfies readonly (keyof CSS.Properties)[];
 
 /**
  * Type representing valid container property names.
  * Derived from CONTAINER_PROPERTY_NAMES array.
  */
-export type ContainerPropertyName = typeof CONTAINER_PROPERTY_NAMES[number];
+export type ContainerPropertyName = (typeof CONTAINER_PROPERTY_NAMES)[number];
 
 /**
  * Container interface for CSS properties shared between flex and grid layouts.
@@ -29,5 +29,7 @@ export type ContainerPropertyName = typeof CONTAINER_PROPERTY_NAMES[number];
  * between compile-time types and runtime checks.
  */
 /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
-export interface Container extends Pick<CSS.Properties, ContainerPropertyName> {
-}
+export interface Container extends Pick<
+  CSS.Properties,
+  ContainerPropertyName
+> {}

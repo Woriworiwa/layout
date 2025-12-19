@@ -20,8 +20,8 @@ import {
     PropertyGroupContainerComponent,
     PropertyRowComponent,
     TextFieldComponent,
-    ButtonGroupComponent
-],
+    ButtonGroupComponent,
+  ],
   template: `
     <ng-container [formGroup]="formGroup">
       <app-property-group [header]="title()" [toggleable]="true">
@@ -63,7 +63,10 @@ import {
     }
   `,
 })
-export class PropertiesGridItemComponent extends BasePropertyGroupComponent implements OnChanges {
+export class PropertiesGridItemComponent
+  extends BasePropertyGroupComponent
+  implements OnChanges
+{
   gridColumnPresets = [
     { label: 'span 1', value: 'span 1' },
     { label: 'span 2', value: 'span 2' },
@@ -95,7 +98,9 @@ export class PropertiesGridItemComponent extends BasePropertyGroupComponent impl
     const formGroup = this.formBuilder.group({
       gridColumn: new FormControl<Property.GridColumn | null | undefined>(null),
       gridRow: new FormControl<Property.GridRow | null | undefined>(null),
-      justifySelf: new FormControl<Property.JustifySelf | null | undefined>(null),
+      justifySelf: new FormControl<Property.JustifySelf | null | undefined>(
+        null,
+      ),
       alignSelf: new FormControl<Property.AlignSelf | null | undefined>(null),
     });
 

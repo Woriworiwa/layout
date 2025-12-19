@@ -13,7 +13,7 @@ export class PropertiesService {
   updateCssCategory(
     currentCss: Css | undefined,
     cssPath: keyof Css,
-    value: unknown
+    value: unknown,
   ): void {
     this.canvasService.updateCss({
       ...currentCss,
@@ -45,7 +45,7 @@ export class PropertiesService {
   mergeContainerPropsForForm(
     css: Css | undefined,
     layoutCssPath: keyof Css,
-    transformers?: Record<string, (value: unknown) => unknown>
+    transformers?: Record<string, (value: unknown) => unknown>,
   ): Record<string, unknown> {
     const mergedValues: Record<string, unknown> = {
       ...css?.container,
@@ -72,7 +72,7 @@ export class PropertiesService {
   updateCssWithSplit(
     currentCss: Css | undefined,
     formValue: Record<string, unknown>,
-    layoutCssPath: keyof Css
+    layoutCssPath: keyof Css,
   ): void {
     const { container, layoutSpecific } = this.splitContainerProps(formValue);
 
@@ -85,7 +85,7 @@ export class PropertiesService {
 
   formatWithUnit(
     value: string | number | null | undefined,
-    unit: string
+    unit: string,
   ): string | null | undefined {
     return value != null ? `${value}${unit}` : value;
   }
@@ -100,7 +100,7 @@ export class PropertiesService {
    * Remaining properties are returned as layout-specific properties.
    */
   private splitContainerProps<T = Record<string, unknown>>(
-    formValue: Record<string, unknown>
+    formValue: Record<string, unknown>,
   ): { container: Record<string, unknown>; layoutSpecific: T } {
     const container: Record<string, unknown> = {};
     const layoutSpecific: Record<string, unknown> = {};

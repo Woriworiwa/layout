@@ -1,10 +1,10 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {CssStyleSerializer} from "./serializers/css-style.serializer";
-import {CanvasItem} from "../models/canvas-item.model";
+import { Pipe, PipeTransform } from '@angular/core';
+import { CssStyleSerializer } from './serializers/css-style.serializer';
+import { CanvasItem } from '../models/canvas-item.model';
 
 @Pipe({
   standalone: true,
-  name: 'cssStyleSerializer'
+  name: 'cssStyleSerializer',
 })
 export class CssStyleSerializerPipe implements PipeTransform {
   transform(value: CanvasItem | undefined): string {

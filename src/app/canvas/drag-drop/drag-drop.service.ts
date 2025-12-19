@@ -1,6 +1,6 @@
-import { Injectable, inject } from "@angular/core";
-import { CANVAS_WRAPPER_ID } from "../../core/constants";
-import { UiGuidanceService } from "../../core/services/ui-guidance.service";
+import { Injectable, inject } from '@angular/core';
+import { CANVAS_WRAPPER_ID } from '../../core/constants';
+import { UiGuidanceService } from '../../core/services/ui-guidance.service';
 import { PanZoomService } from '../pan-zoom/pan-zoom.service';
 
 /**
@@ -20,18 +20,23 @@ export class DragDropService {
   onMouseDown(event: MouseEvent): void {
     const target = event.target as HTMLElement;
 
-
     // Don't trigger if clicking on buttons, inputs, or other interactive elements
-    if (target.closest('button') || target.closest('input') || target.closest('.p-tree')) {
+    if (
+      target.closest('button') ||
+      target.closest('input') ||
+      target.closest('.p-tree')
+    ) {
       return;
     }
 
     const closestElement = target.closest('[id]');
-    const isCanvasElement = closestElement?.id &&
-                            closestElement.id !== CANVAS_WRAPPER_ID &&
-                            !target.closest('.asset-item');
+    const isCanvasElement =
+      closestElement?.id &&
+      closestElement.id !== CANVAS_WRAPPER_ID &&
+      !target.closest('.asset-item');
 
-    if (isCanvasElement && event.button === 0) { // left mouse button
+    if (isCanvasElement && event.button === 0) {
+      // left mouse button
       // Clear any existing timeout
       if (this.dragAttemptTimeout) {
         clearTimeout(this.dragAttemptTimeout);

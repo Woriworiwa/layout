@@ -1,5 +1,5 @@
-import {CanvasItemType} from "../enums";
-import {Css} from "./css-interfaces/css";
+import { CanvasItemType } from '../enums';
+import { Css } from './css-interfaces/css';
 
 export interface AiMetadata {
   prompt: string;
@@ -17,10 +17,3 @@ export interface CanvasItem {
   editable?: boolean;
   aiMetadata?: AiMetadata;
 }
-
-
-
-
-
-
-

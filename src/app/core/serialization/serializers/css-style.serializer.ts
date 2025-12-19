@@ -1,8 +1,8 @@
-import {CanvasItem} from "../../models/canvas-item.model";
-import {Serializer} from "./serializer";
+import { CanvasItem } from '../../models/canvas-item.model';
+import { Serializer } from './serializer';
 
-import {Css} from "../../models/css-interfaces/css";
-import {POSTFIX_UNIT, POSTFIXED_PROPERTIES} from "../../constants";
+import { Css } from '../../models/css-interfaces/css';
+import { POSTFIX_UNIT, POSTFIXED_PROPERTIES } from '../../constants';
 
 export class CssStyleSerializer extends Serializer {
   constructor() {
@@ -14,7 +14,7 @@ export class CssStyleSerializer extends Serializer {
       return [];
     }
 
-    const css = items[0].css as Css
+    const css = items[0].css as Css;
     if (!css) {
       return [];
     }
@@ -37,9 +37,10 @@ export class CssStyleSerializer extends Serializer {
 
       /* loop through the subkeys of the root keys */
       for (const key of Object.keys(value)) {
-
         // Convert camelCase to kebab-case for CSS property names
-        const cssPropertyName = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        const cssPropertyName = key
+          .replace(/([a-z])([A-Z])/g, '$1-$2')
+          .toLowerCase();
         let cssPropertyValue: string = value[key as keyof Css[keyof Css]];
 
         if (cssPropertyValue == null) {

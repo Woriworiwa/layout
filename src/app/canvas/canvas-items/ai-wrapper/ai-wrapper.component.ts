@@ -18,11 +18,7 @@ import cloneDeep from 'lodash.clonedeep';
 @Component({
   selector: 'app-ai-wrapper',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    FormsModule,
-    TextareaModule,
-    ButtonDirective
-],
+  imports: [FormsModule, TextareaModule, ButtonDirective],
   templateUrl: './ai-wrapper.component.html',
   styleUrls: ['./ai-wrapper.component.scss'],
 })
@@ -108,7 +104,7 @@ export class AiWrapperComponent implements OnInit {
 
   private findItemByKey(
     items: CanvasItem[],
-    key: string
+    key: string,
   ): CanvasItem | undefined {
     for (const item of items) {
       if (item.key === key) {

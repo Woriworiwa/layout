@@ -1,16 +1,16 @@
-import { Injectable, OnDestroy, inject } from "@angular/core";
-import {UndoRedoService} from "../core/undo-redo/undo-redo.service";
-import {PresetService} from "../designer/presets/preset.service";
-import {CanvasItem} from "../core/models/canvas-item.model";
-import {CanvasStore} from "./canvas.store";
-import {distinctUntilChanged, map, Subject, takeUntil} from "rxjs";
-import cloneDeep from "lodash.clonedeep";
-import {CANVAS_WRAPPER_ID} from "../core/constants";
-import {moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {CanvasItemType, InsertPosition} from "../core/enums";
-import {SelectionService} from "./selection/selection.service";
+import { Injectable, OnDestroy, inject } from '@angular/core';
+import { UndoRedoService } from '../core/undo-redo/undo-redo.service';
+import { PresetService } from '../designer/presets/preset.service';
+import { CanvasItem } from '../core/models/canvas-item.model';
+import { CanvasStore } from './canvas.store';
+import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
+import cloneDeep from 'lodash.clonedeep';
+import { CANVAS_WRAPPER_ID } from '../core/constants';
+import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CanvasItemType, InsertPosition } from '../core/enums';
+import { SelectionService } from './selection/selection.service';
 
-import {Css} from "../core/models/css-interfaces/css";
+import { Css } from '../core/models/css-interfaces/css';
 
 @Injectable()
 export class CanvasService implements OnDestroy {
@@ -43,21 +43,30 @@ export class CanvasService implements OnDestroy {
   get items$() {
     return this.canvasStore.state.pipe(
       distinctUntilChanged(),
-      map(state => state.canvasItems)
-    )
+      map((state) => state.canvasItems),
+    );
   }
 
   setItems(items: CanvasItem[], pushToUndoStack = true) {
-    this.canvasStore.setItems(items)
+    this.canvasStore.setItems(items);
     if (pushToUndoStack) {
       this.undoRedoService.takeSnapshot();
     }
   }
 
-  insertItem(insertAfterFrameId: string, newFrame: CanvasItem, insertPosition: InsertPosition, autoSelect = true) {
-    const updatedItems = this.canvasStore.insertItem(insertAfterFrameId, newFrame, insertPosition);
+  insertItem(
+    insertAfterFrameId: string,
+    newFrame: CanvasItem,
+    insertPosition: InsertPosition,
+    autoSelect = true,
+  ) {
+    const updatedItems = this.canvasStore.insertItem(
+      insertAfterFrameId,
+      newFrame,
+      insertPosition,
+    );
     this.setItems(updatedItems, true);
-    this.canvasItemsChangedSubject.next(undefined)
+    this.canvasItemsChangedSubject.next(undefined);
     if (autoSelect) {
       this.selectionService.setSelectedItemKey(newFrame.key);
     }
@@ -75,7 +84,12 @@ export class CanvasService implements OnDestroy {
     this.selectionService.setHoverItemKey(undefined);
   }
 
-  addPreset(presetId: string, targetItemId: string, insertPosition: InsertPosition, autoSelect = true) {
+  addPreset(
+    presetId: string,
+    targetItemId: string,
+    insertPosition: InsertPosition,
+    autoSelect = true,
+  ) {
     const preset = this.presetsService.getPreset(presetId);
     if (!preset) {
       return;
@@ -92,25 +106,47 @@ export class CanvasService implements OnDestroy {
       return;
     }
 
-    const updatedItems = this.canvasStore.updateItemCss(selectedFrame.key!, css);
+    const updatedItems = this.canvasStore.updateItemCss(
+      selectedFrame.key!,
+      css,
+    );
     this.setItems(updatedItems);
     this.cssChangedSubject.next(undefined);
   }
 
-  moveItemChild(currentItemId: string | undefined, previousItemId: string, previousIndex: number, currentIndex: number) {
-    if (currentItemId === previousItemId && currentItemId === CANVAS_WRAPPER_ID) {
+  moveItemChild(
+    currentItemId: string | undefined,
+    previousItemId: string,
+    previousIndex: number,
+    currentIndex: number,
+  ) {
+    if (
+      currentItemId === previousItemId &&
+      currentItemId === CANVAS_WRAPPER_ID
+    ) {
       // moveItemInArray(this.items, previousIndex, currentIndex);
       this.setItems([...this.canvasStore.items]);
       return;
     }
 
-    const currentContainer = this.canvasStore.getItemById(this.items, currentItemId);
-    const previousContainer = this.canvasStore.getItemById(this.items, previousItemId);
+    const currentContainer = this.canvasStore.getItemById(
+      this.items,
+      currentItemId,
+    );
+    const previousContainer = this.canvasStore.getItemById(
+      this.items,
+      previousItemId,
+    );
 
     if (currentItemId === previousItemId && currentContainer?.children) {
       moveItemInArray(currentContainer?.children, previousIndex, currentIndex);
     } else if (previousContainer?.children && currentContainer?.children) {
-      transferArrayItem(previousContainer?.children, currentContainer?.children, previousIndex, currentIndex);
+      transferArrayItem(
+        previousContainer?.children,
+        currentContainer?.children,
+        previousIndex,
+        currentIndex,
+      );
     }
 
     this.setItems([...this.canvasStore.items]);
@@ -128,12 +164,17 @@ export class CanvasService implements OnDestroy {
   }
 
   renameItem(name: string, id?: string) {
-    const selectedItem = id ? this.canvasStore.getItemById(this.items, id) : this.selectionService.selectedItem;
+    const selectedItem = id
+      ? this.canvasStore.getItemById(this.items, id)
+      : this.selectionService.selectedItem;
     if (!selectedItem) {
       return;
     }
 
-    const updatedItems = this.canvasStore.updateItemLabel(selectedItem.key!, name);
+    const updatedItems = this.canvasStore.updateItemLabel(
+      selectedItem.key!,
+      name,
+    );
     this.setItems(updatedItems);
   }
 
@@ -168,7 +209,9 @@ export class CanvasService implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((currentState: CanvasItem[]) => {
         this.canvasStore.setItems(currentState);
-        this.selectionService.setSelectedItemKey(this.selectionService.selectedItem?.key);
-      })
+        this.selectionService.setSelectedItemKey(
+          this.selectionService.selectedItem?.key,
+        );
+      });
   }
 }

@@ -59,7 +59,7 @@
 }
 
 // Custom input styling
-input[type="number"] {
+input[type='number'] {
   &:focus {
     outline: none;
     border-color: var(--p-primary-color);

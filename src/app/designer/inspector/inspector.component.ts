@@ -47,7 +47,7 @@ export class InspectorComponent {
         this.canvasItem.set(
           this.selectionService.selectedItem
             ? [this.selectionService.selectedItem]
-            : []
+            : [],
         );
       });
   };

@@ -1,24 +1,34 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild, DOCUMENT, inject } from '@angular/core';
-import {ContainerComponent} from "./canvas-items/container/container.component";
-import {CanvasItem} from "../core/models/canvas-item.model";
-import {CANVAS_WRAPPER_ID} from "../core/constants";
-import {ContextMenuService} from "./context-menu/context-menu.service";
-import {SelectionService} from "./selection/selection.service";
-import {CanvasToolbarComponent} from "./toolbar/canvas-toolbar.component";
-import {PanZoomService} from "./pan-zoom/pan-zoom.service";
-import {CopyPasteService} from "./copy-paste/copy-paste.service";
-import {KeyboardCommandsDirective} from "./keyboard/keyboard-commands.directive";
-import {PresetService} from "../designer/presets/preset.service";
-import {CanvasService} from "./canvas.service";
-import {PanZoomDirective} from "./pan-zoom/pan-zoom.directive";
-import {Subject, takeUntil} from 'rxjs';
-import {MetaLayerService} from "./meta-layer/meta-layer.service";
-import {SelectionLayerComponent} from "./selection/selection-layer.component";
-import {MetaLayerComponent} from "./meta-layer/meta-layer.component";
-import {CanvasItemMouseEvent} from "./canvas-items/canvas-item-mouse-event";
-import {CanvasSettings} from "./canvas.settings";
-import {DragDropService} from "./drag-drop/drag-drop.service";
-import {CanvasDropZoneDirective} from "./drag-drop/canvas-drop-zone.directive";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  ViewChild,
+  DOCUMENT,
+  inject,
+} from '@angular/core';
+import { ContainerComponent } from './canvas-items/container/container.component';
+import { CanvasItem } from '../core/models/canvas-item.model';
+import { CANVAS_WRAPPER_ID } from '../core/constants';
+import { ContextMenuService } from './context-menu/context-menu.service';
+import { SelectionService } from './selection/selection.service';
+import { CanvasToolbarComponent } from './toolbar/canvas-toolbar.component';
+import { PanZoomService } from './pan-zoom/pan-zoom.service';
+import { CopyPasteService } from './copy-paste/copy-paste.service';
+import { KeyboardCommandsDirective } from './keyboard/keyboard-commands.directive';
+import { PresetService } from '../designer/presets/preset.service';
+import { CanvasService } from './canvas.service';
+import { PanZoomDirective } from './pan-zoom/pan-zoom.directive';
+import { Subject, takeUntil } from 'rxjs';
+import { MetaLayerService } from './meta-layer/meta-layer.service';
+import { SelectionLayerComponent } from './selection/selection-layer.component';
+import { MetaLayerComponent } from './meta-layer/meta-layer.component';
+import { CanvasItemMouseEvent } from './canvas-items/canvas-item-mouse-event';
+import { CanvasSettings } from './canvas.settings';
+import { DragDropService } from './drag-drop/drag-drop.service';
+import { CanvasDropZoneDirective } from './drag-drop/canvas-drop-zone.directive';
 
 @Component({
   selector: 'app-canvas',
@@ -42,7 +52,7 @@ import {CanvasDropZoneDirective} from "./drag-drop/canvas-drop-zone.directive";
   ],
   host: {
     '[class.surface-100]': 'true',
-    'data-testid': 'canvas-component'
+    'data-testid': 'canvas-component',
   },
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss'],

@@ -1,16 +1,18 @@
 @use './tailwind.css';
-@use "primeicons/primeicons.css";
-@import "prismjs/plugins/toolbar/prism-toolbar.css";
+@use 'primeicons/primeicons.css';
+@import 'prismjs/plugins/toolbar/prism-toolbar.css';
 
 html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-  Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   font-size: 12px;
 }
 
-html,body {
-  height:100vh;
-  margin:0;
+html,
+body {
+  height: 100vh;
+  margin: 0;
   background-color: var(--p-surface-100);
 }
 
@@ -20,10 +22,10 @@ html,body {
   --bg-tertiary: var(--p-surface-100);
 
   --border-primary: var(--p-surface-400);
-  --text-primary: var(--p-surface-700)
+  --text-primary: var(--p-surface-700);
 }
 
-:root[class="p-dark"] {
+:root[class='p-dark'] {
   --bg-primary: var(--p-surface-900);
   --bg-secondary: var(--p-surface-800);
   --bg-tertiary: var(--p-surface-700);
@@ -31,5 +33,5 @@ html,body {
 
   --border-primary: var(--p-surface-400);
 
-  --text-primary: var(--p-surface-0)
+  --text-primary: var(--p-surface-0);
 }

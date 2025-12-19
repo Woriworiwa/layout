@@ -1,25 +1,27 @@
-<div #wrapper
-     class="pan-zoom-wrapper"
-     [id]="CANVAS_WRAPPER_ID">
+<div #wrapper class="pan-zoom-wrapper" [id]="CANVAS_WRAPPER_ID">
   <!-- Render each root item -->
   @for (item of rootItems; track item.key) {
-    <app-container [item]="item"
-                   [appAssetDrop]="item"
-                   [id]="item.key!"
-                   (itemClick)="selectElement($event)"
-                   (itemMouseOver)="hoverElement($event)"
-                   (itemMouseOut)="clearHover()"
-                   (itemContextMenu)="onContextMenu($event)"
-                   (itemTextContentChanged)="onTextItemContentChanged($event)"></app-container>
+    <app-container
+      [item]="item"
+      [appAssetDrop]="item"
+      [id]="item.key!"
+      (itemClick)="selectElement($event)"
+      (itemMouseOver)="hoverElement($event)"
+      (itemMouseOut)="clearHover()"
+      (itemContextMenu)="onContextMenu($event)"
+      (itemTextContentChanged)="onTextItemContentChanged($event)"
+    ></app-container>
   }
 
   <!-- selection and meta layers -->
-  <app-selection-layer [canvasElement]="wrapperElementRef" [allowAdd]="settings.allowAdd"></app-selection-layer>
+  <app-selection-layer
+    [canvasElement]="wrapperElementRef"
+    [allowAdd]="settings.allowAdd"
+  ></app-selection-layer>
   <app-meta-layer [canvasElement]="wrapperElementRef"></app-meta-layer>
 </div>
 
 <!-- toolbar -->
-@if(settings.showToolbar) {
+@if (settings.showToolbar) {
   <app-canvas-toolbar></app-canvas-toolbar>
 }
-

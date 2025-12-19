@@ -11,13 +11,16 @@ import { PropertiesService } from './properties.service';
 import { PropertyRowComponent } from './property-components/property-row.component';
 
 @Directive({
-  selector: '[appPropertiesFilter]'
+  selector: '[appPropertiesFilter]',
 })
 export class PropertiesFilterDirective {
   private templateRef = inject<TemplateRef<any>>(TemplateRef);
   private viewContainerRef = inject(ViewContainerRef);
   private propertiesService = inject(PropertiesService);
-  private propertyRow = inject(PropertyRowComponent, { skipSelf: true, optional: true });
+  private propertyRow = inject(PropertyRowComponent, {
+    skipSelf: true,
+    optional: true,
+  });
   private elementRef = inject(ElementRef);
   private renderer = inject(Renderer2);
 
@@ -29,8 +32,12 @@ export class PropertiesFilterDirective {
       // Use the provided filter value, or fall back to the property row's label
       const filterText = this.propertyRow?.label();
       const searchText = this.propertiesService.searchText();
-      const includesSearchText = !searchText ||
-        (filterText?.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()) ?? false);
+      const includesSearchText =
+        !searchText ||
+        (filterText
+          ?.toLocaleLowerCase()
+          .includes(searchText.toLocaleLowerCase()) ??
+          false);
 
       // Update visibility state
       if (this.propertyRow) {

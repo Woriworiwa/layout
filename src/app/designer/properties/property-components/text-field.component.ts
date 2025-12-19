@@ -57,12 +57,12 @@ export class TextFieldComponent extends BaseFormItemComponent {
   presets = input<{ label: string; value: string }[]>([]);
 
   menuItems = computed<MenuItem[]>(() => {
-    return this.presets().map(preset => ({
+    return this.presets().map((preset) => ({
       label: preset.label,
       command: () => {
         this.control()?.setValue(preset.value);
         this.control()?.markAsDirty();
-      }
+      },
     }));
   });
 

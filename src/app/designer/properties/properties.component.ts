@@ -7,7 +7,11 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ButtonDirective } from 'primeng/button';
 import { InputGroup } from 'primeng/inputgroup';
@@ -49,8 +53,8 @@ import { CssViewerComponent } from '../../shared/code-viewer/css-viewer.componen
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss'],
   host: {
-    class: 'min-h-0'
-  }
+    class: 'min-h-0',
+  },
 })
 export class PropertiesComponent {
   private readonly selectionService = inject(SelectionService);
@@ -58,7 +62,8 @@ export class PropertiesComponent {
 
   config = input<PropertiesConfig>({});
 
-  protected readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
+  protected readonly searchInput =
+    viewChild<ElementRef<HTMLInputElement>>('searchInput');
   protected readonly FrameType = CanvasItemType;
   protected readonly searchPlaceholder = this.detectPlatform();
 
@@ -66,9 +71,9 @@ export class PropertiesComponent {
     merge(
       this.selectionService.selectedItem$,
       this.canvasService.cssChanged$.pipe(
-        map(() => this.selectionService.selectedItem)
-      )
-    )
+        map(() => this.selectionService.selectedItem),
+      ),
+    ),
   );
 
   protected searchText = signal('');
@@ -77,14 +82,15 @@ export class PropertiesComponent {
   constructor() {
     toObservable(this.searchText)
       .pipe(takeUntilDestroyed())
-      .subscribe(text => {
+      .subscribe((text) => {
         this.propertiesService.searchText.set(text);
       });
   }
 
   @HostListener('window:keydown', ['$event'])
   protected handleKeyboardShortcut(event: KeyboardEvent): void {
-    const isSearchShortcut = (event.ctrlKey || event.metaKey) && event.key === 'k';
+    const isSearchShortcut =
+      (event.ctrlKey || event.metaKey) && event.key === 'k';
 
     if (isSearchShortcut) {
       event.preventDefault();

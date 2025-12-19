@@ -1,4 +1,4 @@
-import type * as CSS from "csstype";
+import type * as CSS from 'csstype';
 
 /**
  * GridItem property names for grid item positioning and alignment.
@@ -12,17 +12,16 @@ export const GRID_ITEM_PROPERTY_NAMES = [
   'gridRowStart',
   'gridRowEnd',
   'justifySelf',
-  'alignSelf'
+  'alignSelf',
 ] as const satisfies readonly (keyof CSS.Properties)[];
 
 /**
  * Type representing valid grid item property names.
  */
-export type GridItemPropertyName = typeof GRID_ITEM_PROPERTY_NAMES[number];
+export type GridItemPropertyName = (typeof GRID_ITEM_PROPERTY_NAMES)[number];
 
 /**
  * GridItem interface for CSS properties specific to grid items.
  */
 /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
-export interface GridItem extends Pick<CSS.Properties, GridItemPropertyName> {
-}
+export interface GridItem extends Pick<CSS.Properties, GridItemPropertyName> {}

@@ -1,14 +1,13 @@
-import {Injectable} from "@angular/core";
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {CanvasItemType} from "../../core/enums";
-import {allPresets} from '../../../data/presets';
-import {Preset} from "../../core/models/preset.model";
-import {PresetContainerComponent} from "./preset-container.component";
-import {PresetTextComponent} from "./preset-text.component";
-import {PresetAiComponent} from "./preset-ai.component";
+import { Injectable } from '@angular/core';
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import { CanvasItemType } from '../../core/enums';
+import { allPresets } from '../../../data/presets';
+import { Preset } from '../../core/models/preset.model';
+import { PresetContainerComponent } from './preset-container.component';
+import { PresetTextComponent } from './preset-text.component';
+import { PresetAiComponent } from './preset-ai.component';
 
-
-import {BoxSizing} from "../../core/models/css-interfaces/box-sizing";
+import { BoxSizing } from '../../core/models/css-interfaces/box-sizing';
 
 @Injectable()
 export class PresetService {
@@ -16,17 +15,19 @@ export class PresetService {
   allPresets: Preset[] = [...allPresets] as Preset[];
 
   getAssetComponents() {
-    return this.allPresets.map(preset => {
+    return this.allPresets.map((preset) => {
       // Use PresetAiComponent for AI presets
       const component = preset.presetDefinition.aiMetadata
         ? PresetAiComponent
-        : this.getAssetComponent(preset.presetDefinition.itemType as CanvasItemType);
+        : this.getAssetComponent(
+            preset.presetDefinition.itemType as CanvasItemType,
+          );
 
       return {
         preset: preset,
         component: component,
-        inputs: { preset: preset.presetDefinition }
-      }
+        inputs: { preset: preset.presetDefinition },
+      };
     });
   }
 
@@ -42,22 +43,22 @@ export class PresetService {
   }
 
   getPreset(presetId: string) {
-    return this.allPresets.find(preset => preset.presetId === presetId);
+    return this.allPresets.find((preset) => preset.presetId === presetId);
   }
 
   assignDefaultPaddings(newItem: CanvasItem) {
     if (newItem.itemType === CanvasItemType.FLEX) {
       const boxSizing: BoxSizing = {
         ...newItem.css?.boxSizing,
-        padding: this.defaultPadding
-      }
+        padding: this.defaultPadding,
+      };
       newItem.css = {
         ...newItem.css,
-        boxSizing
-      }
+        boxSizing,
+      };
     }
 
-    newItem.children?.forEach(frame => {
+    newItem.children?.forEach((frame) => {
       this.assignDefaultPaddings(frame);
     });
   }

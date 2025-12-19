@@ -1,7 +1,12 @@
-import { ElementRef, Injectable, ViewContainerRef, inject } from "@angular/core";
-import {CanvasService} from "../canvas.service";
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {MetaLabelComponent} from "./meta-label.component";
+import {
+  ElementRef,
+  Injectable,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
+import { CanvasService } from '../canvas.service';
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import { MetaLabelComponent } from './meta-label.component';
 import { delay, fromEvent, merge } from 'rxjs';
 
 @Injectable()
@@ -18,14 +23,14 @@ export class MetaLayerService {
     merge(
       this.canvasService.cssChanged$,
       this.canvasService.items$,
-      fromEvent(window, 'resize')
+      fromEvent(window, 'resize'),
     )
       .pipe(delay(50))
-      .subscribe(_ => {
+      .subscribe((_) => {
         // TODO: this is POC, need to optimize because we are now clearing and re-rendering all labels
         this.overlay.clear();
         this.updateLayer(this.canvasService.items);
-      })
+      });
   }
 
   private updateLayer(items: CanvasItem[]) {
@@ -51,7 +56,11 @@ export class MetaLayerService {
     this.addItem(label.instance, element, item);
   }
 
-  addItem(component: MetaLabelComponent, element: HTMLElement, sourceItem: CanvasItem) {
+  addItem(
+    component: MetaLabelComponent,
+    element: HTMLElement,
+    sourceItem: CanvasItem,
+  ) {
     component.top = element.offsetTop;
     component.left = element.offsetLeft;
     component.label = sourceItem.label;

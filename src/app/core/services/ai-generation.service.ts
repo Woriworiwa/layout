@@ -11,31 +11,38 @@ export interface AiGenerationResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AiGenerationService {
   private http = inject(HttpClient);
-  private readonly GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+  private readonly GEMINI_API_URL =
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
   generateLayout(prompt: string): Observable<AiGenerationResponse> {
     const systemPrompt = this.buildSystemPrompt();
     const fullPrompt = `${systemPrompt}\n\nUser request: ${prompt}`;
 
     const payload = {
-      contents: [{
-        parts: [{
-          text: fullPrompt
-        }]
-      }]
+      contents: [
+        {
+          parts: [
+            {
+              text: fullPrompt,
+            },
+          ],
+        },
+      ],
     };
 
-    return this.http.post<any>(
-      `${this.GEMINI_API_URL}?key=${environment.geminiApiKey}`,
-      payload
-    ).pipe(
-      map(response => this.parseGeminiResponse(response)),
-      catchError(error => this.handleError(error))
-    );
+    return this.http
+      .post<any>(
+        `${this.GEMINI_API_URL}?key=${environment.geminiApiKey}`,
+        payload,
+      )
+      .pipe(
+        map((response) => this.parseGeminiResponse(response)),
+        catchError((error) => this.handleError(error)),
+      );
   }
 
   private buildSystemPrompt(): string {
@@ -128,7 +135,7 @@ Example:
 
       return {
         items,
-        rawResponse: text
+        rawResponse: text,
       };
     } catch (error) {
       throw new Error(`Failed to parse AI response: ${error}`);

@@ -1,7 +1,7 @@
-import { Directive, HostListener, inject } from "@angular/core";
-import {CopyPasteService} from "../copy-paste/copy-paste.service";
-import {CanvasService} from "../canvas.service";
-import {SelectionService} from "../selection/selection.service";
+import { Directive, HostListener, inject } from '@angular/core';
+import { CopyPasteService } from '../copy-paste/copy-paste.service';
+import { CanvasService } from '../canvas.service';
+import { SelectionService } from '../selection/selection.service';
 
 @Directive({
   selector: '[appKeyboardCommands]',
@@ -11,7 +11,6 @@ export class KeyboardCommandsDirective {
   private copyPasteService = inject(CopyPasteService);
   private canvasService = inject(CanvasService);
   private selectionService = inject(SelectionService);
-
 
   @HostListener('keydown.control.v', ['$event'])
   @HostListener('keydown.meta.v', ['$event'])

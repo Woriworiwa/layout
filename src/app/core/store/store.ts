@@ -1,4 +1,4 @@
-import {BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export class Store<T> {
   state: Observable<Readonly<T>>;

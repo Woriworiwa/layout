@@ -1,4 +1,11 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  HostListener,
+  inject,
+  Renderer2,
+} from '@angular/core';
 import { AssetDragDropService } from './asset-drag-drop.service';
 import { CANVAS_WRAPPER_ID } from '../../core/constants';
 import { InsertPosition } from '../../core/enums';
@@ -23,14 +30,14 @@ export class CanvasDropZoneDirective implements AfterViewInit {
   ngAfterViewInit() {
     // When used as a host directive, find the wrapper element within the component
     this.wrapperElement = this.elementRef.nativeElement.querySelector(
-      `#${CANVAS_WRAPPER_ID}`
+      `#${CANVAS_WRAPPER_ID}`,
     );
   }
 
   @HostListener('dragover', ['$event'])
   onDragOver($event: DragEvent) {
     const presetData = $event.dataTransfer?.types.includes(
-      'application/x-asset-preset'
+      'application/x-asset-preset',
     );
     if (!presetData) {
       return;
@@ -41,7 +48,7 @@ export class CanvasDropZoneDirective implements AfterViewInit {
       $event.preventDefault();
       this.assetDragDropService.setDropTarget(
         CANVAS_WRAPPER_ID,
-        InsertPosition.AFTER
+        InsertPosition.AFTER,
       );
       this.renderer.addClass(this.wrapperElement, 'drop-inside');
     }

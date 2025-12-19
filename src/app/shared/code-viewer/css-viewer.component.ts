@@ -7,9 +7,12 @@ import {
   input,
 } from '@angular/core';
 
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {SerializationService, SerializerType } from "../../core/serialization/serialization.service";
-import {Highlight} from "ngx-highlightjs";
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import {
+  SerializationService,
+  SerializerType,
+} from '../../core/serialization/serialization.service';
+import { Highlight } from 'ngx-highlightjs';
 
 @Component({
   selector: 'app-css-prism',
@@ -22,14 +25,14 @@ import {Highlight} from "ngx-highlightjs";
       height: 100%;
     }
 
-    pre[class*="language-"] {
+    pre[class*='language-'] {
       padding: 0.75rem 1rem;
       margin: 0;
       height: 100%;
       background: transparent !important;
     }
 
-    code[class*="language-"] {
+    code[class*='language-'] {
       background: transparent;
     }
   `,
@@ -46,9 +49,9 @@ export class CssViewerComponent implements OnChanges {
   }
 
   private serializeToCss() {
-    this.css = (this.serializerService
+    this.css = this.serializerService
       .getSerializer(this.serializerType())
       .serialize(this.canvasItems())
-      .join(this.serializerType() === 'CSS-class' ? '\n' : ';\n'));
+      .join(this.serializerType() === 'CSS-class' ? '\n' : ';\n');
   }
 }

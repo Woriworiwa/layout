@@ -1,11 +1,11 @@
 import { Component, OnChanges } from '@angular/core';
 
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {takeUntil} from "rxjs";
-import {NumberField} from "../property-components/number-field";
-import {BasePropertyGroupComponent} from "./base-property-group.component";
-import {PropertyGroupContainerComponent} from "./property-group-container.component";
-import { AlignSelfOptions, } from '../../../core/models/css-enums/properties.enum';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { takeUntil } from 'rxjs';
+import { NumberField } from '../property-components/number-field';
+import { BasePropertyGroupComponent } from './base-property-group.component';
+import { PropertyGroupContainerComponent } from './property-group-container.component';
+import { AlignSelfOptions } from '../../../core/models/css-enums/properties.enum';
 import { PropertyRowComponent } from '../property-components/property-row.component';
 import { ButtonGroupComponent } from '../property-components/button-group.component';
 

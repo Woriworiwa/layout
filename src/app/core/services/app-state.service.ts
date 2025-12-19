@@ -1,12 +1,18 @@
-
-import {computed, effect, inject, Injectable, signal, DOCUMENT} from '@angular/core';
-import {AppState} from "../store/app.state";
-import {MainAreaContent, SideBarPrimary, SideBarSecondary} from "../enums";
-import {AppLayoutState} from "../store/app-layout.state";
-import {HighlightLoader} from "ngx-highlightjs";
+import {
+  computed,
+  effect,
+  inject,
+  Injectable,
+  signal,
+  DOCUMENT,
+} from '@angular/core';
+import { AppState } from '../store/app.state';
+import { MainAreaContent, SideBarPrimary, SideBarSecondary } from '../enums';
+import { AppLayoutState } from '../store/app-layout.state';
+import { HighlightLoader } from 'ngx-highlightjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppStateService {
   private readonly STORAGE_KEY = 'appConfigState';
@@ -17,7 +23,7 @@ export class AppStateService {
   layoutState = signal<AppLayoutState>({
     mainAreaContent: MainAreaContent.CANVAS,
     sideBarPrimary: SideBarPrimary.insert,
-    sideBarSecondary: SideBarSecondary.CSS
+    sideBarSecondary: SideBarSecondary.CSS,
   });
   inspectorVisible = signal<boolean>(false);
 
@@ -25,10 +31,8 @@ export class AppStateService {
     this.inspectorVisible.set(!this.inspectorVisible());
   }
 
-
-
   constructor() {
-    this.appState.set({...this.loadAppState()});
+    this.appState.set({ ...this.loadAppState() });
     // this.handleDarkModeTransition(this.appState());
     //
     // effect(() => {
@@ -46,19 +50,25 @@ export class AppStateService {
   setAppLayout(newState: AppLayoutState): void {
     const currentState = this.layoutState();
 
-    if (newState.mainAreaContent && currentState.mainAreaContent === MainAreaContent.CODE) {
+    if (
+      newState.mainAreaContent &&
+      currentState.mainAreaContent === MainAreaContent.CODE
+    ) {
       newState.sideBarPrimary = SideBarPrimary.insert;
     }
 
     if (newState.sideBarPrimary === SideBarPrimary.code) {
       newState.mainAreaContent = MainAreaContent.CODE;
-    } else if (!newState.sideBarSecondary && currentState.mainAreaContent === MainAreaContent.CODE) {
+    } else if (
+      !newState.sideBarSecondary &&
+      currentState.mainAreaContent === MainAreaContent.CODE
+    ) {
       newState.mainAreaContent = MainAreaContent.CANVAS;
     }
 
-    this.layoutState.update(state => ({
+    this.layoutState.update((state) => ({
       ...state,
-      ...newState
+      ...newState,
     }));
   }
 
@@ -74,7 +84,7 @@ export class AppStateService {
       surface: null,
       darkTheme: false,
       menuActive: false,
-      designerKey: 'primeng-designer-theme'
+      designerKey: 'primeng-designer-theme',
     };
   }
 

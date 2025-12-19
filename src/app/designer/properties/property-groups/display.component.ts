@@ -1,9 +1,9 @@
 import { Component, OnChanges } from '@angular/core';
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {Property} from "csstype";
-import {takeUntil} from "rxjs";
-import {BasePropertyGroupComponent} from "./base-property-group.component";
-import {PropertyGroupContainerComponent} from "./property-group-container.component";
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Property } from 'csstype';
+import { takeUntil } from 'rxjs';
+import { BasePropertyGroupComponent } from './base-property-group.component';
+import { PropertyGroupContainerComponent } from './property-group-container.component';
 import { DisplayOptions } from '../../../core/models/css-enums/properties.enum';
 import { PropertyRowComponent } from '../property-components/property-row.component';
 import { ButtonGroupComponent } from '../property-components/button-group.component';
@@ -65,5 +65,3 @@ export class DisplayComponent
 
   protected readonly DisplayOptions = DisplayOptions;
 }
-
-

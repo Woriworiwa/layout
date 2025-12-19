@@ -1,37 +1,55 @@
-import { Component, OnDestroy, OnInit, ViewChild, inject, ElementRef, Renderer2 } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 
-import {Tree, TreeNodeContextMenuSelectEvent, TreeNodeExpandEvent} from "primeng/tree";
-import {MenuItem, TreeDragDropService, TreeNode} from "primeng/api";
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {FormsModule} from "@angular/forms";
-import {CanvasItemType} from "../../core/enums";
-import {ContextMenu} from "primeng/contextmenu";
-import {Popover} from "primeng/popover";
-import {Button} from "primeng/button";
-import {InputText} from "primeng/inputtext";
-import {CanvasService} from "../../canvas/canvas.service";
-import {SelectionService} from "../../canvas/selection/selection.service";
-import {Subject, takeUntil} from "rxjs";
-import {UiGuidanceService} from "../../core/services/ui-guidance.service";
+import {
+  Tree,
+  TreeNodeContextMenuSelectEvent,
+  TreeNodeExpandEvent,
+} from 'primeng/tree';
+import { MenuItem, TreeDragDropService, TreeNode } from 'primeng/api';
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import { FormsModule } from '@angular/forms';
+import { CanvasItemType } from '../../core/enums';
+import { ContextMenu } from 'primeng/contextmenu';
+import { Popover } from 'primeng/popover';
+import { Button } from 'primeng/button';
+import { InputText } from 'primeng/inputtext';
+import { CanvasService } from '../../canvas/canvas.service';
+import { SelectionService } from '../../canvas/selection/selection.service';
+import { Subject, takeUntil } from 'rxjs';
+import { UiGuidanceService } from '../../core/services/ui-guidance.service';
 
 @Component({
-    selector: 'app-layers',
-    imports: [Tree, FormsModule, ContextMenu, Popover, Button, InputText],
-    providers: [TreeDragDropService],
-    templateUrl: './layers.component.html',
-    styleUrls: ['./layers.component.scss'],
-    animations: [
-      trigger('fadeInOut', [
-        transition(':enter', [
+  selector: 'app-layers',
+  imports: [Tree, FormsModule, ContextMenu, Popover, Button, InputText],
+  providers: [TreeDragDropService],
+  templateUrl: './layers.component.html',
+  styleUrls: ['./layers.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        animate(
+          '300ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' }),
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '300ms ease-in',
           style({ opacity: 0, transform: 'translateY(-10px)' }),
-          animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-        ]),
-        transition(':leave', [
-          animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' }))
-        ])
-      ])
-    ]
+        ),
+      ]),
+    ]),
+  ],
 })
 export class LayersComponent implements OnInit, OnDestroy {
   private canvasService = inject(CanvasService);
@@ -52,8 +70,12 @@ export class LayersComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
   contextMenuItems: MenuItem[] = [
-    {label: 'Rename', icon: 'pi pi-search', command: (event: any) => this.openRenameDialog(event)},
-  ]
+    {
+      label: 'Rename',
+      icon: 'pi pi-search',
+      command: (event: any) => this.openRenameDialog(event),
+    },
+  ];
 
   ngOnInit() {
     this.initStoreSubscriptions();
@@ -68,14 +90,18 @@ export class LayersComponent implements OnInit, OnDestroy {
     }
   }
 
-  onTreeSelectionChanged(treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null | undefined) {
+  onTreeSelectionChanged(
+    treeNode: TreeNode<CanvasItem> | TreeNode<CanvasItem>[] | null | undefined,
+  ) {
     if (treeNode != null && !Array.isArray(treeNode)) {
       this.selectionService.setSelectedItemKey(treeNode.key);
     }
   }
 
   onNodeDrop() {
-    this.canvasService.setItems(this.convertTreeNodesToCanvasItems(this.treeNodes));
+    this.canvasService.setItems(
+      this.convertTreeNodesToCanvasItems(this.treeNodes),
+    );
   }
 
   onNodeContextMenu(event: TreeNodeContextMenuSelectEvent) {
@@ -95,25 +121,31 @@ export class LayersComponent implements OnInit, OnDestroy {
           return;
         }
 
-        this.treeNodes = this.convertCanvasItemsToTreeNodes(items)
+        this.treeNodes = this.convertCanvasItemsToTreeNodes(items);
 
         /* preserve the previous expanded nodes state of the tree */
-        this.expandedNodes.forEach(node => {
+        this.expandedNodes.forEach((node) => {
           this.expandNodeAndItsParents(this.treeNodes, node, undefined);
-        })
+        });
       });
 
     this.selectionService.selectedItem$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(selectedItem => {
+      .subscribe((selectedItem) => {
         this.selectedItems = selectedItem;
         if (selectedItem && selectedItem.key) {
-          this.expandNodeAndItsParents(this.treeNodes, selectedItem.key, undefined);
+          this.expandNodeAndItsParents(
+            this.treeNodes,
+            selectedItem.key,
+            undefined,
+          );
         }
-      })
+      });
   }
 
-  private convertCanvasItemsToTreeNodes(canvasItems: CanvasItem[] | undefined): TreeNode<CanvasItem>[] {
+  private convertCanvasItemsToTreeNodes(
+    canvasItems: CanvasItem[] | undefined,
+  ): TreeNode<CanvasItem>[] {
     if (!canvasItems) return [];
 
     return canvasItems.map((frame) => {
@@ -122,30 +154,48 @@ export class LayersComponent implements OnInit, OnDestroy {
         key: frame.key,
         icon: this.getTreeNodeIcon(frame),
         children: this.convertCanvasItemsToTreeNodes(frame.children),
-        data: frame
-      }
+        data: frame,
+      };
     });
   }
 
   private openRenameDialog(event: any) {
-    this.renameDialog.toggle(event.originalEvent, this.contextMenuEvent?.target);
+    this.renameDialog.toggle(
+      event.originalEvent,
+      this.contextMenuEvent?.target,
+    );
   }
 
-  private convertTreeNodesToCanvasItems(treeNodes: TreeNode<CanvasItem>[]): CanvasItem[] {
+  private convertTreeNodesToCanvasItems(
+    treeNodes: TreeNode<CanvasItem>[],
+  ): CanvasItem[] {
     return treeNodes.map((node) => {
       return {
-        ...node.data as CanvasItem,
-        children: this.convertTreeNodesToCanvasItems(node.children || [])
-      }
-    })
+        ...(node.data as CanvasItem),
+        children: this.convertTreeNodesToCanvasItems(node.children || []),
+      };
+    });
   }
 
-  private expandNodeAndItsParents(treeNodes: TreeNode<CanvasItem>[], targetItemKey: string, parentNode: TreeNode<CanvasItem> | undefined) {
+  private expandNodeAndItsParents(
+    treeNodes: TreeNode<CanvasItem>[],
+    targetItemKey: string,
+    parentNode: TreeNode<CanvasItem> | undefined,
+  ) {
     treeNodes.forEach((node) => {
-      if (parentNode?.data?.key && node.key && node.data?.key === targetItemKey && !node.expanded) {
+      if (
+        parentNode?.data?.key &&
+        node.key &&
+        node.data?.key === targetItemKey &&
+        !node.expanded
+      ) {
         node.expanded = true;
         this.expandedNodes.push(node.key);
-        this.expandNodeAndItsParents(this.treeNodes, parentNode?.data?.key, parentNode);
+        this.expandNodeAndItsParents(
+          this.treeNodes,
+          parentNode?.data?.key,
+          parentNode,
+        );
       } else {
         if (node.children && node.children) {
           this.expandNodeAndItsParents(node.children, targetItemKey, node);
@@ -161,7 +211,7 @@ export class LayersComponent implements OnInit, OnDestroy {
         icon = 'pi pi-fw pi-bars';
         break;
       case CanvasItemType.TEXT:
-        icon = 'pi pi-fw pi-at'
+        icon = 'pi pi-fw pi-at';
     }
 
     return icon;
@@ -176,13 +226,13 @@ export class LayersComponent implements OnInit, OnDestroy {
       gap: '0',
       padding: '0',
       background: 'var(--background-primary)',
-    }
-  }
+    },
+  };
 
   private initGuidanceSubscription() {
     this.uiGuidanceService.guidanceEvent$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(event => {
+      .subscribe((event) => {
         if (event.target === 'layers-panel' && event.action === 'highlight') {
           this.highlightPanel();
         }

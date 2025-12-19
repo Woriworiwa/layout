@@ -1,13 +1,16 @@
 import { Component, inject, model, OnInit, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import {CanvasComponent} from "../canvas/canvas.component";
-import {PropertiesComponent} from "./properties/properties.component";
-import {PresetsComponent} from "./presets/presets.component";
-import {InspectorComponent} from "./inspector/inspector.component";
-import {LayersComponent} from "./layers/layers.component";
-import {HeaderComponent} from "./header/header.component";
-import { TabSwitcherComponent, TabOption } from '../shared/tab-switcher/tab-switcher.component';
+import { CanvasComponent } from '../canvas/canvas.component';
+import { PropertiesComponent } from './properties/properties.component';
+import { PresetsComponent } from './presets/presets.component';
+import { InspectorComponent } from './inspector/inspector.component';
+import { LayersComponent } from './layers/layers.component';
+import { HeaderComponent } from './header/header.component';
+import {
+  TabSwitcherComponent,
+  TabOption,
+} from '../shared/tab-switcher/tab-switcher.component';
 import { AppStateService } from '../core/services/app-state.service';
 import { SideBarPrimary } from '../core/enums';
 import { UiGuidanceService } from '../core/services/ui-guidance.service';
@@ -43,7 +46,7 @@ export class DesignerComponent implements OnInit, OnDestroy {
     // Listen for guidance events
     this.uiGuidanceService.guidanceEvent$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(event => {
+      .subscribe((event) => {
         if (event.target === 'layers-panel' && event.action === 'highlight') {
           // Switch to layers panel if not already visible, then wait a bit before showing message
           if (this.leftPanelMode() !== 'layers') {

@@ -10,5 +10,6 @@ $highlight-left: inset $highlight-shadow-width 0 0 0 $shadow-color;
 :host {
   display: block;
   position: absolute;
-  box-shadow: $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;
+  box-shadow:
+    $highlight-top, $highlight-right, $highlight-bottom, $highlight-left;
 }

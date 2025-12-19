@@ -11,13 +11,13 @@ import {
   output,
 } from '@angular/core';
 
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {Serializer} from "../../core/serialization/serializers/serializer";
-import {CssStyleSerializer} from "../../core/serialization/serializers/css-style.serializer";
-import {SelectionService} from "../selection/selection.service";
-import {Subject, takeUntil} from "rxjs";
-import {CanvasService} from "../canvas.service";
-import {CanvasItemMouseEvent} from "./canvas-item-mouse-event";
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import { Serializer } from '../../core/serialization/serializers/serializer';
+import { CssStyleSerializer } from '../../core/serialization/serializers/css-style.serializer';
+import { SelectionService } from '../selection/selection.service';
+import { Subject, takeUntil } from 'rxjs';
+import { CanvasService } from '../canvas.service';
+import { CanvasItemMouseEvent } from './canvas-item-mouse-event';
 
 @Component({
   selector: 'app-canvas-base-component',
@@ -96,7 +96,7 @@ export class CanvasItemBaseComponent implements OnDestroy, OnChanges {
         this.baseRenderer.setProperty(
           this.baseElementRef.nativeElement,
           'style',
-          serializedStyles.join(';')
+          serializedStyles.join(';'),
         );
       }
     }

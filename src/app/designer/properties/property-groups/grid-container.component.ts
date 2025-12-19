@@ -25,8 +25,8 @@ import { NumberField } from '../property-components/number-field';
     PropertyRowComponent,
     TextFieldComponent,
     ButtonGroupComponent,
-    NumberField
-],
+    NumberField,
+  ],
   template: `
     <ng-container [formGroup]="formGroup">
       <app-property-group [header]="title()" [toggleable]="true">
@@ -147,7 +147,7 @@ export class PropertiesGridContainerComponent
     const mergedValues = this.propertiesService.mergeContainerPropsForForm(
       this.css(),
       'gridContainer',
-      { gap: (val) => val?.toString() }
+      { gap: (val) => val?.toString() },
     );
 
     this.formGroup?.patchValue(mergedValues, { emitEvent: false });
@@ -166,13 +166,13 @@ export class PropertiesGridContainerComponent
         Property.GridTemplateRows | null | undefined
       >(null),
       gridAutoFlow: new FormControl<Property.GridAutoFlow | null | undefined>(
-        null
+        null,
       ),
       gridAutoColumns: new FormControl<
         Property.GridAutoColumns | null | undefined
       >(null),
       gridAutoRows: new FormControl<Property.GridAutoRows | null | undefined>(
-        null
+        null,
       ),
       gap: new FormControl<Property.Gap | null | undefined>(null, {
         updateOn: 'blur',
@@ -181,10 +181,10 @@ export class PropertiesGridContainerComponent
         Property.JustifyContent | null | undefined
       >(null),
       alignContent: new FormControl<Property.AlignContent | null | undefined>(
-        null
+        null,
       ),
       justifyItems: new FormControl<Property.JustifyItems | null | undefined>(
-        null
+        null,
       ),
       alignItems: new FormControl<Property.AlignItems | null | undefined>(null),
     });
@@ -195,7 +195,7 @@ export class PropertiesGridContainerComponent
         this.propertiesService.updateCssWithSplit(
           this.css(),
           value,
-          'gridContainer'
+          'gridContainer',
         );
       });
 

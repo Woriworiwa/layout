@@ -1,10 +1,16 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  inject,
+} from '@angular/core';
 
-import {CanvasItem} from "../../core/models/canvas-item.model";
-import {Button} from "primeng/button";
+import { CanvasItem } from '../../core/models/canvas-item.model';
+import { Button } from 'primeng/button';
 import FileSaver from 'file-saver';
-import {SerializationService} from "../../core/serialization/serialization.service";
-import {Highlight} from "ngx-highlightjs";
+import { SerializationService } from '../../core/serialization/serialization.service';
+import { Highlight } from 'ngx-highlightjs';
 
 @Component({
   selector: 'app-html-prism',
@@ -34,11 +40,11 @@ import {Highlight} from "ngx-highlightjs";
       }
     }
 
-    pre[class*="language-"] {
+    pre[class*='language-'] {
       padding: 1em;
       margin: 0;
     }
-  `
+  `,
 })
 export class HtmlViewerComponent implements OnChanges {
   private serializerService = inject(SerializationService);
@@ -56,12 +62,17 @@ export class HtmlViewerComponent implements OnChanges {
   }
 
   private serializeToHtml() {
-    const items = Array.isArray(this.canvasItems) ? this.canvasItems : [this.canvasItems];
-    this.code = this.serializerService.getSerializer("HTML").serialize(items, true).join('\n');
+    const items = Array.isArray(this.canvasItems)
+      ? this.canvasItems
+      : [this.canvasItems];
+    this.code = this.serializerService
+      .getSerializer('HTML')
+      .serialize(items, true)
+      .join('\n');
   }
 
   downloadHtml() {
-    const blob = new Blob([this.code], {type: "text/plain;charset=utf-8"});
-    FileSaver.saveAs(blob, "layout.html");
+    const blob = new Blob([this.code], { type: 'text/plain;charset=utf-8' });
+    FileSaver.saveAs(blob, 'layout.html');
   }
 }

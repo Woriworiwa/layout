@@ -32,7 +32,7 @@ export class ButtonGroupComponent extends BaseFormItemComponent {
 
   // Normalize options to always have {label, value} format
   normalizedOptions = computed(() => {
-    return this.options().map(option => {
+    return this.options().map((option) => {
       if (typeof option === 'string') {
         return { label: option, value: option };
       }

@@ -1,13 +1,23 @@
 <div class="grid grid-cols-2 gap-3 p-3 overflow-auto">
   @for (item of components; track item.preset.presetId) {
-    <div class="asset-item p-3 cursor-move rounded-md"
-         [attr.data-testid]="`preset-${item.preset.presetId}`"
-         draggable="true"
-         (dragstart)="onDragStart($event, item.preset.presetId)"
-         (dragend)="onDragEnd($event)">
-      <div class="text-sm font-semibold text-[var(--p-text-color)] mb-2 tracking-tight">{{ item.preset.presetName }}</div>
-      <div class="asset-preview bg-[var(--bg-secondary)] rounded-lg p-2 min-h-[50px] flex items-center justify-center w-full">
-        <ng-container *ngComponentOutlet="item.component; inputs: item.inputs" />
+    <div
+      class="asset-item p-3 cursor-move rounded-md"
+      [attr.data-testid]="`preset-${item.preset.presetId}`"
+      draggable="true"
+      (dragstart)="onDragStart($event, item.preset.presetId)"
+      (dragend)="onDragEnd($event)"
+    >
+      <div
+        class="text-sm font-semibold text-[var(--p-text-color)] mb-2 tracking-tight"
+      >
+        {{ item.preset.presetName }}
+      </div>
+      <div
+        class="asset-preview bg-[var(--bg-secondary)] rounded-lg p-2 min-h-[50px] flex items-center justify-center w-full"
+      >
+        <ng-container
+          *ngComponentOutlet="item.component; inputs: item.inputs"
+        />
       </div>
     </div>
   }

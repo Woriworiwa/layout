@@ -1,12 +1,11 @@
-import {CanvasItem} from "../models/canvas-item.model";
-import { Injectable, inject } from "@angular/core";
-import {mockData} from "../../../data/mock-data";
-import {CanvasService} from "../../canvas/canvas.service";
+import { CanvasItem } from '../models/canvas-item.model';
+import { Injectable, inject } from '@angular/core';
+import { mockData } from '../../../data/mock-data';
+import { CanvasService } from '../../canvas/canvas.service';
 
 @Injectable()
 export class DataService {
   private canvasService = inject(CanvasService);
-
 
   getInitialData() {
     const savedData = this.loadDataFromLocalStorage();
@@ -28,7 +27,6 @@ export class DataService {
   }
 
   loadDataFromLocalStorage(): CanvasItem[] {
-
     let canvasItems: CanvasItem[] = [];
 
     try {

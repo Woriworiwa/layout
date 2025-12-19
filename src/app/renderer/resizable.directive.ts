@@ -1,7 +1,14 @@
-import { Directive, ElementRef, HostListener, Renderer2, OnInit, inject } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Renderer2,
+  OnInit,
+  inject,
+} from '@angular/core';
 
 @Directive({
-  selector: '[appResizable]'
+  selector: '[appResizable]',
 })
 export class ResizableDirective implements OnInit {
   private el = inject(ElementRef);
@@ -14,7 +21,8 @@ export class ResizableDirective implements OnInit {
 
   ngOnInit() {
     // Find the iframe in the parent element
-    this.iframe = this.el.nativeElement.parentElement?.querySelector('iframe') || null;
+    this.iframe =
+      this.el.nativeElement.parentElement?.querySelector('iframe') || null;
   }
 
   @HostListener('mousedown', ['$event'])

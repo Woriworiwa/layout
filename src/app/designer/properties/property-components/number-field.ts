@@ -32,7 +32,7 @@ import { ButtonDirective, ButtonIcon } from 'primeng/button';
       </p-inputNumber>
 
       @if (unit(); as unitControl) {
-      <p-select [options]="items" [formControl]="unitControl" />
+        <p-select [options]="items" [formControl]="unitControl" />
       }
 
       <button
@@ -47,17 +47,17 @@ import { ButtonDirective, ButtonIcon } from 'primeng/button';
     </div>
   `,
   styles: `
-  :host {
-    display: contents;
+    :host {
+      display: contents;
 
-    ::ng-deep .p-select-label {
-      padding: 0;
+      ::ng-deep .p-select-label {
+        padding: 0;
+      }
+      ::ng-deep .p-select {
+        border: 0;
+        tab-index: -1;
+      }
     }
-    ::ng-deep .p-select {
-      border: 0;
-      tab-index: -1;
-    }
-  }
   `,
 })
 export class NumberField extends BaseFormItemComponent implements OnChanges {
@@ -85,7 +85,8 @@ export class NumberField extends BaseFormItemComponent implements OnChanges {
       });
 
     // Sync actual control changes to display control immediately (e.g., from slider)
-    this.control()?.valueChanges.pipe(takeUntilDestroyed())
+    this.control()
+      ?.valueChanges.pipe(takeUntilDestroyed())
       .subscribe((value) => {
         if (this.displayControl.value !== value) {
           this.displayControl.setValue(value, { emitEvent: false });

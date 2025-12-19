@@ -1,7 +1,11 @@
-import {Component, inject, input} from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 
-import {FormControl} from "@angular/forms";
-import {DEFAULT_PROPERTIES_CONFIG, PROPERTIES_CONFIG, PropertiesConfig} from "../properties.config";
+import { FormControl } from '@angular/forms';
+import {
+  DEFAULT_PROPERTIES_CONFIG,
+  PROPERTIES_CONFIG,
+  PropertiesConfig,
+} from '../properties.config';
 
 @Component({
   imports: [],
@@ -16,6 +20,8 @@ export class BaseFormItemComponent {
   protected propertiesConfig: PropertiesConfig;
 
   constructor() {
-    this.propertiesConfig = inject(PROPERTIES_CONFIG, { optional: true }) ?? DEFAULT_PROPERTIES_CONFIG;
+    this.propertiesConfig =
+      inject(PROPERTIES_CONFIG, { optional: true }) ??
+      DEFAULT_PROPERTIES_CONFIG;
   }
 }
