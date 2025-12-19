@@ -45,10 +45,15 @@ export class EditableContentDirective implements OnDestroy {
     content: string;
   }>();
 
+  @HostListener('click', ['$event'])
+  onClick($event: MouseEvent) {
+    this.elementRef.nativeElement.focus();
+  }
   @HostListener('dblclick', ['$event'])
   onDoubleClick($event: MouseEvent) {
     $event.stopPropagation();
     this.editMode = true;
+
     this.elementRef.nativeElement.focus();
 
     this.moveCursorToEnd();
