@@ -1,4 +1,11 @@
-import { Component, ContentChild, inject, input, signal } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChild,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   DEFAULT_PROPERTIES_CONFIG,
@@ -54,7 +61,7 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
     }
   `,
 })
-export class PropertyRowComponent {
+export class PropertyRowComponent implements AfterContentInit {
   label = input<string>('');
 
   @ContentChild(NumberField) sliderComponent?: NumberField;

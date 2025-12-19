@@ -21,7 +21,6 @@ export type GridContainerPropertyName =
 /**
  * GridContainer interface for CSS properties specific to grid containers.
  */
-/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface GridContainer extends Pick<
   CSS.Properties,
   GridContainerPropertyName

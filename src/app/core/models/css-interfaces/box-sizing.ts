@@ -18,7 +18,6 @@ export type BoxSizingPropertyName = (typeof BOX_SIZING_PROPERTY_NAMES)[number];
 /**
  * BoxSizing interface for CSS properties related to element sizing.
  */
-/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface BoxSizing extends Pick<
   CSS.Properties,
   BoxSizingPropertyName

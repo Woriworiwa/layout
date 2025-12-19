@@ -18,7 +18,6 @@ export type FlexContainerPropertyName =
 /**
  * FlexContainer interface for CSS properties specific to flex containers.
  */
-/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface FlexContainer extends Pick<
   CSS.Properties,
   FlexContainerPropertyName

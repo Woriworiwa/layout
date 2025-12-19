@@ -16,5 +16,4 @@ export type DisplayPropertyName = (typeof DISPLAY_PROPERTY_NAMES)[number];
 /**
  * Display interface for CSS display property.
  */
-/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface Display extends Pick<CSS.Properties, DisplayPropertyName> {}

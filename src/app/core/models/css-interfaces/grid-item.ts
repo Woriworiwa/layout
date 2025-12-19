@@ -23,5 +23,4 @@ export type GridItemPropertyName = (typeof GRID_ITEM_PROPERTY_NAMES)[number];
 /**
  * GridItem interface for CSS properties specific to grid items.
  */
-/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface GridItem extends Pick<CSS.Properties, GridItemPropertyName> {}

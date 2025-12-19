@@ -28,7 +28,6 @@ export type ContainerPropertyName = (typeof CONTAINER_PROPERTY_NAMES)[number];
  * The properties are derived from CONTAINER_PROPERTY_NAMES to ensure consistency
  * between compile-time types and runtime checks.
  */
-/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface Container extends Pick<
   CSS.Properties,
   ContainerPropertyName

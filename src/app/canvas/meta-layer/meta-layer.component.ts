@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
@@ -31,7 +32,7 @@ import { MetaLayerService } from './meta-layer.service';
     }
   `,
 })
-export class MetaLayerComponent {
+export class MetaLayerComponent implements OnChanges {
   private metaLayerService = inject(MetaLayerService);
 
   @Input()

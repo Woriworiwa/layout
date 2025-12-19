@@ -19,5 +19,4 @@ export type FlexItemPropertyName = (typeof FLEX_ITEM_PROPERTY_NAMES)[number];
 /**
  * FlexItem interface for CSS properties specific to flex items.
  */
-/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface FlexItem extends Pick<CSS.Properties, FlexItemPropertyName> {}
