@@ -1,5 +1,5 @@
 import { Component, OnChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import { Property } from 'csstype';
@@ -16,13 +16,12 @@ import {
 @Component({
   selector: 'app-properties-grid-item',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     PropertyGroupContainerComponent,
     PropertyRowComponent,
     TextFieldComponent,
-    ButtonGroupComponent,
-  ],
+    ButtonGroupComponent
+],
   template: `
     <ng-container [formGroup]="formGroup">
       <app-property-group [header]="title()" [toggleable]="true">

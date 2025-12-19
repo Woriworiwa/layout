@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HtmlSerializer } from "../core/serialization/serializers/html.serializer";
 import { UnsafeHtmlPipe } from "./unsafe-html.pipe";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
@@ -35,17 +35,16 @@ interface ViewportPreset {
     selector: 'app-preview',
     standalone: true,
     imports: [
-        CommonModule,
-        UnsafeHtmlPipe,
-        FormsModule,
-        CssViewerComponent,
-        HtmlViewerComponent,
-        JsonViewerComponent,
-        SelectButton,
-        Button,
-        Tooltip,
-        ResizableDirective
-    ],
+    UnsafeHtmlPipe,
+    FormsModule,
+    CssViewerComponent,
+    HtmlViewerComponent,
+    JsonViewerComponent,
+    SelectButton,
+    Button,
+    Tooltip,
+    ResizableDirective
+],
     templateUrl: './renderer.component.html',
     styleUrl: './renderer.component.scss'
 })

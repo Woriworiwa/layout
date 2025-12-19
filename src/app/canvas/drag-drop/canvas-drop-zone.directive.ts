@@ -65,7 +65,7 @@ export class CanvasDropZoneDirective implements AfterViewInit {
     this.dragDropService.onMouseDown(event);
   }
 
-  @HostListener('mouseup', ['$event'])
+  @HostListener('mouseup')
   onMouseUp() {
     this.dragDropService.onMouseUp();
   }

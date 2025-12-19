@@ -11,14 +11,14 @@ export class UndoRedoDirective {
 
   /* undo */
   @HostListener('document:keydown.control.z', ['$event'])
-  onUndo($event: KeyboardEvent) {
+  onUndo($event: Event) {
     $event.stopPropagation();
     this.undoRedoService.undo();
   }
 
   /* redo */
   @HostListener('document:keydown.control.y', ['$event'])
-  onRedo($event: KeyboardEvent) {
+  onRedo($event: Event) {
     $event.stopPropagation();
     this.undoRedoService.redo();
   }

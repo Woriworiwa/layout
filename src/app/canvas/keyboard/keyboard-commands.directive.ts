@@ -15,7 +15,7 @@ export class KeyboardCommandsDirective {
 
   @HostListener('keydown.control.v', ['$event'])
   @HostListener('keydown.meta.v', ['$event'])
-  onPaste($event: KeyboardEvent) {
+  onPaste($event: Event) {
     if (this.isTextElementInEditMode($event.target)) {
       return;
     }
@@ -25,7 +25,7 @@ export class KeyboardCommandsDirective {
 
   @HostListener('keydown.control.c', ['$event'])
   @HostListener('keydown.meta.c', ['$event'])
-  onCopy($event: KeyboardEvent) {
+  onCopy($event: Event) {
     if (this.isTextElementInEditMode($event.target)) {
       return;
     }
@@ -35,7 +35,7 @@ export class KeyboardCommandsDirective {
   }
 
   @HostListener('keydown.delete', ['$event'])
-  onDelete($event: KeyboardEvent) {
+  onDelete($event: Event) {
     if (this.isTextElementInEditMode($event.target)) {
       return;
     }

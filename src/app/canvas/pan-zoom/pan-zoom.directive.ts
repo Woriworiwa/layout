@@ -23,21 +23,22 @@ export class PanZoomDirective {
 
   /*Zoom with mouse wheel*/
   @HostListener('mousewheel', ['$event'])
-  onMouseWheel(event: WheelEvent) {
-    event.stopPropagation();
-    event.preventDefault();
+  onMouseWheel(event: Event) {
+    const wheelEvent = event as WheelEvent;
+    wheelEvent.stopPropagation();
+    wheelEvent.preventDefault();
 
-    if (event.ctrlKey) {
-      if (event.deltaY > 0) {
+    if (wheelEvent.ctrlKey) {
+      if (wheelEvent.deltaY > 0) {
         this.panZoomService.zoomOut();
       } else {
         this.panZoomService.zoomIn();
       }
     } else {
-      if (event.shiftKey) {
-        this.panZoomService.panHorizontally(event.deltaY);
+      if (wheelEvent.shiftKey) {
+        this.panZoomService.panHorizontally(wheelEvent.deltaY);
       } else {
-        this.panZoomService.panVertically(event.deltaY);
+        this.panZoomService.panVertically(wheelEvent.deltaY);
       }
     }
   }
@@ -63,7 +64,7 @@ export class PanZoomDirective {
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
     if (event.button === 0) {
-      this.panZoomService.isPanning = this.isPanModeActive;
+      this.panZoomService.isPanModeActive = this.isPanModeActive;
     }
   }
 

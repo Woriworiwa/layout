@@ -6,7 +6,7 @@ import {
   input,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonDirective } from 'primeng/button';
@@ -19,11 +19,10 @@ import cloneDeep from 'lodash.clonedeep';
   selector: 'app-ai-wrapper',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     FormsModule,
     TextareaModule,
-    ButtonDirective,
-  ],
+    ButtonDirective
+],
   templateUrl: './ai-wrapper.component.html',
   styleUrls: ['./ai-wrapper.component.scss'],
 })

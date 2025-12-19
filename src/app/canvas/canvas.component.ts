@@ -100,7 +100,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   /*click*/
-  @HostListener('click', ['$event'])
+  @HostListener('click')
   clearSelection() {
     this.selectionService.setSelectedItemKey(undefined);
     this.contextMenuService.hide();

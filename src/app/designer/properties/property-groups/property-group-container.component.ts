@@ -7,13 +7,13 @@ import {
   computed,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { PropertyRowComponent } from '../property-components/property-row.component';
 import { PropertiesService } from '../properties.service';
 
 @Component({
   selector: 'app-property-group',
-  imports: [CommonModule],
+  imports: [],
   template: `
     @if (hasVisibleRows()) {
       <div class="border-b border-surface px-4">
