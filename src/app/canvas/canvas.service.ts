@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
-import { UndoRedoService } from '../core/undo-redo/undo-redo.service';
+import { UndoRedoService } from './undo-redo/undo-redo.service';
 import { PresetService } from '../designer/presets/preset.service';
 import { CanvasItem } from '../core/models/canvas-item.model';
 import { CanvasStore } from './canvas.store';

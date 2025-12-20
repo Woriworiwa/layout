@@ -8,7 +8,7 @@ import {
 } from 'rxjs';
 import { CanvasStore } from '../../canvas/canvas.store';
 import cloneDeep from 'lodash.clonedeep';
-import { CanvasItem } from '../models/canvas-item.model';
+import { CanvasItem } from '../../core/models/canvas-item.model'
 
 /*
  *  A simple undo/redo service that can be used to store and retrieve the current state of the store
