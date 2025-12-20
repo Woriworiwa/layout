@@ -1,0 +1,23 @@
+{
+  "name": "canvas",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/canvas/src",
+  "prefix": "canvas",
+  "tags": ["type:feature", "scope:canvas"],
+  "targets": {
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{workspaceRoot}/coverage/libs/canvas"],
+      "options": {
+        "config": "libs/canvas/vitest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["libs/canvas/**/*.ts", "libs/canvas/**/*.html"]
+      }
+    }
+  }
+}

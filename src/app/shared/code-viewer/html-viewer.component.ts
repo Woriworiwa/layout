@@ -6,10 +6,10 @@ import {
   inject,
 } from '@angular/core';
 
-import { CanvasItem } from '../../core/models/canvas-item.model';
+import { CanvasItem } from '@layout/canvas';
 import { Button } from 'primeng/button';
 import FileSaver from 'file-saver';
-import { SerializationService } from '../../core/serialization/serialization.service';
+import { SerializationService } from '@layout/canvas';
 import { Highlight } from 'ngx-highlightjs';
 
 @Component({

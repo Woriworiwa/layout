@@ -1,11 +1,11 @@
 import { Component, inject, signal, computed, effect } from '@angular/core';
 
-import { HtmlSerializer } from '../core/serialization/serializers/html.serializer';
+import { HtmlSerializer } from '@layout/canvas';
 import { UnsafeHtmlPipe } from './unsafe-html.pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CanvasItem } from '../core/models/canvas-item.model';
+import { CanvasItem } from '@layout/canvas';
 import { FormsModule } from '@angular/forms';
-import { CanvasService } from '../canvas/canvas.service';
+import { CanvasService } from '@layout/canvas';
 import { CssViewerComponent } from '../shared/code-viewer/css-viewer.component';
 import { HtmlViewerComponent } from '../shared/code-viewer/html-viewer.component';
 import { JsonViewerComponent } from '../shared/code-viewer/json-viewer.component';

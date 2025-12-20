@@ -6,9 +6,8 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CanvasItemType } from '../../core/enums';
-import { CanvasItem } from '../../core/models/canvas-item.model';
-import { CssStyleSerializerPipe } from '../../core/serialization/css-style-serializer.pipe';
+import { CanvasItemType, CssStyleSerializerPipe } from '@layout/canvas';
+import { CanvasItem } from '@layout/canvas';
 import { PresetService } from './preset.service';
 
 @Component({

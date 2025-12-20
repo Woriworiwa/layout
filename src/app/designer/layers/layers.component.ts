@@ -15,15 +15,14 @@ import {
   TreeNodeExpandEvent,
 } from 'primeng/tree';
 import { MenuItem, TreeDragDropService, TreeNode } from 'primeng/api';
-import { CanvasItem } from '../../core/models/canvas-item.model';
+import { CanvasItem } from '@layout/canvas';
 import { FormsModule } from '@angular/forms';
-import { CanvasItemType } from '../../core/enums';
+import { CanvasItemType } from "@layout/canvas"
 import { ContextMenu } from 'primeng/contextmenu';
 import { Popover } from 'primeng/popover';
 import { Button } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
-import { CanvasService } from '../../canvas/canvas.service';
-import { SelectionService } from '../../canvas/selection/selection.service';
+import { CanvasService, SelectionService } from '@layout/canvas';
 import { Subject, takeUntil } from 'rxjs';
 import { UiGuidanceService } from '../../core/services/ui-guidance.service';
 

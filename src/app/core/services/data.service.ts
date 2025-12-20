@@ -1,7 +1,6 @@
-import { CanvasItem } from '../models/canvas-item.model';
+import { CanvasService, CanvasItem } from '@layout/canvas';
 import { Injectable, inject } from '@angular/core';
 import { mockData } from '../../../data/mock-data';
-import { CanvasService } from '../../canvas/canvas.service';
 
 @Injectable()
 export class DataService {

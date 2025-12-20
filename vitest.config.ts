@@ -1,9 +1,17 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import angular from '@analogjs/vite-plugin-angular';
+import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
   plugins: [angular()],
+  resolve: {
+    alias: {
+      '@layout/canvas': fileURLToPath(
+        new URL('./libs/canvas/src/index.ts', import.meta.url)
+      ),
+    },
+  },
   test: {
     // Environment
     environment: 'happy-dom',

@@ -4,7 +4,7 @@ import { DataService } from '../../core/services/data.service';
 import { Tooltip } from 'primeng/tooltip';
 import { SplitButton } from 'primeng/splitbutton';
 import { MenuItem, MessageService } from 'primeng/api';
-import { CanvasService } from '../../canvas/canvas.service';
+import { CanvasService } from '@layout/canvas';
 import { Button } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ThemeConfiguratorComponent } from '../../core/theme/theme-configurator.component';

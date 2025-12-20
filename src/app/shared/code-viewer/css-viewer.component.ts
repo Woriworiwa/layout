@@ -7,11 +7,11 @@ import {
   input,
 } from '@angular/core';
 
-import { CanvasItem } from '../../core/models/canvas-item.model';
+import { CanvasItem } from '@layout/canvas';
 import {
   SerializationService,
   SerializerType,
-} from '../../core/serialization/serialization.service';
+} from '@layout/canvas';
 import { Highlight } from 'ngx-highlightjs';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, inject, model, OnInit, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import { CanvasComponent } from '../canvas/canvas.component';
+import { CanvasComponent } from '@layout/canvas';
 import { PropertiesComponent } from './properties/properties.component';
 import { PresetsComponent } from './presets/presets.component';
 import { InspectorComponent } from './inspector/inspector.component';

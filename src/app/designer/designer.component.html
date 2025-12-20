@@ -31,26 +31,26 @@
   </div>
 </div>
 
-<!-- Bottom Inspector Panel -->
-@if (appStateService.inspectorVisible()) {
-  <div
-    class="bottom border-t border-t-surface-200 overflow-auto flex flex-col"
-    style="height: 300px"
-  >
-    <div
-      class="flex items-center justify-between px-3 py-2 border-b border-b-surface-200"
-    >
-      <h3 class="text-sm font-semibold m-0">Inspector</h3>
-      <button
-        type="button"
-        class="flex items-center justify-center w-6 h-6 p-0 border-0 bg-transparent text-muted-color cursor-pointer hover:bg-surface-hover rounded"
-        (click)="appStateService.toggleInspector()"
-      >
-        <i class="pi pi-times text-xs"></i>
-      </button>
-    </div>
-    <div class="flex-1 overflow-auto">
-      <app-inspector></app-inspector>
-    </div>
-  </div>
-}
+<!--&lt;!&ndash; Bottom Inspector Panel &ndash;&gt;-->
+<!--@if (appStateService.inspectorVisible()) {-->
+<!--  <div-->
+<!--    class="bottom border-t border-t-surface-200 overflow-auto flex flex-col"-->
+<!--    style="height: 300px"-->
+<!--  >-->
+<!--    <div-->
+<!--      class="flex items-center justify-between px-3 py-2 border-b border-b-surface-200"-->
+<!--    >-->
+<!--      <h3 class="text-sm font-semibold m-0">Inspector</h3>-->
+<!--      <button-->
+<!--        type="button"-->
+<!--        class="flex items-center justify-center w-6 h-6 p-0 border-0 bg-transparent text-muted-color cursor-pointer hover:bg-surface-hover rounded"-->
+<!--        (click)="appStateService.toggleInspector()"-->
+<!--      >-->
+<!--        <i class="pi pi-times text-xs"></i>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <div class="flex-1 overflow-auto">-->
+<!--      <app-inspector></app-inspector>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--}-->

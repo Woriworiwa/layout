@@ -51,7 +51,13 @@
       "Bash(npx tsc:*)",
       "Bash(npm outdated:*)",
       "Bash(npm run e2e:*)",
-      "Bash(npx prettier:*)"
+      "Bash(npx prettier:*)",
+      "Bash(done)",
+      "Bash(git mv:*)",
+      "Bash(xargs sed -i '' 's|from.*core/enums.*|from \"\"\"\"@layout/canvas\"\"\"\"|g')",
+      "Bash(xargs sed -i '' 's|from.*core/models/css-[^'\"''''\"']*|from \"\"\"\"@layout/canvas\"\"\"\"|g')",
+      "Bash(xargs sed -i '' 's|from.*\\\\.\\\\./enums.*|from \"\"\"\"@layout/canvas\"\"\"\"|g')",
+      "Bash(DEBUG=vitest:*)"
     ],
     "deny": [],
     "ask": []

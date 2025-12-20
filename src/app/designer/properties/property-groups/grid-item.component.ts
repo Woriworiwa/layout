@@ -11,7 +11,7 @@ import { ButtonGroupComponent } from '../property-components/button-group.compon
 import {
   AlignSelfOptions,
   JustifySelfOptions,
-} from '../../../core/models/css-enums/properties.enum';
+} from '@layout/canvas';
 
 @Component({
   selector: 'app-properties-grid-item',

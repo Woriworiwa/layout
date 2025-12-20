@@ -18,9 +18,12 @@ import { InputGroup } from 'primeng/inputgroup';
 import { InputText } from 'primeng/inputtext';
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SelectionService } from '../../canvas/selection/selection.service';
-import { CanvasService } from '../../canvas/canvas.service';
-import { CanvasItemType } from '../../core/enums';
+import {
+  CanvasService,
+  DisplayOptions,
+  SelectionService,
+} from '@layout/canvas';
+import { CanvasItemType } from "@layout/canvas"
 import { BoxSizingComponent } from './property-groups/box-sizing.component';
 import { DisplayComponent } from './property-groups/display.component';
 import { MetaDataComponent } from './property-groups/meta-data.component';
@@ -30,7 +33,7 @@ import { PropertiesGridContainerComponent } from './property-groups/grid-contain
 import { PropertiesGridItemComponent } from './property-groups/grid-item.component';
 import { PropertiesConfig } from './properties.config';
 import { PropertiesService } from './properties.service';
-import { Display } from '../../core/models/css-enums/properties.enum';
+import { Display } from '@layout/canvas';
 import { CssViewerComponent } from '../../shared/code-viewer/css-viewer.component';
 
 @Component({

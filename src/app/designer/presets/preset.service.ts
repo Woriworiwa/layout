@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CanvasItem } from '../../core/models/canvas-item.model';
-import { CanvasItemType } from '../../core/enums';
+import { CanvasItem, CanvasItemType, PresetProvider, BoxSizing } from '@layout/canvas';
 import { allPresets } from '../../../data/presets';
 import { Preset } from '../../core/models/preset.model';
 import { PresetContainerComponent } from './preset-container.component';
 import { PresetTextComponent } from './preset-text.component';
 import { PresetAiComponent } from './preset-ai.component';
 
-import { BoxSizing } from '../../core/models/css-interfaces/box-sizing';
-
 @Injectable()
-export class PresetService {
+export class PresetService implements PresetProvider {
   defaultPadding = '16px';
   allPresets: Preset[] = [...allPresets] as Preset[];
 

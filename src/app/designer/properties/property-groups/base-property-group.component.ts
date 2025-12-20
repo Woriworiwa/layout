@@ -13,7 +13,7 @@ import { Subject, Subscription } from 'rxjs';
 import { NumberField } from '../property-components/number-field';
 import { PropertiesService } from '../properties.service';
 
-import { Css } from '../../../core/models/css-interfaces/css';
+import { Css } from '@layout/canvas';
 
 /**
  * Base component for all property group components.

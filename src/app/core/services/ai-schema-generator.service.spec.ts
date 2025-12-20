@@ -1,12 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { AiSchemaGeneratorService } from './ai-schema-generator.service';
-import { BOX_SIZING_PROPERTY_NAMES } from '../models/css-interfaces/box-sizing';
-import { CONTAINER_PROPERTY_NAMES } from '../models/css-interfaces/container';
-import { DISPLAY_PROPERTY_NAMES } from '../models/css-interfaces/display';
-import { FLEX_CONTAINER_PROPERTY_NAMES } from '../models/css-interfaces/flexContainer';
-import { FLEX_ITEM_PROPERTY_NAMES } from '../models/css-interfaces/flex-item';
-import { GRID_CONTAINER_PROPERTY_NAMES } from '../models/css-interfaces/gridContainer';
-import { GRID_ITEM_PROPERTY_NAMES } from '../models/css-interfaces/grid-item';
+import {
+  BOX_SIZING_PROPERTY_NAMES,
+  CONTAINER_PROPERTY_NAMES,
+  DISPLAY_PROPERTY_NAMES,
+  FLEX_CONTAINER_PROPERTY_NAMES,
+  FLEX_ITEM_PROPERTY_NAMES,
+  GRID_CONTAINER_PROPERTY_NAMES,
+  GRID_ITEM_PROPERTY_NAMES,
+} from '@layout/canvas';
 
 describe('AiSchemaGeneratorService', () => {
   it('should generate a schema containing FLEX and TEXT item types', () => {

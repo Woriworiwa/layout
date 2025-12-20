@@ -12,12 +12,14 @@ import { CommonModule } from '@angular/common';
 import { SelectButton } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { PresetService } from './preset.service';
-import { CanvasService } from '../../canvas/canvas.service';
-import { InsertPosition } from '../../core/enums';
-import { CanvasItem } from '../../core/models/canvas-item.model';
+import {
+  CanvasService,
+  CanvasItem,
+  InsertPosition,
+  SelectionService,
+  AssetDragDropService,
+} from '@layout/canvas';
 import { Preset } from '../../core/models/preset.model';
-import { SelectionService } from '../../canvas/selection/selection.service';
-import { AssetDragDropService } from '../../canvas/drag-drop/asset-drag-drop.service';
 
 interface AssetComponentItem {
   preset: Preset;

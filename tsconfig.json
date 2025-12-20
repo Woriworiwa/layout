@@ -13,7 +13,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "@layout/canvas": ["libs/canvas/src/index.ts"]
+    },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
