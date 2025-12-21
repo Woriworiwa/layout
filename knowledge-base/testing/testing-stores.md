@@ -24,7 +24,7 @@ describe('CanvasStore', () => {
 
   describe('WHEN setting state', () => {
     it('SHOULD update state', () => {
-      const items = [{ key: '123', label: 'Test', itemType: 'CONTAINER' }];
+      const items = [{ key: '123', label: 'Test', itemType: 'FLEX' }];
 
       store.setState({ items });
 
@@ -146,7 +146,7 @@ await render(Component, {
 export const FAKE_CONTAINER: CanvasItem = {
   key: 'container-1',
   label: 'Test Container',
-  itemType: 'CONTAINER',
+  itemType: 'FLEX',
   children: [],
   css: { display: 'flex' }
 };

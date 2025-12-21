@@ -69,7 +69,7 @@ describe('SerializationService', () => {
 
   describe('WHEN converting to HTML', () => {
     it('SHOULD generate valid structure', () => {
-      const items = [{ key: '1', itemType: 'CONTAINER', css: { width: '500px' } }];
+      const items = [{ key: '1', itemType: 'FLEX', css: { width: '500px' } }];
 
       const html = service.toHTML(items);
 

@@ -7,7 +7,7 @@ export class JSONSerializer extends Serializer {
     super();
   }
 
-  serialize(): string[] {
+  serialize(items: CanvasItem[]): string[] {
     return [];
   }
 

@@ -8,7 +8,7 @@ import {
   FLEX_ITEM_PROPERTY_NAMES,
   GRID_CONTAINER_PROPERTY_NAMES,
   GRID_ITEM_PROPERTY_NAMES,
-} from '@layout/canvas';
+} from '@layout/models';
 
 describe('AiSchemaGeneratorService', () => {
   it('should generate a schema containing FLEX and TEXT item types', () => {
