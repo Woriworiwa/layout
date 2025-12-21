@@ -1,5 +1,8 @@
 # Store vs Service Pattern
 
+## Library Location
+This pattern is implemented in the `@layout/canvas` library. Both `CanvasStore` and `CanvasService` are exported from `libs/canvas/src/index.ts`.
+
 ## Core Principle
 **Store methods are PURE FUNCTIONS. Service controls all persistence and side effects.**
 
@@ -52,6 +55,12 @@
 - ❌ Don't skip undo tracking on user actions
 
 ## Pattern Examples
+
+**Importing from libraries:**
+```typescript
+import { CanvasItem } from '@layout/models';
+import { CanvasService, CanvasStore, InsertPosition } from '@layout/canvas';
+```
 
 **Store operation:**
 ```typescript

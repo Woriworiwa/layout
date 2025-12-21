@@ -4,7 +4,7 @@
 - **Testing Framework**: Vitest 3 with happy-dom
 - **Angular**: Angular 20 standalone components (no NgModules)
 - **Testing Library**: Angular Testing Library
-- **State Management**: Custom `Store<T>` pattern (src/app/core/store/store.ts)
+- **State Management**: Custom `Store<T>` pattern (`@layout/canvas`)
 - **Commands**: `nx test`, `nx test --watch`, `nx test --ui`, `nx test --coverage`
 
 ## Test Strategy
@@ -66,6 +66,9 @@ describe('ComponentName', () => {
 Create in `src/testing/fakes/`:
 ```typescript
 // provide-fake-canvas-store.ts
+import { CanvasStore } from '@layout/canvas';
+import { CanvasItem } from '@layout/models';
+
 export function provideFakeCanvasStore(items: CanvasItem[] = []) {
   const store = new CanvasStore();
   store.setState({ items });
