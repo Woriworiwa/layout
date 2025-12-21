@@ -15,7 +15,7 @@ import {
 })
 export class BaseFormItemComponent {
   label = input<string>('');
-  control = input<FormControl<number | string | null> | undefined>(undefined);
+  control = input<FormControl<number | string | null>>(new FormControl(null));
 
   protected propertiesConfig: PropertiesConfig;
 

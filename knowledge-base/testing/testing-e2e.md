@@ -115,7 +115,7 @@ For reusable UI components, create separate component objects that encapsulate l
 
 **Canvas Component:**
 ```typescript
-// e2e/src/page-objects/components/canvas.component.ts
+// boxout-e2e/src/page-objects/components/canvas.component.ts
 export class CanvasComponent {
   readonly page: Page;
   readonly canvas: Locator;

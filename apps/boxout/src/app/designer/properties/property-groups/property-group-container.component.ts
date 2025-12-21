@@ -19,7 +19,9 @@ import { PropertiesService } from '../properties.service';
       <div class="border-b border-surface px-4">
         <div
           class="flex items-center gap-2 px-1 py-3 pl-0 cursor-pointer transition-colors hover:bg-surface-hover"
+          aria-disabled="true"
           (click)="toggleCollapsed()"
+          (keydown)="toggleCollapsed()"
         >
           <div class="m-0 text-sm flex-1">{{ header() }}</div>
           <button

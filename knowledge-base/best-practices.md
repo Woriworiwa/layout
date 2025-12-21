@@ -607,7 +607,7 @@ nx build --watch --configuration development  # Watch mode
 nx test               # Run all Jest tests
 nx test --watch       # Watch mode
 nx test --testFile=path/to/file.spec.ts  # Single file
-nx e2e                # Cypress E2E tests
+nx boxout-e2e                # Cypress E2E tests
 
 # Code Quality
 nx lint               # ESLint on src/

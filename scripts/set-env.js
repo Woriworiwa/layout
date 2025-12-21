@@ -19,11 +19,11 @@ if (!geminiApiKey) {
 // Define environment files
 const environments = [
   {
-    path: path.join(__dirname, '../src/environments/environment.ts'),
+    path: path.join(__dirname, '../apps/boxout/src/environments/environment.ts'),
     production: false,
   },
   {
-    path: path.join(__dirname, '../src/environments/environment.prod.ts'),
+    path: path.join(__dirname, '../apps/boxout/src/environments/environment.prod.ts'),
     production: true,
   }
 ];

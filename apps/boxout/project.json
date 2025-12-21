@@ -5,7 +5,7 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/boxout/src",
-  "tags": [],
+  "tags": ["scope:boxout"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
@@ -67,16 +67,13 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["apps/boxout/src"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "config": "apps/boxout/vitest.config.ts"
+        "reportsDirectory": "../../coverage/apps/boxout"
       }
     },
     "test-ui": {

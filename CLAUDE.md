@@ -24,10 +24,10 @@ nx test --ui         # Open Vitest UI
 nx test --coverage   # Generate coverage report
 
 # E2E Tests (Playwright)
-npm run e2e          # Run Playwright E2E tests (headless)
-npm run e2e:ui       # Open Playwright UI mode
-npm run e2e:headed   # Run tests in headed mode (visible browser)
-nx e2e-debug         # Run tests in debug mode with inspector (uses Nx)
+npm run boxout-e2e          # Run Playwright E2E tests (headless)
+npm run boxout-e2e:ui       # Open Playwright UI mode
+npm run boxout-e2e:headed   # Run tests in headed mode (visible browser)
+nx boxout-e2e-debug         # Run tests in debug mode with inspector (uses Nx)
 ```
 
 ### Linting

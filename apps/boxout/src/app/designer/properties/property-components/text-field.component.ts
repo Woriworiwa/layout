@@ -29,10 +29,10 @@ import { BaseFormItemComponent } from './base-form-item.component';
         <button
           type="button"
           pButton
-          icon="pi pi-ellipsis-v"
+          pButtonIcon="pi pi-ellipsis-v"
           [dt]="button"
           (click)="menu.toggle($event)"
-        ></button>
+        >.</button>
         <p-menu #menu [model]="menuItems()" [popup]="true" />
       }
       <button

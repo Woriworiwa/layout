@@ -23,22 +23,22 @@ Located in `src/tests/`:
 
 ```bash
 # Run all E2E tests (headless)
-nx e2e
+nx boxout-e2e
 
 # Open Playwright UI for interactive testing
-nx e2e-ui
+nx boxout-e2e-ui
 
 # Run tests in headed mode (see browser)
-nx e2e-headed
+nx boxout-e2e-headed
 
 # Debug tests with Playwright Inspector
-nx e2e-debug
+nx boxout-e2e-debug
 
 # Run specific test file
-nx e2e -- preset-insertion.spec.ts
+nx boxout-e2e -- preset-insertion.spec.ts
 
 # Run tests matching a pattern
-nx e2e -- --grep "WHEN user inserts"
+nx boxout-e2e -- --grep "WHEN user inserts"
 ```
 
 ## Test Coverage
@@ -132,7 +132,7 @@ Tests use accessible selectors in priority order:
 
 ### Using Playwright UI
 ```bash
-nx e2e-ui
+nx boxout-e2e-ui
 ```
 - See test execution in real-time
 - Time-travel through test steps
@@ -141,7 +141,7 @@ nx e2e-ui
 
 ### Using Playwright Inspector
 ```bash
-nx e2e-debug
+nx boxout-e2e-debug
 ```
 - Step through test code
 - Pause and inspect state

@@ -8,16 +8,13 @@
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/libs/canvas"],
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "config": "libs/canvas/vitest.config.ts"
+        "reportsDirectory": "../../../coverage/libs/canvas"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["libs/canvas/**/*.ts", "libs/canvas/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }

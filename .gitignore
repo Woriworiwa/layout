@@ -42,7 +42,8 @@ testem.log
 Thumbs.db
 
 # Environment files with secrets
-/src/environments/environment.ts
+/apps/boxout/src/environments/environment.ts
+/apps/boxout/src/environments/environment.prod.ts
 
 .nx/cache
 .angular

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { AppPage } from '../page-objects/app.page';
 
-test.describe('e2e', () => {
+test.describe('boxout-e2e', () => {
   let appPage: AppPage;
 
   test.beforeEach(async ({ page }) => {

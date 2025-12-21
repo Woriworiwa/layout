@@ -1,5 +1,5 @@
 ---
-name: e2e
+name: boxout-e2e
 description: Generate Playwright E2E tests using Page Object Model pattern
 ---
 
@@ -65,10 +65,10 @@ The agent automatically reads:
 
 After generation, run tests with:
 ```bash
-nx e2e          # Run all tests headless
-nx e2e-ui       # Open Playwright UI (recommended)
-nx e2e-headed   # See browser while testing
-nx e2e-debug    # Debug with inspector
+nx boxout-e2e          # Run all tests headless
+nx boxout-e2e-ui       # Open Playwright UI (recommended)
+nx boxout-e2e-headed   # See browser while testing
+nx boxout-e2e-debug    # Debug with inspector
 ```
 
 ---

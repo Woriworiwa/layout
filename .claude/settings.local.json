@@ -63,7 +63,9 @@
       "Bash(NX_VERBOSE_LOGGING=true nx run:*)",
       "Bash(npm run test:ui:*)",
       "Bash(timeout 5 npm run test:ui:*)",
-      "Bash(playwright test:*)"
+      "Bash(playwright test:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint)"
     ],
     "deny": [],
     "ask": []

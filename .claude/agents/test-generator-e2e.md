@@ -1,5 +1,5 @@
 ---
-name: test-generator-e2e
+name: test-generator-boxout-e2e
 description: Generates Playwright E2E tests following Page Object Model pattern
 model: sonnet
 color: purple
@@ -36,7 +36,7 @@ Before generating tests, read:
 Page Objects encapsulate locators and actions. Create them in `e2e/src/page-objects/`:
 
 ```typescript
-// e2e/src/page-objects/designer.page.ts
+// boxout-e2e/src/page-objects/designer.page.ts
 import { Page, Locator } from '@playwright/test';
 
 export class DesignerPage {
@@ -88,7 +88,7 @@ export class DesignerPage {
 
 ### 5. Use BDD Structure with Page Objects
 ```typescript
-// e2e/src/tests/canvas-editing.spec.ts
+// boxout-e2e/src/tests/canvas-editing.spec.ts
 import { test, expect } from '@playwright/test';
 import { DesignerPage } from '../page-objects/designer.page';
 
@@ -173,7 +173,7 @@ test('SHOULD create, edit, and export layout', async ({ page }) => {
 For reusable UI components within pages:
 
 ```typescript
-// e2e/src/page-objects/components/property-panel.component.ts
+// boxout-e2e/src/page-objects/components/property-panel.component.ts
 export class PropertyPanelComponent {
   constructor(private readonly locator: Locator) {}
 
@@ -333,10 +333,10 @@ Generate complete test files with:
 
 After generating tests, users can run:
 ```bash
-nx e2e          # Run all tests headless
-nx e2e-ui       # Open Playwright UI
-nx e2e-headed   # See browser while testing
-nx e2e-debug    # Debug with inspector
+nx boxout-e2e          # Run all tests headless
+nx boxout-e2e-ui       # Open Playwright UI
+nx boxout-e2e-headed   # See browser while testing
+nx boxout-e2e-debug    # Debug with inspector
 ```
 
 ## Best Practices Summary
