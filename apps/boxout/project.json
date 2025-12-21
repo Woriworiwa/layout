@@ -1,23 +1,23 @@
 {
-  "name": "layout",
-  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "name": "boxout",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "includedScripts": [],
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "./src",
+  "sourceRoot": "apps/boxout/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "options": {
         "outputPath": "dist",
-        "index": "src/index.html",
-        "browser": "src/main.ts",
-        "polyfills": ["src/polyfills.ts", "zone.js"],
-        "tsConfig": "tsconfig.app.json",
+        "index": "apps/boxout/src/index.html",
+        "browser": "apps/boxout/src/main.ts",
+        "polyfills": ["apps/boxout/src/polyfills.ts", "zone.js"],
+        "tsConfig": "apps/boxout/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["src/favicon.ico", "src/assets"],
-        "styles": ["src/styles.scss"],
+        "assets": ["apps/boxout/src/favicon.ico", "apps/boxout/src/assets"],
+        "styles": ["apps/boxout/src/styles.scss"],
         "scripts": ["node_modules/prismjs/prism.js"]
       },
       "configurations": {
@@ -51,10 +51,10 @@
       },
       "configurations": {
         "production": {
-          "buildTarget": "layout:build:production"
+          "buildTarget": "boxout:build:production"
         },
         "development": {
-          "buildTarget": "layout:build:development"
+          "buildTarget": "boxout:build:development"
         }
       },
       "defaultConfiguration": "development",
@@ -63,28 +63,35 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "layout:build"
+        "buildTarget": "boxout:build"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["./src"]
+        "lintFilePatterns": ["apps/boxout/src"]
       }
     },
     "test": {
       "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectName}"],
       "options": {
-        "config": "vitest.config.ts"
+        "config": "apps/boxout/vitest.config.ts"
+      }
+    },
+    "test-ui": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx vitest --ui --run false",
+        "cwd": "apps/boxout"
       }
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "layout:build",
+        "buildTarget": "boxout:build",
         "port": 4200,
-        "staticFilePath": "dist/layout/browser",
+        "staticFilePath": "dist/boxout/browser",
         "spa": true
       }
     }

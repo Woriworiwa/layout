@@ -20,10 +20,10 @@ import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   CanvasService,
-  DisplayOptions,
   SelectionService,
+  CanvasItemType,
 } from '@layout/canvas';
-import { CanvasItemType } from "@layout/canvas"
+import { Display } from '@layout/canvas';
 import { BoxSizingComponent } from './property-groups/box-sizing.component';
 import { DisplayComponent } from './property-groups/display.component';
 import { MetaDataComponent } from './property-groups/meta-data.component';
@@ -33,7 +33,6 @@ import { PropertiesGridContainerComponent } from './property-groups/grid-contain
 import { PropertiesGridItemComponent } from './property-groups/grid-item.component';
 import { PropertiesConfig } from './properties.config';
 import { PropertiesService } from './properties.service';
-import { Display } from '@layout/canvas';
 import { CssViewerComponent } from '../../shared/code-viewer/css-viewer.component';
 
 @Component({

@@ -13,7 +13,7 @@ export * from './lib/models/canvas-item.model';
 export * from './lib/models/css-interfaces/css';
 export * from './lib/models/css-interfaces/box-sizing';
 export * from './lib/models/css-interfaces/container';
-export * from './lib/models/css-interfaces/display';
+export * from './lib/models/css-interfaces/layout';
 export * from './lib/models/css-interfaces/flex-item';
 export * from './lib/models/css-interfaces/flexContainer';
 export * from './lib/models/css-interfaces/grid-item';

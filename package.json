@@ -1,5 +1,5 @@
 {
-  "name": "@layout/source",
+  "name": "@boxout/source",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,10 +7,12 @@
     "prebuild": "node scripts/set-env.js",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
-    "test": "nx test",
-    "test:ui": "vitest --ui",
-    "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage",
+    "test": "nx run-many -t test --run",
+    "test:boxout": "nx run boxout:test --run",
+    "test:canvas": "nx run canvas:test --run",
+    "test:ui": "nx run boxout:test-ui",
+    "test:watch": "nx run boxout:test --watch",
+    "test:coverage": "nx run boxout:test --coverage --run",
     "e2e": "playwright test --config=e2e/playwright.config.ts",
     "e2e:headed": "playwright test --config=e2e/playwright.config.ts --headed",
     "e2e:ui": "playwright test --config=e2e/playwright.config.ts --ui",

@@ -3,7 +3,7 @@ import { AiSchemaGeneratorService } from './ai-schema-generator.service';
 import {
   BOX_SIZING_PROPERTY_NAMES,
   CONTAINER_PROPERTY_NAMES,
-  DISPLAY_PROPERTY_NAMES,
+  LAYOUT_PROPERTY_NAMES,
   FLEX_CONTAINER_PROPERTY_NAMES,
   FLEX_ITEM_PROPERTY_NAMES,
   GRID_CONTAINER_PROPERTY_NAMES,
@@ -30,7 +30,7 @@ describe('AiSchemaGeneratorService', () => {
 
     // Collect all property names from all interfaces
     const allProperties = [
-      ...DISPLAY_PROPERTY_NAMES,
+      ...LAYOUT_PROPERTY_NAMES,
       ...CONTAINER_PROPERTY_NAMES,
       ...FLEX_CONTAINER_PROPERTY_NAMES,
       ...FLEX_ITEM_PROPERTY_NAMES,

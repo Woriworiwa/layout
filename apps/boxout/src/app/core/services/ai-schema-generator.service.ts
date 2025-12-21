@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   BOX_SIZING_PROPERTY_NAMES,
   CONTAINER_PROPERTY_NAMES,
-  DISPLAY_PROPERTY_NAMES,
+  LAYOUT_PROPERTY_NAMES,
   FLEX_CONTAINER_PROPERTY_NAMES,
   FLEX_ITEM_PROPERTY_NAMES,
   GRID_CONTAINER_PROPERTY_NAMES,
@@ -26,7 +26,7 @@ import {
  * Provides compile-time type safety for PROPERTY_VALUE_MAP.
  */
 type CssPropertyName =
-  | (typeof DISPLAY_PROPERTY_NAMES)[number]
+  | (typeof LAYOUT_PROPERTY_NAMES)[number]
   | (typeof CONTAINER_PROPERTY_NAMES)[number]
   | (typeof FLEX_CONTAINER_PROPERTY_NAMES)[number]
   | (typeof FLEX_ITEM_PROPERTY_NAMES)[number]
@@ -233,7 +233,7 @@ export class AiSchemaGeneratorService {
    */
   private generateCssSchema(): string {
     const displaySchema = this.generateSchemaForProperties(
-      DISPLAY_PROPERTY_NAMES,
+      LAYOUT_PROPERTY_NAMES,
     );
     const containerSchema = this.generateSchemaForProperties(
       CONTAINER_PROPERTY_NAMES,

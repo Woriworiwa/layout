@@ -31,10 +31,10 @@
       "path": "./tsconfig.editor.json"
     },
     {
-      "path": "./tsconfig.app.json"
+      "path": "apps/boxout/tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "apps/boxout/tsconfig.spec.json"
     }
   ],
   "compileOnSave": false,

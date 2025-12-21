@@ -1,15 +1,18 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vitest/config';
 import angular from '@analogjs/vite-plugin-angular';
-import { fileURLToPath } from 'node:url';
+import * as path from 'node:path';
 
 export default defineConfig({
-  plugins: [angular()],
+  root: __dirname,
+  plugins: [
+    angular({
+      tsconfig: path.resolve(__dirname, 'tsconfig.spec.json'),
+    }),
+  ],
   resolve: {
     alias: {
-      '@layout/canvas': fileURLToPath(
-        new URL('./libs/canvas/src/index.ts', import.meta.url)
-      ),
+      '@layout/canvas': path.resolve(__dirname, '../../libs/canvas/src/index.ts'),
     },
   },
   test: {
@@ -20,10 +23,14 @@ export default defineConfig({
     globals: true,
 
     // Setup files - Zone.js must be imported before test-setup
-    setupFiles: ['zone.js', 'zone.js/testing', 'src/test-setup.ts'],
+    setupFiles: [
+      'zone.js',
+      'zone.js/testing',
+      path.resolve(__dirname, 'src/test-setup.ts'),
+    ],
 
     // Test match patterns
-    include: ['src/**/*.{test,spec}.ts'],
+    include: [path.resolve(__dirname, 'src/**/*.{test,spec}.ts')],
 
     // Coverage configuration
     coverage: {

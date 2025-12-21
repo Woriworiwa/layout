@@ -32,7 +32,7 @@ export default defineConfig({
   webServer: {
     command: process.env['CI']
       ? 'npx serve dist/browser -p 4200 -s'
-      : 'npx nx run layout:serve',
+      : 'npx nx run boxout:serve',
     url: process.env['CI'] ? 'http://localhost:4200' : 'http://localhost:4300',
     reuseExistingServer: !process.env['CI'],
     cwd: workspaceRoot,
