@@ -9,7 +9,7 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { CanvasItem } from '../../models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 import {
   BehaviorSubject,
   distinctUntilChanged,

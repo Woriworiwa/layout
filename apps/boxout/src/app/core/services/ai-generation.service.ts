@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { CanvasItem } from '@layout/canvas';
+import { CanvasItem } from '@layout/models';
 import { environment } from '../../../environments/environment';
 import { AiSchemaGeneratorService } from './ai-schema-generator.service';
 

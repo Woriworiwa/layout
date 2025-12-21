@@ -5,7 +5,7 @@ import {
   inject,
 } from '@angular/core';
 import { CanvasService } from '../canvas.service';
-import { CanvasItem } from '../models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 import { MetaLabelComponent } from './meta-label.component';
 import { delay, fromEvent, merge } from 'rxjs';
 

@@ -14,7 +14,7 @@ import {
   AlignContentOptions,
   JustifyItemsOptions,
   AlignItemsOptions,
-} from '@layout/canvas';
+} from '@layout/models';
 import { NumberField } from '../property-components/number-field';
 
 @Component({

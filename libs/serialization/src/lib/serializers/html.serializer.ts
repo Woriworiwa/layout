@@ -1,7 +1,6 @@
 import { Serializer } from './serializer';
-import { CanvasItem } from '../../models/canvas-item.model';
+import { CanvasItem, CanvasItemType } from '@layout/models';
 import { CssClassSerializer } from './css-class.serializer';
-import { CanvasItemType } from '../../enums';
 
 export class HtmlSerializer extends Serializer {
   private readonly frameStyles = `.frame {

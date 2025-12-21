@@ -14,11 +14,11 @@ import { FormsModule } from '@angular/forms';
 import { PresetService } from './preset.service';
 import {
   CanvasService,
-  CanvasItem,
   InsertPosition,
   SelectionService,
   AssetDragDropService,
 } from '@layout/canvas';
+import { CanvasItem } from '@layout/models';
 import { Preset } from '../../core/models/preset.model';
 
 interface AssetComponentItem {
@@ -30,7 +30,7 @@ interface AssetComponentItem {
 @Component({
   selector: 'app-presets',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, SelectButton, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: 'presets.component.html',
   styleUrls: ['presets.component.scss'],
   host: {

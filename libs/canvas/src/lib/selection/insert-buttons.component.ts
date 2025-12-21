@@ -4,14 +4,14 @@ import { Tooltip } from 'primeng/tooltip';
 import { SharedModule } from 'primeng/api';
 // TODO: Refactor to remove dependency on PresetsComponent
 // import { PresetsComponent } from '../../designer/presets/presets.component';
-import { CanvasItem } from '../models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 import { InsertPosition } from '../enums';
 import { CanvasService } from '../canvas.service';
 import { CANVAS_WRAPPER_ID } from '../constants';
 
 @Component({
   selector: 'app-insert-buttons',
-  imports: [Popover, Tooltip, SharedModule],
+  imports: [SharedModule],
   templateUrl: './insert-buttons.component.html',
   styleUrls: ['./insert-buttons.component.scss'],
 })

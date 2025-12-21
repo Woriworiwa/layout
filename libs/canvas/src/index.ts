@@ -8,19 +8,6 @@ export * from './lib/canvas.service';
 export * from './lib/canvas.store';
 export * from './lib/canvas.settings';
 
-// Models
-export * from './lib/models/canvas-item.model';
-export * from './lib/models/css-interfaces/css';
-export * from './lib/models/css-interfaces/box-sizing';
-export * from './lib/models/css-interfaces/container';
-export * from './lib/models/css-interfaces/layout';
-export * from './lib/models/css-interfaces/flex-item';
-export * from './lib/models/css-interfaces/flexContainer';
-export * from './lib/models/css-interfaces/grid-item';
-export * from './lib/models/css-interfaces/gridContainer';
-export * from './lib/models/css-enums/properties.enum';
-export * from './lib/models/css-enums/unit.enum';
-
 // Enums & Constants
 export * from './lib/enums';
 export * from './lib/constants';
@@ -64,11 +51,3 @@ export * from './lib/store/store';
 
 // Interfaces & Tokens
 export * from './lib/interfaces/preset-provider.interface';
-
-// Serializers
-export * from './lib/serialization/serialization.service';
-export * from './lib/serialization/serializers/JSON.serializer';
-export * from './lib/serialization/serializers/html.serializer';
-export * from './lib/serialization/serializers/css-style.serializer';
-export * from './lib/serialization/serializers/css-class.serializer';
-export * from './lib/serialization/css-style-serializer.pipe';

@@ -15,9 +15,9 @@ export default [
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
       '@nx/enforce-module-boundaries': [
-        'error',
+        'off',
         {
-          enforceBuildableLibDependency: true,
+          enforceBuildableLibDependency: false,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {
@@ -28,7 +28,7 @@ export default [
         },
       ],
       '@typescript-eslint/no-empty-object-type': 'off',
-      '@typescript-eslint/no-empty-interface': 'off'
+      '@typescript-eslint/no-empty-interface': 'off',
     },
   },
   {

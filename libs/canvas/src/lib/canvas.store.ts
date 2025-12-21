@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from './store/store';
-import { CanvasItem } from './models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 import cloneDeep from 'lodash.clonedeep';
 import { CANVAS_WRAPPER_ID } from './constants';
 import { InsertPosition } from './enums';
-import { Css } from './models/css-interfaces/css';
+import { Css } from '@layout/models';
 
 export class CanvasState {
   canvasItems: CanvasItem[] = [];

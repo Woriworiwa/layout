@@ -10,7 +10,7 @@ import {
   DestroyRef,
 } from '@angular/core';
 import { AssetDragDropService } from './asset-drag-drop.service';
-import { CanvasItem } from '../models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 import { InsertPosition, CanvasItemType } from '../enums';
 import { CanvasItemBaseComponent } from '../canvas-items/canvas-item-base.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

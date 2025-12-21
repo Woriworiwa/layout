@@ -6,8 +6,8 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CanvasItem } from '@layout/canvas';
-import { SerializationService, JSONSerializer } from '@layout/canvas';
+import { CanvasItem } from '@layout/models';
+import { SerializationService, JSONSerializer } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
 
 @Component({

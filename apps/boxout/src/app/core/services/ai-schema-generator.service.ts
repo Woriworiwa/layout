@@ -19,7 +19,7 @@ import {
   JustifySelfOptions,
   Unit,
   CanvasItemType,
-} from '@layout/canvas';
+} from '@layout/models';
 
 /**
  * Union type of all valid CSS property names from all interfaces.

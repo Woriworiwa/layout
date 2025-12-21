@@ -10,7 +10,7 @@ import {
 
 import { ContextMenuComponent } from '../context-menu/context-menu.component';
 import { InsertButtonsComponent } from './insert-buttons.component';
-import { CanvasItem } from '../models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 
 @Component({
   selector: 'app-selection-item',

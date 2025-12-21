@@ -10,7 +10,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonDirective } from 'primeng/button';
-import { CanvasItem } from '../../models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 // TODO: Create injection token for AiGenerationService
 // import { AiGenerationService } from '../../../core/services/ai-generation.service';
 import { CanvasService } from '../../canvas.service';

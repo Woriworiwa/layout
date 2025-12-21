@@ -11,9 +11,9 @@ import {
   output,
 } from '@angular/core';
 
-import { CanvasItem } from '../models/canvas-item.model';
-import { Serializer } from '../serialization/serializers/serializer';
-import { CssStyleSerializer } from '../serialization/serializers/css-style.serializer';
+import { CanvasItem } from '@layout/models';
+import { Serializer } from '@layout/serialization';
+import { CssStyleSerializer } from '@layout/serialization';
 import { SelectionService } from '../selection/selection.service';
 import { Subject, takeUntil } from 'rxjs';
 import { CanvasService } from '../canvas.service';

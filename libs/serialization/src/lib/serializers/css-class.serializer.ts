@@ -1,4 +1,4 @@
-import { CanvasItem } from '../../models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 import { Serializer } from './serializer';
 import { CssStyleSerializer } from './css-style.serializer';
 

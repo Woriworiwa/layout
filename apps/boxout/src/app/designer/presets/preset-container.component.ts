@@ -6,9 +6,10 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CanvasItemType, CssStyleSerializerPipe } from '@layout/canvas';
-import { CanvasItem } from '@layout/canvas';
+import { CanvasItemType } from '@layout/canvas';
+import { CanvasItem } from '@layout/models';
 import { PresetService } from './preset.service';
+import { CssStyleSerializerPipe } from './css-style-serializer.pipe';
 
 @Component({
   selector: 'app-preset-container',

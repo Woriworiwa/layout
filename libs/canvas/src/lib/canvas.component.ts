@@ -10,7 +10,7 @@ import {
   inject,
 } from '@angular/core';
 import { ContainerComponent } from './canvas-items/container/container.component';
-import { CanvasItem } from './models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 import { CANVAS_WRAPPER_ID } from './constants';
 import { ContextMenuService } from './context-menu/context-menu.service';
 import { SelectionService } from './selection/selection.service';

@@ -14,7 +14,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@layout/canvas": ["libs/canvas/src/index.ts"]
+      "@layout/canvas": ["libs/canvas/src/index.ts"],
+      "@layout/serialization": ["libs/serialization/src/index.ts"],
+      "@layout/models": ["libs/models/src/index.ts"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

@@ -1,9 +1,9 @@
 import { Component, inject, signal, computed, effect } from '@angular/core';
 
-import { HtmlSerializer } from '@layout/canvas';
+import { HtmlSerializer } from '@layout/serialization';
 import { UnsafeHtmlPipe } from './unsafe-html.pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CanvasItem } from '@layout/canvas';
+import { CanvasItem } from '@layout/models';
 import { FormsModule } from '@angular/forms';
 import { CanvasService } from '@layout/canvas';
 import { CssViewerComponent } from '../shared/code-viewer/css-viewer.component';

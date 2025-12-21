@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { SharedModule } from 'primeng/api';
-import { CanvasItem } from '../models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 
 @Component({
   selector: 'app-canvas-hover-item',

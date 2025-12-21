@@ -1,7 +1,7 @@
 /* css enums */
 import { Property } from 'csstype';
-import { Enumify } from '../../utils/enumify';
-import { proxiedPropertiesOf } from '../../utils/proxied-properties-of';
+import { Enumify } from '../utils/enumify';
+import { proxiedPropertiesOf } from '../utils/proxied-properties-of';
 
 export const Display = proxiedPropertiesOf<Enumify<Property.Display>>();
 export const DisplayOptions = [

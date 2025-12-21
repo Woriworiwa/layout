@@ -4,7 +4,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { InputNumber } from 'primeng/inputnumber';
 import { Select } from 'primeng/select';
-import { Unit } from '@layout/canvas';
+import { Unit } from '@layout/models';
 import { POSTFIX_UNIT } from '../../../core/constants';
 import { BaseFormItemComponent } from './base-form-item.component';
 import { ButtonDirective, ButtonIcon } from 'primeng/button';

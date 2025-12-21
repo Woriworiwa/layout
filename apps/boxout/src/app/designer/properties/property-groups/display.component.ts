@@ -4,7 +4,7 @@ import { Property } from 'csstype';
 import { takeUntil } from 'rxjs';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
-import { DisplayOptions } from '@layout/canvas';
+import { DisplayOptions } from '@layout/models';
 import { PropertyRowComponent } from '../property-components/property-row.component';
 import { ButtonGroupComponent } from '../property-components/button-group.component';
 

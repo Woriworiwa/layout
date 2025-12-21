@@ -15,7 +15,7 @@ import {
   TreeNodeExpandEvent,
 } from 'primeng/tree';
 import { MenuItem, TreeDragDropService, TreeNode } from 'primeng/api';
-import { CanvasItem } from '@layout/canvas';
+import { CanvasItem } from '@layout/models';
 import { FormsModule } from '@angular/forms';
 import { CanvasItemType } from "@layout/canvas"
 import { ContextMenu } from 'primeng/contextmenu';

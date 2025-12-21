@@ -23,7 +23,7 @@ import {
   SelectionService,
   CanvasItemType,
 } from '@layout/canvas';
-import { Display } from '@layout/canvas';
+import { Display } from '@layout/models';
 import { BoxSizingComponent } from './property-groups/box-sizing.component';
 import { DisplayComponent } from './property-groups/display.component';
 import { MetaDataComponent } from './property-groups/meta-data.component';

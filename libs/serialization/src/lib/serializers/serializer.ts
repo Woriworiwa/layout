@@ -1,4 +1,4 @@
-import { CanvasItem } from '../../models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 
 export abstract class Serializer {
   private readonly paddingCharacter = ' ';

@@ -1,4 +1,4 @@
-import { CanvasItemType } from '../enums';
+import { CanvasItemType } from '@layout/models';
 import { Css } from './css-interfaces/css';
 
 export interface AiMetadata {

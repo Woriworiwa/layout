@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CssStyleSerializer } from './serializers/css-style.serializer';
-import { CanvasItem } from '../models/canvas-item.model';
+import { CssStyleSerializer } from '@layout/serialization';
+import { CanvasItem } from '@layout/models';
 
 @Pipe({
   standalone: true,

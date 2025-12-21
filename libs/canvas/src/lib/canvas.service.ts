@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { UndoRedoService } from './undo-redo/undo-redo.service';
 import { PresetProvider } from './interfaces/preset-provider.interface';
-import { CanvasItem } from './models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 import { CanvasStore } from './canvas.store';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
 import cloneDeep from 'lodash.clonedeep';
@@ -16,7 +16,7 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CanvasItemType, InsertPosition } from './enums';
 import { SelectionService } from './selection/selection.service';
 
-import { Css } from './models/css-interfaces/css';
+import { Css } from '@layout/models';
 
 export const PRESET_PROVIDER = new InjectionToken<PresetProvider>('PRESET_PROVIDER');
 

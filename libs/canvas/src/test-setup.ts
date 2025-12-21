@@ -1,20 +1,5 @@
-// Import Zone.js for Angular testing
-import 'zone.js';
-import 'zone.js/testing';
-
 import '@angular/compiler';
-import { getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
+import '@analogjs/vitest-angular/setup-snapshots';
+import { setupTestBed } from '@analogjs/vitest-angular/setup-testbed';
 
-// Initialize Angular testing environment
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting(),
-  {
-    errorOnUnknownElements: true,
-    errorOnUnknownProperties: true,
-  },
-);
+setupTestBed({ zoneless: false });

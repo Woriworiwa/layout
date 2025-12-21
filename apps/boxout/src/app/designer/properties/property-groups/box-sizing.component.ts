@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs';
 import { NumberField } from '../property-components/number-field';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
-import { Unit } from '@layout/canvas';
+import { Unit } from '@layout/models';
 import { PropertyRowComponent } from '../property-components/property-row.component';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { CanvasItem } from '@layout/canvas';
+import { CanvasItem } from '@layout/models';
 
 @Component({
   selector: 'app-preset-text',

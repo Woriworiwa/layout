@@ -18,7 +18,7 @@ import {
   FlexWrapOptions,
   JustifyContent,
   JustifyContentOptions,
-} from '@layout/canvas';
+} from '@layout/models';
 import { PropertyRowComponent } from '../property-components/property-row.component';
 
 @Component({

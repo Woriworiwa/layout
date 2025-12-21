@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs';
 import { NumberField } from '../property-components/number-field';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
-import { AlignSelfOptions } from '@layout/canvas';
+import { AlignSelfOptions } from '@layout/models';
 import { PropertyRowComponent } from '../property-components/property-row.component';
 import { ButtonGroupComponent } from '../property-components/button-group.component';
 
