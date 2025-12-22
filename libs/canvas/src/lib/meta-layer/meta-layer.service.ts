@@ -26,7 +26,7 @@ export class MetaLayerService {
       fromEvent(window, 'resize'),
     )
       .pipe(delay(50))
-      .subscribe((_) => {
+      .subscribe(() => {
         // TODO: this is POC, need to optimize because we are now clearing and re-rendering all labels
         this.overlay.clear();
         this.updateLayer(this.canvasService.items);

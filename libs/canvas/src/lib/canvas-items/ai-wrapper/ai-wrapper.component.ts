@@ -45,8 +45,9 @@ export class AiWrapperComponent implements OnInit {
     this.prompt.set(value);
 
     // Update the item's metadata
-    if (this.item() && this.item()?.aiMetadata) {
-      this.item()!.aiMetadata!.prompt = value;
+    const item = this.item();
+    if (item && item.aiMetadata) {
+      item.aiMetadata.prompt = value;
     }
   }
 
@@ -74,8 +75,9 @@ export class AiWrapperComponent implements OnInit {
   }
 
   protected removeAiWrapper(): void {
-    if (!this.item()?.key) return;
-    this.canvasService.removeAiWrapper(this.item()!.key!);
+    const item = this.item();
+    if (!item?.key) return;
+    this.canvasService.removeAiWrapper(item.key);
   }
 
   protected toggleCollapse(): void {
@@ -83,13 +85,14 @@ export class AiWrapperComponent implements OnInit {
   }
 
   private handleGenerationSuccess(items: CanvasItem[]): void {
-    if (!this.item()?.key) return;
+    const item = this.item();
+    if (!item?.key) return;
 
     // Clone the entire canvas items tree
     const allItems = cloneDeep(this.canvasService.items);
 
     // Find this item in the tree
-    const updatedItem = this.findItemByKey(allItems, this.item()!.key!);
+    const updatedItem = this.findItemByKey(allItems, item.key);
 
     if (updatedItem) {
       // Replace children with generated items

@@ -45,8 +45,8 @@ export class EditableContentDirective implements OnDestroy {
     content: string;
   }>();
 
-  @HostListener('click', ['$event'])
-  onClick($event: MouseEvent) {
+  @HostListener('click')
+  onClick() {
     this.elementRef.nativeElement.focus();
   }
   @HostListener('dblclick', ['$event'])
@@ -61,7 +61,7 @@ export class EditableContentDirective implements OnDestroy {
   }
 
   @HostListener('blur', ['$event'])
-  onBlur($event: any) {
+  onBlur($event: Event) {
     $event.stopPropagation();
     this.editMode = false;
     if (this.item?.key) {
@@ -73,9 +73,9 @@ export class EditableContentDirective implements OnDestroy {
   }
 
   @HostListener('input', ['$event'])
-  onInputChanged($event: any) {
+  onInputChanged($event: Event) {
     $event.stopPropagation();
-    this.inputChangedStream$.next($event.target.innerText);
+    this.inputChangedStream$.next(($event.target as HTMLInputElement).innerText);
   }
 
   /*prevent propagation so the grab event on the canvas will not fire*/

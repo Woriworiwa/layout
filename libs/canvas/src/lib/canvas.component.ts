@@ -83,7 +83,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
     this.canvasService.canvasItemsChanged$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((_) => {
+      .subscribe(() => {
         this.rootItems = this.canvasService.items;
         /* focus the selected frame, most of the times the focus will be set by the mouse when the user clicks on an item,
          * but when programatically add new items, we need to focus them.

@@ -14,7 +14,7 @@ export class ContextMenuService implements OnDestroy {
     this.destroy$.complete();
   }
 
-  show(contextMenu: ContextMenu, event: any) {
+  show(contextMenu: ContextMenu, event: MouseEvent) {
     this.previousContextMenuShowSubscription = contextMenu.onShow
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {

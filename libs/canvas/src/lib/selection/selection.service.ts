@@ -140,7 +140,7 @@ export class SelectionService implements OnDestroy {
       });
   }
 
-  showContextMenu(event: any) {
+  showContextMenu(event: MouseEvent) {
     setTimeout(() => {
       if (this.canvasSelectionItem) {
         this.contextMenuService.show(

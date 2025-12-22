@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { CanvasStore } from './canvas.store';
-import { CanvasItem } from './models/canvas-item.model';
+import { CanvasItem } from '@layout/models';
 import { CanvasItemType, InsertPosition } from './enums';
 
 describe('CanvasStore', () => {
@@ -96,14 +96,20 @@ describe('CanvasStore', () => {
       expect(insideResult[0].children).toHaveLength(1);
 
       store.setItems(insideResult);
-      const child1Key = store.items[0].children![0].key!;
+
+      const child1Key = store.items[0].children?.[0].key;
+      expect(child1Key).toBeDefined()
+      if (!child1Key) {
+        return;
+      }
+
       const beforeResult = store.insertItem(
         child1Key,
         { itemType: CanvasItemType.TEXT, children: [] },
         InsertPosition.BEFORE,
       );
       expect(beforeResult[0].children).toHaveLength(2);
-      expect(beforeResult[0].children![1].key).toBe(child1Key);
+      expect(beforeResult[0].children?.[1].key).toBe(child1Key);
     });
   });
 
@@ -215,7 +221,7 @@ describe('CanvasStore', () => {
       const updatedItem = store.getItemById(updatedItems, 'level4');
       expect(updatedItem?.content).toBe('updated deep content');
       expect(
-        store.items[0].children![0].children![0].children![0].content,
+        store.items[0].children?.[0].children?.[0].children?.[0].content,
       ).toBe('deep'); // Original unchanged
     });
 
@@ -243,12 +249,12 @@ describe('CanvasStore', () => {
         { itemType: CanvasItemType.TEXT, children: [] },
         InsertPosition.AFTER,
       );
-      expect(insertResult[0].children![0].children).toHaveLength(2);
+      expect(insertResult[0].children?.[0].children).toHaveLength(2);
 
       // Delete from depth
       store.setItems(insertResult);
       const deleteResult = store.deleteItem('leaf');
-      expect(deleteResult[0].children![0].children).toHaveLength(1);
+      expect(deleteResult[0].children?.[0].children).toHaveLength(1);
     });
   });
 

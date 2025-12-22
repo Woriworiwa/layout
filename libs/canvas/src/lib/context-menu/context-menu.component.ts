@@ -21,7 +21,7 @@ export class ContextMenuComponent implements OnInit {
   private canvasService = inject(CanvasService);
   private copyPasteService = inject(CopyPasteService);
 
-  @Input() target: any;
+  @Input() target: HTMLElement | undefined;
   @Input() frameKey: string | undefined;
   @ViewChild(ContextMenu) contextMenu!: ContextMenu;
 

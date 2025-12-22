@@ -48,7 +48,7 @@ export class SelectionLayerComponent implements OnChanges {
     if (changes['canvasElement'] && this.canvasElement) {
       this.selectionService.initialize(
         this.overlay,
-        this.canvasElement!,
+        this.canvasElement,
         this.allowAdd,
       );
     }

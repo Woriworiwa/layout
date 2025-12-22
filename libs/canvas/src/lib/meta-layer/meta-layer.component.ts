@@ -43,7 +43,7 @@ export class MetaLayerComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['canvasElement'] && this.canvasElement) {
-      this.metaLayerService.initialize(this.overlay, this.canvasElement!);
+      this.metaLayerService.initialize(this.overlay, this.canvasElement);
     }
   }
 }

@@ -1,6 +1,5 @@
-import { Component, input, output, inject } from '@angular/core';
+import { Component, input, inject } from '@angular/core';
 import { Popover } from 'primeng/popover';
-import { Tooltip } from 'primeng/tooltip';
 import { SharedModule } from 'primeng/api';
 // TODO: Refactor to remove dependency on PresetsComponent
 // import { PresetsComponent } from '../../designer/presets/presets.component';
