@@ -5,8 +5,12 @@ import { catchError, map } from 'rxjs/operators';
 import { CanvasItem } from '@layout/models';
 import { environment } from '../../../environments/environment';
 import { AiSchemaGeneratorService } from './ai-schema-generator.service';
+import {
+  AiGeneration,
+  AiGenerationResponse as BaseAiGenerationResponse,
+} from '@layout/canvas';
 
-export interface AiGenerationResponse {
+export interface AiGenerationResponse extends BaseAiGenerationResponse {
   items: CanvasItem[];
   rawResponse?: string;
 }
@@ -30,7 +34,7 @@ interface GeminiApiResponse {
 @Injectable({
   providedIn: 'root',
 })
-export class AiGenerationService {
+export class AiGenerationService implements AiGeneration {
   private http = inject(HttpClient);
   private schemaGenerator = inject(AiSchemaGeneratorService);
   private readonly GEMINI_API_URL =

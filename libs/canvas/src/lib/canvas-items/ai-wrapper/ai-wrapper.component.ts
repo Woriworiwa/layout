@@ -11,10 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonDirective } from 'primeng/button';
 import { CanvasItem } from '@layout/models';
-// TODO: Create injection token for AiGenerationService
-// import { AiGenerationService } from '../../../core/services/ai-generation.service';
 import { CanvasService } from '../../canvas.service';
 import cloneDeep from 'lodash.clonedeep';
+import { AI_GENERATION_TOKEN } from './ai-generation.token';
 
 @Component({
   selector: 'app-ai-wrapper',
@@ -24,8 +23,7 @@ import cloneDeep from 'lodash.clonedeep';
   styleUrls: ['./ai-wrapper.component.scss'],
 })
 export class AiWrapperComponent implements OnInit {
-  // TODO: Use injection token for AiGenerationService
-  // private aiService = inject(AiGenerationService);
+  private aiService = inject(AI_GENERATION_TOKEN);
   private canvasService = inject(CanvasService);
 
   item = input.required<CanvasItem>();
@@ -61,17 +59,16 @@ export class AiWrapperComponent implements OnInit {
     this.isGenerating.set(true);
     this.errorMessage.set(null);
 
-    // TODO: Re-enable when AiGenerationService injection token is available
-    /* this.aiService.generateLayout(promptValue).subscribe({
-      next: (response: any) => {
+    this.aiService.generateLayout(promptValue).subscribe({
+      next: (response) => {
         this.handleGenerationSuccess(response.items);
         this.isGenerating.set(false);
       },
-      error: (error: any) => {
+      error: (error: Error) => {
         this.errorMessage.set(error.message || 'Generation failed');
         this.isGenerating.set(false);
       },
-    }); */
+    });
   }
 
   protected removeAiWrapper(): void {
