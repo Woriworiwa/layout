@@ -1,11 +1,6 @@
 import { Injectable, signal, inject, effect } from '@angular/core';
 import { ThemeModel } from './theme.model';
-import {
-  updatePreset,
-  updatePrimaryPalette,
-  updateSurfacePalette,
-  definePreset,
-} from '@primeng/themes';
+import { updatePrimaryPalette, updateSurfacePalette } from '@primeng/themes';
 import { DOCUMENT } from '@angular/common';
 import { HighlightLoader } from 'ngx-highlightjs';
 import { defaultThemeSettings, primaryColors, surfaces } from './theme.presets';

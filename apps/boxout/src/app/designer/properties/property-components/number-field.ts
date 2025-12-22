@@ -1,4 +1,4 @@
-import { Component, input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, input, OnChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -40,7 +40,7 @@ import { ButtonDirective, ButtonIcon } from 'primeng/button';
         pButton
         [dt]="button"
         (click)="onClearButtonClick()"
-        [disabled]="control()?.value === null || control()?.value === undefined"
+        [disabled]="control().value === null || control().value === undefined"
       >
         <i class="pi pi-times" pButtonIcon></i>
       </button>

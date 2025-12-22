@@ -62,8 +62,8 @@ export class MetaDataComponent
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe((value: any) => {
-        this.propertiesService.renameSelectedItem(value.label);
+      .subscribe((value) => {
+        this.propertiesService.renameSelectedItem(value.label || '');
       });
 
     return formGroup;

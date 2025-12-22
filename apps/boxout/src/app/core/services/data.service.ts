@@ -34,7 +34,7 @@ export class DataService {
       if (localStorageItem) {
         canvasItems = JSON.parse(localStorageItem);
       }
-    } catch (e) {
+    } catch {
       console.warn('no data available in localStorage');
     }
 

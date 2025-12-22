@@ -1,7 +1,5 @@
 import {
-  ChangeDetectorRef,
   Component,
-  OnDestroy,
   inject,
   signal,
 } from '@angular/core';
@@ -42,7 +40,7 @@ export class InspectorComponent {
   private initializeInspection = () => {
     merge(this.selectionService.selectedItem$, this.canvasService.cssChanged$)
       .pipe(takeUntilDestroyed())
-      .subscribe((_) => {
+      .subscribe(() => {
         this.canvasItem.set(
           this.selectionService.selectedItem
             ? [this.selectionService.selectedItem]

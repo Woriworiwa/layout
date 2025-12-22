@@ -64,7 +64,7 @@ export abstract class BasePropertyGroupComponent
     this.destroy$.complete();
   }
 
-  protected abstract createFormGroup(): FormGroup<any>;
+  protected abstract createFormGroup(): FormGroup;
 
   getFormControl(name: string) {
     return this.formGroup.get(name) as FormControl;

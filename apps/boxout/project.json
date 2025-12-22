@@ -13,7 +13,7 @@
         "outputPath": "dist",
         "index": "apps/boxout/src/index.html",
         "browser": "apps/boxout/src/main.ts",
-        "polyfills": ["apps/boxout/src/polyfills.ts", "zone.js"],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/boxout/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/boxout/src/favicon.ico", "apps/boxout/src/assets"],

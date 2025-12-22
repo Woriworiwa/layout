@@ -11,10 +11,14 @@ import { trigger, transition, style, animate } from '@angular/animations';
 
 import {
   Tree,
-  TreeNodeContextMenuSelectEvent,
-  TreeNodeExpandEvent,
+  TreeNodeContextMenuSelectEvent
 } from 'primeng/tree';
-import { MenuItem, TreeDragDropService, TreeNode } from 'primeng/api';
+import {
+  MenuItem,
+  MenuItemCommandEvent,
+  TreeDragDropService,
+  TreeNode,
+} from 'primeng/api';
 import { CanvasItem } from '@layout/models';
 import { FormsModule } from '@angular/forms';
 import { CanvasItemType } from "@layout/canvas"
@@ -72,7 +76,7 @@ export class LayersComponent implements OnInit, OnDestroy {
     {
       label: 'Rename',
       icon: 'pi pi-search',
-      command: (event: any) => this.openRenameDialog(event),
+      command: (event: MenuItemCommandEvent) => this.openRenameDialog(event),
     },
   ];
 
@@ -158,7 +162,7 @@ export class LayersComponent implements OnInit, OnDestroy {
     });
   }
 
-  private openRenameDialog(event: any) {
+  private openRenameDialog(event: MenuItemCommandEvent) {
     this.renameDialog.toggle(
       event.originalEvent,
       this.contextMenuEvent?.target,
@@ -214,10 +218,6 @@ export class LayersComponent implements OnInit, OnDestroy {
     }
 
     return icon;
-  }
-
-  onNodeExpand($event: TreeNodeExpandEvent) {
-    // Track expanded nodes
   }
 
   protected themeOverrides = {

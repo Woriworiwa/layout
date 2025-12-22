@@ -111,7 +111,7 @@ export class BoxSizingComponent
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe((value: any) => {
+      .subscribe((value) => {
         // Use PropertiesService to update CSS
         this.propertiesService.updateCssCategory(this.css(), 'boxSizing', {
           height: this.propertiesService.formatWithUnit(

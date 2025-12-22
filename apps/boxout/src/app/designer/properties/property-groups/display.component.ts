@@ -56,7 +56,7 @@ export class DisplayComponent
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe((value: any) => {
+      .subscribe((value) => {
         this.propertiesService.updateCssCategory(this.css(), 'display', value);
       });
 

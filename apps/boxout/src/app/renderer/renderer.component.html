@@ -66,7 +66,7 @@
               [style.min-height]="'400px'"
             >
               <iframe
-                [srcdoc]="code | unsafeHtml"
+                [srcdoc]="code() | unsafeHtml"
                 class="border-none pointer-events-none"
                 [style.width]="customWidth() + 'px'"
                 [style.min-height]="'400px'"
@@ -85,7 +85,7 @@
             [style.min-height]="'400px'"
           >
             <iframe
-              [srcdoc]="code | unsafeHtml"
+              [srcdoc]="code() | unsafeHtml"
               class="w-full h-full border-none"
               [style.min-height]="'400px'"
             ></iframe>

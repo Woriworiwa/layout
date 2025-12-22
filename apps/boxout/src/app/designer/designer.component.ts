@@ -1,17 +1,14 @@
 import { Component, inject, model, OnInit, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-
 import { CanvasComponent } from '@layout/canvas';
 import { PropertiesComponent } from './properties/properties.component';
 import { PresetsComponent } from './presets/presets.component';
-import { InspectorComponent } from './inspector/inspector.component';
 import { LayersComponent } from './layers/layers.component';
 import { HeaderComponent } from './header/header.component';
 import {
   TabSwitcherComponent,
   TabOption,
 } from '../shared/tab-switcher/tab-switcher.component';
-import { AppStateService } from '../core/services/app-state.service';
 import { SideBarPrimary } from '../core/enums';
 import { UiGuidanceService } from '../core/services/ui-guidance.service';
 
@@ -22,7 +19,6 @@ import { UiGuidanceService } from '../core/services/ui-guidance.service';
     CanvasComponent,
     PropertiesComponent,
     PresetsComponent,
-    InspectorComponent,
     LayersComponent,
     TabSwitcherComponent,
   ],
@@ -30,7 +26,6 @@ import { UiGuidanceService } from '../core/services/ui-guidance.service';
   styleUrl: './designer.component.scss',
 })
 export class DesignerComponent implements OnInit, OnDestroy {
-  protected appStateService = inject(AppStateService);
   private uiGuidanceService = inject(UiGuidanceService);
   private destroy$ = new Subject<void>();
 

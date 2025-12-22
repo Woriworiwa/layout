@@ -191,7 +191,7 @@ export class PropertiesGridContainerComponent
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe((value: any) => {
+      .subscribe((value) => {
         this.propertiesService.updateCssWithSplit(
           this.css(),
           value,

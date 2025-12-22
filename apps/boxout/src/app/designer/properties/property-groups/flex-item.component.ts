@@ -95,7 +95,7 @@ export class PropertiesFlexItemComponent
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe((value: any) => {
+      .subscribe((value) => {
         this.propertiesService.updateCssCategory(this.css(), 'flexItem', value);
       });
 

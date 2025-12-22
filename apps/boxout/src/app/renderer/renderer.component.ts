@@ -1,5 +1,4 @@
 import { Component, inject, signal, computed, effect } from '@angular/core';
-
 import { HtmlSerializer } from '@layout/serialization';
 import { UnsafeHtmlPipe } from './unsafe-html.pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -51,7 +50,7 @@ interface ViewportPreset {
 export class RendererComponent {
   protected canvasService = inject(CanvasService);
 
-  code: any;
+  code = signal<string>('');
   serializer: HtmlSerializer = new HtmlSerializer();
   selectedCodeView: CodeViewType = CodeViewType.HTML;
   codePanelVisible = signal(false);
@@ -95,7 +94,7 @@ export class RendererComponent {
     this.canvasService.items$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
-        this.code = this.serializer.serialize(items, true).join('\n');
+        this.code.set(this.serializer.serialize(items, true).join('\n'));
       });
 
     // Reset to tablet width when custom is selected

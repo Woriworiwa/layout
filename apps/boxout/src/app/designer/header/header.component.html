@@ -17,7 +17,6 @@
   <div class="flex justify-end">
     <p-button
       [text]="true"
-      [link]="true"
       (onClick)="themeConfiguratorPopover.toggle($event)"
       pTooltip="Customize Theme"
       tooltipPosition="bottom"
@@ -25,15 +24,16 @@
     >
     </p-button>
 
-    <p-button
-      [text]="true"
-      [link]="true"
-      (onClick)="window.open('https://github.com/Woriworiwa/layout', '_blank')"
-      pTooltip="View code on Github"
-      tooltipPosition="bottom"
-      icon="pi pi-github"
-    >
-    </p-button>
+    <a href="https://github.com/Woriworiwa/layout"
+       pButton
+       target="_blank"
+       rel="noopener noreferrer"
+       [text]="true"
+       pTooltip="View code on Github"
+       tooltipPosition="bottom"
+       icon="pi pi-github"
+       class="mr-2">
+    </a>
 
     <p-splitbutton
       label="Save"

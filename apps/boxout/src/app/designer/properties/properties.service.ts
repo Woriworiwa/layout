@@ -85,7 +85,7 @@ export class PropertiesService {
 
   formatWithUnit(
     value: string | number | null | undefined,
-    unit: string,
+    unit: string | null | undefined,
   ): string | null | undefined {
     return value != null ? `${value}${unit}` : value;
   }

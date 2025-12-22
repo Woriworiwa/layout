@@ -43,8 +43,8 @@ export class ResizableDirective implements OnInit {
     }
   }
 
-  @HostListener('document:mouseup', ['$event'])
-  onMouseUp(event: MouseEvent) {
+  @HostListener('document:mouseup')
+  onMouseUp() {
     this.isResizing = false;
   }
 }

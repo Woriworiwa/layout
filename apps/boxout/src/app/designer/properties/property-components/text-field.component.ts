@@ -41,7 +41,7 @@ import { BaseFormItemComponent } from './base-form-item.component';
         pButton
         [dt]="button"
         (click)="onClearButtonClick()"
-        [disabled]="control()?.value === null || control()?.value === undefined"
+        [disabled]="control().value === null || control().value === undefined"
       >
         <i class="pi pi-times" pButtonIcon></i>
       </button>

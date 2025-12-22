@@ -8,15 +8,10 @@ import { NumberField } from '../property-components/number-field';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
 import {
-  AlignContent,
   AlignContentOptions,
-  AlignItems,
   AlignItemsOptions,
-  FlexDirection,
   FlexDirectionOptions,
-  FlexWrap,
   FlexWrapOptions,
-  JustifyContent,
   JustifyContentOptions,
 } from '@layout/models';
 import { PropertyRowComponent } from '../property-components/property-row.component';
@@ -124,7 +119,7 @@ export class PropertiesFlexContainerComponent
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe((value: any) => {
+      .subscribe((value) => {
         this.propertiesService.updateCssWithSplit(
           this.css(),
           value,

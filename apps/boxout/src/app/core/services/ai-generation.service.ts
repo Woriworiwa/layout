@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { CanvasItem } from '@layout/models';
@@ -9,6 +9,22 @@ import { AiSchemaGeneratorService } from './ai-schema-generator.service';
 export interface AiGenerationResponse {
   items: CanvasItem[];
   rawResponse?: string;
+}
+
+interface GeminiResponsePart {
+  text: string;
+}
+
+interface GeminiContent {
+  parts: GeminiResponsePart[];
+}
+
+interface GeminiCandidate {
+  content: GeminiContent;
+}
+
+interface GeminiApiResponse {
+  candidates: GeminiCandidate[];
 }
 
 @Injectable({
@@ -37,7 +53,7 @@ export class AiGenerationService {
     };
 
     return this.http
-      .post<any>(
+      .post<GeminiApiResponse>(
         `${this.GEMINI_API_URL}?key=${environment.geminiApiKey}`,
         payload,
       )
@@ -116,7 +132,7 @@ GRID Example:
 }]`;
   }
 
-  private parseGeminiResponse(response: any): AiGenerationResponse {
+  private parseGeminiResponse(response: GeminiApiResponse): AiGenerationResponse {
     try {
       const text = response.candidates[0].content.parts[0].text;
 
@@ -144,7 +160,7 @@ GRID Example:
     }
   }
 
-  private handleError(error: any): Observable<never> {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'AI generation failed';
 
     if (error.status === 401) {
