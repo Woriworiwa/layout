@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { AssetDragDropService } from './asset-drag-drop.service';
 import { CANVAS_WRAPPER_ID } from '../constants';
-import { InsertPosition } from '../enums';
 import { DragDropService } from './drag-drop.service';
+import { InsertPosition } from '@layout/models';
 
 /**
  * Directive that handles drag and drop events for the canvas wrapper element.

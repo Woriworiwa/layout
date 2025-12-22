@@ -20,10 +20,9 @@ import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   CanvasService,
-  SelectionService,
-  CanvasItemType,
+  SelectionService
 } from '@layout/canvas';
-import { Display } from '@layout/models';
+import { CanvasItemType, Display } from '@layout/models';
 import { BoxSizingComponent } from './property-groups/box-sizing.component';
 import { DisplayComponent } from './property-groups/display.component';
 import { MetaDataComponent } from './property-groups/meta-data.component';

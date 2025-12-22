@@ -3,13 +3,13 @@ import { firstValueFrom } from 'rxjs';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { CanvasService } from './canvas.service';
 import { CanvasStore } from './canvas.store';
-import { SelectionService } from './selection/selection.service';
-import { UndoRedoService } from './undo-redo/undo-redo.service';
-import { ContextMenuService } from './context-menu/context-menu.service';
-import { AssetDragDropService } from './drag-drop/asset-drag-drop.service';
-import { CanvasItem } from './models/canvas-item.model';
-import { CanvasItemType, InsertPosition } from './enums';
-import { Css } from './models/css-interfaces/css';
+import { SelectionService } from '@layout/canvas';
+import { UndoRedoService } from '@layout/canvas';
+import { ContextMenuService } from '@layout/canvas';
+import { AssetDragDropService } from '@layout/canvas';
+import { CanvasItem, CanvasItemType } from '@layout/models';
+import { InsertPosition } from '@layout/models';
+import { Css } from '@layout/models';
 
 describe('CanvasService', () => {
   let service: CanvasService;

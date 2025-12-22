@@ -140,7 +140,7 @@ libs/                        # Reusable libraries
 │   ├── css-interfaces/      # Css, FlexContainer, GridContainer, etc.
 │   ├── css-enums/          # Properties, Units
 │   ├── constants.ts
-│   ├── enums.ts
+│   ├── canvas-item-type.enum.ts
 │   └── utils/              # Type utilities
 │
 ├── canvas/                  # @layout/canvas - Canvas functionality
@@ -169,7 +169,7 @@ apps/boxout/src/app/        # Main application
 │   ├── store/             # App-level state (layout, app state)
 │   ├── theme/             # Theme configuration & presets
 │   ├── models/            # App-specific models (Preset)
-│   └── enums.ts           # App-specific enums
+│   └── canvas-item-type.enum.ts           # App-specific enums
 │
 ├── designer/              # Main editor interface (/design route)
 │   ├── designer.component.ts

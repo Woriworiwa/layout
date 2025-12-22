@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { CanvasStore } from './canvas.store';
-import { CanvasItem } from '@layout/models';
-import { CanvasItemType, InsertPosition } from './enums';
+import { CanvasItem, CanvasItemType } from '@layout/models';
+import { InsertPosition } from './enums';
 
 describe('CanvasStore', () => {
   let store: CanvasStore;

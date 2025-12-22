@@ -13,11 +13,10 @@ import { FormsModule } from '@angular/forms';
 import { PresetService } from './preset.service';
 import {
   CanvasService,
-  InsertPosition,
   SelectionService,
   AssetDragDropService,
 } from '@layout/canvas';
-import { CanvasItem } from '@layout/models';
+import { CanvasItem, InsertPosition } from '@layout/models';
 import { Preset } from '../../core/models/preset.model';
 
 interface AssetComponentItem {

@@ -1,5 +1,5 @@
 import { CanvasItemType } from '@layout/models';
-import { Css } from './css-interfaces/css';
+import { Css } from './css-models/css';
 
 export interface AiMetadata {
   prompt: string;

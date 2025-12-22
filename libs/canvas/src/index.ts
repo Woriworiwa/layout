@@ -8,10 +8,6 @@ export * from './lib/canvas.service';
 export * from './lib/canvas.store';
 export * from './lib/canvas.settings';
 
-// Enums & Constants
-export * from './lib/enums';
-export * from './lib/constants';
-
 // Services
 export * from './lib/selection/selection.service';
 export * from './lib/undo-redo/undo-redo.service';

@@ -11,9 +11,10 @@ import {
 } from '@angular/core';
 import { AssetDragDropService } from './asset-drag-drop.service';
 import { CanvasItem } from '@layout/models';
-import { InsertPosition, CanvasItemType } from '../enums';
+import { CanvasItemType } from '@layout/models';
 import { CanvasItemBaseComponent } from '../canvas-items/canvas-item-base.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { InsertPosition } from '@layout/models';
 
 @Directive({
   selector: '[appAssetDrop]',

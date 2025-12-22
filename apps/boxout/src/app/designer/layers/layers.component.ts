@@ -21,7 +21,7 @@ import {
 } from 'primeng/api';
 import { CanvasItem } from '@layout/models';
 import { FormsModule } from '@angular/forms';
-import { CanvasItemType } from "@layout/canvas"
+import { CanvasItemType } from "@layout/models"
 import { ContextMenu } from 'primeng/contextmenu';
 import { Popover } from 'primeng/popover';
 import { Button } from 'primeng/button';

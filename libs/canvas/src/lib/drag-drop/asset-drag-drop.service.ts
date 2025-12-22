@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { InsertPosition } from '../enums';
+import { InsertPosition } from '@layout/models';
 
 export interface AssetDragState {
   isDragging: boolean;

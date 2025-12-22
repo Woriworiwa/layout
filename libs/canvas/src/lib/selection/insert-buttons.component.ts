@@ -4,9 +4,9 @@ import { SharedModule } from 'primeng/api';
 // TODO: Refactor to remove dependency on PresetsComponent
 // import { PresetsComponent } from '../../designer/presets/presets.component';
 import { CanvasItem } from '@layout/models';
-import { InsertPosition } from '../enums';
 import { CanvasService } from '../canvas.service';
 import { CANVAS_WRAPPER_ID } from '../constants';
+import { InsertPosition } from '@layout/models';
 
 @Component({
   selector: 'app-insert-buttons',

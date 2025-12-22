@@ -3,8 +3,8 @@ import { Store } from './store/store';
 import { CanvasItem } from '@layout/models';
 import cloneDeep from 'lodash.clonedeep';
 import { CANVAS_WRAPPER_ID } from './constants';
-import { InsertPosition } from './enums';
 import { Css } from '@layout/models';
+import { InsertPosition } from '@layout/models';
 
 export class CanvasState {
   canvasItems: CanvasItem[] = [];
