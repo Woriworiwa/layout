@@ -51,3 +51,4 @@ export * from './lib/store/store';
 
 // Interfaces & Tokens
 export * from './lib/interfaces/preset-provider.interface';
+export * from './lib/drag-drop/ui-guidance.token';

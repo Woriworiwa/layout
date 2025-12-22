@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { UiGuidance, GuidanceEvent as BaseGuidanceEvent } from '@layout/canvas';
 
-export interface GuidanceEvent {
+export interface GuidanceEvent extends BaseGuidanceEvent {
   target: 'layers-panel';
   action: 'highlight';
 }
@@ -9,7 +10,7 @@ export interface GuidanceEvent {
 @Injectable({
   providedIn: 'root',
 })
-export class UiGuidanceService {
+export class UiGuidanceService implements UiGuidance {
   private guidanceEventSubject = new Subject<GuidanceEvent>();
 
   guidanceEvent$ = this.guidanceEventSubject.asObservable();

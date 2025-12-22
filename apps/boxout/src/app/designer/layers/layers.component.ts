@@ -68,7 +68,7 @@ export class LayersComponent implements OnInit, OnDestroy {
   contextMenuEvent: Event | undefined;
   expandedNodes: string[] = [];
   showGuidanceMessage = false;
-  private guidanceMessageTimeout: any;
+  private guidanceMessageTimeout: ReturnType<typeof setTimeout> | undefined;
 
   private destroy$ = new Subject();
 

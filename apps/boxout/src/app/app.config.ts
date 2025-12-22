@@ -9,6 +9,8 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { defaultTheme } from './core/theme/theme.presets';
+import { UI_GUIDANCE_TOKEN } from '@layout/canvas';
+import { UiGuidanceService } from './core/services/ui-guidance.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,5 +29,6 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    { provide: UI_GUIDANCE_TOKEN, useExisting: UiGuidanceService },
   ],
 };

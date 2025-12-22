@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { CANVAS_WRAPPER_ID } from '../constants';
-// TODO: Create injection token for UiGuidanceService
-// import { UiGuidanceService } from '../../core/services/ui-guidance.service';
 import { PanZoomService } from '../pan-zoom/pan-zoom.service';
+import { UI_GUIDANCE_TOKEN } from './ui-guidance.token';
 
 /**
  * Service to detect when users attempt to drag canvas elements
@@ -10,9 +9,8 @@ import { PanZoomService } from '../pan-zoom/pan-zoom.service';
  */
 @Injectable()
 export class DragDropService {
-  // TODO: Use injection token for UiGuidanceService
-  // private uiGuidanceService = inject(UiGuidanceService);
-  private dragAttemptTimeout: any;
+  private uiGuidanceService = inject(UI_GUIDANCE_TOKEN);
+  private dragAttemptTimeout: ReturnType<typeof setTimeout> | undefined;
   private panZoomService = inject(PanZoomService);
 
   /**
@@ -49,9 +47,8 @@ export class DragDropService {
         if (this.panZoomService.isPanning) {
           return; // Don't show guidance if panning
         }
-        // TODO: Re-enable when UiGuidanceService injection token is available
         // Trigger guidance to show and highlight layers panel
-        // this.uiGuidanceService.highlightLayersPanel();
+        this.uiGuidanceService.highlightLayersPanel();
       }, 150); // Short delay to distinguish from clicks
     }
   }
