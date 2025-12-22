@@ -2,7 +2,7 @@ import { Component, computed, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
 import { InputGroup } from 'primeng/inputgroup';
-import { ButtonDirective, ButtonIcon } from 'primeng/button';
+import { Button, ButtonDirective, ButtonIcon } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { BaseFormItemComponent } from './base-form-item.component';
@@ -16,6 +16,7 @@ import { BaseFormItemComponent } from './base-form-item.component';
     ButtonDirective,
     ButtonIcon,
     Menu,
+    Button,
   ],
   template: `
     <p-inputgroup [dt]="inputGroup">
@@ -26,13 +27,13 @@ import { BaseFormItemComponent } from './base-form-item.component';
         [placeholder]="placeholder()"
       />
       @if (presets() && presets().length > 0) {
-        <button
+        <p-button
           type="button"
-          pButton
-          pButtonIcon="pi pi-ellipsis-v"
+          icon="pi pi-ellipsis-v"
           [dt]="button"
           (click)="menu.toggle($event)"
-        >.</button>
+          ></p-button
+        >
         <p-menu #menu [model]="menuItems()" [popup]="true" />
       }
       <button
