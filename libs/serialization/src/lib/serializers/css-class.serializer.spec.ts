@@ -17,9 +17,9 @@ describe('CssClassSerializer', () => {
         label: 'Container',
         css: {
           display: { display: 'flex' },
-          boxSizing: { padding: '1rem' }
+          boxSizing: { padding: '1rem' },
         },
-        children: []
+        children: [],
       };
 
       const result = serializer.serialize([item]);
@@ -38,7 +38,7 @@ describe('CssClassSerializer', () => {
         key: 'parent',
         label: 'Parent',
         css: {
-          display: { display: 'grid' }
+          display: { display: 'grid' },
         },
         children: [
           {
@@ -46,11 +46,11 @@ describe('CssClassSerializer', () => {
             key: 'child1',
             label: 'Child 1',
             css: {
-              gridItem: { gridColumn: '1 / 2' }
+              gridItem: { gridColumn: '1 / 2' },
             },
-            children: []
-          }
-        ]
+            children: [],
+          },
+        ],
       };
 
       const result = serializer.serialize([parent]);
@@ -68,7 +68,7 @@ describe('CssClassSerializer', () => {
         key: 'empty-css',
         label: 'Empty',
         css: undefined,
-        children: []
+        children: [],
       };
 
       const result = serializer.serialize([item]);
@@ -95,19 +95,19 @@ describe('CssClassSerializer', () => {
           key: 'item1',
           label: 'Item 1',
           css: {
-            boxSizing: { width: '100px' }
+            boxSizing: { width: '100px' },
           },
-          children: []
+          children: [],
         },
         {
           itemType: CanvasItemType.CONTAINER,
           key: 'item2',
           label: 'Item 2',
           css: {
-            boxSizing: { height: '200px' }
+            boxSizing: { height: '200px' },
           },
-          children: []
-        }
+          children: [],
+        },
       ];
 
       const result = serializer.serialize(items);

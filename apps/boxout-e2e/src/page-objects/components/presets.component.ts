@@ -17,7 +17,6 @@ export class PresetsComponent {
   }
 
   async dragPreset(presetName: string) {
-    return this.presetsPanel
-      .locator(`[data-testid="preset-${presetName}"]`);
+    return this.presetsPanel.locator(`[data-testid="preset-${presetName}"]`);
   }
 }

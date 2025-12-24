@@ -98,7 +98,7 @@ describe('CanvasStore', () => {
       store.setItems(insideResult);
 
       const child1Key = store.items[0].children?.[0].key;
-      expect(child1Key).toBeDefined()
+      expect(child1Key).toBeDefined();
       if (!child1Key) {
         return;
       }

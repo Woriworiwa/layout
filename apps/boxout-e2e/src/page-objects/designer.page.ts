@@ -35,9 +35,7 @@ export class DesignerPage {
   }
 
   async getCanvasState(): Promise<string | null> {
-    return await this.page.evaluate(() =>
-      localStorage.getItem('canvas-state')
-    );
+    return await this.page.evaluate(() => localStorage.getItem('canvas-state'));
   }
 
   async hasUnsavedChanges(): Promise<boolean> {

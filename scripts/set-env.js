@@ -19,17 +19,23 @@ if (!geminiApiKey) {
 // Define environment files
 const environments = [
   {
-    path: path.join(__dirname, '../apps/boxout/src/environments/environment.ts'),
+    path: path.join(
+      __dirname,
+      '../apps/boxout/src/environments/environment.ts',
+    ),
     production: false,
   },
   {
-    path: path.join(__dirname, '../apps/boxout/src/environments/environment.prod.ts'),
+    path: path.join(
+      __dirname,
+      '../apps/boxout/src/environments/environment.prod.ts',
+    ),
     production: true,
-  }
+  },
 ];
 
 // Generate each environment file
-environments.forEach(env => {
+environments.forEach((env) => {
   const content = `export const environment = {
   production: ${env.production},
   geminiApiKey: '${geminiApiKey}'

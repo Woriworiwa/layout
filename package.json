@@ -12,6 +12,8 @@
     "test:coverage": "nx run boxout:test --coverage --run",
     "e2e-boxout": "playwright test --config=apps/boxout-e2e/playwright.config.ts",
     "lint": "nx run-many -t lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "commit": "cz",
     "prepare": "husky"
   },

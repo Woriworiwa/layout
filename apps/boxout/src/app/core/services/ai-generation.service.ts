@@ -136,7 +136,9 @@ GRID Example:
 }]`;
   }
 
-  private parseGeminiResponse(response: GeminiApiResponse): AiGenerationResponse {
+  private parseGeminiResponse(
+    response: GeminiApiResponse,
+  ): AiGenerationResponse {
     try {
       const text = response.candidates[0].content.parts[0].text;
 

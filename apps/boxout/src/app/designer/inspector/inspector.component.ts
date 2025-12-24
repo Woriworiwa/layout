@@ -1,8 +1,4 @@
-import {
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
 import { CssViewerComponent } from '../../shared/code-viewer/css-viewer.component';
 import { HtmlViewerComponent } from '../../shared/code-viewer/html-viewer.component';

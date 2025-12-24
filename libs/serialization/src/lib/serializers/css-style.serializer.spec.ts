@@ -17,9 +17,9 @@ describe('CssStyleSerializer', () => {
         label: 'Container',
         css: {
           display: { display: 'flex' },
-          boxSizing: { padding: '16px' }
+          boxSizing: { padding: '16px' },
         },
-        children: []
+        children: [],
       };
 
       const result = serializer.serialize([item]);
@@ -38,14 +38,14 @@ describe('CssStyleSerializer', () => {
         key: 'container',
         label: 'Container',
         css: {
-          flexContainer: { flexDirection: 'column' }
+          flexContainer: { flexDirection: 'column' },
         },
-        children: []
+        children: [],
       };
 
       const result = serializer.serialize([item]);
 
-      expect(result.some(line => line.includes('flex-direction'))).toBe(true);
+      expect(result.some((line) => line.includes('flex-direction'))).toBe(true);
     });
   });
 
@@ -56,7 +56,7 @@ describe('CssStyleSerializer', () => {
         key: 'empty',
         label: 'Empty',
         css: undefined,
-        children: []
+        children: [],
       };
 
       const result = serializer.serialize([item]);
@@ -74,19 +74,19 @@ describe('CssStyleSerializer', () => {
           key: 'item1',
           label: 'Item 1',
           css: {
-            boxSizing: { padding: '10px' }
+            boxSizing: { padding: '10px' },
           },
-          children: []
+          children: [],
         },
         {
           itemType: CanvasItemType.CONTAINER,
           key: 'item2',
           label: 'Item 2',
           css: {
-            boxSizing: { padding: '20px' }
+            boxSizing: { padding: '20px' },
           },
-          children: []
-        }
+          children: [],
+        },
       ];
 
       const result = serializer.serialize(items);

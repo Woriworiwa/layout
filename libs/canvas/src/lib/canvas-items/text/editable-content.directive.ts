@@ -75,7 +75,9 @@ export class EditableContentDirective implements OnDestroy {
   @HostListener('input', ['$event'])
   onInputChanged($event: Event) {
     $event.stopPropagation();
-    this.inputChangedStream$.next(($event.target as HTMLInputElement).innerText);
+    this.inputChangedStream$.next(
+      ($event.target as HTMLInputElement).innerText,
+    );
   }
 
   /*prevent propagation so the grab event on the canvas will not fire*/

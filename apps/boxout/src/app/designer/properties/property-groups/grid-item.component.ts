@@ -8,10 +8,7 @@ import { PropertyGroupContainerComponent } from './property-group-container.comp
 import { PropertyRowComponent } from '../property-components/property-row.component';
 import { TextFieldComponent } from '../property-components/text-field.component';
 import { ButtonGroupComponent } from '../property-components/button-group.component';
-import {
-  AlignSelfOptions,
-  JustifySelfOptions,
-} from '@layout/models';
+import { AlignSelfOptions, JustifySelfOptions } from '@layout/models';
 
 @Component({
   selector: 'app-properties-grid-item',

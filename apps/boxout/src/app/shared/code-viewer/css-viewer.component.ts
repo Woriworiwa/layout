@@ -7,10 +7,7 @@ import {
 } from '@angular/core';
 
 import { CanvasItem } from '@layout/models';
-import {
-  SerializationService,
-  SerializerType,
-} from '@layout/serialization';
+import { SerializationService, SerializerType } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
 
 @Component({

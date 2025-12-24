@@ -30,7 +30,9 @@ export const UI_GUIDANCE_TOKEN = new InjectionToken<UiGuidance>(
       // Default implementation that does nothing
       return {
         guidanceEvent$: new Observable(),
-        highlightLayersPanel: () => { /* empty */ },
+        highlightLayersPanel: () => {
+          /* empty */
+        },
       };
     },
   },

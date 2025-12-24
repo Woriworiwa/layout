@@ -36,7 +36,6 @@
   <input
     #nameInput
     pInputText
-
     (keydown.enter)="renameNode(selectedItems?.key!, nameInput.value)"
     onfocus="this.select()"
     [value]="selectedItems?.label || selectedItems?.itemType"

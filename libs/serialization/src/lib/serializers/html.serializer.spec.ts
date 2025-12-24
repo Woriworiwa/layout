@@ -12,9 +12,9 @@ describe('HtmlSerializer', () => {
         key: 'test-key',
         label: 'Test',
         css: {
-          display: { display: 'flex' }
+          display: { display: 'flex' },
         },
-        children: []
+        children: [],
       };
 
       const result = serializer.serialize([item]);
@@ -32,7 +32,7 @@ describe('HtmlSerializer', () => {
         key: 'parent-key',
         label: 'Parent',
         css: {
-          display: { display: 'flex' }
+          display: { display: 'flex' },
         },
         children: [
           {
@@ -40,11 +40,11 @@ describe('HtmlSerializer', () => {
             key: 'child-key',
             label: 'Child',
             css: {
-              boxSizing: { width: '50%' }
+              boxSizing: { width: '50%' },
             },
-            children: []
-          }
-        ]
+            children: [],
+          },
+        ],
       };
 
       const result = serializer.serialize([parent]);
@@ -63,9 +63,9 @@ describe('HtmlSerializer', () => {
         label: 'Text',
         content: 'Hello World',
         css: {
-          boxSizing: { padding: '10px' }
+          boxSizing: { padding: '10px' },
         },
-        children: []
+        children: [],
       };
 
       const result = serializer.serialize([item]);
@@ -83,9 +83,9 @@ describe('HtmlSerializer', () => {
         key: 'test',
         label: 'Test',
         css: {
-          display: { display: 'grid' }
+          display: { display: 'grid' },
         },
-        children: []
+        children: [],
       };
 
       const result = serializer.serialize([item], true);
@@ -116,9 +116,9 @@ describe('HtmlSerializer', () => {
           key: 'key-1',
           label: 'Item 1',
           css: {
-            display: { display: 'flex' }
+            display: { display: 'flex' },
           },
-          children: []
+          children: [],
         },
         {
           itemType: CanvasItemType.TEXT,
@@ -126,10 +126,10 @@ describe('HtmlSerializer', () => {
           label: 'Item 2',
           content: 'Text content',
           css: {
-            boxSizing: { padding: '5px' }
+            boxSizing: { padding: '5px' },
           },
-          children: []
-        }
+          children: [],
+        },
       ];
 
       const result = serializer.serialize(items);

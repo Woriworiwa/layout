@@ -18,10 +18,7 @@ import { InputGroup } from 'primeng/inputgroup';
 import { InputText } from 'primeng/inputtext';
 import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {
-  CanvasService,
-  SelectionService
-} from '@layout/canvas';
+import { CanvasService, SelectionService } from '@layout/canvas';
 import { CanvasItemType, Display } from '@layout/models';
 import { BoxSizingComponent } from './property-groups/box-sizing.component';
 import { DisplayComponent } from './property-groups/display.component';

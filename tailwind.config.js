@@ -7,4 +7,3 @@ module.exports = {
   darkMode: ['class', '.p-dark'],
   plugins: [require('tailwindcss-primeui')],
 };
-

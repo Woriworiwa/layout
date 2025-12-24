@@ -8,11 +8,11 @@ import {
 } from 'rxjs';
 import { CanvasStore } from '../store/canvas.store';
 import cloneDeep from 'lodash.clonedeep';
-import { CanvasItem } from '@layout/models'
+import { CanvasItem } from '@layout/models';
 
 interface UndoRedoState {
-  undoStackEmpty: boolean,
-  redoStackEmpty: boolean
+  undoStackEmpty: boolean;
+  redoStackEmpty: boolean;
 }
 
 /*
@@ -25,7 +25,9 @@ export class UndoRedoService implements OnDestroy {
 
   private undoStack: CanvasItem[][] = [];
   private redoStack: CanvasItem[][] = [];
-  private undoRedoExecutedSubject: Subject<CanvasItem[]> = new Subject<CanvasItem[]>();
+  private undoRedoExecutedSubject: Subject<CanvasItem[]> = new Subject<
+    CanvasItem[]
+  >();
   private statusSubject: BehaviorSubject<UndoRedoState> = new BehaviorSubject({
     undoStackEmpty: true,
     redoStackEmpty: true,

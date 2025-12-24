@@ -9,10 +9,7 @@ import {
 } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 
-import {
-  Tree,
-  TreeNodeContextMenuSelectEvent
-} from 'primeng/tree';
+import { Tree, TreeNodeContextMenuSelectEvent } from 'primeng/tree';
 import {
   MenuItem,
   MenuItemCommandEvent,
@@ -21,7 +18,7 @@ import {
 } from 'primeng/api';
 import { CanvasItem } from '@layout/models';
 import { FormsModule } from '@angular/forms';
-import { CanvasItemType } from "@layout/models"
+import { CanvasItemType } from '@layout/models';
 import { ContextMenu } from 'primeng/contextmenu';
 import { Popover } from 'primeng/popover';
 import { Button } from 'primeng/button';

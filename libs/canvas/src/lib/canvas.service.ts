@@ -18,7 +18,9 @@ import { SelectionService } from './selection/selection.service';
 import { Css } from '@layout/models';
 import { InsertPosition } from '@layout/models';
 
-export const PRESET_PROVIDER = new InjectionToken<PresetProvider>('PRESET_PROVIDER');
+export const PRESET_PROVIDER = new InjectionToken<PresetProvider>(
+  'PRESET_PROVIDER',
+);
 
 @Injectable()
 export class CanvasService implements OnDestroy {
@@ -125,10 +127,7 @@ export class CanvasService implements OnDestroy {
       return;
     }
 
-    const updatedItems = this.canvasStore.updateItemCss(
-      selectedFrame.key,
-      css,
-    );
+    const updatedItems = this.canvasStore.updateItemCss(selectedFrame.key, css);
     this.setItems(updatedItems);
     this.cssChangedSubject.next(undefined);
   }

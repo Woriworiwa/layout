@@ -12,9 +12,9 @@ describe('JSONSerializer', () => {
         key: 'test-key',
         label: 'Test Container',
         css: {
-          display: { display: 'flex' }
+          display: { display: 'flex' },
         },
-        children: []
+        children: [],
       };
 
       const result = serializer.serialize([item]);
@@ -34,10 +34,10 @@ describe('JSONSerializer', () => {
           content: undefined,
           css: {
             display: { display: 'flex' },
-            flexContainer: { flexDirection: undefined as never }
+            flexContainer: { flexDirection: undefined as never },
           },
-          children: []
-        }
+          children: [],
+        },
       ];
 
       const result = serializer.sanitizeFrames(frames);
@@ -56,7 +56,7 @@ describe('JSONSerializer', () => {
           key: 'parent',
           label: 'Parent',
           css: {
-            display: { display: 'flex' }
+            display: { display: 'flex' },
           },
           children: [
             {
@@ -65,12 +65,12 @@ describe('JSONSerializer', () => {
               label: 'Child',
               content: 'Hello',
               css: {
-                boxSizing: { padding: '10px' }
+                boxSizing: { padding: '10px' },
               },
-              children: []
-            }
-          ]
-        }
+              children: [],
+            },
+          ],
+        },
       ];
 
       const result = serializer.sanitizeFrames(frames);
