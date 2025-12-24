@@ -61,8 +61,9 @@ export class PanZoomDirective {
   /*mouse down*/
   @HostListener('mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
-    if (event.button === 0) {
-      this.panZoomService.isPanModeActive = this.isPanModeActive;
+    if (event.button === 0 && this.panZoomService.isPanModeActive) {
+      this.panZoomService.isPanning = true;
+      event.preventDefault();
     }
   }
 
@@ -70,15 +71,17 @@ export class PanZoomDirective {
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
+      event.preventDefault();
       this.panZoomService.isPanModeActive = true;
     }
   }
 
   /*keyup with space*/
-  @HostListener('document:keyup ', ['$event'])
+  @HostListener('document:keyup', ['$event'])
   onKeyUp(event: KeyboardEvent) {
     if (event.code === 'Space') {
       this.panZoomService.isPanModeActive = false;
+      this.panZoomService.isPanning = false;
     }
   }
 }

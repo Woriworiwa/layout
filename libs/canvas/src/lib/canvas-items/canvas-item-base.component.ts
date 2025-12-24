@@ -18,6 +18,7 @@ import { SelectionService } from '../selection/selection.service';
 import { Subject, takeUntil } from 'rxjs';
 import { CanvasService } from '../canvas.service';
 import { CanvasItemMouseEvent } from './canvas-item-mouse-event';
+import { PanZoomService } from '../pan-zoom/pan-zoom.service';
 
 @Component({
   selector: 'app-canvas-base-component',
@@ -36,11 +37,15 @@ export class CanvasItemBaseComponent implements OnDestroy, OnChanges {
   private baseRenderer = inject(Renderer2);
   private baseCanvasService = inject(CanvasService);
   private baseSelectionService = inject(SelectionService);
+  private basePanZoomService = inject(PanZoomService);
   private destroy$ = new Subject();
 
   @HostListener('click', ['$event'])
   onClick($event: MouseEvent) {
-    $event.stopPropagation();
+    // Don't stop propagation if we're in pan mode - let it bubble to canvas
+    if (!this.basePanZoomService.isPanModeActive) {
+      $event.stopPropagation();
+    }
 
     this.itemClick.emit({ canvasItem: this.item(), mouseEvent: $event });
   }

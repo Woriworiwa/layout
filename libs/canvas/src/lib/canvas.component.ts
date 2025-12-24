@@ -110,6 +110,11 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   /*click*/
   @HostListener('click')
   clearSelection() {
+    // Don't clear selection if we're in pan mode
+    if (this.panZoomService.isPanModeActive || this.panZoomService.isPanning) {
+      return;
+    }
+
     this.selectionService.setSelectedItemKey(undefined);
     this.contextMenuService.hide();
   }
