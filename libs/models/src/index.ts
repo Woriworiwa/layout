@@ -7,7 +7,17 @@ export * from './lib/css-models/flex-item';
 export * from './lib/css-models/flexContainer';
 export * from './lib/css-models/grid-item';
 export * from './lib/css-models/gridContainer';
-export * from './lib/css-enums/properties.enum';
+export * from './lib/css-enums/display';
+export * from './lib/css-enums/flex-direction';
+export * from './lib/css-enums/flex-wrap';
+export * from './lib/css-enums/justify-content';
+export * from './lib/css-enums/align-items';
+export * from './lib/css-enums/align-content';
+export * from './lib/css-enums/align-self';
+export * from './lib/css-enums/grid-auto-flow';
+export * from './lib/css-enums/justify-self';
+export * from './lib/css-enums/justify-items';
+export * from './lib/css-enums/place-items';
 
 export * from './lib/enums/unit.enum';
 export * from './lib/enums/canvas-item-type.enum';
