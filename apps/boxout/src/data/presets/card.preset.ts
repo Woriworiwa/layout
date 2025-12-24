@@ -2,7 +2,7 @@ export const cardPreset = {
   presetId: 'card',
   presetName: 'Card',
   presetDefinition: {
-    itemType: 'FLEX',
+    itemType: 'CONTAINER',
     css: {
       display: {
         display: 'flex',

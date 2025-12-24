@@ -77,7 +77,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   constructor() {
     this.canvasService.items$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((items) => {
+      .subscribe((items: CanvasItem[]) => {
         this.rootItems = items;
       });
 

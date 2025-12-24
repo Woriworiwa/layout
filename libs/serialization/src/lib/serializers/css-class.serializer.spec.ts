@@ -12,7 +12,7 @@ describe('CssClassSerializer', () => {
   describe('WHEN serializing a single item with CSS properties', () => {
     it('SHOULD generate class with CSS rules', () => {
       const item: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'abc123',
         label: 'Container',
         css: {
@@ -34,7 +34,7 @@ describe('CssClassSerializer', () => {
   describe('WHEN serializing items with nested children', () => {
     it('SHOULD generate classes for all items in hierarchy', () => {
       const parent: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'parent',
         label: 'Parent',
         css: {
@@ -42,7 +42,7 @@ describe('CssClassSerializer', () => {
         },
         children: [
           {
-            itemType: CanvasItemType.FLEX,
+            itemType: CanvasItemType.CONTAINER,
             key: 'child1',
             label: 'Child 1',
             css: {
@@ -64,7 +64,7 @@ describe('CssClassSerializer', () => {
   describe('WHEN serializing items with empty CSS', () => {
     it('SHOULD return empty array', () => {
       const item: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'empty-css',
         label: 'Empty',
         css: undefined,
@@ -91,7 +91,7 @@ describe('CssClassSerializer', () => {
     it('SHOULD generate classes for each item', () => {
       const items: CanvasItem[] = [
         {
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           key: 'item1',
           label: 'Item 1',
           css: {
@@ -100,7 +100,7 @@ describe('CssClassSerializer', () => {
           children: []
         },
         {
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           key: 'item2',
           label: 'Item 2',
           css: {

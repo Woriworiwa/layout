@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Store } from './store/store';
+import { Store } from './store';
 import { CanvasItem } from '@layout/models';
 import cloneDeep from 'lodash.clonedeep';
-import { CANVAS_WRAPPER_ID } from './constants';
+import { CANVAS_WRAPPER_ID } from '../constants';
 import { Css } from '@layout/models';
 import { InsertPosition } from '@layout/models';
 

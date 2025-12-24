@@ -7,7 +7,8 @@ export class JSONSerializer extends Serializer {
     super();
   }
 
-  serialize(items: CanvasItem[]): string[] {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  serialize(_items: CanvasItem[]): string[] {
     return [];
   }
 
@@ -26,6 +27,7 @@ export class JSONSerializer extends Serializer {
           if (frame.css[key as keyof Css] != null) {
             const x = frame.css[key as keyof Css];
             if (x) {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               for (const _k of Object.keys(x)) {
                 this.sanitizeObject(frame.css[key as keyof Css]);
               }

@@ -2,7 +2,7 @@ export const justifyContentGuidePreset = {
   presetId: 'guide-justify-content',
   presetName: 'Guide: Justify Content',
   presetDefinition: {
-    itemType: 'FLEX',
+    itemType: 'CONTAINER',
     label: 'AI Container',
     children: [
       {
@@ -14,7 +14,7 @@ export const justifyContentGuidePreset = {
         children: [],
       },
       {
-        itemType: 'FLEX',
+        itemType: 'CONTAINER',
         label: 'Column Direction Section',
         css: {
           display: {
@@ -35,7 +35,7 @@ export const justifyContentGuidePreset = {
         },
         children: [
           {
-            itemType: 'FLEX',
+            itemType: 'CONTAINER',
             label: 'Interactive Row Example Container',
             css: {
               display: {
@@ -100,7 +100,7 @@ export const justifyContentGuidePreset = {
             key: 'VTCbZNWE',
           },
           {
-            itemType: 'FLEX',
+            itemType: 'CONTAINER',
             label: 'Interactive Column Example Container',
             css: {
               display: {

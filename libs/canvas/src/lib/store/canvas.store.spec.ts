@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { CanvasStore } from './canvas.store';
 import { CanvasItem, CanvasItemType } from '@layout/models';
-import { InsertPosition } from './enums';
+import { InsertPosition } from '@layout/models';
 
 describe('CanvasStore', () => {
   let store: CanvasStore;
@@ -15,7 +15,7 @@ describe('CanvasStore', () => {
       const items: CanvasItem[] = [
         {
           key: 'parent',
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           children: [
             { key: 'child', itemType: CanvasItemType.TEXT, children: [] },
           ],
@@ -32,7 +32,7 @@ describe('CanvasStore', () => {
       const items: CanvasItem[] = [
         {
           key: 'parent',
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           children: [
             { key: 'child', itemType: CanvasItemType.TEXT, children: [] },
           ],
@@ -46,7 +46,7 @@ describe('CanvasStore', () => {
 
     it('SHOULD return undefined for non-existent items', () => {
       const items: CanvasItem[] = [
-        { key: 'item1', itemType: CanvasItemType.FLEX, children: [] },
+        { key: 'item1', itemType: CanvasItemType.CONTAINER, children: [] },
       ];
 
       expect(store.getItemById(items, 'missing')).toBeUndefined();
@@ -59,7 +59,7 @@ describe('CanvasStore', () => {
   describe('WHEN inserting items', () => {
     it('SHOULD return new array without mutating original', () => {
       const items: CanvasItem[] = [
-        { key: 'item1', itemType: CanvasItemType.FLEX, children: [] },
+        { key: 'item1', itemType: CanvasItemType.CONTAINER, children: [] },
       ];
       store.setItems(items);
       const newItem: CanvasItem = {
@@ -84,7 +84,7 @@ describe('CanvasStore', () => {
 
     it('SHOULD insert at different positions (INSIDE, BEFORE, AFTER)', () => {
       const parent: CanvasItem[] = [
-        { key: 'parent', itemType: CanvasItemType.FLEX, children: [] },
+        { key: 'parent', itemType: CanvasItemType.CONTAINER, children: [] },
       ];
       store.setItems(parent);
 
@@ -154,8 +154,8 @@ describe('CanvasStore', () => {
   describe('WHEN deleting items', () => {
     it('SHOULD return new array with item removed', () => {
       const items: CanvasItem[] = [
-        { key: 'item1', itemType: CanvasItemType.FLEX, children: [] },
-        { key: 'item2', itemType: CanvasItemType.FLEX, children: [] },
+        { key: 'item1', itemType: CanvasItemType.CONTAINER, children: [] },
+        { key: 'item2', itemType: CanvasItemType.CONTAINER, children: [] },
       ];
       store.setItems(items);
 
@@ -176,15 +176,15 @@ describe('CanvasStore', () => {
       const deepItems: CanvasItem[] = [
         {
           key: 'level1',
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           children: [
             {
               key: 'level2',
-              itemType: CanvasItemType.FLEX,
+              itemType: CanvasItemType.CONTAINER,
               children: [
                 {
                   key: 'level3',
-                  itemType: CanvasItemType.FLEX,
+                  itemType: CanvasItemType.CONTAINER,
                   children: [
                     {
                       key: 'level4',
@@ -229,11 +229,11 @@ describe('CanvasStore', () => {
       const deepItems: CanvasItem[] = [
         {
           key: 'root',
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           children: [
             {
               key: 'branch',
-              itemType: CanvasItemType.FLEX,
+              itemType: CanvasItemType.CONTAINER,
               children: [
                 { key: 'leaf', itemType: CanvasItemType.TEXT, children: [] },
               ],

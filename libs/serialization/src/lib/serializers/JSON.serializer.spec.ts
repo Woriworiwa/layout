@@ -8,7 +8,7 @@ describe('JSONSerializer', () => {
   describe('WHEN serializing items', () => {
     it('SHOULD return empty array', () => {
       const item: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'test-key',
         label: 'Test Container',
         css: {
@@ -28,13 +28,13 @@ describe('JSONSerializer', () => {
     it('SHOULD remove null and undefined properties', () => {
       const frames: CanvasItem[] = [
         {
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           key: 'test',
           label: 'Test',
           content: undefined,
           css: {
             display: { display: 'flex' },
-            flexContainer: { flexDirection: undefined as any }
+            flexContainer: { flexDirection: undefined as never }
           },
           children: []
         }
@@ -43,8 +43,8 @@ describe('JSONSerializer', () => {
       const result = serializer.sanitizeFrames(frames);
 
       expect(result).toBeDefined();
-      expect(result![0]).toBeDefined();
-      expect(result![0].content).toBeUndefined();
+      expect(result?.[0]).toBeDefined();
+      expect(result?.[0].content).toBeUndefined();
     });
   });
 
@@ -52,7 +52,7 @@ describe('JSONSerializer', () => {
     it('SHOULD recursively sanitize children', () => {
       const frames: CanvasItem[] = [
         {
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           key: 'parent',
           label: 'Parent',
           css: {
@@ -76,8 +76,8 @@ describe('JSONSerializer', () => {
       const result = serializer.sanitizeFrames(frames);
 
       expect(result).toBeDefined();
-      expect(result![0].children).toBeDefined();
-      expect(result![0].children!.length).toBe(1);
+      expect(result?.[0].children).toBeDefined();
+      expect(result?.[0].children?.length).toBe(1);
     });
   });
 
@@ -91,7 +91,7 @@ describe('JSONSerializer', () => {
 
   describe('WHEN sanitizing null input', () => {
     it('SHOULD return undefined', () => {
-      const result = serializer.sanitizeFrames(null as any);
+      const result = serializer.sanitizeFrames(null as never);
 
       expect(result).toBeUndefined();
     });

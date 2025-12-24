@@ -2,7 +2,7 @@ export const holyGrailPreset = {
   presetId: 'holy-grail',
   presetName: 'Holy grail layout',
   presetDefinition: {
-    itemType: 'FLEX',
+    itemType: 'CONTAINER',
     css: {
       display: {
         display: 'flex',
@@ -20,7 +20,7 @@ export const holyGrailPreset = {
     key: 'MfcOBkWs',
     children: [
       {
-        itemType: 'FLEX',
+        itemType: 'CONTAINER',
         css: {
           display: {
             display: 'flex',
@@ -32,7 +32,7 @@ export const holyGrailPreset = {
         key: 'qqFDrdxw',
       },
       {
-        itemType: 'FLEX',
+        itemType: 'CONTAINER',
         css: {
           display: {
             display: 'flex',
@@ -52,7 +52,7 @@ export const holyGrailPreset = {
         key: 'aBvkOlIv',
         children: [
           {
-            itemType: 'FLEX',
+            itemType: 'CONTAINER',
             css: {
               display: {
                 display: 'flex',
@@ -70,7 +70,7 @@ export const holyGrailPreset = {
             key: 'MeRucrVe',
           },
           {
-            itemType: 'FLEX',
+            itemType: 'CONTAINER',
             css: {
               display: {
                 display: 'flex',
@@ -91,7 +91,7 @@ export const holyGrailPreset = {
             key: 'gqAngmoD',
           },
           {
-            itemType: 'FLEX',
+            itemType: 'CONTAINER',
             css: {
               display: {
                 display: 'flex',
@@ -111,7 +111,7 @@ export const holyGrailPreset = {
         ],
       },
       {
-        itemType: 'FLEX',
+        itemType: 'CONTAINER',
         css: {
           display: {
             display: 'flex',

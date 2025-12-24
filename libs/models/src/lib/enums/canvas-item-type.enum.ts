@@ -1,4 +1,4 @@
 export enum CanvasItemType {
-  FLEX = 'FLEX',
+  CONTAINER = 'CONTAINER',
   TEXT = 'TEXT',
 }

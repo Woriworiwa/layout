@@ -2,7 +2,7 @@ export const aiPreset = {
   presetId: 'ai-flex',
   presetName: 'AI Layout',
   presetDefinition: {
-    itemType: 'FLEX',
+    itemType: 'CONTAINER',
     label: 'AI Container',
     children: [],
     css: {

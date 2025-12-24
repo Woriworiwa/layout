@@ -3,10 +3,10 @@ export const alignmentPresets = [
     presetId: 'align-items',
     presetName: 'Align items',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       children: [
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',
@@ -49,7 +49,7 @@ export const alignmentPresets = [
           label: 'start',
         },
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',
@@ -89,7 +89,7 @@ export const alignmentPresets = [
           label: 'end',
         },
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',
@@ -150,7 +150,7 @@ export const alignmentPresets = [
     presetId: 'justify-content',
     presetName: 'Justify content',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         boxSizing: {
           padding: '16px',
@@ -168,7 +168,7 @@ export const alignmentPresets = [
       },
       children: [
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',
@@ -213,7 +213,7 @@ export const alignmentPresets = [
           label: 'start',
         },
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',
@@ -257,7 +257,7 @@ export const alignmentPresets = [
           label: 'end',
         },
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',
@@ -305,7 +305,7 @@ export const alignmentPresets = [
     presetId: 'centered-content',
     presetName: 'Centered content',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         display: {
           display: 'flex',
@@ -320,7 +320,7 @@ export const alignmentPresets = [
       },
       children: [
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',

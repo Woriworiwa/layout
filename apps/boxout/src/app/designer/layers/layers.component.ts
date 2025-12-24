@@ -119,7 +119,7 @@ export class LayersComponent implements OnInit, OnDestroy {
   private initStoreSubscriptions() {
     this.canvasService.items$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((items) => {
+      .subscribe((items: CanvasItem[] | undefined) => {
         if (!items) {
           return;
         }
@@ -210,7 +210,7 @@ export class LayersComponent implements OnInit, OnDestroy {
   private getTreeNodeIcon(canvasItem: CanvasItem) {
     let icon = '';
     switch (canvasItem.itemType) {
-      case CanvasItemType.FLEX:
+      case CanvasItemType.CONTAINER:
         icon = 'pi pi-fw pi-bars';
         break;
       case CanvasItemType.TEXT:

@@ -76,7 +76,7 @@ ${schema}
 
 IMPORTANT NOTES:
 - All CSS properties are optional
-- FLEX items use: display.display="flex", container (shared props), flexContainer (flex-specific props), flexItem
+- CONTAINER items use: display.display="flex", container (shared props), flexContainer (flex-specific props), flexItem
 - GRID items use: display.display="grid", container (shared props), gridContainer (grid-specific props), gridItem
 - TEXT items only need content property
 - gap property: numeric values only (px auto-added)
@@ -100,7 +100,7 @@ Rules:
 
 FLEX Example:
 [{
-  "itemType": "FLEX",
+  "itemType": "CONTAINER",
   "label": "Card",
   "css": {
     "display": { "display": "flex" },
@@ -119,7 +119,7 @@ FLEX Example:
 
 GRID Example:
 [{
-  "itemType": "GRID",
+  "itemType": "CONTAINER",
   "label": "Grid Layout",
   "css": {
     "display": { "display": "grid" },

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "nx serve",
+    "start": "nx serve boxout",
     "prebuild": "node scripts/set-env.js",
     "build": "nx build boxout",
     "watch": "nx build boxout --watch --configuration development",

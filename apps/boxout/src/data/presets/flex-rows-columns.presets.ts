@@ -3,7 +3,7 @@ export const basicFlexPresets = [
     presetId: 'empty-flex',
     presetName: 'Empty Flex',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         display: {
           display: 'flex',
@@ -18,7 +18,7 @@ export const basicFlexPresets = [
     presetId: 'flex-rows',
     presetName: 'Flex rows',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         display: {
           display: 'flex',
@@ -55,7 +55,7 @@ export const basicFlexPresets = [
     presetId: 'flex-columns',
     presetName: 'Flex columns',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         display: {
           display: 'flex',

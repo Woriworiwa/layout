@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { firstValueFrom } from 'rxjs';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { CanvasService } from './canvas.service';
-import { CanvasStore } from './canvas.store';
+import { CanvasStore } from './store/canvas.store';
 import { SelectionService } from '@layout/canvas';
 import { UndoRedoService } from '@layout/canvas';
 import { ContextMenuService } from '@layout/canvas';
@@ -39,7 +39,7 @@ describe('CanvasService', () => {
     it('SHOULD add item to store and select it', async () => {
       const container: CanvasItem = {
         key: 'container-1',
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         children: [],
       };
       store.setItems([container]);
@@ -61,7 +61,7 @@ describe('CanvasService', () => {
     it('SHOULD trigger undo snapshot after insertion', () => {
       const container: CanvasItem = {
         key: 'container-1',
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         children: [],
       };
       store.setItems([container]);
@@ -83,7 +83,7 @@ describe('CanvasService', () => {
     it('SHOULD remove item from store and clear selection', async () => {
       const container: CanvasItem = {
         key: 'container-1',
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         children: [
           { key: 'child-1', itemType: CanvasItemType.TEXT, children: [] },
         ],

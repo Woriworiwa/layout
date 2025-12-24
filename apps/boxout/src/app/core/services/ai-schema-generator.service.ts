@@ -273,7 +273,7 @@ export class AiSchemaGeneratorService {
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
     schema += '  },\n';
 
-    // Flex Container (only for FLEX items)
+    // Flex Container (only for CONTAINER items)
     schema += '  "flexContainer": {\n';
     Object.entries(flexContainerSchema).forEach(([key, value]) => {
       schema += `    "${key}": ${value},\n`;

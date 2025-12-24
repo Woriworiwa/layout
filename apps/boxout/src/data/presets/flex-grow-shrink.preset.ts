@@ -3,7 +3,7 @@ export const flexGrowShrinkPreset = [
     presetId: 'flex-grow-shrink',
     presetName: 'Flex grow & shrink',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         display: {
           display: 'flex',
@@ -18,7 +18,7 @@ export const flexGrowShrinkPreset = [
       },
       children: [
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',
@@ -49,7 +49,7 @@ export const flexGrowShrinkPreset = [
           label: 'flex-shrink: 0',
         },
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',
@@ -79,7 +79,7 @@ export const flexGrowShrinkPreset = [
           label: 'flex-grow: 1',
         },
         {
-          itemType: 'FLEX',
+          itemType: 'CONTAINER',
           css: {
             display: {
               display: 'flex',

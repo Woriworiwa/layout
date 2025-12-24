@@ -3,7 +3,7 @@ export const basicGridPresets = [
     presetId: 'empty-grid',
     presetName: 'Empty Grid',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         display: {
           display: 'grid',
@@ -21,7 +21,7 @@ export const basicGridPresets = [
     presetId: 'grid-2x2',
     presetName: 'Grid 2x2',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         display: {
           display: 'grid',
@@ -61,7 +61,7 @@ export const basicGridPresets = [
     presetId: 'grid-3-columns',
     presetName: 'Grid 3 Columns',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         display: {
           display: 'grid',
@@ -111,7 +111,7 @@ export const basicGridPresets = [
     presetId: 'grid-auto-fit',
     presetName: 'Grid Auto-Fit',
     presetDefinition: {
-      itemType: 'FLEX',
+      itemType: 'CONTAINER',
       css: {
         display: {
           display: 'grid',

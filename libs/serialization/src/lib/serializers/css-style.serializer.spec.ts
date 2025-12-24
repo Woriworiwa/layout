@@ -12,7 +12,7 @@ describe('CssStyleSerializer', () => {
   describe('WHEN serializing a single item with CSS properties', () => {
     it('SHOULD generate CSS property strings', () => {
       const item: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'container',
         label: 'Container',
         css: {
@@ -34,7 +34,7 @@ describe('CssStyleSerializer', () => {
   describe('WHEN serializing item with camelCase CSS properties', () => {
     it('SHOULD convert to kebab-case', () => {
       const item: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'container',
         label: 'Container',
         css: {
@@ -52,7 +52,7 @@ describe('CssStyleSerializer', () => {
   describe('WHEN serializing item with no CSS', () => {
     it('SHOULD return empty array', () => {
       const item: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'empty',
         label: 'Empty',
         css: undefined,
@@ -70,7 +70,7 @@ describe('CssStyleSerializer', () => {
     it('SHOULD only process first item', () => {
       const items: CanvasItem[] = [
         {
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           key: 'item1',
           label: 'Item 1',
           css: {
@@ -79,7 +79,7 @@ describe('CssStyleSerializer', () => {
           children: []
         },
         {
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           key: 'item2',
           label: 'Item 2',
           css: {

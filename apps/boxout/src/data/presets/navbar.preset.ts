@@ -2,7 +2,7 @@ export const navbarPreset = {
   presetId: 'navbar',
   presetName: 'Navigation bar',
   presetDefinition: {
-    itemType: 'FLEX',
+    itemType: 'CONTAINER',
     css: {
       display: {
         display: 'flex',
@@ -31,7 +31,7 @@ export const navbarPreset = {
         },
       },
       {
-        itemType: 'FLEX',
+        itemType: 'CONTAINER',
         css: {
           display: {
             display: 'flex',

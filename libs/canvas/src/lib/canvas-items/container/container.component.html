@@ -11,7 +11,7 @@
 } @else {
   <!-- Regular Container -->
   @switch (item().itemType) {
-    @case (FrameType.FLEX) {
+    @case (FrameType.CONTAINER) {
       <ng-container
         *ngTemplateOutlet="
           contentRenderer;
@@ -32,7 +32,7 @@
 <ng-template #contentRenderer let-items>
   @for (item of items; track item.key) {
     @switch (item.itemType) {
-      @case (FrameType.FLEX) {
+      @case (FrameType.CONTAINER) {
         <ng-template
           *ngTemplateOutlet="container; context: { $implicit: item }"
         ></ng-template>

@@ -5,7 +5,7 @@
 // Core Canvas
 export * from './lib/canvas.component';
 export * from './lib/canvas.service';
-export * from './lib/canvas.store';
+export * from './lib/store/canvas.store';
 export * from './lib/canvas.settings';
 
 // Services

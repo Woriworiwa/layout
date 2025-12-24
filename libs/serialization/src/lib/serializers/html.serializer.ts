@@ -72,7 +72,7 @@ export class HtmlSerializer extends Serializer {
 
     canvasItems.forEach((canvasItem) => {
       /* class name and opening curl */
-      const cssClasses = `${canvasItem.itemType === CanvasItemType.FLEX ? 'frame' : 'text'} ${canvasItem.key}`;
+      const cssClasses = `${canvasItem.itemType === CanvasItemType.CONTAINER ? 'frame' : 'text'} ${canvasItem.key}`;
       htmlLines.push(this.indent(`<div class="${cssClasses}">`, level * 2));
 
       if (canvasItem.itemType === CanvasItemType.TEXT && canvasItem.content) {

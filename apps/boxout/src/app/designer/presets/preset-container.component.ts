@@ -18,7 +18,7 @@ import { CssStyleSerializerPipe } from './css-style-serializer.pipe';
   providers: [CssStyleSerializerPipe],
   template: `
     @switch (preset?.itemType) {
-      @case (FrameType.FLEX) {
+      @case (FrameType.CONTAINER) {
         @for (childFrame of preset?.children; track childFrame) {
           <ng-container
             *ngComponentOutlet="

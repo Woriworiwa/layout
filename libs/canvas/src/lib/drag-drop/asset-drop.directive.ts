@@ -89,8 +89,8 @@ export class AssetDropDirective {
     rect: DOMRect,
     item: CanvasItem,
   ): InsertPosition {
-    // For container items (FLEX), prefer INSIDE
-    if (item.itemType === CanvasItemType.FLEX) {
+    // For container items (CONTAINER), prefer INSIDE
+    if (item.itemType === CanvasItemType.CONTAINER) {
       const mouseY = event.clientY - rect.top;
       const height = rect.height;
 

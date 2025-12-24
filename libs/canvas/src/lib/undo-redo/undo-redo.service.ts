@@ -6,9 +6,14 @@ import {
   Subject,
   takeUntil,
 } from 'rxjs';
-import { CanvasStore } from '../canvas.store';
+import { CanvasStore } from '../store/canvas.store';
 import cloneDeep from 'lodash.clonedeep';
 import { CanvasItem } from '@layout/models'
+
+interface UndoRedoState {
+  undoStackEmpty: boolean,
+  redoStackEmpty: boolean
+}
 
 /*
  *  A simple undo/redo service that can be used to store and retrieve the current state of the store
@@ -18,18 +23,18 @@ import { CanvasItem } from '@layout/models'
 export class UndoRedoService implements OnDestroy {
   private canvasStore = inject(CanvasStore);
 
-  private undoStack: any[][] = [];
-  private redoStack: any[][] = [];
-  private undoRedoExecutedSubject: Subject<any[]> = new Subject<any[]>();
-  private statusSubject: BehaviorSubject<any> = new BehaviorSubject({
+  private undoStack: CanvasItem[][] = [];
+  private redoStack: CanvasItem[][] = [];
+  private undoRedoExecutedSubject: Subject<CanvasItem[]> = new Subject<CanvasItem[]>();
+  private statusSubject: BehaviorSubject<UndoRedoState> = new BehaviorSubject({
     undoStackEmpty: true,
     redoStackEmpty: true,
-  });
+  } as UndoRedoState);
   private undoStackSubject: Subject<CanvasItem[]> = new Subject<CanvasItem[]>();
   private destroy$ = new Subject<boolean>();
 
   status$ = this.statusSubject.asObservable();
-  undoRedoExecuted$: Observable<any[]> =
+  undoRedoExecuted$: Observable<CanvasItem[]> =
     this.undoRedoExecutedSubject.asObservable();
 
   constructor() {

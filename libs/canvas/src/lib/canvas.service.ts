@@ -8,7 +8,7 @@ import {
 import { UndoRedoService } from './undo-redo/undo-redo.service';
 import { PresetProvider } from './interfaces/preset-provider.interface';
 import { CanvasItem } from '@layout/models';
-import { CanvasStore } from './canvas.store';
+import { CanvasStore } from './store/canvas.store';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
 import cloneDeep from 'lodash.clonedeep';
 import { CANVAS_WRAPPER_ID } from './constants';
@@ -121,12 +121,12 @@ export class CanvasService implements OnDestroy {
 
   updateCss(css: Css) {
     const selectedFrame = this.selectionService.selectedItem;
-    if (!selectedFrame) {
+    if (!selectedFrame || !selectedFrame.key) {
       return;
     }
 
     const updatedItems = this.canvasStore.updateItemCss(
-      selectedFrame.key!,
+      selectedFrame.key,
       css,
     );
     this.setItems(updatedItems);
@@ -186,12 +186,13 @@ export class CanvasService implements OnDestroy {
     const selectedItem = id
       ? this.canvasStore.getItemById(this.items, id)
       : this.selectionService.selectedItem;
-    if (!selectedItem) {
+
+    if (!selectedItem || !selectedItem.key) {
       return;
     }
 
     const updatedItems = this.canvasStore.updateItemLabel(
-      selectedItem.key!,
+      selectedItem.key,
       name,
     );
     this.setItems(updatedItems);

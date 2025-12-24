@@ -8,7 +8,7 @@ describe('HtmlSerializer', () => {
   describe('WHEN serializing a single container', () => {
     it('SHOULD generate div element with class', () => {
       const item: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'test-key',
         label: 'Test',
         css: {
@@ -28,7 +28,7 @@ describe('HtmlSerializer', () => {
   describe('WHEN serializing nested containers', () => {
     it('SHOULD maintain parent-child hierarchy', () => {
       const parent: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'parent-key',
         label: 'Parent',
         css: {
@@ -36,7 +36,7 @@ describe('HtmlSerializer', () => {
         },
         children: [
           {
-            itemType: CanvasItemType.FLEX,
+            itemType: CanvasItemType.CONTAINER,
             key: 'child-key',
             label: 'Child',
             css: {
@@ -79,7 +79,7 @@ describe('HtmlSerializer', () => {
   describe('WHEN serializing with styles included', () => {
     it('SHOULD generate full HTML document', () => {
       const item: CanvasItem = {
-        itemType: CanvasItemType.FLEX,
+        itemType: CanvasItemType.CONTAINER,
         key: 'test',
         label: 'Test',
         css: {
@@ -112,7 +112,7 @@ describe('HtmlSerializer', () => {
     it('SHOULD generate HTML for all items', () => {
       const items: CanvasItem[] = [
         {
-          itemType: CanvasItemType.FLEX,
+          itemType: CanvasItemType.CONTAINER,
           key: 'key-1',
           label: 'Item 1',
           css: {

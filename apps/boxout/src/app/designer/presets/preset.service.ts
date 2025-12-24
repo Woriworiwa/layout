@@ -31,7 +31,7 @@ export class PresetService implements PresetProvider {
 
   getAssetComponent(type: CanvasItemType) {
     switch (type) {
-      case CanvasItemType.FLEX:
+      case CanvasItemType.CONTAINER:
         return PresetContainerComponent;
       case CanvasItemType.TEXT:
         return PresetTextComponent;
@@ -45,7 +45,7 @@ export class PresetService implements PresetProvider {
   }
 
   assignDefaultPaddings(newItem: CanvasItem) {
-    if (newItem.itemType === CanvasItemType.FLEX) {
+    if (newItem.itemType === CanvasItemType.CONTAINER) {
       const boxSizing: BoxSizing = {
         ...newItem.css?.boxSizing,
         padding: this.defaultPadding,

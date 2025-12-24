@@ -2,7 +2,7 @@ export const sideBarPreset = {
   presetId: 'sidebar-layout',
   presetName: 'Sidebar layout',
   presetDefinition: {
-    itemType: 'FLEX',
+    itemType: 'CONTAINER',
     css: {
       display: {
         display: 'flex',
@@ -16,7 +16,7 @@ export const sideBarPreset = {
     },
     children: [
       {
-        itemType: 'FLEX',
+        itemType: 'CONTAINER',
         css: {
           display: {
             display: 'flex',
@@ -50,7 +50,7 @@ export const sideBarPreset = {
         key: 'hUqwWlBL',
       },
       {
-        itemType: 'FLEX',
+        itemType: 'CONTAINER',
         css: {
           display: {
             display: 'flex',

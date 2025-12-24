@@ -11,12 +11,12 @@ import {
 } from '@layout/models';
 
 describe('AiSchemaGeneratorService', () => {
-  it('should generate a schema containing FLEX and TEXT item types', () => {
+  it('should generate a schema containing CONTAINER and TEXT item types', () => {
     const service = new AiSchemaGeneratorService();
     const schema = service.generateCanvasItemSchema();
 
     expect(schema).toContain('CanvasItem Schema');
-    expect(schema).toContain('"FLEX"');
+    expect(schema).toContain('"CONTAINER"');
     expect(schema).toContain('"TEXT"');
     expect(schema).toContain('"display"');
     expect(schema).toContain('"container"');
