@@ -1,0 +1,45 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <name>Nx Angular (ESLint-driven)</name>
+
+    <!-- ========================= -->
+    <!-- JavaScript / TypeScript -->
+    <!-- ========================= -->
+
+    <!-- Disable import rewriting -->
+    <inspection_tool class="JSImportCanBeShortened" enabled="false" />
+    <inspection_tool class="JSUnusedImport" enabled="false" />
+    <inspection_tool class="JSOptimizeImports" enabled="false" />
+    <inspection_tool class="JSReorderImports" enabled="false" />
+    <inspection_tool class="JSPreferDefaultImport" enabled="false" />
+
+    <!-- Disable style opinions (ESLint handles these) -->
+    <inspection_tool class="JSUnusedGlobalSymbols" enabled="false" />
+    <inspection_tool class="JSExplicitTypeCanBeInferred" enabled="false" />
+    <inspection_tool class="JSRedundantTypeAnnotation" enabled="false" />
+
+    <!-- Keep real TypeScript errors -->
+    <inspection_tool class="TypeScriptUnresolvedReference" enabled="true" />
+    <inspection_tool class="TypeScriptTypeChecker" enabled="true" />
+    <inspection_tool class="TypeScriptInvalidDestructuring" enabled="true" />
+    <inspection_tool class="TypeScriptUnreachableCode" enabled="true" />
+
+    <!-- ========================= -->
+    <!-- Angular -->
+    <!-- ========================= -->
+
+    <inspection_tool class="AngularInvalidSelector" enabled="true" />
+    <inspection_tool class="AngularUndefinedBinding" enabled="true" />
+    <inspection_tool class="AngularIncorrectLifecycleHookImplementation" enabled="true" />
+    <inspection_tool class="AngularTemplateExpressionProblems" enabled="true" />
+    <inspection_tool class="AngularMissingEventHandler" enabled="true" />
+
+    <!-- ========================= -->
+    <!-- Formatting -->
+    <!-- ========================= -->
+
+    <inspection_tool class="Reformat" enabled="false" />
+    <inspection_tool class="OptimizeImports" enabled="false" />
+
+  </profile>
+</component>
