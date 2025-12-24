@@ -28,6 +28,7 @@ import { CanvasItemMouseEvent } from './canvas-items/canvas-item-mouse-event';
 import { CanvasSettings } from './canvas.settings';
 import { DragDropService } from './drag-drop/drag-drop.service';
 import { CanvasDropZoneDirective } from './drag-drop/canvas-drop-zone.directive';
+import { PanZoomOverlayComponent } from './pan-zoom/pan-zoom-overlay.component';
 
 @Component({
   selector: 'app-canvas',
@@ -36,6 +37,7 @@ import { CanvasDropZoneDirective } from './drag-drop/canvas-drop-zone.directive'
     CanvasToolbarComponent,
     SelectionLayerComponent,
     MetaLayerComponent,
+    PanZoomOverlayComponent,
   ],
   providers: [
     CopyPasteService,
@@ -110,29 +112,16 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   /*click*/
   @HostListener('click')
   clearSelection() {
-    // Don't clear selection if we're in pan mode
-    if (this.panZoomService.isPanModeActive || this.panZoomService.isPanning) {
-      return;
-    }
-
     this.selectionService.setSelectedItemKey(undefined);
     this.contextMenuService.hide();
   }
 
   selectElement(event: CanvasItemMouseEvent) {
-    if (this.panZoomService.isPanModeActive) {
-      return;
-    }
-
     this.selectionService.setSelectedItemKey(event.canvasItem.key);
     this.contextMenuService.hide();
   }
 
   hoverElement(event: CanvasItemMouseEvent) {
-    if (this.panZoomService.isPanning || this.panZoomService.isPanModeActive) {
-      return;
-    }
-
     this.selectionService.setHoverItemKey(event.canvasItem.key);
   }
 

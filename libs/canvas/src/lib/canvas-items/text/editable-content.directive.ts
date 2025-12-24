@@ -17,7 +17,6 @@ import {
   takeUntil,
 } from 'rxjs';
 import { SelectionService } from '../../selection/selection.service';
-import { PanZoomService } from '../../pan-zoom/pan-zoom.service';
 
 /*
  * this directive adds the ability to edit the content of an element by double clicking on it.
@@ -36,7 +35,6 @@ export class EditableContentDirective implements OnDestroy {
   private elementRef = inject(ElementRef);
   private ref = inject(ElementRef);
   private selectionService = inject(SelectionService);
-  private panZoomService = inject(PanZoomService);
 
   @HostBinding('attr.contenteditable')
   editMode = false;
@@ -47,24 +45,11 @@ export class EditableContentDirective implements OnDestroy {
     content: string;
   }>();
 
-  @HostListener('mousedown', ['$event'])
-  onMouseDown($event: MouseEvent) {
-    // Don't interfere with panning - prevent focus and let event bubble up
-    if (this.panZoomService.isPanModeActive) {
-      $event.preventDefault(); // Prevent focusing the element
-      return;
-    }
-  }
-
   @HostListener('click')
   onClick() {
-    // Don't focus if we're in pan mode
-    if (this.panZoomService.isPanModeActive) {
-      return;
-    }
-
     this.elementRef.nativeElement.focus();
   }
+
   @HostListener('dblclick', ['$event'])
   onDoubleClick($event: MouseEvent) {
     $event.stopPropagation();
@@ -99,10 +84,7 @@ export class EditableContentDirective implements OnDestroy {
   /*prevent propagation so the grab event on the canvas will not fire*/
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
-    // Allow Space key to propagate for panning functionality
-    if (event.code !== 'Space') {
-      event.stopPropagation();
-    }
+    event.stopPropagation();
 
     const finishEditing =
       (event.key === 'Enter' && (event.altKey || event.ctrlKey)) ||

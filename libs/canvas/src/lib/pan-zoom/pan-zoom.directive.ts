@@ -41,32 +41,6 @@ export class PanZoomDirective {
     }
   }
 
-  /*mouse move*/
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    if (this.panZoomService.isPanning) {
-      this.panZoomService.panHorizontally(-event.movementX);
-      this.panZoomService.panVertically(-event.movementY);
-    }
-  }
-
-  /*mouse up*/
-  @HostListener('mouseup', ['$event'])
-  onMouseUp(event: MouseEvent) {
-    if (event.button === 0) {
-      this.panZoomService.isPanning = false;
-    }
-  }
-
-  /*mouse down*/
-  @HostListener('mousedown', ['$event'])
-  onMouseDown(event: MouseEvent) {
-    if (event.button === 0 && this.panZoomService.isPanModeActive) {
-      this.panZoomService.isPanning = true;
-      event.preventDefault();
-    }
-  }
-
   /*keydown with space*/
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {

@@ -13,13 +13,18 @@
     ></app-container>
   }
 
-  <!-- selection and meta layers -->
+  <!-- selection layer -->
   <app-selection-layer
     [canvasElement]="wrapperElementRef"
     [allowAdd]="settings.allowAdd"
   ></app-selection-layer>
+
+  <!-- meta layer -->
   <app-meta-layer [canvasElement]="wrapperElementRef"></app-meta-layer>
 </div>
+
+<!-- pan-zoom overlay -->
+<app-pan-zoom-overlay></app-pan-zoom-overlay>
 
 <!-- toolbar -->
 @if (settings.showToolbar) {
