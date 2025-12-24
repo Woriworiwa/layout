@@ -33,7 +33,7 @@ import { BaseFormItemComponent } from './base-form-item.component';
           [dt]="button"
           (click)="menu.toggle($event)"
         ></p-button>
-        <p-menu #menu [model]="menuItems()" [popup]="true" />
+        <p-menu #menu [model]="menuItems()" [popup]="true" appendTo="body" />
       }
       <button
         type="button"
