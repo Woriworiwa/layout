@@ -45,10 +45,6 @@ export class PanZoomService {
     });
   }
 
-  get isPanModeActive() {
-    return this.currentStateSubject.getValue().panModeActive;
-  }
-
   set isPanModeActive(active: boolean) {
     this.currentStateSubject.next({
       ...this.currentStateSubject.getValue(),

@@ -5,7 +5,7 @@ import { SharedModule } from 'primeng/api';
 // import { PresetsComponent } from '../../designer/presets/presets.component';
 import { CanvasItem } from '@layout/models';
 import { CanvasService } from '../canvas.service';
-import { CANVAS_WRAPPER_ID } from '../constants';
+import { CANVAS_ROOT_ELEMENT_ID } from '../constants';
 import { InsertPosition } from '@layout/models';
 
 @Component({
@@ -40,7 +40,7 @@ export class InsertButtonsComponent {
   }
 
   protected onInsertAsset(presetId: string, position: InsertPosition): void {
-    const targetId = this.canvasItem()?.key || CANVAS_WRAPPER_ID;
+    const targetId = this.canvasItem()?.key || CANVAS_ROOT_ELEMENT_ID;
     // Don't auto-select when inserting from selection buttons - keep current selection
     this.canvasService.addPreset(presetId, targetId, position, false);
   }

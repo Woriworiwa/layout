@@ -1,4 +1,7 @@
-<div #wrapper class="pan-zoom-wrapper" [id]="CANVAS_WRAPPER_ID">
+<div #wrapper
+     class="flex flex-col flex-1 gap-5 w-full min-w-0 overflow-visible"
+     [id]="CANVAS_ROOT_ELEMENT_ID">
+
   <!-- Render each root item -->
   @for (item of rootItems; track item.key) {
     <app-container
@@ -16,8 +19,7 @@
   <!-- selection layer -->
   <app-selection-layer
     [canvasElement]="wrapperElementRef"
-    [allowAdd]="settings.allowAdd"
-  ></app-selection-layer>
+    [allowAdd]="settings.allowAdd"></app-selection-layer>
 
   <!-- meta layer -->
   <app-meta-layer [canvasElement]="wrapperElementRef"></app-meta-layer>

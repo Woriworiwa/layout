@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { CANVAS_WRAPPER_ID } from '../constants';
+import { CANVAS_ROOT_ELEMENT_ID } from '../constants';
 import { PanZoomService } from '../pan-zoom/pan-zoom.service';
 import { UI_GUIDANCE_TOKEN } from './ui-guidance.token';
 
@@ -32,7 +32,7 @@ export class DragDropService {
     const closestElement = target.closest('[id]');
     const isCanvasElement =
       closestElement?.id &&
-      closestElement.id !== CANVAS_WRAPPER_ID &&
+      closestElement.id !== CANVAS_ROOT_ELEMENT_ID &&
       !target.closest('.asset-item');
 
     if (isCanvasElement && event.button === 0) {

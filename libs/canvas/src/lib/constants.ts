@@ -1,1 +1,1 @@
-export const CANVAS_WRAPPER_ID = 'canvas-wrapper';
+export const CANVAS_ROOT_ELEMENT_ID = 'canvas-root-element';

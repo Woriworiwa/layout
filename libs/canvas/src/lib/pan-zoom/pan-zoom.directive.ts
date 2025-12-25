@@ -1,6 +1,5 @@
-import { Directive, HostBinding, HostListener, inject } from '@angular/core';
+import { Directive, HostListener, inject } from '@angular/core';
 import { PanZoomService } from './pan-zoom.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[appPanZoom]',
@@ -8,16 +7,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class PanZoomDirective {
   private panZoomService = inject(PanZoomService);
-
-  constructor() {
-    this.panZoomService.state$.pipe(takeUntilDestroyed()).subscribe((state) => {
-      this.isPanModeActive = state.panModeActive;
-    });
-  }
-
-  /* this mode means that the canvas is ready to be dragged*/
-  @HostBinding('class.pan-mode-active')
-  isPanModeActive = false;
 
   /*Zoom with mouse wheel*/
   @HostListener('mousewheel', ['$event'])

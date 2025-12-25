@@ -11,7 +11,7 @@ import { CanvasItem } from '@layout/models';
 import { CanvasStore } from './store/canvas.store';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
 import cloneDeep from 'lodash.clonedeep';
-import { CANVAS_WRAPPER_ID } from './constants';
+import { CANVAS_ROOT_ELEMENT_ID } from './constants';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CanvasItemType } from '@layout/models';
 import { SelectionService } from './selection/selection.service';
@@ -140,7 +140,7 @@ export class CanvasService implements OnDestroy {
   ) {
     if (
       currentItemId === previousItemId &&
-      currentItemId === CANVAS_WRAPPER_ID
+      currentItemId === CANVAS_ROOT_ELEMENT_ID
     ) {
       // moveItemInArray(this.items, previousIndex, currentIndex);
       this.setItems([...this.canvasStore.items]);

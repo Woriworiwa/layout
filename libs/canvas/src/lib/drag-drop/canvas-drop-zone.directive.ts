@@ -7,7 +7,7 @@ import {
   Renderer2,
 } from '@angular/core';
 import { AssetDragDropService } from './asset-drag-drop.service';
-import { CANVAS_WRAPPER_ID } from '../constants';
+import { CANVAS_ROOT_ELEMENT_ID } from '../constants';
 import { DragDropService } from './drag-drop.service';
 import { InsertPosition } from '@layout/models';
 
@@ -30,7 +30,7 @@ export class CanvasDropZoneDirective implements AfterViewInit {
   ngAfterViewInit() {
     // When used as a host directive, find the wrapper element within the component
     this.wrapperElement = this.elementRef.nativeElement.querySelector(
-      `#${CANVAS_WRAPPER_ID}`,
+      `#${CANVAS_ROOT_ELEMENT_ID}`,
     );
   }
 
@@ -47,7 +47,7 @@ export class CanvasDropZoneDirective implements AfterViewInit {
     if ($event.target === this.wrapperElement) {
       $event.preventDefault();
       this.assetDragDropService.setDropTarget(
-        CANVAS_WRAPPER_ID,
+        CANVAS_ROOT_ELEMENT_ID,
         InsertPosition.AFTER,
       );
       this.renderer.addClass(this.wrapperElement, 'drop-inside');

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ContainerComponent } from './canvas-items/container/container.component';
 import { CanvasItem } from '@layout/models';
-import { CANVAS_WRAPPER_ID } from './constants';
+import { CANVAS_ROOT_ELEMENT_ID } from './constants';
 import { ContextMenuService } from './context-menu/context-menu.service';
 import { SelectionService } from './selection/selection.service';
 import { CanvasToolbarComponent } from './toolbar/canvas-toolbar.component';
@@ -68,7 +68,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   private document = inject<Document>(DOCUMENT);
   private dragDropService = inject(DragDropService);
 
-  readonly CANVAS_WRAPPER_ID = CANVAS_WRAPPER_ID;
+  readonly CANVAS_ROOT_ELEMENT_ID = CANVAS_ROOT_ELEMENT_ID;
   rootItems: CanvasItem[] = [];
 
   private destroy$ = new Subject<boolean>();

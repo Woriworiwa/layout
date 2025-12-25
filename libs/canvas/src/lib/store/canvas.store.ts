@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from './store';
 import { CanvasItem } from '@layout/models';
 import cloneDeep from 'lodash.clonedeep';
-import { CANVAS_WRAPPER_ID } from '../constants';
+import { CANVAS_ROOT_ELEMENT_ID } from '../constants';
 import { Css } from '@layout/models';
 import { InsertPosition } from '@layout/models';
 
@@ -81,11 +81,11 @@ export class CanvasStore extends Store<CanvasState> {
     const parentItemKey = this.getParentItemKey(
       itemKey,
       items,
-      CANVAS_WRAPPER_ID,
+      CANVAS_ROOT_ELEMENT_ID,
     );
 
     let itemsToDeleteFrom: CanvasItem[] = [];
-    if (parentItemKey === CANVAS_WRAPPER_ID) {
+    if (parentItemKey === CANVAS_ROOT_ELEMENT_ID) {
       itemsToDeleteFrom = items;
     } else {
       const parentItem = this.getItemById(items, parentItemKey);
@@ -180,10 +180,10 @@ export class CanvasStore extends Store<CanvasState> {
     item: CanvasItem,
   ) {
     const parentFrameKey =
-      this.getParentItemKey(referenceItemId, items, CANVAS_WRAPPER_ID) ||
-      CANVAS_WRAPPER_ID;
+      this.getParentItemKey(referenceItemId, items, CANVAS_ROOT_ELEMENT_ID) ||
+      CANVAS_ROOT_ELEMENT_ID;
 
-    if (parentFrameKey === CANVAS_WRAPPER_ID) {
+    if (parentFrameKey === CANVAS_ROOT_ELEMENT_ID) {
       this.insertAtRootInArray(
         items,
         referenceItemId,
@@ -207,10 +207,10 @@ export class CanvasStore extends Store<CanvasState> {
     item: CanvasItem,
   ) {
     const parentFrameKey =
-      this.getParentItemKey(referenceItemId, items, CANVAS_WRAPPER_ID) ||
-      CANVAS_WRAPPER_ID;
+      this.getParentItemKey(referenceItemId, items, CANVAS_ROOT_ELEMENT_ID) ||
+      CANVAS_ROOT_ELEMENT_ID;
 
-    if (parentFrameKey === CANVAS_WRAPPER_ID) {
+    if (parentFrameKey === CANVAS_ROOT_ELEMENT_ID) {
       this.insertAtRootInArray(
         items,
         referenceItemId,

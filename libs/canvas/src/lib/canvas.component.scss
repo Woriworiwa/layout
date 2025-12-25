@@ -9,34 +9,6 @@
   background-color: var(--bg-secondary);
 
   background-size: 24px 24px;
-
-  &.pan-mode-active {
-    cursor: grab;
-
-    &.is-panning {
-      cursor: grabbing;
-    }
-  }
-
-  .pan-zoom-wrapper {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 20px;
-    width: 100%;
-    min-width: 0;
-    overflow: visible;
-  }
-
-  > app-container {
-    background: #eeeeee;
-  }
-
-  app-css-prism {
-    position: absolute;
-    right: 180px;
-    width: 260px;
-  }
 }
 
 /* Canvas drag and drop styles */
