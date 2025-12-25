@@ -8,10 +8,14 @@ import {
   ContextMenuService,
   UndoRedoDirective,
   PRESET_PROVIDER,
+  UI_GUIDANCE_TOKEN,
+  AI_GENERATION_TOKEN,
 } from '@layout/canvas';
 import { DataService } from './core/services/data.service';
 import { MessageService } from 'primeng/api';
 import { PresetService } from './designer/presets/preset.service';
+import { AiGenerationService } from './core/services/ai-generation.service';
+import { UiGuidanceService } from './core/services/ui-guidance.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +27,8 @@ import { PresetService } from './designer/presets/preset.service';
     MessageService,
     PresetService,
     { provide: PRESET_PROVIDER, useExisting: PresetService },
+    { provide: UI_GUIDANCE_TOKEN, useExisting: UiGuidanceService },
+    { provide: AI_GENERATION_TOKEN, useExisting: AiGenerationService },
     SelectionService,
     ContextMenuService,
     UndoRedoService,

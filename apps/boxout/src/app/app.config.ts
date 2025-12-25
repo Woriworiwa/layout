@@ -9,9 +9,6 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { defaultTheme } from './core/theme/theme.presets';
-import { UI_GUIDANCE_TOKEN, AI_GENERATION_TOKEN } from '@layout/canvas';
-import { UiGuidanceService } from './core/services/ui-guidance.service';
-import { AiGenerationService } from './core/services/ai-generation.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,7 +27,5 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
-    { provide: UI_GUIDANCE_TOKEN, useExisting: UiGuidanceService },
-    { provide: AI_GENERATION_TOKEN, useExisting: AiGenerationService },
   ],
 };
