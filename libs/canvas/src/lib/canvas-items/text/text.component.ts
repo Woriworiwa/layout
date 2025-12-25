@@ -13,6 +13,7 @@ import { EditableContentDirective } from './editable-content.directive';
     KeyboardCommandsDirective,
     {
       directive: EditableContentDirective,
+      inputs: ['item'],
       outputs: ['contentChanged'],
     },
     {
