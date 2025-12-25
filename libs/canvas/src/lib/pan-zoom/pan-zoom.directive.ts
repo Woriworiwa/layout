@@ -9,7 +9,7 @@ export class PanZoomDirective {
   private panZoomService = inject(PanZoomService);
 
   /*Zoom with mouse wheel*/
-  @HostListener('mousewheel', ['$event'])
+  @HostListener('wheel', ['$event'])
   onMouseWheel(event: Event) {
     const wheelEvent = event as WheelEvent;
     wheelEvent.stopPropagation();
@@ -31,19 +31,15 @@ export class PanZoomDirective {
   }
 
   /*keydown with space*/
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    if (event.code === 'Space') {
-      this.panZoomService.activatePanMode();
-    }
+  @HostListener('keydown.space')
+  onKeyDown() {
+    this.panZoomService.activatePanMode();
   }
 
   /*keyup with space*/
-  @HostListener('document:keyup', ['$event'])
-  onKeyUp(event: KeyboardEvent) {
-    if (event.code === 'Space') {
-      this.panZoomService.deactivatePanMode()
-      this.panZoomService.isPanning = false;
-    }
+  @HostListener('keyup.space')
+  onKeyUp() {
+    this.panZoomService.deactivatePanMode();
+    this.panZoomService.isPanning = false;
   }
 }
