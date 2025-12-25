@@ -34,7 +34,6 @@ export class PanZoomDirective {
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      event.preventDefault();
       this.panZoomService.activatePanMode();
     }
   }
