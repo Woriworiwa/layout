@@ -65,9 +65,16 @@
       "Bash(timeout 5 npm run test:ui:*)",
       "Bash(playwright test:*)",
       "Bash(npm run build:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "mcp__nx-mcp__nx_workspace",
+      "mcp__nx-mcp__nx_project_details",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "nx-mcp"
+  ]
 }
