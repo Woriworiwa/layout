@@ -1,5 +1,12 @@
 # Service Testing Guidelines
 
+## Library Imports
+```typescript
+import { CanvasService, CanvasStore, UndoRedoService, SelectionService } from '@layout/canvas';
+import { SerializationService } from '@layout/serialization';
+import { CanvasItem } from '@layout/models';
+```
+
 ## Service Types
 
 ### Orchestration Services (CanvasService, SelectionService)
@@ -7,6 +14,7 @@ Coordinate stores and business logic. **Primary testing focus.**
 
 ```typescript
 import { TestBed } from '@angular/core/testing';
+import { CanvasService, CanvasStore, UndoRedoService } from '@layout/canvas';
 
 describe('CanvasService', () => {
   let service: CanvasService;
@@ -50,6 +58,8 @@ describe('CanvasService', () => {
 Pure functions. Simple input/output tests.
 
 ```typescript
+import { SerializationService } from '@layout/serialization';
+
 describe('SerializationService', () => {
   let service: SerializationService;
 
@@ -59,7 +69,7 @@ describe('SerializationService', () => {
 
   describe('WHEN converting to HTML', () => {
     it('SHOULD generate valid structure', () => {
-      const items = [{ key: '1', itemType: 'CONTAINER', css: { width: '500px' } }];
+      const items = [{ key: '1', itemType: 'FLEX', css: { width: '500px' } }];
 
       const html = service.toHTML(items);
 

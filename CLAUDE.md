@@ -4,58 +4,65 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a low-code CSS layout generator built with Angular 20, designed to simplify creating responsive layouts using Grid and Flexbox. It's an Nx monorepo with a visual canvas-based editor that generates CSS, HTML, and JSON output.
+This is a low-code CSS layout generator built with Angular 21, designed to simplify creating responsive layouts using Grid and Flexbox. It's an Nx monorepo with a visual canvas-based editor that generates CSS, HTML, and JSON output.
 
-## Common Commands
-
-### Development
-```bash
-nx serve              # Start dev server on port 4300
-nx build              # Production build
-nx build --watch --configuration development  # Watch mode
-```
-
-### Testing
-```bash
-# Unit Tests (Vitest)
-nx test              # Run all Vitest unit tests
-nx test --watch      # Run tests in watch mode
-nx test --ui         # Open Vitest UI
-nx test --coverage   # Generate coverage report
-
-# E2E Tests (Playwright)
-npm run e2e          # Run Playwright E2E tests (headless)
-npm run e2e:ui       # Open Playwright UI mode
-npm run e2e:headed   # Run tests in headed mode (visible browser)
-nx e2e-debug         # Run tests in debug mode with inspector (uses Nx)
-```
-
-### Linting
-```bash
-nx lint              # Run ESLint on src/ directory
-```
-
-### Single Test Execution
-To run a specific test file:
-```bash
-nx test --testFile=path/to/file.spec.ts
-```
+**Note:** Use Nx MCP tools (`nx_workspace`, `nx_project_details`) to discover available commands and targets dynamically.
 
 ## Architecture
+
+This is an Nx monorepo with a **library-first architecture**. Core functionality has been extracted into three reusable libraries:
+
+### Library Structure
+
+**@layout/models** (`libs/models/`)
+
+- Core data models and type definitions
+- `CanvasItem` model - The fundamental building block representing elements on the canvas
+- CSS interfaces (Css, FlexContainer, GridContainer, BoxSizing, etc.)
+- CSS enums (Properties, Units)
+- Shared constants and enums
+- Type utilities (enumify, proxied-properties-of)
+
+**@layout/canvas** (`libs/canvas/`)
+
+- Canvas rendering and interaction
+- State management (CanvasStore, CanvasService)
+- Canvas components (Container, Text, AiWrapper)
+- Services: Selection, UndoRedo, CopyPaste, PanZoom, ContextMenu, MetaLayer, DragDrop
+- Store base class for RxJS state management
+- Canvas toolbar and selection UI
+- Directives for keyboard commands, pan/zoom, undo/redo
+
+**@layout/serialization** (`libs/serialization/`)
+
+- Export functionality for HTML, CSS, and JSON
+- SerializationService orchestrates exports
+- Serializers: HtmlSerializer, CssStyleSerializer, CssClassSerializer, JsonSerializer
+
+**boxout** (`apps/boxout/`)
+
+- Main application shell
+- App-specific services (AI generation, theme, app state, data service, UI guidance)
+- Designer UI (properties panel, layers panel, inspector, header, presets)
+- Renderer component for preview mode
+- Code viewer components (HTML/CSS/JSON display)
+- Routing configuration
 
 ### State Management
 
 The application uses a custom RxJS-based state management pattern with **pure store functions and service orchestration**:
 
 **Store Pattern (Pure Functions):**
-- **Store base class** (src/app/core/store/store.ts): Provides `BehaviorSubject`-based state with `getState()` and `setState()` methods
-- **CanvasStore** (src/app/canvas/canvas.store.ts): Pure data layer managing the hierarchical tree of `CanvasItem` objects
+
+- **Store base class** (`@layout/canvas`): Provides `BehaviorSubject`-based state with `getState()` and `setState()` methods
+- **CanvasStore** (`@layout/canvas`): Pure data layer managing the hierarchical tree of `CanvasItem` objects
   - All operations return new `CanvasItem[]` arrays without side effects
   - Methods like `insertItem()`, `deleteItem()`, `updateItemCss()` are pure functions
   - Only `setItems()` mutates state
 
 **Service Pattern (Orchestration):**
-- **CanvasService** controls when state persists by calling `store.setItems()`
+
+- **CanvasService** (`@layout/canvas`) controls when state persists by calling `store.setItems()`
 - Services coordinate multiple concerns (undo/redo, selection, validation)
 - State flows: Component → Service → Store → Component
 
@@ -65,7 +72,8 @@ The application uses a custom RxJS-based state management pattern with **pure st
 
 ### Core Data Model
 
-**CanvasItem** (src/app/core/models/canvas-item.model.ts): The fundamental building block representing elements on the canvas
+**CanvasItem** (`@layout/models`): The fundamental building block representing elements on the canvas
+
 ```typescript
 {
   itemType: CanvasItemType,  // CONTAINER, FLEX_CONTAINER, TEXT, etc.
@@ -74,13 +82,15 @@ The application uses a custom RxJS-based state management pattern with **pure st
   content: string,           // For text items
   children: CanvasItem[],    // Nested hierarchy
   css: Css,                  // CSS properties object
-  editable: boolean
+  editable: boolean,
+  aiMetadata: AiMetadata     // AI generation metadata (optional)
 }
 ```
 
 ### Service Layer Architecture
 
-**CanvasService** (src/app/canvas/canvas.service.ts): Primary orchestration layer
+**CanvasService** (`@layout/canvas`): Primary orchestration layer
+
 - Calls store methods to get transformed data
 - **Controls persistence** by calling `store.setItems()` after store operations
 - Coordinates between CanvasStore, UndoRedoService, SelectionService
@@ -88,79 +98,123 @@ The application uses a custom RxJS-based state management pattern with **pure st
 - Triggers undo snapshots after all user actions
 - **Always use CanvasService for user actions** (never call CanvasStore directly)
 
-**UndoRedoService** (src/app/core/undo-redo/undo-redo.service.ts):
+**UndoRedoService** (`@layout/canvas`):
+
 - Maintains undo/redo stacks with deep clones
 - Uses 250ms debounce on `takeSnapshot()` to batch rapid changes
 - Emits `undoRedoExecuted$` observable when undo/redo occurs
 
-**SerializationService** (src/app/core/serialization/serialization.service.ts):
+**SerializationService** (`@layout/serialization`):
+
 - Exports canvas to HTML, CSS (class/inline), and JSON formats
-- Serializers are in src/app/core/serialization/serializers/
+- Serializers implement the `Serializer` interface and handle specific output formats
 
 ### Application Structure
 
 ```
-src/app/
-├── canvas/                # Canvas state and service
-│   ├── canvas.store.ts   # Pure data operations
-│   ├── canvas.service.ts # Orchestration layer
-│   └── selection/        # Selection state management
-├── core/                  # Shared business logic
-│   ├── models/           # Data models (CanvasItem, Css, etc.)
-│   ├── store/            # Store base class
-│   ├── services/         # Core services (DataService, AppStateService)
-│   ├── serialization/    # Export functionality
-│   ├── undo-redo/        # Undo/redo implementation
-│   └── utils/            # Utilities
-├── designer/             # Main editor interface (/design route)
-│   ├── insert/          # Preset insertion logic
-│   ├── inspector/       # Element inspector panel
-│   ├── layers/          # Layer tree view
-│   └── properties/      # Properties panel
-├── shared/              # Reusable components
-│   ├── canvas/          # Canvas rendering components
-│   ├── header/          # App header
-│   ├── properties/      # Property controls
-│   └── side-bar/        # Sidebar components
-├── renderer/            # Preview mode (/preview route)
-│   └── prisms/          # Syntax highlighting components
-└── learn/               # Tutorial mode (/learn route)
+libs/                        # Reusable libraries
+├── models/                  # @layout/models - Data models & types
+│   ├── canvas-item.model.ts
+│   ├── css-interfaces/      # Css, FlexContainer, GridContainer, etc.
+│   ├── css-enums/          # Properties, Units
+│   ├── constants.ts
+│   ├── canvas-item-type.enum.ts
+│   └── utils/              # Type utilities
+│
+├── canvas/                  # @layout/canvas - Canvas functionality
+│   ├── canvas.component.ts
+│   ├── canvas.store.ts     # Pure data operations
+│   ├── canvas.service.ts   # Orchestration layer
+│   ├── canvas-items/       # Container, Text, AiWrapper components
+│   ├── selection/          # Selection service & UI
+│   ├── undo-redo/          # Undo/redo service & directive
+│   ├── copy-paste/         # Copy/paste service
+│   ├── pan-zoom/           # Pan/zoom service & directive
+│   ├── context-menu/       # Context menu service & component
+│   ├── meta-layer/         # Meta labels & layer
+│   ├── drag-drop/          # Drag/drop services & directives
+│   ├── toolbar/            # Canvas toolbar
+│   ├── keyboard/           # Keyboard commands directive
+│   └── store/              # Store base class
+│
+└── serialization/           # @layout/serialization - Export functionality
+    ├── serialization.service.ts
+    └── serializers/        # HTML, CSS, JSON serializers
+
+apps/boxout/src/app/        # Main application
+├── core/                   # App-specific business logic
+│   ├── services/          # AI generation, theme, app state, data, UI guidance
+│   ├── store/             # App-level state (layout, app state)
+│   ├── theme/             # Theme configuration & presets
+│   ├── models/            # App-specific models (Preset)
+│   └── canvas-item-type.enum.ts           # App-specific enums
+│
+├── designer/              # Main editor interface (/design route)
+│   ├── designer.component.ts
+│   ├── header/           # App header
+│   ├── inspector/        # Element inspector panel
+│   ├── layers/           # Layer tree view
+│   ├── presets/          # Preset components & service
+│   └── properties/       # Properties panel with groups & controls
+│
+├── renderer/              # Preview mode (/preview route)
+│   └── renderer.component.ts
+│
+└── shared/                # App-specific shared components
+    ├── code-viewer/       # HTML/CSS/JSON viewers
+    └── tab-switcher/      # Tab switcher component
 ```
 
 ### Routing
 
-Three main routes (src/app/app.routes.ts):
+Two main routes (apps/boxout/src/app/app.routes.ts):
+
 - `/design` - Main designer interface (eager loaded)
 - `/preview` - Preview generated output (lazy loaded)
-- `/learn` - Tutorial content (lazy loaded)
+
+### Library Imports
+
+Libraries are imported using TypeScript path mappings defined in `tsconfig.base.json`:
+
+```typescript
+import { CanvasItem, Css } from '@layout/models';
+import { CanvasService, SelectionService } from '@layout/canvas';
+import { SerializationService } from '@layout/serialization';
+```
+
+**Path mappings:**
+
+- `@layout/models` → `libs/models/src/index.ts`
+- `@layout/canvas` → `libs/canvas/src/index.ts`
+- `@layout/serialization` → `libs/serialization/src/index.ts`
 
 ### Key Patterns
 
-1. **Pure Store Functions**: CanvasStore methods return new `CanvasItem[]` arrays. Services call `store.setItems()` to persist changes. Never call `setItems()` inside store methods.
+1. **Library-First Architecture**: Core functionality is extracted into reusable libraries (@layout/models, @layout/canvas, @layout/serialization). Import from these libraries using path mappings rather than relative paths.
 
-2. **Service Orchestration**: Always use `CanvasService` for user actions. It controls persistence, triggers undo snapshots, and coordinates with SelectionService.
+2. **Pure Store Functions**: CanvasStore methods return new `CanvasItem[]` arrays. Services call `store.setItems()` to persist changes. Never call `setItems()` inside store methods.
 
-3. **Hierarchical Operations**: Store operations recursively traverse the tree structure. Use `getItemById()` to locate items, `getParentItemKey()` to find parents.
+3. **Service Orchestration**: Always use `CanvasService` for user actions. It controls persistence, triggers undo snapshots, and coordinates with SelectionService.
 
-4. **Immutability**: When updating canvas items, always use `cloneDeep()` before mutations to ensure pure functions and proper change detection.
+4. **Hierarchical Operations**: Store operations recursively traverse the tree structure. Use `getItemById()` to locate items, `getParentItemKey()` to find parents.
 
-5. **Service Injection**: Core services (CanvasStore, CanvasService, etc.) are injected at AppComponent level, making them available app-wide.
+5. **Immutability**: When updating canvas items, always use `cloneDeep()` before mutations to ensure pure functions and proper change detection.
 
-6. **Insert Positions**: When inserting items, use the `InsertPosition` enum: `INSIDE`, `BEFORE`, `AFTER`.
+6. **Service Injection**: Canvas services (CanvasStore, CanvasService, etc.) from `@layout/canvas` are provided at the library level. App-specific services are injected at AppComponent level.
+
+7. **Insert Positions**: When inserting items, use the `InsertPosition` enum: `INSIDE`, `BEFORE`, `AFTER`.
 
 ## Technology Stack
 
-- **Angular 20.3.9** with standalone components
-- **Nx 22.1.1** for monorepo tooling
-- **PrimeNG 19.1.6-lts** for UI components with Tailwind CSS via tailwindcss-primeui
+- **Angular 21.0.6** with standalone components
+- **Nx 22.3.1** for monorepo tooling
+- **PrimeNG 21.0.2** for UI components with Tailwind CSS via tailwindcss-primeui
 - **RxJS 7.8** for reactive state management
-- **Vitest 3** with happy-dom for unit tests
-- **Playwright** for E2E tests
+- **Vitest 4.0.16** with happy-dom for unit tests
+- **Playwright 1.57.0** for E2E tests
 - **SortableJS** (via nxt-sortablejs) for drag-and-drop
 - **PrismJS** for syntax highlighting
 - **Firebase** for hosting
-
-**Note**: Angular 21 is available but not yet supported by Nx 22.1.1. Wait for Nx to release official Angular 21 support before upgrading.
 
 ## Development Notes
 
@@ -184,16 +238,71 @@ Three main routes (src/app/app.routes.ts):
 Detailed documentation is organized in the `knowledge-base/` directory:
 
 ### Architecture Patterns
+
 - **`architecture/store-service-pattern.md`** - Store vs Service responsibilities, pure functions, anti-patterns, and real-world examples
 
 ### Testing Guidelines
+
 - **`testing/testing-core.md`** - Core testing strategy (Vitest, BDD, what to test/mock)
 - **`testing/testing-stores.md`** - Testing Store<T> pattern with real stores
 - **`testing/testing-services.md`** - Testing services that use stores
 - **`testing/testing-components.md`** - Component testing guidelines
 
-### Best Practices
-- **`best-practices.md`** - Comprehensive guide covering TypeScript conventions, Angular patterns, state management, accessibility, and performance
-
 ### Angular Documentation
-The `.claude/llms-full.txt` file contains the complete official Angular documentation (14,862 lines). Reference this file for Angular-specific questions about framework features, best practices, and API usage.
+ALways keep up to date with latest Angular best practices from https://angular.dev/ai/develop-with-ai
+
+You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
+## TypeScript Best Practices
+- Use strict type checking
+- Prefer type inference when the type is obvious
+- Avoid the `any` type; use `unknown` when type is uncertain
+## Angular Best Practices
+- Always use standalone components over NgModules
+- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v20+.
+- Use signals for state management
+- Implement lazy loading for feature routes
+- Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
+- Use `NgOptimizedImage` for all static images.
+  - `NgOptimizedImage` does not work for inline base64 images.
+## Accessibility Requirements
+- It MUST pass all AXE checks.
+- It MUST follow all WCAG AA minimums, including focus management, color contrast, and ARIA attributes.
+### Components
+- Keep components small and focused on a single responsibility
+- Use `input()` and `output()` functions instead of decorators
+- Use `computed()` for derived state
+- Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
+- Prefer inline templates for small components
+- Prefer Reactive forms instead of Template-driven ones
+- Do NOT use `ngClass`, use `class` bindings instead
+- Do NOT use `ngStyle`, use `style` bindings instead
+- When using external templates/styles, use paths relative to the component TS file.
+## State Management
+- Use signals for local component state
+- Use `computed()` for derived state
+- Keep state transformations pure and predictable
+- Do NOT use `mutate` on signals, use `update` or `set` instead
+## Templates
+- Keep templates simple and avoid complex logic
+- Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`
+- Use the async pipe to handle observables
+- Do not assume globals like (`new Date()`) are available.
+- Do not write arrow functions in templates (they are not supported).
+## Services
+- Design services around a single responsibility
+- Use the `providedIn: 'root'` option for singleton services
+- Use the `inject()` function instead of constructor injection
+
+<!-- nx configuration start-->
+<!-- Leave the start & end comments to automatically receive updates. -->
+
+# General Guidelines for working with Nx
+
+- When running tasks (for example build, lint, test, e2e, etc.), always prefer running the task through `nx` (i.e. `nx run`, `nx run-many`, `nx affected`) instead of using the underlying tooling directly
+- You have access to the Nx MCP server and its tools, use them to help the user
+- When answering questions about the repository, use the `nx_workspace` tool first to gain an understanding of the workspace architecture where applicable.
+- When working in individual projects, use the `nx_project_details` mcp tool to analyze and understand the specific project structure and dependencies
+- For questions around nx configuration, best practices or if you're unsure, use the `nx_docs` tool to get relevant, up-to-date docs. Always use this instead of assuming things about nx configuration
+- If the user needs help with an Nx configuration or project graph error, use the `nx_workspace` tool to get any errors
+
+<!-- nx configuration end-->

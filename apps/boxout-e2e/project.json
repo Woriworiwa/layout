@@ -1,0 +1,44 @@
+{
+  "name": "boxout-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/boxout-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["boxout"],
+  "// targets": "to see all targets run: nx show project e2e --web",
+  "targets": {
+    "e2e-ui": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/boxout-e2e",
+        "command": "playwright test --ui"
+      },
+      "metadata": {
+        "description": "Runs Playwright Tests with UI mode",
+        "technologies": ["playwright"]
+      }
+    },
+    "e2e-headed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/boxout-e2e",
+        "command": "playwright test --headed"
+      },
+      "metadata": {
+        "description": "Runs Playwright Tests in headed mode (visible browser)",
+        "technologies": ["playwright"]
+      }
+    },
+    "e2e-debug": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/boxout-e2e",
+        "command": "playwright test --debug"
+      },
+      "metadata": {
+        "description": "Runs Playwright Tests in debug mode with inspector",
+        "technologies": ["playwright"]
+      }
+    }
+  }
+}

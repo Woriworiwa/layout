@@ -51,9 +51,30 @@
       "Bash(npx tsc:*)",
       "Bash(npm outdated:*)",
       "Bash(npm run e2e:*)",
-      "Bash(npx prettier:*)"
+      "Bash(npx prettier:*)",
+      "Bash(done)",
+      "Bash(git mv:*)",
+      "Bash(xargs sed -i '' 's|from.*core/enums.*|from \"\"\"\"@layout/canvas\"\"\"\"|g')",
+      "Bash(xargs sed -i '' 's|from.*core/models/css-[^'\"''''\"']*|from \"\"\"\"@layout/canvas\"\"\"\"|g')",
+      "Bash(xargs sed -i '' 's|from.*\\\\.\\\\./enums.*|from \"\"\"\"@layout/canvas\"\"\"\"|g')",
+      "Bash(DEBUG=vitest:*)",
+      "Bash(git rm:*)",
+      "Bash(npm test:*)",
+      "Bash(NX_VERBOSE_LOGGING=true nx run:*)",
+      "Bash(npm run test:ui:*)",
+      "Bash(timeout 5 npm run test:ui:*)",
+      "Bash(playwright test:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint)",
+      "mcp__nx-mcp__nx_workspace",
+      "mcp__nx-mcp__nx_project_details",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "nx-mcp"
+  ]
 }

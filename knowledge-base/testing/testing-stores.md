@@ -3,10 +3,18 @@
 ## Core Principle
 **Use real stores with test data, not mocks.**
 
+## Library Imports
+```typescript
+import { CanvasStore, CanvasService } from '@layout/canvas';
+import { CanvasItem } from '@layout/models';
+```
+
 ## Testing Stores Directly
 Rarely needed - stores are simple wrappers. Test services that use them instead.
 
 ```typescript
+import { CanvasStore } from '@layout/canvas';
+
 describe('CanvasStore', () => {
   let store: CanvasStore;
 
@@ -16,7 +24,7 @@ describe('CanvasStore', () => {
 
   describe('WHEN setting state', () => {
     it('SHOULD update state', () => {
-      const items = [{ key: '123', label: 'Test', itemType: 'CONTAINER' }];
+      const items = [{ key: '123', label: 'Test', itemType: 'FLEX' }];
 
       store.setState({ items });
 
@@ -41,6 +49,9 @@ describe('CanvasStore', () => {
 **Inject real stores, set initial state, test behavior.**
 
 ```typescript
+import { TestBed } from '@angular/core/testing';
+import { CanvasStore, CanvasService } from '@layout/canvas';
+
 describe('CanvasService', () => {
   let service: CanvasService;
   let store: CanvasStore;
@@ -69,6 +80,7 @@ describe('CanvasService', () => {
 ## Testing Components with Stores
 ```typescript
 import { render, screen } from '@testing-library/angular';
+import { CanvasStore } from '@layout/canvas';
 
 describe('ItemListComponent', () => {
   describe('WHEN store has items', () => {
@@ -134,7 +146,7 @@ await render(Component, {
 export const FAKE_CONTAINER: CanvasItem = {
   key: 'container-1',
   label: 'Test Container',
-  itemType: 'CONTAINER',
+  itemType: 'FLEX',
   children: [],
   css: { display: 'flex' }
 };

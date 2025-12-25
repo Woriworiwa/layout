@@ -1,0 +1,20 @@
+{
+  "name": "serialization",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/serialization/src",
+  "prefix": "serialization",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:serialization"],
+  "targets": {
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../../coverage/libs/serialization"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

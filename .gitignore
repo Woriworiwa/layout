@@ -7,12 +7,11 @@
 /bazel-out
 
 # Node
-/node_modules
+node_modules
 npm-debug.log
 yarn-error.log
 
 # IDEs and editors
-.idea/
 .project
 .classpath
 .c9/
@@ -42,7 +41,8 @@ testem.log
 Thumbs.db
 
 # Environment files with secrets
-/src/environments/environment.ts
+/apps/boxout/src/environments/environment.ts
+/apps/boxout/src/environments/environment.prod.ts
 
 .nx/cache
 .angular
@@ -50,3 +50,5 @@ Thumbs.db
 /.nx/workspace-data/
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+
+vitest.config.*.timestamp*

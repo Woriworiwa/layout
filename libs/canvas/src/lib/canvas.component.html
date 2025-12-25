@@ -1,0 +1,35 @@
+<div #wrapper
+     class="flex flex-col flex-1 gap-5 w-full min-w-0 overflow-visible"
+     [attr.data-testid]="CANVAS_ROOT_ELEMENT_ID"
+     [id]="CANVAS_ROOT_ELEMENT_ID">
+
+  <!-- Render each root item -->
+  @for (item of rootItems; track item.key) {
+    <app-container
+      [item]="item"
+      [appAssetDrop]="item"
+      [id]="item.key!"
+      (itemClick)="selectElement($event)"
+      (itemMouseOver)="hoverElement($event)"
+      (itemMouseOut)="clearHover()"
+      (itemContextMenu)="onContextMenu($event)"
+      (itemTextContentChanged)="onTextItemContentChanged($event)"
+    ></app-container>
+  }
+
+  <!-- selection layer -->
+  <app-selection-layer
+    [canvasElement]="wrapperElementRef"
+    [allowAdd]="settings.allowAdd"></app-selection-layer>
+
+  <!-- meta layer -->
+  <app-meta-layer [canvasElement]="wrapperElementRef"></app-meta-layer>
+</div>
+
+<!-- pan-zoom overlay -->
+<app-pan-zoom-overlay></app-pan-zoom-overlay>
+
+<!-- toolbar -->
+@if (settings.showToolbar) {
+  <app-canvas-toolbar></app-canvas-toolbar>
+}

@@ -1,0 +1,137 @@
+<div class="flex flex-col h-full w-full">
+  <!-- Toolbar -->
+  <div
+    class="flex items-center justify-between px-4 py-3 border-b border-surface-200 bg-surface-0"
+  >
+    <div class="flex items-center gap-3">
+      <span class="text-sm font-semibold">Preview</span>
+
+      <!-- Viewport Selector -->
+      <p-selectButton
+        [options]="viewportPresets"
+        [(ngModel)]="selectedViewport"
+        optionLabel="label"
+        optionValue="value"
+        [allowEmpty]="false"
+        size="small"
+      />
+
+      @if (selectedViewport() === 'custom') {
+        <div class="flex items-center gap-2">
+          <input
+            type="number"
+            [(ngModel)]="customWidth"
+            (ngModelChange)="updateCustomWidth()"
+            class="w-20 px-2 py-1 text-sm border border-surface-300 rounded"
+            placeholder="Width"
+            min="320"
+            max="2560"
+          />
+          <span class="text-xs text-muted-color">px</span>
+        </div>
+      }
+
+      <span class="text-xs text-muted-color">{{ currentWidth() }}</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <p-button
+        [outlined]="!codePanelVisible()"
+        icon="pi pi-code"
+        label="Code"
+        severity="primary"
+        (onClick)="toggleCodePanel()"
+        pTooltip="Toggle Code Panel"
+        tooltipPosition="bottom"
+      />
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Preview Area -->
+    <div
+      class="flex-1 flex flex-col items-center justify-center bg-surface-50 p-6 overflow-auto"
+    >
+      <div class="preview-container">
+        @if (selectedViewport() === 'custom') {
+          <!-- Custom viewport with resize handles -->
+          <div class="resize-handle-wrapper">
+            <div class="resize-handle left" appResizable>
+              <i class="pi pi-ellipsis-v"></i>
+            </div>
+
+            <div
+              class="preview-wrapper bg-white shadow-lg"
+              [style.min-height]="'400px'"
+            >
+              <iframe
+                [srcdoc]="code() | unsafeHtml"
+                class="border-none pointer-events-none"
+                [style.width]="customWidth() + 'px'"
+                [style.min-height]="'400px'"
+              ></iframe>
+            </div>
+
+            <div class="resize-handle right" appResizable>
+              <i class="pi pi-ellipsis-v"></i>
+            </div>
+          </div>
+        } @else {
+          <!-- Fixed viewport presets -->
+          <div
+            class="preview-wrapper bg-white shadow-lg"
+            [style.width]="previewWidth()"
+            [style.min-height]="'400px'"
+          >
+            <iframe
+              [srcdoc]="code() | unsafeHtml"
+              class="w-full h-full border-none"
+              [style.min-height]="'400px'"
+            ></iframe>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Code Panel -->
+    @if (codePanelVisible()) {
+      <div
+        class="w-[400px] flex flex-col border-l border-surface-200 bg-surface-0 overflow-hidden"
+      >
+        <div
+          class="px-4 py-3 border-b border-surface-200 flex justify-between items-center flex-shrink-0"
+        >
+          <p-selectButton
+            [options]="codeTabs"
+            [(ngModel)]="selectedCodeView"
+            optionLabel="label"
+            optionValue="value"
+            [allowEmpty]="false"
+            size="small"
+          />
+        </div>
+
+        <div class="flex-1 overflow-y-auto">
+          @switch (selectedCodeView) {
+            @case ('HTML') {
+              <app-html-prism
+                [canvasItems]="canvasService.items"
+              ></app-html-prism>
+            }
+            @case ('CSS') {
+              <app-css-prism
+                [canvasItems]="canvasService.items"
+              ></app-css-prism>
+            }
+            @case ('JSON') {
+              <app-json-prism
+                [canvasItems]="canvasService.items"
+              ></app-json-prism>
+            }
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

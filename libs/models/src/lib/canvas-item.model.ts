@@ -1,0 +1,19 @@
+import { CanvasItemType } from '@layout/models';
+import { Css } from './css-models/css';
+
+export interface AiMetadata {
+  prompt: string;
+  isGenerating?: boolean;
+  lastError?: string;
+}
+
+export interface CanvasItem {
+  itemType: CanvasItemType;
+  key?: string;
+  label?: string;
+  content?: string;
+  children?: CanvasItem[];
+  css?: Css;
+  editable?: boolean;
+  aiMetadata?: AiMetadata;
+}
