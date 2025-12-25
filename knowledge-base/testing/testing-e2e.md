@@ -1,144 +1,158 @@
 # E2E Testing with Playwright
 
-## Tech Stack
-- **E2E Framework**: Playwright with TypeScript
-- **Test Runner**: Playwright Test Runner
-- **Browser**: Chromium (Desktop Chrome)
+## Overview
+- **Framework**: Playwright with TypeScript
 - **Pattern**: Page Object Model (POM)
-- **Commands**: `npm run e2e`, `npm run e2e:ui`, `npm run e2e:headed`
+- **Browser**: Chromium only
+- **Location**: `apps/boxout-e2e/`
+
+## Commands
+```bash
+nx boxout-e2e          # Run all tests headless
+nx boxout-e2e-ui       # Open Playwright UI (interactive)
+nx boxout-e2e-headed   # Run with visible browser
+nx boxout-e2e-debug    # Run with Playwright Inspector
+```
 
 ## Test Strategy
-- Focus on **critical user journeys** end-to-end
-- Test **across page boundaries** and route transitions
-- Use **Page Object Model** for maintainability
-- Keep tests **isolated** and **deterministic**
-- Maximum **8-12 scenarios per feature**
 
-### What to Test
-**DO Test:**
-- Complete user workflows (create layout → edit → export)
-- Navigation and routing
-- Form submissions with validation
-- Data persistence across page loads
-- Error states and recovery flows
-- Responsive behavior (mobile/desktop)
+### What to Test (E2E)
+- Complete user workflows across pages (create → edit → export)
+- Navigation and routing between /design, /preview, /learn
+- Data persistence (localStorage across page reloads)
+- Keyboard shortcuts and interactions
+- Drag-and-drop operations
 
-**DON'T Test:**
-- Unit-level logic (use Vitest)
+### What NOT to Test (Use Vitest)
+- Unit-level logic
 - Component internals
 - CSS styling details
 - Third-party library behavior
-- Browser compatibility (focus on Chromium)
 
-## Project Structure
+### Test Limits
+- **Maximum 8-12 scenarios per feature file**
+- Focus on critical paths, not edge cases
+
+## Current Structure
 ```
-e2e/
-├── src/
-│   ├── tests/                    # Test specs organized by feature
-│   │   ├── app.spec.ts
-│   │   ├── preset-insertion.spec.ts       # Preset insertion workflow (12 tests)
-│   ├── page-objects/             # Page Object classes
-│   │   ├── designer.page.ts      # Main designer page object
-│   │   └── components/           # Reusable component objects
-│   │       └── canvas.component.ts
-│   └── fixtures/                 # Test data and custom fixtures
-├── playwright.config.ts
-└── README.md                     # E2E testing documentation
+apps/boxout-e2e/src/
+├── tests/
+│   ├── app.spec.ts              # Basic app smoke tests
+│   └── preset-insertion.spec.ts # Preset drag and drop workflows
+└── page-objects/
+    ├── app.page.ts              # App-level page
+    ├── designer.page.ts         # Main designer page
+    └── components/
+        ├── canvas.component.ts  # Canvas component
+        └── presets.component.ts # Presets panel
 ```
 
-## Configuration
+## Page Object Model
 
-### Current Setup (playwright.config.ts)
+### Structure
+- **Page Objects** - Represent pages/routes (designer.page.ts)
+- **Component Objects** - Represent reusable UI components (canvas.component.ts, presets.component.ts)
+
+### Why?
+- Encapsulate locators and actions in one place
+- Tests remain readable when UI changes
+- Reduce duplication across test specs
+
+### Example Usage
 ```typescript
-{
-  timeout: 30000,              // 30s per test
-  fullyParallel: true,         // Run tests in parallel
-  retries: 2 (CI only),        // Retry flaky tests in CI
-  workers: 1 (CI only),        // Single worker in CI
+test.describe('Feature', () => {
+  let designer: DesignerPage;
 
-  use: {
-    baseURL: 'http://localhost:4300',
-    trace: 'on-first-retry',   // Debug failed tests
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-  },
+  test.beforeEach(async ({ page }) => {
+    designer = new DesignerPage(page);
+    await designer.goto();
+    await designer.clearCanvas();  // Isolated tests
+  });
 
-  webServer: {
-    // Dev: Start dev server with hot reload
-    // CI: Serve pre-built static files in SPA mode
-    command: process.env['CI']
-      ? 'npx serve dist/browser -p 4200 -s'
-      : 'npx nx run layout:serve',
-    url: process.env['CI'] ? 'http://localhost:4200' : 'http://localhost:4300',
-    reuseExistingServer: !process.env['CI'],
-    timeout: 120000,
-  }
-}
+  test('SHOULD do something', async () => {
+    const preset = await designer.presets.dragPreset('text');
+    await preset.dragTo(await designer.canvas.getLocator());
+
+    expect(await designer.canvas.hasItem('Text')).toBe(true);
+  });
+});
 ```
 
-### CI Pipeline
-E2E tests run automatically in the CI pipeline on:
-- **Pull requests** - Tests run before preview deployment
-- **Merges to master** - Tests run before production deployment
+## Locator Strategy
 
-**CI Workflow:**
-1. Build app (`npm run build`)
-2. Run unit tests (`npm test`)
-3. Run linter (`npm run lint`)
-4. Install Playwright browsers (`npx playwright install --with-deps`)
-5. Run E2E tests (`npm run e2e` with `CI=true`)
-6. Deploy to Firebase
+**Priority order:**
+1. **Test ID**: `page.getByTestId('canvas-component')` (most stable)
+2. **Data attributes**: `page.locator('[data-label="Item"]')` (semantic)
+3. **Role**: `page.getByRole('button', { name: 'Save' })` (accessible)
+4. **Label**: `page.getByLabel('Width')` (forms)
 
-The CI environment uses `serve` package to host the built app statically, avoiding Nx dependencies.
+**Never use:**
+- CSS classes (`.btn-primary`)
+- XPath (`//div[@class='...']`)
+- nth-child selectors
 
-### Browser Projects
-Currently configured for **Chromium only**. Add Firefox/Safari when needed:
+## Test Isolation
+
+Each test starts with clean state:
 ```typescript
-projects: [
-  { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-  { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-  { name: 'mobile', use: { ...devices['iPhone 13'] } },
-]
+test.beforeEach(async ({ page }) => {
+  await designer.goto();
+  await designer.clearCanvas();  // Clears localStorage + reloads
+});
 ```
 
-## Page Object Pattern
+## BDD Naming
 
-### Why Page Objects?
-- **Encapsulate** locators and actions
-- **Reduce duplication** across tests
-- **Easier maintenance** when UI changes
-- **Better readability** in test specs
-
-
-### Component Objects
-For reusable UI components, create separate component objects that encapsulate locators and actions:
-
-**Canvas Component:**
+Use WHEN/SHOULD structure:
 ```typescript
-// boxout-e2e/src/page-objects/components/canvas.component.ts
-export class CanvasComponent {
-  readonly page: Page;
-  readonly canvas: Locator;
-
-  constructor(page: Page) {
-    this.page = page;
-    this.canvas = page.locator('[data-testid="canvas"]');
-  }
-
-  async waitForReady(): Promise<void> {
-    await this.canvas.waitFor({ state: 'visible' });
-  }
-
-  async hasItem(label: string): Promise<boolean> {
-    const item = this.canvas.locator(`[data-label="${label}"]`);
-    return await item.isVisible();
-  }
-
-  async getItemCssProperty(label: string, property: string): Promise<string> {
-    const item = this.canvas.locator(`[data-label="${label}"]`);
-    return await item.evaluate((el, prop) => {
-      return window.getComputedStyle(el).getPropertyValue(prop);
-    }, property);
-  }
-}
+test.describe('WHEN user drags preset', () => {
+  test('SHOULD appear in canvas', async () => { });
+  test('SHOULD preserve CSS properties', async () => { });
+});
 ```
+
+## Common Patterns
+
+### Drag and Drop
+```typescript
+const preset = await designer.presets.dragPreset('container');
+await preset.dragTo(await designer.canvas.getLocator());
+```
+
+### Keyboard Shortcuts
+```typescript
+await page.keyboard.press('Control+Z');  // Undo
+await page.keyboard.press('Delete');     // Delete item
+```
+
+### State Persistence
+```typescript
+// Add item
+const preset = await designer.presets.dragPreset('text');
+await preset.dragTo(await designer.canvas.getLocator());
+
+// Reload and verify persistence
+await page.reload();
+await designer.canvas.waitForReady();
+expect(await designer.canvas.hasItem('Text')).toBe(true);
+```
+
+### CSS Property Verification
+```typescript
+const display = await designer.canvas.getItemCssProperty('Item', 'display');
+expect(display).toBe('flex');
+```
+
+## CI Configuration
+
+E2E tests run automatically in CI:
+- On pull requests (before preview deployment)
+- On merges to master (before production deployment)
+
+Settings:
+- Chromium only, headless mode
+- 2 retries per failing test
+- 30s timeout per test
+- Screenshots + videos on failure
+
+See `apps/boxout-e2e/playwright.config.ts` for full configuration.
