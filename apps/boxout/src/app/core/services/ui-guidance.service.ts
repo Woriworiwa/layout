@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { UiGuidance, GuidanceEvent as BaseGuidanceEvent } from '@layout/canvas';
+import { UiGuidance, GuidanceEvent as BaseGuidanceEvent } from '@layout/models';
 
 export interface GuidanceEvent extends BaseGuidanceEvent {
   target: 'layers-panel';

@@ -24,3 +24,5 @@ export * from './lib/enums/canvas-item-type.enum';
 export * from './lib/enums/insert-position.enum';
 
 export * from './lib/tokens/preset-provider';
+export * from './lib/tokens/ui-guidance.token';
+export * from './lib/tokens/ai-generation.token';
