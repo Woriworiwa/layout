@@ -7,10 +7,10 @@ import {
   SelectionService,
   ContextMenuService,
   UndoRedoDirective,
-  PRESET_PROVIDER,
   UI_GUIDANCE_TOKEN,
   AI_GENERATION_TOKEN,
 } from '@layout/canvas';
+import { PRESET_PROVIDER } from '@layout/models';
 import { DataService } from './core/services/data.service';
 import { MessageService } from 'primeng/api';
 import { PresetService } from './designer/presets/preset.service';
