@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { PanZoomComponent } from './pan-zoom.component';
 
 /**
  * Page Object for the Canvas component
@@ -7,10 +8,12 @@ import { Locator, Page } from '@playwright/test';
 export class CanvasComponent {
   readonly page: Page;
   readonly canvas: Locator;
+  readonly panZoom: PanZoomComponent;
 
   constructor(page: Page) {
     this.page = page;
     this.canvas = page.locator('[data-testid="canvas-component"]');
+    this.panZoom = new PanZoomComponent(page);
   }
 
   async getLocator(): Promise<Locator> {

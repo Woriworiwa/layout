@@ -2,17 +2,20 @@ import {
   Component,
   HostListener,
   inject,
-  HostBinding,
-  OnInit,
-  OnDestroy,
+  effect,
+  signal,
 } from '@angular/core';
 import { PanZoomService } from './pan-zoom.service';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-pan-zoom-overlay',
   standalone: true,
   template: '',
+  host: {
+    'data-testid': 'canvas-overlay',
+    '[class.visible]': 'isVisible()',
+    '[class.panning]': 'isPanning()',
+  },
   styles: `
     :host {
       position: absolute;
@@ -35,28 +38,17 @@ import { Subject, takeUntil } from 'rxjs';
     }
   `,
 })
-export class PanZoomOverlayComponent implements OnInit, OnDestroy {
+export class PanZoomOverlayComponent {
   private panZoomService = inject(PanZoomService);
-  private destroy$ = new Subject<void>();
+  isVisible = signal(false);
+  isPanning = signal(false);
 
-  @HostBinding('class.visible')
-  protected isVisible = false;
-
-  @HostBinding('class.panning')
-  protected isPanning = false;
-
-  ngOnInit(): void {
-    this.panZoomService.state$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((state) => {
-        this.isVisible = state.panModeActive;
-        this.isPanning = state.isPanning;
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  constructor() {
+    effect(() => {
+      const panZoomState = this.panZoomService.state();
+      this.isVisible.set(panZoomState.panModeActive);
+      this.isPanning.set(panZoomState.isPanning);
+    });
   }
 
   @HostListener('mousedown', ['$event'])
@@ -70,7 +62,7 @@ export class PanZoomOverlayComponent implements OnInit, OnDestroy {
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
-    if (this.panZoomService.isPanning) {
+    if (this.panZoomService.state().isPanning) {
       this.panZoomService.panHorizontally(-event.movementX);
       this.panZoomService.panVertically(-event.movementY);
       event.preventDefault();

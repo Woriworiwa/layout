@@ -6,7 +6,11 @@ import {
   signal,
   inject,
 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+
+export interface PanZoomState {
+  panModeActive: boolean;
+  isPanning: boolean;
+}
 
 @Injectable()
 export class PanZoomService {
@@ -20,16 +24,11 @@ export class PanZoomService {
   public scale = signal(1);
   private translateY = signal(0);
   private translateX = signal(0);
-  private currentStateSubject: BehaviorSubject<{
-    panModeActive: boolean;
-    isPanning: boolean;
-  }> = new BehaviorSubject<{ panModeActive: boolean; isPanning: boolean }>({
+
+  state = signal<PanZoomState>({
     panModeActive: false,
     isPanning: false,
   });
-
-  state$: Observable<{ panModeActive: boolean; isPanning: boolean }> =
-    this.currentStateSubject.asObservable();
 
   constructor() {
     afterRenderEffect(() => {
@@ -45,21 +44,30 @@ export class PanZoomService {
     });
   }
 
-  set isPanModeActive(active: boolean) {
-    this.currentStateSubject.next({
-      ...this.currentStateSubject.getValue(),
-      panModeActive: active,
+  activatePanMode() {
+    this.state.update((x) => {
+      return {
+        ...x,
+        panModeActive: true,
+      };
     });
   }
 
-  get isPanning() {
-    return this.currentStateSubject.getValue().isPanning;
+  deactivatePanMode() {
+    this.state.update((x) => {
+      return {
+        ...x,
+        panModeActive: false,
+      };
+    });
   }
 
   set isPanning(isPanning: boolean) {
-    this.currentStateSubject.next({
-      ...this.currentStateSubject.getValue(),
-      isPanning: isPanning,
+    this.state.update((x) => {
+      return {
+        ...x,
+        isPanning: isPanning,
+      };
     });
   }
 

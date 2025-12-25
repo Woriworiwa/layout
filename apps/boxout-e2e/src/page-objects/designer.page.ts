@@ -1,5 +1,5 @@
 import { Page } from '@playwright/test';
-import { CanvasComponent } from './components/canvas.component';
+import { CanvasComponent } from './components/canvas/canvas.component';
 import { PresetsComponent } from './components/presets.component';
 
 /**

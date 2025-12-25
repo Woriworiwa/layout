@@ -44,7 +44,7 @@ export class DragDropService {
 
       // Set a timeout to detect if user is attempting to drag
       this.dragAttemptTimeout = setTimeout(() => {
-        if (this.panZoomService.isPanning) {
+        if (this.panZoomService.state().isPanning) {
           return; // Don't show guidance if panning
         }
         // Trigger guidance to show and highlight layers panel

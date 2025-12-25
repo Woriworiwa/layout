@@ -35,7 +35,7 @@ export class PanZoomDirective {
   onKeyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
       event.preventDefault();
-      this.panZoomService.isPanModeActive = true;
+      this.panZoomService.activatePanMode();
     }
   }
 
@@ -43,7 +43,7 @@ export class PanZoomDirective {
   @HostListener('document:keyup', ['$event'])
   onKeyUp(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.panZoomService.isPanModeActive = false;
+      this.panZoomService.deactivatePanMode()
       this.panZoomService.isPanning = false;
     }
   }

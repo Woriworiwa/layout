@@ -1,11 +1,11 @@
 <p-button
   [rounded]="true"
-  [text]="(panZoomService.state$ | async)?.panModeActive!!"
+  [text]="panZoomService.state().panModeActive"
   icon="pi"
   pTooltip="Select"
   tooltipPosition="bottom"
   [showDelay]="500"
-  (onClick)="panZoomService.isPanModeActive = false"
+  (onClick)="panZoomService.deactivatePanMode()"
 >
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
     <path
@@ -25,11 +25,11 @@
 <p-button
   [rounded]="true"
   icon="pi"
-  [text]="!(panZoomService.state$ | async)?.panModeActive!!"
+  [text]="!panZoomService.state().panModeActive"
   pTooltip="Pan"
   tooltipPosition="bottom"
   [showDelay]="500"
-  (onClick)="panZoomService.isPanModeActive = true"
+  (onClick)="panZoomService.activatePanMode()"
 >
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
     <path
