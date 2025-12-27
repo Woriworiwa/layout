@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: defaultTheme,
         options: {
-          darkModeSelector: '.p-dark',
+          darkModeSelector: '.dark',
         },
       },
     }),
