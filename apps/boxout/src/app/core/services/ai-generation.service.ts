@@ -2,11 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { CanvasItem } from '@layout/models';
 import {
-  CanvasItem,
   AiGeneration,
   AiGenerationResponse as BaseAiGenerationResponse,
-} from '@layout/models';
+} from '@layout/shared';
 import { environment } from '../../../environments/environment';
 import { AiSchemaGeneratorService } from './ai-schema-generator.service';
 

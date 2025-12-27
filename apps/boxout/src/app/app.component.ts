@@ -12,7 +12,7 @@ import {
   PRESET_PROVIDER,
   UI_GUIDANCE_TOKEN,
   AI_GENERATION_TOKEN,
-} from '@layout/models';
+} from '@layout/shared';
 import { DataService } from './core/services/data.service';
 import { MessageService } from 'primeng/api';
 import { PresetService } from './designer/presets/preset.service';

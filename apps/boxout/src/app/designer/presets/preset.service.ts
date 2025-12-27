@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  CanvasItem,
-  CanvasItemType,
-  BoxSizing,
-  PresetProvider,
-} from '@layout/models';
+import { CanvasItem, CanvasItemType, BoxSizing } from '@layout/models';
+import { PresetProvider } from '@layout/shared';
 import { allPresets } from '../../../data/presets';
 import { Preset } from '../../core/models/preset.model';
 import { PresetContainerComponent } from './preset-container.component';

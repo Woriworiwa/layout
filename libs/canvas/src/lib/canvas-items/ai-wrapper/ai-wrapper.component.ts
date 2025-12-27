@@ -10,7 +10,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonDirective } from 'primeng/button';
-import { CanvasItem, AI_GENERATION_TOKEN } from '@layout/models';
+import { CanvasItem } from '@layout/models';
+import { AI_GENERATION_TOKEN } from '@layout/shared';
 import { CanvasService } from '../../canvas.service';
 import cloneDeep from 'lodash.clonedeep';
 

@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CanvasItem } from '../canvas-item.model';
+import { CanvasItem } from '@layout/models';
 
 /**
  * Interface for AI generation response

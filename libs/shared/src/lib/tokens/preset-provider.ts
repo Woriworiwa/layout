@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { CanvasItem } from '../canvas-item.model';
+import { CanvasItem } from '@layout/models';
 
 export interface PresetProvider {
   getPreset(
