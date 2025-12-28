@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { CanvasItem, CanvasItemType, BoxSizing } from '@layout/models';
 import { PresetProvider } from '@layout/shared';
 import { allPresets } from '../../../data/presets';
-import { Preset } from '../../core/models/preset.model';
+import {
+  Preset,
+  PresetCategory,
+  PresetFolder,
+} from '../../core/models/preset.model';
 import { PresetContainerComponent } from './preset-container.component';
 import { PresetTextComponent } from './preset-text.component';
 import { PresetAiComponent } from './preset-ai.component';
@@ -59,5 +63,66 @@ export class PresetService implements PresetProvider {
     newItem.children?.forEach((frame) => {
       this.assignDefaultPaddings(frame);
     });
+  }
+
+  getPresetFolders(): { rootPresets: Preset[]; folders: PresetFolder[] } {
+    const rootPresets = this.allPresets.filter(
+      (p) => !p.category || p.category === PresetCategory.ROOT,
+    );
+
+    const folderMap = new Map<PresetCategory, Preset[]>();
+
+    this.allPresets.forEach((preset) => {
+      if (preset.category && preset.category !== PresetCategory.ROOT) {
+        if (!folderMap.has(preset.category)) {
+          folderMap.set(preset.category, []);
+        }
+        folderMap.get(preset.category)!.push(preset);
+      }
+    });
+
+    const folders: PresetFolder[] = Array.from(folderMap.entries()).map(
+      ([category, presets]) => ({
+        id: category,
+        label: this.getFolderLabel(category),
+        icon: this.getFolderIcon(category),
+        presets,
+      }),
+    );
+
+    const folderOrder = [
+      PresetCategory.FLEXBOX,
+      PresetCategory.GRID,
+      PresetCategory.LAYOUTS,
+      PresetCategory.COMPONENTS,
+    ];
+
+    folders.sort(
+      (a, b) => folderOrder.indexOf(a.id) - folderOrder.indexOf(b.id),
+    );
+
+    return { rootPresets, folders };
+  }
+
+  private getFolderLabel(category: PresetCategory): string {
+    const labels: Record<PresetCategory, string> = {
+      [PresetCategory.ROOT]: '',
+      [PresetCategory.FLEXBOX]: 'Flexbox',
+      [PresetCategory.GRID]: 'Grid',
+      [PresetCategory.LAYOUTS]: 'Layouts',
+      [PresetCategory.COMPONENTS]: 'Components',
+    };
+    return labels[category] || category;
+  }
+
+  private getFolderIcon(category: PresetCategory): string {
+    const icons: Record<PresetCategory, string> = {
+      [PresetCategory.ROOT]: '',
+      [PresetCategory.FLEXBOX]: 'pi pi-directions',
+      [PresetCategory.GRID]: 'pi pi-th-large',
+      [PresetCategory.LAYOUTS]: 'pi pi-window-maximize',
+      [PresetCategory.COMPONENTS]: 'pi pi-box',
+    };
+    return icons[category] || 'pi pi-folder';
   }
 }

@@ -1,6 +1,9 @@
+import { PresetCategory } from '../../app/core/models/preset.model';
+
 export const cardPreset = {
   presetId: 'card',
   presetName: 'Card',
+  category: PresetCategory.LAYOUTS,
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {

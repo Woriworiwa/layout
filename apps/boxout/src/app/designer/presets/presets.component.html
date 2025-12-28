@@ -1,24 +1,94 @@
-<div class="grid grid-cols-2 gap-3 p-3 overflow-auto">
-  @for (item of components; track item.preset.presetId) {
-    <div
-      class="asset-item p-3 cursor-move rounded-md"
-      [attr.data-testid]="`preset-${item.preset.presetId}`"
-      draggable="true"
-      (dragstart)="onDragStart($event, item.preset.presetId)"
-      (dragend)="onDragEnd($event)"
-    >
-      <div
-        class="text-sm font-semibold text-[var(--p-text-color)] mb-2 tracking-tight"
+<div class="presets-container p-3 overflow-auto">
+  <!-- Root-level items (Text, Empty Flex, AI Layout) -->
+  @if (rootPresets.length > 0) {
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      @for (item of rootPresets; track item.preset.presetId) {
+        <div
+          class="asset-item p-3 cursor-move rounded-md"
+          [attr.data-testid]="'preset-' + item.preset.presetId"
+          draggable="true"
+          (dragstart)="onDragStart($event, item.preset.presetId)"
+          (dragend)="onDragEnd($event)"
+        >
+          <div
+            class="text-sm font-semibold text-[var(--p-text-color)] mb-2 tracking-tight"
+          >
+            {{ item.preset.presetName }}
+          </div>
+          <div
+            class="asset-preview bg-[var(--bg-secondary)] rounded-lg p-2 min-h-[50px] flex items-center justify-center w-full"
+          >
+            <ng-container
+              *ngComponentOutlet="item.component; inputs: item.inputs"
+            />
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Categorized folders -->
+  @for (folder of folders; track folder.id) {
+    <div class="preset-folder mb-3" [attr.data-testid]="'folder-' + folder.id">
+      <!-- Folder header -->
+      <button
+        type="button"
+        class="folder-header w-full flex items-center justify-between p-2 rounded-md cursor-pointer bg-transparent border-0 hover:bg-[var(--p-surface-100)] transition-colors"
+        (click)="toggleFolder(folder.id)"
+        [attr.aria-expanded]="isFolderExpanded(folder.id)"
+        [attr.data-testid]="'folder-header-' + folder.id"
       >
-        {{ item.preset.presetName }}
-      </div>
-      <div
-        class="asset-preview bg-[var(--bg-secondary)] rounded-lg p-2 min-h-[50px] flex items-center justify-center w-full"
-      >
-        <ng-container
-          *ngComponentOutlet="item.component; inputs: item.inputs"
-        />
-      </div>
+        <div class="flex items-center gap-2">
+          <!-- Chevron icon -->
+          <i
+            class="pi text-xs transition-transform"
+            [class.pi-chevron-right]="!isFolderExpanded(folder.id)"
+            [class.pi-chevron-down]="isFolderExpanded(folder.id)"
+          ></i>
+
+          <!-- Folder icon -->
+          @if (folder.icon) {
+            <i [class]="folder.icon + ' text-sm'"></i>
+          }
+
+          <!-- Folder name with count -->
+          <span class="text-sm font-semibold text-[var(--p-text-color)]">
+            {{ folder.label }} ({{ folder.presets.length }})
+          </span>
+        </div>
+      </button>
+
+      <!-- Folder content (collapsible) -->
+      @if (isFolderExpanded(folder.id)) {
+        <div
+          class="folder-content mt-2 grid grid-cols-2 gap-3"
+          [attr.data-testid]="'folder-content-' + folder.id"
+        >
+          @for (item of getPresetsForFolder(folder); track item.preset.presetId)
+          {
+            <div
+              class="asset-item p-3 cursor-move rounded-md"
+              [attr.data-testid]="'preset-' + item.preset.presetId"
+              draggable="true"
+              (dragstart)="onDragStart($event, item.preset.presetId)"
+              (dragend)="onDragEnd($event)"
+            >
+              <div
+                class="text-sm font-semibold text-[var(--p-text-color)] mb-2 tracking-tight"
+              >
+                {{ item.preset.presetName }}
+              </div>
+              <div
+                class="asset-preview bg-[var(--bg-secondary)] rounded-lg p-2 min-h-[50px] flex items-center justify-center w-full"
+              >
+                <ng-container
+                  *ngComponentOutlet="item.component; inputs: item.inputs"
+                />
+              </div>
+            </div>
+          }
+        </div>
+      }
     </div>
   }
 </div>

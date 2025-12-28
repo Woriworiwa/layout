@@ -1,7 +1,10 @@
+import { PresetCategory } from '../../app/core/models/preset.model';
+
 export const basicFlexPresets = [
   {
     presetId: 'empty-flex',
     presetName: 'Empty Flex',
+    category: PresetCategory.ROOT,
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
@@ -17,6 +20,7 @@ export const basicFlexPresets = [
   {
     presetId: 'flex-rows',
     presetName: 'Flex rows',
+    category: PresetCategory.FLEXBOX,
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
@@ -54,6 +58,7 @@ export const basicFlexPresets = [
   {
     presetId: 'flex-columns',
     presetName: 'Flex columns',
+    category: PresetCategory.FLEXBOX,
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {

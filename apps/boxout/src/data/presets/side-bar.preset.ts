@@ -1,6 +1,9 @@
+import { PresetCategory } from '../../app/core/models/preset.model';
+
 export const sideBarPreset = {
   presetId: 'sidebar-layout',
   presetName: 'Sidebar layout',
+  category: PresetCategory.LAYOUTS,
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {

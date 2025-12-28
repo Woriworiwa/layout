@@ -1,7 +1,10 @@
+import { PresetCategory } from '../../app/core/models/preset.model';
+
 export const basicGridPresets = [
   {
     presetId: 'empty-grid',
     presetName: 'Empty Grid',
+    category: PresetCategory.GRID,
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
@@ -20,6 +23,7 @@ export const basicGridPresets = [
   {
     presetId: 'grid-2x2',
     presetName: 'Grid 2x2',
+    category: PresetCategory.GRID,
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
@@ -60,6 +64,7 @@ export const basicGridPresets = [
   {
     presetId: 'grid-3-columns',
     presetName: 'Grid 3 Columns',
+    category: PresetCategory.GRID,
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
@@ -110,6 +115,7 @@ export const basicGridPresets = [
   {
     presetId: 'grid-auto-fit',
     presetName: 'Grid Auto-Fit',
+    category: PresetCategory.GRID,
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {

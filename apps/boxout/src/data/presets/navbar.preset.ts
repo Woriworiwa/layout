@@ -1,6 +1,9 @@
+import { PresetCategory } from '../../app/core/models/preset.model';
+
 export const navbarPreset = {
   presetId: 'navbar',
   presetName: 'Navigation bar',
+  category: PresetCategory.LAYOUTS,
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {

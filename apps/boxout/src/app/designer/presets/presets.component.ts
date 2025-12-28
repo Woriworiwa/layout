@@ -11,13 +11,19 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PresetService } from './preset.service';
+import { PresetFolderStateService } from './preset-folder-state.service';
 import {
   CanvasService,
   SelectionService,
   AssetDragDropService,
 } from '@layout/canvas';
-import { CanvasItem, InsertPosition } from '@layout/models';
-import { Preset } from '../../core/models/preset.model';
+import { CanvasItem, CanvasItemType, InsertPosition } from '@layout/models';
+import {
+  Preset,
+  PresetCategory,
+  PresetFolder,
+} from '../../core/models/preset.model';
+import { PresetAiComponent } from './preset-ai.component';
 
 interface AssetComponentItem {
   preset: Preset;
@@ -29,6 +35,7 @@ interface AssetComponentItem {
   selector: 'app-presets',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, FormsModule],
+  providers: [PresetFolderStateService],
   templateUrl: 'presets.component.html',
   styleUrls: ['presets.component.scss'],
   host: {
@@ -40,13 +47,15 @@ export class PresetsComponent {
   private readonly presetsService = inject(PresetService);
   private readonly selectionService = inject(SelectionService);
   private readonly assetDragDropService = inject(AssetDragDropService);
+  private readonly folderStateService = inject(PresetFolderStateService);
 
   parentFrameId = input<string | undefined>(undefined);
   insertPosition = input<InsertPosition>(InsertPosition.AFTER);
 
   componentAdded = output<boolean>();
 
-  protected readonly components: readonly AssetComponentItem[];
+  protected readonly rootPresets: readonly AssetComponentItem[];
+  protected readonly folders: readonly PresetFolder[];
   protected readonly insertPositionEnum = InsertPosition;
 
   protected selectedInsertPosition = signal<InsertPosition>(
@@ -65,8 +74,40 @@ export class PresetsComponent {
   });
 
   constructor() {
-    this.components =
-      this.presetsService.getAssetComponents() as AssetComponentItem[];
+    const { rootPresets, folders } = this.presetsService.getPresetFolders();
+
+    this.rootPresets = rootPresets.map((preset) => ({
+      preset,
+      component: this.getComponentForPreset(preset),
+      inputs: { preset: preset.presetDefinition },
+    }));
+
+    this.folders = folders;
+  }
+
+  private getComponentForPreset(preset: Preset): Type<unknown> {
+    if (preset.presetDefinition.aiMetadata) {
+      return PresetAiComponent;
+    }
+    return this.presetsService.getAssetComponent(
+      preset.presetDefinition.itemType as CanvasItemType,
+    );
+  }
+
+  protected toggleFolder(categoryId: PresetCategory): void {
+    this.folderStateService.toggleFolder(categoryId);
+  }
+
+  protected isFolderExpanded(categoryId: PresetCategory): boolean {
+    return this.folderStateService.isExpanded(categoryId);
+  }
+
+  protected getPresetsForFolder(folder: PresetFolder): AssetComponentItem[] {
+    return folder.presets.map((preset) => ({
+      preset,
+      component: this.getComponentForPreset(preset),
+      inputs: { preset: preset.presetDefinition },
+    }));
   }
 
   protected onDragStart(event: DragEvent, presetId: string): void {

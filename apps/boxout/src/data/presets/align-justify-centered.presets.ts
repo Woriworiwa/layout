@@ -1,7 +1,10 @@
+import { PresetCategory } from '../../app/core/models/preset.model';
+
 export const alignmentPresets = [
   {
     presetId: 'align-items',
     presetName: 'Align items',
+    category: PresetCategory.FLEXBOX,
     presetDefinition: {
       itemType: 'CONTAINER',
       children: [
@@ -149,6 +152,7 @@ export const alignmentPresets = [
   {
     presetId: 'justify-content',
     presetName: 'Justify content',
+    category: PresetCategory.FLEXBOX,
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
@@ -304,6 +308,7 @@ export const alignmentPresets = [
   {
     presetId: 'centered-content',
     presetName: 'Centered content',
+    category: PresetCategory.FLEXBOX,
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {

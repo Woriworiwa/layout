@@ -1,6 +1,9 @@
+import { PresetCategory } from '../../app/core/models/preset.model';
+
 export const aiPreset = {
   presetId: 'ai-flex',
   presetName: 'AI Layout',
+  category: PresetCategory.ROOT,
   presetDefinition: {
     itemType: 'CONTAINER',
     label: 'AI Container',

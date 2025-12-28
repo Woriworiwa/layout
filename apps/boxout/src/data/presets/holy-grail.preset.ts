@@ -1,6 +1,9 @@
+import { PresetCategory } from '../../app/core/models/preset.model';
+
 export const holyGrailPreset = {
   presetId: 'holy-grail',
   presetName: 'Holy grail layout',
+  category: PresetCategory.LAYOUTS,
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
