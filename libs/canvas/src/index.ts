@@ -5,7 +5,7 @@
 // Core Canvas
 export * from './lib/canvas.component';
 export * from './lib/canvas.service';
-export * from './lib/store/canvas.store';
+export * from './lib/canvas.store';
 export * from './lib/canvas.settings';
 
 // Services
@@ -41,8 +41,3 @@ export * from './lib/canvas-items/canvas-item-mouse-event';
 export * from './lib/canvas-items/container/container.component';
 export * from './lib/canvas-items/text/text.component';
 export * from './lib/canvas-items/ai-wrapper/ai-wrapper.component';
-
-// Store base
-export * from './lib/store/store';
-
-// Interfaces & Tokens

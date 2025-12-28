@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
-import { CanvasStore } from '../store/canvas.store';
+import { CanvasStore } from '../canvas.store';
 import { CanvasItem } from '@layout/models';
 import { SelectionItemComponent } from './selection-item.component';
 import { CanvasHoverItemComponent } from './canvas-hover-item.component';
