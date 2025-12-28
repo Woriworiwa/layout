@@ -1,12 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
-  CanvasStore,
   CanvasService,
-  UndoRedoService,
   SelectionService,
-  ContextMenuService,
-  UndoRedoDirective,
+  provideCanvas,
 } from '@layout/canvas';
 import {
   PRESET_PROVIDER,
@@ -18,24 +15,21 @@ import { MessageService } from 'primeng/api';
 import { PresetService } from './designer/presets/preset.service';
 import { AiGenerationService } from './core/services/ai-generation.service';
 import { UiGuidanceService } from './core/services/ui-guidance.service';
+import { SerializationService } from '@layout/serialization';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
   providers: [
-    CanvasStore,
-    CanvasService,
+    ...provideCanvas(),
     DataService,
     MessageService,
     PresetService,
+    SerializationService,
     { provide: PRESET_PROVIDER, useExisting: PresetService },
     { provide: UI_GUIDANCE_TOKEN, useExisting: UiGuidanceService },
     { provide: AI_GENERATION_TOKEN, useExisting: AiGenerationService },
-    SelectionService,
-    ContextMenuService,
-    UndoRedoService,
   ],
-  hostDirectives: [UndoRedoDirective],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

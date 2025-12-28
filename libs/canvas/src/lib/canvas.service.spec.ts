@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { firstValueFrom } from 'rxjs';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { CanvasService } from './canvas.service';
-import { CanvasStore } from './store/canvas.store';
+import { CanvasStore } from './canvas.store';
 import { SelectionService } from '@layout/canvas';
-import { UndoRedoService } from '@layout/canvas';
-import { ContextMenuService } from '@layout/canvas';
 import { AssetDragDropService } from '@layout/canvas';
 import { CanvasItem, CanvasItemType } from '@layout/models';
 import { InsertPosition } from '@layout/models';
 import { Css } from '@layout/models';
+import { UndoRedoService } from './undo-redo/undo-redo.service';
+import { ContextMenuService } from './context-menu/context-menu.service';
 
 describe('CanvasService', () => {
   let service: CanvasService;

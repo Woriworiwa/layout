@@ -10,9 +10,7 @@ export class CanvasState {
   canvasItems: CanvasItem[] = [];
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CanvasStore extends Store<CanvasState> {
   constructor() {
     super(new CanvasState());

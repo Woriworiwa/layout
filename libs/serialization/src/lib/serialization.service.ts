@@ -6,9 +6,7 @@ import { CssStyleSerializer } from './serializers/css-style.serializer';
 
 export type SerializerType = 'HTML' | 'JSON' | 'CSS-class' | 'CSS-style';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class SerializationService {
   getSerializer(serializerType: SerializerType) {
     switch (serializerType) {
