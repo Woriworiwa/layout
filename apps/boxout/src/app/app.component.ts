@@ -12,7 +12,7 @@ import {
 } from '@layout/shared';
 import { DataService } from './core/services/data.service';
 import { MessageService } from 'primeng/api';
-import { PresetService } from './designer/presets/preset.service';
+import { PresetService } from '@layout/presets';
 import { AiGenerationService } from './core/services/ai-generation.service';
 import { UiGuidanceService } from './core/services/ui-guidance.service';
 import { SerializationService } from '@layout/serialization';

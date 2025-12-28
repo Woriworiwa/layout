@@ -81,7 +81,7 @@ The application uses a custom RxJS-based state management pattern with **pure st
   label: string,             // Display name
   content: string,           // For text items
   children: CanvasItem[],    // Nested hierarchy
-  css: Css,                  // CSS properties object
+  css: Css,                  // CSS properties-panel object
   editable: boolean,
   aiMetadata: AiMetadata     // AI generation metadata (optional)
 }

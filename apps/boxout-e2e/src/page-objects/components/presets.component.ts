@@ -6,7 +6,7 @@ export class PresetsComponent {
 
   constructor(page: Page) {
     this.page = page;
-    this.presetsPanel = page.locator('[data-testid="presets-component"]');
+    this.presetsPanel = page.locator('[data-testid="components-panel-component"]');
   }
 
   /**

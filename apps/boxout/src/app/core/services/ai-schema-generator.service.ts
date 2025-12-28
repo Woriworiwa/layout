@@ -43,7 +43,7 @@ type PropertyValueDef =
   | { type: 'custom'; description: string };
 
 /**
- * Strict mapped type that REQUIRES all CSS properties to be present.
+ * Strict mapped type that REQUIRES all CSS properties-panel to be present.
  * Unlike Record<>, this will cause a TypeScript error if any property is missing.
  */
 type RequireAllProperties = {
@@ -59,7 +59,7 @@ export class AiSchemaGeneratorService {
   /**
    * Maps property names to their enum options or value descriptions.
    *
-   * IMPORTANT: This map MUST contain ALL properties from all CSS interfaces.
+   * IMPORTANT: This map MUST contain ALL properties-panel from all CSS interfaces.
    * TypeScript will error at compile-time if any property is missing,
    * ensuring this service stays in sync with CSS model changes.
    */

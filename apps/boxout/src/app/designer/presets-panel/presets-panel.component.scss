@@ -1,0 +1,76 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.asset-item {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.04);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 12px 24px rgba(0, 0, 0, 0.12),
+      0 4px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  &:active {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 16px rgba(0, 0, 0, 0.1),
+      0 3px 6px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.preset-folder {
+  .folder-header {
+    text-align: left;
+
+    &:hover {
+      background-color: var(--p-surface-100);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--p-primary-color);
+      outline-offset: 2px;
+    }
+
+    i.pi-chevron-right,
+    i.pi-chevron-down {
+      transition: transform 0.2s ease;
+    }
+  }
+}
+
+:host ::ng-deep {
+  presets-container {
+    border: 2px solid var(--p-surface-400);
+  }
+
+  presets-text {
+    border: 2px solid var(--p-surface-400);
+    padding: 4px;
+  }
+
+  .asset-preview {
+    > app-preset-container:first-child,
+    > app-preset-text:first-child {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  // Compact select button styling
+  .compact-select-button {
+    .p-button {
+      padding: 6px 10px;
+      font-size: 13px;
+
+      i {
+        font-size: 12px;
+      }
+    }
+  }
+}

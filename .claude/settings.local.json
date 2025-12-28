@@ -70,7 +70,8 @@
       "mcp__nx-mcp__nx_project_details",
       "Bash(xargs:*)",
       "mcp__nx-mcp__nx_generators",
-      "mcp__nx-mcp__nx_generator_schema"
+      "mcp__nx-mcp__nx_generator_schema",
+      "Bash(npx nx test:*)"
     ],
     "deny": [],
     "ask": []

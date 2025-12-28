@@ -16,9 +16,9 @@
     <app-tab-switcher [options]="leftPanelOptions" [(value)]="leftPanelMode" />
     <div class="flex-1 overflow-auto">
       @if (leftPanelMode() === 'assets') {
-        <app-presets></app-presets>
+        <app-presets-panel></app-presets-panel>
       } @else {
-        <app-layers></app-layers>
+        <app-layers-panel></app-layers-panel>
       }
     </div>
   </div>
@@ -27,7 +27,7 @@
 <!-- Right Panel (Properties Only) -->
 <div class="right border-l border-l-surface-200 max-[340px]">
   <div class="flex flex-col h-full w-full">
-    <app-settings></app-settings>
+    <app-properties-panel></app-properties-panel>
   </div>
 </div>
 

@@ -57,7 +57,7 @@ export class RendererComponent {
   selectedViewport = signal<string>('tablet');
   customWidth = signal<number>(768);
 
-  // Viewport presets
+  // Viewport components-panel
   viewportPresets: ViewportPreset[] = [
     { label: 'Mobile', value: 'mobile', width: 375 },
     { label: 'Tablet', value: 'tablet', width: 768 },

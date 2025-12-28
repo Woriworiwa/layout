@@ -21,6 +21,6 @@ export const GRID_ITEM_PROPERTY_NAMES = [
 export type GridItemPropertyName = (typeof GRID_ITEM_PROPERTY_NAMES)[number];
 
 /**
- * GridItem interface for CSS properties specific to grid items.
+ * GridItem interface for CSS properties-panel specific to grid items.
  */
 export interface GridItem extends Pick<CSS.Properties, GridItemPropertyName> {}

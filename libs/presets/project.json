@@ -1,0 +1,13 @@
+{
+  "name": "presets",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/presets/src",
+  "prefix": "presets",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:presets"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

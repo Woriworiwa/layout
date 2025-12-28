@@ -9,7 +9,7 @@ describe('CssStyleSerializer', () => {
     serializer = new CssStyleSerializer();
   });
 
-  describe('WHEN serializing a single item with CSS properties', () => {
+  describe('WHEN serializing a single item with CSS properties-panel', () => {
     it('SHOULD generate CSS property strings', () => {
       const item: CanvasItem = {
         itemType: CanvasItemType.CONTAINER,
@@ -31,7 +31,7 @@ describe('CssStyleSerializer', () => {
     });
   });
 
-  describe('WHEN serializing item with camelCase CSS properties', () => {
+  describe('WHEN serializing item with camelCase CSS properties-panel', () => {
     it('SHOULD convert to kebab-case', () => {
       const item: CanvasItem = {
         itemType: CanvasItemType.CONTAINER,

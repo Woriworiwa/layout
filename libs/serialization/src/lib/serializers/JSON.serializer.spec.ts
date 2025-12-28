@@ -24,8 +24,8 @@ describe('JSONSerializer', () => {
     });
   });
 
-  describe('WHEN sanitizing frames with null properties', () => {
-    it('SHOULD remove null and undefined properties', () => {
+  describe('WHEN sanitizing frames with null properties-panel', () => {
+    it('SHOULD remove null and undefined properties-panel', () => {
       const frames: CanvasItem[] = [
         {
           itemType: CanvasItemType.CONTAINER,

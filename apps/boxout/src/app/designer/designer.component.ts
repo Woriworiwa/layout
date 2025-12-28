@@ -1,9 +1,9 @@
 import { Component, inject, model, OnInit, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { CanvasComponent } from '@layout/canvas';
-import { PropertiesComponent } from './properties/properties.component';
-import { PresetsComponent } from './presets/presets.component';
-import { LayersComponent } from './layers/layers.component';
+import { PropertiesPanelComponent } from './properties-panel/properties-panel.component';
+import { PresetsPanelComponent } from './presets-panel/presets-panel.component';
+import { LayersComponent } from './layers-panel/layers.component';
 import { HeaderComponent } from './header/header.component';
 import {
   TabSwitcherComponent,
@@ -17,8 +17,8 @@ import { UiGuidanceService } from '../core/services/ui-guidance.service';
   imports: [
     HeaderComponent,
     CanvasComponent,
-    PropertiesComponent,
-    PresetsComponent,
+    PropertiesPanelComponent,
+    PresetsPanelComponent,
     LayersComponent,
     TabSwitcherComponent,
   ],
@@ -29,11 +29,11 @@ export class DesignerComponent implements OnInit, OnDestroy {
   private uiGuidanceService = inject(UiGuidanceService);
   private destroy$ = new Subject<void>();
 
-  leftPanelMode = model<'assets' | 'layers'>('assets');
+  leftPanelMode = model<'assets' | 'layers-panel'>('assets');
 
   leftPanelOptions: TabOption[] = [
     { label: 'Assets', value: 'assets', icon: 'pi pi-plus' },
-    { label: 'Layers', value: 'layers', icon: 'pi pi-comment' },
+    { label: 'Layers', value: 'layers-panel', icon: 'pi pi-comment' },
   ];
   protected readonly SideBarPrimary = SideBarPrimary;
 
@@ -42,13 +42,13 @@ export class DesignerComponent implements OnInit, OnDestroy {
     this.uiGuidanceService.guidanceEvent$
       .pipe(takeUntil(this.destroy$))
       .subscribe((event) => {
-        if (event.target === 'layers-panel' && event.action === 'highlight') {
-          // Switch to layers panel if not already visible, then wait a bit before showing message
-          if (this.leftPanelMode() !== 'layers') {
-            this.leftPanelMode.set('layers');
-            // Give Angular time to render the layers component before showing the message
+        if (event.target === 'layers-panel-panel' && event.action === 'highlight') {
+          // Switch to layers-panel panel if not already visible, then wait a bit before showing message
+          if (this.leftPanelMode() !== 'layers-panel') {
+            this.leftPanelMode.set('layers-panel');
+            // Give Angular time to render the layers-panel component before showing the message
             setTimeout(() => {
-              // Re-emit the event so the now-visible layers component can handle it
+              // Re-emit the event so the now-visible layers-panel component can handle it
               this.uiGuidanceService.highlightLayersPanel();
             }, 100);
           }

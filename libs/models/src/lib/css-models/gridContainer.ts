@@ -19,7 +19,7 @@ export type GridContainerPropertyName =
   (typeof GRID_CONTAINER_PROPERTY_NAMES)[number];
 
 /**
- * GridContainer interface for CSS properties specific to grid containers.
+ * GridContainer interface for CSS properties-panel specific to grid containers.
  */
 export interface GridContainer extends Pick<
   CSS.Properties,

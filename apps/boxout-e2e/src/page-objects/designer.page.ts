@@ -4,7 +4,7 @@ import { PresetsComponent } from './components/presets.component';
 
 /**
  * Page Object for the Designer interface (/design route)
- * Provides access to all major components: presets, canvas, layers, properties
+ * Provides access to all major components: components-panel, canvas, layers-panel, properties-panel
  */
 export class DesignerPage {
   readonly canvas: CanvasComponent;

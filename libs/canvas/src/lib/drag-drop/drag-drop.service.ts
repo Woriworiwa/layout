@@ -5,7 +5,7 @@ import { UI_GUIDANCE_TOKEN } from '@layout/shared';
 
 /**
  * Service to detect when users attempt to drag canvas elements
- * and guide them to use the layers panel instead
+ * and guide them to use the layers-panel panel instead
  */
 @Injectable()
 export class DragDropService {
@@ -47,7 +47,7 @@ export class DragDropService {
         if (this.panZoomService.state().isPanning) {
           return; // Don't show guidance if panning
         }
-        // Trigger guidance to show and highlight layers panel
+        // Trigger guidance to show and highlight layers-panel panel
         this.uiGuidanceService.highlightLayersPanel();
       }, 150); // Short delay to distinguish from clicks
     }
