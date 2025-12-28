@@ -68,7 +68,9 @@
       "Bash(npm run lint)",
       "mcp__nx-mcp__nx_workspace",
       "mcp__nx-mcp__nx_project_details",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "mcp__nx-mcp__nx_generators",
+      "mcp__nx-mcp__nx_generator_schema"
     ],
     "deny": [],
     "ask": []

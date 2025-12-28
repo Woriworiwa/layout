@@ -3,12 +3,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { CanvasItem } from '@layout/models';
-import { environment } from '../../../environments/environment';
-import { AiSchemaGeneratorService } from './ai-schema-generator.service';
 import {
   AiGeneration,
   AiGenerationResponse as BaseAiGenerationResponse,
-} from '@layout/canvas';
+} from '@layout/shared';
+import { environment } from '../../../environments/environment';
+import { AiSchemaGeneratorService } from './ai-schema-generator.service';
 
 export interface AiGenerationResponse extends BaseAiGenerationResponse {
   items: CanvasItem[];

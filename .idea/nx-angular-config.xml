@@ -7,6 +7,7 @@
       <project name="canvas" file="file://$PROJECT_DIR$/libs/canvas/project.json" />
       <project name="models" file="file://$PROJECT_DIR$/libs/models/project.json" />
       <project name="serialization" file="file://$PROJECT_DIR$/libs/serialization/project.json" />
+      <project name="shared" file="file://$PROJECT_DIR$/libs/shared/project.json" />
     </projects>
   </component>
 </project>

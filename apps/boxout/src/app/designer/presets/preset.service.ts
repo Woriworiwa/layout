@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CanvasItem, CanvasItemType, BoxSizing } from '@layout/models';
+import { PresetProvider } from '@layout/shared';
 import { allPresets } from '../../../data/presets';
 import { Preset } from '../../core/models/preset.model';
 import { PresetContainerComponent } from './preset-container.component';
 import { PresetTextComponent } from './preset-text.component';
 import { PresetAiComponent } from './preset-ai.component';
-import { PresetProvider } from '@layout/canvas';
 
 @Injectable()
 export class PresetService implements PresetProvider {

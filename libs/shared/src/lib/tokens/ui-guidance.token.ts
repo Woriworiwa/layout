@@ -25,7 +25,6 @@ export interface UiGuidance {
 export const UI_GUIDANCE_TOKEN = new InjectionToken<UiGuidance>(
   'UI_GUIDANCE_TOKEN',
   {
-    providedIn: 'root',
     factory: () => {
       // Default implementation that does nothing
       return {

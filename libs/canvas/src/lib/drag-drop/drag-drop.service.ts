@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { CANVAS_ROOT_ELEMENT_ID } from '../constants';
 import { PanZoomService } from '../pan-zoom/pan-zoom.service';
-import { UI_GUIDANCE_TOKEN } from './ui-guidance.token';
+import { UI_GUIDANCE_TOKEN } from '@layout/shared';
 
 /**
  * Service to detect when users attempt to drag canvas elements

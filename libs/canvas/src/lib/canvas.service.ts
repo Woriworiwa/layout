@@ -1,26 +1,13 @@
-import {
-  Injectable,
-  OnDestroy,
-  inject,
-  InjectionToken,
-  signal,
-} from '@angular/core';
+import { Injectable, OnDestroy, inject, signal } from '@angular/core';
 import { UndoRedoService } from './undo-redo/undo-redo.service';
-import { PresetProvider } from './interfaces/preset-provider.interface';
-import { CanvasItem } from '@layout/models';
+import { CanvasItem, CanvasItemType, Css, InsertPosition } from '@layout/models';
+import { PRESET_PROVIDER } from '@layout/shared';
 import { CanvasStore } from './store/canvas.store';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
 import cloneDeep from 'lodash.clonedeep';
 import { CANVAS_ROOT_ELEMENT_ID } from './constants';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { CanvasItemType } from '@layout/models';
 import { SelectionService } from './selection/selection.service';
-import { Css } from '@layout/models';
-import { InsertPosition } from '@layout/models';
-
-export const PRESET_PROVIDER = new InjectionToken<PresetProvider>(
-  'PRESET_PROVIDER',
-);
 
 @Injectable()
 export class CanvasService implements OnDestroy {
