@@ -21,9 +21,9 @@ export class PropertiesService {
     });
   }
 
-  extractNumericValue(postFixedValue: unknown): string | undefined {
+  extractNumericValue(postFixedValue: unknown): string | null {
     if (postFixedValue == null) {
-      return undefined;
+      return null;
     }
 
     return String(postFixedValue).replace(/\D/g, '');

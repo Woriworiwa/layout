@@ -3,11 +3,11 @@ import { Component, OnChanges } from '@angular/core';
 import { Property } from 'csstype';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
-import { NumberField } from '../property-components/number-field';
+import { NumberField } from '../components/number-field';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
 import { Unit } from '@layout/models';
-import { PropertyRowComponent } from '../property-components/property-row.component';
+import { PropertyRowComponent } from '../components/property-row.component';
 
 @Component({
   selector: 'app-properties-box-sizing',
@@ -62,28 +62,28 @@ export class BoxSizingComponent
     super.ngOnChanges();
 
     const cssValue = this.css();
-    if (!cssValue?.boxSizing) {
+    if (!cssValue) {
       return;
     }
 
     this.formGroup?.patchValue(
       {
         padding: this.propertiesService.extractNumericValue(
-          cssValue.boxSizing.padding,
+          cssValue.boxSizing?.padding,
         ),
         paddingUnit: this.propertiesService.extractUnit(
-          cssValue.boxSizing.padding,
+          cssValue.boxSizing?.padding,
         ),
         height: this.propertiesService.extractNumericValue(
-          cssValue.boxSizing.height,
+          cssValue.boxSizing?.height,
         ),
         heightUnit: this.propertiesService.extractUnit(
-          cssValue.boxSizing.height,
+          cssValue.boxSizing?.height,
         ),
         width: this.propertiesService.extractNumericValue(
-          cssValue.boxSizing.width,
+          cssValue.boxSizing?.width,
         ),
-        widthUnit: this.propertiesService.extractUnit(cssValue.boxSizing.width),
+        widthUnit: this.propertiesService.extractUnit(cssValue.boxSizing?.width),
       },
       { emitEvent: false },
     );

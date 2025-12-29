@@ -2,12 +2,12 @@ import { Component, OnChanges } from '@angular/core';
 
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
-import { NumberField } from '../property-components/number-field';
+import { NumberField } from '../components/number-field';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
 import { AlignSelfOptions } from '@layout/models';
-import { PropertyRowComponent } from '../property-components/property-row.component';
-import { ButtonGroupComponent } from '../property-components/button-group.component';
+import { PropertyRowComponent } from '../components/property-row.component';
+import { ButtonGroupComponent } from '../components/button-group.component';
 
 @Component({
   selector: 'app-properties-flex-item',

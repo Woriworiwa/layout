@@ -5,9 +5,9 @@ import { takeUntil } from 'rxjs';
 import { Property } from 'csstype';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
-import { PropertyRowComponent } from '../property-components/property-row.component';
-import { TextFieldComponent } from '../property-components/text-field.component';
-import { ButtonGroupComponent } from '../property-components/button-group.component';
+import { PropertyRowComponent } from '../components/property-row.component';
+import { TextFieldComponent } from '../components/text-field.component';
+import { ButtonGroupComponent } from '../components/button-group.component';
 import {
   GridAutoFlowOptions,
   JustifyContentOptions,
@@ -15,7 +15,7 @@ import {
   JustifyItemsOptions,
   AlignItemsOptions,
 } from '@layout/models';
-import { NumberField } from '../property-components/number-field';
+import { NumberField } from '../components/number-field';
 
 @Component({
   selector: 'app-properties-grid-container',

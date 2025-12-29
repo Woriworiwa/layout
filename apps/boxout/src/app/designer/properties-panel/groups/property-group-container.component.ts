@@ -8,7 +8,7 @@ import {
   inject,
 } from '@angular/core';
 
-import { PropertyRowComponent } from '../property-components/property-row.component';
+import { PropertyRowComponent } from '../components/property-row.component';
 import { PropertiesService } from '../properties.service';
 
 @Component({

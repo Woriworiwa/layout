@@ -3,8 +3,8 @@ import { Component, OnChanges } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import { Property } from 'csstype';
-import { ButtonGroupComponent } from '../property-components/button-group.component';
-import { NumberField } from '../property-components/number-field';
+import { ButtonGroupComponent } from '../components/button-group.component';
+import { NumberField } from '../components/number-field';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
 import {
@@ -14,7 +14,7 @@ import {
   FlexWrapOptions,
   JustifyContentOptions,
 } from '@layout/models';
-import { PropertyRowComponent } from '../property-components/property-row.component';
+import { PropertyRowComponent } from '../components/property-row.component';
 
 @Component({
   selector: 'app-properties-flex-container',

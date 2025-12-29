@@ -8,7 +8,7 @@ import {
   Renderer2,
 } from '@angular/core';
 import { PropertiesService } from './properties.service';
-import { PropertyRowComponent } from './property-components/property-row.component';
+import { PropertyRowComponent } from './components/property-row.component';
 
 @Directive({
   selector: '[appPropertiesFilter]',

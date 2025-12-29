@@ -10,7 +10,7 @@ import {
 
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { NumberField } from '../property-components/number-field';
+import { NumberField } from '../components/number-field';
 import { PropertiesService } from '../properties.service';
 
 import { Css } from '@layout/models';

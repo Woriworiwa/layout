@@ -3,7 +3,7 @@ import { Component, input, OnChanges, OnDestroy, effect } from '@angular/core';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
-import { PropertyRowComponent } from '../property-components/property-row.component';
+import { PropertyRowComponent } from '../components/property-row.component';
 import { InputText } from 'primeng/inputtext';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 
