@@ -1,13 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
-
-import { CssViewerComponent } from '../shared/code-viewer/css-viewer.component';
-import { HtmlViewerComponent } from '../shared/code-viewer/html-viewer.component';
-import { JsonViewerComponent } from '../shared/code-viewer/json-viewer.component';
 import { CanvasService, SelectionService } from '@layout/canvas';
 import { CanvasItem } from '@layout/models';
 import { FormsModule } from '@angular/forms';
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  CssViewerComponent,
+  HtmlViewerComponent,
+  JsonViewerComponent,
+} from '@layout/shared';
 
 @Component({
   selector: 'app-inspector',

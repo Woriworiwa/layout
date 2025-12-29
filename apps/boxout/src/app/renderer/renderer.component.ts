@@ -5,13 +5,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CanvasItem } from '@layout/models';
 import { FormsModule } from '@angular/forms';
 import { CanvasService } from '@layout/canvas';
-import { CssViewerComponent } from '../shared/code-viewer/css-viewer.component';
-import { HtmlViewerComponent } from '../shared/code-viewer/html-viewer.component';
-import { JsonViewerComponent } from '../shared/code-viewer/json-viewer.component';
 import { SelectButton } from 'primeng/selectbutton';
 import { Button } from 'primeng/button';
 import { Tooltip } from 'primeng/tooltip';
 import { ResizableDirective } from './resizable.directive';
+import { CssViewerComponent, HtmlViewerComponent, JsonViewerComponent } from '@layout/shared';
 
 enum CodeViewType {
   HTML = 'HTML',
@@ -36,13 +34,13 @@ interface ViewportPreset {
   imports: [
     UnsafeHtmlPipe,
     FormsModule,
-    CssViewerComponent,
-    HtmlViewerComponent,
-    JsonViewerComponent,
     SelectButton,
     Button,
     Tooltip,
     ResizableDirective,
+    HtmlViewerComponent,
+    CssViewerComponent,
+    JsonViewerComponent,
   ],
   templateUrl: './renderer.component.html',
   styleUrl: './renderer.component.scss',
