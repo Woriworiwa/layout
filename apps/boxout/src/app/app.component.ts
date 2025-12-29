@@ -6,27 +6,27 @@ import {
   provideCanvas,
 } from '@layout/canvas';
 import {
-  PRESET_PROVIDER,
   UI_GUIDANCE_TOKEN,
   AI_GENERATION_TOKEN,
 } from '@layout/shared';
 import { DataService } from './core/services/data.service';
 import { MessageService } from 'primeng/api';
-import { PresetService } from '@layout/presets';
 import { AiGenerationService } from './core/services/ai-generation.service';
 import { UiGuidanceService } from './core/services/ui-guidance.service';
-import { SerializationService } from '@layout/serialization';
+import {
+  provideSerialization,
+} from '@layout/serialization';
+import { providePresets } from '@layout/presets';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
   providers: [
     ...provideCanvas(),
+    ...providePresets(),
+    ...provideSerialization(),
     DataService,
     MessageService,
-    PresetService,
-    SerializationService,
-    { provide: PRESET_PROVIDER, useExisting: PresetService },
     { provide: UI_GUIDANCE_TOKEN, useExisting: UiGuidanceService },
     { provide: AI_GENERATION_TOKEN, useExisting: AiGenerationService },
   ],

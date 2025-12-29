@@ -9,7 +9,6 @@ import {
   TabSwitcherComponent,
   TabOption,
 } from '../shared/tab-switcher/tab-switcher.component';
-import { SideBarPrimary } from '../core/enums';
 import { UiGuidanceService } from '../core/services/ui-guidance.service';
 
 @Component({
@@ -35,7 +34,6 @@ export class DesignerComponent implements OnInit, OnDestroy {
     { label: 'Assets', value: 'assets', icon: 'pi pi-plus' },
     { label: 'Layers', value: 'layers-panel', icon: 'pi pi-comment' },
   ];
-  protected readonly SideBarPrimary = SideBarPrimary;
 
   ngOnInit(): void {
     // Listen for guidance events
