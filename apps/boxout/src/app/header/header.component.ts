@@ -1,17 +1,17 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DataService } from '../../core/services/data.service';
+import { DataService } from '../core/services/data.service';
 import { Tooltip } from 'primeng/tooltip';
 import { SplitButton } from 'primeng/splitbutton';
 import { MenuItem, MessageService } from 'primeng/api';
 import { CanvasService } from '@layout/canvas';
 import { Button, ButtonDirective } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { ThemeConfiguratorComponent } from '../../core/theme/theme-configurator.component';
-import { ThemeService } from '../../core/theme/theme.service';
+import { ThemeConfiguratorComponent } from '../core/theme/theme-configurator.component';
+import { ThemeService } from '../core/theme/theme.service';
 import { Popover } from 'primeng/popover';
 import { Dialog } from 'primeng/dialog';
-import { RendererComponent } from '../../renderer/renderer.component';
+import { RendererComponent } from '../renderer/renderer.component';
 import { BlockUIModule } from 'primeng/blockui';
 
 @Component({

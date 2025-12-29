@@ -29,7 +29,7 @@ import { PropertiesGridContainerComponent } from './groups/grid-container.compon
 import { PropertiesGridItemComponent } from './groups/grid-item.component';
 import { PropertiesConfig } from './properties.config';
 import { PropertiesService } from './properties.service';
-import { CssViewerComponent } from '../../shared/code-viewer/css-viewer.component';
+import { CssViewerComponent } from '../shared/code-viewer/css-viewer.component';
 
 @Component({
   selector: 'app-properties-panel',

@@ -25,7 +25,7 @@ import { Button } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { CanvasService, SelectionService } from '@layout/canvas';
 import { Subject, takeUntil } from 'rxjs';
-import { UiGuidanceService } from '../../core/services/ui-guidance.service';
+import { UiGuidanceService } from '../core/services/ui-guidance.service';
 
 @Component({
   selector: 'app-layers-panel',
@@ -55,8 +55,6 @@ export class LayersComponent implements OnInit, OnDestroy {
   private canvasService = inject(CanvasService);
   private selectionService = inject(SelectionService);
   private uiGuidanceService = inject(UiGuidanceService);
-  private elementRef = inject(ElementRef);
-  private renderer = inject(Renderer2);
 
   @ViewChild(Popover) renameDialog!: Popover;
 
