@@ -25,3 +25,11 @@
   //  }
   //}
 }
+
+// Zoom menu - force to open upward
+::ng-deep .zoom-menu-upward.p-menu {
+  position: absolute !important;
+  bottom: 100% !important;
+  top: auto !important;
+  margin-bottom: 40px !important;
+}

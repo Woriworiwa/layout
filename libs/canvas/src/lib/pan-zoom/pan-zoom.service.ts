@@ -91,6 +91,20 @@ export class PanZoomService {
     this.scale.update((value) => value + this.ZOOM_STEP);
   }
 
+  zoomToFit() {
+    this.scale.set(1);
+    this.translateX.set(0);
+    this.translateY.set(0);
+  }
+
+  zoomTo(scale: number) {
+    const clampedScale = Math.max(
+      this.MINIMUM_ZOOM,
+      Math.min(this.MAXIMUM_ZOOM, scale),
+    );
+    this.scale.set(clampedScale);
+  }
+
   panHorizontally(delta: number) {
     this.translateX.update((value) => value - delta);
   }
