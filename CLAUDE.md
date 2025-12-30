@@ -8,45 +8,83 @@ This is a low-code CSS layout generator built with Angular 21, designed to simpl
 
 **Note:** Use Nx MCP tools (`nx_workspace`, `nx_project_details`) to discover available commands and targets dynamically.
 
+## Quick Reference
+
+**Adding functionality?**
+- Canvas interaction/rendering → `@layout/canvas`
+- Data models/types → `@layout/models`
+- Export/serialization → `@layout/serialization`
+- Preset templates → `@layout/presets`
+- Shared UI components → `@layout/shared`
+- Renderer/preview → `@layout/renderer`
+- App-specific features → `apps/boxout/src/app/core`
+
+**Modifying canvas state?**
+- User action → `CanvasService` method → `CanvasStore` → Service calls `store.setItems()`
+- ✓ Always use `CanvasService` for user actions
+- ✗ Never call `store.setItems()` from store methods
+- ✗ Never call store methods directly from components
+
+**Common workflows:** See Common Workflows section below.
+
 ## Architecture
 
-This is an Nx monorepo with a **library-first architecture**. Core functionality has been extracted into three reusable libraries:
+This is an Nx monorepo with a **library-first architecture**. Core functionality is extracted into reusable libraries.
 
 ### Library Structure
 
 **@layout/models** (`libs/models/`)
-
 - Core data models and type definitions
-- `CanvasItem` model - The fundamental building block representing elements on the canvas
-- CSS interfaces (Css, FlexContainer, GridContainer, BoxSizing, etc.)
-- CSS enums (Properties, Units)
-- Shared constants and enums
-- Type utilities (enumify, proxied-properties-of)
+- `CanvasItem` model, CSS interfaces, enums, and utilities
 
 **@layout/canvas** (`libs/canvas/`)
-
-- Canvas rendering and interaction
-- State management (CanvasStore, CanvasService)
+- Canvas rendering, state management (CanvasStore, CanvasService)
 - Canvas components (Container, Text, AiWrapper)
 - Services: Selection, UndoRedo, CopyPaste, PanZoom, ContextMenu, MetaLayer, DragDrop
-- Store base class for RxJS state management
-- Canvas toolbar and selection UI
-- Directives for keyboard commands, pan/zoom, undo/redo
+- Canvas toolbar, selection UI, and directives
 
 **@layout/serialization** (`libs/serialization/`)
-
 - Export functionality for HTML, CSS, and JSON
-- SerializationService orchestrates exports
 - Serializers: HtmlSerializer, CssStyleSerializer, CssClassSerializer, JsonSerializer
 
-**boxout** (`apps/boxout/`)
+**@layout/presets** (`libs/presets/`)
+- Preset components, service, and data
+- Categorized layout presets (responsive, grid, flexbox)
 
-- Main application shell
-- App-specific services (AI generation, theme, app state, data service, UI guidance)
-- Designer UI (properties panel, layers panel, inspector, header, presets)
+**@layout/renderer** (`libs/renderer/`)
 - Renderer component for preview mode
-- Code viewer components (HTML/CSS/JSON display)
-- Routing configuration
+- Resizable directive
+
+**@layout/shared** (`libs/shared/`)
+- Shared UI components (code viewers, tab switcher)
+- Store base class for RxJS state management
+- Reusable across applications
+
+**Provider Pattern**: Each library exports a provider function (`provideCanvas()`, `providePresets()`, etc.) that registers required services. Check `*-providers.ts` files for dependency requirements.
+
+### Library Dependencies
+
+```
+models (no dependencies)
+  ↓
+serialization, shared → models
+  ↓
+canvas → models, shared, serialization
+  ↓
+presets → models, shared, serialization
+  ↓
+renderer → (check renderer-providers.ts)
+```
+
+**Critical**: Avoid circular dependencies. Always import from libraries with fewer dependencies.
+
+### Applications
+
+**boxout** (`apps/boxout/`)
+- Main designer application
+- App-specific services (AI generation, theme, app state)
+- Designer UI (properties panel, layers panel, inspector, header)
+- Routing: `/design` (main editor), `/preview` (lazy loaded preview)
 
 ### State Management
 
@@ -54,7 +92,7 @@ The application uses a custom RxJS-based state management pattern with **pure st
 
 **Store Pattern (Pure Functions):**
 
-- **Store base class** (`@layout/canvas`): Provides `BehaviorSubject`-based state with `getState()` and `setState()` methods
+- **Store base class** (`@layout/shared`): Provides `BehaviorSubject`-based state with `getState()` and `setState()` methods
 - **CanvasStore** (`@layout/canvas`): Pure data layer managing the hierarchical tree of `CanvasItem` objects
   - All operations return new `CanvasItem[]` arrays without side effects
   - Methods like `insertItem()`, `deleteItem()`, `updateItemCss()` are pure functions
@@ -114,63 +152,23 @@ The application uses a custom RxJS-based state management pattern with **pure st
 ```
 libs/                        # Reusable libraries
 ├── models/                  # @layout/models - Data models & types
-│   ├── canvas-item.model.ts
-│   ├── css-interfaces/      # Css, FlexContainer, GridContainer, etc.
-│   ├── css-enums/          # Properties, Units
-│   ├── constants.ts
-│   ├── canvas-item-type.enum.ts
-│   └── utils/              # Type utilities
-│
 ├── canvas/                  # @layout/canvas - Canvas functionality
-│   ├── canvas.component.ts
 │   ├── canvas.store.ts     # Pure data operations
 │   ├── canvas.service.ts   # Orchestration layer
-│   ├── canvas-items/       # Container, Text, AiWrapper components
-│   ├── selection/          # Selection service & UI
-│   ├── undo-redo/          # Undo/redo service & directive
-│   ├── copy-paste/         # Copy/paste service
-│   ├── pan-zoom/           # Pan/zoom service & directive
-│   ├── context-menu/       # Context menu service & component
-│   ├── meta-layer/         # Meta labels & layer
-│   ├── drag-drop/          # Drag/drop services & directives
-│   ├── toolbar/            # Canvas toolbar
-│   ├── keyboard/           # Keyboard commands directive
-│   └── store/              # Store base class
-│
-└── serialization/           # @layout/serialization - Export functionality
-    ├── serialization.service.ts
-    └── serializers/        # HTML, CSS, JSON serializers
+│   └── canvas-providers.ts # Provider function with dependencies
+├── serialization/           # @layout/serialization - Export functionality
+├── presets/                 # @layout/presets - Preset components & data
+├── renderer/                # @layout/renderer - Renderer component
+└── shared/                  # @layout/shared - Shared UI components
 
-apps/boxout/src/app/        # Main application
-├── core/                   # App-specific business logic
-│   ├── services/          # AI generation, theme, app state, data, UI guidance
-│   ├── store/             # App-level state (layout, app state)
-│   ├── theme/             # Theme configuration & presets
-│   ├── models/            # App-specific models (Preset)
-│   └── canvas-item-type.enum.ts           # App-specific enums
-│
-├── designer/              # Main editor interface (/design route)
-│   ├── designer.component.ts
-│   ├── header/           # App header
-│   ├── inspector/        # Element inspector panel
-│   ├── layers/           # Layer tree view
-│   ├── presets/          # Preset components & service
-│   └── properties/       # Properties panel with groups & controls
-│
-├── renderer/              # Preview mode (/preview route)
-│   └── renderer.component.ts
-│
-└── shared/                # App-specific shared components
-    ├── code-viewer/       # HTML/CSS/JSON viewers
-    └── tab-switcher/      # Tab switcher component
+apps/
+└── boxout/                  # Main designer application
+    └── src/app/
+        ├── core/           # App services (AI, theme, state)
+        ├── designer/       # Designer UI (properties, layers, inspector)
+        ├── header/         # App header with preview
+        └── app.routes.ts   # Routing config
 ```
-
-### Routing
-
-Two main routes (apps/boxout/src/app/app.routes.ts):
-
-- `/design` - Main designer interface (eager loaded)
-- `/preview` - Preview generated output (lazy loaded)
 
 ### Library Imports
 
@@ -180,29 +178,64 @@ Libraries are imported using TypeScript path mappings defined in `tsconfig.base.
 import { CanvasItem, Css } from '@layout/models';
 import { CanvasService, SelectionService } from '@layout/canvas';
 import { SerializationService } from '@layout/serialization';
+import { PresetService } from '@layout/presets';
+import { RendererComponent } from '@layout/renderer';
+import { CodeViewerComponent } from '@layout/shared';
 ```
 
 **Path mappings:**
+- `@layout/models`, `@layout/canvas`, `@layout/serialization`
+- `@layout/presets`, `@layout/renderer`, `@layout/shared`
 
-- `@layout/models` → `libs/models/src/index.ts`
-- `@layout/canvas` → `libs/canvas/src/index.ts`
-- `@layout/serialization` → `libs/serialization/src/index.ts`
+### Critical Anti-Patterns
+
+❌ **DO NOT** call `store.setItems()` inside store methods (breaks pure function pattern)
+❌ **DO NOT** call CanvasStore methods directly from components (bypasses undo/redo)
+❌ **DO NOT** mutate CanvasItem objects directly (use `cloneDeep()` first)
+❌ **DO NOT** import from relative paths across libraries (use `@layout/*` imports)
+❌ **DO NOT** create circular dependencies between libraries
+❌ **DO NOT** add app-specific logic to libraries (keep libraries reusable)
 
 ### Key Patterns
 
-1. **Library-First Architecture**: Core functionality is extracted into reusable libraries (@layout/models, @layout/canvas, @layout/serialization). Import from these libraries using path mappings rather than relative paths.
+1. **Library-First Architecture**: Core functionality is extracted into reusable libraries. Import using path mappings (`@layout/*`) rather than relative paths.
 
-2. **Pure Store Functions**: CanvasStore methods return new `CanvasItem[]` arrays. Services call `store.setItems()` to persist changes. Never call `setItems()` inside store methods.
+2. **Provider Functions**: Each library exports a provider function (`provideCanvas()`, `providePresets()`, etc.) that registers services with documented dependencies. Check provider files for required dependencies.
 
-3. **Service Orchestration**: Always use `CanvasService` for user actions. It controls persistence, triggers undo snapshots, and coordinates with SelectionService.
+3. **Pure Store Functions**: CanvasStore methods return new `CanvasItem[]` arrays. Services call `store.setItems()` to persist changes. Never call `setItems()` inside store methods.
 
-4. **Hierarchical Operations**: Store operations recursively traverse the tree structure. Use `getItemById()` to locate items, `getParentItemKey()` to find parents.
+4. **Service Orchestration**: Always use `CanvasService` for user actions. It controls persistence, triggers undo snapshots, and coordinates with SelectionService.
 
-5. **Immutability**: When updating canvas items, always use `cloneDeep()` before mutations to ensure pure functions and proper change detection.
+5. **Hierarchical Operations**: Store operations recursively traverse the tree structure. Use `getItemById()` to locate items, `getParentItemKey()` to find parents.
 
-6. **Service Injection**: Canvas services (CanvasStore, CanvasService, etc.) from `@layout/canvas` are provided at the library level. App-specific services are injected at AppComponent level.
+6. **Immutability**: When updating canvas items, always use `cloneDeep()` before mutations to ensure pure functions and proper change detection.
 
-7. **Insert Positions**: When inserting items, use the `InsertPosition` enum: `INSIDE`, `BEFORE`, `AFTER`.
+## Common Workflows
+
+### Adding a New Canvas Item Type
+1. Add enum to `@layout/models/canvas-item-type.enum.ts`
+2. Create component in `@layout/canvas/canvas-items/`
+3. Update `CanvasStore` methods to handle new type
+4. Add to `container.component.html` template
+
+### Adding a New CSS Property
+1. Add to interface in `@layout/models/css-interfaces/`
+2. Add to `Properties` enum in `@layout/models/css-enums/`
+3. Add UI control in `apps/boxout/src/app/properties-panel/`
+4. Update serializers if needed
+
+### Adding a New Preset
+1. Create preset data in `@layout/presets/data/`
+2. Add to preset categories in `PresetService`
+3. Update preset panel UI if needed
+
+### Modifying Canvas State
+1. Add method to `CanvasStore` (pure function, returns new array)
+2. Add orchestration method to `CanvasService` that:
+   - Calls store method
+   - Calls `store.setItems()` with result
+   - Triggers `undoRedoService.takeSnapshot()`
+3. Call `CanvasService` method from component
 
 ## Technology Stack
 
@@ -248,50 +281,20 @@ Detailed documentation is organized in the `knowledge-base/` directory:
 - **`testing/testing-services.md`** - Testing services that use stores
 - **`testing/testing-components.md`** - Component testing guidelines
 
-### Angular Documentation
-ALways keep up to date with latest Angular best practices from https://angular.dev/ai/develop-with-ai
+### Angular & TypeScript Guidelines
 
-You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
-## TypeScript Best Practices
-- Use strict type checking
-- Prefer type inference when the type is obvious
-- Avoid the `any` type; use `unknown` when type is uncertain
-## Angular Best Practices
-- Always use standalone components over NgModules
-- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v20+.
-- Use signals for state management
-- Implement lazy loading for feature routes
-- Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
-- Use `NgOptimizedImage` for all static images.
-  - `NgOptimizedImage` does not work for inline base64 images.
-## Accessibility Requirements
-- It MUST pass all AXE checks.
-- It MUST follow all WCAG AA minimums, including focus management, color contrast, and ARIA attributes.
-### Components
-- Keep components small and focused on a single responsibility
-- Use `input()` and `output()` functions instead of decorators
-- Use `computed()` for derived state
-- Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
-- Prefer inline templates for small components
-- Prefer Reactive forms instead of Template-driven ones
-- Do NOT use `ngClass`, use `class` bindings instead
-- Do NOT use `ngStyle`, use `style` bindings instead
-- When using external templates/styles, use paths relative to the component TS file.
-## State Management
-- Use signals for local component state
-- Use `computed()` for derived state
-- Keep state transformations pure and predictable
-- Do NOT use `mutate` on signals, use `update` or `set` instead
-## Templates
-- Keep templates simple and avoid complex logic
-- Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`
-- Use the async pipe to handle observables
-- Do not assume globals like (`new Date()`) are available.
-- Do not write arrow functions in templates (they are not supported).
-## Services
-- Design services around a single responsibility
-- Use the `providedIn: 'root'` option for singleton services
-- Use the `inject()` function instead of constructor injection
+Follow Angular best practices from https://angular.dev/ai/develop-with-ai with these project-specific requirements:
+
+**Project-Specific Rules:**
+- Use `input()` and `output()` functions (not decorators)
+- Use host object in `@Component` decorator (not `@HostBinding`/`@HostListener`)
+- Use native control flow (`@if`, `@for`, `@switch`) not structural directives
+- Use `class` and `style` bindings (not `ngClass`/`ngStyle`)
+- Use `inject()` function (not constructor injection)
+- Use signals for state, `computed()` for derived state
+- Set `changeDetection: ChangeDetectionStrategy.OnPush`
+- SCSS is the default style format
+- Strict TypeScript, avoid `any` type
 
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
