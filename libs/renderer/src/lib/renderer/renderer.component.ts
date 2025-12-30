@@ -1,6 +1,6 @@
 import { Component, inject, signal, computed, effect } from '@angular/core';
 import { HtmlSerializer } from '@layout/serialization';
-import { UnsafeHtmlPipe } from './unsafe-html.pipe';
+import { UnsafeHtmlPipe } from '../unsafe-html.pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CanvasItem } from '@layout/models';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +8,7 @@ import { CanvasService } from '@layout/canvas';
 import { SelectButton } from 'primeng/selectbutton';
 import { Button } from 'primeng/button';
 import { Tooltip } from 'primeng/tooltip';
-import { ResizableDirective } from './resizable.directive';
+import { ResizableDirective } from '../resizable.directive';
 import { CssViewerComponent, HtmlViewerComponent, JsonViewerComponent } from '@layout/shared';
 
 enum CodeViewType {

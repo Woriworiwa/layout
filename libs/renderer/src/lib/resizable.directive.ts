@@ -12,7 +12,6 @@ import {
 })
 export class ResizableDirective implements OnInit {
   private el = inject(ElementRef);
-  private renderer = inject(Renderer2);
 
   private isResizing = false;
   private initialWidth = 0;

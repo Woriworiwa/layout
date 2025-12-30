@@ -1,18 +1,18 @@
 <div class="flex flex-1 overflow-hidden gap-px bg-surface-200">
   <div class="inspector-column">
     <h4 class="title">CSS</h4>
-    <app-css-prism class="prism" [canvasItems]="canvasItem()"></app-css-prism>
+    <shared-css-viewer class="prism" [canvasItems]="canvasItem()"></shared-css-viewer>
   </div>
   <div class="inspector-column">
     <h4 class="title">HTML</h4>
-    <app-html-prism
+    <shared-html-viewer
       class="prism"
       [canvasItems]="canvasItem()"
       [showDownload]="false"
-    ></app-html-prism>
+    ></shared-html-viewer>
   </div>
   <div class="inspector-column">
     <h4 class="title">JSON</h4>
-    <app-json-prism class="prism" [canvasItems]="canvasItem()"></app-json-prism>
+    <shared-json-viewer class="prism" [canvasItems]="canvasItem()"></shared-json-viewer>
   </div>
 </div>

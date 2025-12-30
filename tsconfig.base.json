@@ -21,7 +21,8 @@
       "@layout/serialization": ["libs/serialization/src/index.ts"],
       "@layout/models": ["libs/models/src/index.ts"],
       "@layout/shared": ["libs/shared/src/index.ts"],
-      "@layout/presets": ["libs/presets/src/index.ts"]
+      "@layout/presets": ["libs/presets/src/index.ts"],
+      "@layout/renderer": ["libs/renderer/src/index.ts"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

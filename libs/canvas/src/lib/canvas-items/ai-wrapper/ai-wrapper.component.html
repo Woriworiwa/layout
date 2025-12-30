@@ -3,7 +3,9 @@
   <div class="ai-controls" [class.collapsed]="isCollapsed()">
     <div
       class="ai-controls-header flex justify-between items-center p-2 bg-purple-100/50 border-b border-purple-300 cursor-pointer"
+      tabindex="0"
       (click)="toggleCollapse()"
+      (keydown)="toggleCollapse()"
     >
       <span
         class="text-xs font-semibold text-purple-900 uppercase tracking-wide"
@@ -18,17 +20,18 @@
         text
         size="small"
         (click)="toggleCollapse(); $event.stopPropagation()"
-      ></button>
+      > </button>
     </div>
 
     @if (!isCollapsed()) {
       <div class="ai-controls-body p-3 space-y-2">
         <div>
-          <label class="text-xs font-medium text-gray-700 block mb-1">
+          <label for="ai-input-area" class="text-xs font-medium text-gray-700 block mb-1">
             Describe your layout:
           </label>
           <textarea
             pInputTextarea
+            id="ai-input-area"
             [value]="prompt()"
             (input)="onPromptChange($any($event.target).value)"
             placeholder="e.g., 'Create a pricing card with title, price, and features list'"
@@ -56,7 +59,7 @@
             [loading]="isGenerating()"
             size="small"
             class="flex-1"
-          ></button>
+          > </button>
 
           <button
             pButton
@@ -66,7 +69,7 @@
             severity="secondary"
             size="small"
             icon="pi pi-times"
-          ></button>
+          > </button>
         </div>
       </div>
     }

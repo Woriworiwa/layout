@@ -13,7 +13,7 @@ import { SerializationService } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
 
 @Component({
-  selector: 'app-html-prism',
+  selector: 'shared-html-viewer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button, Highlight],
   template: `

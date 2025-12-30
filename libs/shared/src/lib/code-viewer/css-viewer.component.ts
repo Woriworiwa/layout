@@ -11,7 +11,7 @@ import { SerializationService, SerializerType } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
 
 @Component({
-  selector: 'app-css-prism',
+  selector: 'shared-css-viewer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Highlight],
   template: ` <pre><code [highlight]="css" language="css"></code></pre> `,

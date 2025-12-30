@@ -1,10 +1,10 @@
 {
-  "name": "shared",
+  "name": "renderer",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/src",
-  "prefix": "shared",
+  "sourceRoot": "libs/renderer/src",
+  "prefix": "renderer",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:feature", "scope:renderer"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

@@ -97,10 +97,10 @@
     <!-- Code Panel -->
     @if (codePanelVisible()) {
       <div
-        class="w-[400px] flex flex-col border-l border-surface-200 bg-surface-0 overflow-hidden"
+        class="w-100 flex flex-col border-l border-surface-200 bg-surface-0 overflow-hidden"
       >
         <div
-          class="px-4 py-3 border-b border-surface-200 flex justify-between items-center flex-shrink-0"
+          class="px-4 py-3 border-b border-surface-200 flex justify-between items-center shrink-0"
         >
           <p-selectButton
             [options]="codeTabs"
@@ -115,19 +115,19 @@
         <div class="flex-1 overflow-y-auto">
           @switch (selectedCodeView) {
             @case ('HTML') {
-              <app-html-prism
+              <shared-html-viewer
                 [canvasItems]="canvasService.items"
-              ></app-html-prism>
+              ></shared-html-viewer>
             }
             @case ('CSS') {
-              <app-css-prism
+              <shared-css-viewer
                 [canvasItems]="canvasService.items"
-              ></app-css-prism>
+              ></shared-css-viewer>
             }
             @case ('JSON') {
-              <app-json-prism
+              <shared-json-viewer
                 [canvasItems]="canvasService.items"
-              ></app-json-prism>
+              ></shared-json-viewer>
             }
           }
         </div>

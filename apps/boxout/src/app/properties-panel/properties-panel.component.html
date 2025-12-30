@@ -4,7 +4,7 @@
       class="flex grow flex-col self-stretch rounded-3xl bg-[var(--bg-primary)] overflow-auto relative"
     >
       <!-- Scrollable content area -->
-      <div class="flex-1 overflow-y-auto pb-[200px]">
+      <div class="flex-1 overflow-y-auto pb-50">
         <div class="sticky top-0 bg-[var(--bg-primary)] px-4 pt-4 pb-2 z-10">
           <p-inputgroup>
             <input
@@ -88,10 +88,10 @@
         >
       </div>
       <div class="flex-1 overflow-auto text-sm">
-        <app-css-prism
+        <shared-css-viewer
           [canvasItems]="[selectedFrame]"
           [serializerType]="'CSS-style'"
-        ></app-css-prism>
+        ></shared-css-viewer>
       </div>
     </div>
   } @else {

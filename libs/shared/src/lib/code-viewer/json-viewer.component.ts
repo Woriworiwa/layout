@@ -11,7 +11,7 @@ import { SerializationService, JSONSerializer } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
 
 @Component({
-  selector: 'app-json-prism',
+  selector: 'shared-json-viewer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, Highlight],
   template: `
