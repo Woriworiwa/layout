@@ -12,7 +12,7 @@ const baseURL =
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src/tests' }),
 
-  timeout: process.env['CI'] ? 60 * 1000 : 30 * 1000,
+  timeout: process.env['CI'] ? 60 * 1000 : 5 * 1000,
   fullyParallel: true,
   forbidOnly: !!process.env['CI'],
   retries: process.env['CI'] ? 2 : 0,
