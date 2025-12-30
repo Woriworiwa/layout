@@ -21,7 +21,7 @@ export class InsertButtonsComponent {
   protected onQuickInsert(position: InsertPosition, event: Event): void {
     event.stopPropagation();
     event.preventDefault();
-    this.onInsertAsset('empty-flex', position);
+    this.onInsertAsset('empty-container', position);
   }
 
   protected onInsertAsset(presetId: string, position: InsertPosition): void {
