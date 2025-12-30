@@ -72,7 +72,19 @@
       "mcp__nx-mcp__nx_generators",
       "mcp__nx-mcp__nx_generator_schema",
       "Bash(npx nx test:*)",
-      "Bash(npx nx lint:*)"
+      "Bash(npx nx lint:*)",
+      "mcp__playwright-test__planner_setup_page",
+      "mcp__playwright-test__browser_navigate",
+      "mcp__playwright-test__browser_snapshot",
+      "mcp__playwright-test__browser_click",
+      "mcp__playwright-test__browser_drag",
+      "mcp__playwright-test__browser_close",
+      "mcp__playwright-test__planner_save_plan",
+      "mcp__playwright-test__generator_setup_page",
+      "mcp__playwright-test__browser_verify_element_visible",
+      "mcp__playwright-test__generator_read_log",
+      "mcp__playwright-test__generator_write_test",
+      "mcp__playwright-test__browser_evaluate"
     ],
     "deny": [],
     "ask": []
