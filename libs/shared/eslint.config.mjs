@@ -14,7 +14,7 @@ export default [
                 "error",
                 {
                     type: "attribute",
-                    prefix: "lib",
+                    prefix: "shared",
                     style: "camelCase"
                 }
             ],
@@ -22,7 +22,7 @@ export default [
                 "error",
                 {
                     type: "element",
-                    prefix: "lib",
+                    prefix: "shared",
                     style: "kebab-case"
                 }
             ]

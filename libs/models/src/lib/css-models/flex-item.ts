@@ -17,6 +17,6 @@ export const FLEX_ITEM_PROPERTY_NAMES = [
 export type FlexItemPropertyName = (typeof FLEX_ITEM_PROPERTY_NAMES)[number];
 
 /**
- * FlexItem interface for CSS properties specific to flex items.
+ * FlexItem interface for CSS properties-panel specific to flex items.
  */
 export interface FlexItem extends Pick<CSS.Properties, FlexItemPropertyName> {}

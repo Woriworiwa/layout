@@ -1,0 +1,109 @@
+<div class="flex flex-col w-full">
+  @if (frame(); as selectedFrame) {
+    <div
+      class="flex grow flex-col self-stretch rounded-3xl bg-[var(--bg-primary)] overflow-auto relative"
+    >
+      <!-- Scrollable content area -->
+      <div class="flex-1 overflow-y-auto pb-50">
+        <div class="sticky top-0 bg-[var(--bg-primary)] px-4 pt-4 pb-2 z-10">
+          <p-inputgroup>
+            <input
+              #searchInput
+              type="text"
+              pInputText
+              [placeholder]="searchPlaceholder"
+              [(ngModel)]="searchText"
+            />
+            <button
+              type="button"
+              pButton
+              icon="pi pi-times"
+              class="p-button-secondary"
+              [disabled]="searchText() === ''"
+              (click)="searchText.set('')"
+            >.</button>
+          </p-inputgroup>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+          <app-properties-meta-data
+            [label]="selectedFrame.label"
+            [collapsed]="false"
+          >
+          </app-properties-meta-data>
+
+          <app-properties-box-sizing
+            [css]="selectedFrame.css"
+            [title]="'Box sizing'"
+            [collapsed]="false"
+          >
+          </app-properties-box-sizing>
+
+          <app-properties-display
+            [css]="selectedFrame.css"
+            [title]="'Display'"
+            [collapsed]="false"
+          >
+          </app-properties-display>
+
+          @if (selectedFrame.css?.display?.display === Display.flex) {
+            <app-properties-flex-container
+              [css]="selectedFrame.css"
+              [title]="'Flex container'"
+            >
+            </app-properties-flex-container>
+          } @else if (selectedFrame.css?.display?.display === Display.grid) {
+            <app-properties-grid-container
+              [css]="selectedFrame.css"
+              [title]="'Grid container'"
+            >
+            </app-properties-grid-container>
+          }
+
+          <app-properties-flex-item
+            [css]="selectedFrame.css"
+            [title]="'Flex item'"
+          >
+          </app-properties-flex-item>
+
+          <app-properties-grid-item
+            [css]="selectedFrame.css"
+            [title]="'Grid item'"
+          >
+          </app-properties-grid-item>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fixed CSS viewer at bottom -->
+    <div
+      class="shrink-0 bg-[var(--bg-primary)] border-t border-surface-200 z-20 flex flex-col h-[150px]"
+    >
+      <div
+        class="flex items-center justify-between px-4 py-2 border-b border-surface-200"
+      >
+        <span
+          class="text-xs font-semibold text-muted-color uppercase tracking-wide"
+          >Generated CSS</span
+        >
+      </div>
+      <div class="flex-1 overflow-auto text-sm">
+        <shared-css-viewer
+          [canvasItems]="[selectedFrame]"
+          [serializerType]="'CSS-style'"
+        ></shared-css-viewer>
+      </div>
+    </div>
+  } @else {
+    <div
+      class="flex flex-col items-center justify-center h-full px-6 text-center"
+    >
+      <div class="text-muted-color text-sm">
+        <p class="mb-2">No element selected</p>
+        <p class="text-xs opacity-70">
+          Select an element to view and edit its properties
+        </p>
+      </div>
+    </div>
+  }
+</div>

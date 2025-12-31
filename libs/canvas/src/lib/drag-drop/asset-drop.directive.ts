@@ -76,11 +76,8 @@ export class AssetDropDirective {
     this.clearDropIndicator();
   }
 
-  @HostListener('drop', ['$event'])
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-
+  @HostListener('drop')
+  onDrop(): void {
     this.clearDropIndicator();
   }
 

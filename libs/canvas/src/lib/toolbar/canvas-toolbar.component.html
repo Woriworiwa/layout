@@ -23,6 +23,7 @@
 </p-button>
 
 <p-button
+  aria-label="Pan"
   [rounded]="true"
   icon="pi"
   [text]="!panZoomService.state().panModeActive"
@@ -64,21 +65,22 @@
   ></p-button>
 </div>
 
-<!--<p-button-->
-<!--  icon="pi pi-code"-->
-<!--  [rounded]="true"-->
-<!--  [text]="!canvasService.inspectorVisible()"-->
-<!--  pTooltip="Toggle Inspector"-->
-<!--  tooltipPosition="bottom"-->
-<!--  [showDelay]="500"-->
-<!--  (onClick)="appStateService.toggleInspector()"-->
-<!--&gt;-->
-<!--</p-button>-->
+<p-button
+  [rounded]="true"
+  [text]="true"
+  pTooltip="Zoom"
+  tooltipPosition="bottom"
+  [showDelay]="500"
+  (onClick)="toggleZoomMenu($event, zoomMenu)"
+>
+  <span class="font-medium">{{ zoomPercentage() }}%</span>
+  <i class="pi pi-chevron-down ml-1" style="font-size: 0.75rem"></i>
+</p-button>
 
-<!--  <div class="stack_s1n8l1x5 row_rr3s3mz center_c1arh7l2 nowrap_n61wj3j space-between_s17vm8i7 zoomButton_zt1ddm5"-->
-<!--       style="&#45;&#45;shrink: 0; gap: 2px;"><span>50%</span>-->
-<!--    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" class="base_bugo4m5">-->
-<!--      <path d="M 0 6 L 3 3 L 0 0" transform="translate(2.5 1) rotate(90 1.5 3)" fill="transparent" stroke-width="1.5"-->
-<!--            stroke="currentColor" stroke-linecap="round"></path>-->
-<!--    </svg>-->
-<!--  </div>-->
+<p-menu
+  #zoomMenu
+  [model]="zoomMenuItems"
+  [popup]="true"
+  appendTo="body"
+  styleClass="zoom-menu-upward"
+/>

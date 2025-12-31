@@ -9,6 +9,14 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { defaultTheme } from './core/theme/theme.presets';
+import { provideCanvas } from '@layout/canvas';
+import { providePresets } from '@layout/presets';
+import { provideSerialization } from '@layout/serialization';
+import { DataService } from './core/services/data.service';
+import { MessageService } from 'primeng/api';
+import { AI_GENERATION_TOKEN, UI_GUIDANCE_TOKEN } from '@layout/shared';
+import { UiGuidanceService } from './core/services/ui-guidance.service';
+import { AiGenerationService } from './core/services/ai-generation.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,9 +31,16 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: defaultTheme,
         options: {
-          darkModeSelector: '.p-dark',
+          darkModeSelector: '.dark',
         },
       },
     }),
+    ...provideCanvas(),
+    ...providePresets(),
+    ...provideSerialization(),
+    DataService,
+    MessageService,
+    { provide: UI_GUIDANCE_TOKEN, useExisting: UiGuidanceService },
+    { provide: AI_GENERATION_TOKEN, useExisting: AiGenerationService },
   ],
 };

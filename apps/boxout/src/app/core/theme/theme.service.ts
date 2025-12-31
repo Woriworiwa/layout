@@ -21,12 +21,12 @@ export class ThemeService {
       const darkMode = this.config().darkMode;
       this.transitionView(() => {
         if (darkMode) {
-          this.document.documentElement.classList.add('p-dark');
+          this.document.documentElement.classList.add('dark');
           this.hljsLoader.setTheme(
             'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-dark.min.css',
           );
         } else {
-          this.document.documentElement.classList.remove('p-dark');
+          this.document.documentElement.classList.remove('dark');
           this.hljsLoader.setTheme(
             'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-light.min.css',
           );

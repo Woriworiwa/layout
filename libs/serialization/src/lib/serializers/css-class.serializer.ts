@@ -37,7 +37,7 @@ export class CssClassSerializer extends Serializer {
     /* class name and opening curl */
     cssLines.push(this.indent(`.${canvasItem.key} {`, level));
 
-    /* css properties */
+    /* css properties-panel */
     if (canvasItem.css) {
       this.cssStyleSerializer.serialize([canvasItem]).forEach((cssLine) => {
         cssLines.push(this.indent(cssLine + ';', level + 1));

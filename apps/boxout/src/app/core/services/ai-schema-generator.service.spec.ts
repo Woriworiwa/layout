@@ -24,7 +24,7 @@ describe('AiSchemaGeneratorService', () => {
     expect(schema).toContain('"gridContainer"');
   });
 
-  it('should include all CSS properties from all interfaces in the schema', () => {
+  it('should include all CSS properties-panel from all interfaces in the schema', () => {
     const service = new AiSchemaGeneratorService();
     const schema = service.generateCanvasItemSchema();
 

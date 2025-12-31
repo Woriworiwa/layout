@@ -29,6 +29,7 @@ import { CanvasSettings } from './canvas.settings';
 import { DragDropService } from './drag-drop/drag-drop.service';
 import { CanvasDropZoneDirective } from './drag-drop/canvas-drop-zone.directive';
 import { PanZoomOverlayComponent } from './pan-zoom/pan-zoom-overlay.component';
+import { UndoRedoDirective } from './undo-redo/undo-redo.directive';
 
 @Component({
   selector: 'app-canvas',
@@ -49,6 +50,7 @@ import { PanZoomOverlayComponent } from './pan-zoom/pan-zoom-overlay.component';
     KeyboardCommandsDirective,
     PanZoomDirective,
     CanvasDropZoneDirective,
+    UndoRedoDirective,
   ],
   host: {
     '[class.surface-100]': 'true',

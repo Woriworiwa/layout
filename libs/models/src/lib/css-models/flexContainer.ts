@@ -16,7 +16,7 @@ export type FlexContainerPropertyName =
   (typeof FLEX_CONTAINER_PROPERTY_NAMES)[number];
 
 /**
- * FlexContainer interface for CSS properties specific to flex containers.
+ * FlexContainer interface for CSS properties-panel specific to flex containers.
  */
 export interface FlexContainer extends Pick<
   CSS.Properties,

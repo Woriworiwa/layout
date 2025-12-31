@@ -37,14 +37,14 @@ apps/boxout-e2e/src/
     ├── designer.page.ts         # Main designer page
     └── components/
         ├── canvas.component.ts  # Canvas component
-        └── presets.component.ts # Presets panel
+        └── presets-panel.component.ts # Presets panel
 ```
 
 ## Page Object Model
 
 ### Structure
 - **Page Objects** - Represent pages/routes (designer.page.ts)
-- **Component Objects** - Represent reusable UI components (canvas.component.ts, presets.component.ts)
+- **Component Objects** - Represent reusable UI components (canvas.component.ts, presets-panel.component.ts)
 
 ### Why?
 - Encapsulate locators and actions in one place
@@ -100,7 +100,7 @@ Use WHEN/SHOULD structure:
 ```typescript
 test.describe('WHEN user drags preset', () => {
   test('SHOULD appear in canvas', async () => { });
-  test('SHOULD preserve CSS properties', async () => { });
+  test('SHOULD preserve CSS properties-panel', async () => { });
 });
 ```
 
@@ -146,15 +146,15 @@ Page Objects encapsulate locators and actions for pages/routes:
 // apps/boxout-e2e/src/page-objects/designer.page.ts
 import { Page } from '@playwright/test';
 import { CanvasComponent } from './components/canvas.component';
-import { PresetsComponent } from './components/presets.component';
+import { PresetsPanelComponent } from './components/components-panel.component';
 
 export class DesignerPage {
   readonly canvas: CanvasComponent;
-  readonly presets: PresetsComponent;
+  readonly presets: PresetsPanelComponent;
 
   constructor(public readonly page: Page) {
     this.canvas = new CanvasComponent(page);
-    this.presets = new PresetsComponent(page);
+    this.presets = new PresetsPanelComponent(page);
   }
 
   async goto(): Promise<void> {
@@ -261,7 +261,7 @@ test.describe('Canvas Editing', () => {
     await designer.clearCanvas();
   });
 
-  test('SHOULD create layout with presets', async ({ page }) => {
+  test('SHOULD create layout with components-panel', async ({ page }) => {
     // Step 1: Drag preset to canvas
     const containerPreset = await designer.presets.dragPreset('container');
     await containerPreset.dragTo(await designer.canvas.getLocator());
@@ -269,7 +269,7 @@ test.describe('Canvas Editing', () => {
     // Step 2: Verify item appears
     expect(await designer.canvas.hasItem('Container')).toBe(true);
 
-    // Step 3: Verify CSS properties
+    // Step 3: Verify CSS properties-panel
     const display = await designer.canvas.getItemCssProperty('Container', 'display');
     expect(display).toBe('block');
   });
@@ -322,7 +322,7 @@ test.describe('Preset Insertion', () => {
     test('SHOULD support nesting', async () => { /* ... */ });
   });
 
-  test.describe('WHEN user drags multiple presets', () => {
+  test.describe('WHEN user drags multiple components-panel', () => {
     test('SHOULD maintain order', async () => { /* ... */ });
   });
 });

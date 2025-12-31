@@ -16,7 +16,7 @@ export const BOX_SIZING_PROPERTY_NAMES = [
 export type BoxSizingPropertyName = (typeof BOX_SIZING_PROPERTY_NAMES)[number];
 
 /**
- * BoxSizing interface for CSS properties related to element sizing.
+ * BoxSizing interface for CSS properties-panel related to element sizing.
  */
 export interface BoxSizing extends Pick<
   CSS.Properties,

@@ -6,7 +6,7 @@ import {
   Subject,
   takeUntil,
 } from 'rxjs';
-import { CanvasStore } from '../store/canvas.store';
+import { CanvasStore } from '../canvas.store';
 import cloneDeep from 'lodash.clonedeep';
 import { CanvasItem } from '@layout/models';
 

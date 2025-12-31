@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, inject, signal } from '@angular/core';
 import { UndoRedoService } from './undo-redo/undo-redo.service';
 import { CanvasItem, CanvasItemType, Css, InsertPosition } from '@layout/models';
 import { PRESET_PROVIDER } from '@layout/shared';
-import { CanvasStore } from './store/canvas.store';
+import { CanvasStore } from './canvas.store';
 import { distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
 import cloneDeep from 'lodash.clonedeep';
 import { CANVAS_ROOT_ELEMENT_ID } from './constants';

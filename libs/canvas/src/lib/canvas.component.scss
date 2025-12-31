@@ -1,5 +1,4 @@
 :host {
-  padding: 30px;
   overflow: clip;
   display: flex;
   flex-grow: 1;
@@ -7,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   background-color: var(--bg-secondary);
-
+  padding: 30px;
   background-size: 24px 24px;
 }
 
@@ -54,6 +53,5 @@
 
 ::ng-deep .drop-inside {
   outline: 2px dashed var(--p-primary-color);
-  outline-offset: -2px;
-  background-color: rgba(var(--p-primary-color-rgb), 0.05);
+  outline-offset: -10px;
 }

@@ -2,7 +2,7 @@ import type * as CSS from 'csstype';
 
 /**
  * Container property names that are shared between flex and grid layouts.
- * This is the single source of truth for container properties - both the runtime
+ * This is the single source of truth for container properties-panel - both the runtime
  * array and the Container type are derived from this definition.
  *
  * The `satisfies` operator ensures type safety - each property must be a valid
@@ -24,8 +24,8 @@ export const CONTAINER_PROPERTY_NAMES = [
 export type ContainerPropertyName = (typeof CONTAINER_PROPERTY_NAMES)[number];
 
 /**
- * Container interface for CSS properties shared between flex and grid layouts.
- * The properties are derived from CONTAINER_PROPERTY_NAMES to ensure consistency
+ * Container interface for CSS properties-panel shared between flex and grid layouts.
+ * The properties-panel are derived from CONTAINER_PROPERTY_NAMES to ensure consistency
  * between compile-time types and runtime checks.
  */
 export interface Container extends Pick<

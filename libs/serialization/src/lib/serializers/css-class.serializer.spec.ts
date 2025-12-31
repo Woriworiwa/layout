@@ -9,7 +9,7 @@ describe('CssClassSerializer', () => {
     serializer = new CssClassSerializer();
   });
 
-  describe('WHEN serializing a single item with CSS properties', () => {
+  describe('WHEN serializing a single item with CSS properties-panel', () => {
     it('SHOULD generate class with CSS rules', () => {
       const item: CanvasItem = {
         itemType: CanvasItemType.CONTAINER,

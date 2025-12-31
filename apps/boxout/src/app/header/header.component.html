@@ -1,0 +1,65 @@
+<div class="flex justify-between items-center p-3">
+  <!-- Logo -->
+  <div class="text-lg font-medium flex gap-2.5">
+    <img [src]="logoSrc()" alt="boXout logo" />
+    <div>boXout</div>
+  </div>
+
+  <!-- Preview Button -->
+  <p-button
+    (onClick)="isPreviewVisible.set(true)"
+    icon="pi pi-eye"
+    label="Preview"
+  >
+  </p-button>
+
+  <!-- Action Buttons -->
+  <div class="flex justify-end">
+    <p-button
+      [text]="true"
+      (onClick)="themeConfiguratorPopover.toggle($event)"
+      pTooltip="Customize Theme"
+      tooltipPosition="bottom"
+      icon="pi pi-palette"
+    >
+    </p-button>
+
+    <a
+      href="https://github.com/Woriworiwa/layout"
+      pButton
+      target="_blank"
+      rel="noopener noreferrer"
+      [text]="true"
+      pTooltip="View code on Github"
+      tooltipPosition="bottom"
+      icon="pi pi-github"
+      class="mr-2"
+    >
+    </a>
+
+    <p-splitbutton
+      label="Save"
+      (onClick)="save()"
+      appendTo="body"
+      [model]="items"
+      [menuStyle]="{ 'min-width': '200px' }"
+    ></p-splitbutton>
+  </div>
+</div>
+
+<!-- Preview Dialog -->
+<p-blockui [blocked]="isPreviewVisible()" />
+<p-dialog
+  [(visible)]="isPreviewVisible"
+  [style]="{ width: '80vw', height: '80vh' }"
+  appendTo="body"
+>
+  @defer (when isPreviewVisible()) {
+    <app-preview></app-preview>
+  }
+</p-dialog>
+
+<!-- Theme Configurator Popover -->
+<p-popover #themeConfiguratorPopover>
+  <app-theme-configurator />
+</p-popover>
