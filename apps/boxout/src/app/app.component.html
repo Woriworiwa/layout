@@ -13,9 +13,9 @@
 <!-- Left Panel -->
 <div class="left border-r border-r-surface-200 overflow-auto flex max-[340px]">
   <div class="flex flex-col h-full w-full">
-    <app-tab-switcher [options]="leftPanelOptions" [(value)]="leftPanelMode" />
+    <app-tab-switcher [options]="layoutStateService.leftPanelOptions" [(value)]="layoutStateService.leftPanelMode" />
     <div class="flex-1 overflow-auto">
-      @if (leftPanelMode() === 'assets') {
+      @if (layoutStateService.leftPanelMode() === 'assets') {
         <app-presets-panel></app-presets-panel>
       } @else {
         <app-layers-panel></app-layers-panel>
@@ -30,29 +30,5 @@
     <app-properties-panel></app-properties-panel>
   </div>
 </div>
-
-<!--&lt;!&ndash; Bottom Inspector Panel &ndash;&gt;-->
-<!--@if (appStateService.inspectorVisible()) {-->
-<!--  <div-->
-<!--    class="bottom border-t border-t-surface-200 overflow-auto flex flex-col"-->
-<!--    style="height: 300px"-->
-<!--  >-->
-<!--    <div-->
-<!--      class="flex items-center justify-between px-3 py-2 border-b border-b-surface-200"-->
-<!--    >-->
-<!--      <h3 class="text-sm font-semibold m-0">Inspector</h3>-->
-<!--      <button-->
-<!--        type="button"-->
-<!--        class="flex items-center justify-center w-6 h-6 p-0 border-0 bg-transparent text-muted-color cursor-pointer hover:bg-surface-hover rounded"-->
-<!--        (click)="appStateService.toggleInspector()"-->
-<!--      >-->
-<!--        <i class="pi pi-times text-xs"></i>-->
-<!--      </button>-->
-<!--    </div>-->
-<!--    <div class="flex-1 overflow-auto">-->
-<!--      <app-inspector></app-inspector>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--}-->
 
 <router-outlet></router-outlet>
