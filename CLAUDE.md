@@ -106,8 +106,6 @@ The application uses a custom RxJS-based state management pattern with **pure st
 
 **Critical Pattern**: Store methods are pure functions. Services control all persistence and side effects.
 
-> See `knowledge-base/architecture/store-service-pattern.md` for detailed patterns and examples.
-
 ### Core Data Model
 
 **CanvasItem** (`@layout/models`): The fundamental building block representing elements on the canvas
@@ -265,21 +263,6 @@ import { CodeViewerComponent } from '@layout/shared';
 - Stage files if needed with `git add`
 - Wait for user to say "commit" or similar instruction before running `git commit`
 - Use `npm run commit` for guided Conventional Commits when instructed to commit
-
-## Knowledge Base
-
-Detailed documentation is organized in the `knowledge-base/` directory:
-
-### Architecture Patterns
-
-- **`architecture/store-service-pattern.md`** - Store vs Service responsibilities, pure functions, anti-patterns, and real-world examples
-
-### Testing Guidelines
-
-- **`testing/testing-core.md`** - Core testing strategy (Vitest, BDD, what to test/mock)
-- **`testing/testing-stores.md`** - Testing Store<T> pattern with real stores
-- **`testing/testing-services.md`** - Testing services that use stores
-- **`testing/testing-components.md`** - Component testing guidelines
 
 ### Angular & TypeScript Guidelines
 
