@@ -1,5 +1,5 @@
 import { inject, Injectable, OnDestroy, signal } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, filter, tap, delay } from 'rxjs';
 import { TabOption } from '../../shared/tab-switcher/tab-switcher.component';
 import { UiGuidanceService } from './ui-guidance.service';
 
@@ -23,22 +23,19 @@ export class LayoutStateService implements OnDestroy {
 
   private initializeUiGuidanceSubscription(): void {
     this.uiGuidanceService.guidanceEvent$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((event) => {
-        if (
-          event.target === 'layers-panel-panel' &&
-          event.action === 'highlight'
-        ) {
-          // Switch to layers-panel panel if not already visible
-          if (this.leftPanelMode() !== 'layers-panel') {
-            this.leftPanelMode.set('layers-panel');
-            // Give Angular time to render the layers-panel component before showing the message
-            setTimeout(() => {
-              // Re-emit the event so the now-visible layers-panel component can handle it
-              this.uiGuidanceService.highlightLayersPanel();
-            }, 100);
-          }
-        }
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(
+          (event) =>
+            event.target === 'layers-panel-panel' &&
+            event.action === 'highlight' &&
+            this.leftPanelMode() !== 'layers-panel'
+        ),
+        tap(() => this.leftPanelMode.set('layers-panel')),
+        delay(100)
+      )
+      .subscribe(() => {
+        this.uiGuidanceService.highlightLayersPanel();
       });
   }
 

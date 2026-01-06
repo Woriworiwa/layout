@@ -139,8 +139,8 @@ describe('LayoutStateService', () => {
     it('SHOULD NOT switch leftPanelMode for different target', () => {
       const guidanceEvent = {
         target: 'properties-panel',
-        action: 'highlight'
-      } as GuidanceEvent;
+        action: 'highlight',
+      } as unknown as GuidanceEvent;
 
       guidanceEvents$.next(guidanceEvent);
 
@@ -151,8 +151,8 @@ describe('LayoutStateService', () => {
       return new Promise<void>((resolve) => {
         const guidanceEvent = {
           target: 'canvas-toolbar',
-          action: 'highlight'
-        } as GuidanceEvent;
+          action: 'highlight',
+        } as unknown as GuidanceEvent;
 
         guidanceEvents$.next(guidanceEvent);
 
@@ -166,8 +166,8 @@ describe('LayoutStateService', () => {
     it('SHOULD NOT switch leftPanelMode for different action', () => {
       const guidanceEvent = {
         target: 'layers-panel-panel',
-        action: 'click'
-      } as GuidanceEvent;
+        action: 'click',
+      } as unknown as GuidanceEvent;
 
       guidanceEvents$.next(guidanceEvent);
 
