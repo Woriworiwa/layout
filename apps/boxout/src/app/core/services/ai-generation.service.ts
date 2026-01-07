@@ -76,8 +76,6 @@ ${schema}
 
 IMPORTANT NOTES:
 - All CSS properties are optional
-- CONTAINER items use: display.display="flex", container (shared props), flexContainer (flex-specific props), flexItem
-- GRID items use: display.display="grid", container (shared props), gridContainer (grid-specific props), gridItem
 - TEXT items only need content property
 - gap property: numeric values only (px auto-added)
 
@@ -97,6 +95,7 @@ Rules:
 6. Keep layouts simple and focused
 7. Use only the CSS properties listed in the schema
 8. Do not specify width or height unless necessary. Canvas width is dynamic but assume 600px wide.
+9. Use the shorter version of css properties. 'justify-content: end' instead of 'justify-content: flex-end'
 
 FLEX Example:
 [{
