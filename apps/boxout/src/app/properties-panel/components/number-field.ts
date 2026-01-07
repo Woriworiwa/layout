@@ -20,16 +20,18 @@ import { ButtonDirective, ButtonIcon } from 'primeng/button';
     ButtonIcon,
   ],
   template: `
-    <div class="flex items-center gap-2">
-      <p-inputNumber
-        [id]="label()"
-        inputId="integeronly"
-        fluid
-        [showButtons]="true"
-        (onClear)="onClearButtonClick()"
-        [formControl]="displayControl"
-      >
-      </p-inputNumber>
+    <div class="flex gap-2">
+      <div class="w-24">
+        <p-inputNumber
+          [id]="label()"
+          fluid
+          inputId="integeronly"
+          [showButtons]="true"
+          (onClear)="onClearButtonClick()"
+          [formControl]="displayControl"
+        >
+        </p-inputNumber>
+      </div>
 
       @if (unit(); as unitControl) {
         <p-select [options]="items" [formControl]="unitControl" />
