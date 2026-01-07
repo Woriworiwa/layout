@@ -7,6 +7,7 @@ import type * as CSS from 'csstype';
 export const GRID_ITEM_PROPERTY_NAMES = [
   'gridColumn',
   'gridRow',
+  'gridArea',
   'gridColumnStart',
   'gridColumnEnd',
   'gridRowStart',

@@ -114,6 +114,11 @@ export class AiSchemaGeneratorService {
       description:
         'string (e.g., "repeat(3, 1fr)", "100px 200px", "auto 1fr auto")',
     },
+    gridTemplateAreas: {
+      type: 'custom',
+      description:
+        'string with newlines (e.g., "\\"header header header\\"\\n\\"nav main aside\\"\\n\\"footer footer footer\\"")',
+    },
     gridAutoFlow: GridAutoFlowOptions.filter(
       (opt) => opt !== undefined,
     ) as string[],
@@ -134,6 +139,10 @@ export class AiSchemaGeneratorService {
     gridRow: {
       type: 'custom',
       description: 'string (e.g., "1 / 3", "span 2", "1")',
+    },
+    gridArea: {
+      type: 'custom',
+      description: 'string (e.g., "header", "nav", "main", "sidebar", "footer")',
     },
     gridColumnStart: {
       type: 'custom',

@@ -7,6 +7,7 @@ import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { TextFieldComponent } from '../components/text-field.component';
+import { TextAreaFieldComponent } from '../components/text-area-field.component';
 import { ButtonGroupComponent } from '../components/button-group.component';
 import {
   GridAutoFlowOptions,
@@ -24,6 +25,7 @@ import { NumberField } from '../components/number-field';
     PropertyGroupContainerComponent,
     PropertyRowComponent,
     TextFieldComponent,
+    TextAreaFieldComponent,
     ButtonGroupComponent,
     NumberField,
   ],
@@ -45,6 +47,15 @@ import { NumberField } from '../components/number-field';
             [presets]="gridTemplateRowsPresets"
             placeholder="e.g., auto 1fr"
           ></app-text-field>
+        </app-property-row>
+
+        <app-property-row label="grid-template-areas">
+          <app-text-area-field
+            [control]="getFormControl('gridTemplateAreas')"
+            [presets]="gridTemplateAreasPresets"
+            [rows]="3"
+            placeholder='e.g., "header header"&#10;"sidebar main"'
+          ></app-text-area-field>
         </app-property-row>
 
         <!-- Grid Auto -->
@@ -141,6 +152,29 @@ export class PropertiesGridContainerComponent
     { label: 'max-content', value: 'max-content' },
   ];
 
+  gridTemplateAreasPresets = [
+    {
+      label: 'Blog Layout',
+      value: '"header header"\n"content sidebar"\n"footer footer"',
+    },
+    {
+      label: 'Magazine',
+      value: '"header header header"\n"featured featured sidebar"\n"article1 article2 sidebar"\n"footer footer footer"',
+    },
+    {
+      label: 'Dashboard',
+      value: '"header header"\n"sidebar main"\n"sidebar main"',
+    },
+    {
+      label: 'Holy Grail',
+      value: '"header header header"\n"nav main aside"\n"footer footer footer"',
+    },
+    {
+      label: 'App Shell',
+      value: '"header header header"\n"nav main aside"\n"nav main aside"\n"footer footer footer"',
+    },
+  ];
+
   override ngOnChanges() {
     super.ngOnChanges();
 
@@ -164,6 +198,9 @@ export class PropertiesGridContainerComponent
       >(null),
       gridTemplateRows: new FormControl<
         Property.GridTemplateRows | null | undefined
+      >(null),
+      gridTemplateAreas: new FormControl<
+        Property.GridTemplateAreas | null | undefined
       >(null),
       gridAutoFlow: new FormControl<Property.GridAutoFlow | null | undefined>(
         null,

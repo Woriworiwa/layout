@@ -38,6 +38,14 @@ import { AlignSelfOptions, JustifySelfOptions } from '@layout/models';
           ></app-text-field>
         </app-property-row>
 
+        <app-property-row label="grid-area">
+          <app-text-field
+            [control]="getFormControl('gridArea')"
+            [presets]="gridAreaPresets"
+            placeholder="e.g., header, main"
+          ></app-text-field>
+        </app-property-row>
+
         <app-property-row label="justify-self">
           <app-button-group
             [options]="JustifySelfOptions"
@@ -78,6 +86,19 @@ export class PropertiesGridItemComponent
     { label: '1 / -1', value: '1 / -1' },
   ];
 
+  gridAreaPresets = [
+    { label: 'header', value: 'header' },
+    { label: 'nav', value: 'nav' },
+    { label: 'main', value: 'main' },
+    { label: 'content', value: 'content' },
+    { label: 'sidebar', value: 'sidebar' },
+    { label: 'aside', value: 'aside' },
+    { label: 'footer', value: 'footer' },
+    { label: 'featured', value: 'featured' },
+    { label: 'article1', value: 'article1' },
+    { label: 'article2', value: 'article2' },
+  ];
+
   override ngOnChanges() {
     super.ngOnChanges();
 
@@ -95,6 +116,7 @@ export class PropertiesGridItemComponent
     const formGroup = this.formBuilder.group({
       gridColumn: new FormControl<Property.GridColumn | null | undefined>(null),
       gridRow: new FormControl<Property.GridRow | null | undefined>(null),
+      gridArea: new FormControl<Property.GridArea | null | undefined>(null),
       justifySelf: new FormControl<Property.JustifySelf | null | undefined>(
         null,
       ),
