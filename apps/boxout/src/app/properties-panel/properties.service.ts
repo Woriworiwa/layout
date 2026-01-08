@@ -94,6 +94,10 @@ export class PropertiesService {
     this.canvasService.renameItem(label);
   }
 
+  updateTailwindClasses(tailwindClasses: string): void {
+    this.canvasService.updateTailwindClasses(tailwindClasses);
+  }
+
   /**
    * Splits form values into container and layout-specific properties-panel.
    * Container properties-panel (defined in the Container interface) are extracted into a container object.

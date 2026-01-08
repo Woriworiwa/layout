@@ -16,4 +16,5 @@ export interface CanvasItem {
   css?: Css;
   editable?: boolean;
   aiMetadata?: AiMetadata;
+  tailwindClasses?: string;
 }

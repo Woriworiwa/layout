@@ -23,6 +23,7 @@ import { CanvasItemType, Display } from '@layout/models';
 import { BoxSizingComponent } from './groups/box-sizing.component';
 import { DisplayComponent } from './groups/display.component';
 import { MetaDataComponent } from './groups/meta-data.component';
+import { TailwindClassesComponent } from './groups/tailwind-classes.component';
 import { PropertiesFlexContainerComponent } from './groups/flex-container.component';
 import { PropertiesFlexItemComponent } from './groups/flex-item.component';
 import { PropertiesGridContainerComponent } from './groups/grid-container.component';
@@ -41,6 +42,7 @@ import { CssViewerComponent } from '@layout/shared';
     BoxSizingComponent,
     DisplayComponent,
     MetaDataComponent,
+    TailwindClassesComponent,
     PropertiesFlexContainerComponent,
     PropertiesFlexItemComponent,
     PropertiesGridContainerComponent,

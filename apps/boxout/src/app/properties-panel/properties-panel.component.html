@@ -33,6 +33,12 @@
           >
           </app-properties-meta-data>
 
+          <app-properties-tailwind-classes
+            [tailwindClasses]="selectedFrame.tailwindClasses"
+            [collapsed]="true"
+          >
+          </app-properties-tailwind-classes>
+
           <app-properties-box-sizing
             [css]="selectedFrame.css"
             [title]="'Box sizing'"

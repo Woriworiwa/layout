@@ -127,6 +127,15 @@ export class CanvasStore extends Store<CanvasState> {
     return items;
   }
 
+  updateItemTailwindClasses(itemKey: string, tailwindClasses: string): CanvasItem[] {
+    const items = cloneDeep(this.items);
+    const item = this.getItemById(items, itemKey);
+    if (item) {
+      item.tailwindClasses = tailwindClasses.trim() || undefined;
+    }
+    return items;
+  }
+
   removeItemAiMetadata(itemKey: string): CanvasItem[] {
     const items = cloneDeep(this.items);
     const item = this.getItemById(items, itemKey);
