@@ -17,7 +17,12 @@ import { ButtonGroupComponent } from '../components/button-group.component';
     ButtonGroupComponent,
   ],
   template: `
-    <app-property-group header="Display" [toggleable]="true">
+    <app-property-group
+      header="Display"
+      [toggleable]="true"
+      [collapsed]="collapsed()"
+      groupId="display"
+    >
       <app-property-row label="display">
         <app-button-group
           [options]="DisplayOptions"

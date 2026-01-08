@@ -20,7 +20,12 @@ import { ButtonGroupComponent } from '../components/button-group.component';
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-      <app-property-group [header]="title()" [toggleable]="true">
+      <app-property-group
+        [header]="title()"
+        [toggleable]="true"
+        [collapsed]="collapsed()"
+        groupId="flex-item"
+      >
         <app-property-row label="flex-grow">
           <app-number-field
             [control]="getFormControl('flexGrow')"

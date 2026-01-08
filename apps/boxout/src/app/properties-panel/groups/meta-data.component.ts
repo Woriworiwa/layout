@@ -16,7 +16,12 @@ import { BasePropertyGroupComponent } from './base-property-group.component';
     InputText,
   ],
   template: `
-    <app-property-group header="Meta data" [toggleable]="true">
+    <app-property-group
+      header="Meta data"
+      [toggleable]="true"
+      [collapsed]="collapsed()"
+      groupId="meta-data"
+    >
       <ng-container [formGroup]="formGroup">
         <app-property-row label="Label">
           <div>

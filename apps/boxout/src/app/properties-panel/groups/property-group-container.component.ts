@@ -10,6 +10,7 @@ import {
 
 import { PropertyRowComponent } from '../components/property-row.component';
 import { PropertiesService } from '../properties.service';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 
 @Component({
   selector: 'app-property-group',
@@ -55,6 +56,7 @@ export class PropertyGroupContainerComponent {
   header = input<string>('');
   toggleable = input<boolean>(true);
   collapsed = input<boolean>(false);
+  groupId = input<string>(''); // Unique identifier for localStorage
 
   protected _collapsed = signal(false);
   protected isCollapsed = this._collapsed.asReadonly();
@@ -68,6 +70,9 @@ export class PropertyGroupContainerComponent {
   });
 
   private propertiesService = inject(PropertiesService);
+  private localStorageService = inject(LocalStorageService);
+
+  private readonly STORAGE_KEY = 'property-groups-collapsed-state';
 
   // Computed signal to check if any rows are visible
   hasVisibleRows = computed(() => {
@@ -79,8 +84,17 @@ export class PropertyGroupContainerComponent {
   });
 
   constructor() {
+    // Initialize collapsed state from localStorage or default
     effect(() => {
-      this._collapsed.set(this.collapsed());
+      const id = this.groupId();
+      const defaultCollapsed = this.collapsed();
+
+      if (id) {
+        const savedState = this.getCollapsedState(id);
+        this._collapsed.set(savedState !== null ? savedState : defaultCollapsed);
+      } else {
+        this._collapsed.set(defaultCollapsed);
+      }
     });
 
     // Effect to handle auto-expand/collapse based on filter
@@ -115,15 +129,33 @@ export class PropertyGroupContainerComponent {
 
   toggleCollapsed() {
     if (this.toggleable()) {
-      this._collapsed.set(!this._collapsed());
+      const newState = !this._collapsed();
+      this._collapsed.set(newState);
+
+      // Save state to localStorage
+      const id = this.groupId();
+      if (id) {
+        this.saveCollapsedState(id, newState);
+      }
 
       // If user manually toggles while filter is active, update the original state
       if (
         this.propertiesService.searchText() &&
         this.originalCollapsedState() !== null
       ) {
-        this.originalCollapsedState.set(this._collapsed());
+        this.originalCollapsedState.set(newState);
       }
     }
+  }
+
+  private getCollapsedState(groupId: string): boolean | null {
+    return this.localStorageService.getProperty<boolean>(
+      this.STORAGE_KEY,
+      groupId,
+    );
+  }
+
+  private saveCollapsedState(groupId: string, collapsed: boolean): void {
+    this.localStorageService.setProperty(this.STORAGE_KEY, groupId, collapsed);
   }
 }

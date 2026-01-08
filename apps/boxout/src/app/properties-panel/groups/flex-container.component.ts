@@ -27,7 +27,12 @@ import { PropertyRowComponent } from '../components/property-row.component';
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-      <app-property-group [header]="title()" [toggleable]="true">
+      <app-property-group
+        [header]="title()"
+        [toggleable]="true"
+        [collapsed]="collapsed()"
+        groupId="flex-container"
+      >
         <app-property-row label="direction">
           <app-button-group
             [options]="FlexDirectionOptions"

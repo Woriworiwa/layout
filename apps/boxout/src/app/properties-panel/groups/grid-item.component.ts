@@ -21,7 +21,12 @@ import { AlignSelfOptions, JustifySelfOptions } from '@layout/models';
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-      <app-property-group [header]="title()" [toggleable]="true">
+      <app-property-group
+        [header]="title()"
+        [toggleable]="true"
+        [collapsed]="collapsed()"
+        groupId="grid-item"
+      >
         <app-property-row label="grid-column">
           <app-text-field
             [control]="getFormControl('gridColumn')"

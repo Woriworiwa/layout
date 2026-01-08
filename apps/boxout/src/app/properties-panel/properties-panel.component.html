@@ -51,12 +51,14 @@
             <app-properties-flex-container
               [css]="selectedFrame.css"
               [title]="'Flex container'"
+              [collapsed]="true"
             >
             </app-properties-flex-container>
           } @else if (selectedFrame.css?.display?.display === Display.grid) {
             <app-properties-grid-container
               [css]="selectedFrame.css"
               [title]="'Grid container'"
+              [collapsed]="true"
             >
             </app-properties-grid-container>
           }
@@ -64,12 +66,14 @@
           <app-properties-flex-item
             [css]="selectedFrame.css"
             [title]="'Flex item'"
+            [collapsed]="true"
           >
           </app-properties-flex-item>
 
           <app-properties-grid-item
             [css]="selectedFrame.css"
             [title]="'Grid item'"
+            [collapsed]="true"
           >
           </app-properties-grid-item>
         </div>

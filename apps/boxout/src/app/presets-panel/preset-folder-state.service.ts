@@ -1,11 +1,13 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { PresetCategory, PresetFolderState } from '@layout/models';
+import { LocalStorageService } from '../core/services/local-storage.service';
 
 const STORAGE_KEY = 'preset-folder-state';
 const DEFAULT_EXPANDED_FOLDER = PresetCategory.FLEXBOX;
 
 @Injectable()
 export class PresetFolderStateService {
+  private localStorageService = inject(LocalStorageService);
   private folderState = signal<PresetFolderState>(this.loadState());
 
   isExpanded(categoryId: PresetCategory): boolean {
@@ -26,25 +28,12 @@ export class PresetFolderStateService {
   }
 
   private loadState(): PresetFolderState {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        return JSON.parse(stored);
-      }
-    } catch (error) {
-      console.warn('Failed to load preset folder state:', error);
-    }
-
-    return {
+    return this.localStorageService.getItem<PresetFolderState>(STORAGE_KEY, {
       [DEFAULT_EXPANDED_FOLDER]: true,
-    };
+    }) as PresetFolderState;
   }
 
   private saveState(): void {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.folderState()));
-    } catch (error) {
-      console.warn('Failed to save preset folder state:', error);
-    }
+    this.localStorageService.setItem(STORAGE_KEY, this.folderState());
   }
 }

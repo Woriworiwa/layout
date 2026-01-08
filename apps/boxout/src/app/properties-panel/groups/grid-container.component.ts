@@ -31,7 +31,12 @@ import { NumberField } from '../components/number-field';
   ],
   template: `
     <ng-container [formGroup]="formGroup">
-      <app-property-group [header]="title()" [toggleable]="true">
+      <app-property-group
+        [header]="title()"
+        [toggleable]="true"
+        [collapsed]="collapsed()"
+        groupId="grid-container"
+      >
         <!-- Grid Template -->
         <app-property-row label="grid-template-columns">
           <app-text-field

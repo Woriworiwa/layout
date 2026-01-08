@@ -19,7 +19,12 @@ import { PropertyRowComponent } from '../components/property-row.component';
     PropertyRowComponent,
   ],
   template: `
-    <app-property-group header="Box sizing" [toggleable]="true">
+    <app-property-group
+      header="Box sizing"
+      [toggleable]="true"
+      [collapsed]="collapsed()"
+      groupId="box-sizing"
+    >
       <ng-container [formGroup]="formGroup">
         <app-property-row label="padding">
           <app-number-field
