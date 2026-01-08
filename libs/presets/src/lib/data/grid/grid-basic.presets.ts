@@ -239,7 +239,7 @@ export const basicGridPresets = [
   },
   {
     presetId: 'grid-subgrid',
-    presetName: 'CSS Subgrid',
+    presetName: 'CSS Subgrid - Card Grid',
     category: PresetCategory.GRID,
     presetDefinition: {
       itemType: 'CONTAINER',
@@ -252,7 +252,7 @@ export const basicGridPresets = [
         },
         gridContainer: {
           gridTemplateColumns: 'repeat(3, 1fr)',
-          gridTemplateRows: 'auto auto',
+          gridTemplateRows: 'auto 1fr auto',
         },
         boxSizing: {
           padding: '18px',
@@ -260,55 +260,46 @@ export const basicGridPresets = [
       },
       children: [
         {
-          content: 'Item 1',
-          itemType: 'TEXT',
-          css: {
-            boxSizing: {
-              padding: '12px',
-            },
-          },
-        },
-        {
-          content: 'Item 2',
-          itemType: 'TEXT',
-          css: {
-            boxSizing: {
-              padding: '12px',
-            },
-          },
-        },
-        {
-          content: 'Item 3',
-          itemType: 'TEXT',
-          css: {
-            boxSizing: {
-              padding: '12px',
-            },
-          },
-        },
-        {
           itemType: 'CONTAINER',
-          label: 'Subgrid Container',
+          label: 'Card 1',
           css: {
             display: {
               display: 'grid',
             },
-            gridItem: {
-              gridColumn: '1 / -1',
-            },
             gridContainer: {
-              gridTemplateColumns: 'subgrid',
+              gridTemplateRows: 'subgrid',
+            },
+            gridItem: {
+              gridRow: '1 / 4',
             },
             container: {
-              gap: 8,
+              gap: 12,
             },
             boxSizing: {
-              padding: '12px',
+              padding: '16px',
             },
           },
           children: [
             {
-              content: 'Subgrid Item 1',
+              content: 'Product Title',
+              itemType: 'TEXT',
+              css: {
+                boxSizing: {
+                  padding: '4px',
+                },
+              },
+            },
+            {
+              content: 'Short description of the product features.',
+              itemType: 'TEXT',
+              css: {
+                boxSizing: {
+                  padding: '4px',
+                },
+              },
+            },
+            {
+              content: 'Buy Now',
               itemType: 'TEXT',
               css: {
                 boxSizing: {
@@ -316,8 +307,49 @@ export const basicGridPresets = [
                 },
               },
             },
+          ],
+        },
+        {
+          itemType: 'CONTAINER',
+          label: 'Card 2',
+          css: {
+            display: {
+              display: 'grid',
+            },
+            gridContainer: {
+              gridTemplateRows: 'subgrid',
+            },
+            gridItem: {
+              gridRow: '1 / 4',
+            },
+            container: {
+              gap: 12,
+            },
+            boxSizing: {
+              padding: '16px',
+            },
+          },
+          children: [
             {
-              content: 'Subgrid Item 2',
+              content: 'Another Product',
+              itemType: 'TEXT',
+              css: {
+                boxSizing: {
+                  padding: '4px',
+                },
+              },
+            },
+            {
+              content: 'This has a much longer description that explains features in detail. Notice how buttons still align.',
+              itemType: 'TEXT',
+              css: {
+                boxSizing: {
+                  padding: '4px',
+                },
+              },
+            },
+            {
+              content: 'Buy Now',
               itemType: 'TEXT',
               css: {
                 boxSizing: {
@@ -325,8 +357,49 @@ export const basicGridPresets = [
                 },
               },
             },
+          ],
+        },
+        {
+          itemType: 'CONTAINER',
+          label: 'Card 3',
+          css: {
+            display: {
+              display: 'grid',
+            },
+            gridContainer: {
+              gridTemplateRows: 'subgrid',
+            },
+            gridItem: {
+              gridRow: '1 / 4',
+            },
+            container: {
+              gap: 12,
+            },
+            boxSizing: {
+              padding: '16px',
+            },
+          },
+          children: [
             {
-              content: 'Subgrid Item 3',
+              content: 'Premium Item',
+              itemType: 'TEXT',
+              css: {
+                boxSizing: {
+                  padding: '4px',
+                },
+              },
+            },
+            {
+              content: 'Medium length description here.',
+              itemType: 'TEXT',
+              css: {
+                boxSizing: {
+                  padding: '4px',
+                },
+              },
+            },
+            {
+              content: 'Buy Now',
               itemType: 'TEXT',
               css: {
                 boxSizing: {
