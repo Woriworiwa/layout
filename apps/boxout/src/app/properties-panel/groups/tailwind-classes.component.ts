@@ -3,8 +3,8 @@ import { PropertyGroupContainerComponent } from './property-group-container.comp
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, takeUntil } from 'rxjs';
 import { PropertyRowComponent } from '../components/property-row.component';
-import { InputText } from 'primeng/inputtext';
 import { BasePropertyGroupComponent } from './base-property-group.component';
+import { CodeEditorComponent, tailwindHighlighting } from '@layout/shared';
 
 @Component({
   selector: 'app-properties-tailwind-classes',
@@ -12,7 +12,7 @@ import { BasePropertyGroupComponent } from './base-property-group.component';
     PropertyGroupContainerComponent,
     ReactiveFormsModule,
     PropertyRowComponent,
-    InputText,
+    CodeEditorComponent,
   ],
   template: `
     <app-property-group
@@ -23,30 +23,26 @@ import { BasePropertyGroupComponent } from './base-property-group.component';
     >
       <ng-container [formGroup]="formGroup">
         <app-property-row label="Classes">
-          <div>
-            <input
-              type="text"
-              pInputText
-              formControlName="tailwindClasses"
-              placeholder="flex gap-4 p-4 bg-blue-100..."
-              class="w-full"
-            />
-          </div>
+          <shared-code-editor
+            formControlName="tailwindClasses"
+            [placeholder]="'flex gap-4 p-4 bg-blue-100...'"
+            [multiline]="false"
+            [extensions]="editorExtensions"
+          />
         </app-property-row>
       </ng-container>
     </app-property-group>
   `,
-  styles: `
-    input {
-      width: 100%;
-    }
-  `,
+  styles: ``,
 })
 export class TailwindClassesComponent
   extends BasePropertyGroupComponent
   implements OnChanges, OnDestroy
 {
   tailwindClasses = input<string | undefined>(undefined);
+
+  // CodeMirror extensions for Tailwind syntax highlighting
+  editorExtensions = [tailwindHighlighting()];
 
   constructor() {
     super();
