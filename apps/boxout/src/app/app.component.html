@@ -25,16 +25,14 @@
 </div>
 
 <!-- Right Panel -->
-<div class="right border-l border-l-surface-200 max-[340px]">
-  <div class="flex flex-col h-full w-full">
-    <app-tab-switcher [options]="layoutStateService.rightPanelOptions" [(value)]="layoutStateService.rightPanelMode" />
-    <div class="flex-1 overflow-auto">
-      @if (layoutStateService.rightPanelMode() === 'inspector') {
-        <app-inspector></app-inspector>
-      } @else {
-        <app-properties-panel></app-properties-panel>
-      }
-    </div>
+<div class="right border-l border-l-surface-200 max-[340px] flex flex-col">
+  <app-tab-switcher [options]="layoutStateService.rightPanelOptions" [(value)]="layoutStateService.rightPanelMode" />
+  <div class="flex flex-1 overflow-auto w-full">
+    @if (layoutStateService.rightPanelMode() === 'inspector') {
+      <app-inspector class="w-full"></app-inspector>
+    } @else {
+      <app-properties-panel></app-properties-panel>
+    }
   </div>
 </div>
 
