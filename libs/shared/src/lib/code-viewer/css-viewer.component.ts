@@ -45,9 +45,20 @@ export class CssViewerComponent implements OnChanges {
   }
 
   private serializeToCss() {
+    const serializerType = this.serializerType();
+    let separator: string;
+
+    if (serializerType === 'CSS-class') {
+      separator = '\n';
+    } else if (serializerType === 'Tailwind') {
+      separator = ' ';
+    } else {
+      separator = ';\n';
+    }
+
     this.css = this.serializerService
-      .getSerializer(this.serializerType())
+      .getSerializer(serializerType)
       .serialize(this.canvasItems())
-      .join(this.serializerType() === 'CSS-class' ? '\n' : ';\n');
+      .join(separator);
   }
 }

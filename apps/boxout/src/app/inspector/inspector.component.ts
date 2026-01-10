@@ -6,7 +6,6 @@ import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   CssViewerComponent,
-  HtmlViewerComponent,
   JsonViewerComponent,
 } from '@layout/shared';
 
@@ -14,7 +13,6 @@ import {
   selector: 'app-inspector',
   imports: [
     CssViewerComponent,
-    HtmlViewerComponent,
     JsonViewerComponent,
     FormsModule,
   ],
