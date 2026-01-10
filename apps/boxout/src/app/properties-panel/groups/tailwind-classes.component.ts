@@ -1,10 +1,11 @@
-import { Component, input, OnChanges, OnDestroy, effect } from '@angular/core';
+import { Component, input, OnChanges, OnDestroy, effect, inject, computed } from '@angular/core';
 import { PropertyGroupContainerComponent } from './property-group-container.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, takeUntil } from 'rxjs';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { BasePropertyGroupComponent } from './base-property-group.component';
-import { CodeEditorComponent, tailwindHighlighting } from '@layout/shared';
+import { CodeEditorComponent, tailwindHighlighting, tailwindAutocomplete, getAutocompleteTheme } from '@layout/shared';
+import { ThemeService } from '../../core/theme/theme.service';
 
 @Component({
   selector: 'app-properties-tailwind-classes',
@@ -27,7 +28,8 @@ import { CodeEditorComponent, tailwindHighlighting } from '@layout/shared';
             formControlName="tailwindClasses"
             [placeholder]="'flex gap-4 p-4 bg-blue-100...'"
             [multiline]="false"
-            [extensions]="editorExtensions"
+            [extensions]="editorExtensions()"
+            [darkMode]="isDarkMode()"
           />
         </app-property-row>
       </ng-container>
@@ -39,10 +41,19 @@ export class TailwindClassesComponent
   extends BasePropertyGroupComponent
   implements OnChanges, OnDestroy
 {
+  private themeService = inject(ThemeService);
+
   tailwindClasses = input<string | undefined>(undefined);
 
-  // CodeMirror extensions for Tailwind syntax highlighting
-  editorExtensions = [tailwindHighlighting()];
+  // Get dark mode from theme service
+  isDarkMode = computed(() => this.themeService.config().darkMode);
+
+  // CodeMirror extensions for Tailwind syntax highlighting and autocomplete
+  editorExtensions = computed(() => [
+    tailwindHighlighting(),
+    tailwindAutocomplete(),
+    getAutocompleteTheme(this.isDarkMode())
+  ]);
 
   constructor() {
     super();

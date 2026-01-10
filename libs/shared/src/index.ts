@@ -10,3 +10,5 @@ export * from './lib/code-viewer/css-viewer.component';
 
 export * from './lib/code-editor/code-editor.component';
 export * from './lib/code-editor/tailwind-highlighting';
+export * from './lib/code-editor/tailwind-autocomplete';
+export * from './lib/code-editor/autocomplete-theme';

@@ -70,6 +70,7 @@ export class CodeEditorComponent implements ControlValueAccessor {
   placeholder = input<string>('');
   multiline = input<boolean>(false);
   extensions = input<Extension[]>([]);
+  darkMode = input<boolean>(false);
 
   valueChange = output<string>();
 
