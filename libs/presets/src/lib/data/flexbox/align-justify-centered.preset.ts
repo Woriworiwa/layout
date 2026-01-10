@@ -28,8 +28,6 @@ export const centeredContentPreset = {
           container: {
             gap: '16',
             alignItems: 'center',
-          },
-          flexContainer: {
             flexDirection: 'column',
           },
           boxSizing: {

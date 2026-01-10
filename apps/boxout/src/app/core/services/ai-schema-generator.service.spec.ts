@@ -4,9 +4,7 @@ import {
   BOX_SIZING_PROPERTY_NAMES,
   CONTAINER_PROPERTY_NAMES,
   LAYOUT_PROPERTY_NAMES,
-  FLEX_CONTAINER_PROPERTY_NAMES,
   FLEX_ITEM_PROPERTY_NAMES,
-  GRID_CONTAINER_PROPERTY_NAMES,
   GRID_ITEM_PROPERTY_NAMES,
 } from '@layout/models';
 
@@ -20,8 +18,6 @@ describe('AiSchemaGeneratorService', () => {
     expect(schema).toContain('"TEXT"');
     expect(schema).toContain('"display"');
     expect(schema).toContain('"container"');
-    expect(schema).toContain('"flexContainer"');
-    expect(schema).toContain('"gridContainer"');
   });
 
   it('should include all CSS properties-panel from all interfaces in the schema', () => {
@@ -32,9 +28,7 @@ describe('AiSchemaGeneratorService', () => {
     const allProperties = [
       ...LAYOUT_PROPERTY_NAMES,
       ...CONTAINER_PROPERTY_NAMES,
-      ...FLEX_CONTAINER_PROPERTY_NAMES,
       ...FLEX_ITEM_PROPERTY_NAMES,
-      ...GRID_CONTAINER_PROPERTY_NAMES,
       ...GRID_ITEM_PROPERTY_NAMES,
       ...BOX_SIZING_PROPERTY_NAMES,
     ];

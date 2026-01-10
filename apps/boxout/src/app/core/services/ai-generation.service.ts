@@ -103,8 +103,7 @@ FLEX Example:
   "label": "Card",
   "css": {
     "display": { "display": "flex" },
-    "container": { "gap": "12" },
-    "flexContainer": { "flexDirection": "column" },
+    "container": { "gap": "12", "flexDirection": "column" },
     "boxSizing": { "padding": "20px", "width": "300px" }
   },
   "children": [
@@ -122,8 +121,8 @@ GRID Example:
   "label": "Grid Layout",
   "css": {
     "display": { "display": "grid" },
-    "container": { "gap": "16" },
-    "gridContainer": { "gridTemplateColumns": "repeat(3, 1fr)" }
+    "container": { "gap": "16", "gridTemplateColumns": "repeat(3, 1fr)" },
+    "boxSizing": { "padding": "10px" }
   },
   "children": [
     {

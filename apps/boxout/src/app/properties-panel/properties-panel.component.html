@@ -53,35 +53,12 @@
           >
           </app-properties-display>
 
-          @if (selectedFrame.css?.display?.display === Display.flex) {
-            <app-properties-flex-container
-              [css]="selectedFrame.css"
-              [title]="'Flex container'"
-              [collapsed]="true"
-            >
-            </app-properties-flex-container>
-          } @else if (selectedFrame.css?.display?.display === Display.grid) {
-            <app-properties-grid-container
-              [css]="selectedFrame.css"
-              [title]="'Grid container'"
-              [collapsed]="true"
-            >
-            </app-properties-grid-container>
-          }
-
-          <app-properties-flex-item
+          <app-properties-flexbox-grid
             [css]="selectedFrame.css"
-            [title]="'Flex item'"
+            [title]="'Flexbox & Grid'"
             [collapsed]="true"
           >
-          </app-properties-flex-item>
-
-          <app-properties-grid-item
-            [css]="selectedFrame.css"
-            [title]="'Grid item'"
-            [collapsed]="true"
-          >
-          </app-properties-grid-item>
+          </app-properties-flexbox-grid>
         </div>
       </div>
     </div>

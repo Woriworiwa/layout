@@ -24,10 +24,7 @@ import { BoxSizingComponent } from './groups/box-sizing.component';
 import { DisplayComponent } from './groups/display.component';
 import { MetaDataComponent } from './groups/meta-data.component';
 import { TailwindClassesComponent } from './groups/tailwind-classes.component';
-import { PropertiesFlexContainerComponent } from './groups/flex-container.component';
-import { PropertiesFlexItemComponent } from './groups/flex-item.component';
-import { PropertiesGridContainerComponent } from './groups/grid-container.component';
-import { PropertiesGridItemComponent } from './groups/grid-item.component';
+import { PropertiesFlexboxGridComponent } from './groups/flexbox-grid.component';
 import { PropertiesConfig } from './properties.config';
 import { PropertiesService } from './properties.service';
 import { CssViewerComponent } from '@layout/shared';
@@ -43,10 +40,7 @@ import { CssViewerComponent } from '@layout/shared';
     DisplayComponent,
     MetaDataComponent,
     TailwindClassesComponent,
-    PropertiesFlexContainerComponent,
-    PropertiesFlexItemComponent,
-    PropertiesGridContainerComponent,
-    PropertiesGridItemComponent,
+    PropertiesFlexboxGridComponent,
     CssViewerComponent,
   ],
   providers: [PropertiesService],

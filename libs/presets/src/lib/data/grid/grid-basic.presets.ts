@@ -11,7 +11,7 @@ export const basicGridPresets = [
         display: {
           display: 'grid',
         },
-        gridContainer: {
+        container: {
           gridTemplateColumns: '1fr',
         },
         boxSizing: {
@@ -32,8 +32,6 @@ export const basicGridPresets = [
         },
         container: {
           gap: 10,
-        },
-        gridContainer: {
           gridTemplateColumns: '1fr 1fr',
           gridTemplateRows: '1fr 1fr',
         },
@@ -73,8 +71,6 @@ export const basicGridPresets = [
         },
         container: {
           gap: 10,
-        },
-        gridContainer: {
           gridTemplateColumns: 'repeat(3, 1fr)',
         },
         boxSizing: {
@@ -124,8 +120,6 @@ export const basicGridPresets = [
         },
         container: {
           gap: 10,
-        },
-        gridContainer: {
           gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
         },
         boxSizing: {
@@ -175,8 +169,6 @@ export const basicGridPresets = [
         },
         container: {
           gap: 12,
-        },
-        gridContainer: {
           gridTemplateColumns: '1fr 3fr',
           gridTemplateRows: 'auto 1fr auto',
           gridTemplateAreas: '"header header"\n"sidebar content"\n"footer footer"',
@@ -249,8 +241,6 @@ export const basicGridPresets = [
         },
         container: {
           gap: 16,
-        },
-        gridContainer: {
           gridTemplateColumns: 'repeat(3, 1fr)',
           gridTemplateRows: 'auto 1fr auto',
         },
@@ -266,14 +256,12 @@ export const basicGridPresets = [
             display: {
               display: 'grid',
             },
-            gridContainer: {
+            container: {
+              gap: 12,
               gridTemplateRows: 'subgrid',
             },
             gridItem: {
               gridRow: '1 / 4',
-            },
-            container: {
-              gap: 12,
             },
             boxSizing: {
               padding: '16px',
@@ -316,14 +304,12 @@ export const basicGridPresets = [
             display: {
               display: 'grid',
             },
-            gridContainer: {
+            container: {
+              gap: 12,
               gridTemplateRows: 'subgrid',
             },
             gridItem: {
               gridRow: '1 / 4',
-            },
-            container: {
-              gap: 12,
             },
             boxSizing: {
               padding: '16px',
@@ -366,14 +352,12 @@ export const basicGridPresets = [
             display: {
               display: 'grid',
             },
-            gridContainer: {
+            container: {
+              gap: 12,
               gridTemplateRows: 'subgrid',
             },
             gridItem: {
               gridRow: '1 / 4',
-            },
-            container: {
-              gap: 12,
             },
             boxSizing: {
               padding: '16px',

@@ -38,7 +38,7 @@ describe('CssStyleSerializer', () => {
         key: 'container',
         label: 'Container',
         css: {
-          flexContainer: { flexDirection: 'column' },
+          container: { flexDirection: 'column' },
         },
         children: [],
       };

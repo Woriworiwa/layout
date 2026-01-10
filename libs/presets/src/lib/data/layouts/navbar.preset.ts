@@ -14,8 +14,6 @@ export const navbarPreset = {
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: '16',
-      },
-      flexContainer: {
         flexDirection: 'row',
       },
       boxSizing: {

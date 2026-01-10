@@ -3,9 +3,7 @@ import {
   BOX_SIZING_PROPERTY_NAMES,
   CONTAINER_PROPERTY_NAMES,
   LAYOUT_PROPERTY_NAMES,
-  FLEX_CONTAINER_PROPERTY_NAMES,
   FLEX_ITEM_PROPERTY_NAMES,
-  GRID_CONTAINER_PROPERTY_NAMES,
   GRID_ITEM_PROPERTY_NAMES,
   AlignContentOptions,
   AlignItemsOptions,
@@ -28,9 +26,7 @@ import {
 type CssPropertyName =
   | (typeof LAYOUT_PROPERTY_NAMES)[number]
   | (typeof CONTAINER_PROPERTY_NAMES)[number]
-  | (typeof FLEX_CONTAINER_PROPERTY_NAMES)[number]
   | (typeof FLEX_ITEM_PROPERTY_NAMES)[number]
-  | (typeof GRID_CONTAINER_PROPERTY_NAMES)[number]
   | (typeof GRID_ITEM_PROPERTY_NAMES)[number]
   | (typeof BOX_SIZING_PROPERTY_NAMES)[number];
 
@@ -88,22 +84,13 @@ export class AiSchemaGeneratorService {
     ) as string[],
     placeItems: ['start', 'end', 'center', 'stretch'],
 
-    // Flex Container
+    // Container - Flex Properties
     flexDirection: FlexDirectionOptions.filter(
       (opt) => opt !== undefined,
     ) as string[],
     flexWrap: FlexWrapOptions.filter((opt) => opt !== undefined) as string[],
 
-    // Flex Item
-    flexGrow: { type: 'custom', description: 'number (0-10)' },
-    flexShrink: { type: 'custom', description: 'number (0-10)' },
-    flexBasis: {
-      type: 'unit',
-      description: `string with unit (${Object.values(Unit).join(', ')}, auto)`,
-    },
-    alignSelf: AlignSelfOptions.filter((opt) => opt !== undefined) as string[],
-
-    // Grid Container
+    // Container - Grid Properties
     gridTemplateColumns: {
       type: 'custom',
       description:
@@ -130,6 +117,15 @@ export class AiSchemaGeneratorService {
       type: 'custom',
       description: 'string (e.g., "minmax(100px, auto)", "100px", "auto")',
     },
+
+    // Flex Item
+    flexGrow: { type: 'custom', description: 'number (0-10)' },
+    flexShrink: { type: 'custom', description: 'number (0-10)' },
+    flexBasis: {
+      type: 'unit',
+      description: `string with unit (${Object.values(Unit).join(', ')}, auto)`,
+    },
+    alignSelf: AlignSelfOptions.filter((opt) => opt !== undefined) as string[],
 
     // Grid Item
     gridColumn: {
@@ -247,14 +243,8 @@ export class AiSchemaGeneratorService {
     const containerSchema = this.generateSchemaForProperties(
       CONTAINER_PROPERTY_NAMES,
     );
-    const flexContainerSchema = this.generateSchemaForProperties(
-      FLEX_CONTAINER_PROPERTY_NAMES,
-    );
     const flexItemSchema = this.generateSchemaForProperties(
       FLEX_ITEM_PROPERTY_NAMES,
-    );
-    const gridContainerSchema = this.generateSchemaForProperties(
-      GRID_CONTAINER_PROPERTY_NAMES,
     );
     const gridItemSchema = this.generateSchemaForProperties(
       GRID_ITEM_PROPERTY_NAMES,
@@ -274,17 +264,9 @@ export class AiSchemaGeneratorService {
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
     schema += '  },\n';
 
-    // Container (shared between flex and grid)
+    // Container (includes flex and grid properties)
     schema += '  "container": {\n';
     Object.entries(containerSchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  },\n';
-
-    // Flex Container (only for CONTAINER items)
-    schema += '  "flexContainer": {\n';
-    Object.entries(flexContainerSchema).forEach(([key, value]) => {
       schema += `    "${key}": ${value},\n`;
     });
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
@@ -293,14 +275,6 @@ export class AiSchemaGeneratorService {
     // Flex Item
     schema += '  "flexItem": {\n';
     Object.entries(flexItemSchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  },\n';
-
-    // Grid Container (only for GRID items)
-    schema += '  "gridContainer": {\n';
-    Object.entries(gridContainerSchema).forEach(([key, value]) => {
       schema += `    "${key}": ${value},\n`;
     });
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma

@@ -26,8 +26,6 @@ export const sideBarPreset = {
           },
           container: {
             gap: '8',
-          },
-          flexContainer: {
             flexDirection: 'column',
           },
           boxSizing: {
@@ -58,15 +56,15 @@ export const sideBarPreset = {
           display: {
             display: 'flex',
           },
+          container: {
+            flexDirection: 'column',
+          },
           flexItem: {
             flexGrow: 4,
           },
           boxSizing: {
             height: '178px',
             padding: '16px',
-          },
-          flexContainer: {
-            flexDirection: 'column',
           },
         },
         children: [

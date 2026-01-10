@@ -16,8 +16,6 @@ export const alignItemsPreset = {
           container: {
             gap: '10',
             alignItems: 'start',
-          },
-          flexContainer: {
             flexDirection: 'row',
           },
           boxSizing: {

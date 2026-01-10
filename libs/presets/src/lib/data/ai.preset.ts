@@ -10,8 +10,7 @@ export const aiPreset = {
     children: [],
     css: {
       display: { display: 'flex' },
-      container: { gap: '12' },
-      flexContainer: { flexDirection: 'column' },
+      container: { gap: '12', flexDirection: 'column' },
       boxSizing: { padding: '16px' },
     },
     aiMetadata: {

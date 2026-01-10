@@ -12,8 +12,6 @@ export const cardPreset = {
       },
       container: {
         gap: '12',
-      },
-      flexContainer: {
         flexDirection: 'column',
       },
       boxSizing: {

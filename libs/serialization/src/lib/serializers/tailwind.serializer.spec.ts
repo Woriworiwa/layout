@@ -76,7 +76,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        flexContainer: {
+        container: {
           flexDirection: 'row',
         },
       },
@@ -174,8 +174,6 @@ describe('TailwindSerializer', () => {
         container: {
           justifyContent: 'center',
           alignItems: 'center',
-        },
-        flexContainer: {
           flexDirection: 'row',
         },
       },

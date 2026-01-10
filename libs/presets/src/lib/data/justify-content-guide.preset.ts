@@ -20,7 +20,7 @@ export const justifyContentGuidePreset = {
           display: {
             display: 'flex',
           },
-          flexContainer: {
+          container: {
             flexDirection: 'row',
             gap: '16',
             justifyContent: 'start',
@@ -41,7 +41,7 @@ export const justifyContentGuidePreset = {
               display: {
                 display: 'flex',
               },
-              flexContainer: {
+              container: {
                 flexDirection: 'row',
                 gap: '8',
                 justifyContent: 'space-evenly',
@@ -106,7 +106,7 @@ export const justifyContentGuidePreset = {
               display: {
                 display: 'flex',
               },
-              flexContainer: {
+              container: {
                 flexDirection: 'column',
                 gap: '8',
                 justifyContent: 'end',
@@ -172,7 +172,7 @@ export const justifyContentGuidePreset = {
       display: {
         display: 'flex',
       },
-      flexContainer: {
+      container: {
         flexDirection: 'column',
         gap: '12',
       },

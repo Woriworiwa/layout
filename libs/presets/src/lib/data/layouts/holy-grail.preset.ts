@@ -12,8 +12,6 @@ export const holyGrailPreset = {
       },
       container: {
         gap: '8',
-      },
-      flexContainer: {
         flexDirection: 'column',
       },
       boxSizing: {
@@ -42,8 +40,6 @@ export const holyGrailPreset = {
           },
           container: {
             gap: 8,
-          },
-          flexContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
           },
@@ -80,8 +76,6 @@ export const holyGrailPreset = {
               },
               container: {
                 gap: '2',
-              },
-              flexContainer: {
                 flexWrap: 'nowrap',
               },
               boxSizing: {

@@ -12,8 +12,6 @@ export const flexColumnPreset = {
       },
       container: {
         gap: 10,
-      },
-      flexContainer: {
         flexDirection: 'column',
       },
       boxSizing: {

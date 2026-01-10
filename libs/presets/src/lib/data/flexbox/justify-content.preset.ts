@@ -15,8 +15,6 @@ export const justifyContentPreset = {
       },
       container: {
         gap: '10',
-      },
-      flexContainer: {
         flexDirection: 'row',
         flexWrap: 'nowrap',
       },
@@ -31,8 +29,6 @@ export const justifyContentPreset = {
           container: {
             gap: '10',
             justifyContent: 'start',
-          },
-          flexContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
           },
@@ -76,8 +72,6 @@ export const justifyContentPreset = {
           container: {
             gap: '10',
             justifyContent: 'end',
-          },
-          flexContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
           },
