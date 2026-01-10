@@ -7,6 +7,7 @@ export * from './lib/store/store';
 export * from './lib/code-viewer/json-viewer.component';
 export * from './lib/code-viewer/html-viewer.component';
 export * from './lib/code-viewer/css-viewer.component';
+export * from './lib/code-viewer/tailwind-viewer.component';
 
 export * from './lib/code-editor/code-editor.component';
 export * from './lib/code-editor/tailwind-highlighting';

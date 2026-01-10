@@ -6,7 +6,7 @@ import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   CssViewerComponent,
-  JsonViewerComponent,
+  JsonViewerComponent, TailwindViewerComponent,
 } from '@layout/shared';
 
 @Component({
@@ -15,6 +15,7 @@ import {
     CssViewerComponent,
     JsonViewerComponent,
     FormsModule,
+    TailwindViewerComponent,
   ],
   templateUrl: './inspector.component.html',
   styleUrls: ['./inspector.component.scss'],
