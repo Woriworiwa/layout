@@ -1,6 +1,6 @@
 import { Extension } from '@codemirror/state';
 import { autocompletion, CompletionContext, CompletionResult } from '@codemirror/autocomplete';
-import tailwindData from './tailwind-classes.json';
+import tailwindData from '../tailwind/tailwind-classes.json';
 
 interface TailwindClass {
   label: string;

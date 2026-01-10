@@ -4,7 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, takeUntil } from 'rxjs';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { BasePropertyGroupComponent } from './base-property-group.component';
-import { CodeEditorComponent, tailwindHighlighting, tailwindAutocomplete, getAutocompleteTheme } from '@layout/shared';
+import { CodeEditorComponent, codemirrorsHighlighter, tailwindAutocomplete, getAutocompleteTheme } from '@layout/shared';
 import { ThemeService } from '../../core/theme/theme.service';
 
 @Component({
@@ -50,7 +50,7 @@ export class TailwindClassesComponent
 
   // CodeMirror extensions for Tailwind syntax highlighting and autocomplete
   editorExtensions = computed(() => [
-    tailwindHighlighting(),
+    codemirrorsHighlighter(),
     tailwindAutocomplete(),
     getAutocompleteTheme(this.isDarkMode())
   ]);

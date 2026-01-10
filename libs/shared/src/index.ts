@@ -8,9 +8,10 @@ export * from './lib/code-viewer/json-viewer.component';
 export * from './lib/code-viewer/html-viewer.component';
 export * from './lib/code-viewer/css-viewer.component';
 export * from './lib/code-viewer/tailwind-viewer.component';
+export * from './lib/tailwind/highlightjs-highlighter';
 
 export * from './lib/code-editor/code-editor.component';
-export * from './lib/code-editor/tailwind-highlighting';
+export * from './lib/tailwind/codemirrors-highlighter';
 export * from './lib/code-editor/tailwind-autocomplete';
 export * from './lib/code-editor/autocomplete-theme';
-export * from './lib/code-editor/tailwind-data';
+export * from './lib/tailwind/tailwind-data';

@@ -54,7 +54,7 @@ const tailwindHighlightStyle = HighlightStyle.define([
 ]);
 
 // Export the extension
-export function tailwindHighlighting(): Extension {
+export function codemirrorsHighlighter(): Extension {
   return [
     tailwindLanguage,
     syntaxHighlighting(tailwindHighlightStyle),
