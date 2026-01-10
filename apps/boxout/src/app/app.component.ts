@@ -8,6 +8,7 @@ import {
 import { DataService } from './core/services/data.service';
 import { LayoutStateService } from './core/services/layout-state.service';
 import { HeaderComponent } from './header/header.component';
+import { InspectorComponent } from './inspector/inspector.component';
 import { LayersComponent } from './layers-panel/layers.component';
 import { PresetsPanelComponent } from './presets-panel/presets-panel.component';
 import { PropertiesPanelComponent } from './properties-panel/properties-panel.component';
@@ -19,6 +20,7 @@ import { TabSwitcherComponent } from './shared/tab-switcher/tab-switcher.compone
     RouterOutlet,
     CanvasComponent,
     HeaderComponent,
+    InspectorComponent,
     LayersComponent,
     PresetsPanelComponent,
     PropertiesPanelComponent,

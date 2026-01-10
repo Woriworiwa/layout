@@ -17,6 +17,13 @@ export class LayoutStateService implements OnDestroy {
     { label: 'Layers', value: 'layers-panel', icon: 'pi pi-comment' },
   ];
 
+  rightPanelMode = signal<'properties' | 'inspector'>('properties');
+
+  rightPanelOptions: TabOption[] = [
+    { label: 'Properties', value: 'properties', icon: 'pi pi-sliders-h' },
+    { label: 'Inspector', value: 'inspector', icon: 'pi pi-code' },
+  ];
+
   constructor() {
     this.initializeUiGuidanceSubscription();
   }
