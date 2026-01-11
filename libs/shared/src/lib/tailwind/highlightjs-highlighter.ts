@@ -116,7 +116,7 @@ export function tailwind(hljs) {
       },
       // Generic word boundaries for other Tailwind-like classes
       {
-        className: 'title',
+        className: 'built_in',
         begin: /\b[a-z][a-z0-9-]*\b/,
         relevance: 0
       }
