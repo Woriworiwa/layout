@@ -10,7 +10,7 @@ export const cardPreset = {
       display: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: '12',
         flexDirection: 'column',
       },

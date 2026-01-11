@@ -13,7 +13,7 @@ export const justifyContentPreset = {
       display: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: '10',
         flexDirection: 'row',
         flexWrap: 'nowrap',
@@ -26,7 +26,7 @@ export const justifyContentPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: '10',
             justifyContent: 'start',
             flexDirection: 'row',
@@ -67,7 +67,7 @@ export const justifyContentPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: '10',
             justifyContent: 'end',
             flexDirection: 'row',
@@ -110,7 +110,7 @@ export const justifyContentPreset = {
           spacing: {
             padding: '16px',
           },
-          container: {
+          flexboxGrid: {
             gap: '10',
             justifyContent: 'center',
             flexGrow: 1,

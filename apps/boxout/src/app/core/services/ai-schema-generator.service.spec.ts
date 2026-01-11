@@ -3,7 +3,7 @@ import { AiSchemaGeneratorService } from './ai-schema-generator.service';
 import {
   SPACING_PROPERTY_NAMES,
   SIZING_PROPERTY_NAMES,
-  CONTAINER_PROPERTY_NAMES,
+  FLEXBOX_GRID_PROPERTY_NAMES,
   LAYOUT_PROPERTY_NAMES,
 } from '@layout/models';
 
@@ -16,7 +16,7 @@ describe('AiSchemaGeneratorService', () => {
     expect(schema).toContain('"CONTAINER"');
     expect(schema).toContain('"TEXT"');
     expect(schema).toContain('"display"');
-    expect(schema).toContain('"container"');
+    expect(schema).toContain('"flexboxGrid"');
   });
 
   it('should include all CSS properties from all interfaces in the schema', () => {
@@ -26,7 +26,7 @@ describe('AiSchemaGeneratorService', () => {
     // Collect all property names from all interfaces
     const allProperties = [
       ...LAYOUT_PROPERTY_NAMES,
-      ...CONTAINER_PROPERTY_NAMES,
+      ...FLEXBOX_GRID_PROPERTY_NAMES,
       ...SPACING_PROPERTY_NAMES,
       ...SIZING_PROPERTY_NAMES,
     ];

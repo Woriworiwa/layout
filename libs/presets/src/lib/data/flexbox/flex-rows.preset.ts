@@ -10,7 +10,7 @@ export const flexRowsPreset = {
       display: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: 10,
       },
       spacing: {

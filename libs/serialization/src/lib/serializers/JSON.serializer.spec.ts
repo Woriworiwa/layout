@@ -34,7 +34,7 @@ describe('JSONSerializer', () => {
           content: undefined,
           css: {
             display: { display: 'flex' },
-            container: { flexDirection: undefined as never },
+            flexboxGrid: { flexDirection: undefined as never },
           },
           children: [],
         },

@@ -2,7 +2,7 @@ export * from './lib/canvas-item.model';
 export * from './lib/css-models/css';
 export * from './lib/css-models/spacing';
 export * from './lib/css-models/sizing';
-export * from './lib/css-models/container';
+export * from './lib/css-models/flexbox-grid';
 export * from './lib/css-models/layout';
 export * from './lib/css-enums/display';
 export * from './lib/css-enums/flex-direction';

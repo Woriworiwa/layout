@@ -10,7 +10,7 @@ export const holyGrailPreset = {
       display: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: '8',
         flexDirection: 'column',
       },
@@ -38,7 +38,7 @@ export const holyGrailPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: 8,
             flexDirection: 'row',
             flexWrap: 'wrap',
@@ -58,7 +58,7 @@ export const holyGrailPreset = {
               display: {
                 display: 'flex',
               },
-              container: {
+              flexboxGrid: {
                 gap: 2,
                 flexGrow: 1,
               },
@@ -74,7 +74,7 @@ export const holyGrailPreset = {
               display: {
                 display: 'flex',
               },
-              container: {
+              flexboxGrid: {
                 gap: '2',
                 flexWrap: 'nowrap',
                 flexGrow: 2,
@@ -91,7 +91,7 @@ export const holyGrailPreset = {
               display: {
                 display: 'flex',
               },
-              container: {
+              flexboxGrid: {
                 gap: 2,
                 flexGrow: 1,
               },
@@ -109,7 +109,7 @@ export const holyGrailPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: 2,
           },
           spacing: {

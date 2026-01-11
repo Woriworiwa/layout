@@ -10,7 +10,7 @@ export const flexGrowShrinkPreset = {
       display: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: '12',
       },
       spacing: {
@@ -27,7 +27,7 @@ export const flexGrowShrinkPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             justifyContent: 'center',
             alignItems: 'center',
             flexShrink: 0,
@@ -58,7 +58,7 @@ export const flexGrowShrinkPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             justifyContent: 'center',
             alignItems: 'center',
             flexGrow: 1,
@@ -86,7 +86,7 @@ export const flexGrowShrinkPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             justifyContent: 'center',
             alignItems: 'center',
             flexGrow: 2,

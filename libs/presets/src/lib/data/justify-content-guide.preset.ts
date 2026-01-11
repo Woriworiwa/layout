@@ -20,7 +20,7 @@ export const justifyContentGuidePreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             flexDirection: 'row',
             gap: '16',
             justifyContent: 'start',
@@ -39,7 +39,7 @@ export const justifyContentGuidePreset = {
               display: {
                 display: 'flex',
               },
-              container: {
+              flexboxGrid: {
                 flexDirection: 'row',
                 gap: '8',
                 justifyContent: 'space-evenly',
@@ -112,7 +112,7 @@ export const justifyContentGuidePreset = {
               display: {
                 display: 'flex',
               },
-              container: {
+              flexboxGrid: {
                 flexDirection: 'column',
                 gap: '8',
                 justifyContent: 'end',
@@ -186,7 +186,7 @@ export const justifyContentGuidePreset = {
       display: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         flexDirection: 'column',
         gap: '12',
       },

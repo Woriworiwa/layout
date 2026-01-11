@@ -37,15 +37,15 @@ export class PropertiesService {
   }
 
   /**
-   * Gets container properties for form patching.
-   * All container properties (gap, alignment, flex, grid) are in css.container.
+   * Gets flexbox/grid properties for form patching.
+   * All flexbox/grid properties (gap, alignment, flex, grid) are in css.flexboxGrid.
    */
-  getContainerPropsForForm(
+  getFlexboxGridPropsForForm(
     css: Css | undefined,
     transformers?: Record<string, (value: unknown) => unknown>,
   ): Record<string, unknown> {
     const values: Record<string, unknown> = {
-      ...css?.container,
+      ...css?.flexboxGrid,
     };
 
     // Apply transformers if provided
@@ -61,16 +61,16 @@ export class PropertiesService {
   }
 
   /**
-   * Updates container CSS properties from form values.
-   * This is the primary method for updating container CSS from form values.
+   * Updates flexbox/grid CSS properties from form values.
+   * This is the primary method for updating flexbox/grid CSS from form values.
    */
-  updateContainerCss(
+  updateFlexboxGridCss(
     currentCss: Css | undefined,
     formValue: Record<string, unknown>,
   ): void {
     this.canvasService.updateCss({
       ...currentCss,
-      container: formValue,
+      flexboxGrid: formValue,
     });
   }
 

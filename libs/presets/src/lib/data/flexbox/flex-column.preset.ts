@@ -10,7 +10,7 @@ export const flexColumnPreset = {
       display: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: 10,
         flexDirection: 'column',
       },

@@ -10,7 +10,7 @@ export const sideBarPreset = {
       display: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: '16',
       },
       spacing: {
@@ -24,7 +24,7 @@ export const sideBarPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: '8',
             flexDirection: 'column',
             flexGrow: 1,
@@ -54,7 +54,7 @@ export const sideBarPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             flexDirection: 'column',
             flexGrow: 4,
           },
@@ -71,7 +71,7 @@ export const sideBarPreset = {
             itemType: 'TEXT',
             key: 'sDByCduE',
             css: {
-              container: {
+              flexboxGrid: {
                 flexGrow: 1,
               },
             },

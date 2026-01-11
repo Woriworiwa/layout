@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   SPACING_PROPERTY_NAMES,
   SIZING_PROPERTY_NAMES,
-  CONTAINER_PROPERTY_NAMES,
+  FLEXBOX_GRID_PROPERTY_NAMES,
   LAYOUT_PROPERTY_NAMES,
   AlignContentOptions,
   AlignItemsOptions,
@@ -24,7 +24,7 @@ import {
  */
 type CssPropertyName =
   | (typeof LAYOUT_PROPERTY_NAMES)[number]
-  | (typeof CONTAINER_PROPERTY_NAMES)[number]
+  | (typeof FLEXBOX_GRID_PROPERTY_NAMES)[number]
   | (typeof SPACING_PROPERTY_NAMES)[number]
   | (typeof SIZING_PROPERTY_NAMES)[number];
 
@@ -63,7 +63,7 @@ export class AiSchemaGeneratorService {
       (opt) => opt === 'flex' || opt === 'grid',
     ) as string[],
 
-    // Container (shared)
+    // FlexboxGrid (shared)
     gap: {
       type: 'custom',
       description: 'numeric value only (auto-postfixed with "px")',
@@ -82,13 +82,13 @@ export class AiSchemaGeneratorService {
     ) as string[],
     placeItems: ['start', 'end', 'center', 'stretch'],
 
-    // Container - Flexbox container properties
+    // FlexboxGrid - Flexbox container properties
     flexDirection: FlexDirectionOptions.filter(
       (opt) => opt !== undefined,
     ) as string[],
     flexWrap: FlexWrapOptions.filter((opt) => opt !== undefined) as string[],
 
-    // Container - Flexbox item properties
+    // FlexboxGrid - Flexbox item properties
     flexGrow: { type: 'custom', description: 'number (0-10)' },
     flexShrink: { type: 'custom', description: 'number (0-10)' },
     flexBasis: {
@@ -97,7 +97,7 @@ export class AiSchemaGeneratorService {
     },
     alignSelf: AlignSelfOptions.filter((opt) => opt !== undefined) as string[],
 
-    // Container - Grid container properties
+    // FlexboxGrid - Grid container properties
     gridTemplateColumns: {
       type: 'custom',
       description:
@@ -125,7 +125,7 @@ export class AiSchemaGeneratorService {
       description: 'string (e.g., "minmax(100px, auto)", "100px", "auto")',
     },
 
-    // Container - Grid item properties
+    // FlexboxGrid - Grid item properties
     gridColumn: {
       type: 'custom',
       description: 'string (e.g., "1 / 3", "span 2", "1")',
@@ -244,8 +244,8 @@ export class AiSchemaGeneratorService {
     const displaySchema = this.generateSchemaForProperties(
       LAYOUT_PROPERTY_NAMES,
     );
-    const containerSchema = this.generateSchemaForProperties(
-      CONTAINER_PROPERTY_NAMES,
+    const flexboxGridSchema = this.generateSchemaForProperties(
+      FLEXBOX_GRID_PROPERTY_NAMES,
     );
     const spacingSchema = this.generateSchemaForProperties(
       SPACING_PROPERTY_NAMES,
@@ -265,9 +265,9 @@ export class AiSchemaGeneratorService {
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
     schema += '  },\n';
 
-    // Container (includes flex/grid container and item properties)
-    schema += '  "container": {\n';
-    Object.entries(containerSchema).forEach(([key, value]) => {
+    // FlexboxGrid (includes flex/grid container and item properties)
+    schema += '  "flexboxGrid": {\n';
+    Object.entries(flexboxGridSchema).forEach(([key, value]) => {
       schema += `    "${key}": ${value},\n`;
     });
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma

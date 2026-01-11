@@ -41,7 +41,7 @@ import { CanvasService } from '@layout/canvas';
         [collapsed]="collapsed()"
         groupId="flexbox-grid"
       >
-        <!-- Container Properties -->
+        <!-- FlexboxGrid Properties -->
         <app-property-row label="gap">
           <app-number-field
             [control]="getFormControl('gap')"
@@ -298,13 +298,13 @@ export class PropertiesFlexboxGridComponent
   override ngOnChanges() {
     super.ngOnChanges();
 
-    // All layout properties are now in the container category
-    const containerValues = this.propertiesService.getContainerPropsForForm(
+    // All layout properties are now in the flexboxGrid category
+    const flexboxGridValues = this.propertiesService.getFlexboxGridPropsForForm(
       this.css(),
       { gap: (val) => val?.toString() },
     );
 
-    this.formGroup?.patchValue(containerValues, { emitEvent: false });
+    this.formGroup?.patchValue(flexboxGridValues, { emitEvent: false });
   }
 
   override createFormGroup() {
@@ -313,7 +313,7 @@ export class PropertiesFlexboxGridComponent
     }
 
     const formGroup = this.formBuilder.group({
-      // Container properties (shared + flex + grid)
+      // FlexboxGrid properties (shared + flex + grid)
       gap: new FormControl<Property.Gap | null | undefined>(null, {
         updateOn: 'blur',
       }),
@@ -375,18 +375,18 @@ export class PropertiesFlexboxGridComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
-        // All layout properties are now in the container category
-        // Filter out null values (convert to undefined for Container type)
-        const containerProps: Record<string, unknown> = {};
+        // All layout properties are now in the flexboxGrid category
+        // Filter out null values (convert to undefined for FlexboxGrid type)
+        const flexboxGridProps: Record<string, unknown> = {};
         Object.entries(value).forEach(([key, val]) => {
           if (val !== null) {
-            containerProps[key] = val;
+            flexboxGridProps[key] = val;
           }
         });
 
         this.canvasService.updateCss({
           ...this.css(),
-          container: containerProps,
+          flexboxGrid: flexboxGridProps,
         });
       });
 

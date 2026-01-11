@@ -76,7 +76,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        container: {
+        flexboxGrid: {
           flexDirection: 'row',
         },
       },
@@ -94,7 +94,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        container: {
+        flexboxGrid: {
           justifyContent: 'center',
         },
       },
@@ -112,7 +112,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        container: {
+        flexboxGrid: {
           alignItems: 'center',
         },
       },
@@ -130,7 +130,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        container: {
+        flexboxGrid: {
           gap: '1rem',
         },
       },
@@ -149,7 +149,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        container: {
+        flexboxGrid: {
           gap: '17',
         },
       },
@@ -171,7 +171,7 @@ describe('TailwindSerializer', () => {
         display: {
           display: 'flex',
         },
-        container: {
+        flexboxGrid: {
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'row',
@@ -234,7 +234,7 @@ describe('TailwindSerializer', () => {
         display: {
           display: 'flex',
         },
-        container: {
+        flexboxGrid: {
           gap: 10, // Numeric value instead of string
           flexDirection: 'column',
         },

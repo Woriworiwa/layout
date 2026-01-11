@@ -10,7 +10,7 @@ export const centeredContentPreset = {
       display: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         justifyContent: 'center',
         alignItems: 'center',
       },
@@ -25,7 +25,7 @@ export const centeredContentPreset = {
           display: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: '16',
             alignItems: 'center',
             flexDirection: 'column',
