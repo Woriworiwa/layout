@@ -20,7 +20,7 @@ import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CanvasService, SelectionService } from '@layout/canvas';
 import { CanvasItemType, Display } from '@layout/models';
-import { BoxSizingComponent } from './groups/box-sizing.component';
+import { SizingSpacingComponent } from './groups/sizing-spacing.component';
 import { LayoutComponent } from './groups/layout.component';
 import { MetaDataComponent } from './groups/meta-data.component';
 import { TailwindClassesComponent } from './groups/tailwind-classes.component';
@@ -36,7 +36,7 @@ import { CssViewerComponent } from '@layout/shared';
     ButtonDirective,
     InputGroup,
     InputText,
-    BoxSizingComponent,
+    SizingSpacingComponent,
     LayoutComponent,
     MetaDataComponent,
     TailwindClassesComponent,

@@ -5,17 +5,17 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import { NumberField } from '../components/number-field';
 import { BasePropertyGroupComponent } from './base-property-group.component';
-import { PropertyGroupContainerComponent } from './property-group-container.component';
+import { PropertyGroupComponent } from './property-group.component';
 import { Unit } from '@layout/models';
 import { PropertyRowComponent } from '../components/property-row.component';
 
 @Component({
-  selector: 'app-properties-box-sizing',
+  selector: 'app-properties-sizing-spacing',
   imports: [
     ReactiveFormsModule,
     NumberField,
     FormsModule,
-    PropertyGroupContainerComponent,
+    PropertyGroupComponent,
     PropertyRowComponent,
   ],
   template: `
@@ -57,7 +57,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
     }
   `,
 })
-export class BoxSizingComponent
+export class SizingSpacingComponent
   extends BasePropertyGroupComponent
   implements OnChanges
 {

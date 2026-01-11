@@ -5,7 +5,7 @@ import { Property } from 'csstype';
 import { ButtonGroupComponent } from '../components/button-group.component';
 import { NumberField } from '../components/number-field';
 import { BasePropertyGroupComponent } from './base-property-group.component';
-import { PropertyGroupContainerComponent } from './property-group-container.component';
+import { PropertyGroupComponent } from './property-group.component';
 import {
   AlignContentOptions,
   AlignItemsOptions,
@@ -28,7 +28,7 @@ import { CanvasService } from '@layout/canvas';
     ReactiveFormsModule,
     ButtonGroupComponent,
     NumberField,
-    PropertyGroupContainerComponent,
+    PropertyGroupComponent,
     PropertyRowComponent,
     TextFieldComponent,
     TextAreaFieldComponent,

@@ -52,7 +52,7 @@ import { LocalStorageService } from '../../core/services/local-storage.service';
     }
   `,
 })
-export class PropertyGroupContainerComponent {
+export class PropertyGroupComponent {
   header = input<string>('');
   toggleable = input<boolean>(true);
   collapsed = input<boolean>(false);

@@ -1,6 +1,6 @@
 import { Component, input, OnChanges, OnDestroy, effect } from '@angular/core';
 
-import { PropertyGroupContainerComponent } from './property-group-container.component';
+import { PropertyGroupComponent } from './property-group.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import { PropertyRowComponent } from '../components/property-row.component';
@@ -10,7 +10,7 @@ import { BasePropertyGroupComponent } from './base-property-group.component';
 @Component({
   selector: 'app-properties-meta-data',
   imports: [
-    PropertyGroupContainerComponent,
+    PropertyGroupComponent,
     ReactiveFormsModule,
     PropertyRowComponent,
     InputText,

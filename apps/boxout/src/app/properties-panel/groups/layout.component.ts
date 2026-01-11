@@ -3,7 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Property } from 'csstype';
 import { takeUntil } from 'rxjs';
 import { BasePropertyGroupComponent } from './base-property-group.component';
-import { PropertyGroupContainerComponent } from './property-group-container.component';
+import { PropertyGroupComponent } from './property-group.component';
 import { DisplayOptions } from '@layout/models';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { ButtonGroupComponent } from '../components/button-group.component';
@@ -12,7 +12,7 @@ import { ButtonGroupComponent } from '../components/button-group.component';
   selector: 'app-properties-layout',
   imports: [
     ReactiveFormsModule,
-    PropertyGroupContainerComponent,
+    PropertyGroupComponent,
     PropertyRowComponent,
     ButtonGroupComponent,
   ],

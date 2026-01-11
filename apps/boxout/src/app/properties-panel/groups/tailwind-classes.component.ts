@@ -1,5 +1,5 @@
 import { Component, input, OnChanges, OnDestroy, effect, inject, computed } from '@angular/core';
-import { PropertyGroupContainerComponent } from './property-group-container.component';
+import { PropertyGroupComponent } from './property-group.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, takeUntil } from 'rxjs';
 import { PropertyRowComponent } from '../components/property-row.component';
@@ -10,7 +10,7 @@ import { ThemeService } from '../../core/theme/theme.service';
 @Component({
   selector: 'app-properties-tailwind-classes',
   imports: [
-    PropertyGroupContainerComponent,
+    PropertyGroupComponent,
     ReactiveFormsModule,
     PropertyRowComponent,
     CodeEditorComponent,

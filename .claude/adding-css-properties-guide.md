@@ -164,7 +164,7 @@ styles: `
 - `grid-item.component.ts` - Grid item properties
 - `flex-container.component.ts` - Flex container properties
 - `flex-item.component.ts` - Flex item properties
-- `box-sizing.component.ts` - Box model properties
+- `sizing-spacing.component.ts` - Box model properties
 
 **Add to `createFormGroup()` method:**
 
@@ -398,7 +398,7 @@ apps/boxout/src/app/properties-panel/groups/
   ├── grid-item.component.ts           # Grid item UI
   ├── flex-container.component.ts      # Flex container UI
   ├── flex-item.component.ts           # Flex item UI
-  └── box-sizing.component.ts          # Box sizing UI
+  └── sizing-spacing.component.ts          # Box sizing UI
 ```
 
 **UI Components:**
