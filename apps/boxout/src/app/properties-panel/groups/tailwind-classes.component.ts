@@ -23,7 +23,7 @@ import { ThemeService } from '../../core/theme/theme.service';
       groupId="tailwind-classes"
     >
       <ng-container [formGroup]="formGroup">
-        <app-property-row label="Classes">
+        <app-property-row label="Classes" [control]="getFormControl('tailwindClasses')">
           <shared-code-editor
             formControlName="tailwindClasses"
             [placeholder]="'flex gap-4 p-4 bg-blue-100...'"

@@ -42,21 +42,21 @@ import { CanvasService } from '@layout/canvas';
         groupId="flexbox-grid"
       >
         <!-- FlexboxGrid Properties -->
-        <app-property-row label="gap">
+        <app-property-row label="gap" [control]="getFormControl('gap')">
           <app-number-field
             [control]="getFormControl('gap')"
           ></app-number-field>
         </app-property-row>
 
         <!-- Flex Container Properties -->
-        <app-property-row label="flex-direction">
+        <app-property-row label="flex-direction" [control]="getFormControl('flexDirection')">
           <app-button-group
             [options]="FlexDirectionOptions"
             [control]="getFormControl('flexDirection')"
           ></app-button-group>
         </app-property-row>
 
-        <app-property-row label="flex-wrap">
+        <app-property-row label="flex-wrap" [control]="getFormControl('flexWrap')">
           <app-button-group
             [options]="FlexWrapOptions"
             [control]="getFormControl('flexWrap')"
@@ -64,7 +64,7 @@ import { CanvasService } from '@layout/canvas';
         </app-property-row>
 
         <!-- Grid Container Properties -->
-        <app-property-row label="grid-template-columns">
+        <app-property-row label="grid-template-columns" [control]="getFormControl('gridTemplateColumns')">
           <app-text-field
             [control]="getFormControl('gridTemplateColumns')"
             [presets]="gridTemplateColumnsPresets"
@@ -72,7 +72,7 @@ import { CanvasService } from '@layout/canvas';
           ></app-text-field>
         </app-property-row>
 
-        <app-property-row label="grid-template-rows">
+        <app-property-row label="grid-template-rows" [control]="getFormControl('gridTemplateRows')">
           <app-text-field
             [control]="getFormControl('gridTemplateRows')"
             [presets]="gridTemplateRowsPresets"
@@ -80,7 +80,7 @@ import { CanvasService } from '@layout/canvas';
           ></app-text-field>
         </app-property-row>
 
-        <app-property-row label="grid-template-areas">
+        <app-property-row label="grid-template-areas" [control]="getFormControl('gridTemplateAreas')">
           <app-text-area-field
             [control]="getFormControl('gridTemplateAreas')"
             [presets]="gridTemplateAreasPresets"
@@ -89,14 +89,14 @@ import { CanvasService } from '@layout/canvas';
           ></app-text-area-field>
         </app-property-row>
 
-        <app-property-row label="grid-auto-flow">
+        <app-property-row label="grid-auto-flow" [control]="getFormControl('gridAutoFlow')">
           <app-button-group
             [options]="GridAutoFlowOptions"
             [control]="getFormControl('gridAutoFlow')"
           ></app-button-group>
         </app-property-row>
 
-        <app-property-row label="grid-auto-columns">
+        <app-property-row label="grid-auto-columns" [control]="getFormControl('gridAutoColumns')">
           <app-text-field
             [control]="getFormControl('gridAutoColumns')"
             [presets]="gridAutoSizePresets"
@@ -104,7 +104,7 @@ import { CanvasService } from '@layout/canvas';
           ></app-text-field>
         </app-property-row>
 
-        <app-property-row label="grid-auto-rows">
+        <app-property-row label="grid-auto-rows" [control]="getFormControl('gridAutoRows')">
           <app-text-field
             [control]="getFormControl('gridAutoRows')"
             [presets]="gridAutoSizePresets"
@@ -113,28 +113,28 @@ import { CanvasService } from '@layout/canvas';
         </app-property-row>
 
         <!-- Shared Alignment Properties -->
-        <app-property-row label="justify-content">
+        <app-property-row label="justify-content" [control]="getFormControl('justifyContent')">
           <app-button-group
             [options]="JustifyContentOptions"
             [control]="getFormControl('justifyContent')"
           ></app-button-group>
         </app-property-row>
 
-        <app-property-row label="align-items">
+        <app-property-row label="align-items" [control]="getFormControl('alignItems')">
           <app-button-group
             [options]="AlignItemsOptions"
             [control]="getFormControl('alignItems')"
           ></app-button-group>
         </app-property-row>
 
-        <app-property-row label="align-content">
+        <app-property-row label="align-content" [control]="getFormControl('alignContent')">
           <app-button-group
             [options]="AlignContentOptions"
             [control]="getFormControl('alignContent')"
           ></app-button-group>
         </app-property-row>
 
-        <app-property-row label="justify-items">
+        <app-property-row label="justify-items" [control]="getFormControl('justifyItems')">
           <app-button-group
             [options]="JustifyItemsOptions"
             [control]="getFormControl('justifyItems')"
@@ -142,7 +142,7 @@ import { CanvasService } from '@layout/canvas';
         </app-property-row>
 
         <!-- Flex Item Properties -->
-        <app-property-row label="flex-grow">
+        <app-property-row label="flex-grow" [control]="getFormControl('flexGrow')">
           <app-number-field
             [control]="getFormControl('flexGrow')"
             [suffix]="undefined"
@@ -150,7 +150,7 @@ import { CanvasService } from '@layout/canvas';
           ></app-number-field>
         </app-property-row>
 
-        <app-property-row label="flex-shrink">
+        <app-property-row label="flex-shrink" [control]="getFormControl('flexShrink')">
           <app-number-field
             [control]="getFormControl('flexShrink')"
             [suffix]="undefined"
@@ -158,7 +158,7 @@ import { CanvasService } from '@layout/canvas';
           ></app-number-field>
         </app-property-row>
 
-        <app-property-row label="flex-basis">
+        <app-property-row label="flex-basis" [control]="getFormControl('flexBasis')">
           <app-number-field
             [control]="getFormControl('flexBasis')"
             [suffix]="undefined"
@@ -167,7 +167,7 @@ import { CanvasService } from '@layout/canvas';
         </app-property-row>
 
         <!-- Grid Item Properties -->
-        <app-property-row label="grid-column">
+        <app-property-row label="grid-column" [control]="getFormControl('gridColumn')">
           <app-text-field
             [control]="getFormControl('gridColumn')"
             [presets]="gridColumnPresets"
@@ -175,7 +175,7 @@ import { CanvasService } from '@layout/canvas';
           ></app-text-field>
         </app-property-row>
 
-        <app-property-row label="grid-row">
+        <app-property-row label="grid-row" [control]="getFormControl('gridRow')">
           <app-text-field
             [control]="getFormControl('gridRow')"
             [presets]="gridRowPresets"
@@ -183,7 +183,7 @@ import { CanvasService } from '@layout/canvas';
           ></app-text-field>
         </app-property-row>
 
-        <app-property-row label="grid-area">
+        <app-property-row label="grid-area" [control]="getFormControl('gridArea')">
           <app-text-field
             [control]="getFormControl('gridArea')"
             [presets]="gridAreaPresets"
@@ -192,14 +192,14 @@ import { CanvasService } from '@layout/canvas';
         </app-property-row>
 
         <!-- Shared Self Alignment -->
-        <app-property-row label="justify-self">
+        <app-property-row label="justify-self" [control]="getFormControl('justifySelf')">
           <app-button-group
             [options]="JustifySelfOptions"
             [control]="getFormControl('justifySelf')"
           ></app-button-group>
         </app-property-row>
 
-        <app-property-row label="align-self">
+        <app-property-row label="align-self" [control]="getFormControl('alignSelf')">
           <app-button-group
             [options]="AlignSelfOptions"
             [control]="getFormControl('alignSelf')"

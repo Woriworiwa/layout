@@ -1,7 +1,7 @@
 import type * as CSS from 'csstype';
 
 /**
- * Display property name.
+ * Layout property names.
  * Single source of truth - interface is derived from this array.
  */
 export const LAYOUT_PROPERTY_NAMES = [
@@ -9,11 +9,11 @@ export const LAYOUT_PROPERTY_NAMES = [
 ] as const satisfies readonly (keyof CSS.Properties)[];
 
 /**
- * Type representing valid display property names.
+ * Type representing valid layout property names.
  */
 export type LayoutPropertyName = (typeof LAYOUT_PROPERTY_NAMES)[number];
 
 /**
- * Display interface for CSS display property.
+ * Layout interface for CSS layout properties.
  */
 export interface Layout extends Pick<CSS.Properties, LayoutPropertyName> {}

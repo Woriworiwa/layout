@@ -17,25 +17,24 @@ import { LocalStorageService } from '../../core/services/local-storage.service';
   imports: [],
   template: `
     @if (hasVisibleRows()) {
-      <div class="border-b border-surface px-4">
+      <div class="border-b border-surface-200 dark:border-surface-700">
         <div
-          class="flex items-center gap-2 px-1 py-3 pl-0 cursor-pointer transition-colors hover:bg-surface-hover"
-          aria-disabled="true"
+          class="flex items-center justify-between px-4 py-4 cursor-pointer bg-surface-50 dark:bg-surface-800"
           (click)="toggleCollapsed()"
           (keydown)="toggleCollapsed()"
         >
-          <div class="m-0 text-sm flex-1">{{ header() }}</div>
+          <h3 class="m-0 text-base font-medium text-surface-900 dark:text-surface-50">{{ header() }}</h3>
           <button
             type="button"
-            class="flex items-center justify-center w-5 h-5 p-0 border-0 bg-transparent text-muted-color cursor-pointer transition-transform duration-200 shrink-0"
-            [class.rotate-0]="isCollapsed()"
-            [class.rotate-90]="!isCollapsed()"
+            class="flex items-center justify-center w-6 h-6 p-0 border-0 bg-transparent text-surface-500 dark:text-surface-400 cursor-pointer transition-transform duration-200 shrink-0"
+            [class.rotate-0]="!isCollapsed()"
+            [class.-rotate-90]="isCollapsed()"
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path
-                d="M4 2L8 6L4 10"
+                d="M4 6L8 10L12 6"
                 stroke="currentColor"
-                stroke-width="1.5"
+                stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
@@ -44,7 +43,7 @@ import { LocalStorageService } from '../../core/services/local-storage.service';
         </div>
 
         @if (!isCollapsed()) {
-          <div class="flex flex-col gap-2 pb-4">
+          <div class="flex flex-col">
             <ng-content />
           </div>
         }

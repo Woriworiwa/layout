@@ -84,7 +84,8 @@
       "mcp__playwright-test__browser_verify_element_visible",
       "mcp__playwright-test__generator_read_log",
       "mcp__playwright-test__generator_write_test",
-      "mcp__playwright-test__browser_evaluate"
+      "mcp__playwright-test__browser_evaluate",
+      "Bash(npm run start:*)"
     ],
     "deny": [],
     "ask": []

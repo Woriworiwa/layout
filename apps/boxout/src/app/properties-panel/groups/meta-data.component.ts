@@ -23,7 +23,7 @@ import { BasePropertyGroupComponent } from './base-property-group.component';
       groupId="meta-data"
     >
       <ng-container [formGroup]="formGroup">
-        <app-property-row label="Label">
+        <app-property-row label="Label" [control]="getFormControl('label')">
           <div>
             <input type="text" id="label" pInputText formControlName="label" />
           </div>

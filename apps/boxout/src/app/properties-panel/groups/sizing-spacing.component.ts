@@ -26,14 +26,14 @@ import { PropertyRowComponent } from '../components/property-row.component';
       groupId="box-sizing"
     >
       <ng-container [formGroup]="formGroup">
-        <app-property-row label="padding">
+        <app-property-row label="padding" [control]="getFormControl('padding')">
           <app-number-field
             [control]="getFormControl('padding')"
             [unit]="getFormControl('paddingUnit')"
           ></app-number-field>
         </app-property-row>
 
-        <app-property-row label="height">
+        <app-property-row label="height" [control]="getFormControl('height')">
           <app-number-field
             [max]="1000"
             [control]="getFormControl('height')"
@@ -41,7 +41,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
           ></app-number-field>
         </app-property-row>
 
-        <app-property-row label="width">
+        <app-property-row label="width" [control]="getFormControl('width')">
           <app-number-field
             [max]="1000"
             [control]="getFormControl('width')"
