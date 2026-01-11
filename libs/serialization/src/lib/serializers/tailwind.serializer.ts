@@ -68,11 +68,14 @@ export class TailwindSerializer extends Serializer {
         const cssPropertyName = subKey
           .replace(/([a-z])([A-Z])/g, '$1-$2')
           .toLowerCase();
-        let cssPropertyValue: string = value[subKey as keyof Css[keyof Css]];
+        const rawValue = value[subKey as keyof Css[keyof Css]];
 
-        if (cssPropertyValue == null) {
+        if (rawValue == null) {
           continue;
         }
+
+        // Convert to string (handles both string and number values)
+        let cssPropertyValue = String(rawValue);
 
         // Only add px postfix if the value doesn't already have a unit
         if (POSTFIXED_PROPERTIES.includes(subKey)) {

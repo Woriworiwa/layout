@@ -221,4 +221,28 @@ describe('TailwindSerializer', () => {
     // Should find p-4 since 1rem = p-4 in Tailwind
     expect(result).toContain('p-4');
   });
+
+  it('should handle numeric gap values', () => {
+    const item: CanvasItem = {
+      itemType: CanvasItemType.CONTAINER,
+      key: 'test-key',
+      label: 'Test',
+      content: '',
+      children: [],
+      editable: true,
+      css: {
+        display: {
+          display: 'flex',
+        },
+        container: {
+          gap: 10, // Numeric value instead of string
+          flexDirection: 'column',
+        },
+      },
+    };
+    const result = serializer.serialize([item]);
+    expect(result).toContain('flex');
+    expect(result).toContain('flex-col');
+    expect(result).toContain('gap-[10px]'); // Should convert number to string and add px
+  });
 });

@@ -40,11 +40,14 @@ export class CssStyleSerializer extends Serializer {
         const cssPropertyName = key
           .replace(/([a-z])([A-Z])/g, '$1-$2')
           .toLowerCase();
-        let cssPropertyValue: string = value[key as keyof Css[keyof Css]];
+        const rawValue = value[key as keyof Css[keyof Css]];
 
-        if (cssPropertyValue == null) {
+        if (rawValue == null) {
           continue;
         }
+
+        // Convert to string (handles both string and number values)
+        let cssPropertyValue = String(rawValue);
 
         if (POSTFIXED_PROPERTIES.includes(key)) {
           cssPropertyValue += POSTFIX_UNIT;
