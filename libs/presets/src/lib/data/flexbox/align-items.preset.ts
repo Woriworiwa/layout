@@ -17,12 +17,10 @@ export const alignItemsPreset = {
             gap: '10',
             alignItems: 'start',
             flexDirection: 'row',
-          },
-          boxSizing: {
-            padding: '16px',
-          },
-          flexItem: {
             flexGrow: 1,
+          },
+          spacing: {
+            padding: '16px',
           },
         },
         children: [
@@ -54,14 +52,12 @@ export const alignItemsPreset = {
           display: {
             display: 'flex',
           },
-          boxSizing: {
+          spacing: {
             padding: '16px',
           },
           container: {
             gap: '10',
             alignItems: 'end',
-          },
-          flexItem: {
             flexGrow: 1,
           },
         },
@@ -94,14 +90,12 @@ export const alignItemsPreset = {
           display: {
             display: 'flex',
           },
-          boxSizing: {
+          spacing: {
             padding: '16px',
           },
           container: {
             gap: '10',
             alignItems: 'center',
-          },
-          flexItem: {
             flexGrow: 1,
           },
         },
@@ -134,9 +128,11 @@ export const alignItemsPreset = {
       display: {
         display: 'flex',
       },
-      boxSizing: {
-        height: '100px',
+      spacing: {
         padding: '16px',
+      },
+      sizing: {
+        height: '100px',
       },
       container: {
         gap: 10,

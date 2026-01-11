@@ -14,8 +14,10 @@ export const cardPreset = {
         gap: '12',
         flexDirection: 'column',
       },
-      boxSizing: {
+      spacing: {
         padding: '20px',
+      },
+      sizing: {
         width: '250px',
       },
       border: {
@@ -47,7 +49,7 @@ export const cardPreset = {
         content: 'Action',
         itemType: 'TEXT',
         css: {
-          boxSizing: {
+          spacing: {
             padding: '8px 16px',
           },
           border: {

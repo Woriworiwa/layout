@@ -298,22 +298,13 @@ export class PropertiesFlexboxGridComponent
   override ngOnChanges() {
     super.ngOnChanges();
 
-    // Merge all values from container, flexItem, and gridItem
+    // All layout properties are now in the container category
     const containerValues = this.propertiesService.getContainerPropsForForm(
       this.css(),
       { gap: (val) => val?.toString() },
     );
 
-    const flexItemValues = this.css()?.flexItem || {};
-    const gridItemValues = this.css()?.gridItem || {};
-
-    const mergedValues = {
-      ...containerValues,
-      ...flexItemValues,
-      ...gridItemValues,
-    };
-
-    this.formGroup?.patchValue(mergedValues, { emitEvent: false });
+    this.formGroup?.patchValue(containerValues, { emitEvent: false });
   }
 
   override createFormGroup() {
@@ -384,56 +375,18 @@ export class PropertiesFlexboxGridComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
-        // Split the values back into their respective CSS categories
+        // All layout properties are now in the container category
+        // Filter out null values (convert to undefined for Container type)
         const containerProps: Record<string, unknown> = {};
-        const flexItemProps: Record<string, unknown> = {};
-        const gridItemProps: Record<string, unknown> = {};
-
-        // Container properties (from CONTAINER_PROPERTY_NAMES)
-        const containerKeys = [
-          'gap',
-          'justifyContent',
-          'alignItems',
-          'alignContent',
-          'justifyItems',
-          'placeItems',
-          'flexDirection',
-          'flexWrap',
-          'gridTemplateColumns',
-          'gridTemplateRows',
-          'gridTemplateAreas',
-          'gridAutoFlow',
-          'gridAutoColumns',
-          'gridAutoRows',
-        ];
-
-        const flexItemKeys = ['flexGrow', 'flexShrink', 'flexBasis'];
-        const gridItemKeys = ['gridColumn', 'gridRow', 'gridArea', 'justifySelf'];
-
-        // Split properties
         Object.entries(value).forEach(([key, val]) => {
-          if (containerKeys.includes(key)) {
+          if (val !== null) {
             containerProps[key] = val;
-          } else if (flexItemKeys.includes(key)) {
-            flexItemProps[key] = val;
-          } else if (gridItemKeys.includes(key)) {
-            gridItemProps[key] = val;
-          } else if (key === 'alignSelf') {
-            // alignSelf exists in both flexItem and gridItem
-            // Add to both if it has a value
-            if (val != null) {
-              flexItemProps[key] = val;
-              gridItemProps[key] = val;
-            }
           }
         });
 
-        // Update CSS
         this.canvasService.updateCss({
           ...this.css(),
           container: containerProps,
-          flexItem: flexItemProps,
-          gridItem: gridItemProps,
         });
       });
 

@@ -14,7 +14,7 @@ export const centeredContentPreset = {
         justifyContent: 'center',
         alignItems: 'center',
       },
-      boxSizing: {
+      spacing: {
         padding: '6px',
       },
     },
@@ -30,7 +30,7 @@ export const centeredContentPreset = {
             alignItems: 'center',
             flexDirection: 'column',
           },
-          boxSizing: {
+          spacing: {
             padding: '24px',
           },
         },

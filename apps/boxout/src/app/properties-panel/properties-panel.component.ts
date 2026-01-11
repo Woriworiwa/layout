@@ -21,7 +21,7 @@ import { map } from 'rxjs/operators';
 import { CanvasService, SelectionService } from '@layout/canvas';
 import { CanvasItemType, Display } from '@layout/models';
 import { BoxSizingComponent } from './groups/box-sizing.component';
-import { DisplayComponent } from './groups/display.component';
+import { LayoutComponent } from './groups/layout.component';
 import { MetaDataComponent } from './groups/meta-data.component';
 import { TailwindClassesComponent } from './groups/tailwind-classes.component';
 import { PropertiesFlexboxGridComponent } from './groups/flexbox-grid.component';
@@ -37,7 +37,7 @@ import { CssViewerComponent } from '@layout/shared';
     InputGroup,
     InputText,
     BoxSizingComponent,
-    DisplayComponent,
+    LayoutComponent,
     MetaDataComponent,
     TailwindClassesComponent,
     PropertiesFlexboxGridComponent,

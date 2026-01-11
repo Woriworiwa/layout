@@ -13,7 +13,7 @@ export const flexRowsPreset = {
       container: {
         gap: 10,
       },
-      boxSizing: {
+      spacing: {
         padding: '18px',
       },
     },
@@ -26,7 +26,7 @@ export const flexRowsPreset = {
         content: '_____    2    ______',
         itemType: 'TEXT',
         css: {
-          boxSizing: {
+          spacing: {
             padding: '14px',
           },
         },

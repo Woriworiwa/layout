@@ -40,7 +40,7 @@ describe('HtmlSerializer', () => {
             key: 'child-key',
             label: 'Child',
             css: {
-              boxSizing: { width: '50%' },
+              sizing: { width: '50%' },
             },
             children: [],
           },
@@ -63,7 +63,7 @@ describe('HtmlSerializer', () => {
         label: 'Text',
         content: 'Hello World',
         css: {
-          boxSizing: { padding: '10px' },
+          spacing: { padding: '10px' },
         },
         children: [],
       };
@@ -126,7 +126,7 @@ describe('HtmlSerializer', () => {
           label: 'Item 2',
           content: 'Text content',
           css: {
-            boxSizing: { padding: '5px' },
+            spacing: { padding: '5px' },
           },
           children: [],
         },

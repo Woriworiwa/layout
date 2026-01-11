@@ -7,8 +7,10 @@ import type * as CSS from 'csstype';
  *
  * Includes:
  * - Shared container properties (gap, alignment, justification)
- * - Flexbox-specific properties (flexDirection, flexWrap)
- * - Grid-specific properties (gridTemplate*, gridAuto*)
+ * - Flexbox container properties (flexDirection, flexWrap)
+ * - Flexbox item properties (flexGrow, flexShrink, flexBasis, alignSelf for flex items)
+ * - Grid container properties (gridTemplate*, gridAuto*)
+ * - Grid item properties (gridColumn, gridRow, gridArea, etc.)
  *
  * The `satisfies` operator ensures type safety - each property must be a valid
  * CSS.Properties key, while `as const` preserves the literal types for the array.
@@ -21,16 +23,30 @@ export const CONTAINER_PROPERTY_NAMES = [
   'alignContent',
   'justifyItems',
   'placeItems',
-  // Flexbox-specific properties
+  // Flexbox container properties
   'flexDirection',
   'flexWrap',
-  // Grid-specific properties
+  // Flexbox item properties
+  'flexGrow',
+  'flexShrink',
+  'flexBasis',
+  'alignSelf',
+  // Grid container properties
   'gridTemplateColumns',
   'gridTemplateRows',
   'gridTemplateAreas',
   'gridAutoFlow',
   'gridAutoColumns',
   'gridAutoRows',
+  // Grid item properties
+  'gridColumn',
+  'gridRow',
+  'gridArea',
+  'gridColumnStart',
+  'gridColumnEnd',
+  'gridRowStart',
+  'gridRowEnd',
+  'justifySelf',
 ] as const satisfies readonly (keyof CSS.Properties)[];
 
 /**

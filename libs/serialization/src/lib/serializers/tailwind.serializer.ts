@@ -48,7 +48,7 @@ export class TailwindSerializer extends Serializer {
 
     const tailwindClasses: string[] = [];
 
-    /* loop through the root keys (boxSizing, flex,...) */
+    /* loop through the root keys (spacing, sizing, display, container,...) */
     this.serializeItems(css, tailwindClasses);
 
     return tailwindClasses;

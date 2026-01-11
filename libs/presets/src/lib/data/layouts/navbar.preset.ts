@@ -16,7 +16,7 @@ export const navbarPreset = {
         gap: '16',
         flexDirection: 'row',
       },
-      boxSizing: {
+      spacing: {
         padding: '12px 20px',
       },
     },

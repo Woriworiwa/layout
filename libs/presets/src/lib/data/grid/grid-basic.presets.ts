@@ -14,7 +14,7 @@ export const basicGridPresets = [
         container: {
           gridTemplateColumns: '1fr',
         },
-        boxSizing: {
+        spacing: {
           padding: '18px',
         },
       },
@@ -35,7 +35,7 @@ export const basicGridPresets = [
           gridTemplateColumns: '1fr 1fr',
           gridTemplateRows: '1fr 1fr',
         },
-        boxSizing: {
+        spacing: {
           padding: '18px',
         },
       },
@@ -73,7 +73,7 @@ export const basicGridPresets = [
           gap: 10,
           gridTemplateColumns: 'repeat(3, 1fr)',
         },
-        boxSizing: {
+        spacing: {
           padding: '18px',
         },
       },
@@ -82,7 +82,7 @@ export const basicGridPresets = [
           content: 'Card 1',
           itemType: 'TEXT',
           css: {
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -91,7 +91,7 @@ export const basicGridPresets = [
           content: 'Card 2',
           itemType: 'TEXT',
           css: {
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -100,7 +100,7 @@ export const basicGridPresets = [
           content: 'Card 3',
           itemType: 'TEXT',
           css: {
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -122,7 +122,7 @@ export const basicGridPresets = [
           gap: 10,
           gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
         },
-        boxSizing: {
+        spacing: {
           padding: '18px',
         },
       },
@@ -131,7 +131,7 @@ export const basicGridPresets = [
           content: 'Responsive 1',
           itemType: 'TEXT',
           css: {
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -140,7 +140,7 @@ export const basicGridPresets = [
           content: 'Responsive 2',
           itemType: 'TEXT',
           css: {
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -149,7 +149,7 @@ export const basicGridPresets = [
           content: 'Responsive 3',
           itemType: 'TEXT',
           css: {
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -171,9 +171,10 @@ export const basicGridPresets = [
           gap: 12,
           gridTemplateColumns: '1fr 3fr',
           gridTemplateRows: 'auto 1fr auto',
-          gridTemplateAreas: '"header header"\n"sidebar content"\n"footer footer"',
+          gridTemplateAreas:
+            '"header header"\n"sidebar content"\n"footer footer"',
         },
-        boxSizing: {
+        spacing: {
           padding: '18px',
         },
       },
@@ -182,10 +183,10 @@ export const basicGridPresets = [
           content: 'Header',
           itemType: 'TEXT',
           css: {
-            gridItem: {
+            container: {
               gridArea: 'header',
             },
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -194,10 +195,10 @@ export const basicGridPresets = [
           content: 'Sidebar',
           itemType: 'TEXT',
           css: {
-            gridItem: {
+            container: {
               gridArea: 'sidebar',
             },
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -206,10 +207,10 @@ export const basicGridPresets = [
           content: 'Content',
           itemType: 'TEXT',
           css: {
-            gridItem: {
+            container: {
               gridArea: 'content',
             },
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -218,10 +219,10 @@ export const basicGridPresets = [
           content: 'Footer',
           itemType: 'TEXT',
           css: {
-            gridItem: {
+            container: {
               gridArea: 'footer',
             },
-            boxSizing: {
+            spacing: {
               padding: '12px',
             },
           },
@@ -244,7 +245,7 @@ export const basicGridPresets = [
           gridTemplateColumns: 'repeat(3, 1fr)',
           gridTemplateRows: 'auto 1fr auto',
         },
-        boxSizing: {
+        spacing: {
           padding: '18px',
         },
       },
@@ -259,11 +260,9 @@ export const basicGridPresets = [
             container: {
               gap: 12,
               gridTemplateRows: 'subgrid',
-            },
-            gridItem: {
               gridRow: '1 / 4',
             },
-            boxSizing: {
+            spacing: {
               padding: '16px',
             },
           },
@@ -272,7 +271,7 @@ export const basicGridPresets = [
               content: 'Product Title',
               itemType: 'TEXT',
               css: {
-                boxSizing: {
+                spacing: {
                   padding: '4px',
                 },
               },
@@ -281,7 +280,7 @@ export const basicGridPresets = [
               content: 'Short description of the product features.',
               itemType: 'TEXT',
               css: {
-                boxSizing: {
+                spacing: {
                   padding: '4px',
                 },
               },
@@ -290,7 +289,7 @@ export const basicGridPresets = [
               content: 'Buy Now',
               itemType: 'TEXT',
               css: {
-                boxSizing: {
+                spacing: {
                   padding: '8px',
                 },
               },
@@ -307,11 +306,9 @@ export const basicGridPresets = [
             container: {
               gap: 12,
               gridTemplateRows: 'subgrid',
-            },
-            gridItem: {
               gridRow: '1 / 4',
             },
-            boxSizing: {
+            spacing: {
               padding: '16px',
             },
           },
@@ -320,16 +317,17 @@ export const basicGridPresets = [
               content: 'Another Product',
               itemType: 'TEXT',
               css: {
-                boxSizing: {
+                spacing: {
                   padding: '4px',
                 },
               },
             },
             {
-              content: 'This has a much longer description that explains features in detail. Notice how buttons still align.',
+              content:
+                'This has a much longer description that explains features in detail. Notice how buttons still align.',
               itemType: 'TEXT',
               css: {
-                boxSizing: {
+                spacing: {
                   padding: '4px',
                 },
               },
@@ -338,7 +336,7 @@ export const basicGridPresets = [
               content: 'Buy Now',
               itemType: 'TEXT',
               css: {
-                boxSizing: {
+                spacing: {
                   padding: '8px',
                 },
               },
@@ -355,11 +353,9 @@ export const basicGridPresets = [
             container: {
               gap: 12,
               gridTemplateRows: 'subgrid',
-            },
-            gridItem: {
               gridRow: '1 / 4',
             },
-            boxSizing: {
+            spacing: {
               padding: '16px',
             },
           },
@@ -368,7 +364,7 @@ export const basicGridPresets = [
               content: 'Premium Item',
               itemType: 'TEXT',
               css: {
-                boxSizing: {
+                spacing: {
                   padding: '4px',
                 },
               },
@@ -377,7 +373,7 @@ export const basicGridPresets = [
               content: 'Medium length description here.',
               itemType: 'TEXT',
               css: {
-                boxSizing: {
+                spacing: {
                   padding: '4px',
                 },
               },
@@ -386,7 +382,7 @@ export const basicGridPresets = [
               content: 'Buy Now',
               itemType: 'TEXT',
               css: {
-                boxSizing: {
+                spacing: {
                   padding: '8px',
                 },
               },

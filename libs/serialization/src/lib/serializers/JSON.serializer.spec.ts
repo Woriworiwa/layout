@@ -65,7 +65,7 @@ describe('JSONSerializer', () => {
               label: 'Child',
               content: 'Hello',
               css: {
-                boxSizing: { padding: '10px' },
+                spacing: { padding: '10px' },
               },
               children: [],
             },

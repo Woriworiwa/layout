@@ -9,7 +9,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
 import { ButtonGroupComponent } from '../components/button-group.component';
 
 @Component({
-  selector: 'app-properties-display',
+  selector: 'app-properties-layout',
   imports: [
     ReactiveFormsModule,
     PropertyGroupContainerComponent,
@@ -18,10 +18,10 @@ import { ButtonGroupComponent } from '../components/button-group.component';
   ],
   template: `
     <app-property-group
-      header="Display"
+      header="Layout"
       [toggleable]="true"
       [collapsed]="collapsed()"
-      groupId="display"
+      groupId="layout"
     >
       <app-property-row label="display">
         <app-button-group
@@ -37,7 +37,7 @@ import { ButtonGroupComponent } from '../components/button-group.component';
     }
   `,
 })
-export class DisplayComponent
+export class LayoutComponent
   extends BasePropertyGroupComponent
   implements OnChanges
 {

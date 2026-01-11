@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  BOX_SIZING_PROPERTY_NAMES,
+  SPACING_PROPERTY_NAMES,
+  SIZING_PROPERTY_NAMES,
   CONTAINER_PROPERTY_NAMES,
   LAYOUT_PROPERTY_NAMES,
-  FLEX_ITEM_PROPERTY_NAMES,
-  GRID_ITEM_PROPERTY_NAMES,
   AlignContentOptions,
   AlignItemsOptions,
   AlignSelfOptions,
@@ -26,9 +25,8 @@ import {
 type CssPropertyName =
   | (typeof LAYOUT_PROPERTY_NAMES)[number]
   | (typeof CONTAINER_PROPERTY_NAMES)[number]
-  | (typeof FLEX_ITEM_PROPERTY_NAMES)[number]
-  | (typeof GRID_ITEM_PROPERTY_NAMES)[number]
-  | (typeof BOX_SIZING_PROPERTY_NAMES)[number];
+  | (typeof SPACING_PROPERTY_NAMES)[number]
+  | (typeof SIZING_PROPERTY_NAMES)[number];
 
 /**
  * Value definition for a CSS property in the schema.
@@ -84,13 +82,22 @@ export class AiSchemaGeneratorService {
     ) as string[],
     placeItems: ['start', 'end', 'center', 'stretch'],
 
-    // Container - Flex Properties
+    // Container - Flexbox container properties
     flexDirection: FlexDirectionOptions.filter(
       (opt) => opt !== undefined,
     ) as string[],
     flexWrap: FlexWrapOptions.filter((opt) => opt !== undefined) as string[],
 
-    // Container - Grid Properties
+    // Container - Flexbox item properties
+    flexGrow: { type: 'custom', description: 'number (0-10)' },
+    flexShrink: { type: 'custom', description: 'number (0-10)' },
+    flexBasis: {
+      type: 'unit',
+      description: `string with unit (${Object.values(Unit).join(', ')}, auto)`,
+    },
+    alignSelf: AlignSelfOptions.filter((opt) => opt !== undefined) as string[],
+
+    // Container - Grid container properties
     gridTemplateColumns: {
       type: 'custom',
       description:
@@ -118,16 +125,7 @@ export class AiSchemaGeneratorService {
       description: 'string (e.g., "minmax(100px, auto)", "100px", "auto")',
     },
 
-    // Flex Item
-    flexGrow: { type: 'custom', description: 'number (0-10)' },
-    flexShrink: { type: 'custom', description: 'number (0-10)' },
-    flexBasis: {
-      type: 'unit',
-      description: `string with unit (${Object.values(Unit).join(', ')}, auto)`,
-    },
-    alignSelf: AlignSelfOptions.filter((opt) => opt !== undefined) as string[],
-
-    // Grid Item
+    // Container - Grid item properties
     gridColumn: {
       type: 'custom',
       description: 'string (e.g., "1 / 3", "span 2", "1")',
@@ -160,11 +158,17 @@ export class AiSchemaGeneratorService {
       (opt) => opt !== undefined,
     ) as string[],
 
-    // Box Sizing
+    // Spacing
     padding: {
       type: 'unit',
       description: `string with unit (${Object.values(Unit).join(', ')})`,
     },
+    margin: {
+      type: 'unit',
+      description: `string with unit (${Object.values(Unit).join(', ')})`,
+    },
+
+    // Sizing
     width: {
       type: 'unit',
       description: `string with unit (${Object.values(Unit).join(', ')}, auto)`,
@@ -243,14 +247,11 @@ export class AiSchemaGeneratorService {
     const containerSchema = this.generateSchemaForProperties(
       CONTAINER_PROPERTY_NAMES,
     );
-    const flexItemSchema = this.generateSchemaForProperties(
-      FLEX_ITEM_PROPERTY_NAMES,
+    const spacingSchema = this.generateSchemaForProperties(
+      SPACING_PROPERTY_NAMES,
     );
-    const gridItemSchema = this.generateSchemaForProperties(
-      GRID_ITEM_PROPERTY_NAMES,
-    );
-    const boxSizingSchema = this.generateSchemaForProperties(
-      BOX_SIZING_PROPERTY_NAMES,
+    const sizingSchema = this.generateSchemaForProperties(
+      SIZING_PROPERTY_NAMES,
     );
 
     // Build the schema string
@@ -264,7 +265,7 @@ export class AiSchemaGeneratorService {
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
     schema += '  },\n';
 
-    // Container (includes flex and grid properties)
+    // Container (includes flex/grid container and item properties)
     schema += '  "container": {\n';
     Object.entries(containerSchema).forEach(([key, value]) => {
       schema += `    "${key}": ${value},\n`;
@@ -272,25 +273,17 @@ export class AiSchemaGeneratorService {
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
     schema += '  },\n';
 
-    // Flex Item
-    schema += '  "flexItem": {\n';
-    Object.entries(flexItemSchema).forEach(([key, value]) => {
+    // Spacing
+    schema += '  "spacing": {\n';
+    Object.entries(spacingSchema).forEach(([key, value]) => {
       schema += `    "${key}": ${value},\n`;
     });
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
     schema += '  },\n';
 
-    // Grid Item
-    schema += '  "gridItem": {\n';
-    Object.entries(gridItemSchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  },\n';
-
-    // Box Sizing
-    schema += '  "boxSizing": {\n';
-    Object.entries(boxSizingSchema).forEach(([key, value]) => {
+    // Sizing
+    schema += '  "sizing": {\n';
+    Object.entries(sizingSchema).forEach(([key, value]) => {
       schema += `    "${key}": ${value},\n`;
     });
     schema = schema.slice(0, -2) + '\n'; // Remove trailing comma

@@ -104,7 +104,8 @@ FLEX Example:
   "css": {
     "display": { "display": "flex" },
     "container": { "gap": "12", "flexDirection": "column" },
-    "boxSizing": { "padding": "20px", "width": "300px" }
+    "spacing": { "padding": "20px" },
+    "sizing": { "width": "300px" }
   },
   "children": [
     {
@@ -122,7 +123,7 @@ GRID Example:
   "css": {
     "display": { "display": "grid" },
     "container": { "gap": "16", "gridTemplateColumns": "repeat(3, 1fr)" },
-    "boxSizing": { "padding": "10px" }
+    "spacing": { "padding": "10px" }
   },
   "children": [
     {

@@ -104,7 +104,7 @@ describe('PresetService', () => {
 
       service.assignDefaultPaddings(item);
 
-      expect(item.css?.boxSizing?.padding).toBe('16px');
+      expect(item.css?.spacing?.padding).toBe('16px');
     });
 
     it('SHOULD not modify non-CONTAINER items', () => {
@@ -117,7 +117,7 @@ describe('PresetService', () => {
 
       service.assignDefaultPaddings(item);
 
-      expect(item.css?.boxSizing?.padding).toBeUndefined();
+      expect(item.css?.spacing?.padding).toBeUndefined();
     });
 
     it('SHOULD recursively assign padding to nested containers', () => {
@@ -143,9 +143,9 @@ describe('PresetService', () => {
 
       service.assignDefaultPaddings(item);
 
-      expect(item.css?.boxSizing?.padding).toBe('16px');
-      expect(item.children?.[0].css?.boxSizing?.padding).toBe('16px');
-      expect(item.children?.[1].css?.boxSizing?.padding).toBeUndefined();
+      expect(item.css?.spacing?.padding).toBe('16px');
+      expect(item.children?.[0].css?.spacing?.padding).toBe('16px');
+      expect(item.children?.[1].css?.spacing?.padding).toBeUndefined();
     });
 
     it('SHOULD preserve existing CSS properties-panel when adding padding', () => {
@@ -154,15 +154,15 @@ describe('PresetService', () => {
         itemType: CanvasItemType.CONTAINER,
         css: {
           display: { display: 'flex' },
-          boxSizing: { width: '10px' },
+          sizing: { width: '10px' },
         },
         children: [],
       };
 
       service.assignDefaultPaddings(item);
 
-      expect(item.css?.boxSizing?.padding).toBe('16px');
-      expect(item.css?.boxSizing?.width).toBe('10px');
+      expect(item.css?.spacing?.padding).toBe('16px');
+      expect(item.css?.sizing?.width).toBe('10px');
       expect(item.css?.display?.display).toBe('flex');
     });
   });

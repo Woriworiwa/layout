@@ -1,13 +1,11 @@
-import { BoxSizing } from './box-sizing';
+import { Spacing } from './spacing';
+import { Sizing } from './sizing';
 import { Container } from './container';
 import { Layout } from './layout';
-import { FlexItem } from './flex-item';
-import { GridItem } from './grid-item';
 
 export interface Css {
-  boxSizing?: BoxSizing;
+  spacing?: Spacing;
+  sizing?: Sizing;
   display?: Layout;
   container?: Container;
-  flexItem?: FlexItem;
-  gridItem?: GridItem;
 }

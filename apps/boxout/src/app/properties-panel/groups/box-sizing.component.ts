@@ -20,7 +20,7 @@ import { PropertyRowComponent } from '../components/property-row.component';
   ],
   template: `
     <app-property-group
-      header="Box sizing"
+      [header]="title()"
       [toggleable]="true"
       [collapsed]="collapsed()"
       groupId="box-sizing"
@@ -74,21 +74,21 @@ export class BoxSizingComponent
     this.formGroup?.patchValue(
       {
         padding: this.propertiesService.extractNumericValue(
-          cssValue.boxSizing?.padding,
+          cssValue.spacing?.padding,
         ),
         paddingUnit: this.propertiesService.extractUnit(
-          cssValue.boxSizing?.padding,
+          cssValue.spacing?.padding,
         ),
         height: this.propertiesService.extractNumericValue(
-          cssValue.boxSizing?.height,
+          cssValue.sizing?.height,
         ),
         heightUnit: this.propertiesService.extractUnit(
-          cssValue.boxSizing?.height,
+          cssValue.sizing?.height,
         ),
         width: this.propertiesService.extractNumericValue(
-          cssValue.boxSizing?.width,
+          cssValue.sizing?.width,
         ),
-        widthUnit: this.propertiesService.extractUnit(cssValue.boxSizing?.width),
+        widthUnit: this.propertiesService.extractUnit(cssValue.sizing?.width),
       },
       { emitEvent: false },
     );
@@ -117,15 +117,19 @@ export class BoxSizingComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
-        // Use PropertiesService to update CSS
-        this.propertiesService.updateCssCategory(this.css(), 'boxSizing', {
-          height: this.propertiesService.formatWithUnit(
-            value.height,
-            value.heightUnit,
-          ),
+        // Update spacing category (padding)
+        this.propertiesService.updateCssCategory(this.css(), 'spacing', {
           padding: this.propertiesService.formatWithUnit(
             value.padding,
             value.paddingUnit,
+          ),
+        });
+
+        // Update sizing category (width, height)
+        this.propertiesService.updateCssCategory(this.css(), 'sizing', {
+          height: this.propertiesService.formatWithUnit(
+            value.height,
+            value.heightUnit,
           ),
           width: this.propertiesService.formatWithUnit(
             value.width,

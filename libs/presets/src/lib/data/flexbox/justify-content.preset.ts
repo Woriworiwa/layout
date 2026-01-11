@@ -7,7 +7,7 @@ export const justifyContentPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      boxSizing: {
+      spacing: {
         padding: '16px',
       },
       display: {
@@ -31,12 +31,10 @@ export const justifyContentPreset = {
             justifyContent: 'start',
             flexDirection: 'row',
             flexWrap: 'wrap',
-          },
-          boxSizing: {
-            padding: '16px',
-          },
-          flexItem: {
             flexGrow: 1,
+          },
+          spacing: {
+            padding: '16px',
           },
         },
         key: 'RpitIDkg',
@@ -74,12 +72,10 @@ export const justifyContentPreset = {
             justifyContent: 'end',
             flexDirection: 'row',
             flexWrap: 'wrap',
-          },
-          boxSizing: {
-            padding: '16px',
-          },
-          flexItem: {
             flexGrow: 1,
+          },
+          spacing: {
+            padding: '16px',
           },
         },
         key: 'bbjgFMgH',
@@ -111,14 +107,12 @@ export const justifyContentPreset = {
           display: {
             display: 'flex',
           },
-          boxSizing: {
+          spacing: {
             padding: '16px',
           },
           container: {
             gap: '10',
             justifyContent: 'center',
-          },
-          flexItem: {
             flexGrow: 1,
           },
         },

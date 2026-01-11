@@ -194,7 +194,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        boxSizing: {
+        spacing: {
           padding: '17px',
         },
       },
@@ -212,7 +212,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        boxSizing: {
+        spacing: {
           padding: '1rem',
         },
       },

@@ -14,7 +14,7 @@ export const holyGrailPreset = {
         gap: '8',
         flexDirection: 'column',
       },
-      boxSizing: {
+      spacing: {
         padding: '10px',
       },
     },
@@ -26,7 +26,7 @@ export const holyGrailPreset = {
           display: {
             display: 'flex',
           },
-          boxSizing: {
+          spacing: {
             padding: '6px',
           },
         },
@@ -43,8 +43,10 @@ export const holyGrailPreset = {
             flexDirection: 'row',
             flexWrap: 'wrap',
           },
-          boxSizing: {
+          spacing: {
             padding: '5px',
+          },
+          sizing: {
             height: '100px',
           },
         },
@@ -58,12 +60,10 @@ export const holyGrailPreset = {
               },
               container: {
                 gap: 2,
-              },
-              boxSizing: {
-                padding: '2px',
-              },
-              flexItem: {
                 flexGrow: 1,
+              },
+              spacing: {
+                padding: '2px',
               },
             },
             key: 'MeRucrVe',
@@ -77,12 +77,10 @@ export const holyGrailPreset = {
               container: {
                 gap: '2',
                 flexWrap: 'nowrap',
-              },
-              boxSizing: {
-                padding: '2px',
-              },
-              flexItem: {
                 flexGrow: 2,
+              },
+              spacing: {
+                padding: '2px',
               },
             },
             key: 'gqAngmoD',
@@ -95,12 +93,10 @@ export const holyGrailPreset = {
               },
               container: {
                 gap: 2,
-              },
-              boxSizing: {
-                padding: '2px',
-              },
-              flexItem: {
                 flexGrow: 1,
+              },
+              spacing: {
+                padding: '2px',
               },
             },
             key: 'WjBxoHUn',
@@ -116,7 +112,7 @@ export const holyGrailPreset = {
           container: {
             gap: 2,
           },
-          boxSizing: {
+          spacing: {
             padding: '6px',
           },
         },

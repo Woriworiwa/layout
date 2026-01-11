@@ -11,7 +11,7 @@ export const aiPreset = {
     css: {
       display: { display: 'flex' },
       container: { gap: '12', flexDirection: 'column' },
-      boxSizing: { padding: '16px' },
+      spacing: { padding: '16px' },
     },
     aiMetadata: {
       prompt: '',

@@ -14,7 +14,7 @@ export const flexColumnPreset = {
         gap: 10,
         flexDirection: 'column',
       },
-      boxSizing: {
+      spacing: {
         padding: '14px',
       },
     },

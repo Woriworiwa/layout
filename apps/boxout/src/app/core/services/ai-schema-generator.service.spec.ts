@@ -1,11 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { AiSchemaGeneratorService } from './ai-schema-generator.service';
 import {
-  BOX_SIZING_PROPERTY_NAMES,
+  SPACING_PROPERTY_NAMES,
+  SIZING_PROPERTY_NAMES,
   CONTAINER_PROPERTY_NAMES,
   LAYOUT_PROPERTY_NAMES,
-  FLEX_ITEM_PROPERTY_NAMES,
-  GRID_ITEM_PROPERTY_NAMES,
 } from '@layout/models';
 
 describe('AiSchemaGeneratorService', () => {
@@ -20,7 +19,7 @@ describe('AiSchemaGeneratorService', () => {
     expect(schema).toContain('"container"');
   });
 
-  it('should include all CSS properties-panel from all interfaces in the schema', () => {
+  it('should include all CSS properties from all interfaces in the schema', () => {
     const service = new AiSchemaGeneratorService();
     const schema = service.generateCanvasItemSchema();
 
@@ -28,9 +27,8 @@ describe('AiSchemaGeneratorService', () => {
     const allProperties = [
       ...LAYOUT_PROPERTY_NAMES,
       ...CONTAINER_PROPERTY_NAMES,
-      ...FLEX_ITEM_PROPERTY_NAMES,
-      ...GRID_ITEM_PROPERTY_NAMES,
-      ...BOX_SIZING_PROPERTY_NAMES,
+      ...SPACING_PROPERTY_NAMES,
+      ...SIZING_PROPERTY_NAMES,
     ];
 
     // Verify each property is present in the generated schema

@@ -13,7 +13,7 @@ export const sideBarPreset = {
       container: {
         gap: '16',
       },
-      boxSizing: {
+      spacing: {
         padding: '16px',
       },
     },
@@ -27,12 +27,10 @@ export const sideBarPreset = {
           container: {
             gap: '8',
             flexDirection: 'column',
-          },
-          boxSizing: {
-            padding: '16px',
-          },
-          flexItem: {
             flexGrow: 1,
+          },
+          spacing: {
+            padding: '16px',
           },
         },
         children: [
@@ -58,13 +56,13 @@ export const sideBarPreset = {
           },
           container: {
             flexDirection: 'column',
-          },
-          flexItem: {
             flexGrow: 4,
           },
-          boxSizing: {
-            height: '178px',
+          spacing: {
             padding: '16px',
+          },
+          sizing: {
+            height: '178px',
           },
         },
         children: [
@@ -73,7 +71,7 @@ export const sideBarPreset = {
             itemType: 'TEXT',
             key: 'sDByCduE',
             css: {
-              flexItem: {
+              container: {
                 flexGrow: 1,
               },
             },
