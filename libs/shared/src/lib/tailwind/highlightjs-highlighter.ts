@@ -43,7 +43,7 @@ const TAILWIND_MODIFIERS = [
 ];
 
 /** @type LanguageFn */
-// @ts-ignore
+// @ts-expect-error value is any
 export function tailwind(hljs) {
   const regex = hljs.regex;
 
