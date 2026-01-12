@@ -1,11 +1,13 @@
-import { Component, input, OnChanges, OnDestroy, effect } from '@angular/core';
+import { Component, input, OnChanges, OnDestroy, effect, inject, computed } from '@angular/core';
 
 import { PropertyGroupComponent } from './property-group.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { takeUntil } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { InputText } from 'primeng/inputtext';
 import { BasePropertyGroupComponent } from './base-property-group.component';
+import { CodeEditorComponent, codemirrorsHighlighter, tailwindAutocomplete, getAutocompleteTheme } from '@layout/shared';
+import { ThemeService } from '../../core/theme/theme.service';
 
 @Component({
   selector: 'app-properties-meta-data',
@@ -14,6 +16,7 @@ import { BasePropertyGroupComponent } from './base-property-group.component';
     ReactiveFormsModule,
     PropertyRowComponent,
     InputText,
+    CodeEditorComponent,
   ],
   template: `
     <app-property-group
@@ -28,6 +31,16 @@ import { BasePropertyGroupComponent } from './base-property-group.component';
             <input type="text" id="label" pInputText formControlName="label" />
           </div>
         </app-property-row>
+
+        <app-property-row label="Tailwind Classes" [control]="getFormControl('tailwindClasses')">
+          <shared-code-editor
+            formControlName="tailwindClasses"
+            [placeholder]="'flex gap-4 p-4 bg-blue-100...'"
+            [multiline]="false"
+            [extensions]="editorExtensions()"
+            [darkMode]="isDarkMode()"
+          />
+        </app-property-row>
       </ng-container>
     </app-property-group>
   `,
@@ -41,12 +54,32 @@ export class MetaDataComponent
   extends BasePropertyGroupComponent
   implements OnChanges, OnDestroy
 {
+  private themeService = inject(ThemeService);
+
   label = input<string | undefined>(undefined);
+  tailwindClasses = input<string | undefined>(undefined);
+
+  // Get dark mode from theme service
+  isDarkMode = computed(() => this.themeService.config().darkMode);
+
+  // CodeMirror extensions for Tailwind syntax highlighting and autocomplete
+  editorExtensions = computed(() => [
+    codemirrorsHighlighter(),
+    tailwindAutocomplete(),
+    getAutocompleteTheme(this.isDarkMode())
+  ]);
 
   constructor() {
     super();
     effect(() => {
-      this.formGroup?.patchValue({ label: this.label() }, { emitEvent: false });
+      const classes = this.tailwindClasses();
+      this.formGroup?.patchValue(
+        {
+          label: this.label(),
+          tailwindClasses: classes || ''
+        },
+        { emitEvent: false }
+      );
     });
   }
 
@@ -63,12 +96,25 @@ export class MetaDataComponent
       label: new FormControl<string | null | undefined>(null, {
         updateOn: 'blur',
       }),
+      tailwindClasses: new FormControl<string | null>(null),
     });
 
-    this.formGroupValueChangedSubscription = formGroup.valueChanges
+    // Subscribe to label changes (no debounce, updates on blur)
+    formGroup.get('label')?.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
-        this.propertiesService.renameSelectedItem(value.label || '');
+        this.propertiesService.renameSelectedItem(value || '');
+      });
+
+    // Subscribe to tailwindClasses changes with debounce
+    formGroup.get('tailwindClasses')?.valueChanges
+      .pipe(
+        debounceTime(300),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((value) => {
+        const classString = (value || '').trim();
+        this.propertiesService.updateTailwindClasses(classString);
       });
 
     return formGroup;

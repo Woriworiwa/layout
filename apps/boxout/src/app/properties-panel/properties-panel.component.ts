@@ -23,7 +23,6 @@ import { CanvasItemType, Display } from '@layout/models';
 import { SizingSpacingComponent } from './groups/sizing-spacing.component';
 import { LayoutComponent } from './groups/layout.component';
 import { MetaDataComponent } from './groups/meta-data.component';
-import { TailwindClassesComponent } from './groups/tailwind-classes.component';
 import { PropertiesFlexboxGridComponent } from './groups/flexbox-grid.component';
 import { PropertiesConfig } from './properties.config';
 import { PropertiesService } from './properties.service';
@@ -39,9 +38,7 @@ import { CssViewerComponent } from '@layout/shared';
     SizingSpacingComponent,
     LayoutComponent,
     MetaDataComponent,
-    TailwindClassesComponent,
-    PropertiesFlexboxGridComponent,
-    CssViewerComponent,
+    PropertiesFlexboxGridComponent
   ],
   providers: [PropertiesService],
   templateUrl: './properties-panel.component.html',
