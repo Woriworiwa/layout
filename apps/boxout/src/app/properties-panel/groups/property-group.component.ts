@@ -24,9 +24,7 @@ import { LocalStorageService } from '../../core/services/local-storage.service';
           (click)="toggleCollapsed()"
           (keydown)="toggleCollapsed()"
         >
-          <h3
-            class="m-0 text-base font-medium text-surface-900 dark:text-surface-50"
-          >
+          <h3 class="m-0 text-base font-medium text-surface-900 dark:text-surface-50">
             {{ header() }}
           </h3>
           <button

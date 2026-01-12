@@ -28,28 +28,17 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
   imports: [CommonModule, PropertiesFilterDirective, Checkbox, FormsModule],
   standalone: true,
   template: `
-    <div
-      *appPropertiesFilter
-      class="property-row border-b border-surface-100 dark:border-surface-700 px-4 py-3"
-      [ngClass]="{
-        'label-top': propertiesConfig.labelPosition === 'top',
-        'label-left': propertiesConfig.labelPosition === 'left',
-        'property-disabled': !isEnabled(),
-      }"
-    >
-      @if (propertiesConfig.labelPosition !== 'none') {
-        <div
-          class="flex items-center gap-5 whitespace-nowrap font-mono text-surface-800 dark:text-surface-400"
-          [class]="contentTypeClass"
-        >
-          <p-checkbox
-            [binary]="true"
-            [ngModel]="isEnabled()"
-            (ngModelChange)="onCheckboxChange($event)"
-          />
-          <span>{{ label() }}</span>
+    <div *appPropertiesFilter
+         class="label-left property-row border-b border-surface-100 dark:border-surface-700 px-4 py-3"
+         [class.property-disabled]="!isEnabled()">
+        <div class="flex items-center gap-5 whitespace-nowrap font-mono text-surface-800 dark:text-surface-400"
+             [class]="contentTypeClass">
+          <p-checkbox [binary]="true"
+                      [ngModel]="isEnabled()"
+                      (ngModelChange)="onCheckboxChange($event)" />
+          <div tabindex="0" (click)="isEnabled.set(true)" (keydown)="isEnabled.set(true)">{{ label() }}</div>
         </div>
-      }
+
       <ng-content></ng-content>
     </div>
   `,
@@ -64,15 +53,9 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
 
     .label-left {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      grid-template-columns: minmax(200px, 1fr) minmax(0, 2fr);
       gap: 1rem;
       align-items: center;
-    }
-
-    .label-top {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
     }
 
     .property-row.property-disabled {
