@@ -28,16 +28,23 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
   imports: [CommonModule, PropertiesFilterDirective, Checkbox, FormsModule],
   standalone: true,
   template: `
-    <div *appPropertiesFilter
-         class="label-left property-row border-b border-surface-100 dark:border-surface-700 px-4 py-1"
-         [class.property-disabled]="!isEnabled()">
-        <div class="flex items-center gap-5 whitespace-nowrap font-mono text-surface-800 dark:text-surface-400"
-             [class]="contentTypeClass">
-          <p-checkbox [binary]="true"
-                      [ngModel]="isEnabled()"
-                      (ngModelChange)="onCheckboxChange($event)" />
-          <div tabindex="0" (click)="isEnabled.set(true)" (keydown)="isEnabled.set(true)">{{ label() }}</div>
-        </div>
+    <div
+      *appPropertiesFilter
+      class="label-left property-row border-b border-surface-100 dark:border-surface-700 px-4 py-1"
+      [class.property-disabled]="!isEnabled()"
+    >
+      <div
+        class="flex items-center gap-5 whitespace-nowrap font-mono text-surface-800 dark:text-surface-400"
+        [class]="contentTypeClass"
+      >
+        <p-checkbox
+          [binary]="true"
+          [ngModel]="isEnabled()"
+          [inputId]="label()"
+          (ngModelChange)="onCheckboxChange($event)"
+        />
+        <label [for]="label()">{{ label() }}</label>
+      </div>
 
       <ng-content></ng-content>
     </div>
