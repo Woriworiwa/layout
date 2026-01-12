@@ -1,27 +1,27 @@
 <div class="inspector-grid">
   <!-- Top Row: CSS and JSON -->
-  <div class="grid-area-css flex flex-col min-w-0">
-    <h4 class="m-0 px-4 py-3 text-sm font-semibold bg-surface-800 border-b border-surface-700">CSS</h4>
+  <div class="grid-area-css flex flex-col min-w-0 bg-surface-0">
+    <h4 class="m-0 px-4 py-3 text-sm font-semibold bg-surface-50 border-b border-surface-200">CSS</h4>
     <shared-css-viewer class="overflow-auto text-sm flex-1"
                        [serializerType]="'CSS-style'"
                        [canvasItems]="canvasItem()"></shared-css-viewer>
   </div>
 
-  <div class="grid-area-json flex flex-col min-w-0">
-    <h4 class="m-0 px-4 py-3 text-sm font-semibold bg-surface-800 border-b border-surface-700">JSON</h4>
+  <div class="grid-area-json flex flex-col min-w-0 bg-surface-0">
+    <h4 class="m-0 px-4 py-3 text-sm font-semibold bg-surface-50 border-b border-surface-200">JSON</h4>
     <shared-json-viewer class="overflow-auto text-sm flex-1" [canvasItems]="canvasItem()"></shared-json-viewer>
   </div>
 
   <!-- Middle Row: Tailwind -->
-  <div class="grid-area-tailwind flex flex-col min-w-0">
-    <h4 class="m-0 px-4 py-3 text-sm font-semibold bg-surface-800 border-b border-surface-700">Tailwind</h4>
+  <div class="grid-area-tailwind flex flex-col min-w-0 bg-surface-0">
+    <h4 class="m-0 px-4 py-3 text-sm font-semibold bg-surface-50 border-b border-surface-200">Tailwind</h4>
     <shared-tailwind-viewer class="overflow-auto text-sm flex-1"
                             [canvasItems]="canvasItem()"></shared-tailwind-viewer>
   </div>
 
   <!-- Bottom Row: HTML (full width) -->
-  <div class="grid-area-html flex flex-col min-w-0">
-    <div class="m-0 px-4 py-3 text-sm font-semibold bg-surface-800 border-b border-surface-700 flex items-center justify-between gap-2">
+  <div class="grid-area-html flex flex-col min-w-0 bg-surface-0">
+    <div class="m-0 px-4 py-3 text-sm font-semibold bg-surface-50 border-b border-surface-200 flex items-center justify-between gap-2">
       <span>HTML</span>
       <p-selectbutton
         [options]="cssSerializerOptions"

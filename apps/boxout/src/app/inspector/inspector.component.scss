@@ -2,7 +2,7 @@
 @reference "tailwindcss-primeui";
 
 .inspector-grid {
-  @apply h-full grid grid-cols-2 grid-rows-3 gap-px bg-surface-700;
+  @apply h-full grid grid-cols-2 grid-rows-3 gap-px bg-surface-200;
   grid-template-areas:
     "css json"
     "tailwind json"
