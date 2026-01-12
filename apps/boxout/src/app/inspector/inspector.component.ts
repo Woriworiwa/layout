@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
-  CssViewerComponent,
+  CssViewerComponent, HtmlViewerComponent,
   JsonViewerComponent, TailwindViewerComponent,
 } from '@layout/shared';
 
@@ -16,6 +16,7 @@ import {
     JsonViewerComponent,
     FormsModule,
     TailwindViewerComponent,
+    HtmlViewerComponent,
   ],
   templateUrl: './inspector.component.html',
   styleUrls: ['./inspector.component.scss'],

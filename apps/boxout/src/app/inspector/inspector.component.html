@@ -1,26 +1,47 @@
 <div class="flex flex-1 overflow-hidden gap-px bg-surface-200">
-  <div class="inspector-column">
-    <div class="flex flex-col">
-      <div>
-        <h4 class="title">CSS</h4>
-        <shared-css-viewer class="prism"
-                           [serializerType]="'CSS-style'"
-                           [canvasItems]="canvasItem()"></shared-css-viewer>
-      </div>
+  <!--  <div class="flex-1 flex flex-col min-w-0 bg-surface-0">-->
+  <!--    <div class="flex flex-col">-->
+  <!--      <div>-->
+  <!--        <h4 class="title">CSS</h4>-->
+  <!--        <shared-css-viewer class="prism"-->
+  <!--                           [serializerType]="'CSS-style'"-->
+  <!--                           [canvasItems]="canvasItem()"></shared-css-viewer>-->
+  <!--      </div>-->
 
-      <div>
-        <div class="inspector-column">
-          <h4 class="title">Tailwind</h4>
-          <shared-tailwind-viewer class="prism"
-                                  [canvasItems]="canvasItem()"></shared-tailwind-viewer>
-        </div>
-      </div>
+  <!--      <div>-->
+  <!--          <h4 class="title">Tailwind</h4>-->
+  <!--          <shared-tailwind-viewer class="prism"-->
+  <!--                                  [canvasItems]="canvasItem()"></shared-tailwind-viewer>-->
+  <!--      </div>-->
 
-    </div>
+  <!--      <div class="flex-1 flex flex-col min-w-0">-->
+  <!--        <h4 class="title">HTML</h4>-->
+  <!--        <shared-html-viewer class="prism"-->
+  <!--                            [showDownload]="false"-->
+  <!--                            [canvasItems]="canvasItem()"></shared-html-viewer>-->
+  <!--      </div>-->
+
+  <!--    </div>-->
+  <!--  </div>-->
+  <div class="flex-1 flex flex-col min-w-0 bg-surface-0">
+    <h4 class="title">CSS</h4>
+    <shared-css-viewer class="prism flex-1"
+                       [serializerType]="'CSS-style'"
+                       [canvasItems]="canvasItem()"></shared-css-viewer>
+
+    <h4 class="title">Tailwind</h4>
+    <shared-tailwind-viewer class="prism flex-1"
+                            [canvasItems]="canvasItem()"></shared-tailwind-viewer>
+
+    <h4 class="title">HTML</h4>
+    <shared-html-viewer class="prism flex-2"
+                        [showDownload]="false"
+                        [canvasItems]="canvasItem()"></shared-html-viewer>
   </div>
 
-  <div class="inspector-column">
+  <div class="flex-1 flex flex-col min-w-0 bg-surface-0">
     <h4 class="title">JSON</h4>
-    <shared-json-viewer class="prism" [canvasItems]="canvasItem()"></shared-json-viewer>
+    <shared-json-viewer class="prism flex-1" [canvasItems]="canvasItem()"></shared-json-viewer>
   </div>
+
 </div>

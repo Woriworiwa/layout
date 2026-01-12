@@ -18,7 +18,7 @@ import { Highlight } from 'ngx-highlightjs';
   styles: `
     :host {
       display: block;
-      height: 100%;
+      /*height: 100%;*/
     }
 
     pre[class*='language-'] {
