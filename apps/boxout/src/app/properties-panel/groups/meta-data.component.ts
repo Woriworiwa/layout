@@ -76,7 +76,7 @@ export class MetaDataComponent
       this.formGroup?.patchValue(
         {
           label: this.label(),
-          tailwindClasses: classes || ''
+          tailwindClasses: classes || null
         },
         { emitEvent: false }
       );
