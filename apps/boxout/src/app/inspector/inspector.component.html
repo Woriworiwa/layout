@@ -1,47 +1,40 @@
-<div class="flex flex-1 overflow-hidden gap-px bg-surface-200">
-  <!--  <div class="flex-1 flex flex-col min-w-0 bg-surface-0">-->
-  <!--    <div class="flex flex-col">-->
-  <!--      <div>-->
-  <!--        <h4 class="title">CSS</h4>-->
-  <!--        <shared-css-viewer class="prism"-->
-  <!--                           [serializerType]="'CSS-style'"-->
-  <!--                           [canvasItems]="canvasItem()"></shared-css-viewer>-->
-  <!--      </div>-->
-
-  <!--      <div>-->
-  <!--          <h4 class="title">Tailwind</h4>-->
-  <!--          <shared-tailwind-viewer class="prism"-->
-  <!--                                  [canvasItems]="canvasItem()"></shared-tailwind-viewer>-->
-  <!--      </div>-->
-
-  <!--      <div class="flex-1 flex flex-col min-w-0">-->
-  <!--        <h4 class="title">HTML</h4>-->
-  <!--        <shared-html-viewer class="prism"-->
-  <!--                            [showDownload]="false"-->
-  <!--                            [canvasItems]="canvasItem()"></shared-html-viewer>-->
-  <!--      </div>-->
-
-  <!--    </div>-->
-  <!--  </div>-->
-  <div class="flex-1 flex flex-col min-w-0 bg-surface-0">
-    <h4 class="title">CSS</h4>
-    <shared-css-viewer class="prism flex-1"
+<div class="inspector-grid">
+  <!-- Top Row: CSS and JSON -->
+  <div class="grid-area-css flex flex-col min-w-0 bg-surface-0">
+    <h4 class="m-0 px-4 py-3 text-sm font-semibold bg-surface-50 border-b border-surface-200">CSS</h4>
+    <shared-css-viewer class="overflow-auto text-sm flex-1"
                        [serializerType]="'CSS-style'"
                        [canvasItems]="canvasItem()"></shared-css-viewer>
+  </div>
 
-    <h4 class="title">Tailwind</h4>
-    <shared-tailwind-viewer class="prism flex-1"
+  <div class="grid-area-json flex flex-col min-w-0 bg-surface-0">
+    <h4 class="m-0 px-4 py-3 text-sm font-semibold bg-surface-50 border-b border-surface-200">JSON</h4>
+    <shared-json-viewer class="overflow-auto text-sm flex-1" [canvasItems]="canvasItem()"></shared-json-viewer>
+  </div>
+
+  <!-- Middle Row: Tailwind -->
+  <div class="grid-area-tailwind flex flex-col min-w-0 bg-surface-0">
+    <h4 class="m-0 px-4 py-3 text-sm font-semibold bg-surface-50 border-b border-surface-200">Tailwind</h4>
+    <shared-tailwind-viewer class="overflow-auto text-sm flex-1"
                             [canvasItems]="canvasItem()"></shared-tailwind-viewer>
+  </div>
 
-    <h4 class="title">HTML</h4>
-    <shared-html-viewer class="prism flex-2"
+  <!-- Bottom Row: HTML (full width) -->
+  <div class="grid-area-html flex flex-col min-w-0 bg-surface-0">
+    <div class="m-0 px-4 py-3 text-sm font-semibold bg-surface-50 border-b border-surface-200 flex items-center justify-between gap-2">
+      <span>HTML</span>
+      <p-selectbutton
+        [options]="cssSerializerOptions"
+        [(ngModel)]="selectedCssSerializer"
+        optionLabel="label"
+        optionValue="value"
+        size="small"
+      />
+    </div>
+    <shared-html-viewer class="overflow-auto text-sm flex-1"
                         [showDownload]="false"
+                        [includeHeaderBody]="false"
+                        [cssSerializerType]="selectedCssSerializer()"
                         [canvasItems]="canvasItem()"></shared-html-viewer>
   </div>
-
-  <div class="flex-1 flex flex-col min-w-0 bg-surface-0">
-    <h4 class="title">JSON</h4>
-    <shared-json-viewer class="prism flex-1" [canvasItems]="canvasItem()"></shared-json-viewer>
-  </div>
-
 </div>

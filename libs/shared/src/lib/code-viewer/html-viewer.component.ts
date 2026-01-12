@@ -9,8 +9,13 @@ import {
 import { CanvasItem } from '@layout/models';
 import { Button } from 'primeng/button';
 import FileSaver from 'file-saver';
-import { SerializationService } from '@layout/serialization';
+import { SerializationService, SerializerType } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
+
+type CssSerializerType = Extract<
+  SerializerType,
+  'CSS-class' | 'CSS-style' | 'CSS-Tailwind'
+>;
 
 @Component({
   selector: 'shared-html-viewer',
@@ -18,31 +23,40 @@ import { Highlight } from 'ngx-highlightjs';
   imports: [Button, Highlight],
   template: `
     @if (showDownload) {
-      <p-button label="Download" (click)="downloadHtml()"></p-button>
+      <div class="header">
+        <p-button label="Download" (click)="downloadHtml()" size="small"></p-button>
+      </div>
     }
     <pre><code [highlight]="code" language="html"></code></pre>
   `,
   styles: `
     :host {
-      display: block;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
 
-      p-button {
-        position: absolute;
-        right: 0;
-        margin-right: 10px;
-        margin-top: 20px;
-      }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--surface-border);
+      background: var(--surface-50);
+    }
 
-      pre {
-        margin: 0;
-        border-radius: 0;
-      }
+    pre {
+      flex: 1;
+      margin: 0;
+      border-radius: 0;
+      overflow: auto;
     }
 
     pre[class*='language-'] {
       padding: 1em;
       margin: 0;
+      height: 100%;
     }
   `,
 })
@@ -55,7 +69,13 @@ export class HtmlViewerComponent implements OnChanges {
   @Input()
   showDownload = true;
 
-  code = '';
+  @Input()
+  includeHeaderBody = true;
+
+  @Input()
+  cssSerializerType: CssSerializerType = 'CSS-class';
+
+  protected code = '';
 
   ngOnChanges() {
     this.serializeToHtml();
@@ -67,7 +87,10 @@ export class HtmlViewerComponent implements OnChanges {
       : [this.canvasItems];
     this.code = this.serializerService
       .getSerializer('HTML')
-      .serialize(items, true)
+      .serialize(items, {
+        includeHeaderBody: this.includeHeaderBody,
+        cssSerializerType: this.cssSerializerType,
+      })
       .join('\n');
   }
 

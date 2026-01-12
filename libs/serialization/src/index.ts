@@ -3,6 +3,7 @@ export * from './lib/serializers/JSON.serializer';
 export * from './lib/serializers/html.serializer';
 export * from './lib/serializers/css-style.serializer';
 export * from './lib/serializers/css-class.serializer';
+export * from './lib/serializers/css-tailwind.serializer';
 export * from './lib/serializers/serializer';
 export * from './lib/serialization.providers';
 export * from './lib/constants';

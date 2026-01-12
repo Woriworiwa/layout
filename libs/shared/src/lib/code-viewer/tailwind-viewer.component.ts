@@ -48,7 +48,7 @@ export class TailwindViewerComponent implements OnChanges {
     const separator = '\n';
 
     this.tailwind = this.serializerService
-      .getSerializer('Tailwind')
+      .getSerializer('CSS-Tailwind')
       .serialize(this.canvasItems())
       .join(separator);
   }

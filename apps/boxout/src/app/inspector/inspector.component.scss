@@ -1,18 +1,42 @@
 @reference "tailwindcss";
 @reference "tailwindcss-primeui";
 
-.title {
-  @apply m-0 px-4 py-3 text-sm font-semibold bg-surface-50 border-b border-surface-200;
+.inspector-grid {
+  @apply h-full grid grid-cols-2 grid-rows-3 gap-px bg-surface-200;
+  grid-template-areas:
+    "css json"
+    "tailwind json"
+    "html html";
 }
 
-.prism {
-  @apply overflow-auto text-sm;
+.grid-area-css {
+  grid-area: css;
+}
 
-  ::ng-deep pre {
-    @apply m-0 h-full overflow-auto;
-  }
+.grid-area-json {
+  grid-area: json;
+}
 
-  ::ng-deep code {
-    @apply block min-w-fit;
+.grid-area-tailwind {
+  grid-area: tailwind;
+}
+
+.grid-area-html {
+  grid-area: html;
+}
+
+// Deep styles for code highlighting in viewers
+::ng-deep {
+  shared-css-viewer,
+  shared-json-viewer,
+  shared-tailwind-viewer,
+  shared-html-viewer {
+    pre {
+      @apply m-0 h-full overflow-auto;
+    }
+
+    code {
+      @apply block min-w-fit;
+    }
   }
 }

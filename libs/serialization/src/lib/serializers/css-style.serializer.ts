@@ -3,12 +3,13 @@ import { Serializer } from './serializer';
 import { Css } from '@layout/models';
 import { POSTFIX_UNIT, POSTFIXED_PROPERTIES } from '../constants';
 
-export class CssStyleSerializer extends Serializer {
+export class CssStyleSerializer extends Serializer<void> {
   constructor() {
     super();
   }
 
-  serialize(items: CanvasItem[]): string[] {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  serialize(items: CanvasItem[], _options?: void): string[] {
     if (items.length !== 1) {
       return [];
     }

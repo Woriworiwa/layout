@@ -88,7 +88,7 @@ describe('HtmlSerializer', () => {
         children: [],
       };
 
-      const result = serializer.serialize([item], true);
+      const result = serializer.serialize([item], { includeHeaderBody: true });
       const html = result.join('\n');
 
       expect(html).toContain('<html>');

@@ -92,7 +92,7 @@ export class RendererComponent {
     this.canvasService.items$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
-        this.code.set(this.serializer.serialize(items, true).join('\n'));
+        this.code.set(this.serializer.serialize(items, {includeHeaderBody: true}).join('\n'));
       });
 
     // Reset to tablet width when custom is selected

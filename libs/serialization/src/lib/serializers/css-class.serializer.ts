@@ -2,22 +2,23 @@ import { CanvasItem } from '@layout/models';
 import { Serializer } from './serializer';
 import { CssStyleSerializer } from './css-style.serializer';
 
-export class CssClassSerializer extends Serializer {
-  cssStyleSerializer: Serializer = new CssStyleSerializer();
+export class CssClassSerializer extends Serializer<void> {
+  cssStyleSerializer: Serializer<void> = new CssStyleSerializer();
 
   constructor() {
     super();
   }
 
-  serialize(items: CanvasItem[]): string[] {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  serialize(items: CanvasItem[], _options?: void): string[] {
     return this.serializeItems(items);
   }
 
-  private serializeItems(items: CanvasItem[], level = 0) {
+  private serializeItems(items: CanvasItem[]): string[] {
     const cssLines: string[] = [];
 
     items.forEach((canvasItem) => {
-      this.serializeItem(canvasItem, cssLines, level);
+      this.serializeItem(canvasItem, cssLines);
     });
 
     return cssLines;
@@ -26,48 +27,24 @@ export class CssClassSerializer extends Serializer {
   private serializeItem(
     canvasItem: CanvasItem,
     cssLines: string[],
-    level: number,
   ) {
-    if (!this.isAnyCssPropertySet(canvasItem)) {
-      return;
+    // Generate CSS class for this item if it has CSS properties
+    if (canvasItem.css) {
+      cssLines.push('');
+      cssLines.push(`.${canvasItem.key} {`);
+
+      this.cssStyleSerializer.serialize([canvasItem]).forEach((cssLine) => {
+        cssLines.push(this.indent(cssLine + ';', 1));
+      });
+
+      cssLines.push('}');
     }
 
-    cssLines.push(this.indent('', level));
-
-    /* class name and opening curl */
-    cssLines.push(this.indent(`.${canvasItem.key} {`, level));
-
-    /* css properties-panel */
-    if (canvasItem.css) {
-      this.cssStyleSerializer.serialize([canvasItem]).forEach((cssLine) => {
-        cssLines.push(this.indent(cssLine + ';', level + 1));
+    // Process children recursively (all classes at root level)
+    if (canvasItem.children && canvasItem.children.length > 0) {
+      canvasItem.children.forEach((child) => {
+        this.serializeItem(child, cssLines);
       });
     }
-
-    /* children */
-    if (canvasItem.children && canvasItem.children.length > 0) {
-      cssLines.push(...this.serializeItems(canvasItem.children, level + 1));
-    }
-
-    /* closing curl */
-    cssLines.push(this.indent('}', level));
-  }
-
-  private isAnyCssPropertySet(canvasItem: CanvasItem) {
-    if (canvasItem.css) {
-      return true;
-    }
-
-    if (!canvasItem.children) {
-      return false;
-    }
-
-    for (const child of canvasItem.children) {
-      if (this.isAnyCssPropertySet(child)) {
-        return true;
-      }
-    }
-
-    return false;
   }
 }

@@ -50,7 +50,7 @@ export class CssViewerComponent implements OnChanges {
 
     if (serializerType === 'CSS-class') {
       separator = '\n';
-    } else if (serializerType === 'Tailwind') {
+    } else if (serializerType === 'CSS-Tailwind') {
       separator = '\n';
     } else {
       separator = ';\n';

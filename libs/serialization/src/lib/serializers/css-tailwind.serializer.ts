@@ -3,7 +3,7 @@ import { Serializer } from './serializer';
 import { TAILWIND_DATA } from '@layout/shared';
 import { POSTFIX_UNIT, POSTFIXED_PROPERTIES } from '../constants';
 
-export class TailwindSerializer extends Serializer {
+export class CssTailwindSerializer extends Serializer<void> {
   private cssToTailwindMap: Map<string, string> = new Map();
 
   constructor() {
@@ -36,7 +36,8 @@ export class TailwindSerializer extends Serializer {
     }
   }
 
-  serialize(items: CanvasItem[]): string[] {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  serialize(items: CanvasItem[], _options?: void): string[] {
     if (items.length !== 1) {
       return [];
     }

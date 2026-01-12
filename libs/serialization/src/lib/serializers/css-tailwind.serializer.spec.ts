@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { TailwindSerializer } from './tailwind.serializer';
+import { CssTailwindSerializer } from './css-tailwind.serializer';
 import { CanvasItem, CanvasItemType } from '@layout/models';
 
-describe('TailwindSerializer', () => {
-  let serializer: TailwindSerializer;
+describe('CssTailwindSerializer', () => {
+  let serializer: CssTailwindSerializer;
 
   beforeEach(() => {
-    serializer = new TailwindSerializer();
+    serializer = new CssTailwindSerializer();
   });
 
   it('should create an instance', () => {
