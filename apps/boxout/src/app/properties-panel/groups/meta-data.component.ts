@@ -1,11 +1,11 @@
 import { Component, input, OnChanges, OnDestroy, effect, inject, computed } from '@angular/core';
 
-import { PropertyGroupComponent } from './property-group.component';
+import { PropertyGroupComponent } from '../components/property-group.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, takeUntil } from 'rxjs';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { InputText } from 'primeng/inputtext';
-import { BasePropertyGroupComponent } from './base-property-group.component';
+import { BasePropertyGroupComponent } from '../components/base-property-group.component';
 import { CodeEditorComponent, codemirrorsHighlighter, tailwindAutocomplete, getAutocompleteTheme } from '@layout/shared';
 import { ThemeService } from '../../core/theme/theme.service';
 

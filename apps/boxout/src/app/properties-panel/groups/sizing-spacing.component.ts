@@ -4,8 +4,8 @@ import { Property } from 'csstype';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import { NumberField } from '../components/number-field';
-import { BasePropertyGroupComponent } from './base-property-group.component';
-import { PropertyGroupComponent } from './property-group.component';
+import { BasePropertyGroupComponent } from '../components/base-property-group.component';
+import { PropertyGroupComponent } from '../components/property-group.component';
 import { Unit } from '@layout/models';
 import { PropertyRowComponent } from '../components/property-row.component';
 

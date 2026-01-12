@@ -4,8 +4,8 @@ import { takeUntil } from 'rxjs';
 import { Property } from 'csstype';
 import { ButtonGroupComponent } from '../components/button-group.component';
 import { NumberField } from '../components/number-field';
-import { BasePropertyGroupComponent } from './base-property-group.component';
-import { PropertyGroupComponent } from './property-group.component';
+import { BasePropertyGroupComponent } from '../components/base-property-group.component';
+import { PropertyGroupComponent } from '../components/property-group.component';
 import {
   AlignContentOptions,
   AlignItemsOptions,
