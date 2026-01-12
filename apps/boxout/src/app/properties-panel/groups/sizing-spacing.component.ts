@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component, inject, OnChanges } from '@angular/core';
 
 import { Property } from 'csstype';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { BasePropertyGroupComponent } from '../components/base-property-group.co
 import { PropertyGroupComponent } from '../components/property-group.component';
 import { Unit } from '@layout/models';
 import { PropertyRowComponent } from '../components/property-row.component';
+import { CanvasService } from '@layout/canvas';
 
 @Component({
   selector: 'app-properties-sizing-spacing',
@@ -61,6 +62,8 @@ export class SizingSpacingComponent
   extends BasePropertyGroupComponent
   implements OnChanges
 {
+  private canvasService = inject(CanvasService);
+
   items: { label?: string; icon?: string; separator?: boolean }[] = [];
 
   override ngOnChanges() {
@@ -117,24 +120,30 @@ export class SizingSpacingComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
-        // Update spacing category (padding)
-        this.propertiesService.updateCssCategory(this.css(), 'spacing', {
-          padding: this.propertiesService.formatWithUnit(
-            value.padding,
-            value.paddingUnit,
-          ),
-        });
+        const currentCss = this.css();
 
-        // Update sizing category (width, height)
-        this.propertiesService.updateCssCategory(this.css(), 'sizing', {
-          height: this.propertiesService.formatWithUnit(
-            value.height,
-            value.heightUnit,
-          ),
-          width: this.propertiesService.formatWithUnit(
-            value.width,
-            value.widthUnit,
-          ),
+        // Merge both spacing and sizing updates in a single call
+        // to avoid one update overwriting the other
+        this.canvasService.updateCss({
+          ...currentCss,
+          spacing: {
+            ...currentCss?.spacing,
+            padding: this.propertiesService.formatWithUnit(
+              value.padding,
+              value.paddingUnit,
+            ) ?? undefined,
+          },
+          sizing: {
+            ...currentCss?.sizing,
+            height: this.propertiesService.formatWithUnit(
+              value.height,
+              value.heightUnit,
+            ) ?? undefined,
+            width: this.propertiesService.formatWithUnit(
+              value.width,
+              value.widthUnit,
+            ) ?? undefined,
+          },
         });
       });
 
