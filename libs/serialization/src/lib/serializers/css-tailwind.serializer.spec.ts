@@ -235,7 +235,7 @@ describe('CssTailwindSerializer', () => {
           display: 'flex',
         },
         flexboxGrid: {
-          gap: 10, // Numeric value instead of string
+          gap: "10", // Numeric value instead of string
           flexDirection: 'column',
         },
       },

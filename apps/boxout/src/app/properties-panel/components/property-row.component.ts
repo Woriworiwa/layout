@@ -29,7 +29,7 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
   standalone: true,
   template: `
     <div *appPropertiesFilter
-         class="label-left property-row border-b border-surface-100 dark:border-surface-700 px-4 py-3"
+         class="label-left property-row border-b border-surface-100 dark:border-surface-700 px-4 py-1"
          [class.property-disabled]="!isEnabled()">
         <div class="flex items-center gap-5 whitespace-nowrap font-mono text-surface-800 dark:text-surface-400"
              [class]="contentTypeClass">
