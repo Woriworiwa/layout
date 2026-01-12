@@ -17,13 +17,18 @@ import { LocalStorageService } from '../../core/services/local-storage.service';
   imports: [],
   template: `
     @if (hasVisibleRows()) {
-      <div >
+      <div>
         <div
           class="flex items-center justify-between px-4 py-4 cursor-pointer bg-surface-50 dark:bg-surface-800"
+          aria-disabled="true"
           (click)="toggleCollapsed()"
           (keydown)="toggleCollapsed()"
         >
-          <h3 class="m-0 text-base font-medium text-surface-900 dark:text-surface-50">{{ header() }}</h3>
+          <h3
+            class="m-0 text-base font-medium text-surface-900 dark:text-surface-50"
+          >
+            {{ header() }}
+          </h3>
           <button
             type="button"
             class="flex items-center justify-center w-6 h-6 p-0 border-0 bg-transparent text-surface-500 dark:text-surface-400 cursor-pointer transition-transform duration-200 shrink-0"
@@ -90,7 +95,9 @@ export class PropertyGroupComponent {
 
       if (id) {
         const savedState = this.getCollapsedState(id);
-        this._collapsed.set(savedState !== null ? savedState : defaultCollapsed);
+        this._collapsed.set(
+          savedState !== null ? savedState : defaultCollapsed,
+        );
       } else {
         this._collapsed.set(defaultCollapsed);
       }
