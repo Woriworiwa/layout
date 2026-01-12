@@ -7,7 +7,7 @@ export const cardPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
       flexboxGrid: {

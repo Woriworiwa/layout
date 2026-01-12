@@ -119,7 +119,7 @@ describe('CanvasStore', () => {
         { key: 'item1', itemType: CanvasItemType.TEXT, css: {}, children: [] },
       ];
       store.setItems(items);
-      const newCss = { display: { display: 'block' } };
+      const newCss = { layout: { display: 'block' } };
 
       const result = store.updateItemCss('item1', newCss);
 

@@ -16,7 +16,7 @@ describe('CssClassSerializer', () => {
         key: 'abc123',
         label: 'Container',
         css: {
-          display: { display: 'flex' },
+          layout: { display: 'flex' },
           spacing: { padding: '1rem' },
         },
         children: [],
@@ -38,7 +38,7 @@ describe('CssClassSerializer', () => {
         key: 'parent',
         label: 'Parent',
         css: {
-          display: { display: 'grid' },
+          layout: { display: 'grid' },
         },
         children: [
           {

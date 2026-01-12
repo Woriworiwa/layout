@@ -7,7 +7,7 @@ export const holyGrailPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
       flexboxGrid: {
@@ -23,7 +23,7 @@ export const holyGrailPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           spacing: {
@@ -35,7 +35,7 @@ export const holyGrailPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {
@@ -55,7 +55,7 @@ export const holyGrailPreset = {
           {
             itemType: 'CONTAINER',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
               flexboxGrid: {
@@ -71,7 +71,7 @@ export const holyGrailPreset = {
           {
             itemType: 'CONTAINER',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
               flexboxGrid: {
@@ -88,7 +88,7 @@ export const holyGrailPreset = {
           {
             itemType: 'CONTAINER',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
               flexboxGrid: {
@@ -106,7 +106,7 @@ export const holyGrailPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {

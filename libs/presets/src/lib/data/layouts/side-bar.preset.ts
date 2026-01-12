@@ -7,7 +7,7 @@ export const sideBarPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
       flexboxGrid: {
@@ -21,7 +21,7 @@ export const sideBarPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {
@@ -51,7 +51,7 @@ export const sideBarPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {

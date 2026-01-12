@@ -7,7 +7,7 @@ export const flexColumnPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
       flexboxGrid: {

@@ -7,7 +7,7 @@ export const emptyContainerPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
       spacing: {

@@ -16,7 +16,7 @@ describe('CssStyleSerializer', () => {
         key: 'container',
         label: 'Container',
         css: {
-          display: { display: 'flex' },
+          layout: { display: 'flex' },
           spacing: { padding: '16px' },
         },
         children: [],

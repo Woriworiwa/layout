@@ -39,7 +39,7 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
     >
       @if (propertiesConfig.labelPosition !== 'none') {
         <div
-          class="flex items-center gap-3 whitespace-nowrap text-sm font-mono text-surface-600 dark:text-surface-400"
+          class="flex items-center gap-5 whitespace-nowrap font-mono text-surface-800 dark:text-surface-400"
           [class]="contentTypeClass"
         >
           <p-checkbox

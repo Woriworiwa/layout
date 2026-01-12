@@ -6,6 +6,6 @@ import { Layout } from './layout';
 export interface Css {
   spacing?: Spacing;
   sizing?: Sizing;
-  display?: Layout;
+  layout?: Layout;
   flexboxGrid?: FlexboxGrid;
 }

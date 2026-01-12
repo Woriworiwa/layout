@@ -17,7 +17,7 @@ export const justifyContentGuidePreset = {
         itemType: 'CONTAINER',
         label: 'Column Direction Section',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {
@@ -36,7 +36,7 @@ export const justifyContentGuidePreset = {
             itemType: 'CONTAINER',
             label: 'Interactive Row Example Container',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
               flexboxGrid: {
@@ -109,7 +109,7 @@ export const justifyContentGuidePreset = {
             itemType: 'CONTAINER',
             label: 'Interactive Column Example Container',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
               flexboxGrid: {
@@ -183,7 +183,7 @@ export const justifyContentGuidePreset = {
       },
     ],
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
       flexboxGrid: {

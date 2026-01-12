@@ -7,7 +7,7 @@ export const centeredContentPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
       flexboxGrid: {
@@ -22,7 +22,7 @@ export const centeredContentPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {

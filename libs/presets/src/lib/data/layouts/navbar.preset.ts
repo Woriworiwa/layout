@@ -7,7 +7,7 @@ export const navbarPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
       flexboxGrid: {
@@ -34,7 +34,7 @@ export const navbarPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {

@@ -12,7 +12,7 @@ describe('HtmlSerializer', () => {
         key: 'test-key',
         label: 'Test',
         css: {
-          display: { display: 'flex' },
+          layout: { display: 'flex' },
         },
         children: [],
       };
@@ -32,7 +32,7 @@ describe('HtmlSerializer', () => {
         key: 'parent-key',
         label: 'Parent',
         css: {
-          display: { display: 'flex' },
+          layout: { display: 'flex' },
         },
         children: [
           {
@@ -83,7 +83,7 @@ describe('HtmlSerializer', () => {
         key: 'test',
         label: 'Test',
         css: {
-          display: { display: 'grid' },
+          layout: { display: 'grid' },
         },
         children: [],
       };
@@ -116,7 +116,7 @@ describe('HtmlSerializer', () => {
           key: 'key-1',
           label: 'Item 1',
           css: {
-            display: { display: 'flex' },
+            layout: { display: 'flex' },
           },
           children: [],
         },

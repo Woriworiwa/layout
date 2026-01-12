@@ -10,7 +10,7 @@ export const alignItemsPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {
@@ -49,7 +49,7 @@ export const alignItemsPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           spacing: {
@@ -87,7 +87,7 @@ export const alignItemsPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           spacing: {
@@ -125,7 +125,7 @@ export const alignItemsPreset = {
     ],
     key: 'jLZXSKxG',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
       spacing: {

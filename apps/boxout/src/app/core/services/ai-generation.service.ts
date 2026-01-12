@@ -88,8 +88,8 @@ CRITICAL LIMITATIONS - DO NOT USE:
 
 Rules:
 1. Return ONLY valid JSON array, no markdown formatting
-2. FLEX items MUST have css.display.display = "flex"
-3. GRID items MUST have css.display.display = "grid"
+2. FLEX items MUST have css.layout.display = "flex"
+3. GRID items MUST have css.layout.display = "grid"
 4. TEXT items MUST have content property
 5. Use semantic labels for items
 6. Keep layouts simple and focused
@@ -102,7 +102,7 @@ FLEX Example:
   "itemType": "CONTAINER",
   "label": "Card",
   "css": {
-    "display": { "display": "flex" },
+    "layout": { "display": "flex" },
     "container": { "gap": "12", "flexDirection": "column" },
     "spacing": { "padding": "20px" },
     "sizing": { "width": "300px" }
@@ -121,7 +121,7 @@ GRID Example:
   "itemType": "CONTAINER",
   "label": "Grid Layout",
   "css": {
-    "display": { "display": "grid" },
+    "layout": { "display": "grid" },
     "container": { "gap": "16", "gridTemplateColumns": "repeat(3, 1fr)" },
     "spacing": { "padding": "10px" }
   },

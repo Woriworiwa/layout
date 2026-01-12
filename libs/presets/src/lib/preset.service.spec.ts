@@ -26,7 +26,7 @@ describe('PresetService', () => {
         category: PresetCategory.FLEXBOX,
         presetDefinition: {
           itemType: CanvasItemType.CONTAINER,
-          css: { display: { display: 'flex' } },
+          css: { layout: { display: 'flex' } },
         },
       },
       {
@@ -35,7 +35,7 @@ describe('PresetService', () => {
         category: PresetCategory.GRID,
         presetDefinition: {
           itemType: CanvasItemType.CONTAINER,
-          css: { display: { display: 'grid' } },
+          css: { layout: { display: 'grid' } },
         },
       },
       {
@@ -153,7 +153,7 @@ describe('PresetService', () => {
         key: 'container-1',
         itemType: CanvasItemType.CONTAINER,
         css: {
-          display: { display: 'flex' },
+          layout: { display: 'flex' },
           sizing: { width: '10px' },
         },
         children: [],
@@ -163,7 +163,7 @@ describe('PresetService', () => {
 
       expect(item.css?.spacing?.padding).toBe('16px');
       expect(item.css?.sizing?.width).toBe('10px');
-      expect(item.css?.display?.display).toBe('flex');
+      expect(item.css?.layout?.display).toBe('flex');
     });
   });
 

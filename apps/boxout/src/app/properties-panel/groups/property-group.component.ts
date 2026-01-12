@@ -17,7 +17,7 @@ import { LocalStorageService } from '../../core/services/local-storage.service';
   imports: [],
   template: `
     @if (hasVisibleRows()) {
-      <div class="border-b border-surface-200 dark:border-surface-700">
+      <div >
         <div
           class="flex items-center justify-between px-4 py-4 cursor-pointer bg-surface-50 dark:bg-surface-800"
           (click)="toggleCollapsed()"

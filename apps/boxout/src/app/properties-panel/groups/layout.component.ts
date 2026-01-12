@@ -4,7 +4,7 @@ import { Property } from 'csstype';
 import { takeUntil } from 'rxjs';
 import { BasePropertyGroupComponent } from './base-property-group.component';
 import { PropertyGroupComponent } from './property-group.component';
-import { DisplayOptions, PositionOptions, OverflowOptions } from '@layout/models';
+import { DisplayOptions } from '@layout/models';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { ButtonGroupComponent } from '../components/button-group.component';
 import { NumberField } from '../components/number-field';
@@ -30,28 +30,6 @@ import { NumberField } from '../components/number-field';
           [options]="DisplayOptions"
           [control]="getFormControl('display')"
         ></app-button-group>
-      </app-property-row>
-
-      <app-property-row label="position" [control]="getFormControl('position')">
-        <app-button-group
-          [options]="PositionOptions"
-          [control]="getFormControl('position')"
-        ></app-button-group>
-      </app-property-row>
-
-      <app-property-row label="overflow" [control]="getFormControl('overflow')">
-        <app-button-group
-          [options]="OverflowOptions"
-          [control]="getFormControl('overflow')"
-        ></app-button-group>
-      </app-property-row>
-
-      <app-property-row label="z-index" [control]="getFormControl('zIndex')">
-        <app-number-field
-          [control]="getFormControl('zIndex')"
-          [suffix]="undefined"
-          [max]="9999"
-        ></app-number-field>
       </app-property-row>
     </app-property-group>
   `,
@@ -80,12 +58,7 @@ export class LayoutComponent
     }
 
     const formGroup = this.formBuilder.group({
-      display: new FormControl<Property.Display | null | undefined>(null),
-      position: new FormControl<Property.Position | null | undefined>(null),
-      overflow: new FormControl<Property.Overflow | null | undefined>(null),
-      zIndex: new FormControl<number | null | undefined>(null, {
-        updateOn: 'blur',
-      }),
+      display: new FormControl<Property.Display | null | undefined>(null)
     });
 
     this.formGroupValueChangedSubscription = formGroup.valueChanges
@@ -98,6 +71,4 @@ export class LayoutComponent
   }
 
   protected readonly DisplayOptions = DisplayOptions;
-  protected readonly PositionOptions = PositionOptions;
-  protected readonly OverflowOptions = OverflowOptions;
 }

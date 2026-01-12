@@ -8,7 +8,7 @@ export const basicGridPresets = [
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
-        display: {
+        layout: {
           display: 'grid',
         },
         container: {
@@ -27,7 +27,7 @@ export const basicGridPresets = [
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
-        display: {
+        layout: {
           display: 'grid',
         },
         container: {
@@ -66,7 +66,7 @@ export const basicGridPresets = [
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
-        display: {
+        layout: {
           display: 'grid',
         },
         container: {
@@ -115,7 +115,7 @@ export const basicGridPresets = [
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
-        display: {
+        layout: {
           display: 'grid',
         },
         container: {
@@ -164,7 +164,7 @@ export const basicGridPresets = [
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
-        display: {
+        layout: {
           display: 'grid',
         },
         container: {
@@ -237,7 +237,7 @@ export const basicGridPresets = [
     presetDefinition: {
       itemType: 'CONTAINER',
       css: {
-        display: {
+        layout: {
           display: 'grid',
         },
         container: {
@@ -254,7 +254,7 @@ export const basicGridPresets = [
           itemType: 'CONTAINER',
           label: 'Card 1',
           css: {
-            display: {
+            layout: {
               display: 'grid',
             },
             container: {
@@ -300,7 +300,7 @@ export const basicGridPresets = [
           itemType: 'CONTAINER',
           label: 'Card 2',
           css: {
-            display: {
+            layout: {
               display: 'grid',
             },
             container: {
@@ -347,7 +347,7 @@ export const basicGridPresets = [
           itemType: 'CONTAINER',
           label: 'Card 3',
           css: {
-            display: {
+            layout: {
               display: 'grid',
             },
             container: {

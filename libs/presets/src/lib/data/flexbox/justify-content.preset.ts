@@ -10,7 +10,7 @@ export const justifyContentPreset = {
       spacing: {
         padding: '16px',
       },
-      display: {
+      layout: {
         display: 'flex',
       },
       flexboxGrid: {
@@ -23,7 +23,7 @@ export const justifyContentPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {
@@ -64,7 +64,7 @@ export const justifyContentPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           flexboxGrid: {
@@ -104,7 +104,7 @@ export const justifyContentPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
           spacing: {

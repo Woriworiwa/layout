@@ -40,7 +40,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        display: {
+        layout: {
           display: 'flex',
         },
       },
@@ -58,7 +58,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        display: {
+        layout: {
           display: 'grid',
         },
       },
@@ -168,7 +168,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        display: {
+        layout: {
           display: 'flex',
         },
         flexboxGrid: {
@@ -231,7 +231,7 @@ describe('TailwindSerializer', () => {
       children: [],
       editable: true,
       css: {
-        display: {
+        layout: {
           display: 'flex',
         },
         flexboxGrid: {

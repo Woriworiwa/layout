@@ -9,7 +9,7 @@ export const aiPreset = {
     label: 'AI Container',
     children: [],
     css: {
-      display: { display: 'flex' },
+      layout: { display: 'flex' },
       flexboxGrid: { gap: '12', flexDirection: 'column' },
       spacing: { padding: '16px' },
     },
