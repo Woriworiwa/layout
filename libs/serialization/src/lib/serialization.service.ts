@@ -4,8 +4,7 @@ import { HtmlSerializer } from './serializers/html.serializer';
 import { JSONSerializer } from './serializers/JSON.serializer';
 import { CssStyleSerializer } from './serializers/css-style.serializer';
 import { CssTailwindSerializer } from './serializers/css-tailwind.serializer';
-
-export type SerializerType = 'HTML' | 'JSON' | 'CSS-class' | 'CSS-style' | 'CSS-Tailwind';
+import { SerializerType } from './types';
 
 @Injectable()
 export class SerializationService {

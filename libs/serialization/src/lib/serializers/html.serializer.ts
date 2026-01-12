@@ -1,37 +1,16 @@
 import { Serializer } from './serializer';
 import { CanvasItem, CanvasItemType } from '@layout/models';
 import { CssClassSerializer } from './css-class.serializer';
-import { SerializerType } from '../serialization.service';
 import { CssTailwindSerializer } from './css-tailwind.serializer';
 import { CssStyleSerializer } from './css-style.serializer';
+import type { CssSerializerType } from '../types';
 
 export interface HtmlSerializerOptions {
   includeHeaderBody?: boolean;
-  cssSerializerType?: Extract<
-    SerializerType,
-    'CSS-class' | 'CSS-style' | 'CSS-Tailwind'
-  >;
+  cssSerializerType?: CssSerializerType;
 }
 
-type CssSerializerType = Extract<SerializerType, 'CSS-class' | 'CSS-style' | 'CSS-Tailwind'>;
-
 export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
-  private readonly frameStyles = `.frame {
-      display: block;
-      padding: 15px;
-      background-color: #9161a7;
-      border: 1px solid #ed9534;
-    }`;
-
-  private readonly textStyles = `.text {
-      display: block;
-      padding: 5px;
-      background-color: #ed9534;
-      border-radius: 6px;
-      border: 2px solid black;
-      box-shadow: inset 3px 3px 7px 5px #f2ad62;
-    }`;
-
   // Reusable serializer instances (performance optimization)
   private readonly cssClassSerializer = new CssClassSerializer();
   private readonly cssStyleSerializer = new CssStyleSerializer();
@@ -55,10 +34,10 @@ export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
 
     // Include <style> if using CSS-class mode and there are items
     if (cssSerializerType === 'CSS-class' && items.length > 0) {
-      htmlLines.push(...this.generateStyleBlock(items, 0));
+      htmlLines.push(...this.generateStyleBlock(items, 0, cssSerializerType));
     }
 
-    const bodyContent = this.serializeChildren(items, cssSerializerType, 0);
+    const bodyContent = this.serializeChildren(items, cssSerializerType, 0, false);
     htmlLines.push(...bodyContent);
 
     return htmlLines;
@@ -70,14 +49,14 @@ export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
     htmlLines.push('<html>');
     htmlLines.push(this.indent('<head>'));
 
-    // Add base frame and text styles
+    // Add CSS class definitions
     htmlLines.push(...this.generateStyleBlock(items, 2, cssSerializerType));
 
     htmlLines.push(this.indent('</head>'));
 
     // Body
     htmlLines.push(this.indent('<body>'));
-    const bodyContent = this.serializeChildren(items, cssSerializerType, 2);
+    const bodyContent = this.serializeChildren(items, cssSerializerType, 2, true);
     htmlLines.push(...bodyContent);
     htmlLines.push(this.indent('</body>'));
 
@@ -89,25 +68,21 @@ export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
   private generateStyleBlock(
     items: CanvasItem[],
     indentLevel: number,
-    cssSerializerType: CssSerializerType = 'CSS-class'
+    cssSerializerType: CssSerializerType
   ): string[] {
     const lines: string[] = [];
 
-    lines.push(this.indent('<style>', indentLevel));
-    lines.push(this.indent(this.frameStyles, indentLevel));
-    lines.push(this.indent(this.textStyles, indentLevel));
-
-    // Add CSS class definitions if using CSS-class mode
+    // Only generate style block if there are CSS classes to include
     if (cssSerializerType === 'CSS-class') {
       const cssClasses = this.cssClassSerializer.serialize(items);
       if (cssClasses.length > 0) {
+        lines.push(this.indent('<style>', indentLevel));
         cssClasses.forEach((cssLine) => {
           lines.push(this.indent(cssLine, indentLevel));
         });
+        lines.push(this.indent('</style>', indentLevel));
       }
     }
-
-    lines.push(this.indent('</style>', indentLevel));
 
     return lines;
   }
@@ -115,7 +90,8 @@ export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
   private serializeChildren(
     canvasItems: CanvasItem[],
     cssSerializerType: CssSerializerType,
-    level = 0,
+    level: number,
+    includeBaseClasses: boolean,
   ): string[] {
     const htmlLines: string[] = [];
 
@@ -123,6 +99,7 @@ export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
       const { classAttribute, styleAttribute } = this.generateAttributes(
         canvasItem,
         cssSerializerType,
+        includeBaseClasses,
       );
 
       // Opening div tag
@@ -141,6 +118,7 @@ export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
             canvasItem.children,
             cssSerializerType,
             level + 1,
+            includeBaseClasses,
           ),
         );
       }
@@ -153,7 +131,10 @@ export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
   }
 
   private buildOpeningTag(classAttribute: string, styleAttribute: string | null): string {
-    let tag = `<div class="${classAttribute}"`;
+    let tag = '<div';
+    if (classAttribute) {
+      tag += ` class="${classAttribute}"`;
+    }
     if (styleAttribute) {
       tag += ` style="${styleAttribute}"`;
     }
@@ -164,8 +145,11 @@ export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
   private generateAttributes(
     canvasItem: CanvasItem,
     cssSerializerType: CssSerializerType,
+    includeBaseClasses: boolean,
   ): { classAttribute: string; styleAttribute: string | null } {
-    const baseClass = canvasItem.itemType === CanvasItemType.CONTAINER ? 'frame' : 'text';
+    const baseClass = includeBaseClasses
+      ? (canvasItem.itemType === CanvasItemType.CONTAINER ? 'frame' : 'text')
+      : '';
     const existingTailwindClasses = canvasItem.tailwindClasses || '';
     let styleAttribute: string | null = null;
 
@@ -193,7 +177,12 @@ export class HtmlSerializer extends Serializer<HtmlSerializerOptions> {
     cssSerializerType: CssSerializerType,
     existingTailwindClasses: string,
   ): string {
-    const classes: string[] = [baseClass];
+    const classes: string[] = [];
+
+    // Only add base class if provided
+    if (baseClass) {
+      classes.push(baseClass);
+    }
 
     switch (cssSerializerType) {
       case 'CSS-class':

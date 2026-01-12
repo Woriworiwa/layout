@@ -8,13 +8,8 @@ import {
   CssViewerComponent, HtmlViewerComponent,
   JsonViewerComponent, TailwindViewerComponent,
 } from '@layout/shared';
-import { SerializerType } from '@layout/serialization';
+import { CssSerializerType } from '@layout/serialization';
 import { SelectButton } from 'primeng/selectbutton';
-
-type CssSerializerType = Extract<
-  SerializerType,
-  'CSS-class' | 'CSS-style' | 'CSS-Tailwind'
->;
 
 @Component({
   selector: 'app-inspector',

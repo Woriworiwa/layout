@@ -1,3 +1,4 @@
+export * from './lib/types';
 export * from './lib/serialization.service';
 export * from './lib/serializers/JSON.serializer';
 export * from './lib/serializers/html.serializer';

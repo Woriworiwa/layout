@@ -9,13 +9,8 @@ import {
 import { CanvasItem } from '@layout/models';
 import { Button } from 'primeng/button';
 import FileSaver from 'file-saver';
-import { SerializationService, SerializerType } from '@layout/serialization';
+import { SerializationService, CssSerializerType } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
-
-type CssSerializerType = Extract<
-  SerializerType,
-  'CSS-class' | 'CSS-style' | 'CSS-Tailwind'
->;
 
 @Component({
   selector: 'shared-html-viewer',
