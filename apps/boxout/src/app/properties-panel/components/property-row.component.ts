@@ -99,6 +99,9 @@ export class PropertyRowComponent implements AfterContentInit, OnDestroy {
   // Track enabled state based on whether the control has a value
   isEnabled = signal(false);
 
+  // Store the previous value when checkbox is unchecked, so we can restore it later
+  private previousValue = signal<number | string | null>(null);
+
   private valueChangesSubscription?: Subscription;
 
   constructor() {
@@ -153,11 +156,22 @@ export class PropertyRowComponent implements AfterContentInit, OnDestroy {
   }
 
   onCheckboxChange(checked: boolean) {
+    const control = this.control();
+    if (!control) return;
+
     if (!checked) {
-      // When unchecked, set control value to null (same as clear button)
-      const control = this.control();
-      if (control) {
-        control.setValue(null);
+      // When unchecked, save the current value before clearing
+      const currentValue = control.value;
+      if (currentValue !== null && currentValue !== undefined) {
+        this.previousValue.set(currentValue);
+      }
+      control.setValue(null);
+      control.markAsDirty();
+    } else {
+      // When checked, restore the previous value if one exists
+      const savedValue = this.previousValue();
+      if (savedValue !== null && savedValue !== undefined) {
+        control.setValue(savedValue);
         control.markAsDirty();
       }
     }
