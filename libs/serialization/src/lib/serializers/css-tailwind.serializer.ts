@@ -162,10 +162,14 @@ export class CssTailwindSerializer extends Serializer<void> {
 
     const prefix = propertyMap[property];
     if (prefix) {
-      return `${prefix}-[${value}]`;
+      // Replace spaces with underscores for valid Tailwind arbitrary values
+      const sanitizedValue = value.replace(/ /g, '_');
+      return `${prefix}-[${sanitizedValue}]`;
     }
 
     // If no mapping found, use the property name as-is
-    return `[${property}:${value}]`;
+    // Replace spaces with underscores for valid Tailwind arbitrary values
+    const sanitizedValue = value.replace(/ /g, '_');
+    return `[${property}:${sanitizedValue}]`;
   }
 }

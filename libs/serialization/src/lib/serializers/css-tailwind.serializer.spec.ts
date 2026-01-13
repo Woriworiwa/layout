@@ -245,4 +245,61 @@ describe('CssTailwindSerializer', () => {
     expect(result).toContain('flex-col');
     expect(result).toContain('gap-[10px]'); // Should convert number to string and add px
   });
+
+  it('should replace spaces with underscores in grid-template-columns arbitrary values', () => {
+    const item: CanvasItem = {
+      itemType: CanvasItemType.CONTAINER,
+      key: 'test-key',
+      label: 'Test',
+      content: '',
+      children: [],
+      editable: true,
+      css: {
+        flexboxGrid: {
+          gridTemplateColumns: '1fr 1fr',
+        },
+      },
+    };
+    const result = serializer.serialize([item]);
+    expect(result).toContain('grid-cols-[1fr_1fr]');
+    expect(result).not.toContain('grid-cols-[1fr 1fr]');
+  });
+
+  it('should replace spaces with underscores in grid-template-rows arbitrary values', () => {
+    const item: CanvasItem = {
+      itemType: CanvasItemType.CONTAINER,
+      key: 'test-key',
+      label: 'Test',
+      content: '',
+      children: [],
+      editable: true,
+      css: {
+        flexboxGrid: {
+          gridTemplateRows: '1fr 1fr',
+        },
+      },
+    };
+    const result = serializer.serialize([item]);
+    expect(result).toContain('grid-rows-[1fr_1fr]');
+    expect(result).not.toContain('grid-rows-[1fr 1fr]');
+  });
+
+  it('should replace spaces with underscores in complex grid values', () => {
+    const item: CanvasItem = {
+      itemType: CanvasItemType.CONTAINER,
+      key: 'test-key',
+      label: 'Test',
+      content: '',
+      children: [],
+      editable: true,
+      css: {
+        flexboxGrid: {
+          gridTemplateColumns: '1fr 2fr 1fr',
+        },
+      },
+    };
+    const result = serializer.serialize([item]);
+    expect(result).toContain('grid-cols-[1fr_2fr_1fr]');
+    expect(result).not.toContain('grid-cols-[1fr 2fr 1fr]');
+  });
 });
