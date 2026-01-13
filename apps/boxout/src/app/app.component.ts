@@ -13,6 +13,7 @@ import { LayersComponent } from './layers-panel/layers.component';
 import { PresetsPanelComponent } from './presets-panel/presets-panel.component';
 import { PropertiesPanelComponent } from './properties-panel/properties-panel.component';
 import { TabSwitcherComponent } from './shared/tab-switcher/tab-switcher.component';
+import { ThemeToolbarComponent } from './core/theme/theme-toolbar.component';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ import { TabSwitcherComponent } from './shared/tab-switcher/tab-switcher.compone
     PresetsPanelComponent,
     PropertiesPanelComponent,
     TabSwitcherComponent,
+    ThemeToolbarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
