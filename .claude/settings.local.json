@@ -88,7 +88,8 @@
       "Bash(npm run start:*)",
       "Bash(npx nx run:*)",
       "Bash(git revert:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "mcp__nx-mcp__nx_workspace_path"
     ],
     "deny": [],
     "ask": []
