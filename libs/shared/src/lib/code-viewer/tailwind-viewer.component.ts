@@ -9,28 +9,22 @@ import {
 import { CanvasItem } from '@layout/models';
 import { SerializationService } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
+import { CopyButtonComponent } from './copy-button.component';
 
 @Component({
   selector: 'shared-tailwind-viewer',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Highlight],
+  imports: [Highlight, CopyButtonComponent],
   template: `
-    <pre><code [highlight]="tailwind" language="tailwind"></code></pre> `,
+    <div class="header">
+      <shared-copy-button [content]="tailwind" />
+    </div>
+    <pre><code [highlight]="tailwind" language="tailwind"></code></pre>
+  `,
+  styleUrl: './code-viewer-base.scss',
   styles: `
-    :host {
-      display: block;
-      height: 100%;
-    }
-
     pre[class*='language-'] {
       padding: 0.75rem 1rem;
-      margin: 0;
-      height: 100%;
-      background: transparent !important;
-    }
-
-    code[class*='language-'] {
-      background: transparent;
     }
   `,
 })

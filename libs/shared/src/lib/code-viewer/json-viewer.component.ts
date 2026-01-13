@@ -4,23 +4,28 @@ import {
   Input,
   OnChanges,
   inject,
+  computed,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CanvasItem } from '@layout/models';
 import { SerializationService, JSONSerializer } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
+import { CopyButtonComponent } from './copy-button.component';
 
 @Component({
   selector: 'shared-json-viewer',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, Highlight],
+  imports: [CommonModule, Highlight, CopyButtonComponent],
   template: `
+    <div class="header">
+      <shared-copy-button [content]="jsonString()" />
+    </div>
     <pre><code language="json" [highlight]="frames | json"></code></pre>
   `,
+  styleUrl: './code-viewer-base.scss',
   styles: `
     pre[class*='language-'] {
       padding: 1em;
-      margin: 0;
     }
   `,
 })
@@ -31,6 +36,10 @@ export class JsonViewerComponent implements OnChanges {
   canvasItems: CanvasItem[] = [];
 
   frames: CanvasItem[] | undefined = undefined;
+
+  protected jsonString = computed(() =>
+    JSON.stringify(this.frames, null, 2)
+  );
 
   ngOnChanges() {
     this.serializeToJson();

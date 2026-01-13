@@ -1,0 +1,28 @@
+// Shared styles for all code viewer components
+@reference "tailwindcss";
+
+:host {
+  @apply flex flex-col h-full relative;
+}
+
+.header {
+  @apply absolute top-0 right-0 z-10;
+  @apply flex items-center justify-end gap-1 p-2;
+  @apply opacity-0 transition-opacity duration-200 ease-in-out;
+}
+
+:host(:hover) .header {
+  @apply opacity-100;
+}
+
+pre {
+  @apply flex-1 m-0 rounded-none overflow-auto;
+}
+
+pre[class*='language-'] {
+  @apply m-0 h-full bg-transparent;
+}
+
+code[class*='language-'] {
+  @apply bg-transparent;
+}

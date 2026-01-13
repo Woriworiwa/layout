@@ -11,47 +11,33 @@ import { Button } from 'primeng/button';
 import FileSaver from 'file-saver';
 import { SerializationService, CssSerializerType } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
+import { Tooltip } from 'primeng/tooltip';
+import { CopyButtonComponent } from './copy-button.component';
 
 @Component({
   selector: 'shared-html-viewer',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Button, Highlight],
+  imports: [Button, Highlight, Tooltip, CopyButtonComponent],
   template: `
-    @if (showDownload) {
-      <div class="header">
-        <p-button label="Download" (click)="downloadHtml()" size="small"></p-button>
-      </div>
-    }
+    <div class="header">
+      <shared-copy-button [content]="code" />
+      @if (showDownload) {
+        <p-button
+          icon="pi pi-download"
+          (onClick)="downloadHtml()"
+          pTooltip="Download"
+          severity="secondary"
+          [text]="true"
+          size="small"
+        />
+      }
+    </div>
     <pre><code [highlight]="code" language="html"></code></pre>
   `,
+  styleUrl: './code-viewer-base.scss',
   styles: `
-    :host {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 0.5rem;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--surface-border);
-      background: var(--surface-50);
-    }
-
-    pre {
-      flex: 1;
-      margin: 0;
-      border-radius: 0;
-      overflow: auto;
-    }
-
     pre[class*='language-'] {
       padding: 1em;
-      margin: 0;
-      height: 100%;
     }
   `,
 })
