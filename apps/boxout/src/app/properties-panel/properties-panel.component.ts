@@ -20,13 +20,21 @@ import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CanvasService, SelectionService } from '@layout/canvas';
 import { CanvasItemType, Display } from '@layout/models';
-import { SizingSpacingComponent } from './groups/sizing-spacing.component';
-import { LayoutComponent } from './groups/layout.component';
-import { MetaDataComponent } from './groups/meta-data.component';
-import { PropertiesFlexboxGridComponent } from './groups/flexbox-grid.component';
-import { PropertiesConfig } from './properties.config';
-import { PropertiesService } from './properties.service';
-import { CssViewerComponent } from '@layout/shared';
+import {
+  SizingSpacingComponent,
+  LayoutComponent,
+  MetaDataComponent,
+  PropertiesFlexboxGridComponent,
+  PropertiesConfig,
+  PropertiesService,
+} from '@layout/properties';
+import {
+  CssViewerComponent,
+  THEME_CONFIG,
+  LOCAL_STORAGE_SERVICE,
+} from '@layout/shared';
+import { ThemeService } from '../core/theme/theme.service';
+import { LocalStorageService } from '../core/services/local-storage.service';
 
 @Component({
   selector: 'app-properties-panel',
@@ -40,7 +48,20 @@ import { CssViewerComponent } from '@layout/shared';
     MetaDataComponent,
     PropertiesFlexboxGridComponent
   ],
-  providers: [PropertiesService],
+  providers: [
+    PropertiesService,
+    {
+      provide: THEME_CONFIG,
+      useFactory: () => {
+        const themeService = inject(ThemeService);
+        return themeService.config();
+      },
+    },
+    {
+      provide: LOCAL_STORAGE_SERVICE,
+      useExisting: LocalStorageService,
+    },
+  ],
   templateUrl: './properties-panel.component.html',
   styleUrls: ['./properties-panel.component.scss'],
   host: {

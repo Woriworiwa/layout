@@ -7,7 +7,6 @@ import { PropertyGroupComponent } from '../components/property-group.component';
 import { DisplayOptions } from '@layout/models';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { ButtonGroupComponent } from '../components/button-group.component';
-import { NumberField } from '../components/number-field';
 
 @Component({
   selector: 'app-properties-layout',
@@ -16,7 +15,6 @@ import { NumberField } from '../components/number-field';
     PropertyGroupComponent,
     PropertyRowComponent,
     ButtonGroupComponent,
-    NumberField,
   ],
   template: `
     <app-property-group

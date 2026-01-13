@@ -1,6 +1,8 @@
 export * from './lib/tokens/preset-provider';
 export * from './lib/tokens/ui-guidance.token';
 export * from './lib/tokens/ai-generation.token';
+export * from './lib/tokens/theme-config.token';
+export * from './lib/tokens/local-storage.token';
 
 export * from './lib/store/store';
 

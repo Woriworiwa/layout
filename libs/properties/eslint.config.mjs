@@ -12,7 +12,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'properties',
+          prefix: ['properties', 'app'],
           style: 'camelCase',
         },
       ],
@@ -20,7 +20,7 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'properties',
+          prefix: ['properties', 'app'],
           style: 'kebab-case',
         },
       ],

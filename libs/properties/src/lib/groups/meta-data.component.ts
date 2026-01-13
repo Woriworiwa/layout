@@ -6,8 +6,7 @@ import { debounceTime, takeUntil } from 'rxjs';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { InputText } from 'primeng/inputtext';
 import { BasePropertyGroupComponent } from '../components/base-property-group.component';
-import { CodeEditorComponent, codemirrorsHighlighter, tailwindAutocomplete, getAutocompleteTheme } from '@layout/shared';
-import { ThemeService } from '../../core/theme/theme.service';
+import { CodeEditorComponent, codemirrorsHighlighter, tailwindAutocomplete, getAutocompleteTheme, THEME_CONFIG } from '@layout/shared';
 
 @Component({
   selector: 'app-properties-meta-data',
@@ -54,13 +53,13 @@ export class MetaDataComponent
   extends BasePropertyGroupComponent
   implements OnChanges, OnDestroy
 {
-  private themeService = inject(ThemeService);
+  private themeConfig = inject(THEME_CONFIG, { optional: true });
 
   label = input<string | undefined>(undefined);
   tailwindClasses = input<string | undefined>(undefined);
 
-  // Get dark mode from theme service
-  isDarkMode = computed(() => this.themeService.config().darkMode);
+  // Get dark mode from theme config (defaults to false if not provided)
+  isDarkMode = computed(() => this.themeConfig?.darkMode ?? false);
 
   // CodeMirror extensions for Tailwind syntax highlighting and autocomplete
   editorExtensions = computed(() => [
