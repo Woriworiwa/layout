@@ -410,7 +410,7 @@ export const surfaces: ColorOption[] = [
 
 export const defaultThemeSettings: ThemeModel = {
   preset: 'Aura',
-  primary: 'noir',
+  primary: 'green',
   surface: 'gray',
   darkMode: false,
   ripple: true,
