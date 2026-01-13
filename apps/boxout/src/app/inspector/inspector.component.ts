@@ -32,12 +32,12 @@ export class InspectorComponent {
   protected canvasService = inject(CanvasService);
 
   protected canvasItem = signal<CanvasItem[]>([]);
-  protected selectedCssSerializer = signal<CssSerializerType>('CSS-class');
+  protected selectedCssSerializer = signal<CssSerializerType>('CSS-Tailwind');
 
   protected cssSerializerOptions = [
+    { label: 'Tailwind', value: 'CSS-Tailwind' as CssSerializerType },
     { label: 'Class', value: 'CSS-class' as CssSerializerType },
     { label: 'Style', value: 'CSS-style' as CssSerializerType },
-    { label: 'Tailwind', value: 'CSS-Tailwind' as CssSerializerType },
   ];
 
   constructor() {
