@@ -410,15 +410,28 @@ export const surfaces: ColorOption[] = [
 
 export const defaultThemeSettings: ThemeModel = {
   preset: 'Aura',
-  primary: 'green',
-  surface: 'gray',
+  primary: 'cyan',
+  surface: 'soho',
   darkMode: false,
   ripple: true,
 };
 
+// Get default color palettes for the preset
+const defaultPrimaryPalette = primaryColors.find((c) => c.name === defaultThemeSettings.primary)!.palette;
+const defaultSurfacePalette = surfaces.find((c) => c.name === defaultThemeSettings.surface)!.palette;
+
 export const defaultTheme = definePreset(Aura, {
   semantic: {
     transitionDuration: '0.2s',
+    primary: defaultPrimaryPalette,
+    colorScheme: {
+      light: {
+        surface: defaultSurfacePalette,
+      },
+      dark: {
+        surface: defaultSurfacePalette,
+      },
+    },
   },
   components: {
     slider: {
