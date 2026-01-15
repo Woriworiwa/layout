@@ -14,6 +14,7 @@
               variant="filled"
               [placeholder]="searchPlaceholder"
               [(ngModel)]="searchText"
+              (keydown)="onSearchInputKeydown($event)"
             />
             <button
               type="button"

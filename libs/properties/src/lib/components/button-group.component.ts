@@ -1,17 +1,19 @@
 import { Component, computed, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BaseFormItemComponent } from './base-form-item.component';
+import { PropertiesControlKeyboardDirective } from '../properties-control-keyboard.directive';
 
 type OptionType = string | { label: string; value: any };
 
 @Component({
   selector: 'app-button-group',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PropertiesControlKeyboardDirective],
   template: `
     <div class="flex flex-wrap gap-1" role="group">
       @for (option of normalizedOptions(); track $index) {
         <button
           type="button"
+          appPropertiesControlKeyboard
           [attr.aria-pressed]="isSelected(option.value)"
           [class]="getButtonClasses(option.value)"
           (click)="toggleSelection(option.value)"

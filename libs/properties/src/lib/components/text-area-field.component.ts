@@ -6,6 +6,7 @@ import { Button, ButtonDirective, ButtonIcon } from 'primeng/button';
 import { Menu } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { BaseFormItemComponent } from './base-form-item.component';
+import { PropertiesControlKeyboardDirective } from '../properties-control-keyboard.directive';
 
 @Component({
   selector: 'app-text-area-field',
@@ -17,11 +18,13 @@ import { BaseFormItemComponent } from './base-form-item.component';
     ButtonIcon,
     Menu,
     Button,
+    PropertiesControlKeyboardDirective,
   ],
   template: `
     <p-inputgroup [dt]="inputGroup">
       <textarea
         pTextarea
+        appPropertiesControlKeyboard
         [formControl]="control()!"
         [placeholder]="placeholder()"
         [rows]="rows()"

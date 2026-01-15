@@ -1,12 +1,15 @@
 import {
   AfterContentInit,
+  AfterViewInit,
   Component,
   ContentChild,
   effect,
+  ElementRef,
   inject,
   input,
   OnDestroy,
   signal,
+  viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Checkbox } from 'primeng/checkbox';
@@ -22,16 +25,23 @@ import { ButtonGroupComponent } from './button-group.component';
 import { TextFieldComponent } from './text-field.component';
 import { TextAreaFieldComponent } from './text-area-field.component';
 import { PropertiesFilterDirective } from '../properties-filter.directive';
+import {
+  FOCUSABLE_CONTROL_SELECTOR,
+  PropertiesKeyboardNavigationService,
+} from '../properties-keyboard-navigation.service';
+import { PropertyGroupComponent } from './property-group.component';
 
 @Component({
   selector: 'app-property-row',
   imports: [CommonModule, PropertiesFilterDirective, Checkbox, FormsModule],
-  standalone: true,
   template: `
     <div
+      #rowElement
       *appPropertiesFilter
-      class="label-left property-row border-b border-surface-100 dark:border-surface-700 px-4 py-1"
+      tabindex="0"
+      class="label-left property-row border-b border-surface-100 dark:border-surface-700 px-4 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-inset"
       [class.property-disabled]="!isEnabled()"
+      (keydown)="onKeydown($event)"
     >
       <div
         class="flex items-center gap-5 whitespace-nowrap font-mono text-surface-800 dark:text-surface-400"
@@ -78,7 +88,9 @@ import { PropertiesFilterDirective } from '../properties-filter.directive';
     }
   `,
 })
-export class PropertyRowComponent implements AfterContentInit, OnDestroy {
+export class PropertyRowComponent
+  implements AfterContentInit, AfterViewInit, OnDestroy
+{
   label = input<string>('');
   control = input<FormControl<number | string | null>>(new FormControl(null));
 
@@ -89,6 +101,16 @@ export class PropertyRowComponent implements AfterContentInit, OnDestroy {
   textFieldComponent?: TextFieldComponent;
   @ContentChild(TextAreaFieldComponent)
   textAreaFieldComponent?: TextAreaFieldComponent;
+
+  private readonly rowElement =
+    viewChild<ElementRef<HTMLElement>>('rowElement');
+  private readonly navService = inject(PropertiesKeyboardNavigationService, {
+    optional: true,
+  });
+  private readonly propertyGroup = inject(PropertyGroupComponent, {
+    optional: true,
+    skipSelf: true,
+  });
 
   propertiesConfig: PropertiesConfig;
   contentTypeClass = '';
@@ -145,10 +167,67 @@ export class PropertyRowComponent implements AfterContentInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit() {
+    const element = this.rowElement()?.nativeElement;
+    if (element && this.navService) {
+      const group = this.propertyGroup;
+      this.navService.registerRow(
+        element,
+        () => this.isVisible(),
+        () => this.focusFirstControl(),
+        group ? () => group.expand() : null,
+      );
+    }
+  }
+
   ngOnDestroy() {
     if (this.valueChangesSubscription) {
       this.valueChangesSubscription.unsubscribe();
     }
+
+    const element = this.rowElement()?.nativeElement;
+    if (element && this.navService) {
+      this.navService.unregisterRow(element);
+    }
+  }
+
+  onKeydown(event: KeyboardEvent): void {
+    if (!this.navService) return;
+
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        this.navService.focusNextRow();
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        this.navService.focusPreviousRow();
+        break;
+      case 'ArrowRight':
+        event.preventDefault();
+        this.navService.focusRowControl();
+        break;
+      case 'Escape':
+        event.preventDefault();
+        this.navService.clearAndFocusCanvas();
+        break;
+    }
+  }
+
+  focusFirstControl(): HTMLElement | null {
+    const element = this.rowElement()?.nativeElement;
+    if (!element) return null;
+
+    const focusable = element.querySelector(
+      FOCUSABLE_CONTROL_SELECTOR,
+    ) as HTMLElement | null;
+
+    focusable?.focus();
+    return focusable;
+  }
+
+  focus(): void {
+    this.rowElement()?.nativeElement?.focus();
   }
 
   private updateEnabledState(value: any) {

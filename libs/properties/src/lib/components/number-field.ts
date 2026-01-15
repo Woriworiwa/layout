@@ -8,6 +8,7 @@ import { Unit } from '@layout/models';
 import { POSTFIX_UNIT } from '@layout/serialization';
 import { BaseFormItemComponent } from './base-form-item.component';
 import { ButtonDirective, ButtonIcon } from 'primeng/button';
+import { PropertiesControlKeyboardDirective } from '../properties-control-keyboard.directive';
 
 @Component({
   selector: 'app-number-field',
@@ -18,11 +19,13 @@ import { ButtonDirective, ButtonIcon } from 'primeng/button';
     FormsModule,
     ButtonDirective,
     ButtonIcon,
+    PropertiesControlKeyboardDirective,
   ],
   template: `
     <div class="flex gap-2">
       <div class="w-24">
         <p-inputNumber
+          appPropertiesControlKeyboard
           [id]="label()"
           fluid
           inputId="integeronly"

@@ -152,6 +152,17 @@ export class PropertyGroupComponent {
     }
   }
 
+  expand(): void {
+    if (this._collapsed()) {
+      this._collapsed.set(false);
+
+      const id = this.groupId();
+      if (id) {
+        this.saveCollapsedState(id, false);
+      }
+    }
+  }
+
   private getCollapsedState(groupId: string): boolean | null {
     return this.localStorageService?.getProperty<boolean>(
       this.STORAGE_KEY,

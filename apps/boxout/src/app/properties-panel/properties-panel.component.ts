@@ -1,7 +1,8 @@
 import {
+  ChangeDetectionStrategy,
   Component,
+  effect,
   ElementRef,
-  HostListener,
   inject,
   input,
   signal,
@@ -27,12 +28,9 @@ import {
   PropertiesFlexboxGridComponent,
   PropertiesConfig,
   PropertiesService,
+  PropertiesKeyboardNavigationService,
 } from '@layout/properties';
-import {
-  CssViewerComponent,
-  THEME_CONFIG,
-  LOCAL_STORAGE_SERVICE,
-} from '@layout/shared';
+import { THEME_CONFIG, LOCAL_STORAGE_SERVICE } from '@layout/shared';
 import { ThemeService } from '../core/theme/theme.service';
 import { LocalStorageService } from '../core/services/local-storage.service';
 
@@ -50,6 +48,7 @@ import { LocalStorageService } from '../core/services/local-storage.service';
   ],
   providers: [
     PropertiesService,
+    PropertiesKeyboardNavigationService,
     {
       provide: THEME_CONFIG,
       useFactory: () => {
@@ -64,13 +63,16 @@ import { LocalStorageService } from '../core/services/local-storage.service';
   ],
   templateUrl: './properties-panel.component.html',
   styleUrls: ['./properties-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'min-h-0',
+    '(window:keydown)': 'handleKeyboardShortcut($event)',
   },
 })
 export class PropertiesPanelComponent {
   private readonly selectionService = inject(SelectionService);
   private readonly canvasService = inject(CanvasService);
+  private readonly navService = inject(PropertiesKeyboardNavigationService);
 
   config = input<PropertiesConfig>({});
 
@@ -92,14 +94,24 @@ export class PropertiesPanelComponent {
   private readonly propertiesService = inject(PropertiesService);
 
   constructor() {
+    // Sync local searchText to service
     toObservable(this.searchText)
       .pipe(takeUntilDestroyed())
       .subscribe((text) => {
-        this.propertiesService.searchText.set(text);
+        if (this.propertiesService.searchText() !== text) {
+          this.propertiesService.searchText.set(text);
+        }
       });
+
+    // Sync service searchText back to local (for when cleared externally)
+    effect(() => {
+      const serviceText = this.propertiesService.searchText();
+      if (this.searchText() !== serviceText) {
+        this.searchText.set(serviceText);
+      }
+    });
   }
 
-  @HostListener('window:keydown', ['$event'])
   protected handleKeyboardShortcut(event: KeyboardEvent): void {
     const isSearchShortcut =
       (event.ctrlKey || event.metaKey) && event.key === 'k';
@@ -121,6 +133,23 @@ export class PropertiesPanelComponent {
     if (input) {
       input.nativeElement.focus();
       input.nativeElement.select();
+    }
+  }
+
+  protected onSearchInputKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        this.navService.focusFirstRow();
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        this.navService.focusLastRow();
+        break;
+      case 'Escape':
+        event.preventDefault();
+        this.navService.clearAndFocusCanvas();
+        break;
     }
   }
 

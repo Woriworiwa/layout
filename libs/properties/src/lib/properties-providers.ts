@@ -1,5 +1,6 @@
 import { Provider } from '@angular/core';
 import { PropertiesService } from './properties.service';
+import { PropertiesKeyboardNavigationService } from './properties-keyboard-navigation.service';
 
 /**
  * Provides all properties-related services required for the properties functionality.
@@ -22,5 +23,6 @@ import { PropertiesService } from './properties.service';
 export function provideProperties(): Provider[] {
   return [
     PropertiesService,
+    PropertiesKeyboardNavigationService,
   ];
 }

@@ -14,10 +14,12 @@ export * from './lib/groups/layout.component';
 export * from './lib/groups/meta-data.component';
 export * from './lib/groups/sizing-spacing.component';
 
-// Services, Config, Directive
+// Services, Config, Directives
 export * from './lib/properties.service';
 export * from './lib/properties.config';
 export * from './lib/properties-filter.directive';
+export * from './lib/properties-keyboard-navigation.service';
+export * from './lib/properties-control-keyboard.directive';
 
 // Providers
 export * from './lib/properties-providers';
