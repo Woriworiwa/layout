@@ -30,14 +30,10 @@ export class PropertiesFilterDirective {
 
     effect(() => {
       // Use the provided filter value, or fall back to the property row's label
-      const filterText = this.propertyRow?.label();
+      const filterText = this.propertyRow?.label()?.toLocaleLowerCase();
       const searchText = this.propertiesService.searchText();
       const includesSearchText =
-        !searchText ||
-        (filterText
-          ?.toLocaleLowerCase()
-          .includes(searchText.toLocaleLowerCase()) ??
-          false);
+        !searchText || this.matchesAnyWord(filterText, searchText);
 
       // Update visibility state
       if (this.propertyRow) {
@@ -54,5 +50,26 @@ export class PropertiesFilterDirective {
         }
       }
     });
+  }
+
+  /**
+   * Checks if filterText matches any word in the search query.
+   * Words are split by whitespace, and a match occurs if any word
+   * is found in the filterText.
+   */
+  private matchesAnyWord(
+    filterText: string | undefined,
+    searchText: string,
+  ): boolean {
+    if (!filterText) return false;
+
+    const searchWords = searchText
+      .toLocaleLowerCase()
+      .split(/\s+/)
+      .filter((word) => word.length > 0);
+
+    if (searchWords.length === 0) return true;
+
+    return searchWords.some((word) => filterText.includes(word));
   }
 }
