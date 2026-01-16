@@ -50,7 +50,11 @@ export class AppComponent {
     this.canvasService.setItems(this.mockService.getInitialData());
   }
 
-  onGetStarted(): void {
+  onTemplateSelected(templateId: string): void {
+    this.guideService.startWithTemplate(templateId);
+  }
+
+  onStartBlank(): void {
     this.guideService.dismissGuide();
   }
 }

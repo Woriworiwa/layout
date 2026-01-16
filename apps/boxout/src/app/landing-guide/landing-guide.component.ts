@@ -1,67 +1,115 @@
 import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { Button } from 'primeng/button';
 
+interface TemplateOption {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+}
+
 @Component({
   selector: 'app-landing-guide',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button],
   host: {
-    class: 'absolute inset-0 z-50 flex items-center justify-center',
+    class: 'absolute inset-0 z-50 flex items-center justify-center p-8',
     style:
-      'background: color-mix(in srgb, var(--p-surface-0) 85%, transparent); backdrop-filter: blur(4px);',
+      'background: color-mix(in srgb, var(--p-surface-0) 90%, transparent); backdrop-filter: blur(8px);',
     'data-testid': 'landing-guide',
   },
   template: `
-    <div class="text-center max-w-lg px-8">
-      <!-- Welcome Icon -->
-      <div class="mb-6">
-        <i class="pi pi-th-large text-6xl text-primary"></i>
-      </div>
-
-      <!-- Welcome Message -->
-      <h1 class="text-3xl font-bold mb-4 text-surface-900">
-        Welcome to BoxOut
+    <div class="flex flex-col items-center max-w-3xl w-full">
+      <!-- Header -->
+      <h1 class="text-2xl font-semibold mb-2 text-surface-900">
+        What would you like to build?
       </h1>
-
-      <p class="text-lg text-surface-600 mb-8">
-        Create responsive CSS layouts visually using Grid and Flexbox. Drag
-        components from the left panel to start building.
+      <p class="text-surface-500 mb-8">
+        Choose a template to get started, or start with a blank canvas.
       </p>
 
-      <!-- Tips Section -->
-      <div class="text-left mb-8 p-4 surface-100 rounded-lg">
-        <h3 class="font-semibold mb-3 text-surface-800">Quick Tips:</h3>
-        <ul class="list-none p-0 m-0 flex flex-col gap-2 text-surface-600">
-          <li class="flex items-start gap-2">
-            <i class="pi pi-arrow-right text-primary mt-1"></i>
-            <span>Drag assets from the left panel onto the canvas</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <i class="pi pi-arrow-right text-primary mt-1"></i>
-            <span>Click elements to select and edit properties</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <i class="pi pi-arrow-right text-primary mt-1"></i>
-            <span>Use the Inspector to view generated CSS and HTML</span>
-          </li>
-        </ul>
+      <!-- Template Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mb-8">
+        @for (template of templates; track template.id) {
+          <button
+            type="button"
+            class="template-card group flex flex-col items-center p-4 rounded-lg border border-surface-200 bg-surface-0 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer text-center"
+            (click)="onSelectTemplate(template.id)"
+            [attr.data-testid]="'template-' + template.id"
+          >
+            <div
+              class="w-16 h-16 rounded-lg bg-surface-100 group-hover:bg-primary/10 flex items-center justify-center mb-3 transition-colors"
+            >
+              <i
+                class="pi text-2xl text-surface-500 group-hover:text-primary transition-colors"
+                [class]="template.icon"
+              ></i>
+            </div>
+            <span class="font-medium text-surface-800 mb-1">{{
+              template.name
+            }}</span>
+            <span class="text-xs text-surface-500">{{
+              template.description
+            }}</span>
+          </button>
+        }
       </div>
 
-      <!-- Get Started Button -->
-      <p-button
-        label="Get Started"
-        icon="pi pi-arrow-right"
-        iconPos="right"
-        (onClick)="onGetStarted()"
-        data-testid="get-started-button"
-      />
+      <!-- Start Blank -->
+      <div class="flex items-center gap-3 text-surface-500">
+        <span class="text-sm">or</span>
+        <p-button
+          label="Start with blank canvas"
+          [link]="true"
+          (onClick)="onStartBlank()"
+          data-testid="start-blank-button"
+        />
+      </div>
     </div>
+  `,
+  styles: `
+    .template-card:focus {
+      outline: 2px solid var(--p-primary-color);
+      outline-offset: 2px;
+    }
   `,
 })
 export class LandingGuideComponent {
-  readonly getStarted = output<void>();
+  readonly templateSelected = output<string>();
+  readonly startBlank = output<void>();
 
-  protected onGetStarted(): void {
-    this.getStarted.emit();
+  protected readonly templates: TemplateOption[] = [
+    {
+      id: 'sidebar-layout',
+      name: 'Page Layout',
+      description: 'Header, sidebar, content, footer',
+      icon: 'pi-window-maximize',
+    },
+    {
+      id: 'grid-3-columns',
+      name: 'Card Grid',
+      description: '3-column responsive grid',
+      icon: 'pi-th-large',
+    },
+    {
+      id: 'navbar',
+      name: 'Navigation',
+      description: 'Logo with nav links',
+      icon: 'pi-bars',
+    },
+    {
+      id: 'card',
+      name: 'Card',
+      description: 'Title, content, action',
+      icon: 'pi-id-card',
+    },
+  ];
+
+  protected onSelectTemplate(templateId: string): void {
+    this.templateSelected.emit(templateId);
+  }
+
+  protected onStartBlank(): void {
+    this.startBlank.emit();
   }
 }

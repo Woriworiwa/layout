@@ -1,6 +1,8 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { AssetDragDropService, CanvasService } from '@layout/canvas';
+import { PRESET_PROVIDER } from '@layout/shared';
+import cloneDeep from 'lodash.clonedeep';
 import { filter } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 
@@ -18,6 +20,7 @@ export class GuideService {
   private readonly localStorageService = inject(LocalStorageService);
   private readonly assetDragDropService = inject(AssetDragDropService);
   private readonly canvasService = inject(CanvasService);
+  private readonly presetsProvider = inject(PRESET_PROVIDER, { optional: true });
 
   private readonly guideDismissed = signal<boolean>(false);
   private readonly canvasItems = toSignal(this.canvasService.items$, {
@@ -40,6 +43,25 @@ export class GuideService {
   dismissGuide(): void {
     this.guideDismissed.set(true);
     this.localStorageService.setItem(GUIDE_DISMISSED_KEY, true);
+  }
+
+  /** Start with a template preset and dismiss the guide */
+  startWithTemplate(presetId: string): void {
+    if (!this.presetsProvider) {
+      console.warn('PresetProvider not configured');
+      return;
+    }
+
+    const preset = this.presetsProvider.getPreset(presetId);
+    if (!preset) {
+      console.warn(`Preset "${presetId}" not found`);
+      return;
+    }
+
+    const newItem = cloneDeep(preset.presetDefinition);
+    this.presetsProvider.assignDefaultPaddings(newItem);
+    this.canvasService.setItems([newItem]);
+    this.dismissGuide();
   }
 
   /** Reset the guide state (useful for testing or clearing data) */
