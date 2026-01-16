@@ -1,22 +1,22 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, ElementRef, inject, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BaseFormItemComponent } from './base-form-item.component';
-import { PropertiesControlKeyboardDirective } from '../properties-control-keyboard.directive';
+import { PropertiesKeyboardNavigationService } from '../properties-keyboard-navigation.service';
 
 type OptionType = string | { label: string; value: any };
 
 @Component({
   selector: 'app-button-group',
-  imports: [ReactiveFormsModule, PropertiesControlKeyboardDirective],
+  imports: [ReactiveFormsModule],
   template: `
     <div class="flex flex-wrap gap-1" role="group">
       @for (option of normalizedOptions(); track $index) {
         <button
           type="button"
-          appPropertiesControlKeyboard
           [attr.aria-pressed]="isSelected(option.value)"
           [class]="getButtonClasses(option.value)"
           (click)="toggleSelection(option.value)"
+          (keydown)="onButtonKeydown($event)"
         >
           {{ option.label }}
         </button>
@@ -30,6 +30,11 @@ type OptionType = string | { label: string; value: any };
   `,
 })
 export class ButtonGroupComponent extends BaseFormItemComponent {
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly navService = inject(PropertiesKeyboardNavigationService, {
+    optional: true,
+  });
+
   options = input<OptionType[] | any[]>([]);
 
   // Normalize options to always have {label, value} format
@@ -99,5 +104,40 @@ export class ButtonGroupComponent extends BaseFormItemComponent {
         ];
 
     return [...baseClasses, ...selectedClasses].join(' ');
+  }
+
+  protected onButtonKeydown(event: KeyboardEvent): void {
+    const target = event.target as HTMLElement;
+    const buttons = this.getButtons();
+    const currentIndex = buttons.indexOf(target);
+
+    switch (event.key) {
+      case 'ArrowLeft':
+        event.preventDefault();
+        event.stopPropagation();
+        if (currentIndex > 0) {
+          buttons[currentIndex - 1].focus();
+        } else {
+          this.navService?.returnFocusToRow();
+        }
+        break;
+      case 'ArrowRight':
+        event.preventDefault();
+        event.stopPropagation();
+        if (currentIndex < buttons.length - 1) {
+          buttons[currentIndex + 1].focus();
+        }
+        break;
+      case 'Escape':
+        event.preventDefault();
+        event.stopPropagation();
+        this.navService?.clearAndFocusCanvas();
+        break;
+    }
+  }
+
+  private getButtons(): HTMLElement[] {
+    const container = this.elementRef.nativeElement.querySelector('[role="group"]');
+    return container ? Array.from(container.querySelectorAll('button')) : [];
   }
 }
