@@ -14,9 +14,16 @@ export const PROPERTIES_CONFIG = new InjectionToken<PropertiesConfig>(
 export interface PropertiesConfig {
   labelPosition?: 'top' | 'left' | 'none';
   selectControlsLayout?: 'dropdown' | 'selectButton';
+  /**
+   * When enabled, search will also match against button group option values.
+   * For example, searching "flex" will show the "display" property because
+   * it has "flex" as one of its options.
+   */
+  searchIncludesOptionValues?: boolean;
 }
 
 export const DEFAULT_PROPERTIES_CONFIG: PropertiesConfig = {
   labelPosition: 'left',
   selectControlsLayout: 'selectButton',
+  searchIncludesOptionValues: true,
 };

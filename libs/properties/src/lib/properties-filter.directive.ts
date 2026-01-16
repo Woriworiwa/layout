@@ -9,6 +9,11 @@ import {
 } from '@angular/core';
 import { PropertiesService } from './properties.service';
 import { PropertyRowComponent } from './components/property-row.component';
+import {
+  DEFAULT_PROPERTIES_CONFIG,
+  PROPERTIES_CONFIG,
+  PropertiesConfig,
+} from './properties.config';
 
 @Directive({
   selector: '[appPropertiesFilter]',
@@ -23,6 +28,8 @@ export class PropertiesFilterDirective {
   });
   private elementRef = inject(ElementRef);
   private renderer = inject(Renderer2);
+  private config: PropertiesConfig =
+    inject(PROPERTIES_CONFIG, { optional: true }) ?? DEFAULT_PROPERTIES_CONFIG;
 
   constructor() {
     // Always render the template
@@ -31,9 +38,10 @@ export class PropertiesFilterDirective {
     effect(() => {
       // Use the provided filter value, or fall back to the property row's label
       const filterText = this.propertyRow?.label()?.toLocaleLowerCase();
+      const optionLabels = this.getOptionLabels();
       const searchText = this.propertiesService.searchText();
       const includesSearchText =
-        !searchText || this.matchesAnyWord(filterText, searchText);
+        !searchText || this.matchesAnyWord(filterText, optionLabels, searchText);
 
       // Update visibility state
       if (this.propertyRow) {
@@ -53,16 +61,30 @@ export class PropertiesFilterDirective {
   }
 
   /**
-   * Checks if filterText matches any word in the search query.
+   * Gets the option labels from the button group component if present.
+   * Returns an empty array if no button group or if the config disables this feature.
+   */
+  private getOptionLabels(): string[] {
+    if (!this.config.searchIncludesOptionValues) return [];
+
+    const buttonGroup = this.propertyRow?.buttonGroupComponent;
+    if (!buttonGroup) return [];
+
+    return buttonGroup
+      .normalizedOptions()
+      .map((opt) => opt.label.toLocaleLowerCase());
+  }
+
+  /**
+   * Checks if filterText or any option label matches any word in the search query.
    * Words are split by whitespace, and a match occurs if any word
-   * is found in the filterText.
+   * is found in the filterText or option labels.
    */
   private matchesAnyWord(
     filterText: string | undefined,
+    optionLabels: string[],
     searchText: string,
   ): boolean {
-    if (!filterText) return false;
-
     const searchWords = searchText
       .toLocaleLowerCase()
       .split(/\s+/)
@@ -70,6 +92,15 @@ export class PropertiesFilterDirective {
 
     if (searchWords.length === 0) return true;
 
-    return searchWords.some((word) => filterText.includes(word));
+    // Check if any search word matches the filter text
+    const matchesLabel =
+      filterText && searchWords.some((word) => filterText.includes(word));
+
+    // Check if any search word matches any option label
+    const matchesOption = optionLabels.some((label) =>
+      searchWords.some((word) => label.includes(word)),
+    );
+
+    return matchesLabel || matchesOption;
   }
 }
