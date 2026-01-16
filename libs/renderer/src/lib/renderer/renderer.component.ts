@@ -55,6 +55,23 @@ export class RendererComponent {
   selectedViewport = signal<string>('tablet');
   customWidth = signal<number>(768);
 
+  // Base styles for frame and text elements in preview
+  private readonly baseStyles = `
+    .frame {
+      padding: 15px;
+      background-color: #9161a7;
+      border: 1px solid #ed9534;
+    }
+
+    .text {
+      padding: 5px;
+      background-color: #ed9534;
+      border-radius: 6px;
+      border: 2px solid black;
+      box-shadow: inset 3px 3px 7px 5px #f2ad62;
+    }
+  `;
+
   // Viewport components-panel
   viewportPresets: ViewportPreset[] = [
     { label: 'Mobile', value: 'mobile', width: 375 },
@@ -92,7 +109,8 @@ export class RendererComponent {
     this.canvasService.items$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
-        this.code.set(this.serializer.serialize(items, true).join('\n'));
+        const html = this.serializer.serialize(items, {includeHeaderBody: true}).join('\n');
+        this.code.set(this.injectBaseStyles(html));
       });
 
     // Reset to tablet width when custom is selected
@@ -101,6 +119,11 @@ export class RendererComponent {
         this.customWidth.set(768);
       }
     });
+  }
+
+  private injectBaseStyles(html: string): string {
+    // Inject base styles into the <head> section before </head>
+    return html.replace('</head>', `<style>${this.baseStyles}</style>\n  </head>`);
   }
 
   toggleCodePanel() {

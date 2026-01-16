@@ -12,7 +12,7 @@ describe('HtmlSerializer', () => {
         key: 'test-key',
         label: 'Test',
         css: {
-          display: { display: 'flex' },
+          layout: { display: 'flex' },
         },
         children: [],
       };
@@ -20,7 +20,7 @@ describe('HtmlSerializer', () => {
       const result = serializer.serialize([item]);
 
       expect(result).toBeInstanceOf(Array);
-      expect(result.join('\n')).toContain('<div class="frame test-key">');
+      expect(result.join('\n')).toContain('<div class="test-key">');
       expect(result.join('\n')).toContain('</div>');
     });
   });
@@ -32,7 +32,7 @@ describe('HtmlSerializer', () => {
         key: 'parent-key',
         label: 'Parent',
         css: {
-          display: { display: 'flex' },
+          layout: { display: 'flex' },
         },
         children: [
           {
@@ -40,7 +40,7 @@ describe('HtmlSerializer', () => {
             key: 'child-key',
             label: 'Child',
             css: {
-              boxSizing: { width: '50%' },
+              sizing: { width: '50%' },
             },
             children: [],
           },
@@ -63,7 +63,7 @@ describe('HtmlSerializer', () => {
         label: 'Text',
         content: 'Hello World',
         css: {
-          boxSizing: { padding: '10px' },
+          spacing: { padding: '10px' },
         },
         children: [],
       };
@@ -83,12 +83,12 @@ describe('HtmlSerializer', () => {
         key: 'test',
         label: 'Test',
         css: {
-          display: { display: 'grid' },
+          layout: { display: 'grid' },
         },
         children: [],
       };
 
-      const result = serializer.serialize([item], true);
+      const result = serializer.serialize([item], { includeHeaderBody: true });
       const html = result.join('\n');
 
       expect(html).toContain('<html>');
@@ -96,6 +96,23 @@ describe('HtmlSerializer', () => {
       expect(html).toContain('<style>');
       expect(html).toContain('<body>');
       expect(html).toContain('</html>');
+    });
+
+    it('SHOULD include frame and text classes', () => {
+      const item: CanvasItem = {
+        itemType: CanvasItemType.CONTAINER,
+        key: 'test',
+        label: 'Test',
+        css: {
+          layout: { display: 'grid' },
+        },
+        children: [],
+      };
+
+      const result = serializer.serialize([item], { includeHeaderBody: true });
+      const html = result.join('\n');
+
+      expect(html).toContain('<div class="frame test">');
     });
   });
 
@@ -116,7 +133,7 @@ describe('HtmlSerializer', () => {
           key: 'key-1',
           label: 'Item 1',
           css: {
-            display: { display: 'flex' },
+            layout: { display: 'flex' },
           },
           children: [],
         },
@@ -126,7 +143,7 @@ describe('HtmlSerializer', () => {
           label: 'Item 2',
           content: 'Text content',
           css: {
-            boxSizing: { padding: '5px' },
+            spacing: { padding: '5px' },
           },
           children: [],
         },

@@ -1,10 +1,14 @@
 import { CanvasItem } from '@layout/models';
 import { Injectable, inject } from '@angular/core';
 import { CanvasService } from '@layout/canvas';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
 export class DataService {
   private canvasService = inject(CanvasService);
+  private localStorageService = inject(LocalStorageService);
+
+  private readonly CANVAS_ITEMS_KEY = 'CANVAS_ITEMS';
 
   getInitialData(): CanvasItem[] {
     const savedData = this.loadDataFromLocalStorage();
@@ -18,25 +22,14 @@ export class DataService {
 
   saveDataToLocalStorage() {
     const canvasItems = this.canvasService.items;
-    localStorage.setItem('CANVAS_ITEMS', JSON.stringify(canvasItems));
+    this.localStorageService.setItem(this.CANVAS_ITEMS_KEY, canvasItems);
   }
 
   clearLocalStorage() {
-    localStorage.removeItem('CANVAS_ITEMS');
+    this.localStorageService.removeItem(this.CANVAS_ITEMS_KEY);
   }
 
   loadDataFromLocalStorage(): CanvasItem[] {
-    let canvasItems: CanvasItem[] = [];
-
-    try {
-      const localStorageItem = localStorage.getItem('CANVAS_ITEMS');
-      if (localStorageItem) {
-        canvasItems = JSON.parse(localStorageItem);
-      }
-    } catch {
-      console.warn('no data available in localStorage');
-    }
-
-    return canvasItems;
+    return this.localStorageService.getItem<CanvasItem[]>(this.CANVAS_ITEMS_KEY, []) || [];
   }
 }

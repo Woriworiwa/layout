@@ -16,8 +16,8 @@ describe('CssStyleSerializer', () => {
         key: 'container',
         label: 'Container',
         css: {
-          display: { display: 'flex' },
-          boxSizing: { padding: '16px' },
+          layout: { display: 'flex' },
+          spacing: { padding: '16px' },
         },
         children: [],
       };
@@ -38,7 +38,7 @@ describe('CssStyleSerializer', () => {
         key: 'container',
         label: 'Container',
         css: {
-          flexContainer: { flexDirection: 'column' },
+          flexboxGrid: { flexDirection: 'column' },
         },
         children: [],
       };
@@ -74,7 +74,7 @@ describe('CssStyleSerializer', () => {
           key: 'item1',
           label: 'Item 1',
           css: {
-            boxSizing: { padding: '10px' },
+            spacing: { padding: '10px' },
           },
           children: [],
         },
@@ -83,7 +83,7 @@ describe('CssStyleSerializer', () => {
           key: 'item2',
           label: 'Item 2',
           css: {
-            boxSizing: { padding: '20px' },
+            spacing: { padding: '20px' },
           },
           children: [],
         },

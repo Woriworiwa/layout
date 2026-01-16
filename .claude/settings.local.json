@@ -84,7 +84,12 @@
       "mcp__playwright-test__browser_verify_element_visible",
       "mcp__playwright-test__generator_read_log",
       "mcp__playwright-test__generator_write_test",
-      "mcp__playwright-test__browser_evaluate"
+      "mcp__playwright-test__browser_evaluate",
+      "Bash(npm run start:*)",
+      "Bash(npx nx run:*)",
+      "Bash(git revert:*)",
+      "Bash(git restore:*)",
+      "mcp__nx-mcp__nx_workspace_path"
     ],
     "deny": [],
     "ask": []

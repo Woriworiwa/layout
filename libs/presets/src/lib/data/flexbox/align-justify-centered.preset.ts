@@ -7,14 +7,14 @@ export const centeredContentPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         justifyContent: 'center',
         alignItems: 'center',
       },
-      boxSizing: {
+      spacing: {
         padding: '6px',
       },
     },
@@ -22,17 +22,15 @@ export const centeredContentPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: '16',
             alignItems: 'center',
-          },
-          flexContainer: {
             flexDirection: 'column',
           },
-          boxSizing: {
+          spacing: {
             padding: '24px',
           },
         },

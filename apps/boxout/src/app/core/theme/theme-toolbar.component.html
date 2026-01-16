@@ -1,0 +1,99 @@
+<div class="theme-toolbar">
+  <!-- Dark Mode Toggle -->
+  <div class="flex items-center gap-2">
+    <i class="pi pi-moon text-sm text-surface-500 dark:text-surface-400"></i>
+    <p-toggleswitch
+      [ngModel]="themeService.config().darkMode"
+      (onChange)="onDarkModeToggle()"
+      [pTooltip]="themeService.config().darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+      tooltipPosition="top"
+    />
+    <i class="pi pi-sun text-sm text-surface-500 dark:text-surface-400"></i>
+  </div>
+
+  <!-- Divider -->
+  <div class="toolbar-divider"></div>
+
+  <!-- Primary Color Selector -->
+  <button
+    type="button"
+    class="color-selector-button"
+    (click)="primaryOverlay.toggle($event)"
+    [pTooltip]="'Primary color: ' + themeService.config().primary"
+    tooltipPosition="top"
+    [attr.aria-label]="'Select primary color'"
+  >
+    <div
+      class="color-preview"
+      [style.backgroundColor]="getPrimaryColorBg()"
+    ></div>
+    <i class="pi pi-chevron-up text-xs"></i>
+  </button>
+
+  <!-- Divider -->
+  <div class="toolbar-divider"></div>
+
+  <!-- Surface Color Selector -->
+  <button
+    type="button"
+    class="color-selector-button"
+    (click)="surfaceOverlay.toggle($event)"
+    [pTooltip]="'Surface color: ' + themeService.config().surface"
+    tooltipPosition="top"
+    [attr.aria-label]="'Select surface color'"
+  >
+    <div
+      class="color-preview"
+      [style.backgroundColor]="getSurfaceColorBg()"
+    ></div>
+    <i class="pi pi-chevron-up text-xs"></i>
+  </button>
+</div>
+
+<!-- Primary Color Overlay -->
+<p-popover #primaryOverlay>
+  <div class="color-picker-panel">
+    <div class="text-sm font-semibold mb-3 text-surface-700 dark:text-surface-200">
+      Primary Color
+    </div>
+    <div class="color-grid">
+      @for (color of primaryColors; track color.name) {
+        <button
+          type="button"
+          class="color-option"
+          [class.active]="themeService.config().primary === color.name"
+          [style.backgroundColor]="
+            color.name === 'noir' ? '#000000' : color.palette[500]
+          "
+          [pTooltip]="color.name"
+          tooltipPosition="top"
+          [attr.aria-label]="'Set primary color to ' + color.name"
+          (click)="onPrimaryChange(color.name)"
+        ></button>
+      }
+    </div>
+  </div>
+</p-popover>
+
+<!-- Surface Color Overlay -->
+<p-popover #surfaceOverlay>
+  <div class="color-picker-panel">
+    <div class="text-sm font-semibold mb-3 text-surface-700 dark:text-surface-200">
+      Surface Color
+    </div>
+    <div class="color-grid">
+      @for (surface of surfaces; track surface.name) {
+        <button
+          type="button"
+          class="color-option"
+          [class.active]="themeService.config().surface === surface.name"
+          [style.backgroundColor]="surface.palette[500]"
+          [pTooltip]="surface.name"
+          tooltipPosition="top"
+          [attr.aria-label]="'Set surface color to ' + surface.name"
+          (click)="onSurfaceChange(surface.name)"
+        ></button>
+      }
+    </div>
+  </div>
+</p-popover>

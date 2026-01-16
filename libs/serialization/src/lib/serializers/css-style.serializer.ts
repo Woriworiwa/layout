@@ -3,12 +3,13 @@ import { Serializer } from './serializer';
 import { Css } from '@layout/models';
 import { POSTFIX_UNIT, POSTFIXED_PROPERTIES } from '../constants';
 
-export class CssStyleSerializer extends Serializer {
+export class CssStyleSerializer extends Serializer<void> {
   constructor() {
     super();
   }
 
-  serialize(items: CanvasItem[]): string[] {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  serialize(items: CanvasItem[], _options?: void): string[] {
     if (items.length !== 1) {
       return [];
     }
@@ -20,7 +21,7 @@ export class CssStyleSerializer extends Serializer {
 
     const cssProperties: string[] = [];
 
-    /* loop through the root keys (boxSizing, flex,...) */
+    /* loop through the root keys (spacing, sizing, display, container,...) */
     CssStyleSerializer.serializeItems(css, cssProperties);
 
     return cssProperties;
@@ -40,11 +41,14 @@ export class CssStyleSerializer extends Serializer {
         const cssPropertyName = key
           .replace(/([a-z])([A-Z])/g, '$1-$2')
           .toLowerCase();
-        let cssPropertyValue: string = value[key as keyof Css[keyof Css]];
+        const rawValue = value[key as keyof Css[keyof Css]];
 
-        if (cssPropertyValue == null) {
+        if (rawValue == null) {
           continue;
         }
+
+        // Convert to string (handles both string and number values)
+        let cssPropertyValue = String(rawValue);
 
         if (POSTFIXED_PROPERTIES.includes(key)) {
           cssPropertyValue += POSTFIX_UNIT;

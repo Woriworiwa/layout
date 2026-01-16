@@ -7,16 +7,14 @@ export const justifyContentPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      boxSizing: {
+      spacing: {
         padding: '16px',
       },
-      display: {
+      layout: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: '10',
-      },
-      flexContainer: {
         flexDirection: 'row',
         flexWrap: 'nowrap',
       },
@@ -25,22 +23,18 @@ export const justifyContentPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: '10',
             justifyContent: 'start',
-          },
-          flexContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
-          },
-          boxSizing: {
-            padding: '16px',
-          },
-          flexItem: {
             flexGrow: 1,
+          },
+          spacing: {
+            padding: '16px',
           },
         },
         key: 'RpitIDkg',
@@ -70,22 +64,18 @@ export const justifyContentPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: '10',
             justifyContent: 'end',
-          },
-          flexContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
-          },
-          boxSizing: {
-            padding: '16px',
-          },
-          flexItem: {
             flexGrow: 1,
+          },
+          spacing: {
+            padding: '16px',
           },
         },
         key: 'bbjgFMgH',
@@ -114,17 +104,15 @@ export const justifyContentPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          boxSizing: {
+          spacing: {
             padding: '16px',
           },
-          container: {
+          flexboxGrid: {
             gap: '10',
             justifyContent: 'center',
-          },
-          flexItem: {
             flexGrow: 1,
           },
         },

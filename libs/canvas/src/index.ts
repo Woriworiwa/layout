@@ -7,6 +7,7 @@ export * from './lib/canvas.component';
 export * from './lib/canvas.service';
 export * from './lib/canvas.settings';
 export * from './lib/canvas-providers';
+export * from './lib/constants';
 
 // Services
 export * from './lib/selection/selection.service';

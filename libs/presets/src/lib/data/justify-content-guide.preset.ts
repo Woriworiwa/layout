@@ -17,20 +17,18 @@ export const justifyContentGuidePreset = {
         itemType: 'CONTAINER',
         label: 'Column Direction Section',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          flexContainer: {
+          flexboxGrid: {
             flexDirection: 'row',
             gap: '16',
             justifyContent: 'start',
             alignItems: 'center',
-          },
-          boxSizing: {
-            padding: '16px',
-          },
-          flexItem: {
             flexGrow: 1,
+          },
+          spacing: {
+            padding: '16px',
           },
         },
         children: [
@@ -38,17 +36,19 @@ export const justifyContentGuidePreset = {
             itemType: 'CONTAINER',
             label: 'Interactive Row Example Container',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
-              flexContainer: {
+              flexboxGrid: {
                 flexDirection: 'row',
                 gap: '8',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
               },
-              boxSizing: {
+              spacing: {
                 padding: '16px',
+              },
+              sizing: {
                 width: '100%',
                 height: '80px',
               },
@@ -59,8 +59,10 @@ export const justifyContentGuidePreset = {
                 label: 'Row Item 1',
                 content: 'Item 1',
                 css: {
-                  boxSizing: {
+                  spacing: {
                     padding: '8px',
+                  },
+                  sizing: {
                     width: '60px',
                     height: '40px',
                   },
@@ -73,8 +75,10 @@ export const justifyContentGuidePreset = {
                 label: 'Row Item 2',
                 content: 'Item 2',
                 css: {
-                  boxSizing: {
+                  spacing: {
                     padding: '8px',
+                  },
+                  sizing: {
                     width: '60px',
                     height: '40px',
                   },
@@ -87,8 +91,10 @@ export const justifyContentGuidePreset = {
                 label: 'Row Item 3',
                 content: 'Item 3',
                 css: {
-                  boxSizing: {
+                  spacing: {
                     padding: '8px',
+                  },
+                  sizing: {
                     width: '60px',
                     height: '40px',
                   },
@@ -103,17 +109,19 @@ export const justifyContentGuidePreset = {
             itemType: 'CONTAINER',
             label: 'Interactive Column Example Container',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
-              flexContainer: {
+              flexboxGrid: {
                 flexDirection: 'column',
                 gap: '8',
                 justifyContent: 'end',
                 alignItems: 'center',
               },
-              boxSizing: {
+              spacing: {
                 padding: '16px',
+              },
+              sizing: {
                 width: '150px',
                 height: '250px',
               },
@@ -124,8 +132,10 @@ export const justifyContentGuidePreset = {
                 label: 'Column Item A',
                 content: 'Item A',
                 css: {
-                  boxSizing: {
+                  spacing: {
                     padding: '8px',
+                  },
+                  sizing: {
                     width: '80px',
                     height: '40px',
                   },
@@ -138,8 +148,10 @@ export const justifyContentGuidePreset = {
                 label: 'Column Item B',
                 content: 'Item B',
                 css: {
-                  boxSizing: {
+                  spacing: {
                     padding: '8px',
+                  },
+                  sizing: {
                     width: '80px',
                     height: '40px',
                   },
@@ -152,8 +164,10 @@ export const justifyContentGuidePreset = {
                 label: 'Column Item C',
                 content: 'Item C',
                 css: {
-                  boxSizing: {
+                  spacing: {
                     padding: '8px',
+                  },
+                  sizing: {
                     width: '80px',
                     height: '40px',
                   },
@@ -169,14 +183,14 @@ export const justifyContentGuidePreset = {
       },
     ],
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      flexContainer: {
+      flexboxGrid: {
         flexDirection: 'column',
         gap: '12',
       },
-      boxSizing: {
+      spacing: {
         padding: '16px',
       },
     },

@@ -9,40 +9,35 @@ import {
 import { CanvasItem } from '@layout/models';
 import { Button } from 'primeng/button';
 import FileSaver from 'file-saver';
-import { SerializationService } from '@layout/serialization';
+import { SerializationService, CssSerializerType } from '@layout/serialization';
 import { Highlight } from 'ngx-highlightjs';
+import { Tooltip } from 'primeng/tooltip';
+import { CopyButtonComponent } from './copy-button.component';
 
 @Component({
   selector: 'shared-html-viewer',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Button, Highlight],
+  imports: [Button, Highlight, Tooltip, CopyButtonComponent],
   template: `
-    @if (showDownload) {
-      <p-button label="Download" (click)="downloadHtml()"></p-button>
-    }
+    <div class="header">
+      <shared-copy-button [content]="code" />
+      @if (showDownload) {
+        <p-button
+          icon="pi pi-download"
+          (onClick)="downloadHtml()"
+          pTooltip="Download"
+          severity="secondary"
+          [text]="true"
+          size="small"
+        />
+      }
+    </div>
     <pre><code [highlight]="code" language="html"></code></pre>
   `,
+  styleUrl: './code-viewer-base.scss',
   styles: `
-    :host {
-      display: block;
-      position: relative;
-
-      p-button {
-        position: absolute;
-        right: 0;
-        margin-right: 10px;
-        margin-top: 20px;
-      }
-
-      pre {
-        margin: 0;
-        border-radius: 0;
-      }
-    }
-
     pre[class*='language-'] {
       padding: 1em;
-      margin: 0;
     }
   `,
 })
@@ -55,7 +50,13 @@ export class HtmlViewerComponent implements OnChanges {
   @Input()
   showDownload = true;
 
-  code = '';
+  @Input()
+  includeHeaderBody = true;
+
+  @Input()
+  cssSerializerType: CssSerializerType = 'CSS-class';
+
+  protected code = '';
 
   ngOnChanges() {
     this.serializeToHtml();
@@ -67,7 +68,10 @@ export class HtmlViewerComponent implements OnChanges {
       : [this.canvasItems];
     this.code = this.serializerService
       .getSerializer('HTML')
-      .serialize(items, true)
+      .serialize(items, {
+        includeHeaderBody: this.includeHeaderBody,
+        cssSerializerType: this.cssSerializerType,
+      })
       .join('\n');
   }
 

@@ -10,21 +10,17 @@ export const alignItemsPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: '10',
             alignItems: 'start',
-          },
-          flexContainer: {
             flexDirection: 'row',
-          },
-          boxSizing: {
-            padding: '16px',
-          },
-          flexItem: {
             flexGrow: 1,
+          },
+          spacing: {
+            padding: '16px',
           },
         },
         children: [
@@ -53,17 +49,15 @@ export const alignItemsPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          boxSizing: {
+          spacing: {
             padding: '16px',
           },
-          container: {
+          flexboxGrid: {
             gap: '10',
             alignItems: 'end',
-          },
-          flexItem: {
             flexGrow: 1,
           },
         },
@@ -93,17 +87,15 @@ export const alignItemsPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          boxSizing: {
+          spacing: {
             padding: '16px',
           },
-          container: {
+          flexboxGrid: {
             gap: '10',
             alignItems: 'center',
-          },
-          flexItem: {
             flexGrow: 1,
           },
         },
@@ -133,14 +125,16 @@ export const alignItemsPreset = {
     ],
     key: 'jLZXSKxG',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      boxSizing: {
-        height: '100px',
+      spacing: {
         padding: '16px',
       },
-      container: {
+      sizing: {
+        height: '100px',
+      },
+      flexboxGrid: {
         gap: 10,
         justifyContent: 'center',
       },

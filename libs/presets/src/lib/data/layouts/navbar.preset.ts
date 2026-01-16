@@ -7,18 +7,16 @@ export const navbarPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: '16',
-      },
-      flexContainer: {
         flexDirection: 'row',
       },
-      boxSizing: {
+      spacing: {
         padding: '12px 20px',
       },
     },
@@ -36,10 +34,10 @@ export const navbarPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: '20',
           },
         },

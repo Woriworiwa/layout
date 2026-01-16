@@ -7,10 +7,10 @@ export const emptyContainerPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      boxSizing: {
+      spacing: {
         padding: '18px',
       },
     },

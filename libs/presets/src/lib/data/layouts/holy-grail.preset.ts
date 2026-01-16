@@ -7,16 +7,14 @@ export const holyGrailPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: '8',
-      },
-      flexContainer: {
         flexDirection: 'column',
       },
-      boxSizing: {
+      spacing: {
         padding: '10px',
       },
     },
@@ -25,10 +23,10 @@ export const holyGrailPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          boxSizing: {
+          spacing: {
             padding: '6px',
           },
         },
@@ -37,18 +35,18 @@ export const holyGrailPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: 8,
-          },
-          flexContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
           },
-          boxSizing: {
+          spacing: {
             padding: '5px',
+          },
+          sizing: {
             height: '100px',
           },
         },
@@ -57,17 +55,15 @@ export const holyGrailPreset = {
           {
             itemType: 'CONTAINER',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
-              container: {
+              flexboxGrid: {
                 gap: 2,
-              },
-              boxSizing: {
-                padding: '2px',
-              },
-              flexItem: {
                 flexGrow: 1,
+              },
+              spacing: {
+                padding: '2px',
               },
             },
             key: 'MeRucrVe',
@@ -75,20 +71,16 @@ export const holyGrailPreset = {
           {
             itemType: 'CONTAINER',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
-              container: {
+              flexboxGrid: {
                 gap: '2',
-              },
-              flexContainer: {
                 flexWrap: 'nowrap',
-              },
-              boxSizing: {
-                padding: '2px',
-              },
-              flexItem: {
                 flexGrow: 2,
+              },
+              spacing: {
+                padding: '2px',
               },
             },
             key: 'gqAngmoD',
@@ -96,17 +88,15 @@ export const holyGrailPreset = {
           {
             itemType: 'CONTAINER',
             css: {
-              display: {
+              layout: {
                 display: 'flex',
               },
-              container: {
+              flexboxGrid: {
                 gap: 2,
-              },
-              boxSizing: {
-                padding: '2px',
-              },
-              flexItem: {
                 flexGrow: 1,
+              },
+              spacing: {
+                padding: '2px',
               },
             },
             key: 'WjBxoHUn',
@@ -116,13 +106,13 @@ export const holyGrailPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             gap: 2,
           },
-          boxSizing: {
+          spacing: {
             padding: '6px',
           },
         },

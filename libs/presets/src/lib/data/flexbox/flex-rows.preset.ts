@@ -7,13 +7,13 @@ export const flexRowsPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: 10,
       },
-      boxSizing: {
+      spacing: {
         padding: '18px',
       },
     },
@@ -26,7 +26,7 @@ export const flexRowsPreset = {
         content: '_____    2    ______',
         itemType: 'TEXT',
         css: {
-          boxSizing: {
+          spacing: {
             padding: '14px',
           },
         },

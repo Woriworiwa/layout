@@ -1,7 +1,8 @@
 import {
+  ChangeDetectionStrategy,
   Component,
+  effect,
   ElementRef,
-  HostListener,
   inject,
   input,
   signal,
@@ -20,16 +21,18 @@ import { merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CanvasService, SelectionService } from '@layout/canvas';
 import { CanvasItemType, Display } from '@layout/models';
-import { BoxSizingComponent } from './groups/box-sizing.component';
-import { DisplayComponent } from './groups/display.component';
-import { MetaDataComponent } from './groups/meta-data.component';
-import { PropertiesFlexContainerComponent } from './groups/flex-container.component';
-import { PropertiesFlexItemComponent } from './groups/flex-item.component';
-import { PropertiesGridContainerComponent } from './groups/grid-container.component';
-import { PropertiesGridItemComponent } from './groups/grid-item.component';
-import { PropertiesConfig } from './properties.config';
-import { PropertiesService } from './properties.service';
-import { CssViewerComponent } from '@layout/shared';
+import {
+  SizingSpacingComponent,
+  LayoutComponent,
+  MetaDataComponent,
+  PropertiesFlexboxGridComponent,
+  PropertiesConfig,
+  PropertiesService,
+  PropertiesKeyboardNavigationService,
+} from '@layout/properties';
+import { THEME_CONFIG, LOCAL_STORAGE_SERVICE } from '@layout/shared';
+import { ThemeService } from '../core/theme/theme.service';
+import { LocalStorageService } from '../core/services/local-storage.service';
 
 @Component({
   selector: 'app-properties-panel',
@@ -38,25 +41,38 @@ import { CssViewerComponent } from '@layout/shared';
     ButtonDirective,
     InputGroup,
     InputText,
-    BoxSizingComponent,
-    DisplayComponent,
+    SizingSpacingComponent,
+    LayoutComponent,
     MetaDataComponent,
-    PropertiesFlexContainerComponent,
-    PropertiesFlexItemComponent,
-    PropertiesGridContainerComponent,
-    PropertiesGridItemComponent,
-    CssViewerComponent,
+    PropertiesFlexboxGridComponent
   ],
-  providers: [PropertiesService],
+  providers: [
+    PropertiesService,
+    PropertiesKeyboardNavigationService,
+    {
+      provide: THEME_CONFIG,
+      useFactory: () => {
+        const themeService = inject(ThemeService);
+        return themeService.config();
+      },
+    },
+    {
+      provide: LOCAL_STORAGE_SERVICE,
+      useExisting: LocalStorageService,
+    },
+  ],
   templateUrl: './properties-panel.component.html',
   styleUrls: ['./properties-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'min-h-0',
+    '(window:keydown)': 'handleKeyboardShortcut($event)',
   },
 })
 export class PropertiesPanelComponent {
   private readonly selectionService = inject(SelectionService);
   private readonly canvasService = inject(CanvasService);
+  private readonly navService = inject(PropertiesKeyboardNavigationService);
 
   config = input<PropertiesConfig>({});
 
@@ -78,14 +94,24 @@ export class PropertiesPanelComponent {
   private readonly propertiesService = inject(PropertiesService);
 
   constructor() {
+    // Sync local searchText to service
     toObservable(this.searchText)
       .pipe(takeUntilDestroyed())
       .subscribe((text) => {
-        this.propertiesService.searchText.set(text);
+        if (this.propertiesService.searchText() !== text) {
+          this.propertiesService.searchText.set(text);
+        }
       });
+
+    // Sync service searchText back to local (for when cleared externally)
+    effect(() => {
+      const serviceText = this.propertiesService.searchText();
+      if (this.searchText() !== serviceText) {
+        this.searchText.set(serviceText);
+      }
+    });
   }
 
-  @HostListener('window:keydown', ['$event'])
   protected handleKeyboardShortcut(event: KeyboardEvent): void {
     const isSearchShortcut =
       (event.ctrlKey || event.metaKey) && event.key === 'k';
@@ -107,6 +133,23 @@ export class PropertiesPanelComponent {
     if (input) {
       input.nativeElement.focus();
       input.nativeElement.select();
+    }
+  }
+
+  protected onSearchInputKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        this.navService.focusFirstRow();
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        this.navService.focusLastRow();
+        break;
+      case 'Escape':
+        event.preventDefault();
+        this.navService.clearAndFocusCanvas();
+        break;
     }
   }
 

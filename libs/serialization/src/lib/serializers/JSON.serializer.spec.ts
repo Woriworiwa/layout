@@ -12,7 +12,7 @@ describe('JSONSerializer', () => {
         key: 'test-key',
         label: 'Test Container',
         css: {
-          display: { display: 'flex' },
+          layout: { display: 'flex' },
         },
         children: [],
       };
@@ -33,8 +33,8 @@ describe('JSONSerializer', () => {
           label: 'Test',
           content: undefined,
           css: {
-            display: { display: 'flex' },
-            flexContainer: { flexDirection: undefined as never },
+            layout: { display: 'flex' },
+            flexboxGrid: { flexDirection: undefined as never },
           },
           children: [],
         },
@@ -56,7 +56,7 @@ describe('JSONSerializer', () => {
           key: 'parent',
           label: 'Parent',
           css: {
-            display: { display: 'flex' },
+            layout: { display: 'flex' },
           },
           children: [
             {
@@ -65,7 +65,7 @@ describe('JSONSerializer', () => {
               label: 'Child',
               content: 'Hello',
               css: {
-                boxSizing: { padding: '10px' },
+                spacing: { padding: '10px' },
               },
               children: [],
             },

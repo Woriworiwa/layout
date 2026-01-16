@@ -2,13 +2,13 @@ import { Serializer } from './serializer';
 import { CanvasItem } from '@layout/models';
 import { Css } from '@layout/models';
 
-export class JSONSerializer extends Serializer {
+export class JSONSerializer extends Serializer<void> {
   constructor() {
     super();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  serialize(_items: CanvasItem[]): string[] {
+  serialize(_items: CanvasItem[], _options?: void): string[] {
     return [];
   }
 

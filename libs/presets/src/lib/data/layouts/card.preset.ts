@@ -7,17 +7,17 @@ export const cardPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: '12',
-      },
-      flexContainer: {
         flexDirection: 'column',
       },
-      boxSizing: {
+      spacing: {
         padding: '20px',
+      },
+      sizing: {
         width: '250px',
       },
       border: {
@@ -49,7 +49,7 @@ export const cardPreset = {
         content: 'Action',
         itemType: 'TEXT',
         css: {
-          boxSizing: {
+          spacing: {
             padding: '8px 16px',
           },
           border: {

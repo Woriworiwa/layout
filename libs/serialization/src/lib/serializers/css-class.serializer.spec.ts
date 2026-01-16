@@ -16,8 +16,8 @@ describe('CssClassSerializer', () => {
         key: 'abc123',
         label: 'Container',
         css: {
-          display: { display: 'flex' },
-          boxSizing: { padding: '1rem' },
+          layout: { display: 'flex' },
+          spacing: { padding: '1rem' },
         },
         children: [],
       };
@@ -38,7 +38,7 @@ describe('CssClassSerializer', () => {
         key: 'parent',
         label: 'Parent',
         css: {
-          display: { display: 'grid' },
+          layout: { display: 'grid' },
         },
         children: [
           {
@@ -95,7 +95,7 @@ describe('CssClassSerializer', () => {
           key: 'item1',
           label: 'Item 1',
           css: {
-            boxSizing: { width: '100px' },
+            sizing: { width: '100px' },
           },
           children: [],
         },
@@ -104,7 +104,7 @@ describe('CssClassSerializer', () => {
           key: 'item2',
           label: 'Item 2',
           css: {
-            boxSizing: { height: '200px' },
+            sizing: { height: '200px' },
           },
           children: [],
         },

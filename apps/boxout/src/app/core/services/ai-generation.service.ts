@@ -76,8 +76,6 @@ ${schema}
 
 IMPORTANT NOTES:
 - All CSS properties are optional
-- CONTAINER items use: display.display="flex", container (shared props), flexContainer (flex-specific props), flexItem
-- GRID items use: display.display="grid", container (shared props), gridContainer (grid-specific props), gridItem
 - TEXT items only need content property
 - gap property: numeric values only (px auto-added)
 
@@ -90,23 +88,24 @@ CRITICAL LIMITATIONS - DO NOT USE:
 
 Rules:
 1. Return ONLY valid JSON array, no markdown formatting
-2. FLEX items MUST have css.display.display = "flex"
-3. GRID items MUST have css.display.display = "grid"
+2. FLEX items MUST have css.layout.display = "flex"
+3. GRID items MUST have css.layout.display = "grid"
 4. TEXT items MUST have content property
 5. Use semantic labels for items
 6. Keep layouts simple and focused
 7. Use only the CSS properties listed in the schema
 8. Do not specify width or height unless necessary. Canvas width is dynamic but assume 600px wide.
+9. Use the shorter version of css properties. 'justify-content: end' instead of 'justify-content: flex-end'
 
 FLEX Example:
 [{
   "itemType": "CONTAINER",
   "label": "Card",
   "css": {
-    "display": { "display": "flex" },
-    "container": { "gap": "12" },
-    "flexContainer": { "flexDirection": "column" },
-    "boxSizing": { "padding": "20px", "width": "300px" }
+    "layout": { "display": "flex" },
+    "container": { "gap": "12", "flexDirection": "column" },
+    "spacing": { "padding": "20px" },
+    "sizing": { "width": "300px" }
   },
   "children": [
     {
@@ -122,9 +121,9 @@ GRID Example:
   "itemType": "CONTAINER",
   "label": "Grid Layout",
   "css": {
-    "display": { "display": "grid" },
-    "container": { "gap": "16" },
-    "gridContainer": { "gridTemplateColumns": "repeat(3, 1fr)" }
+    "layout": { "display": "grid" },
+    "container": { "gap": "16", "gridTemplateColumns": "repeat(3, 1fr)" },
+    "spacing": { "padding": "10px" }
   },
   "children": [
     {

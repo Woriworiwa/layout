@@ -5,18 +5,21 @@ import { FormsModule } from '@angular/forms';
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
-  CssViewerComponent,
-  HtmlViewerComponent,
-  JsonViewerComponent,
+  CssViewerComponent, HtmlViewerComponent,
+  JsonViewerComponent, TailwindViewerComponent,
 } from '@layout/shared';
+import { CssSerializerType } from '@layout/serialization';
+import { SelectButton } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-inspector',
   imports: [
     CssViewerComponent,
-    HtmlViewerComponent,
     JsonViewerComponent,
     FormsModule,
+    TailwindViewerComponent,
+    HtmlViewerComponent,
+    SelectButton,
   ],
   templateUrl: './inspector.component.html',
   styleUrls: ['./inspector.component.scss'],
@@ -28,7 +31,14 @@ export class InspectorComponent {
   protected selectionService = inject(SelectionService);
   protected canvasService = inject(CanvasService);
 
-  canvasItem = signal<CanvasItem[]>([]);
+  protected canvasItem = signal<CanvasItem[]>([]);
+  protected selectedCssSerializer = signal<CssSerializerType>('CSS-Tailwind');
+
+  protected cssSerializerOptions = [
+    { label: 'Tailwind', value: 'CSS-Tailwind' as CssSerializerType },
+    { label: 'Class', value: 'CSS-class' as CssSerializerType },
+    { label: 'Style', value: 'CSS-style' as CssSerializerType },
+  ];
 
   constructor() {
     this.initializeInspection();

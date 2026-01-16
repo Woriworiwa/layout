@@ -108,13 +108,16 @@ export class CanvasService implements OnDestroy {
     this.insertItem(targetItemId, newItem, insertPosition, autoSelect);
   }
 
-  updateCss(css: Css) {
-    const selectedFrame = this.selectionService.selectedItem;
-    if (!selectedFrame || !selectedFrame.key) {
+  updateCss(css: Css, itemKey?: string) {
+    const selectedItem = itemKey
+      ? this.canvasStore.getItemById(this.items, itemKey)
+      : this.selectionService.selectedItem;
+
+    if (!selectedItem || !selectedItem.key) {
       return;
     }
 
-    const updatedItems = this.canvasStore.updateItemCss(selectedFrame.key, css);
+    const updatedItems = this.canvasStore.updateItemCss(selectedItem.key, css);
     this.setItems(updatedItems);
     this.cssChangedSubject.next(undefined);
   }
@@ -182,6 +185,23 @@ export class CanvasService implements OnDestroy {
       name,
     );
     this.setItems(updatedItems);
+  }
+
+  updateTailwindClasses(tailwindClasses: string, itemKey?: string) {
+    const selectedItem = itemKey
+      ? this.canvasStore.getItemById(this.items, itemKey)
+      : this.selectionService.selectedItem;
+
+    if (!selectedItem || !selectedItem.key) {
+      return;
+    }
+
+    const updatedItems = this.canvasStore.updateItemTailwindClasses(
+      selectedItem.key,
+      tailwindClasses
+    );
+    this.setItems(updatedItems);
+    this.cssChangedSubject.next(undefined);
   }
 
   removeAiWrapper(itemId: string): void {

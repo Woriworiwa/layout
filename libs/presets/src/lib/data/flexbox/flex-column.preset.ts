@@ -7,16 +7,14 @@ export const flexColumnPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: 10,
-      },
-      flexContainer: {
         flexDirection: 'column',
       },
-      boxSizing: {
+      spacing: {
         padding: '14px',
       },
     },

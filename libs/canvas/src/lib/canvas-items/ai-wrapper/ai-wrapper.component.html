@@ -34,7 +34,7 @@
             id="ai-input-area"
             [value]="prompt()"
             (input)="onPromptChange($any($event.target).value)"
-            placeholder="e.g., 'Create a pricing card with title, price, and features list'"
+            placeholder="e.g., 'Generate a grid layout to display movie posters' OR 'Generate a layout that will explain the difference between justify-content and align-content with examples'"
             [disabled]="isGenerating()"
             rows="3"
             class="w-full text-sm"
@@ -63,7 +63,7 @@
 
           <button
             pButton
-            label="Remove AI"
+            label="Move layout to canvas and remove AI "
             (click)="removeAiWrapper()"
             [disabled]="isGenerating()"
             severity="secondary"
@@ -83,8 +83,7 @@
       <div
         class="ai-placeholder p-6 text-center text-sm text-purple-600 italic"
       >
-        Enter a description above and click "Generate Layout" to create your
-        layout with AI.
+        This generator calls Gemini API with free tier. It will reach its limit quickly.
       </div>
     }
   </div>

@@ -7,14 +7,16 @@ export const flexGrowShrinkPreset = {
   presetDefinition: {
     itemType: 'CONTAINER',
     css: {
-      display: {
+      layout: {
         display: 'flex',
       },
-      container: {
+      flexboxGrid: {
         gap: '12',
       },
-      boxSizing: {
+      spacing: {
         padding: '16px',
+      },
+      sizing: {
         width: '100%',
       },
     },
@@ -22,19 +24,19 @@ export const flexGrowShrinkPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             justifyContent: 'center',
             alignItems: 'center',
-          },
-          boxSizing: {
-            padding: '20px',
-            width: '100px',
-          },
-          flexItem: {
             flexShrink: 0,
+          },
+          spacing: {
+            padding: '20px',
+          },
+          sizing: {
+            width: '100px',
           },
         },
         children: [
@@ -53,18 +55,16 @@ export const flexGrowShrinkPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             justifyContent: 'center',
             alignItems: 'center',
-          },
-          boxSizing: {
-            padding: '20px',
-          },
-          flexItem: {
             flexGrow: 1,
+          },
+          spacing: {
+            padding: '20px',
           },
         },
         children: [
@@ -83,18 +83,16 @@ export const flexGrowShrinkPreset = {
       {
         itemType: 'CONTAINER',
         css: {
-          display: {
+          layout: {
             display: 'flex',
           },
-          container: {
+          flexboxGrid: {
             justifyContent: 'center',
             alignItems: 'center',
-          },
-          boxSizing: {
-            padding: '20px',
-          },
-          flexItem: {
             flexGrow: 2,
+          },
+          spacing: {
+            padding: '20px',
           },
         },
         children: [

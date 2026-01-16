@@ -99,6 +99,21 @@ export class CanvasItemBaseComponent implements OnDestroy, OnChanges {
           serializedStyles.join(';'),
         );
       }
+
+      // Apply Tailwind classes
+      const tailwindClasses = this.item().tailwindClasses || '';
+      if (tailwindClasses) {
+        this.baseRenderer.setAttribute(
+          this.baseElementRef.nativeElement,
+          'class',
+          tailwindClasses,
+        );
+      } else {
+        this.baseRenderer.removeAttribute(
+          this.baseElementRef.nativeElement,
+          'class',
+        );
+      }
     }
 
     // Re-render the selection item to update any changes to the size of the item

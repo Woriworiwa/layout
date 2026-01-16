@@ -123,7 +123,7 @@ describe('CanvasService', () => {
       };
       store.setItems([item]);
       selectionService.setSelectedItemKey(item.key);
-      const newCss: Css = { display: { display: 'flex' } };
+      const newCss: Css = { layout: { display: 'flex' } };
 
       service.updateCss(newCss);
 
@@ -141,7 +141,7 @@ describe('CanvasService', () => {
       store.setItems([item]);
       selectionService.setSelectedItemKey(item.key);
       const snapshotSpy = vi.spyOn(undoRedoService, 'takeSnapshot');
-      const newCss: Css = { display: { display: 'block' } };
+      const newCss: Css = { layout: { display: 'block' } };
 
       service.updateCss(newCss);
 

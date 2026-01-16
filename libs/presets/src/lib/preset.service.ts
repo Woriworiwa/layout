@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanvasItem, CanvasItemType, BoxSizing } from '@layout/models';
+import { CanvasItem, CanvasItemType, Spacing } from '@layout/models';
 import { PresetProvider } from '@layout/shared';
 import { allPresets } from '@layout/presets';
 import {
@@ -32,13 +32,13 @@ export class PresetService implements PresetProvider {
 
   assignDefaultPaddings(newItem: CanvasItem) {
     if (newItem.itemType === CanvasItemType.CONTAINER) {
-      const boxSizing: BoxSizing = {
-        ...newItem.css?.boxSizing,
+      const spacing: Spacing = {
+        ...newItem.css?.spacing,
         padding: this.defaultPadding,
       };
       newItem.css = {
         ...newItem.css,
-        boxSizing,
+        spacing,
       };
     }
 
