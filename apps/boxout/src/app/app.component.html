@@ -5,8 +5,11 @@
 
 <!-- Main Canvas -->
 <div class="center flex flex-col overflow-clip">
-  <div class="flex flex-col flex-1 overflow-clip">
+  <div class="flex flex-col flex-1 overflow-clip relative">
     <app-canvas></app-canvas>
+    @if (guideService.showGuide()) {
+      <app-landing-guide (getStarted)="onGetStarted()"></app-landing-guide>
+    }
   </div>
 </div>
 

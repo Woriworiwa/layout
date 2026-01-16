@@ -6,9 +6,11 @@ import {
   CanvasComponent,
 } from '@layout/canvas';
 import { DataService } from './core/services/data.service';
+import { GuideService } from './core/services/guide.service';
 import { LayoutStateService } from './core/services/layout-state.service';
 import { HeaderComponent } from './header/header.component';
 import { InspectorComponent } from './inspector/inspector.component';
+import { LandingGuideComponent } from './landing-guide/landing-guide.component';
 import { LayersComponent } from './layers-panel/layers.component';
 import { PresetsPanelComponent } from './presets-panel/presets-panel.component';
 import { PropertiesPanelComponent } from './properties-panel/properties-panel.component';
@@ -22,6 +24,7 @@ import { ThemeToolbarComponent } from './core/theme/theme-toolbar.component';
     CanvasComponent,
     HeaderComponent,
     InspectorComponent,
+    LandingGuideComponent,
     LayersComponent,
     PresetsPanelComponent,
     PropertiesPanelComponent,
@@ -33,6 +36,7 @@ import { ThemeToolbarComponent } from './core/theme/theme-toolbar.component';
 })
 export class AppComponent {
   protected canvasService = inject(CanvasService);
+  protected guideService = inject(GuideService);
   protected layoutStateService = inject(LayoutStateService);
   private canvasSelectionService = inject(SelectionService);
   private mockService = inject(DataService);
@@ -44,5 +48,9 @@ export class AppComponent {
 
   fetchData() {
     this.canvasService.setItems(this.mockService.getInitialData());
+  }
+
+  onGetStarted(): void {
+    this.guideService.dismissGuide();
   }
 }
