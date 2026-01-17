@@ -40,18 +40,16 @@ export const justifyContentGuidePreset = {
                 display: 'flex',
               },
               flexboxGrid: {
-                flexDirection: 'row',
                 gap: '8',
+                flexDirection: 'row',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
+                flexGrow: 1,
               },
               spacing: {
                 padding: '16px',
               },
-              sizing: {
-                width: '100%',
-                height: '80px',
-              },
+              sizing: {},
             },
             children: [
               {
@@ -67,7 +65,7 @@ export const justifyContentGuidePreset = {
                     height: '40px',
                   },
                 },
-                key: 'hSVqzRjA',
+                key: 'DYUDotuF',
                 children: [],
               },
               {
@@ -83,7 +81,7 @@ export const justifyContentGuidePreset = {
                     height: '40px',
                   },
                 },
-                key: 'yxnYjIPo',
+                key: 'PrVTSQwC',
                 children: [],
               },
               {
@@ -99,11 +97,11 @@ export const justifyContentGuidePreset = {
                     height: '40px',
                   },
                 },
-                key: 'CZVeexPW',
+                key: 'qDEYtFgU',
                 children: [],
               },
             ],
-            key: 'VTCbZNWE',
+            key: 'WOgvNIok',
           },
           {
             itemType: 'CONTAINER',
