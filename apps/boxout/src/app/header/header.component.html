@@ -53,6 +53,7 @@
 <p-dialog
   [(visible)]="isPreviewVisible"
   [style]="{ width: '80vw', height: '80vh' }"
+  [contentStyle]="{ height: '100%', padding: '0' }"
   appendTo="body"
 >
   @defer (when isPreviewVisible()) {

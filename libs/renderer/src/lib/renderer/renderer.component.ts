@@ -6,21 +6,7 @@ import { CanvasItem } from '@layout/models';
 import { FormsModule } from '@angular/forms';
 import { CanvasService } from '@layout/canvas';
 import { SelectButton } from 'primeng/selectbutton';
-import { Button } from 'primeng/button';
-import { Tooltip } from 'primeng/tooltip';
 import { ResizableDirective } from '../resizable.directive';
-import { CssViewerComponent, HtmlViewerComponent, JsonViewerComponent } from '@layout/shared';
-
-enum CodeViewType {
-  HTML = 'HTML',
-  CSS = 'CSS',
-  JSON = 'JSON',
-}
-
-interface CodeTab {
-  label: string;
-  value: CodeViewType;
-}
 
 interface ViewportPreset {
   label: string;
@@ -35,12 +21,7 @@ interface ViewportPreset {
     UnsafeHtmlPipe,
     FormsModule,
     SelectButton,
-    Button,
-    Tooltip,
     ResizableDirective,
-    HtmlViewerComponent,
-    CssViewerComponent,
-    JsonViewerComponent,
   ],
   templateUrl: './renderer.component.html',
   styleUrl: './renderer.component.scss',
@@ -50,8 +31,6 @@ export class RendererComponent {
 
   code = signal<string>('');
   serializer: HtmlSerializer = new HtmlSerializer();
-  selectedCodeView: CodeViewType = CodeViewType.HTML;
-  codePanelVisible = signal(false);
   selectedViewport = signal<string>('tablet');
   customWidth = signal<number>(768);
 
@@ -78,12 +57,6 @@ export class RendererComponent {
     { label: 'Tablet', value: 'tablet', width: 768 },
     { label: 'Desktop', value: 'desktop', width: 1440 },
     { label: 'Custom', value: 'custom' },
-  ];
-
-  codeTabs: CodeTab[] = [
-    { label: 'HTML', value: CodeViewType.HTML },
-    { label: 'CSS', value: CodeViewType.CSS },
-    { label: 'JSON', value: CodeViewType.JSON },
   ];
 
   // Computed width based on selected viewport
@@ -126,10 +99,6 @@ export class RendererComponent {
     return html.replace('</head>', `<style>${this.baseStyles}</style>\n  </head>`);
   }
 
-  toggleCodePanel() {
-    this.codePanelVisible.update((v) => !v);
-  }
-
   updateCustomWidth() {
     // Ensure width is within bounds
     const width = this.customWidth();
@@ -139,6 +108,4 @@ export class RendererComponent {
       this.customWidth.set(2560);
     }
   }
-
-  protected readonly CodeViewType = CodeViewType;
 }
