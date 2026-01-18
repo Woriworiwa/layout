@@ -16,7 +16,9 @@ import {
   JustifySelfOptions,
   Unit,
   CanvasItemType,
+  Css,
 } from '@layout/models';
+import type * as CSS from 'csstype';
 
 /**
  * Union type of all valid CSS property names from all interfaces.
@@ -241,53 +243,33 @@ export class AiSchemaGeneratorService {
    * Generates the complete CSS schema for AI prompt.
    */
   private generateCssSchema(): string {
-    const displaySchema = this.generateSchemaForProperties(
-      LAYOUT_PROPERTY_NAMES,
-    );
-    const flexboxGridSchema = this.generateSchemaForProperties(
-      FLEXBOX_GRID_PROPERTY_NAMES,
-    );
-    const spacingSchema = this.generateSchemaForProperties(
-      SPACING_PROPERTY_NAMES,
-    );
-    const sizingSchema = this.generateSchemaForProperties(
-      SIZING_PROPERTY_NAMES,
-    );
+    const cssPropertyNames = [
+      'spacing',
+      'sizing',
+      'layout',
+      'flexboxGrid'
+    ] as const satisfies readonly (keyof Css)[];
+
+    const schemas: Record<keyof Css, Record<string, string>> = {
+      layout: this.generateSchemaForProperties(LAYOUT_PROPERTY_NAMES),
+      spacing: this.generateSchemaForProperties(SPACING_PROPERTY_NAMES),
+      flexboxGrid: this.generateSchemaForProperties(
+        FLEXBOX_GRID_PROPERTY_NAMES,
+      ),
+      sizing: this.generateSchemaForProperties(SIZING_PROPERTY_NAMES),
+    };
 
     // Build the schema string
     let schema = '"css": {\n';
 
-    // Display
-    schema += '  "display": {\n';
-    Object.entries(displaySchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  },\n';
-
-    // FlexboxGrid (includes flex/grid container and item properties)
-    schema += '  "flexboxGrid": {\n';
-    Object.entries(flexboxGridSchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  },\n';
-
-    // Spacing
-    schema += '  "spacing": {\n';
-    Object.entries(spacingSchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  },\n';
-
-    // Sizing
-    schema += '  "sizing": {\n';
-    Object.entries(sizingSchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  }\n';
+    cssPropertyNames.forEach(propertyName => {
+      schema += `  "${propertyName}": {\n'`;
+      Object.entries(schemas[propertyName]).forEach(([key, value]) => {
+        schema += `    "${key}": ${value},\n`;
+      });
+      schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
+      schema += '  },\n';
+    })
 
     schema += '}';
 
