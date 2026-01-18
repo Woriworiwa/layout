@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../core/services/data.service';
 import { Tooltip } from 'primeng/tooltip';
@@ -30,6 +30,7 @@ import { BlockUIModule } from 'primeng/blockui';
     ButtonDirective,
   ],
   templateUrl: `./header.component.html`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   private dataService = inject(DataService);
@@ -38,7 +39,6 @@ export class HeaderComponent {
   private themeService = inject(ThemeService);
 
   protected isPreviewVisible = signal<boolean>(false);
-  protected readonly window = window;
   protected logoSrc = computed(() =>
     this.themeService.config().darkMode
       ? '../../../assets/logo-dark.svg'

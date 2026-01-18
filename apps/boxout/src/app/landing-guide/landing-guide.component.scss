@@ -1,0 +1,9 @@
+:host {
+  background: color-mix(in srgb, var(--p-surface-0) 90%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.template-card:focus {
+  outline: 2px solid var(--p-primary-color);
+  outline-offset: 2px;
+}

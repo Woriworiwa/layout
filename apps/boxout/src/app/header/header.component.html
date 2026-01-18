@@ -1,8 +1,8 @@
 <div class="flex justify-between items-center p-3">
   <!-- Logo -->
-  <div class="text-lg font-medium flex gap-2.5">
+  <div class="text-lg font-medium flex gap-2 items-center">
     <img [src]="logoSrc()" alt="boXout logo" />
-    <div>boXout</div>
+    <span>boXout</span>
   </div>
 
   <!-- Preview Button -->
@@ -21,8 +21,8 @@
       pTooltip="Customize Theme"
       tooltipPosition="bottom"
       icon="pi pi-palette"
-    >
-    </p-button>
+      ariaLabel="Customize Theme"
+    />
 
     <a
       href="https://github.com/Woriworiwa/layout"
@@ -33,6 +33,7 @@
       pTooltip="View code on Github"
       tooltipPosition="bottom"
       icon="pi pi-github"
+      aria-label="View code on Github"
       class="mr-2"
     >
     </a>
