@@ -2,6 +2,22 @@
 
 These apply regardless of design direction. This is the quality floor.
 
+## Contents
+- The 4px Grid
+- Symmetrical Padding
+- Border Radius Consistency
+- Depth & Elevation Strategy
+- Card Layouts
+- Isolated Controls
+- Typography Hierarchy
+- Monospace for Data
+- Iconography
+- Animation
+- Contrast Hierarchy
+- Color for Meaning Only
+- Navigation Context
+- Dark Mode
+
 ## The 4px Grid
 
 All spacing uses a 4px base grid:

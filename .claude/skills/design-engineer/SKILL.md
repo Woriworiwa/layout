@@ -1,6 +1,6 @@
 ---
 name: designing-layouts
-description: Guide design decisions for a low-code CSS layout generator. Use this skill when the user ask for tasks related to UI/UX choices, designing component architecture, creating layout presets, working on canvas interactions, or making design system decisions. Generates creative, polished code that avoids generic AI aesthetics
+description: Guides design decisions for a low-code CSS layout generator. Use this skill when the user asks for help with UI/UX choices, component architecture, layout presets, canvas interactions, or design system decisions. Generates creative, polished code that avoids generic AI aesthetics.
 ---
 
 # Design Engineer
@@ -11,7 +11,7 @@ This skill focuses on design principles and decision-making criteria.
 ## Scope
 
 Use for: Dashboards, admin panels, SaaS apps, tools, settings pages, data interfaces.
-Not for: Landing pages, marketing sites, campaigns. Redirect those to /frontend-design.
+Not for: Landing pages, marketing sites, campaigns. For those, use the official Claude skill: [frontend-design](https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design).
 
 ## Responsibilities
 
@@ -20,6 +20,30 @@ Not for: Landing pages, marketing sites, campaigns. Redirect those to /frontend-
 3. **Layout Expertise**: CSS Grid, Flexbox, and responsive design patterns
 4. **User Experience**: Consider how users interact with the canvas editor
 5. **Preset Creation**: Design reusable layout templates that solve real-world problems
+
+---
+
+# Styling Approach
+
+**Prefer Tailwind CSS** in HTML templates for all styling.
+
+**Fall back to SCSS with `@apply`** when:
+- Tailwind classes make the template complex or hard to read
+- You're repeating the same style combination multiple times
+
+```scss
+// Good: Extract repeated patterns to SCSS
+.card-header {
+  @apply flex items-center justify-between p-4 border-b border-gray-200;
+}
+
+// Good: Complex responsive patterns
+.dashboard-grid {
+  @apply grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+}
+```
+
+Avoid mixing approaches inconsistently. If a component uses SCSS, keep related styles there.
 
 ---
 
@@ -52,6 +76,26 @@ Not for: Landing pages, marketing sites, campaigns. Redirect those to /frontend-
 3. **Flexible sizing**: Prefer `fr` units and `flex-grow` over fixed widths
 4. **Nested structure**: Group related items logically
 
+## Example: Dashboard Preset
+
+**Input request**: "Create a preset for a dashboard with sidebar navigation"
+
+**Output structure**:
+```
+Container (Grid: 250px 1fr)
+├── Sidebar (label: "sidebar")
+│   ├── Nav Header (label: "nav-header")
+│   └── Nav Items (label: "nav-items", flex-direction: column)
+└── Main (label: "main")
+    ├── Header (label: "header")
+    └── Content (label: "content", grid: 1fr 1fr 1fr, gap: 16px)
+```
+
+**Key decisions**:
+- Sidebar uses fixed `250px` (standard nav width), main uses `1fr` (flexible)
+- Labels describe purpose, not appearance
+- Content area uses grid for dashboard cards with consistent gap
+
 ---
 
 # Review Criteria
@@ -62,6 +106,23 @@ Not for: Landing pages, marketing sites, campaigns. Redirect those to /frontend-
 4. **Performance**: Unnecessary re-renders?
 5. **Accessibility**: Meets WCAG AA?
 6. **Maintainability**: Easy to understand and modify?
+
+## Design Review Workflow
+
+Copy this checklist when reviewing design work:
+
+```
+Design Review:
+- [ ] Spacing uses 4px grid (4, 8, 12, 16, 24, 32)
+- [ ] Padding is symmetrical
+- [ ] Border radius consistent with chosen system
+- [ ] Single depth strategy (borders-only OR shadows)
+- [ ] Color used for meaning, not decoration
+- [ ] Typography hierarchy maintained
+- [ ] WCAG AA contrast met
+- [ ] Labels are semantic (purpose, not appearance)
+- [ ] Flexible units where appropriate (fr, flex-grow)
+```
 
 ---
 
