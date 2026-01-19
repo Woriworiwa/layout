@@ -47,6 +47,15 @@ type RequireAllProperties = {
 };
 
 /**
+ * Compile-time check that validates an array contains ALL keys of Css.
+ * If keys are missing, the type resolves to an error object showing the missing keys.
+ */
+type ValidateAllCssGroupsPresent<T extends readonly (keyof Css)[]> =
+  Exclude<keyof Css, T[number]> extends never
+    ? true
+    : { error: 'cssPropertyNames is missing keys from Css interface'; missing: Exclude<keyof Css, T[number]> };
+
+/**
  * Service that generates AI schema from CSS interface definitions.
  * Provides runtime schema generation for the AI generation service.
  */
@@ -243,12 +252,21 @@ export class AiSchemaGeneratorService {
    * Generates the complete CSS schema for AI prompt.
    */
   private generateCssSchema(): string {
+    /**
+     * Ordered list of CSS property groups for schema generation.
+     *
+     * IMPORTANT: This array MUST contain ALL keys from the Css interface.
+     * The type assertion below will cause a compile-time error if any key is missing.
+     */
     const cssPropertyNames = [
       'spacing',
       'sizing',
       'layout',
       'flexboxGrid'
     ] as const satisfies readonly (keyof Css)[];
+
+    // Compile-time assertion: errors if cssPropertyNames doesn't include all Css keys
+    const _validateCssGroups: ValidateAllCssGroupsPresent<typeof cssPropertyNames> = true;
 
     const schemas: Record<keyof Css, Record<string, string>> = {
       layout: this.generateSchemaForProperties(LAYOUT_PROPERTY_NAMES),
@@ -263,7 +281,7 @@ export class AiSchemaGeneratorService {
     let schema = '"css": {\n';
 
     cssPropertyNames.forEach(propertyName => {
-      schema += `  "${propertyName}": {\n'`;
+      schema += `    "${propertyName}": {\n`;
       Object.entries(schemas[propertyName]).forEach(([key, value]) => {
         schema += `    "${key}": ${value},\n`;
       });

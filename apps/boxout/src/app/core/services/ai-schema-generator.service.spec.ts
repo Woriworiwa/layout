@@ -45,4 +45,42 @@ describe('AiSchemaGeneratorService', () => {
       service.generateCanvasItemSchema();
     }).not.toThrow();
   });
+
+  it('should include all CSS property groups in the schema', () => {
+    const service = new AiSchemaGeneratorService();
+    const schema = service.generateCanvasItemSchema();
+
+    expect(schema).toContain('"spacing"');
+    expect(schema).toContain('"sizing"');
+    expect(schema).toContain('"layout"');
+    expect(schema).toContain('"flexboxGrid"');
+  });
+
+  it('should list valid enum options for display property', () => {
+    const service = new AiSchemaGeneratorService();
+    const schema = service.generateCanvasItemSchema();
+
+    // display should only include flex and grid options
+    expect(schema).toContain('"display": "flex" | "grid"');
+  });
+
+  it('should include unit descriptions for sizing properties', () => {
+    const service = new AiSchemaGeneratorService();
+    const schema = service.generateCanvasItemSchema();
+
+    // Width and height should have unit descriptions
+    expect(schema).toMatch(/"width": string with unit/);
+    expect(schema).toMatch(/"height": string with unit/);
+  });
+
+  it('should include CanvasItem structure fields', () => {
+    const service = new AiSchemaGeneratorService();
+    const schema = service.generateCanvasItemSchema();
+
+    expect(schema).toContain('"itemType"');
+    expect(schema).toContain('"label"');
+    expect(schema).toContain('"content"');
+    expect(schema).toContain('"children"');
+    expect(schema).toContain('"css"');
+  });
 });
