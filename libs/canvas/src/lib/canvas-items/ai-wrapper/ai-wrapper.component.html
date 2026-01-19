@@ -4,19 +4,24 @@
     <div
       class="ai-controls-header flex justify-between items-center p-2 bg-purple-100/50 border-b border-purple-300 cursor-pointer"
       tabindex="0"
+      role="button"
+      [attr.aria-expanded]="!isCollapsed()"
+      aria-controls="ai-controls-body"
       (click)="toggleCollapse()"
-      (keydown)="toggleCollapse()"
+      (keydown.enter)="toggleCollapse()"
+      (keydown.space)="toggleCollapse(); $event.preventDefault()"
     >
       <span
         class="text-xs font-semibold text-purple-900 uppercase tracking-wide"
       >
-        ✨ AI Layout Generator
+        AI Layout Generator
       </span>
       <button
         type="button"
         pButton
         [icon]="isCollapsed() ? 'pi pi-chevron-down' : 'pi pi-chevron-up'"
         severity="secondary"
+        [attr.aria-label]="isCollapsed() ? 'Expand AI controls' : 'Collapse AI controls'"
         text
         size="small"
         (click)="toggleCollapse(); $event.stopPropagation()"
@@ -24,7 +29,7 @@
     </div>
 
     @if (!isCollapsed()) {
-      <div class="ai-controls-body p-3 space-y-2">
+      <div id="ai-controls-body" class="ai-controls-body p-3 space-y-2">
         <div>
           <label for="ai-input-area" class="text-xs font-medium text-gray-700 block mb-1">
             Describe your layout:
@@ -38,12 +43,12 @@
             [disabled]="isGenerating()"
             rows="3"
             class="w-full text-sm"
-          >
-          </textarea>
+          ></textarea>
         </div>
 
         @if (errorMessage()) {
           <div
+            role="alert"
             class="text-xs text-red-600 bg-red-50 border border-red-200 rounded px-2 py-1"
           >
             {{ errorMessage() }}
@@ -63,7 +68,7 @@
 
           <button
             pButton
-            label="Move layout to canvas and remove AI "
+            label="Move layout to canvas and remove AI"
             (click)="removeAiWrapper()"
             [disabled]="isGenerating()"
             severity="secondary"
@@ -80,9 +85,7 @@
     @if (item().children && item().children?.length) {
       <ng-content></ng-content>
     } @else if (!isGenerating()) {
-      <div
-        class="ai-placeholder p-6 text-center text-sm text-purple-600 italic"
-      >
+      <div class="ai-placeholder text-center text-sm text-purple-600 italic">
         This generator calls Gemini API with free tier. It will reach its limit quickly.
       </div>
     }
