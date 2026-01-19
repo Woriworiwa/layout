@@ -34,6 +34,19 @@
       <span class="text-xs text-muted-color">{{ currentWidth() }}</span>
     </div>
 
+    <!-- Theme Selector -->
+    <div class="flex items-center gap-3">
+      <span class="text-xs text-muted-color">Theme:</span>
+      <p-selectButton
+        [options]="previewThemeService.themeOptions()"
+        [ngModel]="previewThemeService.selectedThemeId()"
+        (ngModelChange)="onThemeChange($event)"
+        optionLabel="label"
+        optionValue="value"
+        [allowEmpty]="false"
+        size="small"
+      />
+    </div>
   </div>
 
   <!-- Content Area -->

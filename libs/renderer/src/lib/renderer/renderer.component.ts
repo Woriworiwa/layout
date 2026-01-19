@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CanvasService } from '@layout/canvas';
 import { SelectButton } from 'primeng/selectbutton';
 import { ResizableDirective } from '../resizable.directive';
+import { PreviewThemeService } from '../preview-theme.service';
 
 interface ViewportPreset {
   label: string;
@@ -14,44 +15,28 @@ interface ViewportPreset {
   width?: number;
 }
 
+/** Tailwind CSS CDN script tag for utility classes in preview */
+const tailwindCdn = `<script src="https://cdn.tailwindcss.com"></script>`;
+
 @Component({
   selector: 'app-preview',
-  standalone: true,
-  imports: [
-    UnsafeHtmlPipe,
-    FormsModule,
-    SelectButton,
-    ResizableDirective,
-  ],
+  imports: [UnsafeHtmlPipe, FormsModule, SelectButton, ResizableDirective],
   templateUrl: './renderer.component.html',
   styleUrl: './renderer.component.scss',
 })
 export class RendererComponent {
   protected canvasService = inject(CanvasService);
+  protected previewThemeService = inject(PreviewThemeService);
 
   code = signal<string>('');
   serializer: HtmlSerializer = new HtmlSerializer();
   selectedViewport = signal<string>('tablet');
   customWidth = signal<number>(768);
 
-  // Base styles for frame and text elements in preview
-  private readonly baseStyles = `
-    .frame {
-      padding: 15px;
-      background-color: #9161a7;
-      border: 1px solid #ed9534;
-    }
+  // Store current items for re-rendering on theme change
+  private currentItems = signal<CanvasItem[]>([]);
 
-    .text {
-      padding: 5px;
-      background-color: #ed9534;
-      border-radius: 6px;
-      border: 2px solid black;
-      box-shadow: inset 3px 3px 7px 5px #f2ad62;
-    }
-  `;
-
-  // Viewport components-panel
+  // Viewport presets
   viewportPresets: ViewportPreset[] = [
     { label: 'Mobile', value: 'mobile', width: 375 },
     { label: 'Tablet', value: 'tablet', width: 768 },
@@ -82,8 +67,8 @@ export class RendererComponent {
     this.canvasService.items$
       .pipe(takeUntilDestroyed())
       .subscribe((items: CanvasItem[]) => {
-        const html = this.serializer.serialize(items, {includeHeaderBody: true}).join('\n');
-        this.code.set(this.injectBaseStyles(html));
+        this.currentItems.set(items);
+        this.regenerateCode();
       });
 
     // Reset to tablet width when custom is selected
@@ -92,14 +77,40 @@ export class RendererComponent {
         this.customWidth.set(768);
       }
     });
+
+    // Regenerate code when theme changes
+    effect(() => {
+      // Access the signal to track changes
+      this.previewThemeService.selectedThemeId();
+      this.regenerateCode();
+    });
   }
 
-  private injectBaseStyles(html: string): string {
-    // Inject base styles into the <head> section before </head>
-    return html.replace('</head>', `<style>${this.baseStyles}</style>\n  </head>`);
+  private regenerateCode(): void {
+    const items = this.currentItems();
+    if (items.length === 0) {
+      this.code.set('');
+      return;
+    }
+    const html = this.serializer
+      .serialize(items, { includeHeaderBody: true })
+      .join('\n');
+    this.code.set(this.injectAllStyles(html));
   }
 
-  updateCustomWidth() {
+  private injectAllStyles(html: string): string {
+    const themeStyles = this.previewThemeService.generateThemeStyles();
+    const injection = `${tailwindCdn}
+<style>${themeStyles}</style>
+  </head>`;
+    return html.replace('</head>', injection);
+  }
+
+  onThemeChange(themeId: string): void {
+    this.previewThemeService.selectTheme(themeId);
+  }
+
+  updateCustomWidth(): void {
     // Ensure width is within bounds
     const width = this.customWidth();
     if (width < 320) {
