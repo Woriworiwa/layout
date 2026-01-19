@@ -16,7 +16,7 @@ import { MessageService } from 'primeng/api';
 import { AI_GENERATION_TOKEN, UI_GUIDANCE_TOKEN } from '@layout/shared';
 import { UiGuidanceService } from './core/services/ui-guidance.service';
 import { AiGenerationService } from './core/services/ai-generation.service';
-import { provideHighlightJs } from './core/highlightjs/highlightjs-provider';
+import { provideHighlightJs } from './core/theme/highlightjs-provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
