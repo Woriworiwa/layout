@@ -11,11 +11,18 @@
       (keydown.enter)="toggleCollapse()"
       (keydown.space)="toggleCollapse(); $event.preventDefault()"
     >
-      <span
-        class="text-xs font-semibold text-purple-900 uppercase tracking-wide"
-      >
-        AI Layout Generator
-      </span>
+      <div class="flex items-center gap-2">
+        <span
+          class="text-xs font-semibold text-purple-900 uppercase tracking-wide"
+        >
+          AI Layout Generator
+        </span>
+        @if (isCollapsed() && hasGeneratedContent()) {
+          <span class="text-xs text-purple-600 font-normal normal-case">
+            — Layout ready
+          </span>
+        }
+      </div>
       <button
         type="button"
         pButton
@@ -25,11 +32,22 @@
         text
         size="small"
         (click)="toggleCollapse(); $event.stopPropagation()"
-      > </button>
+      ></button>
     </div>
 
     @if (!isCollapsed()) {
-      <div id="ai-controls-body" class="ai-controls-body p-3 space-y-2">
+      <div id="ai-controls-body" class="ai-controls-body p-3 space-y-3">
+        <!-- Gemini API Notice -->
+        <div
+          class="flex items-start gap-2 p-2 bg-amber-50 border border-amber-300 rounded text-amber-800"
+          role="status"
+        >
+          <i class="pi pi-info-circle text-sm mt-0.5" aria-hidden="true"></i>
+          <span class="text-xs">
+            Uses Gemini API free tier with limited daily quota. Generation may fail when limit is reached.
+          </span>
+        </div>
+
         <div>
           <label for="ai-input-area" class="text-xs font-medium text-gray-700 block mb-1">
             Describe your layout:
@@ -39,7 +57,7 @@
             id="ai-input-area"
             [value]="prompt()"
             (input)="onPromptChange($any($event.target).value)"
-            placeholder="e.g., 'Generate a grid layout to display movie posters' OR 'Generate a layout that will explain the difference between justify-content and align-content with examples'"
+            placeholder="e.g., 'A 3-column grid for product cards' or 'Flexbox layout comparing CSS properties'"
             [disabled]="isGenerating()"
             rows="3"
             class="w-full text-sm"
@@ -49,32 +67,56 @@
         @if (errorMessage()) {
           <div
             role="alert"
-            class="text-xs text-red-600 bg-red-50 border border-red-200 rounded px-2 py-1"
+            class="flex items-start gap-2 p-2 text-red-700 bg-red-50 border border-red-200 rounded"
           >
-            {{ errorMessage() }}
+            <i class="pi pi-exclamation-circle text-sm mt-0.5" aria-hidden="true"></i>
+            <div class="text-xs">
+              <p class="font-medium">{{ errorMessage() }}</p>
+              <p class="mt-1 text-red-600">Try simplifying your prompt or wait a few minutes if quota is exceeded.</p>
+            </div>
           </div>
         }
 
-        <div class="flex gap-2">
+        <div class="flex gap-2 items-center">
           <button
             pButton
-            [label]="isGenerating() ? 'Generating...' : 'Generate Layout'"
+            [label]="isGenerating() ? 'Generating...' : 'Generate'"
+            [attr.aria-label]="isGenerating() ? 'Generating layout' : 'Generate layout from description'"
             (click)="onGenerate()"
             [disabled]="isGenerating()"
             [loading]="isGenerating()"
             size="small"
+            icon="pi pi-sparkles"
             class="flex-1"
-          > </button>
+          ></button>
+
+          @if (hasGeneratedContent()) {
+            <button
+              pButton
+              label="Apply"
+              aria-label="Apply layout and remove AI controls"
+              (click)="removeAiWrapper()"
+              [disabled]="isGenerating()"
+              severity="success"
+              size="small"
+              icon="pi pi-check"
+              pTooltip="Keep the generated layout and remove the AI controls"
+              tooltipPosition="top"
+            ></button>
+          }
 
           <button
             pButton
-            label="Move layout to canvas and remove AI"
             (click)="removeAiWrapper()"
             [disabled]="isGenerating()"
             severity="secondary"
             size="small"
-            icon="pi pi-times"
-          > </button>
+            icon="pi pi-trash"
+            text
+            [pTooltip]="hasGeneratedContent() ? 'Discard layout and remove AI block' : 'Remove AI block'"
+            tooltipPosition="top"
+            [attr.aria-label]="hasGeneratedContent() ? 'Discard layout and remove AI block' : 'Remove AI block'"
+          ></button>
         </div>
       </div>
     }
@@ -85,8 +127,8 @@
     @if (item().children && item().children?.length) {
       <ng-content></ng-content>
     } @else if (!isGenerating()) {
-      <div class="ai-placeholder text-center text-sm text-purple-600 italic">
-        This generator calls Gemini API with free tier. It will reach its limit quickly.
+      <div class="ai-placeholder text-center text-sm text-gray-500">
+        Describe your layout above and click Generate
       </div>
     }
   </div>
