@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { Tooltip } from 'primeng/tooltip';
 import { SplitButton } from 'primeng/splitbutton';
 import { MenuItem, MessageService, ConfirmationService } from 'primeng/api';
-import { CanvasService } from '@layout/canvas';
 import { Button, ButtonDirective } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ThemeConfiguratorComponent } from '../core/theme/theme-configurator.component';
@@ -24,6 +23,7 @@ import { ConfirmDialog } from 'primeng/confirmdialog';
 import { InputText } from 'primeng/inputtext';
 import { DocumentService } from '../core/services/document.service';
 import { DocumentBrowserComponent } from '../document-browser/document-browser.component';
+import { GuideService } from '../core/services/guide.service';
 
 @Component({
   selector: 'app-header',
@@ -31,7 +31,6 @@ import { DocumentBrowserComponent } from '../document-browser/document-browser.c
     Button,
     FormsModule,
     Tooltip,
-    SplitButton,
     SplitButtonModule,
     ThemeConfiguratorComponent,
     Popover,
@@ -48,11 +47,11 @@ import { DocumentBrowserComponent } from '../document-browser/document-browser.c
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  private canvasService = inject(CanvasService);
   private messageService = inject(MessageService);
   private themeService = inject(ThemeService);
   private confirmationService = inject(ConfirmationService);
   protected documentService = inject(DocumentService);
+  private guideService = inject(GuideService);
 
   protected isPreviewVisible = signal<boolean>(false);
   protected isDocumentBrowserVisible = signal<boolean>(false);
@@ -75,25 +74,6 @@ export class HeaderComponent {
     return dirty ? `${name} *` : name;
   });
 
-  items: MenuItem[] = [
-    {
-      label: 'New',
-      icon: 'pi pi-file',
-      command: () => this.handleNew(),
-    },
-    {
-      label: 'Open...',
-      icon: 'pi pi-folder-open',
-      command: () => this.handleOpen(),
-    },
-    { separator: true },
-    {
-      label: 'Save As...',
-      icon: 'pi pi-save',
-      command: () => this.handleSaveAs(),
-    },
-  ];
-
   async handleNew(): Promise<void> {
     if (this.documentService.isDirty()) {
       this.confirmDiscardChanges(() => {
@@ -102,6 +82,7 @@ export class HeaderComponent {
       });
     } else {
       this.documentService.newDocument();
+      this.guideService.resetGuide();
       this.showMessage('info', 'New document created');
     }
   }
@@ -119,17 +100,13 @@ export class HeaderComponent {
   async handleSave(): Promise<void> {
     if (this.documentService.isNewDocument()) {
       // New document - show Save As dialog
-      this.handleSaveAs();
+      this.saveAsName.set(this.documentService.documentName());
+      this.isSaveAsDialogVisible.set(true);
       return;
     }
 
     await this.documentService.save();
     this.showMessage('success', `"${this.documentService.documentName()}" saved`);
-  }
-
-  handleSaveAs(): void {
-    this.saveAsName.set(this.documentService.documentName());
-    this.isSaveAsDialogVisible.set(true);
   }
 
   async confirmSaveAs(): Promise<void> {

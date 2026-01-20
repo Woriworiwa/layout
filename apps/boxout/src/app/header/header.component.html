@@ -1,52 +1,68 @@
 <div class="flex justify-between items-center p-3">
-  <!-- Logo and Document Name -->
-  <div class="text-lg font-medium flex gap-2 items-center">
-    <img [src]="logoSrc()" alt="boXout logo" />
-    <span>boXout</span>
-    <span class="text-surface-500 mx-1">/</span>
-    @if (isEditingName()) {
-      <input
-        #nameInput
-        pInputText
-        class="text-surface-600 dark:text-surface-400 px-2 py-1 text-lg"
-        [ngModel]="editedName()"
-        (ngModelChange)="editedName.set($event)"
-        (keydown.enter)="confirmNameEdit()"
-        (keydown.escape)="cancelNameEdit()"
-        (blur)="confirmNameEdit()"
-      />
-    } @else {
-      <span
-        class="text-surface-600 dark:text-surface-400 px-2 py-1 rounded cursor-pointer transition-colors hover:bg-surface-100 dark:hover:bg-surface-800"
-        pTooltip="Click to rename"
-        tooltipPosition="bottom"
-        (click)="startEditingName()"
-        role="button"
-        tabindex="0"
-        (keydown.enter)="startEditingName()"
-      >{{ documentTitle() }}</span>
-    }
+  <div class="flex">
+    <!-- Logo and Document Name -->
+    <div class="text-lg font-medium flex gap-2 items-center">
+      <img [src]="logoSrc()" alt="boXout logo" />
+      <span>boXout</span>
+      <span class="text-surface-500 mx-1">/</span>
+      @if (isEditingName()) {
+        <input
+          #nameInput
+          pInputText
+          class="text-surface-600 dark:text-surface-400 px-2 py-1 text-lg"
+          [ngModel]="editedName()"
+          (ngModelChange)="editedName.set($event)"
+          (keydown.enter)="confirmNameEdit()"
+          (keydown.escape)="cancelNameEdit()"
+          (blur)="confirmNameEdit()"
+        />
+      } @else {
+        <span
+          class="text-surface-600 dark:text-surface-400 px-2 py-1 rounded cursor-pointer transition-colors hover:bg-surface-100 dark:hover:bg-surface-800"
+          pTooltip="Click to rename"
+          tooltipPosition="bottom"
+          (click)="startEditingName()"
+          role="button"
+          tabindex="0"
+          (keydown.enter)="startEditingName()"
+        >{{ documentTitle() }}</span>
+      }
+    </div>
+
+
   </div>
 
-  <!-- Preview Button -->
-  <p-button
-    (onClick)="isPreviewVisible.set(true)"
-    icon="pi pi-eye"
-    label="Preview"
-  >
-  </p-button>
+  <div class="flex">
+    <!-- Preview Button -->
+    <p-button
+      (onClick)="isPreviewVisible.set(true)"
+      variant="text"
+      icon="pi pi-eye"
+      label="Preview"
+    >
+    </p-button>
+  </div>
+
 
   <!-- Action Buttons -->
-  <div class="flex justify-end">
-    <p-button
-      [text]="true"
-      (onClick)="themeConfiguratorPopover.toggle($event)"
-      pTooltip="Customize Theme"
-      tooltipPosition="bottom"
-      icon="pi pi-palette"
-      ariaLabel="Customize Theme"
-    />
+  <div class="flex justify-end gap-8">
+    <p-button variant="text"
+              label="Save"
+              (onClick)="handleSave()"
+              icon="pi pi-save">
+    </p-button>
 
+    <p-button variant="text"
+              label="New"
+              (onClick)="handleNew()"
+              icon="pi pi-plus">
+    </p-button>
+
+    <p-button variant="text"
+              label="Open"
+              (onClick)="handleOpen()"
+              icon="pi pi-folder-open">
+    </p-button>
     <a
       href="https://github.com/Woriworiwa/layout"
       pButton
@@ -60,14 +76,6 @@
       class="mr-2"
     >
     </a>
-
-    <p-splitbutton
-      label="Save"
-      (onClick)="handleSave()"
-      appendTo="body"
-      [model]="items"
-      [menuStyle]="{ 'min-width': '200px' }"
-    ></p-splitbutton>
   </div>
 </div>
 

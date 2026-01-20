@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { Observable, firstValueFrom, map } from 'rxjs';
-import { CanvasService } from '@layout/canvas';
+import { CanvasService, SelectionService } from '@layout/canvas';
 import { CanvasItem } from '@layout/models';
 import {
   Document,
@@ -28,6 +28,7 @@ export class DocumentService {
   private storage = inject(DOCUMENT_STORAGE) as DocumentStorage<CanvasItem>;
   private canvasService = inject(CanvasService);
   private localStorageService = inject(LocalStorageService);
+  private selectionService = inject(SelectionService);
 
   // Current document state
   private currentDocumentId = signal<string | null>(null);
@@ -87,6 +88,7 @@ export class DocumentService {
     this.currentDocumentName.set(name);
     this.lastSavedSnapshot.set(null);
     this.canvasService.setItems([], false);
+    this.selectionService.setSelectedItemKey(undefined);
     this.clearPersistedDocumentId();
   }
 
