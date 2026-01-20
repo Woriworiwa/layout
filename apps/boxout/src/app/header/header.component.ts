@@ -4,6 +4,8 @@ import {
   inject,
   signal,
   computed,
+  viewChild,
+  ElementRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Tooltip } from 'primeng/tooltip';
@@ -56,6 +58,10 @@ export class HeaderComponent {
   protected isDocumentBrowserVisible = signal<boolean>(false);
   protected isSaveAsDialogVisible = signal<boolean>(false);
   protected saveAsName = signal<string>('');
+  protected isEditingName = signal<boolean>(false);
+  protected editedName = signal<string>('');
+
+  protected nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
 
   protected logoSrc = computed(() =>
     this.themeService.config().darkMode
@@ -143,6 +149,41 @@ export class HeaderComponent {
 
   onDocumentOpened(): void {
     this.showMessage('info', `Opened "${this.documentService.documentName()}"`);
+  }
+
+  protected startEditingName(): void {
+    this.editedName.set(this.documentService.documentName());
+    this.isEditingName.set(true);
+
+    // Use setTimeout to allow the input to render before focusing
+    setTimeout(() => {
+      const input = this.nameInput()?.nativeElement;
+      if (input) {
+        input.focus();
+        input.select();
+      }
+    });
+  }
+
+  protected confirmNameEdit(): void {
+    const trimmedName = this.editedName().trim();
+    if (trimmedName && trimmedName !== this.documentService.documentName()) {
+      this.documentService.rename(trimmedName);
+      this.showSavedToast();
+    }
+    this.isEditingName.set(false);
+  }
+
+  protected cancelNameEdit(): void {
+    this.isEditingName.set(false);
+  }
+
+  private showSavedToast(): void {
+    this.messageService.add({
+      severity: 'success',
+      detail: 'Saved',
+      life: 2000,
+    });
   }
 
   private confirmDiscardChanges(onConfirm: () => void): void {

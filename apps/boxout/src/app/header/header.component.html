@@ -4,7 +4,28 @@
     <img [src]="logoSrc()" alt="boXout logo" />
     <span>boXout</span>
     <span class="text-surface-500 mx-1">/</span>
-    <span class="text-surface-600 dark:text-surface-400">{{ documentTitle() }}</span>
+    @if (isEditingName()) {
+      <input
+        #nameInput
+        pInputText
+        class="text-surface-600 dark:text-surface-400 px-2 py-1 text-lg"
+        [ngModel]="editedName()"
+        (ngModelChange)="editedName.set($event)"
+        (keydown.enter)="confirmNameEdit()"
+        (keydown.escape)="cancelNameEdit()"
+        (blur)="confirmNameEdit()"
+      />
+    } @else {
+      <span
+        class="text-surface-600 dark:text-surface-400 px-2 py-1 rounded cursor-pointer transition-colors hover:bg-surface-100 dark:hover:bg-surface-800"
+        pTooltip="Click to rename"
+        tooltipPosition="bottom"
+        (click)="startEditingName()"
+        role="button"
+        tabindex="0"
+        (keydown.enter)="startEditingName()"
+      >{{ documentTitle() }}</span>
+    }
   </div>
 
   <!-- Preview Button -->
