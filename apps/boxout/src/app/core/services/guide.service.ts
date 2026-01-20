@@ -4,7 +4,7 @@ import { AssetDragDropService, CanvasService } from '@layout/canvas';
 import { PRESET_PROVIDER } from '@layout/shared';
 import cloneDeep from 'lodash.clonedeep';
 import { filter } from 'rxjs';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '@layout/persistence';
 
 const GUIDE_DISMISSED_KEY = 'GUIDE_DISMISSED';
 
@@ -13,14 +13,14 @@ const GUIDE_DISMISSED_KEY = 'GUIDE_DISMISSED';
  * Shows guide when canvas is empty and user hasn't dismissed it.
  * Auto-dismisses when user starts dragging an asset.
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class GuideService {
   private readonly localStorageService = inject(LocalStorageService);
   private readonly assetDragDropService = inject(AssetDragDropService);
   private readonly canvasService = inject(CanvasService);
-  private readonly presetsProvider = inject(PRESET_PROVIDER, { optional: true });
+  private readonly presetsProvider = inject(PRESET_PROVIDER, {
+    optional: true,
+  });
 
   private readonly guideDismissed = signal<boolean>(false);
   private readonly canvasItems = toSignal(this.canvasService.items$, {
@@ -73,7 +73,7 @@ export class GuideService {
   private loadPersistedState(): void {
     const dismissed = this.localStorageService.getItem<boolean>(
       GUIDE_DISMISSED_KEY,
-      false
+      false,
     );
     this.guideDismissed.set(dismissed ?? false);
   }
@@ -82,7 +82,7 @@ export class GuideService {
     this.assetDragDropService.isDragging$
       .pipe(
         takeUntilDestroyed(),
-        filter((isDragging) => isDragging && this.showGuide())
+        filter((isDragging) => isDragging && this.showGuide()),
       )
       .subscribe(() => {
         this.dismissGuide();

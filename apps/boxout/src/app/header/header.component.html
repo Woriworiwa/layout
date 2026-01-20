@@ -1,8 +1,10 @@
 <div class="flex justify-between items-center p-3">
-  <!-- Logo -->
+  <!-- Logo and Document Name -->
   <div class="text-lg font-medium flex gap-2 items-center">
     <img [src]="logoSrc()" alt="boXout logo" />
     <span>boXout</span>
+    <span class="text-surface-500 mx-1">/</span>
+    <span class="text-surface-600 dark:text-surface-400">{{ documentTitle() }}</span>
   </div>
 
   <!-- Preview Button -->
@@ -40,7 +42,7 @@
 
     <p-splitbutton
       label="Save"
-      (onClick)="save()"
+      (onClick)="handleSave()"
       appendTo="body"
       [model]="items"
       [menuStyle]="{ 'min-width': '200px' }"
@@ -65,3 +67,53 @@
 <p-popover #themeConfiguratorPopover>
   <app-theme-configurator />
 </p-popover>
+
+<!-- Document Browser Modal -->
+@if (isDocumentBrowserVisible()) {
+  <app-document-browser
+    [visible]="isDocumentBrowserVisible()"
+    (visibleChange)="isDocumentBrowserVisible.set($event)"
+    (documentOpened)="onDocumentOpened()"
+  />
+}
+<!-- Save As Dialog -->
+@if (isSaveAsDialogVisible()) {
+  <p-dialog
+    header="Save As"
+    [style]="{ width: '400px' }"
+    [modal]="true"
+    appendTo="body"
+    [visible]="true"
+  >
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
+        <label for="document-name" class="font-medium">Document Name</label>
+        <input
+          pInputText
+          id="document-name"
+          [ngModel]="saveAsName()"
+          (ngModelChange)="saveAsName.set($event)"
+          (keydown.enter)="confirmSaveAs()"
+          class="w-full"
+        />
+      </div>
+    </div>
+    <ng-template #footer>
+      <div class="flex justify-end gap-2 pt-4">
+        <p-button
+          label="Cancel"
+          [text]="true"
+          (onClick)="cancelSaveAs()"
+        />
+        <p-button
+          label="Save"
+          (onClick)="confirmSaveAs()"
+          [disabled]="!saveAsName().trim()"
+        />
+      </div>
+    </ng-template>
+  </p-dialog>
+}
+
+<!-- Confirm Dialog for unsaved changes -->
+<p-confirmDialog />

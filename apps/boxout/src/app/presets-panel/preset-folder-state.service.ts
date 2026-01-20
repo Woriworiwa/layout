@@ -1,6 +1,6 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { PresetCategory, PresetFolderState } from '@layout/models';
-import { LocalStorageService } from '../core/services/local-storage.service';
+import { LocalStorageService } from '@layout/persistence';
 
 const STORAGE_KEY = 'preset-folder-state';
 const DEFAULT_EXPANDED_FOLDER = PresetCategory.FLEXBOX;

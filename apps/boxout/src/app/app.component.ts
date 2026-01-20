@@ -5,7 +5,7 @@ import {
   SelectionService,
   CanvasComponent,
 } from '@layout/canvas';
-import { DataService } from './core/services/data.service';
+import { DocumentService } from './core/services/document.service';
 import { GuideService } from './core/services/guide.service';
 import { LayoutStateService } from './core/services/layout-state.service';
 import { HeaderComponent } from './header/header.component';
@@ -39,15 +39,17 @@ export class AppComponent {
   protected guideService = inject(GuideService);
   protected layoutStateService = inject(LayoutStateService);
   private canvasSelectionService = inject(SelectionService);
-  private mockService = inject(DataService);
+  private documentService = inject(DocumentService);
 
   constructor() {
-    this.fetchData();
-    this.canvasSelectionService.setSelectedItemKey(this.canvasService.items[0]?.key);
+    this.initializeApp();
   }
 
-  fetchData() {
-    this.canvasService.setItems(this.mockService.getInitialData());
+  private async initializeApp(): Promise<void> {
+    await this.documentService.initialize();
+    this.canvasSelectionService.setSelectedItemKey(
+      this.canvasService.items[0]?.key
+    );
   }
 
   onTemplateSelected(templateId: string): void {
