@@ -14,6 +14,9 @@ export * from './lib/groups/layout.component';
 export * from './lib/groups/meta-data.component';
 export * from './lib/groups/sizing-spacing.component';
 
+// Panels
+export * from './lib/tailwind-panel/tailwind-panel.component';
+
 // Services, Config, Directives
 export * from './lib/properties.service';
 export * from './lib/properties.config';

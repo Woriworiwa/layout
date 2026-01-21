@@ -1,11 +1,11 @@
-<div class="flex flex-col w-full">
+<div class="flex flex-col w-full min-w-0">
   @if (frame(); as selectedFrame) {
     <div
-      class="flex grow flex-col self-stretch rounded-3xl bg-[var(--bg-primary)] overflow-auto relative"
+      class="flex grow flex-col self-stretch rounded-3xl bg-[var(--bg-primary)] overflow-hidden relative min-w-0"
     >
       <!-- Scrollable content area -->
-      <div class="flex-1 overflow-y-auto pb-50">
-        <div class="sticky top-0 bg-[var(--bg-primary)] px-4 pt-4 pb-2 z-10">
+      <div class="flex-1 overflow-y-auto overflow-x-hidden pb-50 min-w-0">
+        <div class="sticky top-0 bg-[var(--bg-primary)] px-4 pt-4 pb-2 z-10 min-w-0 overflow-hidden">
           <p-inputgroup>
             <input
               #searchInput
@@ -25,6 +25,15 @@
               (click)="searchText.set('')"
             >.</button>
           </p-inputgroup>
+
+          <!-- Tailwind Classes Editor -->
+          <app-tailwind-panel
+            class="mt-3 block"
+            [css]="selectedFrame.css"
+            [tailwindClasses]="selectedFrame.tailwindClasses"
+            [hasSelection]="true"
+            [compact]="true"
+          ></app-tailwind-panel>
         </div>
 
         <div class="flex flex-col">

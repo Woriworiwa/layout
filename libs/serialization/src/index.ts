@@ -8,3 +8,5 @@ export * from './lib/serializers/css-tailwind.serializer';
 export * from './lib/serializers/serializer';
 export * from './lib/serialization.providers';
 export * from './lib/constants';
+export * from './lib/tailwind-css-converter';
+export * from './lib/tailwind-to-css-map';

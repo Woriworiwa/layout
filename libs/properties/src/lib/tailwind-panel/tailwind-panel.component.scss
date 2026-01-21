@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+:host:not(.compact) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// Ensure all flex children can shrink
+:host ::ng-deep {
+  .flex {
+    min-width: 0;
+  }
+
+  shared-code-editor {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  // Force CodeMirror to respect container width
+  .cm-editor {
+    max-width: 100%;
+  }
+
+  .cm-scroller {
+    overflow-x: hidden !important;
+  }
+
+  .cm-content {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .cm-line {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap !important;
+  }
+}

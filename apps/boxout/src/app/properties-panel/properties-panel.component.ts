@@ -29,6 +29,7 @@ import {
   PropertiesConfig,
   PropertiesService,
   PropertiesKeyboardNavigationService,
+  TailwindPanelComponent,
 } from '@layout/properties';
 import { THEME_CONFIG } from '@layout/shared';
 import { ThemeService } from '../core/theme/theme.service';
@@ -43,7 +44,8 @@ import { ThemeService } from '../core/theme/theme.service';
     SizingSpacingComponent,
     LayoutComponent,
     MetaDataComponent,
-    PropertiesFlexboxGridComponent
+    PropertiesFlexboxGridComponent,
+    TailwindPanelComponent,
   ],
   providers: [
     PropertiesService,

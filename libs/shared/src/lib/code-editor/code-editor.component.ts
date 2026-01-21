@@ -21,24 +21,39 @@ import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
     <div #editorContainer class="code-editor-container"></div>
   `,
   styles: `
+    :host {
+      display: block;
+      width: 100%;
+      min-width: 0;
+    }
+
     .code-editor-container {
       border: 1px solid var(--border-color);
       border-radius: 6px;
       overflow: hidden;
+      width: 100%;
+      min-width: 0;
 
       :global(.cm-editor) {
         background: var(--surface-ground);
         font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
         font-size: 13px;
+        max-width: 100%;
+      }
+
+      :global(.cm-scroller) {
+        overflow-x: hidden !important;
       }
 
       :global(.cm-content) {
         padding: 8px 4px;
         min-height: 32px;
+        max-width: 100%;
       }
 
       :global(.cm-line) {
         padding: 0 8px;
+        word-break: break-word;
       }
 
       :global(.cm-focused) {
@@ -118,10 +133,12 @@ export class CodeEditorComponent implements ControlValueAccessor {
       baseExtensions.push(placeholderExtension(this.placeholder()));
     }
 
-    // Add line wrapping for single-line mode
+    // Always enable line wrapping to prevent horizontal overflow
+    baseExtensions.push(EditorView.lineWrapping);
+
+    // Prevent Enter key in single-line mode
     if (!this.multiline()) {
       baseExtensions.push(
-        EditorView.lineWrapping,
         keymap.of([
           {
             key: 'Enter',
