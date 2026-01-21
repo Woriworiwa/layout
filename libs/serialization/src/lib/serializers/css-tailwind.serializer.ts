@@ -1,41 +1,36 @@
 import { CanvasItem, Css } from '@layout/models';
 import { Serializer } from './serializer';
-import { TAILWIND_DATA } from '@layout/shared';
-import { POSTFIX_UNIT, POSTFIXED_PROPERTIES } from '../constants';
+import { TailwindCssConverter } from '../tailwind-css-converter';
 
+/**
+ * Serializer that converts CSS properties to Tailwind class names.
+ *
+ * This serializer delegates to TailwindCssConverter for the actual conversion.
+ * It maintains the Serializer interface for compatibility with the serialization system.
+ *
+ * @example
+ * ```typescript
+ * const serializer = new CssTailwindSerializer();
+ * const classes = serializer.serialize([canvasItem]);
+ * // Returns: ['flex', 'gap-4', 'justify-center']
+ * ```
+ */
 export class CssTailwindSerializer extends Serializer<void> {
-  private cssToTailwindMap: Map<string, string> = new Map();
+  private converter: TailwindCssConverter;
 
-  constructor() {
+  constructor(converter?: TailwindCssConverter) {
     super();
-    this.buildReverseMap();
+    // Allow injection for testing, otherwise create a new instance
+    this.converter = converter ?? new TailwindCssConverter();
   }
 
   /**
-   * Check if a CSS value already has a unit (px, rem, em, %, etc.)
+   * Serialize a canvas item's CSS to Tailwind classes.
+   *
+   * @param items Array of canvas items (only first item is processed)
+   * @param _options Unused options parameter (for interface compatibility)
+   * @returns Array of Tailwind class names
    */
-  private hasUnit(value: string): boolean {
-    return /[a-z%]+$/i.test(value.trim());
-  }
-
-  /**
-   * Build a reverse map from CSS declarations to Tailwind class names
-   * Example: "display: flex;" -> "flex"
-   */
-  private buildReverseMap(): void {
-    const utilities = TAILWIND_DATA.utilities;
-
-    for (const utility of utilities) {
-      // Normalize the CSS detail by trimming and ensuring it ends with semicolon
-      const normalizedDetail = utility.detail.trim();
-      const cssKey = normalizedDetail.endsWith(';')
-        ? normalizedDetail.slice(0, -1).trim()
-        : normalizedDetail;
-
-      this.cssToTailwindMap.set(cssKey, utility.label);
-    }
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   serialize(items: CanvasItem[], _options?: void): string[] {
     if (items.length !== 1) {
@@ -47,129 +42,6 @@ export class CssTailwindSerializer extends Serializer<void> {
       return [];
     }
 
-    const tailwindClasses: string[] = [];
-
-    /* loop through the root keys (spacing, sizing, display, container,...) */
-    this.serializeItems(css, tailwindClasses);
-
-    return tailwindClasses;
-  }
-
-  private serializeItems(css: Css, tailwindClasses: string[]): void {
-    for (const key of Object.keys(css)) {
-      const value = css[key as keyof Css];
-
-      if (value == null) {
-        continue;
-      }
-
-      /* loop through the subkeys of the root keys */
-      for (const subKey of Object.keys(value)) {
-        // Convert camelCase to kebab-case for CSS property names
-        const cssPropertyName = subKey
-          .replace(/([a-z])([A-Z])/g, '$1-$2')
-          .toLowerCase();
-        const rawValue = value[subKey as keyof Css[keyof Css]];
-
-        if (rawValue == null) {
-          continue;
-        }
-
-        // Convert to string (handles both string and number values)
-        let cssPropertyValue = String(rawValue);
-
-        // Only add px postfix if the value doesn't already have a unit
-        if (POSTFIXED_PROPERTIES.includes(subKey)) {
-          if (!this.hasUnit(cssPropertyValue)) {
-            cssPropertyValue += POSTFIX_UNIT;
-          }
-        }
-
-        const tailwindClass = this.getTailwindClass(cssPropertyName, cssPropertyValue);
-        if (tailwindClass) {
-          tailwindClasses.push(tailwindClass);
-        }
-      }
-    }
-  }
-
-  /**
-   * Convert a CSS property-value pair to a Tailwind class
-   * Falls back to arbitrary value syntax if no exact match found
-   */
-  private getTailwindClass(property: string, value: string): string {
-    const cssDeclaration = `${property}: ${value}`;
-
-    // Try exact match first
-    const exactMatch = this.cssToTailwindMap.get(cssDeclaration);
-    if (exactMatch) {
-      return exactMatch;
-    }
-
-    // Fall back to arbitrary value syntax
-    return this.generateArbitraryValue(property, value);
-  }
-
-  /**
-   * Generate Tailwind arbitrary value syntax
-   * Example: "padding: 17px" -> "p-[17px]"
-   */
-  private generateArbitraryValue(property: string, value: string): string {
-    // Map CSS properties to Tailwind prefixes
-    const propertyMap: Record<string, string> = {
-      // Box Sizing
-      'padding': 'p',
-      'padding-top': 'pt',
-      'padding-right': 'pr',
-      'padding-bottom': 'pb',
-      'padding-left': 'pl',
-      'margin': 'm',
-      'margin-top': 'mt',
-      'margin-right': 'mr',
-      'margin-bottom': 'mb',
-      'margin-left': 'ml',
-      'width': 'w',
-      'height': 'h',
-      'min-width': 'min-w',
-      'min-height': 'min-h',
-      'max-width': 'max-w',
-      'max-height': 'max-h',
-
-      // Flexbox
-      'gap': 'gap',
-      'row-gap': 'gap-y',
-      'column-gap': 'gap-x',
-      'flex-direction': 'flex',
-      'flex-wrap': 'flex',
-      'justify-content': 'justify',
-      'align-items': 'items',
-      'align-content': 'content',
-      'flex': 'flex',
-      'flex-grow': 'grow',
-      'flex-shrink': 'shrink',
-      'order': 'order',
-
-      // Grid
-      'grid-template-columns': 'grid-cols',
-      'grid-template-rows': 'grid-rows',
-      'grid-column': 'col',
-      'grid-row': 'row',
-      'grid-auto-flow': 'grid-flow',
-
-      // Display (though these should be matched exactly)
-      'display': 'display',
-    };
-
-    const prefix = propertyMap[property];
-    if (prefix) {
-      // Replace spaces with underscores for valid Tailwind arbitrary values
-      const sanitizedValue = value.replace(/ /g, '_');
-      return `${prefix}-[${sanitizedValue}]`;
-    }
-
-    // If no mapping found, use the property name as-is
-    // Replace spaces with underscores for valid Tailwind arbitrary values
-    const sanitizedValue = value.replace(/ /g, '_');
-    return `[${property}:${sanitizedValue}]`;
+    return this.converter.cssToTailwind(css);
   }
 }

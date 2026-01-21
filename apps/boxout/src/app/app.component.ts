@@ -38,7 +38,7 @@ export class AppComponent {
   protected canvasService = inject(CanvasService);
   protected guideService = inject(GuideService);
   protected layoutStateService = inject(LayoutStateService);
-  private canvasSelectionService = inject(SelectionService);
+  private selectionService = inject(SelectionService);
   private documentService = inject(DocumentService);
 
   constructor() {
@@ -47,7 +47,7 @@ export class AppComponent {
 
   private async initializeApp(): Promise<void> {
     await this.documentService.initialize();
-    this.canvasSelectionService.setSelectedItemKey(
+    this.selectionService.setSelectedItemKey(
       this.canvasService.items[0]?.key
     );
   }
