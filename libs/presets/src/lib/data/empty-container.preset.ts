@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const emptyContainerPreset = {
+export const emptyContainerPreset: Preset = {
   presetId: 'empty-container',
   presetName: 'Empty Container',
   category: PresetCategory.ROOT,

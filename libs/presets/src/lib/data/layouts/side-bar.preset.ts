@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const sideBarPreset = {
+export const sideBarPreset: Preset = {
   presetId: 'sidebar-layout',
   presetName: 'Sidebar layout',
   category: PresetCategory.LAYOUTS,

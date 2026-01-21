@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const basicGridPresets = [
+export const basicGridPresets: Preset[] = [
   {
     presetId: 'empty-grid',
     presetName: 'Empty Grid',
@@ -11,7 +11,7 @@ export const basicGridPresets = [
         layout: {
           display: 'grid',
         },
-        container: {
+        flexboxGrid: {
           gridTemplateColumns: '1fr',
         },
         spacing: {
@@ -30,8 +30,8 @@ export const basicGridPresets = [
         layout: {
           display: 'grid',
         },
-        container: {
-          gap: 10,
+        flexboxGrid: {
+          gap: '10',
           gridTemplateColumns: '1fr 1fr',
           gridTemplateRows: '1fr 1fr',
         },
@@ -69,8 +69,8 @@ export const basicGridPresets = [
         layout: {
           display: 'grid',
         },
-        container: {
-          gap: 10,
+        flexboxGrid: {
+          gap: '10',
           gridTemplateColumns: 'repeat(3, 1fr)',
         },
         spacing: {
@@ -118,8 +118,8 @@ export const basicGridPresets = [
         layout: {
           display: 'grid',
         },
-        container: {
-          gap: 10,
+        flexboxGrid: {
+          gap: '10',
           gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
         },
         spacing: {
@@ -167,8 +167,8 @@ export const basicGridPresets = [
         layout: {
           display: 'grid',
         },
-        container: {
-          gap: 12,
+        flexboxGrid: {
+          gap: '12',
           gridTemplateColumns: '1fr 3fr',
           gridTemplateRows: 'auto 1fr auto',
           gridTemplateAreas:
@@ -183,7 +183,7 @@ export const basicGridPresets = [
           content: 'Header',
           itemType: 'TEXT',
           css: {
-            container: {
+            flexboxGrid: {
               gridArea: 'header',
             },
             spacing: {
@@ -195,7 +195,7 @@ export const basicGridPresets = [
           content: 'Sidebar',
           itemType: 'TEXT',
           css: {
-            container: {
+            flexboxGrid: {
               gridArea: 'sidebar',
             },
             spacing: {
@@ -207,7 +207,7 @@ export const basicGridPresets = [
           content: 'Content',
           itemType: 'TEXT',
           css: {
-            container: {
+            flexboxGrid: {
               gridArea: 'content',
             },
             spacing: {
@@ -219,7 +219,7 @@ export const basicGridPresets = [
           content: 'Footer',
           itemType: 'TEXT',
           css: {
-            container: {
+            flexboxGrid: {
               gridArea: 'footer',
             },
             spacing: {
@@ -240,8 +240,8 @@ export const basicGridPresets = [
         layout: {
           display: 'grid',
         },
-        container: {
-          gap: 16,
+        flexboxGrid: {
+          gap: '16',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gridTemplateRows: 'auto 1fr auto',
         },
@@ -257,8 +257,8 @@ export const basicGridPresets = [
             layout: {
               display: 'grid',
             },
-            container: {
-              gap: 12,
+            flexboxGrid: {
+              gap: '12',
               gridTemplateRows: 'subgrid',
               gridRow: '1 / 4',
             },
@@ -303,8 +303,8 @@ export const basicGridPresets = [
             layout: {
               display: 'grid',
             },
-            container: {
-              gap: 12,
+            flexboxGrid: {
+              gap: '12',
               gridTemplateRows: 'subgrid',
               gridRow: '1 / 4',
             },
@@ -350,8 +350,8 @@ export const basicGridPresets = [
             layout: {
               display: 'grid',
             },
-            container: {
-              gap: 12,
+            flexboxGrid: {
+              gap: '12',
               gridTemplateRows: 'subgrid',
               gridRow: '1 / 4',
             },

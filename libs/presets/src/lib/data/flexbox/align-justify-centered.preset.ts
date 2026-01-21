@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const centeredContentPreset = {
+export const centeredContentPreset: Preset = {
   presetId: 'centered-content',
   presetName: 'Centered content',
   category: PresetCategory.FLEXBOX,
@@ -38,12 +38,6 @@ export const centeredContentPreset = {
           {
             content: 'Welcome',
             itemType: 'TEXT',
-            css: {
-              typography: {
-                fontSize: '24px',
-                fontWeight: 'bold',
-              },
-            },
           },
           {
             content: 'Perfectly centered content',

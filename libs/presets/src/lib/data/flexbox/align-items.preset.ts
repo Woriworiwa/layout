@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const alignItemsPreset = {
+export const alignItemsPreset: Preset = {
   presetId: 'align-items',
   presetName: 'Align items',
   category: PresetCategory.FLEXBOX,
@@ -28,19 +28,16 @@ export const alignItemsPreset = {
             content: '',
             itemType: 'TEXT',
             key: 'ZFUurKho',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'lPnOHtQs',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'mZtqGjIo',
-            children: [],
           },
         ],
         key: 'gMqwjNyj',
@@ -66,19 +63,16 @@ export const alignItemsPreset = {
             content: '',
             itemType: 'TEXT',
             key: 'lFgNvpQM',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'CYgGTYzI',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'UhAwUJfM',
-            children: [],
           },
         ],
         key: 'EThscolN',
@@ -104,19 +98,16 @@ export const alignItemsPreset = {
             content: '',
             itemType: 'TEXT',
             key: 'UqsKxkWS',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'YdCtHUiA',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'wOkRlsCa',
-            children: [],
           },
         ],
         key: 'fAvIaNoP',
@@ -135,7 +126,7 @@ export const alignItemsPreset = {
         height: '100px',
       },
       flexboxGrid: {
-        gap: 10,
+        gap: '10',
         justifyContent: 'center',
       },
     },
