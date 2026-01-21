@@ -21,3 +21,4 @@ export * from './lib/enums/canvas-item-type.enum';
 export * from './lib/enums/insert-position.enum';
 
 export * from './lib/preset.model';
+export * from './lib/document.model';

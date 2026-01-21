@@ -89,7 +89,9 @@
       "Bash(npx nx run:*)",
       "Bash(git revert:*)",
       "Bash(git restore:*)",
-      "mcp__nx-mcp__nx_workspace_path"
+      "mcp__nx-mcp__nx_workspace_path",
+      "Skill(design-engineer)",
+      "mcp__nx-mcp__nx_docs"
     ],
     "deny": [],
     "ask": []

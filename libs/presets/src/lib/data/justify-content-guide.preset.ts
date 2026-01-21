@@ -1,6 +1,9 @@
-export const justifyContentGuidePreset = {
+import { Preset, PresetCategory } from '@layout/models';
+
+export const justifyContentGuidePreset: Preset = {
   presetId: 'guide-justify-content',
   presetName: 'Guide: Justify Content',
+  category: PresetCategory.ROOT,
   presetDefinition: {
     itemType: 'CONTAINER',
     label: 'AI Container',
@@ -11,7 +14,6 @@ export const justifyContentGuidePreset = {
         content:
           "The 'justify-content' property aligns flex items along the main axis of the flex container. Its behavior depends on the 'flex-direction' of the container. Use the right-side panel to change the 'justifyContent' property of the 'Interactive Example' containers below and observe how the items are distributed.\n\n\nWhen 'flex-direction' is 'row', 'justify-content' distributes items horizontally along the main axis. The cross axis is vertical (determined by 'align-items').\n\n\nWhen 'flex-direction' is 'column', 'justify-content' distributes items vertically along the main axis. The cross axis is horizontal. Note: the container must have a defined 'height' for this property to have a visible effect.",
         key: 'TPawiCWX',
-        children: [],
       },
       {
         itemType: 'CONTAINER',
@@ -40,17 +42,14 @@ export const justifyContentGuidePreset = {
                 display: 'flex',
               },
               flexboxGrid: {
-                flexDirection: 'row',
                 gap: '8',
+                flexDirection: 'row',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
+                flexGrow: 1,
               },
               spacing: {
                 padding: '16px',
-              },
-              sizing: {
-                width: '100%',
-                height: '80px',
               },
             },
             children: [
@@ -67,8 +66,7 @@ export const justifyContentGuidePreset = {
                     height: '40px',
                   },
                 },
-                key: 'hSVqzRjA',
-                children: [],
+                key: 'DYUDotuF',
               },
               {
                 itemType: 'TEXT',
@@ -83,8 +81,7 @@ export const justifyContentGuidePreset = {
                     height: '40px',
                   },
                 },
-                key: 'yxnYjIPo',
-                children: [],
+                key: 'PrVTSQwC',
               },
               {
                 itemType: 'TEXT',
@@ -99,11 +96,10 @@ export const justifyContentGuidePreset = {
                     height: '40px',
                   },
                 },
-                key: 'CZVeexPW',
-                children: [],
+                key: 'qDEYtFgU',
               },
             ],
-            key: 'VTCbZNWE',
+            key: 'WOgvNIok',
           },
           {
             itemType: 'CONTAINER',
@@ -141,7 +137,6 @@ export const justifyContentGuidePreset = {
                   },
                 },
                 key: 'YJZLmoYA',
-                children: [],
               },
               {
                 itemType: 'TEXT',
@@ -157,7 +152,6 @@ export const justifyContentGuidePreset = {
                   },
                 },
                 key: 'jmayveFm',
-                children: [],
               },
               {
                 itemType: 'TEXT',
@@ -173,7 +167,6 @@ export const justifyContentGuidePreset = {
                   },
                 },
                 key: 'VqQMEWgW',
-                children: [],
               },
             ],
             key: 'aMNlHkCy',

@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const textPreset = {
+export const textPreset: Preset = {
   presetId: 'text',
   presetName: 'Text',
   category: PresetCategory.ROOT,

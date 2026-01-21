@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const flexGrowShrinkPreset = {
+export const flexGrowShrinkPreset: Preset = {
   presetId: 'flex-grow-shrink',
   presetName: 'Flex grow & shrink',
   category: PresetCategory.FLEXBOX,
@@ -43,11 +43,6 @@ export const flexGrowShrinkPreset = {
           {
             content: 'Fixed',
             itemType: 'TEXT',
-            css: {
-              typography: {
-                fontSize: '12px',
-              },
-            },
           },
         ],
         label: 'flex-shrink: 0',
@@ -71,11 +66,6 @@ export const flexGrowShrinkPreset = {
           {
             content: 'Grows',
             itemType: 'TEXT',
-            css: {
-              typography: {
-                fontSize: '12px',
-              },
-            },
           },
         ],
         label: 'flex-grow: 1',
@@ -99,11 +89,6 @@ export const flexGrowShrinkPreset = {
           {
             content: 'Grows 2x',
             itemType: 'TEXT',
-            css: {
-              typography: {
-                fontSize: '12px',
-              },
-            },
           },
         ],
         label: 'flex-grow: 2',

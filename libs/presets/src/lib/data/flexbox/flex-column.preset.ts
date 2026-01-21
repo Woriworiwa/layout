@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const flexColumnPreset = {
+export const flexColumnPreset: Preset = {
   presetId: 'flex-columns',
   presetName: 'Flex columns',
   category: PresetCategory.FLEXBOX,
@@ -11,7 +11,7 @@ export const flexColumnPreset = {
         display: 'flex',
       },
       flexboxGrid: {
-        gap: 10,
+        gap: '10',
         flexDirection: 'column',
       },
       spacing: {

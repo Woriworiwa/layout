@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const flexRowsPreset = {
+export const flexRowsPreset: Preset = {
   presetId: 'flex-rows',
   presetName: 'Flex rows',
   category: PresetCategory.FLEXBOX,
@@ -11,7 +11,7 @@ export const flexRowsPreset = {
         display: 'flex',
       },
       flexboxGrid: {
-        gap: 10,
+        gap: '10',
       },
       spacing: {
         padding: '18px',

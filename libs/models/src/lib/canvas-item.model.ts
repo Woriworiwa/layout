@@ -8,7 +8,7 @@ export interface AiMetadata {
 }
 
 export interface CanvasItem {
-  itemType: CanvasItemType;
+  itemType: CanvasItemType | `${CanvasItemType}`;
   key?: string;
   label?: string;
   content?: string;

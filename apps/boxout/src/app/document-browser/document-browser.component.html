@@ -1,0 +1,74 @@
+<p-dialog
+  [visible]="visible()"
+  (visibleChange)="visibleChange.emit($event)"
+  header="Open Document"
+  [style]="{ width: '500px', maxHeight: '70vh' }"
+  [modal]="true"
+  appendTo="body"
+>
+  <div class="flex flex-col gap-2 max-h-96 overflow-y-auto">
+    @for (doc of documents(); track doc.id) {
+      <div
+        class="document-item flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors"
+        (click)="openDocument(doc)"
+        (keydown)="onKeydown($event, doc)"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="'Open ' + doc.name"
+      >
+        <i class="pi pi-file text-2xl text-surface-500"></i>
+        <div class="flex-1 min-w-0">
+          @if (editingId() === doc.id) {
+            <input
+              pInputText
+              [ngModel]="editingName()"
+              (ngModelChange)="editingName.set($event)"
+              (click)="$event.stopPropagation()"
+              (blur)="saveRename()"
+              (keydown.enter)="saveRename()"
+              (keydown.escape)="cancelRename()"
+              class="w-full"
+              aria-label="Document name"
+            />
+          } @else {
+            <div class="font-medium truncate">{{ doc.name }}</div>
+            <div class="text-sm text-surface-500">
+              {{ formatDate(doc.updatedAt) }}
+            </div>
+          }
+        </div>
+        <div class="flex gap-1 action-buttons">
+          <p-button
+            icon="pi pi-pencil"
+            [text]="true"
+            [rounded]="true"
+            severity="secondary"
+            size="small"
+            (onClick)="startRename(doc, $event)"
+            pTooltip="Rename"
+            tooltipPosition="top"
+            ariaLabel="Rename document"
+          />
+          <p-button
+            icon="pi pi-trash"
+            [text]="true"
+            [rounded]="true"
+            severity="danger"
+            size="small"
+            (onClick)="confirmDelete(doc, $event)"
+            pTooltip="Delete"
+            tooltipPosition="top"
+            ariaLabel="Delete document"
+          />
+        </div>
+      </div>
+    } @empty {
+      <div class="text-center py-8 text-surface-500">
+        <i class="pi pi-inbox text-4xl mb-2 block"></i>
+        <p class="m-0">No saved documents yet</p>
+      </div>
+    }
+  </div>
+</p-dialog>
+
+<p-confirmDialog />

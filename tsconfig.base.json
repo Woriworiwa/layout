@@ -20,7 +20,8 @@
       "@layout/shared": ["libs/shared/src/index.ts"],
       "@layout/presets": ["libs/presets/src/index.ts"],
       "@layout/renderer": ["libs/renderer/src/index.ts"],
-      "@layout/properties": ["libs/properties/src/index.ts"]
+      "@layout/properties": ["libs/properties/src/index.ts"],
+      "@layout/persistence": ["libs/persistence/src/index.ts"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

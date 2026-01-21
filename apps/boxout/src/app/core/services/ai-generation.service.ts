@@ -88,9 +88,6 @@ CRITICAL LIMITATIONS - DO NOT USE:
 
 Rules:
 1. Return ONLY valid JSON array, no markdown formatting
-2. FLEX items MUST have css.layout.display = "flex"
-3. GRID items MUST have css.layout.display = "grid"
-4. TEXT items MUST have content property
 5. Use semantic labels for items
 6. Keep layouts simple and focused
 7. Use only the CSS properties listed in the schema

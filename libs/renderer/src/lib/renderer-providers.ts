@@ -1,4 +1,5 @@
 import { Provider } from '@angular/core';
+import { PreviewThemeService } from './preview-theme.service';
 
 /**
  * Provides all renderer-related services required for the renderer functionality.
@@ -26,7 +27,5 @@ import { Provider } from '@angular/core';
  * ```
  */
 export function provideRenderer(): Provider[] {
-  return [
-    // Add renderer services here as they are created
-  ];
+  return [PreviewThemeService];
 }

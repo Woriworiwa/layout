@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const navbarPreset = {
+export const navbarPreset: Preset = {
   presetId: 'navbar',
   presetName: 'Navigation bar',
   category: PresetCategory.LAYOUTS,
@@ -24,12 +24,6 @@ export const navbarPreset = {
       {
         content: 'Logo',
         itemType: 'TEXT',
-        css: {
-          typography: {
-            fontSize: '20px',
-            fontWeight: 'bold',
-          },
-        },
       },
       {
         itemType: 'CONTAINER',

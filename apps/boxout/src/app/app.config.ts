@@ -11,12 +11,14 @@ import { defaultTheme } from './core/theme/theme.presets';
 import { provideCanvas } from '@layout/canvas';
 import { providePresets } from '@layout/presets';
 import { provideSerialization } from '@layout/serialization';
-import { DataService } from './core/services/data.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AI_GENERATION_TOKEN, UI_GUIDANCE_TOKEN } from '@layout/shared';
 import { UiGuidanceService } from './core/services/ui-guidance.service';
 import { AiGenerationService } from './core/services/ai-generation.service';
-import { provideHighlightJs } from './core/highlightjs/highlightjs-provider';
+import { provideHighlightJs } from './core/theme/highlightjs-provider';
+import { providePersistence } from '@layout/persistence';
+import { GuideService } from './core/services/guide.service';
+import { DocumentService } from './core/services/document.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,8 +37,11 @@ export const appConfig: ApplicationConfig = {
     ...provideCanvas(),
     ...providePresets(),
     ...provideSerialization(),
-    DataService,
+    ...providePersistence(),
+    GuideService,
+    DocumentService,
     MessageService,
+    ConfirmationService,
     { provide: UI_GUIDANCE_TOKEN, useExisting: UiGuidanceService },
     { provide: AI_GENERATION_TOKEN, useExisting: AiGenerationService },
   ],

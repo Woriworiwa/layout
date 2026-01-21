@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const cardPreset = {
+export const cardPreset: Preset = {
   presetId: 'card',
   presetName: 'Card',
   category: PresetCategory.LAYOUTS,
@@ -20,30 +20,16 @@ export const cardPreset = {
       sizing: {
         width: '250px',
       },
-      border: {
-        borderRadius: '8px',
-      },
     },
     children: [
       {
         content: 'Card Title',
         itemType: 'TEXT',
-        css: {
-          typography: {
-            fontSize: '18px',
-            fontWeight: '600',
-          },
-        },
       },
       {
         content:
           'Card description goes here. This is a sample card layout with title and content.',
         itemType: 'TEXT',
-        css: {
-          typography: {
-            fontSize: '14px',
-          },
-        },
       },
       {
         content: 'Action',
@@ -51,9 +37,6 @@ export const cardPreset = {
         css: {
           spacing: {
             padding: '8px 16px',
-          },
-          border: {
-            borderRadius: '4px',
           },
         },
       },

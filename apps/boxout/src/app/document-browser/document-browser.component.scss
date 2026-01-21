@@ -1,0 +1,27 @@
+.document-item {
+  &:hover {
+    background-color: var(--p-surface-100);
+  }
+
+  &:focus {
+    outline: 2px solid var(--p-primary-color);
+    outline-offset: -2px;
+  }
+
+  .action-buttons {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover .action-buttons,
+  &:focus .action-buttons,
+  &:focus-within .action-buttons {
+    opacity: 1;
+  }
+}
+
+:host-context(.dark) {
+  .document-item:hover {
+    background-color: var(--p-surface-800);
+  }
+}

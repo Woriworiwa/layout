@@ -30,9 +30,8 @@ import {
   PropertiesService,
   PropertiesKeyboardNavigationService,
 } from '@layout/properties';
-import { THEME_CONFIG, LOCAL_STORAGE_SERVICE } from '@layout/shared';
+import { THEME_CONFIG } from '@layout/shared';
 import { ThemeService } from '../core/theme/theme.service';
-import { LocalStorageService } from '../core/services/local-storage.service';
 
 @Component({
   selector: 'app-properties-panel',
@@ -55,10 +54,6 @@ import { LocalStorageService } from '../core/services/local-storage.service';
         const themeService = inject(ThemeService);
         return themeService.config();
       },
-    },
-    {
-      provide: LOCAL_STORAGE_SERVICE,
-      useExisting: LocalStorageService,
     },
   ],
   templateUrl: './properties-panel.component.html',

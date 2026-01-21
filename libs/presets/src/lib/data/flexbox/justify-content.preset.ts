@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const justifyContentPreset = {
+export const justifyContentPreset: Preset = {
   presetId: 'justify-content',
   presetName: 'Justify content',
   category: PresetCategory.FLEXBOX,
@@ -43,20 +43,17 @@ export const justifyContentPreset = {
             content: '',
             itemType: 'TEXT',
             key: 'uuYgbBcP',
-            children: [],
             label: 's',
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'qShloWjl',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'DhoAAixA',
-            children: [],
           },
         ],
         label: 'start',
@@ -84,19 +81,16 @@ export const justifyContentPreset = {
             content: '',
             itemType: 'TEXT',
             key: 'QlaCRNod',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'tWtJSRTK',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'ksFIzJLC',
-            children: [],
           },
         ],
         label: 'end',
@@ -121,19 +115,16 @@ export const justifyContentPreset = {
             content: '',
             itemType: 'TEXT',
             key: 'myzorIDv',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'HkPqKape',
-            children: [],
           },
           {
             content: '',
             itemType: 'TEXT',
             key: 'ymRedXtF',
-            children: [],
           },
         ],
         key: 'AVaSIjvF',

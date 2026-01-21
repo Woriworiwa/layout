@@ -16,7 +16,9 @@ import {
   JustifySelfOptions,
   Unit,
   CanvasItemType,
+  Css,
 } from '@layout/models';
+import type * as CSS from 'csstype';
 
 /**
  * Union type of all valid CSS property names from all interfaces.
@@ -43,6 +45,15 @@ type PropertyValueDef =
 type RequireAllProperties = {
   [K in CssPropertyName]: PropertyValueDef;
 };
+
+/**
+ * Compile-time check that validates an array contains ALL keys of Css.
+ * If keys are missing, the type resolves to an error object showing the missing keys.
+ */
+type ValidateAllCssGroupsPresent<T extends readonly (keyof Css)[]> =
+  Exclude<keyof Css, T[number]> extends never
+    ? true
+    : { error: 'cssPropertyNames is missing keys from Css interface'; missing: Exclude<keyof Css, T[number]> };
 
 /**
  * Service that generates AI schema from CSS interface definitions.
@@ -241,53 +252,42 @@ export class AiSchemaGeneratorService {
    * Generates the complete CSS schema for AI prompt.
    */
   private generateCssSchema(): string {
-    const displaySchema = this.generateSchemaForProperties(
-      LAYOUT_PROPERTY_NAMES,
-    );
-    const flexboxGridSchema = this.generateSchemaForProperties(
-      FLEXBOX_GRID_PROPERTY_NAMES,
-    );
-    const spacingSchema = this.generateSchemaForProperties(
-      SPACING_PROPERTY_NAMES,
-    );
-    const sizingSchema = this.generateSchemaForProperties(
-      SIZING_PROPERTY_NAMES,
-    );
+    /**
+     * Ordered list of CSS property groups for schema generation.
+     *
+     * IMPORTANT: This array MUST contain ALL keys from the Css interface.
+     * The type assertion below will cause a compile-time error if any key is missing.
+     */
+    const cssPropertyNames = [
+      'spacing',
+      'sizing',
+      'layout',
+      'flexboxGrid'
+    ] as const satisfies readonly (keyof Css)[];
+
+    // Compile-time assertion: errors if cssPropertyNames doesn't include all Css keys
+    const _validateCssGroups: ValidateAllCssGroupsPresent<typeof cssPropertyNames> = true;
+
+    const schemas: Record<keyof Css, Record<string, string>> = {
+      layout: this.generateSchemaForProperties(LAYOUT_PROPERTY_NAMES),
+      spacing: this.generateSchemaForProperties(SPACING_PROPERTY_NAMES),
+      flexboxGrid: this.generateSchemaForProperties(
+        FLEXBOX_GRID_PROPERTY_NAMES,
+      ),
+      sizing: this.generateSchemaForProperties(SIZING_PROPERTY_NAMES),
+    };
 
     // Build the schema string
     let schema = '"css": {\n';
 
-    // Display
-    schema += '  "display": {\n';
-    Object.entries(displaySchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  },\n';
-
-    // FlexboxGrid (includes flex/grid container and item properties)
-    schema += '  "flexboxGrid": {\n';
-    Object.entries(flexboxGridSchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  },\n';
-
-    // Spacing
-    schema += '  "spacing": {\n';
-    Object.entries(spacingSchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  },\n';
-
-    // Sizing
-    schema += '  "sizing": {\n';
-    Object.entries(sizingSchema).forEach(([key, value]) => {
-      schema += `    "${key}": ${value},\n`;
-    });
-    schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
-    schema += '  }\n';
+    cssPropertyNames.forEach(propertyName => {
+      schema += `    "${propertyName}": {\n`;
+      Object.entries(schemas[propertyName]).forEach(([key, value]) => {
+        schema += `    "${key}": ${value},\n`;
+      });
+      schema = schema.slice(0, -2) + '\n'; // Remove trailing comma
+      schema += '  },\n';
+    })
 
     schema += '}';
 

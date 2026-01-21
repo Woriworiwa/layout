@@ -5,11 +5,13 @@ import {
   ChangeDetectionStrategy,
   input,
   OnInit,
+  computed,
 } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonDirective } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 import { CanvasItem } from '@layout/models';
 import { AI_GENERATION_TOKEN } from '@layout/shared';
 import { CanvasService } from '../../canvas.service';
@@ -18,7 +20,7 @@ import cloneDeep from 'lodash.clonedeep';
 @Component({
   selector: 'app-ai-wrapper',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, TextareaModule, ButtonDirective],
+  imports: [FormsModule, TextareaModule, ButtonDirective, TooltipModule],
   templateUrl: './ai-wrapper.component.html',
   styleUrls: ['./ai-wrapper.component.scss'],
 })
@@ -31,6 +33,9 @@ export class AiWrapperComponent implements OnInit {
   protected isGenerating = signal<boolean>(false);
   protected errorMessage = signal<string | null>(null);
   protected isCollapsed = signal<boolean>(false);
+  protected hasGeneratedContent = computed(
+    () => (this.item().children?.length ?? 0) > 0
+  );
 
   ngOnInit(): void {
     // Initialize prompt from metadata

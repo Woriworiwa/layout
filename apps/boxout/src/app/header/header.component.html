@@ -1,29 +1,68 @@
 <div class="flex justify-between items-center p-3">
-  <!-- Logo -->
-  <div class="text-lg font-medium flex gap-2.5">
-    <img [src]="logoSrc()" alt="boXout logo" />
-    <div>boXout</div>
+  <div class="flex">
+    <!-- Logo and Document Name -->
+    <div class="text-lg font-medium flex gap-2 items-center">
+      <img [src]="logoSrc()" alt="boXout logo" />
+      <span>boXout</span>
+      <span class="text-surface-500 mx-1">/</span>
+      @if (isEditingName()) {
+        <input
+          #nameInput
+          pInputText
+          class="text-surface-600 dark:text-surface-400 px-2 py-1 text-lg"
+          [ngModel]="editedName()"
+          (ngModelChange)="editedName.set($event)"
+          (keydown.enter)="confirmNameEdit()"
+          (keydown.escape)="cancelNameEdit()"
+          (blur)="confirmNameEdit()"
+        />
+      } @else {
+        <span
+          class="text-surface-600 dark:text-surface-400 px-2 py-1 rounded cursor-pointer transition-colors hover:bg-surface-100 dark:hover:bg-surface-800"
+          pTooltip="Click to rename"
+          tooltipPosition="bottom"
+          (click)="startEditingName()"
+          role="button"
+          tabindex="0"
+          (keydown.enter)="startEditingName()"
+        >{{ documentTitle() }}</span>
+      }
+    </div>
+
+
   </div>
 
-  <!-- Preview Button -->
-  <p-button
-    (onClick)="isPreviewVisible.set(true)"
-    icon="pi pi-eye"
-    label="Preview"
-  >
-  </p-button>
-
-  <!-- Action Buttons -->
-  <div class="flex justify-end">
+  <div class="flex">
+    <!-- Preview Button -->
     <p-button
-      [text]="true"
-      (onClick)="themeConfiguratorPopover.toggle($event)"
-      pTooltip="Customize Theme"
-      tooltipPosition="bottom"
-      icon="pi pi-palette"
+      (onClick)="isPreviewVisible.set(true)"
+      variant="text"
+      icon="pi pi-eye"
+      label="Preview"
     >
     </p-button>
+  </div>
 
+
+  <!-- Action Buttons -->
+  <div class="flex justify-end gap-8">
+    <p-button variant="text"
+              label="Save"
+              (onClick)="handleSave()"
+              icon="pi pi-save">
+    </p-button>
+
+    <p-button variant="text"
+              label="New"
+              (onClick)="handleNew()"
+              icon="pi pi-plus">
+    </p-button>
+
+    <p-button variant="text"
+              label="Open"
+              (onClick)="handleOpen()"
+              icon="pi pi-folder-open">
+    </p-button>
     <a
       href="https://github.com/Woriworiwa/layout"
       pButton
@@ -33,17 +72,10 @@
       pTooltip="View code on Github"
       tooltipPosition="bottom"
       icon="pi pi-github"
+      aria-label="View code on Github"
       class="mr-2"
     >
     </a>
-
-    <p-splitbutton
-      label="Save"
-      (onClick)="save()"
-      appendTo="body"
-      [model]="items"
-      [menuStyle]="{ 'min-width': '200px' }"
-    ></p-splitbutton>
   </div>
 </div>
 
@@ -52,6 +84,7 @@
 <p-dialog
   [(visible)]="isPreviewVisible"
   [style]="{ width: '80vw', height: '80vh' }"
+  [contentStyle]="{ height: '100%', padding: '0' }"
   appendTo="body"
 >
   @defer (when isPreviewVisible()) {
@@ -63,3 +96,53 @@
 <p-popover #themeConfiguratorPopover>
   <app-theme-configurator />
 </p-popover>
+
+<!-- Document Browser Modal -->
+@if (isDocumentBrowserVisible()) {
+  <app-document-browser
+    [visible]="isDocumentBrowserVisible()"
+    (visibleChange)="isDocumentBrowserVisible.set($event)"
+    (documentOpened)="onDocumentOpened()"
+  />
+}
+<!-- Save As Dialog -->
+@if (isSaveAsDialogVisible()) {
+  <p-dialog
+    header="Save As"
+    [style]="{ width: '400px' }"
+    [modal]="true"
+    appendTo="body"
+    [visible]="true"
+  >
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
+        <label for="document-name" class="font-medium">Document Name</label>
+        <input
+          pInputText
+          id="document-name"
+          [ngModel]="saveAsName()"
+          (ngModelChange)="saveAsName.set($event)"
+          (keydown.enter)="confirmSaveAs()"
+          class="w-full"
+        />
+      </div>
+    </div>
+    <ng-template #footer>
+      <div class="flex justify-end gap-2 pt-4">
+        <p-button
+          label="Cancel"
+          [text]="true"
+          (onClick)="cancelSaveAs()"
+        />
+        <p-button
+          label="Save"
+          (onClick)="confirmSaveAs()"
+          [disabled]="!saveAsName().trim()"
+        />
+      </div>
+    </ng-template>
+  </p-dialog>
+}
+
+<!-- Confirm Dialog for unsaved changes -->
+<p-confirmDialog />

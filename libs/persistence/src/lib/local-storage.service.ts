@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 
+
 /**
  * Centralized service for managing localStorage operations.
  * Provides type-safe methods for storing and retrieving data with error handling.
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class LocalStorageService {
   /**
    * Get an item from localStorage and parse it as JSON.
@@ -22,7 +21,10 @@ export class LocalStorageService {
       }
       return JSON.parse(item) as T;
     } catch (error) {
-      console.warn(`Failed to get item from localStorage (key: ${key}):`, error);
+      console.warn(
+        `Failed to get item from localStorage (key: ${key}):`,
+        error
+      );
       return defaultValue !== undefined ? defaultValue : null;
     }
   }
@@ -36,7 +38,10 @@ export class LocalStorageService {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-      console.warn(`Failed to set item in localStorage (key: ${key}):`, error);
+      console.warn(
+        `Failed to set item in localStorage (key: ${key}):`,
+        error
+      );
     }
   }
 
@@ -48,7 +53,10 @@ export class LocalStorageService {
     try {
       localStorage.removeItem(key);
     } catch (error) {
-      console.warn(`Failed to remove item from localStorage (key: ${key}):`, error);
+      console.warn(
+        `Failed to remove item from localStorage (key: ${key}):`,
+        error
+      );
     }
   }
 
@@ -61,46 +69,6 @@ export class LocalStorageService {
     } catch (error) {
       console.warn('Failed to clear localStorage:', error);
     }
-  }
-
-  /**
-   * Get a nested property from an object stored in localStorage.
-   * @param key - The storage key
-   * @param propertyPath - The property path (e.g., 'user.name')
-   * @param defaultValue - Optional default value if property doesn't exist
-   * @returns The property value or default value
-   */
-  getProperty<T>(key: string, propertyPath: string, defaultValue?: T): T | null {
-    const obj = this.getItem<Record<string, any>>(key);
-    if (!obj) {
-      return defaultValue !== undefined ? defaultValue : null;
-    }
-
-    const value = propertyPath.split('.').reduce((acc, part) => acc?.[part], obj);
-    return value !== undefined ? (value as T) : defaultValue !== undefined ? defaultValue : null;
-  }
-
-  /**
-   * Set a nested property in an object stored in localStorage.
-   * @param key - The storage key
-   * @param propertyPath - The property path (e.g., 'user.name')
-   * @param value - The value to set
-   */
-  setProperty<T>(key: string, propertyPath: string, value: T): void {
-    const obj = this.getItem<Record<string, any>>(key, {});
-    const parts = propertyPath.split('.');
-    const lastPart = parts.pop()!;
-
-    let current = obj as any;
-    for (const part of parts) {
-      if (!(part in current)) {
-        current[part] = {};
-      }
-      current = current[part];
-    }
-
-    current[lastPart] = value;
-    this.setItem(key, obj);
   }
 
   /**
@@ -138,5 +106,63 @@ export class LocalStorageService {
     } catch {
       return 0;
     }
+  }
+
+  /**
+   * Get a nested property from an object stored in localStorage.
+   * @param key - The storage key
+   * @param propertyPath - The property path (e.g., 'user.name')
+   * @param defaultValue - Optional default value if property doesn't exist
+   * @returns The property value or default value
+   */
+  getProperty<T>(
+    key: string,
+    propertyPath: string,
+    defaultValue?: T
+  ): T | null {
+    const obj = this.getItem<Record<string, unknown>>(key);
+    if (!obj) {
+      return defaultValue !== undefined ? defaultValue : null;
+    }
+
+    const value = propertyPath
+      .split('.')
+      .reduce(
+        (acc: Record<string, unknown> | unknown, part) =>
+          (acc as Record<string, unknown>)?.[part],
+        obj
+      );
+    return value !== undefined
+      ? (value as T)
+      : defaultValue !== undefined
+        ? defaultValue
+        : null;
+  }
+
+  /**
+   * Set a nested property in an object stored in localStorage.
+   * @param key - The storage key
+   * @param propertyPath - The property path (e.g., 'user.name')
+   * @param value - The value to set
+   */
+  setProperty<T>(key: string, propertyPath: string, value: T): void {
+    const obj = this.getItem<Record<string, unknown>>(key, {}) ?? {};
+    const parts = propertyPath.split('.');
+    const lastPart = parts.pop();
+
+    if (!lastPart) {
+      return;
+    }
+
+    let current: Record<string, unknown> = obj;
+    for (const part of parts) {
+      if (!(part in current)) {
+        current[part] = {};
+      }
+      current = current[part] as Record<string, unknown>;
+    }
+
+    current[lastPart] = value;
+    this.setItem(key, obj);
   }
 }

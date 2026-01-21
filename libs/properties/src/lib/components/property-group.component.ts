@@ -10,7 +10,7 @@ import {
 
 import { PropertyRowComponent } from '../components/property-row.component';
 import { PropertiesService } from '../properties.service';
-import { LOCAL_STORAGE_SERVICE } from '@layout/shared';
+import { LocalStorageService } from '@layout/persistence';
 
 @Component({
   selector: 'app-property-group',
@@ -72,7 +72,7 @@ export class PropertyGroupComponent {
   });
 
   private propertiesService = inject(PropertiesService);
-  private localStorageService = inject(LOCAL_STORAGE_SERVICE, { optional: true });
+  private localStorageService = inject(LocalStorageService, { optional: true });
 
   private readonly STORAGE_KEY = 'property-groups-collapsed-state';
 

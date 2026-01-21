@@ -1,6 +1,6 @@
-import { PresetCategory } from '@layout/models';
+import { Preset, PresetCategory } from '@layout/models';
 
-export const holyGrailPreset = {
+export const holyGrailPreset: Preset = {
   presetId: 'holy-grail',
   presetName: 'Holy grail layout',
   category: PresetCategory.LAYOUTS,
@@ -39,7 +39,7 @@ export const holyGrailPreset = {
             display: 'flex',
           },
           flexboxGrid: {
-            gap: 8,
+            gap: '8',
             flexDirection: 'row',
             flexWrap: 'wrap',
           },
@@ -59,7 +59,7 @@ export const holyGrailPreset = {
                 display: 'flex',
               },
               flexboxGrid: {
-                gap: 2,
+                gap: '2',
                 flexGrow: 1,
               },
               spacing: {
@@ -92,7 +92,7 @@ export const holyGrailPreset = {
                 display: 'flex',
               },
               flexboxGrid: {
-                gap: 2,
+                gap: '2',
                 flexGrow: 1,
               },
               spacing: {
@@ -110,7 +110,7 @@ export const holyGrailPreset = {
             display: 'flex',
           },
           flexboxGrid: {
-            gap: 2,
+            gap: '2',
           },
           spacing: {
             padding: '6px',

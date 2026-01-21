@@ -15,11 +15,12 @@ export class PresetService implements PresetProvider {
   defaultPadding = '16px';
   allPresets: Preset[] = [...allPresets] as Preset[];
 
-  getAssetComponent(type: CanvasItemType) {
-    switch (type) {
-      case CanvasItemType.CONTAINER:
+  getAssetComponent(type: CanvasItemType | `${CanvasItemType}`) {
+    const typeStr = String(type);
+    switch (typeStr) {
+      case 'CONTAINER':
         return PresetContainerComponent;
-      case CanvasItemType.TEXT:
+      case 'TEXT':
         return PresetTextComponent;
       default:
         return PresetContainerComponent;
@@ -31,7 +32,7 @@ export class PresetService implements PresetProvider {
   }
 
   assignDefaultPaddings(newItem: CanvasItem) {
-    if (newItem.itemType === CanvasItemType.CONTAINER) {
+    if (String(newItem.itemType) === 'CONTAINER') {
       const spacing: Spacing = {
         ...newItem.css?.spacing,
         padding: this.defaultPadding,

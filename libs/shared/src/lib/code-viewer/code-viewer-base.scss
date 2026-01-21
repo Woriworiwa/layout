@@ -16,7 +16,11 @@
 }
 
 pre {
-  @apply flex-1 m-0 rounded-none overflow-auto;
+  @apply flex flex-col flex-1 m-0 rounded-none overflow-auto;
+
+  code {
+    @apply flex-1;
+  }
 }
 
 pre[class*='language-'] {

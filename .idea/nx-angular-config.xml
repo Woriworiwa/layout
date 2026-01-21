@@ -6,6 +6,7 @@
       <project name="boxout-e2e" file="file://$PROJECT_DIR$/apps/boxout-e2e/project.json" />
       <project name="canvas" file="file://$PROJECT_DIR$/libs/canvas/project.json" />
       <project name="models" file="file://$PROJECT_DIR$/libs/models/project.json" />
+      <project name="persistence" file="file://$PROJECT_DIR$/libs/persistence/project.json" />
       <project name="presets" file="file://$PROJECT_DIR$/libs/presets/project.json" />
       <project name="properties" file="file://$PROJECT_DIR$/libs/properties/project.json" />
       <project name="renderer" file="file://$PROJECT_DIR$/libs/renderer/project.json" />
