@@ -19,14 +19,18 @@ import { LocalStorageService } from '@layout/persistence';
     @if (hasVisibleRows()) {
       <div>
         <div
-          class="flex items-center justify-between px-4 py-4 cursor-pointer bg-surface-50 dark:bg-surface-800"
+          class="flex items-center justify-between px-4 py-4 cursor-pointer"
           aria-disabled="true"
           (click)="toggleCollapsed()"
           (keydown)="toggleCollapsed()"
         >
-          <h3 class="m-0 text-base font-medium text-surface-900 dark:text-surface-50">
+<!--          <h3 class="m-0 text-base font-medium text-surface-900 dark:text-surface-50">-->
+            <span
+              class="text-xs font-medium text-surface-600 dark:text-surface-400"
+            >
             {{ header() }}
-          </h3>
+            </span>
+<!--          </h3>-->
           <button
             type="button"
             class="flex items-center justify-center w-6 h-6 p-0 border-0 bg-transparent text-surface-500 dark:text-surface-400 cursor-pointer transition-transform duration-200 shrink-0"
@@ -46,7 +50,7 @@ import { LocalStorageService } from '@layout/persistence';
         </div>
 
         @if (!isCollapsed()) {
-          <div class="flex flex-col">
+          <div class="flex flex-col pl-8">
             <ng-content />
           </div>
         }
@@ -164,10 +168,12 @@ export class PropertyGroupComponent {
   }
 
   private getCollapsedState(groupId: string): boolean | null {
-    return this.localStorageService?.getProperty<boolean>(
-      this.STORAGE_KEY,
-      groupId,
-    ) ?? null;
+    return (
+      this.localStorageService?.getProperty<boolean>(
+        this.STORAGE_KEY,
+        groupId,
+      ) ?? null
+    );
   }
 
   private saveCollapsedState(groupId: string, collapsed: boolean): void {
