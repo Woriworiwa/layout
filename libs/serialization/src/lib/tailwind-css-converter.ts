@@ -7,7 +7,6 @@ import {
   TailwindToCssMapping,
   buildCssToTailwindMap,
 } from './tailwind-to-css-map';
-import { POSTFIX_UNIT, POSTFIXED_PROPERTIES } from './constants';
 
 /**
  * Result of parsing a Tailwind class string.
@@ -207,12 +206,7 @@ export class TailwindCssConverter {
     rawValue: unknown
   ): string | null {
     // Convert to string
-    let valueStr = String(rawValue);
-
-    // Handle postfixed properties (e.g., gap needs 'px' suffix for numeric values)
-    if (POSTFIXED_PROPERTIES.includes(property) && !this.hasUnit(valueStr)) {
-      valueStr += POSTFIX_UNIT;
-    }
+    const valueStr = String(rawValue);
 
     // Try exact match first using our curated map
     const mapKey = `${category}.${property}:${valueStr}`;

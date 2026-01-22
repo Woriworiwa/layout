@@ -3,6 +3,15 @@ import { Css } from '@layout/models';
 import { Unit } from '@layout/models';
 import { CanvasService } from '@layout/canvas';
 
+/**
+ * Represents a CSS value that has been split into its numeric value and unit.
+ * Used for form controls that need separate inputs for value and unit.
+ */
+export interface ValueWithUnit {
+  value: string | null;
+  unit: Unit;
+}
+
 @Injectable()
 export class PropertiesService {
   private canvasService = inject(CanvasService);
@@ -34,6 +43,70 @@ export class PropertiesService {
     }
 
     return (String(postFixedValue).replace(/[0-9]/g, '') as Unit) || Unit.px;
+  }
+
+  /**
+   * Extracts both numeric value and unit from a CSS value string.
+   * Use this for properties that need separate form controls for value and unit.
+   *
+   * @example
+   * extractValueWithUnit('10px') // { value: '10', unit: 'px' }
+   * extractValueWithUnit(null)   // { value: null, unit: 'px' }
+   */
+  extractValueWithUnit(cssValue: unknown): ValueWithUnit {
+    return {
+      value: this.extractNumericValue(cssValue),
+      unit: this.extractUnit(cssValue),
+    };
+  }
+
+  /**
+   * Processes form values to format properties that have associated unit controls.
+   * Properties with units should have a companion `{property}Unit` field in the form.
+   *
+   * @param formValue - The form values object
+   * @param propsWithUnits - Array of property names that have unit controls
+   * @returns Processed values with units applied and unit fields removed
+   *
+   * @example
+   * processFormValuesWithUnits(
+   *   { gap: '10', gapUnit: 'px', flexDirection: 'row' },
+   *   ['gap']
+   * )
+   * // Returns: { gap: '10px', flexDirection: 'row' }
+   */
+  processFormValuesWithUnits(
+    formValue: Record<string, unknown>,
+    propsWithUnits: string[],
+  ): Record<string, unknown> {
+    const result: Record<string, unknown> = {};
+
+    Object.entries(formValue).forEach(([key, val]) => {
+      // Skip unit fields - they're handled with their parent property
+      if (key.endsWith('Unit') && propsWithUnits.includes(key.slice(0, -4))) {
+        return;
+      }
+
+      // Format properties that have unit controls
+      if (propsWithUnits.includes(key)) {
+        const unitKey = `${key}Unit`;
+        const formatted = this.formatWithUnit(
+          val as string | number | null | undefined,
+          formValue[unitKey] as string | null | undefined,
+        );
+        if (formatted != null) {
+          result[key] = formatted;
+        }
+        return;
+      }
+
+      // Pass through other non-null values
+      if (val !== null) {
+        result[key] = val;
+      }
+    });
+
+    return result;
   }
 
   /**

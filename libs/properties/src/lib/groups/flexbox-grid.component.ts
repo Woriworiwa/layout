@@ -16,6 +16,7 @@ import {
   JustifyContentOptions,
   JustifyItemsOptions,
   JustifySelfOptions,
+  Unit,
 } from '@layout/models';
 import { PropertyRowComponent } from '../components/property-row.component';
 import { TextFieldComponent } from '../components/text-field.component';
@@ -45,6 +46,7 @@ import { CanvasService } from '@layout/canvas';
         <app-property-row label="gap" [control]="getFormControl('gap')">
           <app-number-field
             [control]="getFormControl('gap')"
+            [unit]="getFormControl('gapUnit')"
           ></app-number-field>
         </app-property-row>
 
@@ -295,16 +297,32 @@ export class PropertiesFlexboxGridComponent
     { label: 'article2', value: 'article2' },
   ];
 
+  // Properties that have separate unit controls
+  private readonly propsWithUnits = ['gap'];
+
   override ngOnChanges() {
     super.ngOnChanges();
 
+    const cssValue = this.css();
+
     // All layout properties are now in the flexboxGrid category
     const flexboxGridValues = this.propertiesService.getFlexboxGridPropsForForm(
-      this.css(),
-      { gap: (val) => val?.toString() },
+      cssValue,
+      {
+        gap: (val) =>
+          this.propertiesService.extractValueWithUnit(val).value,
+      },
     );
 
-    this.formGroup?.patchValue(flexboxGridValues, { emitEvent: false });
+    // Add unit values for properties with unit controls
+    const gapWithUnit = this.propertiesService.extractValueWithUnit(
+      cssValue?.flexboxGrid?.gap,
+    );
+
+    this.formGroup?.patchValue(
+      { ...flexboxGridValues, gapUnit: gapWithUnit.unit },
+      { emitEvent: false },
+    );
   }
 
   override createFormGroup() {
@@ -314,9 +332,10 @@ export class PropertiesFlexboxGridComponent
 
     const formGroup = this.formBuilder.group({
       // FlexboxGrid properties (shared + flex + grid)
-      gap: new FormControl<Property.Gap | null | undefined>(null, {
+      gap: new FormControl<string | null | undefined>(null, {
         updateOn: 'blur',
       }),
+      gapUnit: new FormControl<Unit>(Unit.px),
       flexDirection: new FormControl<Property.FlexDirection | null | undefined>(
         undefined,
       ),
@@ -375,14 +394,11 @@ export class PropertiesFlexboxGridComponent
     this.formGroupValueChangedSubscription = formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
-        // All layout properties are now in the flexboxGrid category
-        // Filter out null values (convert to undefined for FlexboxGrid type)
-        const flexboxGridProps: Record<string, unknown> = {};
-        Object.entries(value).forEach(([key, val]) => {
-          if (val !== null) {
-            flexboxGridProps[key] = val;
-          }
-        });
+        // Process form values, formatting properties with units
+        const flexboxGridProps = this.propertiesService.processFormValuesWithUnits(
+          value as Record<string, unknown>,
+          this.propsWithUnits,
+        );
 
         this.canvasService.updateCss({
           ...this.css(),

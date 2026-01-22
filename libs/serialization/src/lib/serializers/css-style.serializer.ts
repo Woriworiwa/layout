@@ -1,7 +1,6 @@
 import { CanvasItem } from '@layout/models';
 import { Serializer } from './serializer';
 import { Css } from '@layout/models';
-import { POSTFIX_UNIT, POSTFIXED_PROPERTIES } from '../constants';
 
 export class CssStyleSerializer extends Serializer<void> {
   constructor() {
@@ -48,11 +47,7 @@ export class CssStyleSerializer extends Serializer<void> {
         }
 
         // Convert to string (handles both string and number values)
-        let cssPropertyValue = String(rawValue);
-
-        if (POSTFIXED_PROPERTIES.includes(key)) {
-          cssPropertyValue += POSTFIX_UNIT;
-        }
+        const cssPropertyValue = String(rawValue);
 
         cssProperties.push(`${cssPropertyName}: ${cssPropertyValue}`);
       }

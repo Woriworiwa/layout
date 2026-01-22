@@ -104,7 +104,7 @@ describe('TailwindCssConverter', () => {
       });
 
       it('SHOULD convert numeric gap to arbitrary value', () => {
-        const css: Css = { flexboxGrid: { gap: '17' } };
+        const css: Css = { flexboxGrid: { gap: '17px' } };
         const result = converter.cssToTailwind(css);
         expect(result).toContain('gap-[17px]');
       });

@@ -11,7 +11,7 @@ export const sideBarPreset: Preset = {
         display: 'flex',
       },
       flexboxGrid: {
-        gap: '16',
+        gap: '16px',
       },
       spacing: {
         padding: '16px',
@@ -25,7 +25,7 @@ export const sideBarPreset: Preset = {
             display: 'flex',
           },
           flexboxGrid: {
-            gap: '8',
+            gap: '8px',
             flexDirection: 'column',
             flexGrow: 1,
           },
