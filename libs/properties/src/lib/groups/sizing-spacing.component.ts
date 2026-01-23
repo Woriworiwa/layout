@@ -74,24 +74,24 @@ export class SizingSpacingComponent
       return;
     }
 
+    const padding = this.propertiesService.extractValueWithUnit(
+      cssValue.spacing?.padding,
+    );
+    const height = this.propertiesService.extractValueWithUnit(
+      cssValue.sizing?.height,
+    );
+    const width = this.propertiesService.extractValueWithUnit(
+      cssValue.sizing?.width,
+    );
+
     this.formGroup?.patchValue(
       {
-        padding: this.propertiesService.extractNumericValue(
-          cssValue.spacing?.padding,
-        ),
-        paddingUnit: this.propertiesService.extractUnit(
-          cssValue.spacing?.padding,
-        ),
-        height: this.propertiesService.extractNumericValue(
-          cssValue.sizing?.height,
-        ),
-        heightUnit: this.propertiesService.extractUnit(
-          cssValue.sizing?.height,
-        ),
-        width: this.propertiesService.extractNumericValue(
-          cssValue.sizing?.width,
-        ),
-        widthUnit: this.propertiesService.extractUnit(cssValue.sizing?.width),
+        padding: padding.value,
+        paddingUnit: padding.unit,
+        height: height.value,
+        heightUnit: height.unit,
+        width: width.value,
+        widthUnit: width.unit,
       },
       { emitEvent: false },
     );

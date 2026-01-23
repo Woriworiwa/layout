@@ -31,7 +31,7 @@ export const basicGridPresets: Preset[] = [
           display: 'grid',
         },
         flexboxGrid: {
-          gap: '10',
+          gap: '10px',
           gridTemplateColumns: '1fr 1fr',
           gridTemplateRows: '1fr 1fr',
         },
@@ -70,7 +70,7 @@ export const basicGridPresets: Preset[] = [
           display: 'grid',
         },
         flexboxGrid: {
-          gap: '10',
+          gap: '10px',
           gridTemplateColumns: 'repeat(3, 1fr)',
         },
         spacing: {
@@ -119,7 +119,7 @@ export const basicGridPresets: Preset[] = [
           display: 'grid',
         },
         flexboxGrid: {
-          gap: '10',
+          gap: '10px',
           gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
         },
         spacing: {
@@ -168,7 +168,7 @@ export const basicGridPresets: Preset[] = [
           display: 'grid',
         },
         flexboxGrid: {
-          gap: '12',
+          gap: '12px',
           gridTemplateColumns: '1fr 3fr',
           gridTemplateRows: 'auto 1fr auto',
           gridTemplateAreas:
@@ -241,7 +241,7 @@ export const basicGridPresets: Preset[] = [
           display: 'grid',
         },
         flexboxGrid: {
-          gap: '16',
+          gap: '16px',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gridTemplateRows: 'auto 1fr auto',
         },
@@ -258,7 +258,7 @@ export const basicGridPresets: Preset[] = [
               display: 'grid',
             },
             flexboxGrid: {
-              gap: '12',
+              gap: '12px',
               gridTemplateRows: 'subgrid',
               gridRow: '1 / 4',
             },
@@ -304,7 +304,7 @@ export const basicGridPresets: Preset[] = [
               display: 'grid',
             },
             flexboxGrid: {
-              gap: '12',
+              gap: '12px',
               gridTemplateRows: 'subgrid',
               gridRow: '1 / 4',
             },
@@ -351,7 +351,7 @@ export const basicGridPresets: Preset[] = [
               display: 'grid',
             },
             flexboxGrid: {
-              gap: '12',
+              gap: '12px',
               gridTemplateRows: 'subgrid',
               gridRow: '1 / 4',
             },

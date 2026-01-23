@@ -11,7 +11,7 @@ export const cardPreset: Preset = {
         display: 'flex',
       },
       flexboxGrid: {
-        gap: '12',
+        gap: '12px',
         flexDirection: 'column',
       },
       spacing: {

@@ -14,7 +14,7 @@ export const alignItemsPreset: Preset = {
             display: 'flex',
           },
           flexboxGrid: {
-            gap: '10',
+            gap: '10px',
             alignItems: 'start',
             flexDirection: 'row',
             flexGrow: 1,
@@ -53,7 +53,7 @@ export const alignItemsPreset: Preset = {
             padding: '16px',
           },
           flexboxGrid: {
-            gap: '10',
+            gap: '10px',
             alignItems: 'end',
             flexGrow: 1,
           },
@@ -88,7 +88,7 @@ export const alignItemsPreset: Preset = {
             padding: '16px',
           },
           flexboxGrid: {
-            gap: '10',
+            gap: '10px',
             alignItems: 'center',
             flexGrow: 1,
           },
@@ -126,7 +126,7 @@ export const alignItemsPreset: Preset = {
         height: '100px',
       },
       flexboxGrid: {
-        gap: '10',
+        gap: '10px',
         justifyContent: 'center',
       },
     },

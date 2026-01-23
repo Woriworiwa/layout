@@ -39,7 +39,7 @@ import { PropertyGroupComponent } from './property-group.component';
       #rowElement
       *appPropertiesFilter
       tabindex="0"
-      class="label-left property-row border-b border-surface-100 dark:border-surface-700 px-4 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-inset"
+      class="label-left property-row border-b border-surface-100 dark:border-surface-700 pr-4 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-inset"
       [class.property-disabled]="!isEnabled()"
       (keydown)="onKeydown($event)"
     >

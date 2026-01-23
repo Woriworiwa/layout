@@ -26,7 +26,7 @@ export const centeredContentPreset: Preset = {
             display: 'flex',
           },
           flexboxGrid: {
-            gap: '16',
+            gap: '16px',
             alignItems: 'center',
             flexDirection: 'column',
           },

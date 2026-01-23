@@ -13,7 +13,7 @@ export const navbarPreset: Preset = {
       flexboxGrid: {
         justifyContent: 'space-between',
         alignItems: 'center',
-        gap: '16',
+        gap: '16px',
         flexDirection: 'row',
       },
       spacing: {
@@ -32,7 +32,7 @@ export const navbarPreset: Preset = {
             display: 'flex',
           },
           flexboxGrid: {
-            gap: '20',
+            gap: '20px',
           },
         },
         children: [

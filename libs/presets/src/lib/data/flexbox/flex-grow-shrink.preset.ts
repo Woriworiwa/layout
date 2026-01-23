@@ -11,7 +11,7 @@ export const flexGrowShrinkPreset: Preset = {
         display: 'flex',
       },
       flexboxGrid: {
-        gap: '12',
+        gap: '12px',
       },
       spacing: {
         padding: '16px',

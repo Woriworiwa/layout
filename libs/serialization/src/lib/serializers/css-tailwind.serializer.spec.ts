@@ -150,7 +150,7 @@ describe('CssTailwindSerializer', () => {
       editable: true,
       css: {
         flexboxGrid: {
-          gap: '17',
+          gap: '17px',
         },
       },
     };
@@ -222,7 +222,7 @@ describe('CssTailwindSerializer', () => {
     expect(result).toContain('p-4');
   });
 
-  it('should handle numeric gap values', () => {
+  it('should handle gap values with units', () => {
     const item: CanvasItem = {
       itemType: CanvasItemType.CONTAINER,
       key: 'test-key',
@@ -235,7 +235,7 @@ describe('CssTailwindSerializer', () => {
           display: 'flex',
         },
         flexboxGrid: {
-          gap: "10", // Numeric value instead of string
+          gap: "10px",
           flexDirection: 'column',
         },
       },
@@ -243,7 +243,7 @@ describe('CssTailwindSerializer', () => {
     const result = serializer.serialize([item]);
     expect(result).toContain('flex');
     expect(result).toContain('flex-col');
-    expect(result).toContain('gap-[10px]'); // Should convert number to string and add px
+    expect(result).toContain('gap-[10px]');
   });
 
   it('should replace spaces with underscores in grid-template-columns arbitrary values', () => {

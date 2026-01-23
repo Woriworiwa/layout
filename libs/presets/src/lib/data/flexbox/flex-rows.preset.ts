@@ -11,7 +11,7 @@ export const flexRowsPreset: Preset = {
         display: 'flex',
       },
       flexboxGrid: {
-        gap: '10',
+        gap: '10px',
       },
       spacing: {
         padding: '18px',

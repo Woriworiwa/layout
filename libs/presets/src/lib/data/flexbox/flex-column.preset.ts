@@ -11,7 +11,7 @@ export const flexColumnPreset: Preset = {
         display: 'flex',
       },
       flexboxGrid: {
-        gap: '10',
+        gap: '10px',
         flexDirection: 'column',
       },
       spacing: {
